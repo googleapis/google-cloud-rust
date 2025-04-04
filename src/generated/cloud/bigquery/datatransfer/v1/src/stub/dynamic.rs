@@ -21,109 +21,109 @@ pub trait DataTransferService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetDataSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataSource>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataSource>>;
 
     async fn list_data_sources(
         &self,
         req: crate::model::ListDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataSourcesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataSourcesResponse>>;
 
     async fn create_transfer_config(
         &self,
         req: crate::model::CreateTransferConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TransferConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::TransferConfig>>;
 
     async fn update_transfer_config(
         &self,
         req: crate::model::UpdateTransferConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TransferConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::TransferConfig>>;
 
     async fn delete_transfer_config(
         &self,
         req: crate::model::DeleteTransferConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_transfer_config(
         &self,
         req: crate::model::GetTransferConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TransferConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::TransferConfig>>;
 
     async fn list_transfer_configs(
         &self,
         req: crate::model::ListTransferConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTransferConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTransferConfigsResponse>>;
 
     async fn schedule_transfer_runs(
         &self,
         req: crate::model::ScheduleTransferRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScheduleTransferRunsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ScheduleTransferRunsResponse>>;
 
     async fn start_manual_transfer_runs(
         &self,
         req: crate::model::StartManualTransferRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::StartManualTransferRunsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::StartManualTransferRunsResponse>>;
 
     async fn get_transfer_run(
         &self,
         req: crate::model::GetTransferRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TransferRun>;
+    ) -> crate::Result<gax::response::Response<crate::model::TransferRun>>;
 
     async fn delete_transfer_run(
         &self,
         req: crate::model::DeleteTransferRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_transfer_runs(
         &self,
         req: crate::model::ListTransferRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTransferRunsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTransferRunsResponse>>;
 
     async fn list_transfer_logs(
         &self,
         req: crate::model::ListTransferLogsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTransferLogsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTransferLogsResponse>>;
 
     async fn check_valid_creds(
         &self,
         req: crate::model::CheckValidCredsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CheckValidCredsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::CheckValidCredsResponse>>;
 
     async fn enroll_data_sources(
         &self,
         req: crate::model::EnrollDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn unenroll_data_sources(
         &self,
         req: crate::model::UnenrollDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 }
 
 /// All implementations of [super::DataTransferService] also implement [DataTransferService].
@@ -134,7 +134,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::GetDataSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataSource> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataSource>> {
         T::get_data_source(self, req, options).await
     }
 
@@ -143,7 +143,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::ListDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataSourcesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataSourcesResponse>> {
         T::list_data_sources(self, req, options).await
     }
 
@@ -152,7 +152,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::CreateTransferConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TransferConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::TransferConfig>> {
         T::create_transfer_config(self, req, options).await
     }
 
@@ -161,7 +161,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::UpdateTransferConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TransferConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::TransferConfig>> {
         T::update_transfer_config(self, req, options).await
     }
 
@@ -170,7 +170,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::DeleteTransferConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_transfer_config(self, req, options).await
     }
 
@@ -179,7 +179,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::GetTransferConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TransferConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::TransferConfig>> {
         T::get_transfer_config(self, req, options).await
     }
 
@@ -188,7 +188,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::ListTransferConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTransferConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTransferConfigsResponse>> {
         T::list_transfer_configs(self, req, options).await
     }
 
@@ -197,7 +197,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::ScheduleTransferRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScheduleTransferRunsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ScheduleTransferRunsResponse>> {
         T::schedule_transfer_runs(self, req, options).await
     }
 
@@ -206,7 +206,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::StartManualTransferRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::StartManualTransferRunsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::StartManualTransferRunsResponse>> {
         T::start_manual_transfer_runs(self, req, options).await
     }
 
@@ -215,7 +215,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::GetTransferRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TransferRun> {
+    ) -> crate::Result<gax::response::Response<crate::model::TransferRun>> {
         T::get_transfer_run(self, req, options).await
     }
 
@@ -224,7 +224,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::DeleteTransferRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_transfer_run(self, req, options).await
     }
 
@@ -233,7 +233,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::ListTransferRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTransferRunsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTransferRunsResponse>> {
         T::list_transfer_runs(self, req, options).await
     }
 
@@ -242,7 +242,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::ListTransferLogsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTransferLogsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTransferLogsResponse>> {
         T::list_transfer_logs(self, req, options).await
     }
 
@@ -251,7 +251,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::CheckValidCredsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CheckValidCredsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::CheckValidCredsResponse>> {
         T::check_valid_creds(self, req, options).await
     }
 
@@ -260,7 +260,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::EnrollDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::enroll_data_sources(self, req, options).await
     }
 
@@ -269,7 +269,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: crate::model::UnenrollDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::unenroll_data_sources(self, req, options).await
     }
 
@@ -278,7 +278,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -287,7 +287,7 @@ impl<T: super::DataTransferService> DataTransferService for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

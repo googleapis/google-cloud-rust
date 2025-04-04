@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListClustersResponse>> {
         self.inner.list_clusters(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Cluster> {
+    ) -> Result<gax::response::Response<crate::model::Cluster>> {
         self.inner.get_cluster(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_cluster(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_cluster(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_cluster(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::PromoteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.promote_cluster(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::SwitchoverClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.switchover_cluster(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::RestoreClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.restore_cluster(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::CreateSecondaryClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_secondary_cluster(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInstancesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInstancesResponse>> {
         self.inner.list_instances(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Instance> {
+    ) -> Result<gax::response::Response<crate::model::Instance>> {
         self.inner.get_instance(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::CreateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_instance(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::CreateSecondaryInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_secondary_instance(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::BatchCreateInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_create_instances(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::UpdateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_instance(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_instance(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::FailoverInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.failover_instance(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::InjectFaultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.inject_fault(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::RestartInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.restart_instance(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::ExecuteSqlRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExecuteSqlResponse> {
+    ) -> Result<gax::response::Response<crate::model::ExecuteSqlResponse>> {
         self.inner.execute_sql(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::ListBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
         self.inner.list_backups(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::GetBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Backup> {
+    ) -> Result<gax::response::Response<crate::model::Backup>> {
         self.inner.get_backup(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::CreateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_backup(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: crate::model::UpdateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_backup(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_backup(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::ListSupportedDatabaseFlagsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSupportedDatabaseFlagsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSupportedDatabaseFlagsResponse>> {
         self.inner.list_supported_database_flags(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::GenerateClientCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateClientCertificateResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateClientCertificateResponse>> {
         self.inner.generate_client_certificate(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::GetConnectionInfoRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ConnectionInfo> {
+    ) -> Result<gax::response::Response<crate::model::ConnectionInfo>> {
         self.inner.get_connection_info(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: crate::model::ListUsersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUsersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUsersResponse>> {
         self.inner.list_users(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: crate::model::GetUserRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::User> {
+    ) -> Result<gax::response::Response<crate::model::User>> {
         self.inner.get_user(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: crate::model::CreateUserRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::User> {
+    ) -> Result<gax::response::Response<crate::model::User>> {
         self.inner.create_user(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: crate::model::UpdateUserRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::User> {
+    ) -> Result<gax::response::Response<crate::model::User>> {
         self.inner.update_user(req, options).await
     }
 
@@ -330,7 +330,7 @@ where
         &self,
         req: crate::model::DeleteUserRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_user(req, options).await
     }
 
@@ -339,7 +339,7 @@ where
         &self,
         req: crate::model::ListDatabasesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDatabasesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDatabasesResponse>> {
         self.inner.list_databases(req, options).await
     }
 
@@ -348,7 +348,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -357,7 +357,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -366,7 +366,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -375,7 +375,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -384,7 +384,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -393,7 +393,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

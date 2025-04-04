@@ -96,6 +96,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .list_available_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -171,6 +172,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .list_instances(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -252,6 +254,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .get_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -299,6 +302,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_instance`.
@@ -394,6 +398,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
@@ -471,6 +476,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_instance`.
@@ -563,6 +569,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .restart_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restart_instance`.
@@ -641,6 +648,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -719,6 +727,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -764,6 +773,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -809,6 +819,7 @@ pub mod data_fusion {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

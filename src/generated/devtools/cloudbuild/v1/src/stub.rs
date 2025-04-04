@@ -46,11 +46,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBuildRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::get_build].
@@ -58,8 +59,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBuildRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Build>> + Send {
-        std::future::ready::<crate::Result<crate::model::Build>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Build>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Build>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudBuild::list_builds].
@@ -67,11 +72,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBuildsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListBuildsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListBuildsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBuildsResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListBuildsResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::cancel_build].
@@ -79,8 +85,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CancelBuildRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Build>> + Send {
-        std::future::ready::<crate::Result<crate::model::Build>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Build>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Build>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudBuild::retry_build].
@@ -88,11 +98,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RetryBuildRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::approve_build].
@@ -100,11 +111,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ApproveBuildRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::create_build_trigger].
@@ -112,10 +124,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBuildTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::BuildTrigger>> + Send {
-        std::future::ready::<crate::Result<crate::model::BuildTrigger>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BuildTrigger>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BuildTrigger>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::get_build_trigger].
@@ -123,10 +137,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBuildTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::BuildTrigger>> + Send {
-        std::future::ready::<crate::Result<crate::model::BuildTrigger>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BuildTrigger>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BuildTrigger>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::list_build_triggers].
@@ -134,11 +150,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBuildTriggersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListBuildTriggersResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListBuildTriggersResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBuildTriggersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBuildTriggersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::CloudBuild::delete_build_trigger].
@@ -146,8 +163,10 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteBuildTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::CloudBuild::update_build_trigger].
@@ -155,10 +174,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBuildTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::BuildTrigger>> + Send {
-        std::future::ready::<crate::Result<crate::model::BuildTrigger>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BuildTrigger>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BuildTrigger>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::run_build_trigger].
@@ -166,11 +187,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RunBuildTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::receive_trigger_webhook].
@@ -179,11 +201,13 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         _req: crate::model::ReceiveTriggerWebhookRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ReceiveTriggerWebhookResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ReceiveTriggerWebhookResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ReceiveTriggerWebhookResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ReceiveTriggerWebhookResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::CloudBuild::create_worker_pool].
@@ -191,11 +215,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateWorkerPoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::get_worker_pool].
@@ -203,10 +228,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetWorkerPoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::WorkerPool>> + Send {
-        std::future::ready::<crate::Result<crate::model::WorkerPool>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::WorkerPool>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::WorkerPool>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudBuild::delete_worker_pool].
@@ -214,11 +241,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteWorkerPoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::update_worker_pool].
@@ -226,11 +254,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateWorkerPoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::list_worker_pools].
@@ -238,11 +267,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListWorkerPoolsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListWorkerPoolsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListWorkerPoolsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::CloudBuild::get_operation].
@@ -250,11 +280,12 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBuild::cancel_operation].
@@ -262,8 +293,10 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

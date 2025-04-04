@@ -93,6 +93,7 @@ pub mod container_analysis {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -153,6 +154,7 @@ pub mod container_analysis {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -207,6 +209,7 @@ pub mod container_analysis {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -265,6 +268,7 @@ pub mod container_analysis {
             (*self.0.stub)
                 .get_vulnerability_occurrences_summary(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GetVulnerabilityOccurrencesSummaryRequest::parent].
@@ -313,6 +317,7 @@ pub mod container_analysis {
             (*self.0.stub)
                 .export_sbom(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ExportSBOMRequest::name].

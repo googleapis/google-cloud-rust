@@ -102,6 +102,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .create_collector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_collector`.
@@ -208,6 +209,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .create_annotation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_annotation`.
@@ -300,6 +302,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .get_annotation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAnnotationRequest::name].
@@ -344,6 +347,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .list_collectors(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -427,6 +431,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .get_collector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCollectorRequest::name].
@@ -476,6 +481,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .update_collector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_collector`.
@@ -576,6 +582,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .delete_collector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_collector`.
@@ -664,6 +671,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .resume_collector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `resume_collector`.
@@ -755,6 +763,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .register_collector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `register_collector`.
@@ -843,6 +852,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .pause_collector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `pause_collector`.
@@ -929,6 +939,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1006,6 +1017,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1053,6 +1065,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1133,6 +1146,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1180,6 +1194,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1227,6 +1242,7 @@ pub mod rapid_migration_assessment {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

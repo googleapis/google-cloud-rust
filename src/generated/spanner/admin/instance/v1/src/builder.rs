@@ -96,6 +96,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .list_instance_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -168,6 +169,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .get_instance_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceConfigRequest::name].
@@ -218,6 +220,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .create_instance_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_instance_config`.
@@ -325,6 +328,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .update_instance_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_instance_config`.
@@ -424,6 +428,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .delete_instance_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceConfigRequest::name].
@@ -483,6 +488,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .list_instance_config_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -560,6 +566,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .list_instances(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -647,6 +654,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .list_instance_partitions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -727,6 +735,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .get_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -783,6 +792,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_instance`.
@@ -879,6 +889,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_instance`.
@@ -967,6 +978,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -1009,6 +1021,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1069,6 +1082,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1123,6 +1137,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1179,6 +1194,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .get_instance_partition(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstancePartitionRequest::name].
@@ -1231,6 +1247,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .create_instance_partition(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_instance_partition`.
@@ -1333,6 +1350,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .delete_instance_partition(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteInstancePartitionRequest::name].
@@ -1391,6 +1409,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .update_instance_partition(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_instance_partition`.
@@ -1490,6 +1509,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .list_instance_partition_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1581,6 +1601,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .move_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `move_instance`.
@@ -1668,6 +1689,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1746,6 +1768,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1791,6 +1814,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1836,6 +1860,7 @@ pub mod instance_admin {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

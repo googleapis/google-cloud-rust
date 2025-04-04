@@ -44,7 +44,7 @@ impl super::stub::LanguageService for LanguageService {
         &self,
         req: crate::model::AnalyzeSentimentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeSentimentResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,14 +57,16 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::AnalyzeSentimentResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn analyze_entities(
         &self,
         req: crate::model::AnalyzeEntitiesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeEntitiesResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -77,14 +79,16 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::AnalyzeEntitiesResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn classify_text(
         &self,
         req: crate::model::ClassifyTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ClassifyTextResponse> {
+    ) -> Result<gax::response::Response<crate::model::ClassifyTextResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -97,14 +101,16 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::ClassifyTextResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn moderate_text(
         &self,
         req: crate::model::ModerateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ModerateTextResponse> {
+    ) -> Result<gax::response::Response<crate::model::ModerateTextResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -117,14 +123,16 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::ModerateTextResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn annotate_text(
         &self,
         req: crate::model::AnnotateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnnotateTextResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -137,6 +145,8 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::AnnotateTextResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 }

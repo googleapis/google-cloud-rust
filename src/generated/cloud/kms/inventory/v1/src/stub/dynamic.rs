@@ -21,7 +21,7 @@ pub trait KeyDashboardService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListCryptoKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCryptoKeysResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>;
 }
 
 /// All implementations of [super::KeyDashboardService] also implement [KeyDashboardService].
@@ -32,7 +32,7 @@ impl<T: super::KeyDashboardService> KeyDashboardService for T {
         &self,
         req: crate::model::ListCryptoKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCryptoKeysResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
         T::list_crypto_keys(self, req, options).await
     }
 }
@@ -44,13 +44,13 @@ pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetProtectedResourcesSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ProtectedResourcesSummary>;
+    ) -> crate::Result<gax::response::Response<crate::model::ProtectedResourcesSummary>>;
 
     async fn search_protected_resources(
         &self,
         req: crate::model::SearchProtectedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchProtectedResourcesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>>;
 }
 
 /// All implementations of [super::KeyTrackingService] also implement [KeyTrackingService].
@@ -61,7 +61,7 @@ impl<T: super::KeyTrackingService> KeyTrackingService for T {
         &self,
         req: crate::model::GetProtectedResourcesSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ProtectedResourcesSummary> {
+    ) -> crate::Result<gax::response::Response<crate::model::ProtectedResourcesSummary>> {
         T::get_protected_resources_summary(self, req, options).await
     }
 
@@ -70,7 +70,8 @@ impl<T: super::KeyTrackingService> KeyTrackingService for T {
         &self,
         req: crate::model::SearchProtectedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchProtectedResourcesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>>
+    {
         T::search_protected_resources(self, req, options).await
     }
 }

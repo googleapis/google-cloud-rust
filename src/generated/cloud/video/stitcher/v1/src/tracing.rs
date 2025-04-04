@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_cdn_key(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListCdnKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCdnKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCdnKeysResponse>> {
         self.inner.list_cdn_keys(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CdnKey> {
+    ) -> Result<gax::response::Response<crate::model::CdnKey>> {
         self.inner.get_cdn_key(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_cdn_key(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_cdn_key(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::CreateVodSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodSession> {
+    ) -> Result<gax::response::Response<crate::model::VodSession>> {
         self.inner.create_vod_session(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetVodSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodSession> {
+    ) -> Result<gax::response::Response<crate::model::VodSession>> {
         self.inner.get_vod_session(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::ListVodStitchDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVodStitchDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVodStitchDetailsResponse>> {
         self.inner.list_vod_stitch_details(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::GetVodStitchDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodStitchDetail> {
+    ) -> Result<gax::response::Response<crate::model::VodStitchDetail>> {
         self.inner.get_vod_stitch_detail(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ListVodAdTagDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVodAdTagDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVodAdTagDetailsResponse>> {
         self.inner.list_vod_ad_tag_details(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::GetVodAdTagDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodAdTagDetail> {
+    ) -> Result<gax::response::Response<crate::model::VodAdTagDetail>> {
         self.inner.get_vod_ad_tag_detail(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::ListLiveAdTagDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLiveAdTagDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>> {
         self.inner.list_live_ad_tag_details(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::GetLiveAdTagDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveAdTagDetail> {
+    ) -> Result<gax::response::Response<crate::model::LiveAdTagDetail>> {
         self.inner.get_live_ad_tag_detail(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::CreateSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_slate(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::ListSlatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSlatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSlatesResponse>> {
         self.inner.list_slates(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::GetSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Slate> {
+    ) -> Result<gax::response::Response<crate::model::Slate>> {
         self.inner.get_slate(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::UpdateSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_slate(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::DeleteSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_slate(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::CreateLiveSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveSession> {
+    ) -> Result<gax::response::Response<crate::model::LiveSession>> {
         self.inner.create_live_session(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::GetLiveSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveSession> {
+    ) -> Result<gax::response::Response<crate::model::LiveSession>> {
         self.inner.get_live_session(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::CreateLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_live_config(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::ListLiveConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLiveConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLiveConfigsResponse>> {
         self.inner.list_live_configs(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::GetLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveConfig> {
+    ) -> Result<gax::response::Response<crate::model::LiveConfig>> {
         self.inner.get_live_config(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: crate::model::DeleteLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_live_config(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::UpdateLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_live_config(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::CreateVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_vod_config(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::ListVodConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVodConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVodConfigsResponse>> {
         self.inner.list_vod_configs(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::GetVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodConfig> {
+    ) -> Result<gax::response::Response<crate::model::VodConfig>> {
         self.inner.get_vod_config(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: crate::model::DeleteVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_vod_config(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: crate::model::UpdateVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_vod_config(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -330,7 +330,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -339,7 +339,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

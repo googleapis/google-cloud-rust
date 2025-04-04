@@ -23,163 +23,163 @@ pub trait Workstations: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::WorkstationCluster>;
+    ) -> crate::Result<gax::response::Response<crate::model::WorkstationCluster>>;
 
     async fn list_workstation_clusters(
         &self,
         req: crate::model::ListWorkstationClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkstationClustersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkstationClustersResponse>>;
 
     async fn create_workstation_cluster(
         &self,
         req: crate::model::CreateWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_workstation_cluster(
         &self,
         req: crate::model::UpdateWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_workstation_cluster(
         &self,
         req: crate::model::DeleteWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_workstation_config(
         &self,
         req: crate::model::GetWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::WorkstationConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::WorkstationConfig>>;
 
     async fn list_workstation_configs(
         &self,
         req: crate::model::ListWorkstationConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkstationConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkstationConfigsResponse>>;
 
     async fn list_usable_workstation_configs(
         &self,
         req: crate::model::ListUsableWorkstationConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUsableWorkstationConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListUsableWorkstationConfigsResponse>>;
 
     async fn create_workstation_config(
         &self,
         req: crate::model::CreateWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_workstation_config(
         &self,
         req: crate::model::UpdateWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_workstation_config(
         &self,
         req: crate::model::DeleteWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_workstation(
         &self,
         req: crate::model::GetWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Workstation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Workstation>>;
 
     async fn list_workstations(
         &self,
         req: crate::model::ListWorkstationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkstationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkstationsResponse>>;
 
     async fn list_usable_workstations(
         &self,
         req: crate::model::ListUsableWorkstationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUsableWorkstationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListUsableWorkstationsResponse>>;
 
     async fn create_workstation(
         &self,
         req: crate::model::CreateWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_workstation(
         &self,
         req: crate::model::UpdateWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_workstation(
         &self,
         req: crate::model::DeleteWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn start_workstation(
         &self,
         req: crate::model::StartWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn stop_workstation(
         &self,
         req: crate::model::StopWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn generate_access_token(
         &self,
         req: crate::model::GenerateAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GenerateAccessTokenResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -200,7 +200,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::GetWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::WorkstationCluster> {
+    ) -> crate::Result<gax::response::Response<crate::model::WorkstationCluster>> {
         T::get_workstation_cluster(self, req, options).await
     }
 
@@ -209,7 +209,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::ListWorkstationClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkstationClustersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkstationClustersResponse>> {
         T::list_workstation_clusters(self, req, options).await
     }
 
@@ -218,7 +218,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::CreateWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_workstation_cluster(self, req, options).await
     }
 
@@ -227,7 +227,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::UpdateWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_workstation_cluster(self, req, options).await
     }
 
@@ -236,7 +236,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::DeleteWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_workstation_cluster(self, req, options).await
     }
 
@@ -245,7 +245,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::GetWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::WorkstationConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::WorkstationConfig>> {
         T::get_workstation_config(self, req, options).await
     }
 
@@ -254,7 +254,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::ListWorkstationConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkstationConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkstationConfigsResponse>> {
         T::list_workstation_configs(self, req, options).await
     }
 
@@ -263,7 +263,8 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::ListUsableWorkstationConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUsableWorkstationConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListUsableWorkstationConfigsResponse>>
+    {
         T::list_usable_workstation_configs(self, req, options).await
     }
 
@@ -272,7 +273,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::CreateWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_workstation_config(self, req, options).await
     }
 
@@ -281,7 +282,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::UpdateWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_workstation_config(self, req, options).await
     }
 
@@ -290,7 +291,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::DeleteWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_workstation_config(self, req, options).await
     }
 
@@ -299,7 +300,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::GetWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Workstation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Workstation>> {
         T::get_workstation(self, req, options).await
     }
 
@@ -308,7 +309,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::ListWorkstationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkstationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkstationsResponse>> {
         T::list_workstations(self, req, options).await
     }
 
@@ -317,7 +318,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::ListUsableWorkstationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUsableWorkstationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListUsableWorkstationsResponse>> {
         T::list_usable_workstations(self, req, options).await
     }
 
@@ -326,7 +327,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::CreateWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_workstation(self, req, options).await
     }
 
@@ -335,7 +336,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::UpdateWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_workstation(self, req, options).await
     }
 
@@ -344,7 +345,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::DeleteWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_workstation(self, req, options).await
     }
 
@@ -353,7 +354,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::StartWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::start_workstation(self, req, options).await
     }
 
@@ -362,7 +363,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::StopWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::stop_workstation(self, req, options).await
     }
 
@@ -371,7 +372,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: crate::model::GenerateAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GenerateAccessTokenResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
         T::generate_access_token(self, req, options).await
     }
 
@@ -380,7 +381,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -389,7 +390,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -398,7 +399,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -407,7 +408,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -416,7 +417,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -425,7 +426,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -434,7 +435,7 @@ impl<T: super::Workstations> Workstations for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

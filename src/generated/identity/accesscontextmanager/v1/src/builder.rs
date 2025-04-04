@@ -100,6 +100,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .list_access_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -171,6 +172,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .get_access_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAccessPolicyRequest::name].
@@ -220,6 +222,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .create_access_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_access_policy`.
@@ -357,6 +360,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .update_access_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_access_policy`.
@@ -459,6 +463,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .delete_access_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_access_policy`.
@@ -540,6 +545,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .list_access_levels(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -617,6 +623,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .get_access_level(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAccessLevelRequest::name].
@@ -675,6 +682,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .create_access_level(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_access_level`.
@@ -774,6 +782,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .update_access_level(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_access_level`.
@@ -876,6 +885,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .delete_access_level(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_access_level`.
@@ -962,6 +972,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .replace_access_levels(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `replace_access_levels`.
@@ -1064,6 +1075,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .list_service_perimeters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1138,6 +1150,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .get_service_perimeter(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServicePerimeterRequest::name].
@@ -1190,6 +1203,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .create_service_perimeter(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_service_perimeter`.
@@ -1291,6 +1305,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .update_service_perimeter(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_service_perimeter`.
@@ -1395,6 +1410,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .delete_service_perimeter(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service_perimeter`.
@@ -1483,6 +1499,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .replace_service_perimeters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `replace_service_perimeters`.
@@ -1592,6 +1609,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .commit_service_perimeters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `commit_service_perimeters`.
@@ -1685,6 +1703,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .list_gcp_user_access_bindings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1763,6 +1782,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .get_gcp_user_access_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGcpUserAccessBindingRequest::name].
@@ -1817,6 +1837,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .create_gcp_user_access_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_gcp_user_access_binding`.
@@ -1920,6 +1941,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .update_gcp_user_access_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_gcp_user_access_binding`.
@@ -2026,6 +2048,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .delete_gcp_user_access_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_gcp_user_access_binding`.
@@ -2104,6 +2127,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2166,6 +2190,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2222,6 +2247,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2280,6 +2306,7 @@ pub mod access_context_manager {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

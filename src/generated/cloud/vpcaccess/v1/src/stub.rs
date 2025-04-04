@@ -46,11 +46,12 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateConnectorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VpcAccessService::get_connector].
@@ -58,10 +59,12 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetConnectorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Connector>> + Send {
-        std::future::ready::<crate::Result<crate::model::Connector>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Connector>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Connector>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::VpcAccessService::list_connectors].
@@ -69,11 +72,12 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListConnectorsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListConnectorsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListConnectorsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListConnectorsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListConnectorsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::VpcAccessService::delete_connector].
@@ -81,11 +85,12 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteConnectorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VpcAccessService::list_locations].
@@ -93,11 +98,12 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::VpcAccessService::list_operations].
@@ -105,11 +111,12 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::VpcAccessService::get_operation].
@@ -117,11 +124,12 @@ pub trait VpcAccessService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Returns the polling error policy.

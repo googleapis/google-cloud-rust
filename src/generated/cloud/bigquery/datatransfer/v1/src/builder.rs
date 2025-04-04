@@ -93,6 +93,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .get_data_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDataSourceRequest::name].
@@ -135,6 +136,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .list_data_sources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -207,6 +209,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .create_transfer_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTransferConfigRequest::parent].
@@ -279,6 +282,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .update_transfer_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
@@ -354,6 +358,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .delete_transfer_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTransferConfigRequest::name].
@@ -399,6 +404,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .get_transfer_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTransferConfigRequest::name].
@@ -444,6 +450,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .list_transfer_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -527,6 +534,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .schedule_transfer_runs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ScheduleTransferRunsRequest::parent].
@@ -589,6 +597,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .start_manual_transfer_runs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::StartManualTransferRunsRequest::parent].
@@ -640,6 +649,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .get_transfer_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTransferRunRequest::name].
@@ -685,6 +695,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .delete_transfer_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTransferRunRequest::name].
@@ -730,6 +741,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .list_transfer_runs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -822,6 +834,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .list_transfer_logs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -902,6 +915,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .check_valid_creds(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CheckValidCredsRequest::name].
@@ -947,6 +961,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .enroll_data_sources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::EnrollDataSourcesRequest::name].
@@ -1003,6 +1018,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .unenroll_data_sources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UnenrollDataSourcesRequest::name].
@@ -1059,6 +1075,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1134,6 +1151,7 @@ pub mod data_transfer_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].

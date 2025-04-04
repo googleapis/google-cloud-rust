@@ -45,8 +45,10 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BatchWriteSpansRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::TraceService::create_span].
@@ -54,7 +56,11 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::Span,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Span>> + Send {
-        std::future::ready::<crate::Result<crate::model::Span>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Span>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Span>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 }

@@ -21,49 +21,49 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection>;
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>>;
 
     async fn get_connection(
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection>;
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>>;
 
     async fn list_connections(
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>;
 
     async fn update_connection(
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection>;
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>>;
 
     async fn delete_connection(
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 }
 
 /// All implementations of [super::ConnectionService] also implement [ConnectionService].
@@ -74,7 +74,7 @@ impl<T: super::ConnectionService> ConnectionService for T {
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection> {
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>> {
         T::create_connection(self, req, options).await
     }
 
@@ -83,7 +83,7 @@ impl<T: super::ConnectionService> ConnectionService for T {
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection> {
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>> {
         T::get_connection(self, req, options).await
     }
 
@@ -92,7 +92,7 @@ impl<T: super::ConnectionService> ConnectionService for T {
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         T::list_connections(self, req, options).await
     }
 
@@ -101,7 +101,7 @@ impl<T: super::ConnectionService> ConnectionService for T {
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection> {
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>> {
         T::update_connection(self, req, options).await
     }
 
@@ -110,7 +110,7 @@ impl<T: super::ConnectionService> ConnectionService for T {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_connection(self, req, options).await
     }
 
@@ -119,7 +119,7 @@ impl<T: super::ConnectionService> ConnectionService for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -128,7 +128,7 @@ impl<T: super::ConnectionService> ConnectionService for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -137,7 +137,7 @@ impl<T: super::ConnectionService> ConnectionService for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 }

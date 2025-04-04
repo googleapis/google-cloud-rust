@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListNotificationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNotificationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNotificationsResponse>> {
         self.inner.list_notifications(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetNotificationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Notification> {
+    ) -> Result<gax::response::Response<crate::model::Notification>> {
         self.inner.get_notification(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         self.inner.get_settings(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         self.inner.update_settings(req, options).await
     }
 }

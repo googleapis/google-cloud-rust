@@ -44,7 +44,7 @@ impl super::stub::DashboardsService for DashboardsService {
         &self,
         req: crate::model::CreateDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dashboard> {
+    ) -> Result<gax::response::Response<crate::model::Dashboard>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -58,16 +58,18 @@ impl super::stub::DashboardsService for DashboardsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner
+        let response: crate::model::Dashboard = self
+            .inner
             .execute(builder, Some(req.dashboard), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_dashboards(
         &self,
         req: crate::model::ListDashboardsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDashboardsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDashboardsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -82,16 +84,18 @@ impl super::stub::DashboardsService for DashboardsService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListDashboardsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_dashboard(
         &self,
         req: crate::model::GetDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dashboard> {
+    ) -> Result<gax::response::Response<crate::model::Dashboard>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -101,16 +105,18 @@ impl super::stub::DashboardsService for DashboardsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Dashboard = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_dashboard(
         &self,
         req: crate::model::DeleteDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -120,17 +126,18 @@ impl super::stub::DashboardsService for DashboardsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn update_dashboard(
         &self,
         req: crate::model::UpdateDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dashboard> {
+    ) -> Result<gax::response::Response<crate::model::Dashboard>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -150,8 +157,10 @@ impl super::stub::DashboardsService for DashboardsService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner
+        let response: crate::model::Dashboard = self
+            .inner
             .execute(builder, Some(req.dashboard), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

@@ -93,6 +93,7 @@ pub mod transcoder_service {
             (*self.0.stub)
                 .create_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
@@ -141,6 +142,7 @@ pub mod transcoder_service {
             (*self.0.stub)
                 .list_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -218,7 +220,10 @@ pub mod transcoder_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Job> {
-            (*self.0.stub).get_job(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobRequest::name].
@@ -261,6 +266,7 @@ pub mod transcoder_service {
             (*self.0.stub)
                 .delete_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteJobRequest::name].
@@ -312,6 +318,7 @@ pub mod transcoder_service {
             (*self.0.stub)
                 .create_job_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateJobTemplateRequest::parent].
@@ -372,6 +379,7 @@ pub mod transcoder_service {
             (*self.0.stub)
                 .list_job_templates(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -453,6 +461,7 @@ pub mod transcoder_service {
             (*self.0.stub)
                 .get_job_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobTemplateRequest::name].
@@ -498,6 +507,7 @@ pub mod transcoder_service {
             (*self.0.stub)
                 .delete_job_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteJobTemplateRequest::name].

@@ -44,7 +44,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::ListClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListClustersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -56,16 +56,18 @@ impl super::stub::ClusterManager for ClusterManager {
             );
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
-        self.inner
+        let response: crate::model::ListClustersResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_cluster(
         &self,
         req: crate::model::GetClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Cluster> {
+    ) -> Result<gax::response::Response<crate::model::Cluster>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -78,16 +80,18 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("clusterId", &req.cluster_id)]);
-        self.inner
+        let response: crate::model::Cluster = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -100,14 +104,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_cluster(
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -117,14 +123,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_node_pool(
         &self,
         req: crate::model::UpdateNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -134,14 +142,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_node_pool_autoscaling(
         &self,
         req: crate::model::SetNodePoolAutoscalingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -154,14 +164,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_logging_service(
         &self,
         req: crate::model::SetLoggingServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -174,14 +186,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_monitoring_service(
         &self,
         req: crate::model::SetMonitoringServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -194,14 +208,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_addons_config(
         &self,
         req: crate::model::SetAddonsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -211,14 +227,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_locations(
         &self,
         req: crate::model::SetLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -231,14 +249,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_master(
         &self,
         req: crate::model::UpdateMasterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -251,14 +271,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_master_auth(
         &self,
         req: crate::model::SetMasterAuthRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -271,14 +293,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_cluster(
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -291,16 +315,18 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("clusterId", &req.cluster_id)]);
-        self.inner
+        let response: crate::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: crate::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -315,16 +341,18 @@ impl super::stub::ClusterManager for ClusterManager {
             );
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
-        self.inner
+        let response: crate::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: crate::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -337,16 +365,18 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("operationId", &req.operation_id)]);
-        self.inner
+        let response: crate::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn cancel_operation(
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -356,17 +386,15 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn get_server_config(
         &self,
         req: crate::model::GetServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServerConfig> {
+    ) -> Result<gax::response::Response<crate::model::ServerConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -381,16 +409,18 @@ impl super::stub::ClusterManager for ClusterManager {
             );
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
-        self.inner
+        let response: crate::model::ServerConfig = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_json_web_keys(
         &self,
         req: crate::model::GetJSONWebKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GetJSONWebKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -400,16 +430,18 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::GetJSONWebKeysResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_node_pools(
         &self,
         req: crate::model::ListNodePoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNodePoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNodePoolsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -425,16 +457,18 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("clusterId", &req.cluster_id)]);
-        self.inner
+        let response: crate::model::ListNodePoolsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_node_pool(
         &self,
         req: crate::model::GetNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NodePool> {
+    ) -> Result<gax::response::Response<crate::model::NodePool>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -448,16 +482,18 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("clusterId", &req.cluster_id)]);
         let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
-        self.inner
+        let response: crate::model::NodePool = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_node_pool(
         &self,
         req: crate::model::CreateNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -470,14 +506,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_node_pool(
         &self,
         req: crate::model::DeleteNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -491,16 +529,18 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("zone", &req.zone)]);
         let builder = builder.query(&[("clusterId", &req.cluster_id)]);
         let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
-        self.inner
+        let response: crate::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn complete_node_pool_upgrade(
         &self,
         req: crate::model::CompleteNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -513,17 +553,15 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn rollback_node_pool_upgrade(
         &self,
         req: crate::model::RollbackNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -533,14 +571,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_node_pool_management(
         &self,
         req: crate::model::SetNodePoolManagementRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -553,14 +593,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_labels(
         &self,
         req: crate::model::SetLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -573,14 +615,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_legacy_abac(
         &self,
         req: crate::model::SetLegacyAbacRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -593,14 +637,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn start_ip_rotation(
         &self,
         req: crate::model::StartIPRotationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -613,14 +659,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn complete_ip_rotation(
         &self,
         req: crate::model::CompleteIPRotationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -633,14 +681,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_node_pool_size(
         &self,
         req: crate::model::SetNodePoolSizeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -650,14 +700,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_network_policy(
         &self,
         req: crate::model::SetNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -670,14 +722,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_maintenance_policy(
         &self,
         req: crate::model::SetMaintenancePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -690,14 +744,16 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_usable_subnetworks(
         &self,
         req: crate::model::ListUsableSubnetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUsableSubnetworksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUsableSubnetworksResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -713,16 +769,18 @@ impl super::stub::ClusterManager for ClusterManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListUsableSubnetworksResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn check_autopilot_compatibility(
         &self,
         req: crate::model::CheckAutopilotCompatibilityRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CheckAutopilotCompatibilityResponse> {
+    ) -> Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -735,8 +793,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::CheckAutopilotCompatibilityResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

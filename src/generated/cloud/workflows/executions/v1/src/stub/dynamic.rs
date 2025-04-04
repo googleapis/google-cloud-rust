@@ -21,25 +21,25 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListExecutionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListExecutionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListExecutionsResponse>>;
 
     async fn create_execution(
         &self,
         req: crate::model::CreateExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Execution>;
+    ) -> crate::Result<gax::response::Response<crate::model::Execution>>;
 
     async fn get_execution(
         &self,
         req: crate::model::GetExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Execution>;
+    ) -> crate::Result<gax::response::Response<crate::model::Execution>>;
 
     async fn cancel_execution(
         &self,
         req: crate::model::CancelExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Execution>;
+    ) -> crate::Result<gax::response::Response<crate::model::Execution>>;
 }
 
 /// All implementations of [super::Executions] also implement [Executions].
@@ -50,7 +50,7 @@ impl<T: super::Executions> Executions for T {
         &self,
         req: crate::model::ListExecutionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListExecutionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListExecutionsResponse>> {
         T::list_executions(self, req, options).await
     }
 
@@ -59,7 +59,7 @@ impl<T: super::Executions> Executions for T {
         &self,
         req: crate::model::CreateExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Execution> {
+    ) -> crate::Result<gax::response::Response<crate::model::Execution>> {
         T::create_execution(self, req, options).await
     }
 
@@ -68,7 +68,7 @@ impl<T: super::Executions> Executions for T {
         &self,
         req: crate::model::GetExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Execution> {
+    ) -> crate::Result<gax::response::Response<crate::model::Execution>> {
         T::get_execution(self, req, options).await
     }
 
@@ -77,7 +77,7 @@ impl<T: super::Executions> Executions for T {
         &self,
         req: crate::model::CancelExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Execution> {
+    ) -> crate::Result<gax::response::Response<crate::model::Execution>> {
         T::cancel_execution(self, req, options).await
     }
 }

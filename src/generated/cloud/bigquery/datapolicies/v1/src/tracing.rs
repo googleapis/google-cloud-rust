@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataPolicy> {
+    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         self.inner.create_data_policy(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::UpdateDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataPolicy> {
+    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         self.inner.update_data_policy(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::RenameDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataPolicy> {
+    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         self.inner.rename_data_policy(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_data_policy(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::GetDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataPolicy> {
+    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         self.inner.get_data_policy(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListDataPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDataPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDataPoliciesResponse>> {
         self.inner.list_data_policies(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 }

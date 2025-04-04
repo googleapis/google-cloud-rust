@@ -23,223 +23,223 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListManagementServersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListManagementServersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListManagementServersResponse>>;
 
     async fn get_management_server(
         &self,
         req: crate::model::GetManagementServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ManagementServer>;
+    ) -> crate::Result<gax::response::Response<crate::model::ManagementServer>>;
 
     async fn create_management_server(
         &self,
         req: crate::model::CreateManagementServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_management_server(
         &self,
         req: crate::model::DeleteManagementServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_backup_vault(
         &self,
         req: crate::model::CreateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_backup_vaults(
         &self,
         req: crate::model::ListBackupVaultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBackupVaultsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupVaultsResponse>>;
 
     async fn fetch_usable_backup_vaults(
         &self,
         req: crate::model::FetchUsableBackupVaultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchUsableBackupVaultsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchUsableBackupVaultsResponse>>;
 
     async fn get_backup_vault(
         &self,
         req: crate::model::GetBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BackupVault>;
+    ) -> crate::Result<gax::response::Response<crate::model::BackupVault>>;
 
     async fn update_backup_vault(
         &self,
         req: crate::model::UpdateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_backup_vault(
         &self,
         req: crate::model::DeleteBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_data_sources(
         &self,
         req: crate::model::ListDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataSourcesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataSourcesResponse>>;
 
     async fn get_data_source(
         &self,
         req: crate::model::GetDataSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataSource>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataSource>>;
 
     async fn update_data_source(
         &self,
         req: crate::model::UpdateDataSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBackupsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>;
 
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Backup>;
+    ) -> crate::Result<gax::response::Response<crate::model::Backup>>;
 
     async fn update_backup(
         &self,
         req: crate::model::UpdateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn restore_backup(
         &self,
         req: crate::model::RestoreBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_backup_plan(
         &self,
         req: crate::model::CreateBackupPlanRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_backup_plan(
         &self,
         req: crate::model::GetBackupPlanRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BackupPlan>;
+    ) -> crate::Result<gax::response::Response<crate::model::BackupPlan>>;
 
     async fn list_backup_plans(
         &self,
         req: crate::model::ListBackupPlansRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBackupPlansResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlansResponse>>;
 
     async fn delete_backup_plan(
         &self,
         req: crate::model::DeleteBackupPlanRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_backup_plan_association(
         &self,
         req: crate::model::CreateBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_backup_plan_association(
         &self,
         req: crate::model::GetBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BackupPlanAssociation>;
+    ) -> crate::Result<gax::response::Response<crate::model::BackupPlanAssociation>>;
 
     async fn list_backup_plan_associations(
         &self,
         req: crate::model::ListBackupPlanAssociationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBackupPlanAssociationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlanAssociationsResponse>>;
 
     async fn delete_backup_plan_association(
         &self,
         req: crate::model::DeleteBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn trigger_backup(
         &self,
         req: crate::model::TriggerBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn initialize_service(
         &self,
         req: crate::model::InitializeServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -260,7 +260,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::ListManagementServersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListManagementServersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListManagementServersResponse>> {
         T::list_management_servers(self, req, options).await
     }
 
@@ -269,7 +269,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::GetManagementServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ManagementServer> {
+    ) -> crate::Result<gax::response::Response<crate::model::ManagementServer>> {
         T::get_management_server(self, req, options).await
     }
 
@@ -278,7 +278,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::CreateManagementServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_management_server(self, req, options).await
     }
 
@@ -287,7 +287,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::DeleteManagementServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_management_server(self, req, options).await
     }
 
@@ -296,7 +296,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::CreateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_backup_vault(self, req, options).await
     }
 
@@ -305,7 +305,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::ListBackupVaultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBackupVaultsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupVaultsResponse>> {
         T::list_backup_vaults(self, req, options).await
     }
 
@@ -314,7 +314,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::FetchUsableBackupVaultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchUsableBackupVaultsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchUsableBackupVaultsResponse>> {
         T::fetch_usable_backup_vaults(self, req, options).await
     }
 
@@ -323,7 +323,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::GetBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BackupVault> {
+    ) -> crate::Result<gax::response::Response<crate::model::BackupVault>> {
         T::get_backup_vault(self, req, options).await
     }
 
@@ -332,7 +332,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::UpdateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_backup_vault(self, req, options).await
     }
 
@@ -341,7 +341,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::DeleteBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_backup_vault(self, req, options).await
     }
 
@@ -350,7 +350,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::ListDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataSourcesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataSourcesResponse>> {
         T::list_data_sources(self, req, options).await
     }
 
@@ -359,7 +359,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::GetDataSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataSource> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataSource>> {
         T::get_data_source(self, req, options).await
     }
 
@@ -368,7 +368,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::UpdateDataSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_data_source(self, req, options).await
     }
 
@@ -377,7 +377,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::ListBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBackupsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>> {
         T::list_backups(self, req, options).await
     }
 
@@ -386,7 +386,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::GetBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Backup> {
+    ) -> crate::Result<gax::response::Response<crate::model::Backup>> {
         T::get_backup(self, req, options).await
     }
 
@@ -395,7 +395,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::UpdateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_backup(self, req, options).await
     }
 
@@ -404,7 +404,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_backup(self, req, options).await
     }
 
@@ -413,7 +413,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::RestoreBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::restore_backup(self, req, options).await
     }
 
@@ -422,7 +422,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::CreateBackupPlanRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_backup_plan(self, req, options).await
     }
 
@@ -431,7 +431,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::GetBackupPlanRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BackupPlan> {
+    ) -> crate::Result<gax::response::Response<crate::model::BackupPlan>> {
         T::get_backup_plan(self, req, options).await
     }
 
@@ -440,7 +440,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::ListBackupPlansRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBackupPlansResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlansResponse>> {
         T::list_backup_plans(self, req, options).await
     }
 
@@ -449,7 +449,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::DeleteBackupPlanRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_backup_plan(self, req, options).await
     }
 
@@ -458,7 +458,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::CreateBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_backup_plan_association(self, req, options).await
     }
 
@@ -467,7 +467,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::GetBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BackupPlanAssociation> {
+    ) -> crate::Result<gax::response::Response<crate::model::BackupPlanAssociation>> {
         T::get_backup_plan_association(self, req, options).await
     }
 
@@ -476,7 +476,8 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::ListBackupPlanAssociationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBackupPlanAssociationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupPlanAssociationsResponse>>
+    {
         T::list_backup_plan_associations(self, req, options).await
     }
 
@@ -485,7 +486,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::DeleteBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_backup_plan_association(self, req, options).await
     }
 
@@ -494,7 +495,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::TriggerBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::trigger_backup(self, req, options).await
     }
 
@@ -503,7 +504,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: crate::model::InitializeServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::initialize_service(self, req, options).await
     }
 
@@ -512,7 +513,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -521,7 +522,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -530,7 +531,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -539,7 +540,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -548,7 +549,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -557,7 +558,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -566,7 +567,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -575,7 +576,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -584,7 +585,7 @@ impl<T: super::BackupDR> BackupDR for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

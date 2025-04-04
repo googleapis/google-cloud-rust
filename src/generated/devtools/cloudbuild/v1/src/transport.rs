@@ -44,7 +44,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::CreateBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -58,14 +58,18 @@ impl super::stub::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("parent", &req.parent)]);
-        self.inner.execute(builder, Some(req.build), options).await
+        let response: longrunning::model::Operation = self
+            .inner
+            .execute(builder, Some(req.build), options)
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_build(
         &self,
         req: crate::model::GetBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Build> {
+    ) -> Result<gax::response::Response<crate::model::Build>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -79,16 +83,18 @@ impl super::stub::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("name", &req.name)]);
-        self.inner
+        let response: crate::model::Build = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_builds(
         &self,
         req: crate::model::ListBuildsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBuildsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBuildsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -105,16 +111,18 @@ impl super::stub::CloudBuild for CloudBuild {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner
+        let response: crate::model::ListBuildsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn cancel_build(
         &self,
         req: crate::model::CancelBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Build> {
+    ) -> Result<gax::response::Response<crate::model::Build>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -127,14 +135,15 @@ impl super::stub::CloudBuild for CloudBuild {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Build = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn retry_build(
         &self,
         req: crate::model::RetryBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -147,14 +156,16 @@ impl super::stub::CloudBuild for CloudBuild {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn approve_build(
         &self,
         req: crate::model::ApproveBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -164,14 +175,16 @@ impl super::stub::CloudBuild for CloudBuild {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_build_trigger(
         &self,
         req: crate::model::CreateBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BuildTrigger> {
+    ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -185,16 +198,18 @@ impl super::stub::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("parent", &req.parent)]);
-        self.inner
+        let response: crate::model::BuildTrigger = self
+            .inner
             .execute(builder, Some(req.trigger), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_build_trigger(
         &self,
         req: crate::model::GetBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BuildTrigger> {
+    ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -211,16 +226,18 @@ impl super::stub::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("name", &req.name)]);
-        self.inner
+        let response: crate::model::BuildTrigger = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_build_triggers(
         &self,
         req: crate::model::ListBuildTriggersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBuildTriggersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBuildTriggersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -236,16 +253,18 @@ impl super::stub::CloudBuild for CloudBuild {
         let builder = builder.query(&[("parent", &req.parent)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListBuildTriggersResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_build_trigger(
         &self,
         req: crate::model::DeleteBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -262,17 +281,18 @@ impl super::stub::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("name", &req.name)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn update_build_trigger(
         &self,
         req: crate::model::UpdateBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BuildTrigger> {
+    ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -298,16 +318,18 @@ impl super::stub::CloudBuild for CloudBuild {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::BuildTrigger = self
+            .inner
             .execute(builder, Some(req.trigger), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn run_build_trigger(
         &self,
         req: crate::model::RunBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -324,14 +346,18 @@ impl super::stub::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("name", &req.name)]);
-        self.inner.execute(builder, Some(req.source), options).await
+        let response: longrunning::model::Operation = self
+            .inner
+            .execute(builder, Some(req.source), options)
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn receive_trigger_webhook(
         &self,
         req: crate::model::ReceiveTriggerWebhookRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReceiveTriggerWebhookResponse> {
+    ) -> Result<gax::response::Response<crate::model::ReceiveTriggerWebhookResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -349,14 +375,16 @@ impl super::stub::CloudBuild for CloudBuild {
             );
         let builder = builder.query(&[("name", &req.name)]);
         let builder = builder.query(&[("secret", &req.secret)]);
-        self.inner.execute(builder, Some(req.body), options).await
+        let response: crate::model::ReceiveTriggerWebhookResponse =
+            self.inner.execute(builder, Some(req.body), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_worker_pool(
         &self,
         req: crate::model::CreateWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -371,16 +399,18 @@ impl super::stub::CloudBuild for CloudBuild {
             );
         let builder = builder.query(&[("workerPoolId", &req.worker_pool_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.worker_pool), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_worker_pool(
         &self,
         req: crate::model::GetWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::WorkerPool> {
+    ) -> Result<gax::response::Response<crate::model::WorkerPool>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -390,16 +420,18 @@ impl super::stub::CloudBuild for CloudBuild {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::WorkerPool = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_worker_pool(
         &self,
         req: crate::model::DeleteWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -412,16 +444,18 @@ impl super::stub::CloudBuild for CloudBuild {
         let builder = builder.query(&[("etag", &req.etag)]);
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_worker_pool(
         &self,
         req: crate::model::UpdateWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -451,16 +485,18 @@ impl super::stub::CloudBuild for CloudBuild {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.worker_pool), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_worker_pools(
         &self,
         req: crate::model::ListWorkerPoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkerPoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -475,16 +511,18 @@ impl super::stub::CloudBuild for CloudBuild {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListWorkerPoolsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -494,16 +532,18 @@ impl super::stub::CloudBuild for CloudBuild {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -513,10 +553,8 @@ impl super::stub::CloudBuild for CloudBuild {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     fn get_polling_error_policy(

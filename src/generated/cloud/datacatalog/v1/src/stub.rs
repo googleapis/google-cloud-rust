@@ -46,11 +46,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchCatalogRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchCatalogResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SearchCatalogResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SearchCatalogResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SearchCatalogResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::create_entry_group].
@@ -58,10 +59,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateEntryGroupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::EntryGroup>> + Send {
-        std::future::ready::<crate::Result<crate::model::EntryGroup>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::EntryGroup>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::EntryGroup>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::get_entry_group].
@@ -69,10 +72,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetEntryGroupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::EntryGroup>> + Send {
-        std::future::ready::<crate::Result<crate::model::EntryGroup>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::EntryGroup>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::EntryGroup>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::update_entry_group].
@@ -80,10 +85,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateEntryGroupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::EntryGroup>> + Send {
-        std::future::ready::<crate::Result<crate::model::EntryGroup>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::EntryGroup>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::EntryGroup>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::delete_entry_group].
@@ -91,8 +98,10 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteEntryGroupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DataCatalog::list_entry_groups].
@@ -100,11 +109,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListEntryGroupsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListEntryGroupsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListEntryGroupsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListEntryGroupsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListEntryGroupsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::create_entry].
@@ -112,8 +122,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Entry>> + Send {
-        std::future::ready::<crate::Result<crate::model::Entry>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Entry>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Entry>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::update_entry].
@@ -121,8 +135,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Entry>> + Send {
-        std::future::ready::<crate::Result<crate::model::Entry>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Entry>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Entry>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::delete_entry].
@@ -130,8 +148,10 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DataCatalog::get_entry].
@@ -139,8 +159,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Entry>> + Send {
-        std::future::ready::<crate::Result<crate::model::Entry>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Entry>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Entry>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::lookup_entry].
@@ -148,8 +172,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::LookupEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Entry>> + Send {
-        std::future::ready::<crate::Result<crate::model::Entry>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Entry>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Entry>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::list_entries].
@@ -157,11 +185,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListEntriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListEntriesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListEntriesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListEntriesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListEntriesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::modify_entry_overview].
@@ -169,10 +198,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ModifyEntryOverviewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::EntryOverview>> + Send {
-        std::future::ready::<crate::Result<crate::model::EntryOverview>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::EntryOverview>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::EntryOverview>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::modify_entry_contacts].
@@ -180,10 +211,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ModifyEntryContactsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Contacts>> + Send {
-        std::future::ready::<crate::Result<crate::model::Contacts>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Contacts>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Contacts>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::create_tag_template].
@@ -191,10 +224,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateTagTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TagTemplate>> + Send {
-        std::future::ready::<crate::Result<crate::model::TagTemplate>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TagTemplate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::TagTemplate>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::get_tag_template].
@@ -202,10 +237,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetTagTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TagTemplate>> + Send {
-        std::future::ready::<crate::Result<crate::model::TagTemplate>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TagTemplate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::TagTemplate>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::update_tag_template].
@@ -213,10 +250,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateTagTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TagTemplate>> + Send {
-        std::future::ready::<crate::Result<crate::model::TagTemplate>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TagTemplate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::TagTemplate>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::delete_tag_template].
@@ -224,8 +263,10 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTagTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DataCatalog::create_tag_template_field].
@@ -233,11 +274,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateTagTemplateFieldRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TagTemplateField>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::TagTemplateField>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TagTemplateField>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::TagTemplateField>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::update_tag_template_field].
@@ -245,11 +287,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateTagTemplateFieldRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TagTemplateField>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::TagTemplateField>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TagTemplateField>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::TagTemplateField>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::rename_tag_template_field].
@@ -257,11 +300,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RenameTagTemplateFieldRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TagTemplateField>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::TagTemplateField>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TagTemplateField>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::TagTemplateField>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::rename_tag_template_field_enum_value].
@@ -269,11 +313,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RenameTagTemplateFieldEnumValueRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TagTemplateField>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::TagTemplateField>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TagTemplateField>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::TagTemplateField>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::delete_tag_template_field].
@@ -281,8 +326,10 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTagTemplateFieldRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DataCatalog::create_tag].
@@ -290,8 +337,11 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateTagRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Tag>> + Send {
-        std::future::ready::<crate::Result<crate::model::Tag>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Tag>>>
+    + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Tag>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::update_tag].
@@ -299,8 +349,11 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateTagRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Tag>> + Send {
-        std::future::ready::<crate::Result<crate::model::Tag>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Tag>>>
+    + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Tag>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::delete_tag].
@@ -308,8 +361,10 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTagRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DataCatalog::list_tags].
@@ -317,11 +372,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTagsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListTagsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListTagsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListTagsResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListTagsResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::reconcile_tags].
@@ -329,11 +385,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReconcileTagsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::star_entry].
@@ -341,11 +398,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::StarEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::StarEntryResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::StarEntryResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::StarEntryResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::StarEntryResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::unstar_entry].
@@ -353,11 +411,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UnstarEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::UnstarEntryResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::UnstarEntryResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::UnstarEntryResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::UnstarEntryResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::set_iam_policy].
@@ -365,10 +424,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::get_iam_policy].
@@ -376,10 +437,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataCatalog::test_iam_permissions].
@@ -387,11 +450,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::import_entries].
@@ -399,11 +463,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ImportEntriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::set_config].
@@ -411,11 +476,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SetConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::MigrationConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::MigrationConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MigrationConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::MigrationConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::retrieve_config].
@@ -423,11 +489,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RetrieveConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::OrganizationConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::OrganizationConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OrganizationConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::OrganizationConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::retrieve_effective_config].
@@ -435,11 +502,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RetrieveEffectiveConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::MigrationConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::MigrationConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MigrationConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::MigrationConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::list_operations].
@@ -447,11 +515,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataCatalog::get_operation].
@@ -459,11 +528,12 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataCatalog::delete_operation].
@@ -471,8 +541,10 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DataCatalog::cancel_operation].
@@ -480,8 +552,10 @@ pub trait DataCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.
@@ -524,10 +598,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateTaxonomyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Taxonomy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Taxonomy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Taxonomy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Taxonomy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PolicyTagManager::delete_taxonomy].
@@ -535,8 +611,10 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTaxonomyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::PolicyTagManager::update_taxonomy].
@@ -544,10 +622,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateTaxonomyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Taxonomy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Taxonomy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Taxonomy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Taxonomy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PolicyTagManager::list_taxonomies].
@@ -555,11 +635,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTaxonomiesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListTaxonomiesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListTaxonomiesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListTaxonomiesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListTaxonomiesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManager::get_taxonomy].
@@ -567,10 +648,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetTaxonomyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Taxonomy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Taxonomy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Taxonomy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Taxonomy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PolicyTagManager::create_policy_tag].
@@ -578,10 +661,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreatePolicyTagRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PolicyTag>> + Send {
-        std::future::ready::<crate::Result<crate::model::PolicyTag>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PolicyTag>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PolicyTag>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PolicyTagManager::delete_policy_tag].
@@ -589,8 +674,10 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePolicyTagRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::PolicyTagManager::update_policy_tag].
@@ -598,10 +685,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdatePolicyTagRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PolicyTag>> + Send {
-        std::future::ready::<crate::Result<crate::model::PolicyTag>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PolicyTag>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PolicyTag>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PolicyTagManager::list_policy_tags].
@@ -609,11 +698,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPolicyTagsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPolicyTagsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListPolicyTagsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListPolicyTagsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListPolicyTagsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManager::get_policy_tag].
@@ -621,10 +711,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPolicyTagRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PolicyTag>> + Send {
-        std::future::ready::<crate::Result<crate::model::PolicyTag>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PolicyTag>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PolicyTag>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PolicyTagManager::get_iam_policy].
@@ -632,10 +724,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PolicyTagManager::set_iam_policy].
@@ -643,10 +737,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PolicyTagManager::test_iam_permissions].
@@ -654,11 +750,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManager::list_operations].
@@ -666,11 +763,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManager::get_operation].
@@ -678,11 +776,12 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::PolicyTagManager::delete_operation].
@@ -690,8 +789,10 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::PolicyTagManager::cancel_operation].
@@ -699,8 +800,10 @@ pub trait PolicyTagManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 }
 
@@ -721,10 +824,12 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReplaceTaxonomyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Taxonomy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Taxonomy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Taxonomy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Taxonomy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PolicyTagManagerSerialization::import_taxonomies].
@@ -732,11 +837,12 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ImportTaxonomiesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ImportTaxonomiesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ImportTaxonomiesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ImportTaxonomiesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ImportTaxonomiesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManagerSerialization::export_taxonomies].
@@ -744,11 +850,12 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ExportTaxonomiesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ExportTaxonomiesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ExportTaxonomiesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ExportTaxonomiesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ExportTaxonomiesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManagerSerialization::list_operations].
@@ -756,11 +863,12 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PolicyTagManagerSerialization::get_operation].
@@ -768,11 +876,12 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::PolicyTagManagerSerialization::delete_operation].
@@ -780,8 +889,10 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::PolicyTagManagerSerialization::cancel_operation].
@@ -789,7 +900,9 @@ pub trait PolicyTagManagerSerialization: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 }

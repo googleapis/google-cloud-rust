@@ -44,7 +44,7 @@ impl super::stub::Applications for Applications {
         &self,
         req: crate::model::GetApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Application> {
+    ) -> Result<gax::response::Response<crate::model::Application>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -54,16 +54,18 @@ impl super::stub::Applications for Applications {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Application = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_application(
         &self,
         req: crate::model::CreateApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -73,16 +75,18 @@ impl super::stub::Applications for Applications {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.application), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_application(
         &self,
         req: crate::model::UpdateApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -102,16 +106,18 @@ impl super::stub::Applications for Applications {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.application), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn repair_application(
         &self,
         req: crate::model::RepairApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -121,14 +127,16 @@ impl super::stub::Applications for Applications {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -141,16 +149,18 @@ impl super::stub::Applications for Applications {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -160,9 +170,11 @@ impl super::stub::Applications for Applications {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     fn get_polling_error_policy(
@@ -206,7 +218,7 @@ impl super::stub::Services for Services {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServicesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -218,16 +230,18 @@ impl super::stub::Services for Services {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListServicesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Service> {
+    ) -> Result<gax::response::Response<crate::model::Service>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -237,16 +251,18 @@ impl super::stub::Services for Services {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Service = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_service(
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -267,16 +283,18 @@ impl super::stub::Services for Services {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("migrateTraffic", &req.migrate_traffic)]);
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.service), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_service(
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -286,16 +304,18 @@ impl super::stub::Services for Services {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -308,16 +328,18 @@ impl super::stub::Services for Services {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -327,9 +349,11 @@ impl super::stub::Services for Services {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     fn get_polling_error_policy(
@@ -373,7 +397,7 @@ impl super::stub::Versions for Versions {
         &self,
         req: crate::model::ListVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -386,16 +410,18 @@ impl super::stub::Versions for Versions {
         let builder = builder.query(&[("view", &req.view.value())]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListVersionsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_version(
         &self,
         req: crate::model::GetVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Version> {
+    ) -> Result<gax::response::Response<crate::model::Version>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -406,16 +432,18 @@ impl super::stub::Versions for Versions {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("view", &req.view.value())]);
-        self.inner
+        let response: crate::model::Version = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_version(
         &self,
         req: crate::model::CreateVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -428,16 +456,18 @@ impl super::stub::Versions for Versions {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.version), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_version(
         &self,
         req: crate::model::UpdateVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -457,16 +487,18 @@ impl super::stub::Versions for Versions {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.version), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_version(
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -476,16 +508,18 @@ impl super::stub::Versions for Versions {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -498,16 +532,18 @@ impl super::stub::Versions for Versions {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -517,9 +553,11 @@ impl super::stub::Versions for Versions {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     fn get_polling_error_policy(
@@ -563,7 +601,7 @@ impl super::stub::Instances for Instances {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInstancesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInstancesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -578,16 +616,18 @@ impl super::stub::Instances for Instances {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListInstancesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_instance(
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Instance> {
+    ) -> Result<gax::response::Response<crate::model::Instance>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -597,16 +637,18 @@ impl super::stub::Instances for Instances {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Instance = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_instance(
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -616,16 +658,18 @@ impl super::stub::Instances for Instances {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn debug_instance(
         &self,
         req: crate::model::DebugInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -635,14 +679,16 @@ impl super::stub::Instances for Instances {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -655,16 +701,18 @@ impl super::stub::Instances for Instances {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -674,9 +722,11 @@ impl super::stub::Instances for Instances {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     fn get_polling_error_policy(
@@ -720,7 +770,7 @@ impl super::stub::Firewall for Firewall {
         &self,
         req: crate::model::ListIngressRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIngressRulesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIngressRulesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -736,16 +786,18 @@ impl super::stub::Firewall for Firewall {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("matchingAddress", &req.matching_address)]);
-        self.inner
+        let response: crate::model::ListIngressRulesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn batch_update_ingress_rules(
         &self,
         req: crate::model::BatchUpdateIngressRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchUpdateIngressRulesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchUpdateIngressRulesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -758,14 +810,16 @@ impl super::stub::Firewall for Firewall {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::BatchUpdateIngressRulesResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_ingress_rule(
         &self,
         req: crate::model::CreateIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FirewallRule> {
+    ) -> Result<gax::response::Response<crate::model::FirewallRule>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -778,14 +832,16 @@ impl super::stub::Firewall for Firewall {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.rule), options).await
+        let response: crate::model::FirewallRule =
+            self.inner.execute(builder, Some(req.rule), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_ingress_rule(
         &self,
         req: crate::model::GetIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FirewallRule> {
+    ) -> Result<gax::response::Response<crate::model::FirewallRule>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -795,16 +851,18 @@ impl super::stub::Firewall for Firewall {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::FirewallRule = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_ingress_rule(
         &self,
         req: crate::model::UpdateIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FirewallRule> {
+    ) -> Result<gax::response::Response<crate::model::FirewallRule>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -824,14 +882,16 @@ impl super::stub::Firewall for Firewall {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.rule), options).await
+        let response: crate::model::FirewallRule =
+            self.inner.execute(builder, Some(req.rule), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_ingress_rule(
         &self,
         req: crate::model::DeleteIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -841,17 +901,18 @@ impl super::stub::Firewall for Firewall {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -864,16 +925,18 @@ impl super::stub::Firewall for Firewall {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -883,9 +946,11 @@ impl super::stub::Firewall for Firewall {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }
 
@@ -915,7 +980,7 @@ impl super::stub::AuthorizedDomains for AuthorizedDomains {
         &self,
         req: crate::model::ListAuthorizedDomainsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAuthorizedDomainsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAuthorizedDomainsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -930,16 +995,18 @@ impl super::stub::AuthorizedDomains for AuthorizedDomains {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListAuthorizedDomainsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -952,16 +1019,18 @@ impl super::stub::AuthorizedDomains for AuthorizedDomains {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -971,9 +1040,11 @@ impl super::stub::AuthorizedDomains for AuthorizedDomains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }
 
@@ -1003,7 +1074,7 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
         &self,
         req: crate::model::ListAuthorizedCertificatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAuthorizedCertificatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAuthorizedCertificatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1019,16 +1090,18 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
         let builder = builder.query(&[("view", &req.view.value())]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListAuthorizedCertificatesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_authorized_certificate(
         &self,
         req: crate::model::GetAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AuthorizedCertificate> {
+    ) -> Result<gax::response::Response<crate::model::AuthorizedCertificate>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1039,16 +1112,18 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("view", &req.view.value())]);
-        self.inner
+        let response: crate::model::AuthorizedCertificate = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_authorized_certificate(
         &self,
         req: crate::model::CreateAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AuthorizedCertificate> {
+    ) -> Result<gax::response::Response<crate::model::AuthorizedCertificate>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1061,16 +1136,18 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::AuthorizedCertificate = self
+            .inner
             .execute(builder, Some(req.certificate), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_authorized_certificate(
         &self,
         req: crate::model::UpdateAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AuthorizedCertificate> {
+    ) -> Result<gax::response::Response<crate::model::AuthorizedCertificate>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1090,16 +1167,18 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::AuthorizedCertificate = self
+            .inner
             .execute(builder, Some(req.certificate), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_authorized_certificate(
         &self,
         req: crate::model::DeleteAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1109,17 +1188,18 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1132,16 +1212,18 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1151,9 +1233,11 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }
 
@@ -1183,7 +1267,7 @@ impl super::stub::DomainMappings for DomainMappings {
         &self,
         req: crate::model::ListDomainMappingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDomainMappingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDomainMappingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1198,16 +1282,18 @@ impl super::stub::DomainMappings for DomainMappings {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListDomainMappingsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_domain_mapping(
         &self,
         req: crate::model::GetDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DomainMapping> {
+    ) -> Result<gax::response::Response<crate::model::DomainMapping>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1217,16 +1303,18 @@ impl super::stub::DomainMappings for DomainMappings {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::DomainMapping = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_domain_mapping(
         &self,
         req: crate::model::CreateDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1240,16 +1328,18 @@ impl super::stub::DomainMappings for DomainMappings {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("overrideStrategy", &req.override_strategy.value())]);
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.domain_mapping), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_domain_mapping(
         &self,
         req: crate::model::UpdateDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1269,16 +1359,18 @@ impl super::stub::DomainMappings for DomainMappings {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.domain_mapping), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_domain_mapping(
         &self,
         req: crate::model::DeleteDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1288,16 +1380,18 @@ impl super::stub::DomainMappings for DomainMappings {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1310,16 +1404,18 @@ impl super::stub::DomainMappings for DomainMappings {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1329,9 +1425,11 @@ impl super::stub::DomainMappings for DomainMappings {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     fn get_polling_error_policy(

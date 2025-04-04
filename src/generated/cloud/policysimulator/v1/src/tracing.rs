@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetReplayRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Replay> {
+    ) -> Result<gax::response::Response<crate::model::Replay>> {
         self.inner.get_replay(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::CreateReplayRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_replay(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::ListReplayResultsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListReplayResultsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListReplayResultsResponse>> {
         self.inner.list_replay_results(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

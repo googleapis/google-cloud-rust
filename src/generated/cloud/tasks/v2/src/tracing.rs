@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListQueuesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListQueuesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListQueuesResponse>> {
         self.inner.list_queues(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetQueueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Queue> {
+    ) -> Result<gax::response::Response<crate::model::Queue>> {
         self.inner.get_queue(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateQueueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Queue> {
+    ) -> Result<gax::response::Response<crate::model::Queue>> {
         self.inner.create_queue(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateQueueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Queue> {
+    ) -> Result<gax::response::Response<crate::model::Queue>> {
         self.inner.update_queue(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteQueueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_queue(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::PurgeQueueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Queue> {
+    ) -> Result<gax::response::Response<crate::model::Queue>> {
         self.inner.purge_queue(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::PauseQueueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Queue> {
+    ) -> Result<gax::response::Response<crate::model::Queue>> {
         self.inner.pause_queue(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::ResumeQueueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Queue> {
+    ) -> Result<gax::response::Response<crate::model::Queue>> {
         self.inner.resume_queue(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::ListTasksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTasksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTasksResponse>> {
         self.inner.list_tasks(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::GetTaskRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Task> {
+    ) -> Result<gax::response::Response<crate::model::Task>> {
         self.inner.get_task(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::CreateTaskRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Task> {
+    ) -> Result<gax::response::Response<crate::model::Task>> {
         self.inner.create_task(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::DeleteTaskRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_task(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::RunTaskRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Task> {
+    ) -> Result<gax::response::Response<crate::model::Task>> {
         self.inner.run_task(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

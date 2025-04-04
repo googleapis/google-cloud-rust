@@ -46,11 +46,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAccessPoliciesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAccessPoliciesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAccessPoliciesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAccessPoliciesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAccessPoliciesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AccessContextManager::get_access_policy].
@@ -58,10 +59,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAccessPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AccessPolicy>> + Send {
-        std::future::ready::<crate::Result<crate::model::AccessPolicy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AccessPolicy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AccessPolicy>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::create_access_policy].
@@ -69,11 +72,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AccessPolicy,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::update_access_policy].
@@ -81,11 +85,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAccessPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::delete_access_policy].
@@ -93,11 +98,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAccessPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::list_access_levels].
@@ -105,11 +111,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAccessLevelsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAccessLevelsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAccessLevelsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAccessLevelsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAccessLevelsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AccessContextManager::get_access_level].
@@ -117,10 +124,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAccessLevelRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AccessLevel>> + Send {
-        std::future::ready::<crate::Result<crate::model::AccessLevel>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AccessLevel>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AccessLevel>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::create_access_level].
@@ -128,11 +137,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAccessLevelRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::update_access_level].
@@ -140,11 +150,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAccessLevelRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::delete_access_level].
@@ -152,11 +163,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAccessLevelRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::replace_access_levels].
@@ -164,11 +176,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReplaceAccessLevelsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::list_service_perimeters].
@@ -177,11 +190,13 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListServicePerimetersRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListServicePerimetersResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListServicePerimetersResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListServicePerimetersResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListServicePerimetersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AccessContextManager::get_service_perimeter].
@@ -189,11 +204,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetServicePerimeterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServicePerimeter>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ServicePerimeter>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ServicePerimeter>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServicePerimeter>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::create_service_perimeter].
@@ -201,11 +217,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateServicePerimeterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::update_service_perimeter].
@@ -213,11 +230,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateServicePerimeterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::delete_service_perimeter].
@@ -225,11 +243,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteServicePerimeterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::replace_service_perimeters].
@@ -237,11 +256,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReplaceServicePerimetersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::commit_service_perimeters].
@@ -249,11 +269,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CommitServicePerimetersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::list_gcp_user_access_bindings].
@@ -262,11 +283,13 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListGcpUserAccessBindingsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListGcpUserAccessBindingsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListGcpUserAccessBindingsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListGcpUserAccessBindingsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListGcpUserAccessBindingsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AccessContextManager::get_gcp_user_access_binding].
@@ -274,11 +297,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetGcpUserAccessBindingRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::GcpUserAccessBinding>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::GcpUserAccessBinding>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GcpUserAccessBinding>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GcpUserAccessBinding>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AccessContextManager::create_gcp_user_access_binding].
@@ -286,11 +310,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateGcpUserAccessBindingRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::update_gcp_user_access_binding].
@@ -298,11 +323,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateGcpUserAccessBindingRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::delete_gcp_user_access_binding].
@@ -310,11 +336,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteGcpUserAccessBindingRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AccessContextManager::set_iam_policy].
@@ -322,10 +349,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AccessContextManager::get_iam_policy].
@@ -333,10 +362,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AccessContextManager::test_iam_permissions].
@@ -344,11 +375,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AccessContextManager::get_operation].
@@ -356,11 +388,12 @@ pub trait AccessContextManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Returns the polling error policy.

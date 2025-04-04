@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Location> {
+    ) -> Result<gax::response::Response<crate::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

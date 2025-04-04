@@ -96,6 +96,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .get_authorization(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAuthorizationRequest::name].
@@ -141,6 +142,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .create_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
@@ -201,6 +203,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .replace_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
@@ -246,6 +249,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .get_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
@@ -288,6 +292,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .list_deployments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -360,6 +365,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .delete_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDeploymentRequest::name].
@@ -411,6 +417,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .install_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::InstallDeploymentRequest::name].
@@ -456,6 +463,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .uninstall_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UninstallDeploymentRequest::name].
@@ -501,6 +509,7 @@ pub mod g_suite_add_ons {
             (*self.0.stub)
                 .get_install_status(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstallStatusRequest::name].

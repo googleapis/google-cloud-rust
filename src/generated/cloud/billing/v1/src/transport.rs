@@ -44,7 +44,7 @@ impl super::stub::CloudBilling for CloudBilling {
         &self,
         req: crate::model::GetBillingAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BillingAccount> {
+    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -54,16 +54,18 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::BillingAccount = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_billing_accounts(
         &self,
         req: crate::model::ListBillingAccountsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBillingAccountsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBillingAccountsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -77,16 +79,18 @@ impl super::stub::CloudBilling for CloudBilling {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("parent", &req.parent)]);
-        self.inner
+        let response: crate::model::ListBillingAccountsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_billing_account(
         &self,
         req: crate::model::UpdateBillingAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BillingAccount> {
+    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -106,16 +110,18 @@ impl super::stub::CloudBilling for CloudBilling {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::BillingAccount = self
+            .inner
             .execute(builder, Some(req.account), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_billing_account(
         &self,
         req: crate::model::CreateBillingAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BillingAccount> {
+    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -126,16 +132,18 @@ impl super::stub::CloudBilling for CloudBilling {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("parent", &req.parent)]);
-        self.inner
+        let response: crate::model::BillingAccount = self
+            .inner
             .execute(builder, Some(req.billing_account), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_project_billing_info(
         &self,
         req: crate::model::ListProjectBillingInfoRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProjectBillingInfoResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProjectBillingInfoResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -147,16 +155,18 @@ impl super::stub::CloudBilling for CloudBilling {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListProjectBillingInfoResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_project_billing_info(
         &self,
         req: crate::model::GetProjectBillingInfoRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProjectBillingInfo> {
+    ) -> Result<gax::response::Response<crate::model::ProjectBillingInfo>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -169,16 +179,18 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ProjectBillingInfo = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_project_billing_info(
         &self,
         req: crate::model::UpdateProjectBillingInfoRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProjectBillingInfo> {
+    ) -> Result<gax::response::Response<crate::model::ProjectBillingInfo>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -191,16 +203,18 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ProjectBillingInfo = self
+            .inner
             .execute(builder, Some(req.project_billing_info), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -223,16 +237,18 @@ impl super::stub::CloudBilling for CloudBilling {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "options")
             });
-        self.inner
+        let response: iam_v1::model::Policy = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -245,14 +261,16 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: iam_v1::model::Policy =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -265,14 +283,16 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: iam_v1::model::TestIamPermissionsResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn move_billing_account(
         &self,
         req: crate::model::MoveBillingAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BillingAccount> {
+    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -282,7 +302,9 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::BillingAccount =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 }
 
@@ -312,7 +334,7 @@ impl super::stub::CloudCatalog for CloudCatalog {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServicesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -324,16 +346,18 @@ impl super::stub::CloudCatalog for CloudCatalog {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListServicesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_skus(
         &self,
         req: crate::model::ListSkusRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSkusResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSkusResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -366,8 +390,10 @@ impl super::stub::CloudCatalog for CloudCatalog {
         let builder = builder.query(&[("currencyCode", &req.currency_code)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListSkusResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

@@ -44,7 +44,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListSecretsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSecretsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -59,19 +59,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        let response : crate::model::ListSecretsResponse = self.inner
+            .execute(
+                builder,
+                
+                None::<gaxi::http::NoBody>,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_secret(
         &self,
         req: crate::model::CreateSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Secret> {
+    ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -84,19 +87,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("secretId", &req.secret_id)]);
-        self.inner.execute(
-            builder,
-            Some(req.secret)
-            ,
-            options,
-        ).await
+        let response : crate::model::Secret = self.inner
+            .execute(
+                builder,
+                Some(req.secret)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn add_secret_version(
         &self,
         req: crate::model::AddSecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecretVersion> {
+    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -108,19 +114,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+        let response : crate::model::SecretVersion = self.inner
+            .execute(
+                builder,
+                Some(req)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_secret(
         &self,
         req: crate::model::GetSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Secret> {
+    ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -132,19 +141,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        let response : crate::model::Secret = self.inner
+            .execute(
+                builder,
+                
+                None::<gaxi::http::NoBody>,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_secret(
         &self,
         req: crate::model::UpdateSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Secret> {
+    ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -157,19 +169,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
-        self.inner.execute(
-            builder,
-            Some(req.secret)
-            ,
-            options,
-        ).await
+        let response : crate::model::Secret = self.inner
+            .execute(
+                builder,
+                Some(req.secret)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_secret(
         &self,
         req: crate::model::DeleteSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -182,20 +197,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("etag", &req.etag)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
-        .map(|_: wkt::Empty| ())
+        let _ : wkt::Empty = self.inner
+            .execute(
+                builder,
+                
+                None::<gaxi::http::NoBody>,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_secret_versions(
         &self,
         req: crate::model::ListSecretVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSecretVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -210,19 +227,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        let response : crate::model::ListSecretVersionsResponse = self.inner
+            .execute(
+                builder,
+                
+                None::<gaxi::http::NoBody>,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_secret_version(
         &self,
         req: crate::model::GetSecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecretVersion> {
+    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -234,19 +254,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        let response : crate::model::SecretVersion = self.inner
+            .execute(
+                builder,
+                
+                None::<gaxi::http::NoBody>,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn access_secret_version(
         &self,
         req: crate::model::AccessSecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AccessSecretVersionResponse> {
+    ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -258,19 +281,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        let response : crate::model::AccessSecretVersionResponse = self.inner
+            .execute(
+                builder,
+                
+                None::<gaxi::http::NoBody>,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn disable_secret_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecretVersion> {
+    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -282,19 +308,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+        let response : crate::model::SecretVersion = self.inner
+            .execute(
+                builder,
+                Some(req)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn enable_secret_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecretVersion> {
+    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -306,19 +335,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+        let response : crate::model::SecretVersion = self.inner
+            .execute(
+                builder,
+                Some(req)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn destroy_secret_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecretVersion> {
+    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -330,19 +362,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+        let response : crate::model::SecretVersion = self.inner
+            .execute(
+                builder,
+                Some(req)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn set_iam_policy(
         &self,
         req: iam::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam::model::Policy> {
+    ) -> Result<gax::response::Response<iam::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -354,19 +389,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+        let response : iam::model::Policy = self.inner
+            .execute(
+                builder,
+                Some(req)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_iam_policy(
         &self,
         req: iam::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam::model::Policy> {
+    ) -> Result<gax::response::Response<iam::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -379,19 +417,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = req.options.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "options") });
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        let response : iam::model::Policy = self.inner
+            .execute(
+                builder,
+                
+                None::<gaxi::http::NoBody>,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -403,19 +444,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+        let response : iam::model::TestIamPermissionsResponse = self.inner
+            .execute(
+                builder,
+                Some(req)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -430,19 +474,22 @@ impl super::stub::SecretManagerService for SecretManagerService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        let response : location::model::ListLocationsResponse = self.inner
+            .execute(
+                builder,
+                
+                None::<gaxi::http::NoBody>,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -454,12 +501,15 @@ impl super::stub::SecretManagerService for SecretManagerService {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            
-            None::<gaxi::http::NoBody>,
-            options,
-        ).await
+        let response : location::model::Location = self.inner
+            .execute(
+                builder,
+                
+                None::<gaxi::http::NoBody>,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
 }

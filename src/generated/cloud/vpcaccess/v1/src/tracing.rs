@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_connector(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connector> {
+    ) -> Result<gax::response::Response<crate::model::Connector>> {
         self.inner.get_connector(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::ListConnectorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConnectorsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConnectorsResponse>> {
         self.inner.list_connectors(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_connector(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

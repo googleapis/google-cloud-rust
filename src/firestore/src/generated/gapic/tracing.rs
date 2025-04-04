@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
+    ) -> Result<gax::response::Response<crate::model::Document>> {
         self.inner.get_document(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListDocumentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDocumentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
         self.inner.list_documents(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::UpdateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
+    ) -> Result<gax::response::Response<crate::model::Document>> {
         self.inner.update_document(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_document(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::BeginTransactionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BeginTransactionResponse> {
+    ) -> Result<gax::response::Response<crate::model::BeginTransactionResponse>> {
         self.inner.begin_transaction(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::CommitRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CommitResponse> {
+    ) -> Result<gax::response::Response<crate::model::CommitResponse>> {
         self.inner.commit(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::RollbackRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.rollback(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::PartitionQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PartitionQueryResponse> {
+    ) -> Result<gax::response::Response<crate::model::PartitionQueryResponse>> {
         self.inner.partition_query(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::ListCollectionIdsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCollectionIdsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCollectionIdsResponse>> {
         self.inner.list_collection_ids(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::BatchWriteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchWriteResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchWriteResponse>> {
         self.inner.batch_write(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::CreateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
+    ) -> Result<gax::response::Response<crate::model::Document>> {
         self.inner.create_document(req, options).await
     }
 }

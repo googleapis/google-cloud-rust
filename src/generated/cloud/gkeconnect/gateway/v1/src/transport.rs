@@ -44,7 +44,7 @@ impl super::stub::GatewayControl for GatewayControl {
         &self,
         req: crate::model::GenerateCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateCredentialsResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateCredentialsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -61,8 +61,10 @@ impl super::stub::GatewayControl for GatewayControl {
         let builder = builder.query(&[("version", &req.version)]);
         let builder = builder.query(&[("kubernetesNamespace", &req.kubernetes_namespace)]);
         let builder = builder.query(&[("operatingSystem", &req.operating_system.value())]);
-        self.inner
+        let response: crate::model::GenerateCredentialsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

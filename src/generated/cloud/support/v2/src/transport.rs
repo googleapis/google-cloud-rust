@@ -44,7 +44,7 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
         &self,
         req: crate::model::ListAttachmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAttachmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAttachmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -59,9 +59,11 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListAttachmentsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }
 
@@ -91,7 +93,7 @@ impl super::stub::CaseService for CaseService {
         &self,
         req: crate::model::GetCaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Case> {
+    ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -101,16 +103,18 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Case = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_cases(
         &self,
         req: crate::model::ListCasesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCasesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCasesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -123,16 +127,18 @@ impl super::stub::CaseService for CaseService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListCasesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn search_cases(
         &self,
         req: crate::model::SearchCasesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchCasesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchCasesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -148,16 +154,18 @@ impl super::stub::CaseService for CaseService {
         let builder = builder.query(&[("query", &req.query)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::SearchCasesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_case(
         &self,
         req: crate::model::CreateCaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Case> {
+    ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -167,14 +175,16 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.case), options).await
+        let response: crate::model::Case =
+            self.inner.execute(builder, Some(req.case), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_case(
         &self,
         req: crate::model::UpdateCaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Case> {
+    ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -203,14 +213,16 @@ impl super::stub::CaseService for CaseService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.case), options).await
+        let response: crate::model::Case =
+            self.inner.execute(builder, Some(req.case), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn escalate_case(
         &self,
         req: crate::model::EscalateCaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Case> {
+    ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -220,14 +232,15 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Case = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn close_case(
         &self,
         req: crate::model::CloseCaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Case> {
+    ) -> Result<gax::response::Response<crate::model::Case>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -237,14 +250,15 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Case = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn search_case_classifications(
         &self,
         req: crate::model::SearchCaseClassificationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchCaseClassificationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -260,9 +274,11 @@ impl super::stub::CaseService for CaseService {
         let builder = builder.query(&[("query", &req.query)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::SearchCaseClassificationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }
 
@@ -292,7 +308,7 @@ impl super::stub::CommentService for CommentService {
         &self,
         req: crate::model::ListCommentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCommentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCommentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -304,16 +320,18 @@ impl super::stub::CommentService for CommentService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListCommentsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_comment(
         &self,
         req: crate::model::CreateCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Comment> {
+    ) -> Result<gax::response::Response<crate::model::Comment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -326,8 +344,10 @@ impl super::stub::CommentService for CommentService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Comment = self
+            .inner
             .execute(builder, Some(req.comment), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

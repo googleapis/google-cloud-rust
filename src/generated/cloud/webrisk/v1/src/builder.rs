@@ -96,6 +96,7 @@ pub mod web_risk_service {
             (*self.0.stub)
                 .compute_threat_list_diff(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [threat_type][crate::model::ComputeThreatListDiffRequest::threat_type].
@@ -155,6 +156,7 @@ pub mod web_risk_service {
             (*self.0.stub)
                 .search_uris(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [uri][crate::model::SearchUrisRequest::uri].
@@ -208,6 +210,7 @@ pub mod web_risk_service {
             (*self.0.stub)
                 .search_hashes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [hash_prefix][crate::model::SearchHashesRequest::hash_prefix].
@@ -264,6 +267,7 @@ pub mod web_risk_service {
             (*self.0.stub)
                 .create_submission(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSubmissionRequest::parent].
@@ -320,6 +324,7 @@ pub mod web_risk_service {
             (*self.0.stub)
                 .submit_uri(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `submit_uri`.
@@ -425,6 +430,7 @@ pub mod web_risk_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -503,6 +509,7 @@ pub mod web_risk_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -548,6 +555,7 @@ pub mod web_risk_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -593,6 +601,7 @@ pub mod web_risk_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

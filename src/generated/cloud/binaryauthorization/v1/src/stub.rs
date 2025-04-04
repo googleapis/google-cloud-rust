@@ -45,10 +45,12 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BinauthzManagementServiceV1::update_policy].
@@ -56,10 +58,12 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdatePolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BinauthzManagementServiceV1::create_attestor].
@@ -67,10 +71,12 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAttestorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Attestor>> + Send {
-        std::future::ready::<crate::Result<crate::model::Attestor>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Attestor>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Attestor>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BinauthzManagementServiceV1::get_attestor].
@@ -78,10 +84,12 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAttestorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Attestor>> + Send {
-        std::future::ready::<crate::Result<crate::model::Attestor>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Attestor>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Attestor>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BinauthzManagementServiceV1::update_attestor].
@@ -89,10 +97,12 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAttestorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Attestor>> + Send {
-        std::future::ready::<crate::Result<crate::model::Attestor>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Attestor>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Attestor>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BinauthzManagementServiceV1::list_attestors].
@@ -100,11 +110,12 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAttestorsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAttestorsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAttestorsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAttestorsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAttestorsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BinauthzManagementServiceV1::delete_attestor].
@@ -112,8 +123,10 @@ pub trait BinauthzManagementServiceV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAttestorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 }
 
@@ -134,10 +147,12 @@ pub trait SystemPolicyV1: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSystemPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 }
 
@@ -159,10 +174,14 @@ pub trait ValidationHelperV1: std::fmt::Debug + Send + Sync {
         _req: crate::model::ValidateAttestationOccurrenceRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ValidateAttestationOccurrenceResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ValidateAttestationOccurrenceResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 }

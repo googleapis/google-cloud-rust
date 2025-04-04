@@ -93,6 +93,7 @@ pub mod fleet_routing {
             (*self.0.stub)
                 .optimize_tours(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::OptimizeToursRequest::parent].
@@ -284,6 +285,7 @@ pub mod fleet_routing {
             (*self.0.stub)
                 .batch_optimize_tours(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_optimize_tours`.
@@ -376,6 +378,7 @@ pub mod fleet_routing {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

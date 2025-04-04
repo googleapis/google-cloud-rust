@@ -97,6 +97,7 @@ pub mod confidential_computing {
             (*self.0.stub)
                 .create_challenge(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateChallengeRequest::parent].
@@ -153,6 +154,7 @@ pub mod confidential_computing {
             (*self.0.stub)
                 .verify_attestation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [challenge][crate::model::VerifyAttestationRequest::challenge].
@@ -255,6 +257,7 @@ pub mod confidential_computing {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -332,6 +335,7 @@ pub mod confidential_computing {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].

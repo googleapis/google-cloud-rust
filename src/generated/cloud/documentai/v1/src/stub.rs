@@ -46,11 +46,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ProcessRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ProcessResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ProcessResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ProcessResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProcessResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::batch_process_documents].
@@ -58,11 +59,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BatchProcessRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::fetch_processor_types].
@@ -70,11 +72,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FetchProcessorTypesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::FetchProcessorTypesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::FetchProcessorTypesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FetchProcessorTypesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::FetchProcessorTypesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DocumentProcessorService::list_processor_types].
@@ -82,11 +85,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListProcessorTypesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListProcessorTypesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListProcessorTypesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListProcessorTypesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListProcessorTypesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DocumentProcessorService::get_processor_type].
@@ -94,10 +98,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetProcessorTypeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ProcessorType>> + Send {
-        std::future::ready::<crate::Result<crate::model::ProcessorType>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ProcessorType>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProcessorType>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::list_processors].
@@ -105,11 +111,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListProcessorsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListProcessorsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListProcessorsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListProcessorsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListProcessorsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DocumentProcessorService::get_processor].
@@ -117,10 +124,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetProcessorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Processor>> + Send {
-        std::future::ready::<crate::Result<crate::model::Processor>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Processor>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Processor>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DocumentProcessorService::train_processor_version].
@@ -128,11 +137,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::TrainProcessorVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::get_processor_version].
@@ -140,11 +150,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetProcessorVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ProcessorVersion>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ProcessorVersion>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ProcessorVersion>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProcessorVersion>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::list_processor_versions].
@@ -153,11 +164,13 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListProcessorVersionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListProcessorVersionsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListProcessorVersionsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListProcessorVersionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListProcessorVersionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DocumentProcessorService::delete_processor_version].
@@ -165,11 +178,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteProcessorVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::deploy_processor_version].
@@ -177,11 +191,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeployProcessorVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::undeploy_processor_version].
@@ -189,11 +204,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UndeployProcessorVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::create_processor].
@@ -201,10 +217,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateProcessorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Processor>> + Send {
-        std::future::ready::<crate::Result<crate::model::Processor>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Processor>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Processor>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DocumentProcessorService::delete_processor].
@@ -212,11 +230,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteProcessorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::enable_processor].
@@ -224,11 +243,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EnableProcessorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::disable_processor].
@@ -236,11 +256,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DisableProcessorRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::set_default_processor_version].
@@ -248,11 +269,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SetDefaultProcessorVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::review_document].
@@ -260,11 +282,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReviewDocumentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::evaluate_processor_version].
@@ -272,11 +295,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EvaluateProcessorVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::get_evaluation].
@@ -284,10 +308,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetEvaluationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Evaluation>> + Send {
-        std::future::ready::<crate::Result<crate::model::Evaluation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Evaluation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Evaluation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DocumentProcessorService::list_evaluations].
@@ -295,11 +321,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListEvaluationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListEvaluationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListEvaluationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListEvaluationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListEvaluationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DocumentProcessorService::list_locations].
@@ -307,11 +334,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DocumentProcessorService::get_location].
@@ -319,10 +347,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::list_operations].
@@ -330,11 +360,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DocumentProcessorService::get_operation].
@@ -342,11 +373,12 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DocumentProcessorService::cancel_operation].
@@ -354,8 +386,10 @@ pub trait DocumentProcessorService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

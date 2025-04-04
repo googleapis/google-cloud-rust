@@ -44,7 +44,7 @@ impl super::stub::Locations for Locations {
         &self,
         req: crate::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -57,16 +57,18 @@ impl super::stub::Locations for Locations {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListLocationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Location> {
+    ) -> Result<gax::response::Response<crate::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -76,8 +78,10 @@ impl super::stub::Locations for Locations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Location = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

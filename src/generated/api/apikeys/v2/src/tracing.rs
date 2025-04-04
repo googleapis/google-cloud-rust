@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_key(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListKeysResponse>> {
         self.inner.list_keys(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Key> {
+    ) -> Result<gax::response::Response<crate::model::Key>> {
         self.inner.get_key(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetKeyStringRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GetKeyStringResponse> {
+    ) -> Result<gax::response::Response<crate::model::GetKeyStringResponse>> {
         self.inner.get_key_string(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_key(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_key(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UndeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.undelete_key(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::LookupKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LookupKeyResponse> {
+    ) -> Result<gax::response::Response<crate::model::LookupKeyResponse>> {
         self.inner.lookup_key(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

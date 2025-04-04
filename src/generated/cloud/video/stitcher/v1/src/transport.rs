@@ -44,7 +44,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::CreateCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -55,16 +55,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("cdnKeyId", &req.cdn_key_id)]);
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.cdn_key), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_cdn_keys(
         &self,
         req: crate::model::ListCdnKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCdnKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCdnKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -78,16 +80,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        self.inner
+        let response: crate::model::ListCdnKeysResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_cdn_key(
         &self,
         req: crate::model::GetCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CdnKey> {
+    ) -> Result<gax::response::Response<crate::model::CdnKey>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -97,16 +101,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::CdnKey = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_cdn_key(
         &self,
         req: crate::model::DeleteCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -116,16 +122,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_cdn_key(
         &self,
         req: crate::model::UpdateCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -154,16 +162,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.cdn_key), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_vod_session(
         &self,
         req: crate::model::CreateVodSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodSession> {
+    ) -> Result<gax::response::Response<crate::model::VodSession>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -176,16 +186,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::VodSession = self
+            .inner
             .execute(builder, Some(req.vod_session), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_vod_session(
         &self,
         req: crate::model::GetVodSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodSession> {
+    ) -> Result<gax::response::Response<crate::model::VodSession>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -195,16 +207,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::VodSession = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_vod_stitch_details(
         &self,
         req: crate::model::ListVodStitchDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVodStitchDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVodStitchDetailsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -219,16 +233,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListVodStitchDetailsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_vod_stitch_detail(
         &self,
         req: crate::model::GetVodStitchDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodStitchDetail> {
+    ) -> Result<gax::response::Response<crate::model::VodStitchDetail>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -238,16 +254,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::VodStitchDetail = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_vod_ad_tag_details(
         &self,
         req: crate::model::ListVodAdTagDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVodAdTagDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVodAdTagDetailsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -262,16 +280,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListVodAdTagDetailsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_vod_ad_tag_detail(
         &self,
         req: crate::model::GetVodAdTagDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodAdTagDetail> {
+    ) -> Result<gax::response::Response<crate::model::VodAdTagDetail>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -281,16 +301,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::VodAdTagDetail = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_live_ad_tag_details(
         &self,
         req: crate::model::ListLiveAdTagDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLiveAdTagDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -305,16 +327,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListLiveAdTagDetailsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_live_ad_tag_detail(
         &self,
         req: crate::model::GetLiveAdTagDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveAdTagDetail> {
+    ) -> Result<gax::response::Response<crate::model::LiveAdTagDetail>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -324,16 +348,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::LiveAdTagDetail = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_slate(
         &self,
         req: crate::model::CreateSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -345,14 +371,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             );
         let builder = builder.query(&[("slateId", &req.slate_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.slate), options).await
+        let response: longrunning::model::Operation = self
+            .inner
+            .execute(builder, Some(req.slate), options)
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_slates(
         &self,
         req: crate::model::ListSlatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSlatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSlatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -366,16 +396,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        self.inner
+        let response: crate::model::ListSlatesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_slate(
         &self,
         req: crate::model::GetSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Slate> {
+    ) -> Result<gax::response::Response<crate::model::Slate>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -385,16 +417,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Slate = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_slate(
         &self,
         req: crate::model::UpdateSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -423,14 +457,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.slate), options).await
+        let response: longrunning::model::Operation = self
+            .inner
+            .execute(builder, Some(req.slate), options)
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_slate(
         &self,
         req: crate::model::DeleteSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -440,16 +478,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_live_session(
         &self,
         req: crate::model::CreateLiveSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveSession> {
+    ) -> Result<gax::response::Response<crate::model::LiveSession>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -462,16 +502,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::LiveSession = self
+            .inner
             .execute(builder, Some(req.live_session), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_live_session(
         &self,
         req: crate::model::GetLiveSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveSession> {
+    ) -> Result<gax::response::Response<crate::model::LiveSession>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -481,16 +523,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::LiveSession = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_live_config(
         &self,
         req: crate::model::CreateLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -505,16 +549,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             );
         let builder = builder.query(&[("liveConfigId", &req.live_config_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.live_config), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_live_configs(
         &self,
         req: crate::model::ListLiveConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLiveConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLiveConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -531,16 +577,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        self.inner
+        let response: crate::model::ListLiveConfigsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_live_config(
         &self,
         req: crate::model::GetLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveConfig> {
+    ) -> Result<gax::response::Response<crate::model::LiveConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -550,16 +598,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::LiveConfig = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_live_config(
         &self,
         req: crate::model::DeleteLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -569,16 +619,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_live_config(
         &self,
         req: crate::model::UpdateLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -607,16 +659,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.live_config), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_vod_config(
         &self,
         req: crate::model::CreateVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -631,16 +685,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             );
         let builder = builder.query(&[("vodConfigId", &req.vod_config_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.vod_config), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_vod_configs(
         &self,
         req: crate::model::ListVodConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVodConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVodConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -657,16 +713,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        self.inner
+        let response: crate::model::ListVodConfigsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_vod_config(
         &self,
         req: crate::model::GetVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodConfig> {
+    ) -> Result<gax::response::Response<crate::model::VodConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -676,16 +734,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::VodConfig = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_vod_config(
         &self,
         req: crate::model::DeleteVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -695,16 +755,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_vod_config(
         &self,
         req: crate::model::UpdateVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -733,16 +795,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.vod_config), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -755,16 +819,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -774,16 +840,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -793,17 +861,18 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -813,10 +882,8 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     fn get_polling_error_policy(

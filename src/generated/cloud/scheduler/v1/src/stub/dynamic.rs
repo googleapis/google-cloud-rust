@@ -21,61 +21,61 @@ pub trait CloudScheduler: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListJobsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListJobsResponse>>;
 
     async fn get_job(
         &self,
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job>;
+    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
 
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job>;
+    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
 
     async fn update_job(
         &self,
         req: crate::model::UpdateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job>;
+    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
 
     async fn delete_job(
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn pause_job(
         &self,
         req: crate::model::PauseJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job>;
+    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
 
     async fn resume_job(
         &self,
         req: crate::model::ResumeJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job>;
+    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
 
     async fn run_job(
         &self,
         req: crate::model::RunJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job>;
+    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 }
 
 /// All implementations of [super::CloudScheduler] also implement [CloudScheduler].
@@ -86,7 +86,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListJobsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListJobsResponse>> {
         T::list_jobs(self, req, options).await
     }
 
@@ -95,7 +95,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job> {
+    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
         T::get_job(self, req, options).await
     }
 
@@ -104,7 +104,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job> {
+    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
         T::create_job(self, req, options).await
     }
 
@@ -113,7 +113,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: crate::model::UpdateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job> {
+    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
         T::update_job(self, req, options).await
     }
 
@@ -122,7 +122,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_job(self, req, options).await
     }
 
@@ -131,7 +131,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: crate::model::PauseJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job> {
+    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
         T::pause_job(self, req, options).await
     }
 
@@ -140,7 +140,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: crate::model::ResumeJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job> {
+    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
         T::resume_job(self, req, options).await
     }
 
@@ -149,7 +149,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: crate::model::RunJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job> {
+    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
         T::run_job(self, req, options).await
     }
 
@@ -158,7 +158,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::CloudScheduler> CloudScheduler for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

@@ -90,7 +90,7 @@ pub mod iam_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][crate::model::SetIamPolicyRequest::resource].
@@ -144,7 +144,7 @@ pub mod iam_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][crate::model::GetIamPolicyRequest::resource].
@@ -192,7 +192,7 @@ pub mod iam_policy {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TestIamPermissionsResponse> {
-            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][crate::model::TestIamPermissionsRequest::resource].

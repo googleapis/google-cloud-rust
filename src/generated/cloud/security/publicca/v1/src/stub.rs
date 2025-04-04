@@ -45,10 +45,11 @@ pub trait PublicCertificateAuthorityService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateExternalAccountKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ExternalAccountKey>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ExternalAccountKey>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ExternalAccountKey>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ExternalAccountKey>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

@@ -96,6 +96,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .list_approval_requests(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .get_approval_request(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetApprovalRequestMessage::name].
@@ -219,6 +221,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .approve_approval_request(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveApprovalRequestMessage::name].
@@ -273,6 +276,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .dismiss_approval_request(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DismissApprovalRequestMessage::name].
@@ -320,6 +324,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .invalidate_approval_request(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::InvalidateApprovalRequestMessage::name].
@@ -367,6 +372,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .get_access_approval_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAccessApprovalSettingsMessage::name].
@@ -414,6 +420,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .update_access_approval_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
@@ -473,6 +480,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .delete_access_approval_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAccessApprovalSettingsMessage::name].
@@ -520,6 +528,7 @@ pub mod access_approval {
             (*self.0.stub)
                 .get_access_approval_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAccessApprovalServiceAccountMessage::name].

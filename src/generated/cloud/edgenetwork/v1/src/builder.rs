@@ -93,6 +93,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .initialize_zone(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::InitializeZoneRequest::name].
@@ -135,6 +136,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .list_zones(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -215,6 +217,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .get_zone(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetZoneRequest::name].
@@ -257,6 +260,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .list_networks(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -338,6 +342,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .get_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNetworkRequest::name].
@@ -380,6 +385,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .diagnose_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiagnoseNetworkRequest::name].
@@ -427,6 +433,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .create_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_network`.
@@ -527,6 +534,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .delete_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network`.
@@ -605,6 +613,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .list_subnets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -686,6 +695,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .get_subnet(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSubnetRequest::name].
@@ -733,6 +743,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .create_subnet(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_subnet`.
@@ -833,6 +844,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .update_subnet(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_subnet`.
@@ -930,6 +942,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .delete_subnet(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_subnet`.
@@ -1011,6 +1024,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .list_interconnects(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1092,6 +1106,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .get_interconnect(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInterconnectRequest::name].
@@ -1137,6 +1152,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .diagnose_interconnect(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiagnoseInterconnectRequest::name].
@@ -1184,6 +1200,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .list_interconnect_attachments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1272,6 +1289,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .get_interconnect_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInterconnectAttachmentRequest::name].
@@ -1324,6 +1342,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .create_interconnect_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_interconnect_attachment`.
@@ -1438,6 +1457,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .delete_interconnect_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_interconnect_attachment`.
@@ -1516,6 +1536,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .list_routers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1597,6 +1618,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .get_router(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRouterRequest::name].
@@ -1639,6 +1661,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .diagnose_router(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiagnoseRouterRequest::name].
@@ -1686,6 +1709,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .create_router(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_router`.
@@ -1786,6 +1810,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .update_router(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_router`.
@@ -1883,6 +1908,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .delete_router(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_router`.
@@ -1964,6 +1990,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2039,6 +2066,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2084,6 +2112,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2162,6 +2191,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2207,6 +2237,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2252,6 +2283,7 @@ pub mod edge_network {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

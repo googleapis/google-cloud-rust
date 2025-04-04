@@ -21,79 +21,79 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListReportConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReportConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListReportConfigsResponse>>;
 
     async fn get_report_config(
         &self,
         req: crate::model::GetReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReportConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::ReportConfig>>;
 
     async fn create_report_config(
         &self,
         req: crate::model::CreateReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReportConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::ReportConfig>>;
 
     async fn update_report_config(
         &self,
         req: crate::model::UpdateReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReportConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::ReportConfig>>;
 
     async fn delete_report_config(
         &self,
         req: crate::model::DeleteReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_report_details(
         &self,
         req: crate::model::ListReportDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReportDetailsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListReportDetailsResponse>>;
 
     async fn get_report_detail(
         &self,
         req: crate::model::GetReportDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReportDetail>;
+    ) -> crate::Result<gax::response::Response<crate::model::ReportDetail>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 }
 
 /// All implementations of [super::StorageInsights] also implement [StorageInsights].
@@ -104,7 +104,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: crate::model::ListReportConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReportConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListReportConfigsResponse>> {
         T::list_report_configs(self, req, options).await
     }
 
@@ -113,7 +113,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: crate::model::GetReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReportConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::ReportConfig>> {
         T::get_report_config(self, req, options).await
     }
 
@@ -122,7 +122,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: crate::model::CreateReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReportConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::ReportConfig>> {
         T::create_report_config(self, req, options).await
     }
 
@@ -131,7 +131,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: crate::model::UpdateReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReportConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::ReportConfig>> {
         T::update_report_config(self, req, options).await
     }
 
@@ -140,7 +140,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: crate::model::DeleteReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_report_config(self, req, options).await
     }
 
@@ -149,7 +149,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: crate::model::ListReportDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReportDetailsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListReportDetailsResponse>> {
         T::list_report_details(self, req, options).await
     }
 
@@ -158,7 +158,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: crate::model::GetReportDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReportDetail> {
+    ) -> crate::Result<gax::response::Response<crate::model::ReportDetail>> {
         T::get_report_detail(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -176,7 +176,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -185,7 +185,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::StorageInsights> StorageInsights for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }

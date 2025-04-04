@@ -45,11 +45,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListQueuesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListQueuesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListQueuesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListQueuesResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListQueuesResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudTasks::get_queue].
@@ -57,8 +58,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetQueueRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Queue>> + Send {
-        std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Queue>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Queue>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::create_queue].
@@ -66,8 +71,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateQueueRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Queue>> + Send {
-        std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Queue>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Queue>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::update_queue].
@@ -75,8 +84,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateQueueRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Queue>> + Send {
-        std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Queue>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Queue>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::delete_queue].
@@ -84,8 +97,10 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteQueueRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::CloudTasks::purge_queue].
@@ -93,8 +108,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PurgeQueueRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Queue>> + Send {
-        std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Queue>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Queue>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::pause_queue].
@@ -102,8 +121,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PauseQueueRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Queue>> + Send {
-        std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Queue>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Queue>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::resume_queue].
@@ -111,8 +134,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ResumeQueueRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Queue>> + Send {
-        std::future::ready::<crate::Result<crate::model::Queue>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Queue>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Queue>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::get_iam_policy].
@@ -120,10 +147,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::set_iam_policy].
@@ -131,10 +160,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::test_iam_permissions].
@@ -142,11 +173,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::CloudTasks::list_tasks].
@@ -154,11 +186,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTasksRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListTasksResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListTasksResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListTasksResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListTasksResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudTasks::get_task].
@@ -166,8 +199,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetTaskRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Task>> + Send {
-        std::future::ready::<crate::Result<crate::model::Task>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Task>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Task>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::create_task].
@@ -175,8 +212,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateTaskRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Task>> + Send {
-        std::future::ready::<crate::Result<crate::model::Task>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Task>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Task>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::delete_task].
@@ -184,8 +225,10 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTaskRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::CloudTasks::run_task].
@@ -193,8 +236,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RunTaskRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Task>> + Send {
-        std::future::ready::<crate::Result<crate::model::Task>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Task>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Task>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudTasks::list_locations].
@@ -202,11 +249,12 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::CloudTasks::get_location].
@@ -214,9 +262,11 @@ pub trait CloudTasks: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

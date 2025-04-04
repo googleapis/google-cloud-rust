@@ -93,6 +93,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .list_postures(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -165,6 +166,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .list_posture_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -234,6 +236,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .get_posture(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPostureRequest::name].
@@ -287,6 +290,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .create_posture(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_posture`.
@@ -381,6 +385,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .update_posture(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_posture`.
@@ -478,6 +483,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .delete_posture(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_posture`.
@@ -561,6 +567,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .extract_posture(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `extract_posture`.
@@ -650,6 +657,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .list_posture_deployments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -730,6 +738,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .get_posture_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPostureDeploymentRequest::name].
@@ -782,6 +791,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .create_posture_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_posture_deployment`.
@@ -885,6 +895,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .update_posture_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_posture_deployment`.
@@ -985,6 +996,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .delete_posture_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_posture_deployment`.
@@ -1066,6 +1078,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .list_posture_templates(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1144,6 +1157,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .get_posture_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPostureTemplateRequest::name].
@@ -1195,6 +1209,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1270,6 +1285,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1315,6 +1331,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1393,6 +1410,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1438,6 +1456,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1483,6 +1502,7 @@ pub mod security_posture {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

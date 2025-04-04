@@ -90,7 +90,7 @@ pub mod locations {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -162,7 +162,7 @@ pub mod locations {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLocationRequest::name].

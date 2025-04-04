@@ -44,7 +44,7 @@ impl super::stub::ReservationService for ReservationService {
         &self,
         req: crate::model::CreateReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -58,16 +58,18 @@ impl super::stub::ReservationService for ReservationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("reservationId", &req.reservation_id)]);
-        self.inner
+        let response: crate::model::Reservation = self
+            .inner
             .execute(builder, Some(req.reservation), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_reservations(
         &self,
         req: crate::model::ListReservationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListReservationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListReservationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -82,16 +84,18 @@ impl super::stub::ReservationService for ReservationService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListReservationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_reservation(
         &self,
         req: crate::model::GetReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -101,16 +105,18 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Reservation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_reservation(
         &self,
         req: crate::model::DeleteReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -120,17 +126,18 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn update_reservation(
         &self,
         req: crate::model::UpdateReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -159,16 +166,18 @@ impl super::stub::ReservationService for ReservationService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::Reservation = self
+            .inner
             .execute(builder, Some(req.reservation), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn failover_reservation(
         &self,
         req: crate::model::FailoverReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -181,14 +190,16 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Reservation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_capacity_commitment(
         &self,
         req: crate::model::CreateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -206,16 +217,18 @@ impl super::stub::ReservationService for ReservationService {
             &req.enforce_single_admin_project_per_org,
         )]);
         let builder = builder.query(&[("capacityCommitmentId", &req.capacity_commitment_id)]);
-        self.inner
+        let response: crate::model::CapacityCommitment = self
+            .inner
             .execute(builder, Some(req.capacity_commitment), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_capacity_commitments(
         &self,
         req: crate::model::ListCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCapacityCommitmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCapacityCommitmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -230,16 +243,18 @@ impl super::stub::ReservationService for ReservationService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListCapacityCommitmentsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_capacity_commitment(
         &self,
         req: crate::model::GetCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -249,16 +264,18 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::CapacityCommitment = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_capacity_commitment(
         &self,
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -269,17 +286,18 @@ impl super::stub::ReservationService for ReservationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn update_capacity_commitment(
         &self,
         req: crate::model::UpdateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -308,16 +326,18 @@ impl super::stub::ReservationService for ReservationService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::CapacityCommitment = self
+            .inner
             .execute(builder, Some(req.capacity_commitment), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn split_capacity_commitment(
         &self,
         req: crate::model::SplitCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SplitCapacityCommitmentResponse> {
+    ) -> Result<gax::response::Response<crate::model::SplitCapacityCommitmentResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -327,14 +347,16 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::SplitCapacityCommitmentResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn merge_capacity_commitments(
         &self,
         req: crate::model::MergeCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -347,14 +369,16 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::CapacityCommitment =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_assignment(
         &self,
         req: crate::model::CreateAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assignment> {
+    ) -> Result<gax::response::Response<crate::model::Assignment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -368,16 +392,18 @@ impl super::stub::ReservationService for ReservationService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("assignmentId", &req.assignment_id)]);
-        self.inner
+        let response: crate::model::Assignment = self
+            .inner
             .execute(builder, Some(req.assignment), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_assignments(
         &self,
         req: crate::model::ListAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAssignmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -392,16 +418,18 @@ impl super::stub::ReservationService for ReservationService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListAssignmentsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_assignment(
         &self,
         req: crate::model::DeleteAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -411,17 +439,18 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn search_assignments(
         &self,
         req: crate::model::SearchAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchAssignmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -437,16 +466,18 @@ impl super::stub::ReservationService for ReservationService {
         let builder = builder.query(&[("query", &req.query)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::SearchAssignmentsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn search_all_assignments(
         &self,
         req: crate::model::SearchAllAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchAllAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchAllAssignmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -462,16 +493,18 @@ impl super::stub::ReservationService for ReservationService {
         let builder = builder.query(&[("query", &req.query)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::SearchAllAssignmentsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn move_assignment(
         &self,
         req: crate::model::MoveAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assignment> {
+    ) -> Result<gax::response::Response<crate::model::Assignment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -481,14 +514,16 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Assignment =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_assignment(
         &self,
         req: crate::model::UpdateAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assignment> {
+    ) -> Result<gax::response::Response<crate::model::Assignment>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -517,16 +552,18 @@ impl super::stub::ReservationService for ReservationService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::Assignment = self
+            .inner
             .execute(builder, Some(req.assignment), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_bi_reservation(
         &self,
         req: crate::model::GetBiReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BiReservation> {
+    ) -> Result<gax::response::Response<crate::model::BiReservation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -536,16 +573,18 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::BiReservation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_bi_reservation(
         &self,
         req: crate::model::UpdateBiReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BiReservation> {
+    ) -> Result<gax::response::Response<crate::model::BiReservation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -574,8 +613,10 @@ impl super::stub::ReservationService for ReservationService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::BiReservation = self
+            .inner
             .execute(builder, Some(req.bi_reservation), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

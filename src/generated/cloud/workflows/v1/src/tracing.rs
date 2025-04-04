@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListWorkflowsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkflowsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkflowsResponse>> {
         self.inner.list_workflows(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Workflow> {
+    ) -> Result<gax::response::Response<crate::model::Workflow>> {
         self.inner.get_workflow(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_workflow(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_workflow(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_workflow(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListWorkflowRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkflowRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkflowRevisionsResponse>> {
         self.inner.list_workflow_revisions(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 

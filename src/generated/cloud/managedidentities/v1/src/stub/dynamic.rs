@@ -23,85 +23,85 @@ pub trait ManagedIdentitiesService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateMicrosoftAdDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn reset_admin_password(
         &self,
         req: crate::model::ResetAdminPasswordRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ResetAdminPasswordResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ResetAdminPasswordResponse>>;
 
     async fn list_domains(
         &self,
         req: crate::model::ListDomainsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDomainsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDomainsResponse>>;
 
     async fn get_domain(
         &self,
         req: crate::model::GetDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Domain>;
+    ) -> crate::Result<gax::response::Response<crate::model::Domain>>;
 
     async fn update_domain(
         &self,
         req: crate::model::UpdateDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_domain(
         &self,
         req: crate::model::DeleteDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn attach_trust(
         &self,
         req: crate::model::AttachTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn reconfigure_trust(
         &self,
         req: crate::model::ReconfigureTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn detach_trust(
         &self,
         req: crate::model::DetachTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn validate_trust(
         &self,
         req: crate::model::ValidateTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -122,7 +122,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: crate::model::CreateMicrosoftAdDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_microsoft_ad_domain(self, req, options).await
     }
 
@@ -131,7 +131,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: crate::model::ResetAdminPasswordRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ResetAdminPasswordResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ResetAdminPasswordResponse>> {
         T::reset_admin_password(self, req, options).await
     }
 
@@ -140,7 +140,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: crate::model::ListDomainsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDomainsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDomainsResponse>> {
         T::list_domains(self, req, options).await
     }
 
@@ -149,7 +149,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: crate::model::GetDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Domain> {
+    ) -> crate::Result<gax::response::Response<crate::model::Domain>> {
         T::get_domain(self, req, options).await
     }
 
@@ -158,7 +158,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: crate::model::UpdateDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_domain(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: crate::model::DeleteDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_domain(self, req, options).await
     }
 
@@ -176,7 +176,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: crate::model::AttachTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::attach_trust(self, req, options).await
     }
 
@@ -185,7 +185,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: crate::model::ReconfigureTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::reconfigure_trust(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: crate::model::DetachTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::detach_trust(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: crate::model::ValidateTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::validate_trust(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -221,7 +221,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -230,7 +230,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::ManagedIdentitiesService> ManagedIdentitiesService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

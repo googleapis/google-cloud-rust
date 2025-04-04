@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListServiceAccountsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServiceAccountsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServiceAccountsResponse>> {
         self.inner.list_service_accounts(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccount>> {
         self.inner.get_service_account(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccount>> {
         self.inner.create_service_account(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::ServiceAccount,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccount>> {
         self.inner.update_service_account(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::PatchServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccount>> {
         self.inner.patch_service_account(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_service_account(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UndeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UndeleteServiceAccountResponse> {
+    ) -> Result<gax::response::Response<crate::model::UndeleteServiceAccountResponse>> {
         self.inner.undelete_service_account(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::EnableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.enable_service_account(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::DisableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.disable_service_account(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ListServiceAccountKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServiceAccountKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServiceAccountKeysResponse>> {
         self.inner.list_service_account_keys(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::GetServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccountKey> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccountKey>> {
         self.inner.get_service_account_key(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::CreateServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccountKey> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccountKey>> {
         self.inner.create_service_account_key(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::UploadServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccountKey> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccountKey>> {
         self.inner.upload_service_account_key(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::DeleteServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_service_account_key(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::DisableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.disable_service_account_key(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::EnableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.enable_service_account_key(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::SignBlobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SignBlobResponse> {
+    ) -> Result<gax::response::Response<crate::model::SignBlobResponse>> {
         self.inner.sign_blob(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::SignJwtRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SignJwtResponse> {
+    ) -> Result<gax::response::Response<crate::model::SignJwtResponse>> {
         self.inner.sign_jwt(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::QueryGrantableRolesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryGrantableRolesResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryGrantableRolesResponse>> {
         self.inner.query_grantable_roles(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::ListRolesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRolesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRolesResponse>> {
         self.inner.list_roles(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: crate::model::GetRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Role> {
+    ) -> Result<gax::response::Response<crate::model::Role>> {
         self.inner.get_role(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::CreateRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Role> {
+    ) -> Result<gax::response::Response<crate::model::Role>> {
         self.inner.create_role(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::UpdateRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Role> {
+    ) -> Result<gax::response::Response<crate::model::Role>> {
         self.inner.update_role(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::DeleteRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Role> {
+    ) -> Result<gax::response::Response<crate::model::Role>> {
         self.inner.delete_role(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::UndeleteRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Role> {
+    ) -> Result<gax::response::Response<crate::model::Role>> {
         self.inner.undelete_role(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: crate::model::QueryTestablePermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryTestablePermissionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryTestablePermissionsResponse>> {
         self.inner.query_testable_permissions(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: crate::model::QueryAuditableServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryAuditableServicesResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryAuditableServicesResponse>> {
         self.inner.query_auditable_services(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: crate::model::LintPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LintPolicyResponse> {
+    ) -> Result<gax::response::Response<crate::model::LintPolicyResponse>> {
         self.inner.lint_policy(req, options).await
     }
 }

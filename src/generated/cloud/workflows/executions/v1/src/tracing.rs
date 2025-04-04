@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListExecutionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListExecutionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListExecutionsResponse>> {
         self.inner.list_executions(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::CreateExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Execution> {
+    ) -> Result<gax::response::Response<crate::model::Execution>> {
         self.inner.create_execution(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Execution> {
+    ) -> Result<gax::response::Response<crate::model::Execution>> {
         self.inner.get_execution(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::CancelExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Execution> {
+    ) -> Result<gax::response::Response<crate::model::Execution>> {
         self.inner.cancel_execution(req, options).await
     }
 }

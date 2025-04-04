@@ -44,7 +44,7 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
         &self,
         req: crate::model::CreateAssessmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assessment> {
+    ) -> Result<gax::response::Response<crate::model::Assessment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,16 +57,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Assessment = self
+            .inner
             .execute(builder, Some(req.assessment), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn annotate_assessment(
         &self,
         req: crate::model::AnnotateAssessmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnnotateAssessmentResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnnotateAssessmentResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -76,14 +78,16 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::AnnotateAssessmentResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_key(
         &self,
         req: crate::model::CreateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Key> {
+    ) -> Result<gax::response::Response<crate::model::Key>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -93,14 +97,16 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.key), options).await
+        let response: crate::model::Key =
+            self.inner.execute(builder, Some(req.key), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_keys(
         &self,
         req: crate::model::ListKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -112,16 +118,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListKeysResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn retrieve_legacy_secret_key(
         &self,
         req: crate::model::RetrieveLegacySecretKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RetrieveLegacySecretKeyResponse> {
+    ) -> Result<gax::response::Response<crate::model::RetrieveLegacySecretKeyResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -134,16 +142,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::RetrieveLegacySecretKeyResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_key(
         &self,
         req: crate::model::GetKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Key> {
+    ) -> Result<gax::response::Response<crate::model::Key>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -153,16 +163,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Key = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_key(
         &self,
         req: crate::model::UpdateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Key> {
+    ) -> Result<gax::response::Response<crate::model::Key>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -191,14 +203,16 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.key), options).await
+        let response: crate::model::Key =
+            self.inner.execute(builder, Some(req.key), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_key(
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -208,17 +222,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn migrate_key(
         &self,
         req: crate::model::MigrateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Key> {
+    ) -> Result<gax::response::Response<crate::model::Key>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -228,14 +243,15 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Key = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn add_ip_override(
         &self,
         req: crate::model::AddIpOverrideRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AddIpOverrideResponse> {
+    ) -> Result<gax::response::Response<crate::model::AddIpOverrideResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -248,14 +264,16 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::AddIpOverrideResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn remove_ip_override(
         &self,
         req: crate::model::RemoveIpOverrideRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RemoveIpOverrideResponse> {
+    ) -> Result<gax::response::Response<crate::model::RemoveIpOverrideResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -268,14 +286,16 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::RemoveIpOverrideResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_ip_overrides(
         &self,
         req: crate::model::ListIpOverridesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIpOverridesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIpOverridesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -290,16 +310,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListIpOverridesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_metrics(
         &self,
         req: crate::model::GetMetricsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Metrics> {
+    ) -> Result<gax::response::Response<crate::model::Metrics>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -309,16 +331,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Metrics = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_firewall_policy(
         &self,
         req: crate::model::CreateFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FirewallPolicy> {
+    ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -331,16 +355,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::FirewallPolicy = self
+            .inner
             .execute(builder, Some(req.firewall_policy), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_firewall_policies(
         &self,
         req: crate::model::ListFirewallPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFirewallPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFirewallPoliciesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -355,16 +381,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListFirewallPoliciesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_firewall_policy(
         &self,
         req: crate::model::GetFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FirewallPolicy> {
+    ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -374,16 +402,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::FirewallPolicy = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_firewall_policy(
         &self,
         req: crate::model::UpdateFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FirewallPolicy> {
+    ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -412,16 +442,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::FirewallPolicy = self
+            .inner
             .execute(builder, Some(req.firewall_policy), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_firewall_policy(
         &self,
         req: crate::model::DeleteFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -431,17 +463,18 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn reorder_firewall_policies(
         &self,
         req: crate::model::ReorderFirewallPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReorderFirewallPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ReorderFirewallPoliciesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -454,14 +487,16 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::ReorderFirewallPoliciesResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_related_account_groups(
         &self,
         req: crate::model::ListRelatedAccountGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRelatedAccountGroupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -476,16 +511,19 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListRelatedAccountGroupsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_related_account_group_memberships(
         &self,
         req: crate::model::ListRelatedAccountGroupMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRelatedAccountGroupMembershipsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -500,16 +538,19 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListRelatedAccountGroupMembershipsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn search_related_account_group_memberships(
         &self,
         req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchRelatedAccountGroupMembershipsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -522,6 +563,8 @@ impl super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::SearchRelatedAccountGroupMembershipsResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 }

@@ -96,6 +96,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_docker_images(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -171,6 +172,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_docker_image(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDockerImageRequest::name].
@@ -216,6 +218,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_maven_artifacts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -288,6 +291,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_maven_artifact(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMavenArtifactRequest::name].
@@ -330,6 +334,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_npm_packages(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -399,6 +404,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_npm_package(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNpmPackageRequest::name].
@@ -444,6 +450,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_python_packages(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -516,6 +523,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_python_package(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPythonPackageRequest::name].
@@ -566,6 +574,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .import_apt_artifacts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_apt_artifacts`.
@@ -663,6 +672,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .import_yum_artifacts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_yum_artifacts`.
@@ -755,6 +765,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_repositories(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -836,6 +847,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_repository(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
@@ -886,6 +898,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_repository`.
@@ -979,6 +992,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .update_repository(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [repository][crate::model::UpdateRepositoryRequest::repository].
@@ -1041,6 +1055,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
@@ -1113,6 +1128,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_packages(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1194,6 +1210,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_package(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPackageRequest::name].
@@ -1241,6 +1258,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .delete_package(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_package`.
@@ -1313,6 +1331,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1400,6 +1419,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVersionRequest::name].
@@ -1453,6 +1473,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .delete_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_version`.
@@ -1539,6 +1560,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .batch_delete_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_delete_versions`.
@@ -1630,6 +1652,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .update_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
@@ -1684,6 +1707,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_files(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1764,6 +1788,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_file(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFileRequest::name].
@@ -1811,6 +1836,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .delete_file(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_file`.
@@ -1883,6 +1909,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .update_file(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [file][crate::model::UpdateFileRequest::file].
@@ -1934,6 +1961,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_tags(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2005,7 +2033,10 @@ pub mod artifact_registry {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Tag> {
-            (*self.0.stub).get_tag(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_tag(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTagRequest::name].
@@ -2048,6 +2079,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .create_tag(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagRequest::parent].
@@ -2102,6 +2134,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .update_tag(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
@@ -2153,6 +2186,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .delete_tag(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagRequest::name].
@@ -2195,6 +2229,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .create_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateRuleRequest::parent].
@@ -2249,6 +2284,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_rules(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2317,6 +2353,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRuleRequest::name].
@@ -2359,6 +2396,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .update_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [rule][crate::model::UpdateRuleRequest::rule].
@@ -2410,6 +2448,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .delete_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteRuleRequest::name].
@@ -2452,6 +2491,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2512,6 +2552,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2566,6 +2607,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2622,6 +2664,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_project_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProjectSettingsRequest::name].
@@ -2667,6 +2710,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .update_project_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_settings][crate::model::UpdateProjectSettingsRequest::project_settings].
@@ -2721,6 +2765,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_vpcsc_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVPCSCConfigRequest::name].
@@ -2766,6 +2811,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .update_vpcsc_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [vpcsc_config][crate::model::UpdateVPCSCConfigRequest::vpcsc_config].
@@ -2820,6 +2866,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .update_package(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [package][crate::model::UpdatePackageRequest::package].
@@ -2874,6 +2921,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_attachments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2949,6 +2997,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAttachmentRequest::name].
@@ -2999,6 +3048,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .create_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_attachment`.
@@ -3097,6 +3147,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .delete_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_attachment`.
@@ -3172,6 +3223,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3247,6 +3299,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3292,6 +3345,7 @@ pub mod artifact_registry {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

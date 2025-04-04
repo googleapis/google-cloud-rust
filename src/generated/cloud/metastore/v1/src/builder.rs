@@ -93,6 +93,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .list_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
@@ -221,6 +223,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_service`.
@@ -321,6 +324,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_service`.
@@ -418,6 +422,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
@@ -499,6 +504,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .list_metadata_imports(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -583,6 +589,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_metadata_import(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMetadataImportRequest::name].
@@ -633,6 +640,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .create_metadata_import(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_metadata_import`.
@@ -738,6 +746,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .update_metadata_import(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_metadata_import`.
@@ -837,6 +846,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .export_metadata(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_metadata`.
@@ -944,6 +954,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .restore_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_service`.
@@ -1039,6 +1050,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1120,6 +1132,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -1167,6 +1180,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup`.
@@ -1267,6 +1281,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
@@ -1350,6 +1365,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .query_metadata(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `query_metadata`.
@@ -1442,6 +1458,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .move_table_to_database(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `move_table_to_database`.
@@ -1548,6 +1565,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .alter_metadata_resource_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `alter_metadata_resource_location`.
@@ -1643,6 +1661,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1718,6 +1737,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1760,6 +1780,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1820,6 +1841,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1874,6 +1896,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1930,6 +1953,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2008,6 +2032,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2053,6 +2078,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2098,6 +2124,7 @@ pub mod dataproc_metastore {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2198,6 +2225,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .list_federations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2281,6 +2309,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .get_federation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFederationRequest::name].
@@ -2333,6 +2362,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .create_federation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_federation`.
@@ -2439,6 +2469,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .update_federation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_federation`.
@@ -2542,6 +2573,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .delete_federation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_federation`.
@@ -2625,6 +2657,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2702,6 +2735,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2746,6 +2780,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2808,6 +2843,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2864,6 +2900,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2922,6 +2959,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3002,6 +3040,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3049,6 +3088,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3096,6 +3136,7 @@ pub mod dataproc_metastore_federation {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

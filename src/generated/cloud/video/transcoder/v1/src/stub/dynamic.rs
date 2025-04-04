@@ -21,49 +21,49 @@ pub trait TranscoderService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job>;
+    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
 
     async fn list_jobs(
         &self,
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListJobsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListJobsResponse>>;
 
     async fn get_job(
         &self,
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job>;
+    ) -> crate::Result<gax::response::Response<crate::model::Job>>;
 
     async fn delete_job(
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn create_job_template(
         &self,
         req: crate::model::CreateJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::JobTemplate>;
+    ) -> crate::Result<gax::response::Response<crate::model::JobTemplate>>;
 
     async fn list_job_templates(
         &self,
         req: crate::model::ListJobTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListJobTemplatesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListJobTemplatesResponse>>;
 
     async fn get_job_template(
         &self,
         req: crate::model::GetJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::JobTemplate>;
+    ) -> crate::Result<gax::response::Response<crate::model::JobTemplate>>;
 
     async fn delete_job_template(
         &self,
         req: crate::model::DeleteJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 }
 
 /// All implementations of [super::TranscoderService] also implement [TranscoderService].
@@ -74,7 +74,7 @@ impl<T: super::TranscoderService> TranscoderService for T {
         &self,
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job> {
+    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
         T::create_job(self, req, options).await
     }
 
@@ -83,7 +83,7 @@ impl<T: super::TranscoderService> TranscoderService for T {
         &self,
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListJobsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListJobsResponse>> {
         T::list_jobs(self, req, options).await
     }
 
@@ -92,7 +92,7 @@ impl<T: super::TranscoderService> TranscoderService for T {
         &self,
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Job> {
+    ) -> crate::Result<gax::response::Response<crate::model::Job>> {
         T::get_job(self, req, options).await
     }
 
@@ -101,7 +101,7 @@ impl<T: super::TranscoderService> TranscoderService for T {
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_job(self, req, options).await
     }
 
@@ -110,7 +110,7 @@ impl<T: super::TranscoderService> TranscoderService for T {
         &self,
         req: crate::model::CreateJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::JobTemplate> {
+    ) -> crate::Result<gax::response::Response<crate::model::JobTemplate>> {
         T::create_job_template(self, req, options).await
     }
 
@@ -119,7 +119,7 @@ impl<T: super::TranscoderService> TranscoderService for T {
         &self,
         req: crate::model::ListJobTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListJobTemplatesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListJobTemplatesResponse>> {
         T::list_job_templates(self, req, options).await
     }
 
@@ -128,7 +128,7 @@ impl<T: super::TranscoderService> TranscoderService for T {
         &self,
         req: crate::model::GetJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::JobTemplate> {
+    ) -> crate::Result<gax::response::Response<crate::model::JobTemplate>> {
         T::get_job_template(self, req, options).await
     }
 
@@ -137,7 +137,7 @@ impl<T: super::TranscoderService> TranscoderService for T {
         &self,
         req: crate::model::DeleteJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_job_template(self, req, options).await
     }
 }

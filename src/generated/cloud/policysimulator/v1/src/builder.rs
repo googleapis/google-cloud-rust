@@ -93,6 +93,7 @@ pub mod simulator {
             (*self.0.stub)
                 .get_replay(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReplayRequest::name].
@@ -140,6 +141,7 @@ pub mod simulator {
             (*self.0.stub)
                 .create_replay(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_replay`.
@@ -227,6 +229,7 @@ pub mod simulator {
             (*self.0.stub)
                 .list_replay_results(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -299,6 +302,7 @@ pub mod simulator {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -377,6 +381,7 @@ pub mod simulator {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

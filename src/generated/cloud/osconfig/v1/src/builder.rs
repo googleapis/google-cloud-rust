@@ -93,6 +93,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .execute_patch_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ExecutePatchJobRequest::parent].
@@ -188,6 +189,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .get_patch_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPatchJobRequest::name].
@@ -230,6 +232,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .cancel_patch_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelPatchJobRequest::name].
@@ -272,6 +275,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .list_patch_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -352,6 +356,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .list_patch_job_instance_details(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -432,6 +437,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .create_patch_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePatchDeploymentRequest::parent].
@@ -492,6 +498,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .get_patch_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPatchDeploymentRequest::name].
@@ -537,6 +544,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .list_patch_deployments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -609,6 +617,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .delete_patch_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePatchDeploymentRequest::name].
@@ -654,6 +663,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .update_patch_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
@@ -711,6 +721,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .pause_patch_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PausePatchDeploymentRequest::name].
@@ -756,6 +767,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .resume_patch_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResumePatchDeploymentRequest::name].
@@ -801,6 +813,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -846,6 +859,7 @@ pub mod os_config_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -956,6 +970,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .create_os_policy_assignment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_os_policy_assignment`.
@@ -1065,6 +1080,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .update_os_policy_assignment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_os_policy_assignment`.
@@ -1164,6 +1180,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .get_os_policy_assignment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOSPolicyAssignmentRequest::name].
@@ -1213,6 +1230,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .list_os_policy_assignments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1291,6 +1309,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .list_os_policy_assignment_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1374,6 +1393,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .delete_os_policy_assignment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_os_policy_assignment`.
@@ -1457,6 +1477,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .get_os_policy_assignment_report(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOSPolicyAssignmentReportRequest::name].
@@ -1506,6 +1527,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .list_os_policy_assignment_reports(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1585,6 +1607,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .get_inventory(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInventoryRequest::name].
@@ -1635,6 +1658,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .list_inventories(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1721,6 +1745,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .get_vulnerability_report(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVulnerabilityReportRequest::name].
@@ -1770,6 +1795,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .list_vulnerability_reports(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1852,6 +1878,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1899,6 +1926,7 @@ pub mod os_config_zonal_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

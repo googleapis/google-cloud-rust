@@ -98,6 +98,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .create_index(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_index`.
@@ -182,6 +183,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .list_indexes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -257,6 +259,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .get_index(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIndexRequest::name].
@@ -299,6 +302,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .delete_index(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIndexRequest::name].
@@ -341,6 +345,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .get_field(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFieldRequest::name].
@@ -388,6 +393,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .update_field(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_field`.
@@ -475,6 +481,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .list_fields(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -555,6 +562,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .export_documents(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_documents`.
@@ -675,6 +683,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .import_documents(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_documents`.
@@ -783,6 +792,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .bulk_delete_documents(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_delete_documents`.
@@ -890,6 +900,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .create_database(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_database`.
@@ -981,6 +992,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .get_database(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
@@ -1023,6 +1035,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .list_databases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
@@ -1076,6 +1089,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .update_database(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_database`.
@@ -1169,6 +1183,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .delete_database(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_database`.
@@ -1566,6 +1581,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -1608,6 +1624,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
@@ -1656,6 +1673,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1703,6 +1721,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .restore_database(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_database`.
@@ -1805,6 +1824,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .create_backup_schedule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupScheduleRequest::parent].
@@ -1859,6 +1879,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .get_backup_schedule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupScheduleRequest::name].
@@ -1904,6 +1925,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .list_backup_schedules(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListBackupSchedulesRequest::parent].
@@ -1949,6 +1971,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .update_backup_schedule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
@@ -2006,6 +2029,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .delete_backup_schedule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupScheduleRequest::name].
@@ -2051,6 +2075,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2129,6 +2154,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2174,6 +2200,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2219,6 +2246,7 @@ pub mod firestore_admin {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

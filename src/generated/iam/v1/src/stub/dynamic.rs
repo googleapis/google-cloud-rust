@@ -21,19 +21,19 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Policy>;
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Policy>;
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>;
 }
 
 /// All implementations of [super::IAMPolicy] also implement [IAMPolicy].
@@ -44,7 +44,7 @@ impl<T: super::IAMPolicy> IAMPolicy for T {
         &self,
         req: crate::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Policy> {
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -53,7 +53,7 @@ impl<T: super::IAMPolicy> IAMPolicy for T {
         &self,
         req: crate::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Policy> {
+    ) -> crate::Result<gax::response::Response<crate::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -62,7 +62,7 @@ impl<T: super::IAMPolicy> IAMPolicy for T {
         &self,
         req: crate::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 }

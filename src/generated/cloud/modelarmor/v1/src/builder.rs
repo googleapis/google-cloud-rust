@@ -93,6 +93,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .list_templates(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .get_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTemplateRequest::name].
@@ -216,6 +218,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .create_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTemplateRequest::parent].
@@ -279,6 +282,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .update_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
@@ -339,6 +343,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .delete_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTemplateRequest::name].
@@ -387,6 +392,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .get_floor_setting(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFloorSettingRequest::name].
@@ -432,6 +438,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .update_floor_setting(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
@@ -489,6 +496,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .sanitize_user_prompt(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SanitizeUserPromptRequest::name].
@@ -543,6 +551,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .sanitize_model_response(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SanitizeModelResponseRequest::name].
@@ -603,6 +612,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -678,6 +688,7 @@ pub mod model_armor {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].

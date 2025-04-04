@@ -46,11 +46,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RepositoryManager::get_connection].
@@ -58,10 +59,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Connection>> + Send {
-        std::future::ready::<crate::Result<crate::model::Connection>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Connection>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Connection>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::RepositoryManager::list_connections].
@@ -69,11 +72,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListConnectionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListConnectionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListConnectionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RepositoryManager::update_connection].
@@ -81,11 +85,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RepositoryManager::delete_connection].
@@ -93,11 +98,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RepositoryManager::create_repository].
@@ -105,11 +111,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateRepositoryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RepositoryManager::batch_create_repositories].
@@ -117,11 +124,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BatchCreateRepositoriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RepositoryManager::get_repository].
@@ -129,10 +137,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetRepositoryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Repository>> + Send {
-        std::future::ready::<crate::Result<crate::model::Repository>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Repository>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Repository>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::RepositoryManager::list_repositories].
@@ -140,11 +150,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListRepositoriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListRepositoriesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListRepositoriesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RepositoryManager::delete_repository].
@@ -152,11 +163,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteRepositoryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RepositoryManager::fetch_read_write_token].
@@ -164,11 +176,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FetchReadWriteTokenRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::FetchReadWriteTokenResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::FetchReadWriteTokenResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FetchReadWriteTokenResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::FetchReadWriteTokenResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RepositoryManager::fetch_read_token].
@@ -176,11 +189,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FetchReadTokenRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::FetchReadTokenResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::FetchReadTokenResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FetchReadTokenResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::FetchReadTokenResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RepositoryManager::fetch_linkable_repositories].
@@ -189,11 +203,13 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         _req: crate::model::FetchLinkableRepositoriesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::FetchLinkableRepositoriesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::FetchLinkableRepositoriesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::FetchLinkableRepositoriesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::FetchLinkableRepositoriesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RepositoryManager::fetch_git_refs].
@@ -201,11 +217,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FetchGitRefsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::FetchGitRefsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::FetchGitRefsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FetchGitRefsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::FetchGitRefsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RepositoryManager::set_iam_policy].
@@ -213,10 +230,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::RepositoryManager::get_iam_policy].
@@ -224,10 +243,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::RepositoryManager::test_iam_permissions].
@@ -235,11 +256,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RepositoryManager::get_operation].
@@ -247,11 +269,12 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RepositoryManager::cancel_operation].
@@ -259,8 +282,10 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

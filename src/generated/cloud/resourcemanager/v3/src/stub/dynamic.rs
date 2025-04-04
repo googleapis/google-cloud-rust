@@ -23,73 +23,73 @@ pub trait Folders: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Folder>;
+    ) -> crate::Result<gax::response::Response<crate::model::Folder>>;
 
     async fn list_folders(
         &self,
         req: crate::model::ListFoldersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListFoldersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListFoldersResponse>>;
 
     async fn search_folders(
         &self,
         req: crate::model::SearchFoldersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchFoldersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchFoldersResponse>>;
 
     async fn create_folder(
         &self,
         req: crate::model::CreateFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_folder(
         &self,
         req: crate::model::UpdateFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn move_folder(
         &self,
         req: crate::model::MoveFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_folder(
         &self,
         req: crate::model::DeleteFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn undelete_folder(
         &self,
         req: crate::model::UndeleteFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -110,7 +110,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: crate::model::GetFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Folder> {
+    ) -> crate::Result<gax::response::Response<crate::model::Folder>> {
         T::get_folder(self, req, options).await
     }
 
@@ -119,7 +119,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: crate::model::ListFoldersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListFoldersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListFoldersResponse>> {
         T::list_folders(self, req, options).await
     }
 
@@ -128,7 +128,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: crate::model::SearchFoldersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchFoldersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchFoldersResponse>> {
         T::search_folders(self, req, options).await
     }
 
@@ -137,7 +137,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: crate::model::CreateFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_folder(self, req, options).await
     }
 
@@ -146,7 +146,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: crate::model::UpdateFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_folder(self, req, options).await
     }
 
@@ -155,7 +155,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: crate::model::MoveFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::move_folder(self, req, options).await
     }
 
@@ -164,7 +164,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: crate::model::DeleteFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_folder(self, req, options).await
     }
 
@@ -173,7 +173,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: crate::model::UndeleteFolderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::undelete_folder(self, req, options).await
     }
 
@@ -182,7 +182,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -191,7 +191,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -200,7 +200,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -209,7 +209,7 @@ impl<T: super::Folders> Folders for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -235,37 +235,37 @@ pub trait Organizations: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetOrganizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Organization>;
+    ) -> crate::Result<gax::response::Response<crate::model::Organization>>;
 
     async fn search_organizations(
         &self,
         req: crate::model::SearchOrganizationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchOrganizationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchOrganizationsResponse>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 }
 
 /// All implementations of [super::Organizations] also implement [Organizations].
@@ -276,7 +276,7 @@ impl<T: super::Organizations> Organizations for T {
         &self,
         req: crate::model::GetOrganizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Organization> {
+    ) -> crate::Result<gax::response::Response<crate::model::Organization>> {
         T::get_organization(self, req, options).await
     }
 
@@ -285,7 +285,7 @@ impl<T: super::Organizations> Organizations for T {
         &self,
         req: crate::model::SearchOrganizationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchOrganizationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchOrganizationsResponse>> {
         T::search_organizations(self, req, options).await
     }
 
@@ -294,7 +294,7 @@ impl<T: super::Organizations> Organizations for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -303,7 +303,7 @@ impl<T: super::Organizations> Organizations for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -312,7 +312,7 @@ impl<T: super::Organizations> Organizations for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -321,7 +321,7 @@ impl<T: super::Organizations> Organizations for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 }
@@ -333,73 +333,73 @@ pub trait Projects: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Project>;
+    ) -> crate::Result<gax::response::Response<crate::model::Project>>;
 
     async fn list_projects(
         &self,
         req: crate::model::ListProjectsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListProjectsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListProjectsResponse>>;
 
     async fn search_projects(
         &self,
         req: crate::model::SearchProjectsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchProjectsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchProjectsResponse>>;
 
     async fn create_project(
         &self,
         req: crate::model::CreateProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_project(
         &self,
         req: crate::model::UpdateProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn move_project(
         &self,
         req: crate::model::MoveProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_project(
         &self,
         req: crate::model::DeleteProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn undelete_project(
         &self,
         req: crate::model::UndeleteProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -420,7 +420,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: crate::model::GetProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Project> {
+    ) -> crate::Result<gax::response::Response<crate::model::Project>> {
         T::get_project(self, req, options).await
     }
 
@@ -429,7 +429,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: crate::model::ListProjectsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListProjectsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListProjectsResponse>> {
         T::list_projects(self, req, options).await
     }
 
@@ -438,7 +438,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: crate::model::SearchProjectsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchProjectsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchProjectsResponse>> {
         T::search_projects(self, req, options).await
     }
 
@@ -447,7 +447,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: crate::model::CreateProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_project(self, req, options).await
     }
 
@@ -456,7 +456,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: crate::model::UpdateProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_project(self, req, options).await
     }
 
@@ -465,7 +465,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: crate::model::MoveProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::move_project(self, req, options).await
     }
 
@@ -474,7 +474,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: crate::model::DeleteProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_project(self, req, options).await
     }
 
@@ -483,7 +483,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: crate::model::UndeleteProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::undelete_project(self, req, options).await
     }
 
@@ -492,7 +492,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -501,7 +501,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -510,7 +510,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -519,7 +519,7 @@ impl<T: super::Projects> Projects for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -545,31 +545,31 @@ pub trait TagBindings: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListTagBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTagBindingsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTagBindingsResponse>>;
 
     async fn create_tag_binding(
         &self,
         req: crate::model::CreateTagBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_tag_binding(
         &self,
         req: crate::model::DeleteTagBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_effective_tags(
         &self,
         req: crate::model::ListEffectiveTagsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEffectiveTagsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListEffectiveTagsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -590,7 +590,7 @@ impl<T: super::TagBindings> TagBindings for T {
         &self,
         req: crate::model::ListTagBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTagBindingsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTagBindingsResponse>> {
         T::list_tag_bindings(self, req, options).await
     }
 
@@ -599,7 +599,7 @@ impl<T: super::TagBindings> TagBindings for T {
         &self,
         req: crate::model::CreateTagBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_tag_binding(self, req, options).await
     }
 
@@ -608,7 +608,7 @@ impl<T: super::TagBindings> TagBindings for T {
         &self,
         req: crate::model::DeleteTagBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_tag_binding(self, req, options).await
     }
 
@@ -617,7 +617,7 @@ impl<T: super::TagBindings> TagBindings for T {
         &self,
         req: crate::model::ListEffectiveTagsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEffectiveTagsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListEffectiveTagsResponse>> {
         T::list_effective_tags(self, req, options).await
     }
 
@@ -626,7 +626,7 @@ impl<T: super::TagBindings> TagBindings for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -652,25 +652,25 @@ pub trait TagHolds: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateTagHoldRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_tag_hold(
         &self,
         req: crate::model::DeleteTagHoldRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_tag_holds(
         &self,
         req: crate::model::ListTagHoldsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTagHoldsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTagHoldsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -691,7 +691,7 @@ impl<T: super::TagHolds> TagHolds for T {
         &self,
         req: crate::model::CreateTagHoldRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_tag_hold(self, req, options).await
     }
 
@@ -700,7 +700,7 @@ impl<T: super::TagHolds> TagHolds for T {
         &self,
         req: crate::model::DeleteTagHoldRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_tag_hold(self, req, options).await
     }
 
@@ -709,7 +709,7 @@ impl<T: super::TagHolds> TagHolds for T {
         &self,
         req: crate::model::ListTagHoldsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTagHoldsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTagHoldsResponse>> {
         T::list_tag_holds(self, req, options).await
     }
 
@@ -718,7 +718,7 @@ impl<T: super::TagHolds> TagHolds for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -744,61 +744,61 @@ pub trait TagKeys: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListTagKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTagKeysResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTagKeysResponse>>;
 
     async fn get_tag_key(
         &self,
         req: crate::model::GetTagKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TagKey>;
+    ) -> crate::Result<gax::response::Response<crate::model::TagKey>>;
 
     async fn get_namespaced_tag_key(
         &self,
         req: crate::model::GetNamespacedTagKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TagKey>;
+    ) -> crate::Result<gax::response::Response<crate::model::TagKey>>;
 
     async fn create_tag_key(
         &self,
         req: crate::model::CreateTagKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_tag_key(
         &self,
         req: crate::model::UpdateTagKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_tag_key(
         &self,
         req: crate::model::DeleteTagKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -819,7 +819,7 @@ impl<T: super::TagKeys> TagKeys for T {
         &self,
         req: crate::model::ListTagKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTagKeysResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTagKeysResponse>> {
         T::list_tag_keys(self, req, options).await
     }
 
@@ -828,7 +828,7 @@ impl<T: super::TagKeys> TagKeys for T {
         &self,
         req: crate::model::GetTagKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TagKey> {
+    ) -> crate::Result<gax::response::Response<crate::model::TagKey>> {
         T::get_tag_key(self, req, options).await
     }
 
@@ -837,7 +837,7 @@ impl<T: super::TagKeys> TagKeys for T {
         &self,
         req: crate::model::GetNamespacedTagKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TagKey> {
+    ) -> crate::Result<gax::response::Response<crate::model::TagKey>> {
         T::get_namespaced_tag_key(self, req, options).await
     }
 
@@ -846,7 +846,7 @@ impl<T: super::TagKeys> TagKeys for T {
         &self,
         req: crate::model::CreateTagKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_tag_key(self, req, options).await
     }
 
@@ -855,7 +855,7 @@ impl<T: super::TagKeys> TagKeys for T {
         &self,
         req: crate::model::UpdateTagKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_tag_key(self, req, options).await
     }
 
@@ -864,7 +864,7 @@ impl<T: super::TagKeys> TagKeys for T {
         &self,
         req: crate::model::DeleteTagKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_tag_key(self, req, options).await
     }
 
@@ -873,7 +873,7 @@ impl<T: super::TagKeys> TagKeys for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -882,7 +882,7 @@ impl<T: super::TagKeys> TagKeys for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -891,7 +891,7 @@ impl<T: super::TagKeys> TagKeys for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -900,7 +900,7 @@ impl<T: super::TagKeys> TagKeys for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -926,61 +926,61 @@ pub trait TagValues: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListTagValuesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTagValuesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTagValuesResponse>>;
 
     async fn get_tag_value(
         &self,
         req: crate::model::GetTagValueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TagValue>;
+    ) -> crate::Result<gax::response::Response<crate::model::TagValue>>;
 
     async fn get_namespaced_tag_value(
         &self,
         req: crate::model::GetNamespacedTagValueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TagValue>;
+    ) -> crate::Result<gax::response::Response<crate::model::TagValue>>;
 
     async fn create_tag_value(
         &self,
         req: crate::model::CreateTagValueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_tag_value(
         &self,
         req: crate::model::UpdateTagValueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_tag_value(
         &self,
         req: crate::model::DeleteTagValueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -1001,7 +1001,7 @@ impl<T: super::TagValues> TagValues for T {
         &self,
         req: crate::model::ListTagValuesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTagValuesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTagValuesResponse>> {
         T::list_tag_values(self, req, options).await
     }
 
@@ -1010,7 +1010,7 @@ impl<T: super::TagValues> TagValues for T {
         &self,
         req: crate::model::GetTagValueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TagValue> {
+    ) -> crate::Result<gax::response::Response<crate::model::TagValue>> {
         T::get_tag_value(self, req, options).await
     }
 
@@ -1019,7 +1019,7 @@ impl<T: super::TagValues> TagValues for T {
         &self,
         req: crate::model::GetNamespacedTagValueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TagValue> {
+    ) -> crate::Result<gax::response::Response<crate::model::TagValue>> {
         T::get_namespaced_tag_value(self, req, options).await
     }
 
@@ -1028,7 +1028,7 @@ impl<T: super::TagValues> TagValues for T {
         &self,
         req: crate::model::CreateTagValueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_tag_value(self, req, options).await
     }
 
@@ -1037,7 +1037,7 @@ impl<T: super::TagValues> TagValues for T {
         &self,
         req: crate::model::UpdateTagValueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_tag_value(self, req, options).await
     }
 
@@ -1046,7 +1046,7 @@ impl<T: super::TagValues> TagValues for T {
         &self,
         req: crate::model::DeleteTagValueRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_tag_value(self, req, options).await
     }
 
@@ -1055,7 +1055,7 @@ impl<T: super::TagValues> TagValues for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -1064,7 +1064,7 @@ impl<T: super::TagValues> TagValues for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -1073,7 +1073,7 @@ impl<T: super::TagValues> TagValues for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -1082,7 +1082,7 @@ impl<T: super::TagValues> TagValues for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

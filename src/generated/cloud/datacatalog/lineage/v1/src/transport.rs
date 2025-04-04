@@ -44,7 +44,7 @@ impl super::stub::Lineage for Lineage {
         &self,
         req: crate::model::ProcessOpenLineageRunEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProcessOpenLineageRunEventResponse> {
+    ) -> Result<gax::response::Response<crate::model::ProcessOpenLineageRunEventResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -58,16 +58,18 @@ impl super::stub::Lineage for Lineage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: crate::model::ProcessOpenLineageRunEventResponse = self
+            .inner
             .execute(builder, Some(req.open_lineage), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_process(
         &self,
         req: crate::model::CreateProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Process> {
+    ) -> Result<gax::response::Response<crate::model::Process>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -81,16 +83,18 @@ impl super::stub::Lineage for Lineage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: crate::model::Process = self
+            .inner
             .execute(builder, Some(req.process), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_process(
         &self,
         req: crate::model::UpdateProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Process> {
+    ) -> Result<gax::response::Response<crate::model::Process>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -120,16 +124,18 @@ impl super::stub::Lineage for Lineage {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-        self.inner
+        let response: crate::model::Process = self
+            .inner
             .execute(builder, Some(req.process), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_process(
         &self,
         req: crate::model::GetProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Process> {
+    ) -> Result<gax::response::Response<crate::model::Process>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -139,16 +145,18 @@ impl super::stub::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Process = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_processes(
         &self,
         req: crate::model::ListProcessesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProcessesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProcessesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -163,16 +171,18 @@ impl super::stub::Lineage for Lineage {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListProcessesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_process(
         &self,
         req: crate::model::DeleteProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -183,16 +193,18 @@ impl super::stub::Lineage for Lineage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_run(
         &self,
         req: crate::model::CreateRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Run> {
+    ) -> Result<gax::response::Response<crate::model::Run>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -203,14 +215,16 @@ impl super::stub::Lineage for Lineage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.run), options).await
+        let response: crate::model::Run =
+            self.inner.execute(builder, Some(req.run), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_run(
         &self,
         req: crate::model::UpdateRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Run> {
+    ) -> Result<gax::response::Response<crate::model::Run>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -240,14 +254,16 @@ impl super::stub::Lineage for Lineage {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-        self.inner.execute(builder, Some(req.run), options).await
+        let response: crate::model::Run =
+            self.inner.execute(builder, Some(req.run), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_run(
         &self,
         req: crate::model::GetRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Run> {
+    ) -> Result<gax::response::Response<crate::model::Run>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -257,16 +273,18 @@ impl super::stub::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Run = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_runs(
         &self,
         req: crate::model::ListRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRunsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRunsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -278,16 +296,18 @@ impl super::stub::Lineage for Lineage {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListRunsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_run(
         &self,
         req: crate::model::DeleteRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -298,16 +318,18 @@ impl super::stub::Lineage for Lineage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_lineage_event(
         &self,
         req: crate::model::CreateLineageEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LineageEvent> {
+    ) -> Result<gax::response::Response<crate::model::LineageEvent>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -321,16 +343,18 @@ impl super::stub::Lineage for Lineage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: crate::model::LineageEvent = self
+            .inner
             .execute(builder, Some(req.lineage_event), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_lineage_event(
         &self,
         req: crate::model::GetLineageEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LineageEvent> {
+    ) -> Result<gax::response::Response<crate::model::LineageEvent>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -340,16 +364,18 @@ impl super::stub::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::LineageEvent = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_lineage_events(
         &self,
         req: crate::model::ListLineageEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLineageEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLineageEventsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -364,16 +390,18 @@ impl super::stub::Lineage for Lineage {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListLineageEventsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_lineage_event(
         &self,
         req: crate::model::DeleteLineageEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -384,17 +412,18 @@ impl super::stub::Lineage for Lineage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn search_links(
         &self,
         req: crate::model::SearchLinksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchLinksResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchLinksResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -407,14 +436,16 @@ impl super::stub::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::SearchLinksResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn batch_search_link_processes(
         &self,
         req: crate::model::BatchSearchLinkProcessesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchSearchLinkProcessesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchSearchLinkProcessesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -427,14 +458,16 @@ impl super::stub::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::BatchSearchLinkProcessesResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -447,16 +480,18 @@ impl super::stub::Lineage for Lineage {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -466,16 +501,18 @@ impl super::stub::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -485,17 +522,18 @@ impl super::stub::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -505,10 +543,8 @@ impl super::stub::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     fn get_polling_error_policy(

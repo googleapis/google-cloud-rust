@@ -45,11 +45,12 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListEventsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListEventsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListEventsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListEventsResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListEventsResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ServiceHealth::get_event].
@@ -57,8 +58,12 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetEventRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Event>> + Send {
-        std::future::ready::<crate::Result<crate::model::Event>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Event>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Event>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ServiceHealth::list_organization_events].
@@ -67,11 +72,13 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListOrganizationEventsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListOrganizationEventsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListOrganizationEventsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListOrganizationEventsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListOrganizationEventsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ServiceHealth::get_organization_event].
@@ -79,11 +86,12 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOrganizationEventRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::OrganizationEvent>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::OrganizationEvent>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OrganizationEvent>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::OrganizationEvent>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ServiceHealth::list_organization_impacts].
@@ -92,11 +100,13 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListOrganizationImpactsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListOrganizationImpactsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListOrganizationImpactsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListOrganizationImpactsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListOrganizationImpactsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ServiceHealth::get_organization_impact].
@@ -104,11 +114,12 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOrganizationImpactRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::OrganizationImpact>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::OrganizationImpact>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OrganizationImpact>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::OrganizationImpact>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ServiceHealth::list_locations].
@@ -116,11 +127,12 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ServiceHealth::get_location].
@@ -128,9 +140,11 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

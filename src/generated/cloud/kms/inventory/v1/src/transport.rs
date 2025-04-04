@@ -44,7 +44,7 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
         &self,
         req: crate::model::ListCryptoKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCryptoKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -59,9 +59,11 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListCryptoKeysResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }
 
@@ -91,7 +93,7 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         &self,
         req: crate::model::GetProtectedResourcesSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProtectedResourcesSummary> {
+    ) -> Result<gax::response::Response<crate::model::ProtectedResourcesSummary>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -104,16 +106,18 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ProtectedResourcesSummary = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn search_protected_resources(
         &self,
         req: crate::model::SearchProtectedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchProtectedResourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -133,8 +137,10 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
             .resource_types
             .iter()
             .fold(builder, |builder, p| builder.query(&[("resourceTypes", p)]));
-        self.inner
+        let response: crate::model::SearchProtectedResourcesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

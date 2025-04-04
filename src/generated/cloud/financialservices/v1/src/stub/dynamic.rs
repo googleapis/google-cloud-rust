@@ -23,265 +23,265 @@ pub trait Aml: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInstancesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>;
 
     async fn get_instance(
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance>;
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>>;
 
     async fn create_instance(
         &self,
         req: crate::model::CreateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_instance(
         &self,
         req: crate::model::UpdateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_instance(
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn import_registered_parties(
         &self,
         req: crate::model::ImportRegisteredPartiesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn export_registered_parties(
         &self,
         req: crate::model::ExportRegisteredPartiesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_datasets(
         &self,
         req: crate::model::ListDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDatasetsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatasetsResponse>>;
 
     async fn get_dataset(
         &self,
         req: crate::model::GetDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Dataset>;
+    ) -> crate::Result<gax::response::Response<crate::model::Dataset>>;
 
     async fn create_dataset(
         &self,
         req: crate::model::CreateDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_dataset(
         &self,
         req: crate::model::UpdateDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_dataset(
         &self,
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_models(
         &self,
         req: crate::model::ListModelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListModelsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListModelsResponse>>;
 
     async fn get_model(
         &self,
         req: crate::model::GetModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Model>;
+    ) -> crate::Result<gax::response::Response<crate::model::Model>>;
 
     async fn create_model(
         &self,
         req: crate::model::CreateModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_model(
         &self,
         req: crate::model::UpdateModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn export_model_metadata(
         &self,
         req: crate::model::ExportModelMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_model(
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_engine_configs(
         &self,
         req: crate::model::ListEngineConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEngineConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListEngineConfigsResponse>>;
 
     async fn get_engine_config(
         &self,
         req: crate::model::GetEngineConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::EngineConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::EngineConfig>>;
 
     async fn create_engine_config(
         &self,
         req: crate::model::CreateEngineConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_engine_config(
         &self,
         req: crate::model::UpdateEngineConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn export_engine_config_metadata(
         &self,
         req: crate::model::ExportEngineConfigMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_engine_config(
         &self,
         req: crate::model::DeleteEngineConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_engine_version(
         &self,
         req: crate::model::GetEngineVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::EngineVersion>;
+    ) -> crate::Result<gax::response::Response<crate::model::EngineVersion>>;
 
     async fn list_engine_versions(
         &self,
         req: crate::model::ListEngineVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEngineVersionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListEngineVersionsResponse>>;
 
     async fn list_prediction_results(
         &self,
         req: crate::model::ListPredictionResultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPredictionResultsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPredictionResultsResponse>>;
 
     async fn get_prediction_result(
         &self,
         req: crate::model::GetPredictionResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PredictionResult>;
+    ) -> crate::Result<gax::response::Response<crate::model::PredictionResult>>;
 
     async fn create_prediction_result(
         &self,
         req: crate::model::CreatePredictionResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_prediction_result(
         &self,
         req: crate::model::UpdatePredictionResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn export_prediction_result_metadata(
         &self,
         req: crate::model::ExportPredictionResultMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_prediction_result(
         &self,
         req: crate::model::DeletePredictionResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_backtest_results(
         &self,
         req: crate::model::ListBacktestResultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBacktestResultsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListBacktestResultsResponse>>;
 
     async fn get_backtest_result(
         &self,
         req: crate::model::GetBacktestResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BacktestResult>;
+    ) -> crate::Result<gax::response::Response<crate::model::BacktestResult>>;
 
     async fn create_backtest_result(
         &self,
         req: crate::model::CreateBacktestResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_backtest_result(
         &self,
         req: crate::model::UpdateBacktestResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn export_backtest_result_metadata(
         &self,
         req: crate::model::ExportBacktestResultMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_backtest_result(
         &self,
         req: crate::model::DeleteBacktestResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -302,7 +302,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInstancesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>> {
         T::list_instances(self, req, options).await
     }
 
@@ -311,7 +311,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance> {
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>> {
         T::get_instance(self, req, options).await
     }
 
@@ -320,7 +320,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::CreateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_instance(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::UpdateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_instance(self, req, options).await
     }
 
@@ -338,7 +338,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_instance(self, req, options).await
     }
 
@@ -347,7 +347,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ImportRegisteredPartiesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::import_registered_parties(self, req, options).await
     }
 
@@ -356,7 +356,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ExportRegisteredPartiesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::export_registered_parties(self, req, options).await
     }
 
@@ -365,7 +365,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ListDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDatasetsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatasetsResponse>> {
         T::list_datasets(self, req, options).await
     }
 
@@ -374,7 +374,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::GetDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Dataset> {
+    ) -> crate::Result<gax::response::Response<crate::model::Dataset>> {
         T::get_dataset(self, req, options).await
     }
 
@@ -383,7 +383,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::CreateDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_dataset(self, req, options).await
     }
 
@@ -392,7 +392,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::UpdateDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_dataset(self, req, options).await
     }
 
@@ -401,7 +401,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_dataset(self, req, options).await
     }
 
@@ -410,7 +410,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ListModelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListModelsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListModelsResponse>> {
         T::list_models(self, req, options).await
     }
 
@@ -419,7 +419,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::GetModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Model> {
+    ) -> crate::Result<gax::response::Response<crate::model::Model>> {
         T::get_model(self, req, options).await
     }
 
@@ -428,7 +428,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::CreateModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_model(self, req, options).await
     }
 
@@ -437,7 +437,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::UpdateModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_model(self, req, options).await
     }
 
@@ -446,7 +446,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ExportModelMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::export_model_metadata(self, req, options).await
     }
 
@@ -455,7 +455,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_model(self, req, options).await
     }
 
@@ -464,7 +464,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ListEngineConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEngineConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListEngineConfigsResponse>> {
         T::list_engine_configs(self, req, options).await
     }
 
@@ -473,7 +473,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::GetEngineConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::EngineConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::EngineConfig>> {
         T::get_engine_config(self, req, options).await
     }
 
@@ -482,7 +482,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::CreateEngineConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_engine_config(self, req, options).await
     }
 
@@ -491,7 +491,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::UpdateEngineConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_engine_config(self, req, options).await
     }
 
@@ -500,7 +500,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ExportEngineConfigMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::export_engine_config_metadata(self, req, options).await
     }
 
@@ -509,7 +509,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::DeleteEngineConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_engine_config(self, req, options).await
     }
 
@@ -518,7 +518,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::GetEngineVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::EngineVersion> {
+    ) -> crate::Result<gax::response::Response<crate::model::EngineVersion>> {
         T::get_engine_version(self, req, options).await
     }
 
@@ -527,7 +527,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ListEngineVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEngineVersionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListEngineVersionsResponse>> {
         T::list_engine_versions(self, req, options).await
     }
 
@@ -536,7 +536,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ListPredictionResultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPredictionResultsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPredictionResultsResponse>> {
         T::list_prediction_results(self, req, options).await
     }
 
@@ -545,7 +545,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::GetPredictionResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PredictionResult> {
+    ) -> crate::Result<gax::response::Response<crate::model::PredictionResult>> {
         T::get_prediction_result(self, req, options).await
     }
 
@@ -554,7 +554,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::CreatePredictionResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_prediction_result(self, req, options).await
     }
 
@@ -563,7 +563,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::UpdatePredictionResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_prediction_result(self, req, options).await
     }
 
@@ -572,7 +572,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ExportPredictionResultMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::export_prediction_result_metadata(self, req, options).await
     }
 
@@ -581,7 +581,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::DeletePredictionResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_prediction_result(self, req, options).await
     }
 
@@ -590,7 +590,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ListBacktestResultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBacktestResultsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListBacktestResultsResponse>> {
         T::list_backtest_results(self, req, options).await
     }
 
@@ -599,7 +599,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::GetBacktestResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BacktestResult> {
+    ) -> crate::Result<gax::response::Response<crate::model::BacktestResult>> {
         T::get_backtest_result(self, req, options).await
     }
 
@@ -608,7 +608,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::CreateBacktestResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_backtest_result(self, req, options).await
     }
 
@@ -617,7 +617,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::UpdateBacktestResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_backtest_result(self, req, options).await
     }
 
@@ -626,7 +626,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::ExportBacktestResultMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::export_backtest_result_metadata(self, req, options).await
     }
 
@@ -635,7 +635,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: crate::model::DeleteBacktestResultRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_backtest_result(self, req, options).await
     }
 
@@ -644,7 +644,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -653,7 +653,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -662,7 +662,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -671,7 +671,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -680,7 +680,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -689,7 +689,7 @@ impl<T: super::Aml> Aml for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

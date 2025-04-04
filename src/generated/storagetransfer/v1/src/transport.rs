@@ -44,7 +44,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         &self,
         req: crate::model::GetGoogleServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GoogleServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::GoogleServiceAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -57,16 +57,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::GoogleServiceAccount = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_transfer_job(
         &self,
         req: crate::model::CreateTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TransferJob> {
+    ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -76,16 +78,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::TransferJob = self
+            .inner
             .execute(builder, Some(req.transfer_job), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_transfer_job(
         &self,
         req: crate::model::UpdateTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TransferJob> {
+    ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -95,14 +99,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::TransferJob =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_transfer_job(
         &self,
         req: crate::model::GetTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TransferJob> {
+    ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -113,16 +119,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("projectId", &req.project_id)]);
-        self.inner
+        let response: crate::model::TransferJob = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_transfer_jobs(
         &self,
         req: crate::model::ListTransferJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTransferJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTransferJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -135,16 +143,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListTransferJobsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn pause_transfer_operation(
         &self,
         req: crate::model::PauseTransferOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -154,17 +164,15 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn resume_transfer_operation(
         &self,
         req: crate::model::ResumeTransferOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -174,17 +182,15 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn run_transfer_job(
         &self,
         req: crate::model::RunTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -194,14 +200,16 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_transfer_job(
         &self,
         req: crate::model::DeleteTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -212,17 +220,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("projectId", &req.project_id)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn create_agent_pool(
         &self,
         req: crate::model::CreateAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AgentPool> {
+    ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -236,16 +245,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("agentPoolId", &req.agent_pool_id)]);
-        self.inner
+        let response: crate::model::AgentPool = self
+            .inner
             .execute(builder, Some(req.agent_pool), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_agent_pool(
         &self,
         req: crate::model::UpdateAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AgentPool> {
+    ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -274,16 +285,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::AgentPool = self
+            .inner
             .execute(builder, Some(req.agent_pool), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_agent_pool(
         &self,
         req: crate::model::GetAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AgentPool> {
+    ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -293,16 +306,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::AgentPool = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_agent_pools(
         &self,
         req: crate::model::ListAgentPoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAgentPoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAgentPoolsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -318,16 +333,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListAgentPoolsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_agent_pool(
         &self,
         req: crate::model::DeleteAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -337,17 +354,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -360,16 +378,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -379,16 +399,18 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -398,10 +420,8 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     fn get_polling_error_policy(

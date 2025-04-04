@@ -44,7 +44,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::ListParametersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListParametersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListParametersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -61,16 +61,18 @@ impl super::stub::ParameterManager for ParameterManager {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        self.inner
+        let response: crate::model::ListParametersResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_parameter(
         &self,
         req: crate::model::GetParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Parameter> {
+    ) -> Result<gax::response::Response<crate::model::Parameter>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,16 +82,18 @@ impl super::stub::ParameterManager for ParameterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Parameter = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_parameter(
         &self,
         req: crate::model::CreateParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Parameter> {
+    ) -> Result<gax::response::Response<crate::model::Parameter>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -104,16 +108,18 @@ impl super::stub::ParameterManager for ParameterManager {
             );
         let builder = builder.query(&[("parameterId", &req.parameter_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: crate::model::Parameter = self
+            .inner
             .execute(builder, Some(req.parameter), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_parameter(
         &self,
         req: crate::model::UpdateParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Parameter> {
+    ) -> Result<gax::response::Response<crate::model::Parameter>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -143,16 +149,18 @@ impl super::stub::ParameterManager for ParameterManager {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: crate::model::Parameter = self
+            .inner
             .execute(builder, Some(req.parameter), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_parameter(
         &self,
         req: crate::model::DeleteParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -163,17 +171,18 @@ impl super::stub::ParameterManager for ParameterManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_parameter_versions(
         &self,
         req: crate::model::ListParameterVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListParameterVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListParameterVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -187,16 +196,18 @@ impl super::stub::ParameterManager for ParameterManager {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        self.inner
+        let response: crate::model::ListParameterVersionsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_parameter_version(
         &self,
         req: crate::model::GetParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ParameterVersion> {
+    ) -> Result<gax::response::Response<crate::model::ParameterVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -207,16 +218,18 @@ impl super::stub::ParameterManager for ParameterManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("view", &req.view.value())]);
-        self.inner
+        let response: crate::model::ParameterVersion = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn render_parameter_version(
         &self,
         req: crate::model::RenderParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RenderParameterVersionResponse> {
+    ) -> Result<gax::response::Response<crate::model::RenderParameterVersionResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -226,16 +239,18 @@ impl super::stub::ParameterManager for ParameterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::RenderParameterVersionResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_parameter_version(
         &self,
         req: crate::model::CreateParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ParameterVersion> {
+    ) -> Result<gax::response::Response<crate::model::ParameterVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -250,16 +265,18 @@ impl super::stub::ParameterManager for ParameterManager {
             );
         let builder = builder.query(&[("parameterVersionId", &req.parameter_version_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: crate::model::ParameterVersion = self
+            .inner
             .execute(builder, Some(req.parameter_version), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_parameter_version(
         &self,
         req: crate::model::UpdateParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ParameterVersion> {
+    ) -> Result<gax::response::Response<crate::model::ParameterVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -289,16 +306,18 @@ impl super::stub::ParameterManager for ParameterManager {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: crate::model::ParameterVersion = self
+            .inner
             .execute(builder, Some(req.parameter_version), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_parameter_version(
         &self,
         req: crate::model::DeleteParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -309,17 +328,18 @@ impl super::stub::ParameterManager for ParameterManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -332,16 +352,18 @@ impl super::stub::ParameterManager for ParameterManager {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: location::model::ListLocationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -351,8 +373,10 @@ impl super::stub::ParameterManager for ParameterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: location::model::Location = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

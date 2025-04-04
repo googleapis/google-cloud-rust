@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::DeleteLogRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_log(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::WriteLogEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::WriteLogEntriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::WriteLogEntriesResponse>> {
         self.inner.write_log_entries(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::ListLogEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLogEntriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLogEntriesResponse>> {
         self.inner.list_log_entries(req, options).await
     }
 
@@ -69,7 +69,8 @@ where
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMonitoredResourceDescriptorsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>>
+    {
         self.inner
             .list_monitored_resource_descriptors(req, options)
             .await
@@ -80,7 +81,7 @@ where
         &self,
         req: crate::model::ListLogsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLogsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLogsResponse>> {
         self.inner.list_logs(req, options).await
     }
 
@@ -89,7 +90,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -98,7 +99,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -107,7 +108,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -139,7 +140,7 @@ where
         &self,
         req: crate::model::ListBucketsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBucketsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBucketsResponse>> {
         self.inner.list_buckets(req, options).await
     }
 
@@ -148,7 +149,7 @@ where
         &self,
         req: crate::model::GetBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogBucket> {
+    ) -> Result<gax::response::Response<crate::model::LogBucket>> {
         self.inner.get_bucket(req, options).await
     }
 
@@ -157,7 +158,7 @@ where
         &self,
         req: crate::model::CreateBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_bucket_async(req, options).await
     }
 
@@ -166,7 +167,7 @@ where
         &self,
         req: crate::model::UpdateBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_bucket_async(req, options).await
     }
 
@@ -175,7 +176,7 @@ where
         &self,
         req: crate::model::CreateBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogBucket> {
+    ) -> Result<gax::response::Response<crate::model::LogBucket>> {
         self.inner.create_bucket(req, options).await
     }
 
@@ -184,7 +185,7 @@ where
         &self,
         req: crate::model::UpdateBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogBucket> {
+    ) -> Result<gax::response::Response<crate::model::LogBucket>> {
         self.inner.update_bucket(req, options).await
     }
 
@@ -193,7 +194,7 @@ where
         &self,
         req: crate::model::DeleteBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_bucket(req, options).await
     }
 
@@ -202,7 +203,7 @@ where
         &self,
         req: crate::model::UndeleteBucketRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.undelete_bucket(req, options).await
     }
 
@@ -211,7 +212,7 @@ where
         &self,
         req: crate::model::ListViewsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListViewsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListViewsResponse>> {
         self.inner.list_views(req, options).await
     }
 
@@ -220,7 +221,7 @@ where
         &self,
         req: crate::model::GetViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogView> {
+    ) -> Result<gax::response::Response<crate::model::LogView>> {
         self.inner.get_view(req, options).await
     }
 
@@ -229,7 +230,7 @@ where
         &self,
         req: crate::model::CreateViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogView> {
+    ) -> Result<gax::response::Response<crate::model::LogView>> {
         self.inner.create_view(req, options).await
     }
 
@@ -238,7 +239,7 @@ where
         &self,
         req: crate::model::UpdateViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogView> {
+    ) -> Result<gax::response::Response<crate::model::LogView>> {
         self.inner.update_view(req, options).await
     }
 
@@ -247,7 +248,7 @@ where
         &self,
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_view(req, options).await
     }
 
@@ -256,7 +257,7 @@ where
         &self,
         req: crate::model::ListSinksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSinksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSinksResponse>> {
         self.inner.list_sinks(req, options).await
     }
 
@@ -265,7 +266,7 @@ where
         &self,
         req: crate::model::GetSinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogSink> {
+    ) -> Result<gax::response::Response<crate::model::LogSink>> {
         self.inner.get_sink(req, options).await
     }
 
@@ -274,7 +275,7 @@ where
         &self,
         req: crate::model::CreateSinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogSink> {
+    ) -> Result<gax::response::Response<crate::model::LogSink>> {
         self.inner.create_sink(req, options).await
     }
 
@@ -283,7 +284,7 @@ where
         &self,
         req: crate::model::UpdateSinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogSink> {
+    ) -> Result<gax::response::Response<crate::model::LogSink>> {
         self.inner.update_sink(req, options).await
     }
 
@@ -292,7 +293,7 @@ where
         &self,
         req: crate::model::DeleteSinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_sink(req, options).await
     }
 
@@ -301,7 +302,7 @@ where
         &self,
         req: crate::model::CreateLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_link(req, options).await
     }
 
@@ -310,7 +311,7 @@ where
         &self,
         req: crate::model::DeleteLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_link(req, options).await
     }
 
@@ -319,7 +320,7 @@ where
         &self,
         req: crate::model::ListLinksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLinksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLinksResponse>> {
         self.inner.list_links(req, options).await
     }
 
@@ -328,7 +329,7 @@ where
         &self,
         req: crate::model::GetLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Link> {
+    ) -> Result<gax::response::Response<crate::model::Link>> {
         self.inner.get_link(req, options).await
     }
 
@@ -337,7 +338,7 @@ where
         &self,
         req: crate::model::ListExclusionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListExclusionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListExclusionsResponse>> {
         self.inner.list_exclusions(req, options).await
     }
 
@@ -346,7 +347,7 @@ where
         &self,
         req: crate::model::GetExclusionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogExclusion> {
+    ) -> Result<gax::response::Response<crate::model::LogExclusion>> {
         self.inner.get_exclusion(req, options).await
     }
 
@@ -355,7 +356,7 @@ where
         &self,
         req: crate::model::CreateExclusionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogExclusion> {
+    ) -> Result<gax::response::Response<crate::model::LogExclusion>> {
         self.inner.create_exclusion(req, options).await
     }
 
@@ -364,7 +365,7 @@ where
         &self,
         req: crate::model::UpdateExclusionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogExclusion> {
+    ) -> Result<gax::response::Response<crate::model::LogExclusion>> {
         self.inner.update_exclusion(req, options).await
     }
 
@@ -373,7 +374,7 @@ where
         &self,
         req: crate::model::DeleteExclusionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_exclusion(req, options).await
     }
 
@@ -382,7 +383,7 @@ where
         &self,
         req: crate::model::GetCmekSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CmekSettings> {
+    ) -> Result<gax::response::Response<crate::model::CmekSettings>> {
         self.inner.get_cmek_settings(req, options).await
     }
 
@@ -391,7 +392,7 @@ where
         &self,
         req: crate::model::UpdateCmekSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CmekSettings> {
+    ) -> Result<gax::response::Response<crate::model::CmekSettings>> {
         self.inner.update_cmek_settings(req, options).await
     }
 
@@ -400,7 +401,7 @@ where
         &self,
         req: crate::model::GetSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         self.inner.get_settings(req, options).await
     }
 
@@ -409,7 +410,7 @@ where
         &self,
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         self.inner.update_settings(req, options).await
     }
 
@@ -418,7 +419,7 @@ where
         &self,
         req: crate::model::CopyLogEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.copy_log_entries(req, options).await
     }
 
@@ -427,7 +428,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -436,7 +437,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -445,7 +446,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -491,7 +492,7 @@ where
         &self,
         req: crate::model::ListLogMetricsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLogMetricsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLogMetricsResponse>> {
         self.inner.list_log_metrics(req, options).await
     }
 
@@ -500,7 +501,7 @@ where
         &self,
         req: crate::model::GetLogMetricRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogMetric> {
+    ) -> Result<gax::response::Response<crate::model::LogMetric>> {
         self.inner.get_log_metric(req, options).await
     }
 
@@ -509,7 +510,7 @@ where
         &self,
         req: crate::model::CreateLogMetricRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogMetric> {
+    ) -> Result<gax::response::Response<crate::model::LogMetric>> {
         self.inner.create_log_metric(req, options).await
     }
 
@@ -518,7 +519,7 @@ where
         &self,
         req: crate::model::UpdateLogMetricRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LogMetric> {
+    ) -> Result<gax::response::Response<crate::model::LogMetric>> {
         self.inner.update_log_metric(req, options).await
     }
 
@@ -527,7 +528,7 @@ where
         &self,
         req: crate::model::DeleteLogMetricRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_log_metric(req, options).await
     }
 
@@ -536,7 +537,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -545,7 +546,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -554,7 +555,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }

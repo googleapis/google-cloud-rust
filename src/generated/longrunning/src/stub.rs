@@ -45,11 +45,12 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListOperationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Operations::get_operation].
@@ -57,10 +58,12 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Operation>> + Send {
-        std::future::ready::<crate::Result<crate::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Operations::delete_operation].
@@ -68,8 +71,10 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::Operations::cancel_operation].
@@ -77,7 +82,9 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 }

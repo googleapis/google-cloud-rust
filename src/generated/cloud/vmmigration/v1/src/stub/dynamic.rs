@@ -23,313 +23,313 @@ pub trait VmMigration: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListSourcesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListSourcesResponse>>;
 
     async fn get_source(
         &self,
         req: crate::model::GetSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Source>;
+    ) -> crate::Result<gax::response::Response<crate::model::Source>>;
 
     async fn create_source(
         &self,
         req: crate::model::CreateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_source(
         &self,
         req: crate::model::UpdateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_source(
         &self,
         req: crate::model::DeleteSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn fetch_inventory(
         &self,
         req: crate::model::FetchInventoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchInventoryResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchInventoryResponse>>;
 
     async fn list_utilization_reports(
         &self,
         req: crate::model::ListUtilizationReportsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUtilizationReportsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListUtilizationReportsResponse>>;
 
     async fn get_utilization_report(
         &self,
         req: crate::model::GetUtilizationReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UtilizationReport>;
+    ) -> crate::Result<gax::response::Response<crate::model::UtilizationReport>>;
 
     async fn create_utilization_report(
         &self,
         req: crate::model::CreateUtilizationReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_utilization_report(
         &self,
         req: crate::model::DeleteUtilizationReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_datacenter_connectors(
         &self,
         req: crate::model::ListDatacenterConnectorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDatacenterConnectorsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatacenterConnectorsResponse>>;
 
     async fn get_datacenter_connector(
         &self,
         req: crate::model::GetDatacenterConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DatacenterConnector>;
+    ) -> crate::Result<gax::response::Response<crate::model::DatacenterConnector>>;
 
     async fn create_datacenter_connector(
         &self,
         req: crate::model::CreateDatacenterConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_datacenter_connector(
         &self,
         req: crate::model::DeleteDatacenterConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn upgrade_appliance(
         &self,
         req: crate::model::UpgradeApplianceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_migrating_vm(
         &self,
         req: crate::model::CreateMigratingVmRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_migrating_vms(
         &self,
         req: crate::model::ListMigratingVmsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMigratingVmsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListMigratingVmsResponse>>;
 
     async fn get_migrating_vm(
         &self,
         req: crate::model::GetMigratingVmRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MigratingVm>;
+    ) -> crate::Result<gax::response::Response<crate::model::MigratingVm>>;
 
     async fn update_migrating_vm(
         &self,
         req: crate::model::UpdateMigratingVmRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_migrating_vm(
         &self,
         req: crate::model::DeleteMigratingVmRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn start_migration(
         &self,
         req: crate::model::StartMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn resume_migration(
         &self,
         req: crate::model::ResumeMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn pause_migration(
         &self,
         req: crate::model::PauseMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn finalize_migration(
         &self,
         req: crate::model::FinalizeMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_clone_job(
         &self,
         req: crate::model::CreateCloneJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn cancel_clone_job(
         &self,
         req: crate::model::CancelCloneJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_clone_jobs(
         &self,
         req: crate::model::ListCloneJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCloneJobsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCloneJobsResponse>>;
 
     async fn get_clone_job(
         &self,
         req: crate::model::GetCloneJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CloneJob>;
+    ) -> crate::Result<gax::response::Response<crate::model::CloneJob>>;
 
     async fn create_cutover_job(
         &self,
         req: crate::model::CreateCutoverJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn cancel_cutover_job(
         &self,
         req: crate::model::CancelCutoverJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_cutover_jobs(
         &self,
         req: crate::model::ListCutoverJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCutoverJobsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCutoverJobsResponse>>;
 
     async fn get_cutover_job(
         &self,
         req: crate::model::GetCutoverJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CutoverJob>;
+    ) -> crate::Result<gax::response::Response<crate::model::CutoverJob>>;
 
     async fn list_groups(
         &self,
         req: crate::model::ListGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGroupsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListGroupsResponse>>;
 
     async fn get_group(
         &self,
         req: crate::model::GetGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Group>;
+    ) -> crate::Result<gax::response::Response<crate::model::Group>>;
 
     async fn create_group(
         &self,
         req: crate::model::CreateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_group(
         &self,
         req: crate::model::UpdateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_group(
         &self,
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn add_group_migration(
         &self,
         req: crate::model::AddGroupMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn remove_group_migration(
         &self,
         req: crate::model::RemoveGroupMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_target_projects(
         &self,
         req: crate::model::ListTargetProjectsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTargetProjectsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTargetProjectsResponse>>;
 
     async fn get_target_project(
         &self,
         req: crate::model::GetTargetProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TargetProject>;
+    ) -> crate::Result<gax::response::Response<crate::model::TargetProject>>;
 
     async fn create_target_project(
         &self,
         req: crate::model::CreateTargetProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_target_project(
         &self,
         req: crate::model::UpdateTargetProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_target_project(
         &self,
         req: crate::model::DeleteTargetProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_replication_cycles(
         &self,
         req: crate::model::ListReplicationCyclesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReplicationCyclesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListReplicationCyclesResponse>>;
 
     async fn get_replication_cycle(
         &self,
         req: crate::model::GetReplicationCycleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReplicationCycle>;
+    ) -> crate::Result<gax::response::Response<crate::model::ReplicationCycle>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -350,7 +350,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ListSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListSourcesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListSourcesResponse>> {
         T::list_sources(self, req, options).await
     }
 
@@ -359,7 +359,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::GetSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Source> {
+    ) -> crate::Result<gax::response::Response<crate::model::Source>> {
         T::get_source(self, req, options).await
     }
 
@@ -368,7 +368,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::CreateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_source(self, req, options).await
     }
 
@@ -377,7 +377,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::UpdateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_source(self, req, options).await
     }
 
@@ -386,7 +386,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::DeleteSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_source(self, req, options).await
     }
 
@@ -395,7 +395,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::FetchInventoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchInventoryResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchInventoryResponse>> {
         T::fetch_inventory(self, req, options).await
     }
 
@@ -404,7 +404,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ListUtilizationReportsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUtilizationReportsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListUtilizationReportsResponse>> {
         T::list_utilization_reports(self, req, options).await
     }
 
@@ -413,7 +413,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::GetUtilizationReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UtilizationReport> {
+    ) -> crate::Result<gax::response::Response<crate::model::UtilizationReport>> {
         T::get_utilization_report(self, req, options).await
     }
 
@@ -422,7 +422,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::CreateUtilizationReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_utilization_report(self, req, options).await
     }
 
@@ -431,7 +431,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::DeleteUtilizationReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_utilization_report(self, req, options).await
     }
 
@@ -440,7 +440,8 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ListDatacenterConnectorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDatacenterConnectorsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatacenterConnectorsResponse>>
+    {
         T::list_datacenter_connectors(self, req, options).await
     }
 
@@ -449,7 +450,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::GetDatacenterConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DatacenterConnector> {
+    ) -> crate::Result<gax::response::Response<crate::model::DatacenterConnector>> {
         T::get_datacenter_connector(self, req, options).await
     }
 
@@ -458,7 +459,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::CreateDatacenterConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_datacenter_connector(self, req, options).await
     }
 
@@ -467,7 +468,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::DeleteDatacenterConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_datacenter_connector(self, req, options).await
     }
 
@@ -476,7 +477,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::UpgradeApplianceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::upgrade_appliance(self, req, options).await
     }
 
@@ -485,7 +486,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::CreateMigratingVmRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_migrating_vm(self, req, options).await
     }
 
@@ -494,7 +495,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ListMigratingVmsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMigratingVmsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListMigratingVmsResponse>> {
         T::list_migrating_vms(self, req, options).await
     }
 
@@ -503,7 +504,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::GetMigratingVmRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MigratingVm> {
+    ) -> crate::Result<gax::response::Response<crate::model::MigratingVm>> {
         T::get_migrating_vm(self, req, options).await
     }
 
@@ -512,7 +513,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::UpdateMigratingVmRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_migrating_vm(self, req, options).await
     }
 
@@ -521,7 +522,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::DeleteMigratingVmRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_migrating_vm(self, req, options).await
     }
 
@@ -530,7 +531,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::StartMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::start_migration(self, req, options).await
     }
 
@@ -539,7 +540,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ResumeMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::resume_migration(self, req, options).await
     }
 
@@ -548,7 +549,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::PauseMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::pause_migration(self, req, options).await
     }
 
@@ -557,7 +558,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::FinalizeMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::finalize_migration(self, req, options).await
     }
 
@@ -566,7 +567,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::CreateCloneJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_clone_job(self, req, options).await
     }
 
@@ -575,7 +576,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::CancelCloneJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::cancel_clone_job(self, req, options).await
     }
 
@@ -584,7 +585,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ListCloneJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCloneJobsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCloneJobsResponse>> {
         T::list_clone_jobs(self, req, options).await
     }
 
@@ -593,7 +594,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::GetCloneJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CloneJob> {
+    ) -> crate::Result<gax::response::Response<crate::model::CloneJob>> {
         T::get_clone_job(self, req, options).await
     }
 
@@ -602,7 +603,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::CreateCutoverJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_cutover_job(self, req, options).await
     }
 
@@ -611,7 +612,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::CancelCutoverJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::cancel_cutover_job(self, req, options).await
     }
 
@@ -620,7 +621,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ListCutoverJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCutoverJobsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCutoverJobsResponse>> {
         T::list_cutover_jobs(self, req, options).await
     }
 
@@ -629,7 +630,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::GetCutoverJobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CutoverJob> {
+    ) -> crate::Result<gax::response::Response<crate::model::CutoverJob>> {
         T::get_cutover_job(self, req, options).await
     }
 
@@ -638,7 +639,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ListGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGroupsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListGroupsResponse>> {
         T::list_groups(self, req, options).await
     }
 
@@ -647,7 +648,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::GetGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Group> {
+    ) -> crate::Result<gax::response::Response<crate::model::Group>> {
         T::get_group(self, req, options).await
     }
 
@@ -656,7 +657,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::CreateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_group(self, req, options).await
     }
 
@@ -665,7 +666,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::UpdateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_group(self, req, options).await
     }
 
@@ -674,7 +675,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_group(self, req, options).await
     }
 
@@ -683,7 +684,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::AddGroupMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::add_group_migration(self, req, options).await
     }
 
@@ -692,7 +693,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::RemoveGroupMigrationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::remove_group_migration(self, req, options).await
     }
 
@@ -701,7 +702,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ListTargetProjectsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTargetProjectsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTargetProjectsResponse>> {
         T::list_target_projects(self, req, options).await
     }
 
@@ -710,7 +711,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::GetTargetProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TargetProject> {
+    ) -> crate::Result<gax::response::Response<crate::model::TargetProject>> {
         T::get_target_project(self, req, options).await
     }
 
@@ -719,7 +720,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::CreateTargetProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_target_project(self, req, options).await
     }
 
@@ -728,7 +729,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::UpdateTargetProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_target_project(self, req, options).await
     }
 
@@ -737,7 +738,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::DeleteTargetProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_target_project(self, req, options).await
     }
 
@@ -746,7 +747,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::ListReplicationCyclesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReplicationCyclesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListReplicationCyclesResponse>> {
         T::list_replication_cycles(self, req, options).await
     }
 
@@ -755,7 +756,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: crate::model::GetReplicationCycleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReplicationCycle> {
+    ) -> crate::Result<gax::response::Response<crate::model::ReplicationCycle>> {
         T::get_replication_cycle(self, req, options).await
     }
 
@@ -764,7 +765,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -773,7 +774,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -782,7 +783,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -791,7 +792,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -800,7 +801,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -809,7 +810,7 @@ impl<T: super::VmMigration> VmMigration for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

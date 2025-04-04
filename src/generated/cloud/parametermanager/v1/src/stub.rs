@@ -45,11 +45,12 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListParametersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListParametersResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListParametersResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListParametersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListParametersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ParameterManager::get_parameter].
@@ -57,10 +58,12 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetParameterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Parameter>> + Send {
-        std::future::ready::<crate::Result<crate::model::Parameter>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Parameter>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Parameter>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ParameterManager::create_parameter].
@@ -68,10 +71,12 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateParameterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Parameter>> + Send {
-        std::future::ready::<crate::Result<crate::model::Parameter>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Parameter>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Parameter>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ParameterManager::update_parameter].
@@ -79,10 +84,12 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateParameterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Parameter>> + Send {
-        std::future::ready::<crate::Result<crate::model::Parameter>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Parameter>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Parameter>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ParameterManager::delete_parameter].
@@ -90,8 +97,10 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteParameterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::ParameterManager::list_parameter_versions].
@@ -100,11 +109,13 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListParameterVersionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListParameterVersionsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListParameterVersionsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListParameterVersionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListParameterVersionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ParameterManager::get_parameter_version].
@@ -112,11 +123,12 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetParameterVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ParameterVersion>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ParameterVersion>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ParameterVersion>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ParameterVersion>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ParameterManager::render_parameter_version].
@@ -125,11 +137,13 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         _req: crate::model::RenderParameterVersionRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::RenderParameterVersionResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::RenderParameterVersionResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::RenderParameterVersionResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::RenderParameterVersionResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ParameterManager::create_parameter_version].
@@ -137,11 +151,12 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateParameterVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ParameterVersion>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ParameterVersion>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ParameterVersion>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ParameterVersion>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ParameterManager::update_parameter_version].
@@ -149,11 +164,12 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateParameterVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ParameterVersion>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ParameterVersion>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ParameterVersion>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ParameterVersion>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ParameterManager::delete_parameter_version].
@@ -161,8 +177,10 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteParameterVersionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::ParameterManager::list_locations].
@@ -170,11 +188,12 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ParameterManager::get_location].
@@ -182,9 +201,11 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

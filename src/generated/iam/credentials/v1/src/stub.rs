@@ -45,11 +45,12 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateAccessTokenRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::GenerateAccessTokenResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::GenerateAccessTokenResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::IAMCredentials::generate_id_token].
@@ -57,11 +58,12 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateIdTokenRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::GenerateIdTokenResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::GenerateIdTokenResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GenerateIdTokenResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateIdTokenResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::IAMCredentials::sign_blob].
@@ -69,11 +71,12 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SignBlobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SignBlobResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SignBlobResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SignBlobResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SignBlobResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::IAMCredentials::sign_jwt].
@@ -81,10 +84,11 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SignJwtRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SignJwtResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SignJwtResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SignJwtResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SignJwtResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

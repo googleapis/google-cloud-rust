@@ -44,7 +44,7 @@ impl super::stub::AccessApproval for AccessApproval {
         &self,
         req: crate::model::ListApprovalRequestsMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListApprovalRequestsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListApprovalRequestsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -60,16 +60,18 @@ impl super::stub::AccessApproval for AccessApproval {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListApprovalRequestsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_approval_request(
         &self,
         req: crate::model::GetApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ApprovalRequest> {
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -79,16 +81,18 @@ impl super::stub::AccessApproval for AccessApproval {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ApprovalRequest = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn approve_approval_request(
         &self,
         req: crate::model::ApproveApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ApprovalRequest> {
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -98,14 +102,16 @@ impl super::stub::AccessApproval for AccessApproval {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::ApprovalRequest =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn dismiss_approval_request(
         &self,
         req: crate::model::DismissApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ApprovalRequest> {
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -115,14 +121,16 @@ impl super::stub::AccessApproval for AccessApproval {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::ApprovalRequest =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn invalidate_approval_request(
         &self,
         req: crate::model::InvalidateApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ApprovalRequest> {
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -135,14 +143,16 @@ impl super::stub::AccessApproval for AccessApproval {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::ApprovalRequest =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_access_approval_settings(
         &self,
         req: crate::model::GetAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AccessApprovalSettings> {
+    ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -152,16 +162,18 @@ impl super::stub::AccessApproval for AccessApproval {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::AccessApprovalSettings = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_access_approval_settings(
         &self,
         req: crate::model::UpdateAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AccessApprovalSettings> {
+    ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -190,16 +202,18 @@ impl super::stub::AccessApproval for AccessApproval {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::AccessApprovalSettings = self
+            .inner
             .execute(builder, Some(req.settings), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_access_approval_settings(
         &self,
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -209,17 +223,18 @@ impl super::stub::AccessApproval for AccessApproval {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn get_access_approval_service_account(
         &self,
         req: crate::model::GetAccessApprovalServiceAccountMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AccessApprovalServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -229,8 +244,10 @@ impl super::stub::AccessApproval for AccessApproval {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::AccessApprovalServiceAccount = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

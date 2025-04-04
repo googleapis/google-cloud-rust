@@ -21,43 +21,43 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListDataSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataSetsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataSetsResponse>>;
 
     async fn create_data_set(
         &self,
         req: crate::model::CreateDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataSet>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataSet>>;
 
     async fn delete_data_set(
         &self,
         req: crate::model::DeleteDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn append_events(
         &self,
         req: crate::model::AppendEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AppendEventsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::AppendEventsResponse>>;
 
     async fn query_data_set(
         &self,
         req: crate::model::QueryDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryDataSetResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::QueryDataSetResponse>>;
 
     async fn evaluate_slice(
         &self,
         req: crate::model::EvaluateSliceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::EvaluatedSlice>;
+    ) -> crate::Result<gax::response::Response<crate::model::EvaluatedSlice>>;
 
     async fn evaluate_timeseries(
         &self,
         req: crate::model::EvaluateTimeseriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::EvaluatedSlice>;
+    ) -> crate::Result<gax::response::Response<crate::model::EvaluatedSlice>>;
 }
 
 /// All implementations of [super::TimeseriesInsightsController] also implement [TimeseriesInsightsController].
@@ -68,7 +68,7 @@ impl<T: super::TimeseriesInsightsController> TimeseriesInsightsController for T 
         &self,
         req: crate::model::ListDataSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataSetsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataSetsResponse>> {
         T::list_data_sets(self, req, options).await
     }
 
@@ -77,7 +77,7 @@ impl<T: super::TimeseriesInsightsController> TimeseriesInsightsController for T 
         &self,
         req: crate::model::CreateDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataSet> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataSet>> {
         T::create_data_set(self, req, options).await
     }
 
@@ -86,7 +86,7 @@ impl<T: super::TimeseriesInsightsController> TimeseriesInsightsController for T 
         &self,
         req: crate::model::DeleteDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_data_set(self, req, options).await
     }
 
@@ -95,7 +95,7 @@ impl<T: super::TimeseriesInsightsController> TimeseriesInsightsController for T 
         &self,
         req: crate::model::AppendEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AppendEventsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::AppendEventsResponse>> {
         T::append_events(self, req, options).await
     }
 
@@ -104,7 +104,7 @@ impl<T: super::TimeseriesInsightsController> TimeseriesInsightsController for T 
         &self,
         req: crate::model::QueryDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryDataSetResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryDataSetResponse>> {
         T::query_data_set(self, req, options).await
     }
 
@@ -113,7 +113,7 @@ impl<T: super::TimeseriesInsightsController> TimeseriesInsightsController for T 
         &self,
         req: crate::model::EvaluateSliceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::EvaluatedSlice> {
+    ) -> crate::Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         T::evaluate_slice(self, req, options).await
     }
 
@@ -122,7 +122,7 @@ impl<T: super::TimeseriesInsightsController> TimeseriesInsightsController for T 
         &self,
         req: crate::model::EvaluateTimeseriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::EvaluatedSlice> {
+    ) -> crate::Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         T::evaluate_timeseries(self, req, options).await
     }
 }

@@ -45,11 +45,12 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListNotificationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListNotificationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListNotificationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListNotificationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListNotificationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AdvisoryNotificationsService::get_notification].
@@ -57,10 +58,12 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetNotificationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Notification>> + Send {
-        std::future::ready::<crate::Result<crate::model::Notification>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Notification>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Notification>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AdvisoryNotificationsService::get_settings].
@@ -68,10 +71,12 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Settings>> + Send {
-        std::future::ready::<crate::Result<crate::model::Settings>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Settings>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Settings>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AdvisoryNotificationsService::update_settings].
@@ -79,9 +84,11 @@ pub trait AdvisoryNotificationsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Settings>> + Send {
-        std::future::ready::<crate::Result<crate::model::Settings>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Settings>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Settings>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 }

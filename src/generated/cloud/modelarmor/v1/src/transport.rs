@@ -44,7 +44,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: crate::model::ListTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTemplatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -61,16 +61,18 @@ impl super::stub::ModelArmor for ModelArmor {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        self.inner
+        let response: crate::model::ListTemplatesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_template(
         &self,
         req: crate::model::GetTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Template> {
+    ) -> Result<gax::response::Response<crate::model::Template>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,16 +82,18 @@ impl super::stub::ModelArmor for ModelArmor {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Template = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_template(
         &self,
         req: crate::model::CreateTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Template> {
+    ) -> Result<gax::response::Response<crate::model::Template>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -104,16 +108,18 @@ impl super::stub::ModelArmor for ModelArmor {
             );
         let builder = builder.query(&[("templateId", &req.template_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: crate::model::Template = self
+            .inner
             .execute(builder, Some(req.template), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_template(
         &self,
         req: crate::model::UpdateTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Template> {
+    ) -> Result<gax::response::Response<crate::model::Template>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -143,16 +149,18 @@ impl super::stub::ModelArmor for ModelArmor {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let response: crate::model::Template = self
+            .inner
             .execute(builder, Some(req.template), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_template(
         &self,
         req: crate::model::DeleteTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -163,17 +171,18 @@ impl super::stub::ModelArmor for ModelArmor {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn get_floor_setting(
         &self,
         req: crate::model::GetFloorSettingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FloorSetting> {
+    ) -> Result<gax::response::Response<crate::model::FloorSetting>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -183,16 +192,18 @@ impl super::stub::ModelArmor for ModelArmor {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::FloorSetting = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_floor_setting(
         &self,
         req: crate::model::UpdateFloorSettingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FloorSetting> {
+    ) -> Result<gax::response::Response<crate::model::FloorSetting>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -221,16 +232,18 @@ impl super::stub::ModelArmor for ModelArmor {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::FloorSetting = self
+            .inner
             .execute(builder, Some(req.floor_setting), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn sanitize_user_prompt(
         &self,
         req: crate::model::SanitizeUserPromptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SanitizeUserPromptResponse> {
+    ) -> Result<gax::response::Response<crate::model::SanitizeUserPromptResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -243,14 +256,16 @@ impl super::stub::ModelArmor for ModelArmor {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::SanitizeUserPromptResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn sanitize_model_response(
         &self,
         req: crate::model::SanitizeModelResponseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SanitizeModelResponseResponse> {
+    ) -> Result<gax::response::Response<crate::model::SanitizeModelResponseResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -263,14 +278,16 @@ impl super::stub::ModelArmor for ModelArmor {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::SanitizeModelResponseResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -283,16 +300,18 @@ impl super::stub::ModelArmor for ModelArmor {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: location::model::ListLocationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -302,8 +321,10 @@ impl super::stub::ModelArmor for ModelArmor {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: location::model::Location = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

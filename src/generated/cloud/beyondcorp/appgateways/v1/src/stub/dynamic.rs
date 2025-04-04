@@ -23,79 +23,79 @@ pub trait AppGatewaysService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListAppGatewaysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAppGatewaysResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListAppGatewaysResponse>>;
 
     async fn get_app_gateway(
         &self,
         req: crate::model::GetAppGatewayRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AppGateway>;
+    ) -> crate::Result<gax::response::Response<crate::model::AppGateway>>;
 
     async fn create_app_gateway(
         &self,
         req: crate::model::CreateAppGatewayRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_app_gateway(
         &self,
         req: crate::model::DeleteAppGatewayRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -116,7 +116,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: crate::model::ListAppGatewaysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAppGatewaysResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAppGatewaysResponse>> {
         T::list_app_gateways(self, req, options).await
     }
 
@@ -125,7 +125,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: crate::model::GetAppGatewayRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AppGateway> {
+    ) -> crate::Result<gax::response::Response<crate::model::AppGateway>> {
         T::get_app_gateway(self, req, options).await
     }
 
@@ -134,7 +134,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: crate::model::CreateAppGatewayRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_app_gateway(self, req, options).await
     }
 
@@ -143,7 +143,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: crate::model::DeleteAppGatewayRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_app_gateway(self, req, options).await
     }
 
@@ -152,7 +152,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -161,7 +161,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -170,7 +170,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -179,7 +179,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -188,7 +188,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -197,7 +197,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -206,7 +206,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -215,7 +215,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -224,7 +224,7 @@ impl<T: super::AppGatewaysService> AppGatewaysService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

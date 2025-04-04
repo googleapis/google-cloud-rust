@@ -101,6 +101,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .create_attached_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_attached_cluster`.
@@ -206,6 +207,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .update_attached_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_attached_cluster`.
@@ -308,6 +310,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .import_attached_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_attached_cluster`.
@@ -420,6 +423,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .get_attached_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAttachedClusterRequest::name].
@@ -465,6 +469,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .list_attached_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -542,6 +547,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .delete_attached_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_attached_cluster`.
@@ -643,6 +649,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .get_attached_server_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAttachedServerConfigRequest::name].
@@ -694,6 +701,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .generate_attached_cluster_install_manifest(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GenerateAttachedClusterInstallManifestRequest::parent].
@@ -762,6 +770,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .generate_attached_cluster_agent_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [attached_cluster][crate::model::GenerateAttachedClusterAgentTokenRequest::attached_cluster].
@@ -855,6 +864,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -933,6 +943,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -978,6 +989,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1023,6 +1035,7 @@ pub mod attached_clusters {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -1127,6 +1140,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .create_aws_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_aws_cluster`.
@@ -1231,6 +1245,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .update_aws_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_aws_cluster`.
@@ -1324,6 +1339,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_aws_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAwsClusterRequest::name].
@@ -1366,6 +1382,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .list_aws_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1443,6 +1460,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .delete_aws_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_aws_cluster`.
@@ -1544,6 +1562,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .generate_aws_cluster_agent_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [aws_cluster][crate::model::GenerateAwsClusterAgentTokenRequest::aws_cluster].
@@ -1643,6 +1662,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .generate_aws_access_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [aws_cluster][crate::model::GenerateAwsAccessTokenRequest::aws_cluster].
@@ -1693,6 +1713,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .create_aws_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_aws_node_pool`.
@@ -1797,6 +1818,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .update_aws_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_aws_node_pool`.
@@ -1900,6 +1922,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .rollback_aws_node_pool_update(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `rollback_aws_node_pool_update`.
@@ -1981,6 +2004,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_aws_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAwsNodePoolRequest::name].
@@ -2026,6 +2050,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .list_aws_node_pools(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2103,6 +2128,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .delete_aws_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_aws_node_pool`.
@@ -2202,6 +2228,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_aws_open_id_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [aws_cluster][crate::model::GetAwsOpenIdConfigRequest::aws_cluster].
@@ -2247,6 +2274,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_aws_json_web_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [aws_cluster][crate::model::GetAwsJsonWebKeysRequest::aws_cluster].
@@ -2292,6 +2320,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_aws_server_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAwsServerConfigRequest::name].
@@ -2337,6 +2366,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2415,6 +2445,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2460,6 +2491,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2505,6 +2537,7 @@ pub mod aws_clusters {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2609,6 +2642,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .create_azure_client(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_azure_client`.
@@ -2705,6 +2739,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_client(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAzureClientRequest::name].
@@ -2750,6 +2785,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .list_azure_clients(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2827,6 +2863,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .delete_azure_client(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_azure_client`.
@@ -2919,6 +2956,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .create_azure_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_azure_cluster`.
@@ -3023,6 +3061,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .update_azure_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_azure_cluster`.
@@ -3116,6 +3155,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAzureClusterRequest::name].
@@ -3161,6 +3201,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .list_azure_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3238,6 +3279,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .delete_azure_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_azure_cluster`.
@@ -3339,6 +3381,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .generate_azure_cluster_agent_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [azure_cluster][crate::model::GenerateAzureClusterAgentTokenRequest::azure_cluster].
@@ -3440,6 +3483,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .generate_azure_access_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [azure_cluster][crate::model::GenerateAzureAccessTokenRequest::azure_cluster].
@@ -3490,6 +3534,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .create_azure_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_azure_node_pool`.
@@ -3595,6 +3640,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .update_azure_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_azure_node_pool`.
@@ -3692,6 +3738,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAzureNodePoolRequest::name].
@@ -3737,6 +3784,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .list_azure_node_pools(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3814,6 +3862,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .delete_azure_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_azure_node_pool`.
@@ -3913,6 +3962,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_open_id_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [azure_cluster][crate::model::GetAzureOpenIdConfigRequest::azure_cluster].
@@ -3958,6 +4008,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_json_web_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [azure_cluster][crate::model::GetAzureJsonWebKeysRequest::azure_cluster].
@@ -4003,6 +4054,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_azure_server_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAzureServerConfigRequest::name].
@@ -4048,6 +4100,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4126,6 +4179,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4171,6 +4225,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4216,6 +4271,7 @@ pub mod azure_clusters {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

@@ -93,6 +93,7 @@ pub mod folders {
             (*self.0.stub)
                 .get_folder(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFolderRequest::name].
@@ -135,6 +136,7 @@ pub mod folders {
             (*self.0.stub)
                 .list_folders(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -210,6 +212,7 @@ pub mod folders {
             (*self.0.stub)
                 .search_folders(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -284,6 +287,7 @@ pub mod folders {
             (*self.0.stub)
                 .create_folder(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_folder`.
@@ -367,6 +371,7 @@ pub mod folders {
             (*self.0.stub)
                 .update_folder(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_folder`.
@@ -459,6 +464,7 @@ pub mod folders {
             (*self.0.stub)
                 .move_folder(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `move_folder`.
@@ -544,6 +550,7 @@ pub mod folders {
             (*self.0.stub)
                 .delete_folder(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_folder`.
@@ -624,6 +631,7 @@ pub mod folders {
             (*self.0.stub)
                 .undelete_folder(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_folder`.
@@ -699,6 +707,7 @@ pub mod folders {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -750,6 +759,7 @@ pub mod folders {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -813,6 +823,7 @@ pub mod folders {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -869,6 +880,7 @@ pub mod folders {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -965,6 +977,7 @@ pub mod organizations {
             (*self.0.stub)
                 .get_organization(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrganizationRequest::name].
@@ -1010,6 +1023,7 @@ pub mod organizations {
             (*self.0.stub)
                 .search_organizations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1079,6 +1093,7 @@ pub mod organizations {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1130,6 +1145,7 @@ pub mod organizations {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1193,6 +1209,7 @@ pub mod organizations {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1249,6 +1266,7 @@ pub mod organizations {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1345,6 +1363,7 @@ pub mod projects {
             (*self.0.stub)
                 .get_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProjectRequest::name].
@@ -1387,6 +1406,7 @@ pub mod projects {
             (*self.0.stub)
                 .list_projects(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1462,6 +1482,7 @@ pub mod projects {
             (*self.0.stub)
                 .search_projects(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1536,6 +1557,7 @@ pub mod projects {
             (*self.0.stub)
                 .create_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_project`.
@@ -1619,6 +1641,7 @@ pub mod projects {
             (*self.0.stub)
                 .update_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_project`.
@@ -1711,6 +1734,7 @@ pub mod projects {
             (*self.0.stub)
                 .move_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `move_project`.
@@ -1797,6 +1821,7 @@ pub mod projects {
             (*self.0.stub)
                 .delete_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_project`.
@@ -1877,6 +1902,7 @@ pub mod projects {
             (*self.0.stub)
                 .undelete_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_project`.
@@ -1953,6 +1979,7 @@ pub mod projects {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2004,6 +2031,7 @@ pub mod projects {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2067,6 +2095,7 @@ pub mod projects {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2123,6 +2152,7 @@ pub mod projects {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2219,6 +2249,7 @@ pub mod tag_bindings {
             (*self.0.stub)
                 .list_tag_bindings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2296,6 +2327,7 @@ pub mod tag_bindings {
             (*self.0.stub)
                 .create_tag_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_tag_binding`.
@@ -2389,6 +2421,7 @@ pub mod tag_bindings {
             (*self.0.stub)
                 .delete_tag_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tag_binding`.
@@ -2466,6 +2499,7 @@ pub mod tag_bindings {
             (*self.0.stub)
                 .list_effective_tags(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2538,6 +2572,7 @@ pub mod tag_bindings {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2639,6 +2674,7 @@ pub mod tag_holds {
             (*self.0.stub)
                 .create_tag_hold(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_tag_hold`.
@@ -2734,6 +2770,7 @@ pub mod tag_holds {
             (*self.0.stub)
                 .delete_tag_hold(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tag_hold`.
@@ -2812,6 +2849,7 @@ pub mod tag_holds {
             (*self.0.stub)
                 .list_tag_holds(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2890,6 +2928,7 @@ pub mod tag_holds {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2986,6 +3025,7 @@ pub mod tag_keys {
             (*self.0.stub)
                 .list_tag_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3055,6 +3095,7 @@ pub mod tag_keys {
             (*self.0.stub)
                 .get_tag_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTagKeyRequest::name].
@@ -3100,6 +3141,7 @@ pub mod tag_keys {
             (*self.0.stub)
                 .get_namespaced_tag_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNamespacedTagKeyRequest::name].
@@ -3147,6 +3189,7 @@ pub mod tag_keys {
             (*self.0.stub)
                 .create_tag_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_tag_key`.
@@ -3236,6 +3279,7 @@ pub mod tag_keys {
             (*self.0.stub)
                 .update_tag_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_tag_key`.
@@ -3334,6 +3378,7 @@ pub mod tag_keys {
             (*self.0.stub)
                 .delete_tag_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tag_key`.
@@ -3421,6 +3466,7 @@ pub mod tag_keys {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -3472,6 +3518,7 @@ pub mod tag_keys {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -3535,6 +3582,7 @@ pub mod tag_keys {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3591,6 +3639,7 @@ pub mod tag_keys {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3687,6 +3736,7 @@ pub mod tag_values {
             (*self.0.stub)
                 .list_tag_values(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3756,6 +3806,7 @@ pub mod tag_values {
             (*self.0.stub)
                 .get_tag_value(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTagValueRequest::name].
@@ -3801,6 +3852,7 @@ pub mod tag_values {
             (*self.0.stub)
                 .get_namespaced_tag_value(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNamespacedTagValueRequest::name].
@@ -3848,6 +3900,7 @@ pub mod tag_values {
             (*self.0.stub)
                 .create_tag_value(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_tag_value`.
@@ -3938,6 +3991,7 @@ pub mod tag_values {
             (*self.0.stub)
                 .update_tag_value(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_tag_value`.
@@ -4037,6 +4091,7 @@ pub mod tag_values {
             (*self.0.stub)
                 .delete_tag_value(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tag_value`.
@@ -4125,6 +4180,7 @@ pub mod tag_values {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -4176,6 +4232,7 @@ pub mod tag_values {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -4239,6 +4296,7 @@ pub mod tag_values {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -4295,6 +4353,7 @@ pub mod tag_values {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

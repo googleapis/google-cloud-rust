@@ -21,31 +21,31 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Dashboard>;
+    ) -> crate::Result<gax::response::Response<crate::model::Dashboard>>;
 
     async fn list_dashboards(
         &self,
         req: crate::model::ListDashboardsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDashboardsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDashboardsResponse>>;
 
     async fn get_dashboard(
         &self,
         req: crate::model::GetDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Dashboard>;
+    ) -> crate::Result<gax::response::Response<crate::model::Dashboard>>;
 
     async fn delete_dashboard(
         &self,
         req: crate::model::DeleteDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn update_dashboard(
         &self,
         req: crate::model::UpdateDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Dashboard>;
+    ) -> crate::Result<gax::response::Response<crate::model::Dashboard>>;
 }
 
 /// All implementations of [super::DashboardsService] also implement [DashboardsService].
@@ -56,7 +56,7 @@ impl<T: super::DashboardsService> DashboardsService for T {
         &self,
         req: crate::model::CreateDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Dashboard> {
+    ) -> crate::Result<gax::response::Response<crate::model::Dashboard>> {
         T::create_dashboard(self, req, options).await
     }
 
@@ -65,7 +65,7 @@ impl<T: super::DashboardsService> DashboardsService for T {
         &self,
         req: crate::model::ListDashboardsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDashboardsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDashboardsResponse>> {
         T::list_dashboards(self, req, options).await
     }
 
@@ -74,7 +74,7 @@ impl<T: super::DashboardsService> DashboardsService for T {
         &self,
         req: crate::model::GetDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Dashboard> {
+    ) -> crate::Result<gax::response::Response<crate::model::Dashboard>> {
         T::get_dashboard(self, req, options).await
     }
 
@@ -83,7 +83,7 @@ impl<T: super::DashboardsService> DashboardsService for T {
         &self,
         req: crate::model::DeleteDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_dashboard(self, req, options).await
     }
 
@@ -92,7 +92,7 @@ impl<T: super::DashboardsService> DashboardsService for T {
         &self,
         req: crate::model::UpdateDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Dashboard> {
+    ) -> crate::Result<gax::response::Response<crate::model::Dashboard>> {
         T::update_dashboard(self, req, options).await
     }
 }

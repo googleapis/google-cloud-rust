@@ -93,6 +93,7 @@ pub mod firestore {
             (*self.0.stub)
                 .get_document(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDocumentRequest::name].
@@ -155,6 +156,7 @@ pub mod firestore {
             (*self.0.stub)
                 .list_documents(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -262,6 +264,7 @@ pub mod firestore {
             (*self.0.stub)
                 .update_document(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::UpdateDocumentRequest::document].
@@ -334,6 +337,7 @@ pub mod firestore {
             (*self.0.stub)
                 .delete_document(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDocumentRequest::name].
@@ -388,6 +392,7 @@ pub mod firestore {
             (*self.0.stub)
                 .begin_transaction(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::BeginTransactionRequest::database].
@@ -436,7 +441,10 @@ pub mod firestore {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CommitResponse> {
-            (*self.0.stub).commit(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .commit(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::CommitRequest::database].
@@ -496,6 +504,7 @@ pub mod firestore {
             (*self.0.stub)
                 .rollback(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::RollbackRequest::database].
@@ -544,6 +553,7 @@ pub mod firestore {
             (*self.0.stub)
                 .partition_query(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -642,6 +652,7 @@ pub mod firestore {
             (*self.0.stub)
                 .list_collection_ids(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListCollectionIdsRequest::parent].
@@ -707,6 +718,7 @@ pub mod firestore {
             (*self.0.stub)
                 .batch_write(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::BatchWriteRequest::database].
@@ -771,6 +783,7 @@ pub mod firestore {
             (*self.0.stub)
                 .create_document(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDocumentRequest::parent].

@@ -46,11 +46,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListClustersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListClustersResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListClustersResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AlloyDBAdmin::get_cluster].
@@ -58,10 +59,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Cluster>> + Send {
-        std::future::ready::<crate::Result<crate::model::Cluster>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Cluster>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Cluster>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AlloyDBAdmin::create_cluster].
@@ -69,11 +72,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::update_cluster].
@@ -81,11 +85,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::delete_cluster].
@@ -93,11 +98,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::promote_cluster].
@@ -105,11 +111,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PromoteClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::switchover_cluster].
@@ -117,11 +124,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SwitchoverClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::restore_cluster].
@@ -129,11 +137,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RestoreClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::create_secondary_cluster].
@@ -141,11 +150,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSecondaryClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::list_instances].
@@ -153,11 +163,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListInstancesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListInstancesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListInstancesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AlloyDBAdmin::get_instance].
@@ -165,10 +176,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Instance>> + Send {
-        std::future::ready::<crate::Result<crate::model::Instance>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Instance>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AlloyDBAdmin::create_instance].
@@ -176,11 +189,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::create_secondary_instance].
@@ -188,11 +202,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSecondaryInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::batch_create_instances].
@@ -200,11 +215,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BatchCreateInstancesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::update_instance].
@@ -212,11 +228,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::delete_instance].
@@ -224,11 +241,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::failover_instance].
@@ -236,11 +254,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FailoverInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::inject_fault].
@@ -248,11 +267,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::InjectFaultRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::restart_instance].
@@ -260,11 +280,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RestartInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::execute_sql].
@@ -272,11 +293,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ExecuteSqlRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ExecuteSqlResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ExecuteSqlResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ExecuteSqlResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ExecuteSqlResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::list_backups].
@@ -284,11 +306,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBackupsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListBackupsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListBackupsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AlloyDBAdmin::get_backup].
@@ -296,10 +319,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Backup>> + Send {
-        std::future::ready::<crate::Result<crate::model::Backup>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Backup>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AlloyDBAdmin::create_backup].
@@ -307,11 +332,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::update_backup].
@@ -319,11 +345,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::delete_backup].
@@ -331,11 +358,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::list_supported_database_flags].
@@ -344,11 +372,15 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListSupportedDatabaseFlagsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListSupportedDatabaseFlagsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListSupportedDatabaseFlagsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListSupportedDatabaseFlagsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::ListSupportedDatabaseFlagsResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AlloyDBAdmin::generate_client_certificate].
@@ -357,11 +389,13 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         _req: crate::model::GenerateClientCertificateRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GenerateClientCertificateResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateClientCertificateResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::GenerateClientCertificateResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateClientCertificateResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AlloyDBAdmin::get_connection_info].
@@ -369,10 +403,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetConnectionInfoRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ConnectionInfo>> + Send {
-        std::future::ready::<crate::Result<crate::model::ConnectionInfo>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ConnectionInfo>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ConnectionInfo>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::list_users].
@@ -380,11 +416,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListUsersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListUsersResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListUsersResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListUsersResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListUsersResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::get_user].
@@ -392,8 +429,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetUserRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::User>> + Send {
-        std::future::ready::<crate::Result<crate::model::User>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::User>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::User>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AlloyDBAdmin::create_user].
@@ -401,8 +442,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateUserRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::User>> + Send {
-        std::future::ready::<crate::Result<crate::model::User>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::User>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::User>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AlloyDBAdmin::update_user].
@@ -410,8 +455,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateUserRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::User>> + Send {
-        std::future::ready::<crate::Result<crate::model::User>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::User>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::User>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AlloyDBAdmin::delete_user].
@@ -419,8 +468,10 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteUserRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::AlloyDBAdmin::list_databases].
@@ -428,11 +479,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDatabasesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDatabasesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListDatabasesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDatabasesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AlloyDBAdmin::list_locations].
@@ -440,11 +492,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AlloyDBAdmin::get_location].
@@ -452,10 +505,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::list_operations].
@@ -463,11 +518,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AlloyDBAdmin::get_operation].
@@ -475,11 +531,12 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AlloyDBAdmin::delete_operation].
@@ -487,8 +544,10 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::AlloyDBAdmin::cancel_operation].
@@ -496,8 +555,10 @@ pub trait AlloyDBAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

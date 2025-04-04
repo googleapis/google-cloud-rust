@@ -90,7 +90,7 @@ pub mod sql_backup_runs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).delete(self.0.request, self.0.options).await
+            (*self.0.stub).delete(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [id][crate::model::SqlBackupRunsDeleteRequest::id].
@@ -144,7 +144,7 @@ pub mod sql_backup_runs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupRun> {
-            (*self.0.stub).get(self.0.request, self.0.options).await
+            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [id][crate::model::SqlBackupRunsGetRequest::id].
@@ -198,7 +198,7 @@ pub mod sql_backup_runs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).insert(self.0.request, self.0.options).await
+            (*self.0.stub).insert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlBackupRunsInsertRequest::instance].
@@ -252,7 +252,7 @@ pub mod sql_backup_runs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupRunsListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await
+            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlBackupRunsListRequest::instance].
@@ -365,7 +365,7 @@ pub mod sql_connect_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ConnectSettings> {
-            (*self.0.stub).get_connect_settings(self.0.request, self.0.options).await
+            (*self.0.stub).get_connect_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::GetConnectSettingsRequest::instance].
@@ -419,7 +419,7 @@ pub mod sql_connect_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateEphemeralCertResponse> {
-            (*self.0.stub).generate_ephemeral_cert(self.0.request, self.0.options).await
+            (*self.0.stub).generate_ephemeral_cert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::GenerateEphemeralCertRequest::instance].
@@ -544,7 +544,7 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).delete(self.0.request, self.0.options).await
+            (*self.0.stub).delete(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesDeleteRequest::database].
@@ -598,7 +598,7 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Database> {
-            (*self.0.stub).get(self.0.request, self.0.options).await
+            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesGetRequest::database].
@@ -652,7 +652,7 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).insert(self.0.request, self.0.options).await
+            (*self.0.stub).insert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlDatabasesInsertRequest::instance].
@@ -706,7 +706,7 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DatabasesListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await
+            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlDatabasesListRequest::instance].
@@ -754,7 +754,7 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).patch(self.0.request, self.0.options).await
+            (*self.0.stub).patch(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
@@ -814,7 +814,7 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).update(self.0.request, self.0.options).await
+            (*self.0.stub).update(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
@@ -927,7 +927,7 @@ pub mod sql_flags_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FlagsListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await
+            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database_version][crate::model::SqlFlagsListRequest::database_version].
@@ -1022,7 +1022,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).add_server_ca(self.0.request, self.0.options).await
+            (*self.0.stub).add_server_ca(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesAddServerCaRequest::instance].
@@ -1070,7 +1070,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).clone(self.0.request, self.0.options).await
+            (*self.0.stub).clone(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesCloneRequest::instance].
@@ -1124,7 +1124,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).delete(self.0.request, self.0.options).await
+            (*self.0.stub).delete(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesDeleteRequest::instance].
@@ -1172,7 +1172,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).demote_master(self.0.request, self.0.options).await
+            (*self.0.stub).demote_master(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesDemoteMasterRequest::instance].
@@ -1226,7 +1226,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).demote(self.0.request, self.0.options).await
+            (*self.0.stub).demote(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesDemoteRequest::instance].
@@ -1280,7 +1280,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).export(self.0.request, self.0.options).await
+            (*self.0.stub).export(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesExportRequest::instance].
@@ -1334,7 +1334,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).failover(self.0.request, self.0.options).await
+            (*self.0.stub).failover(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesFailoverRequest::instance].
@@ -1388,7 +1388,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).reencrypt(self.0.request, self.0.options).await
+            (*self.0.stub).reencrypt(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesReencryptRequest::instance].
@@ -1442,7 +1442,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DatabaseInstance> {
-            (*self.0.stub).get(self.0.request, self.0.options).await
+            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesGetRequest::instance].
@@ -1490,7 +1490,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).import(self.0.request, self.0.options).await
+            (*self.0.stub).import(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesImportRequest::instance].
@@ -1544,7 +1544,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).insert(self.0.request, self.0.options).await
+            (*self.0.stub).insert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::SqlInstancesInsertRequest::project].
@@ -1592,7 +1592,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InstancesListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await
+            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [filter][crate::model::SqlInstancesListRequest::filter].
@@ -1652,7 +1652,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InstancesListServerCasResponse> {
-            (*self.0.stub).list_server_cas(self.0.request, self.0.options).await
+            (*self.0.stub).list_server_cas(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesListServerCasRequest::instance].
@@ -1700,7 +1700,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).patch(self.0.request, self.0.options).await
+            (*self.0.stub).patch(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesPatchRequest::instance].
@@ -1754,7 +1754,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).promote_replica(self.0.request, self.0.options).await
+            (*self.0.stub).promote_replica(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesPromoteReplicaRequest::instance].
@@ -1808,7 +1808,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).switchover(self.0.request, self.0.options).await
+            (*self.0.stub).switchover(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesSwitchoverRequest::instance].
@@ -1862,7 +1862,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).reset_ssl_config(self.0.request, self.0.options).await
+            (*self.0.stub).reset_ssl_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesResetSslConfigRequest::instance].
@@ -1910,7 +1910,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).restart(self.0.request, self.0.options).await
+            (*self.0.stub).restart(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRestartRequest::instance].
@@ -1958,7 +1958,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).restore_backup(self.0.request, self.0.options).await
+            (*self.0.stub).restore_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRestoreBackupRequest::instance].
@@ -2012,7 +2012,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).rotate_server_ca(self.0.request, self.0.options).await
+            (*self.0.stub).rotate_server_ca(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRotateServerCaRequest::instance].
@@ -2066,7 +2066,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).start_replica(self.0.request, self.0.options).await
+            (*self.0.stub).start_replica(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesStartReplicaRequest::instance].
@@ -2114,7 +2114,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).stop_replica(self.0.request, self.0.options).await
+            (*self.0.stub).stop_replica(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesStopReplicaRequest::instance].
@@ -2162,7 +2162,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).truncate_log(self.0.request, self.0.options).await
+            (*self.0.stub).truncate_log(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesTruncateLogRequest::instance].
@@ -2216,7 +2216,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).update(self.0.request, self.0.options).await
+            (*self.0.stub).update(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesUpdateRequest::instance].
@@ -2270,7 +2270,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SslCert> {
-            (*self.0.stub).create_ephemeral(self.0.request, self.0.options).await
+            (*self.0.stub).create_ephemeral(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesCreateEphemeralCertRequest::instance].
@@ -2324,7 +2324,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).reschedule_maintenance(self.0.request, self.0.options).await
+            (*self.0.stub).reschedule_maintenance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRescheduleMaintenanceRequest::instance].
@@ -2378,7 +2378,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse> {
-            (*self.0.stub).verify_external_sync_settings(self.0.request, self.0.options).await
+            (*self.0.stub).verify_external_sync_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::instance].
@@ -2462,7 +2462,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).start_external_sync(self.0.request, self.0.options).await
+            (*self.0.stub).start_external_sync(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesStartExternalSyncRequest::instance].
@@ -2540,7 +2540,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).perform_disk_shrink(self.0.request, self.0.options).await
+            (*self.0.stub).perform_disk_shrink(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesPerformDiskShrinkRequest::instance].
@@ -2594,7 +2594,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SqlInstancesGetDiskShrinkConfigResponse> {
-            (*self.0.stub).get_disk_shrink_config(self.0.request, self.0.options).await
+            (*self.0.stub).get_disk_shrink_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesGetDiskShrinkConfigRequest::instance].
@@ -2642,7 +2642,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).reset_replica_size(self.0.request, self.0.options).await
+            (*self.0.stub).reset_replica_size(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesResetReplicaSizeRequest::instance].
@@ -2690,7 +2690,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SqlInstancesGetLatestRecoveryTimeResponse> {
-            (*self.0.stub).get_latest_recovery_time(self.0.request, self.0.options).await
+            (*self.0.stub).get_latest_recovery_time(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::instance].
@@ -2738,7 +2738,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SqlInstancesAcquireSsrsLeaseResponse> {
-            (*self.0.stub).acquire_ssrs_lease(self.0.request, self.0.options).await
+            (*self.0.stub).acquire_ssrs_lease(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesAcquireSsrsLeaseRequest::instance].
@@ -2792,7 +2792,7 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SqlInstancesReleaseSsrsLeaseResponse> {
-            (*self.0.stub).release_ssrs_lease(self.0.request, self.0.options).await
+            (*self.0.stub).release_ssrs_lease(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesReleaseSsrsLeaseRequest::instance].
@@ -2893,7 +2893,7 @@ pub mod sql_operations_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).get(self.0.request, self.0.options).await
+            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [operation][crate::model::SqlOperationsGetRequest::operation].
@@ -2941,7 +2941,7 @@ pub mod sql_operations_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OperationsListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await
+            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlOperationsListRequest::instance].
@@ -3001,7 +3001,7 @@ pub mod sql_operations_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel(self.0.request, self.0.options).await
+            (*self.0.stub).cancel(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [operation][crate::model::SqlOperationsCancelRequest::operation].
@@ -3102,7 +3102,7 @@ pub mod sql_ssl_certs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).delete(self.0.request, self.0.options).await
+            (*self.0.stub).delete(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsDeleteRequest::instance].
@@ -3156,7 +3156,7 @@ pub mod sql_ssl_certs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SslCert> {
-            (*self.0.stub).get(self.0.request, self.0.options).await
+            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsGetRequest::instance].
@@ -3210,7 +3210,7 @@ pub mod sql_ssl_certs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SslCertsInsertResponse> {
-            (*self.0.stub).insert(self.0.request, self.0.options).await
+            (*self.0.stub).insert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsInsertRequest::instance].
@@ -3264,7 +3264,7 @@ pub mod sql_ssl_certs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SslCertsListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await
+            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsListRequest::instance].
@@ -3365,7 +3365,7 @@ pub mod sql_tiers_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TiersListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await
+            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::SqlTiersListRequest::project].
@@ -3460,7 +3460,7 @@ pub mod sql_users_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).delete(self.0.request, self.0.options).await
+            (*self.0.stub).delete(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [host][crate::model::SqlUsersDeleteRequest::host].
@@ -3520,7 +3520,7 @@ pub mod sql_users_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::User> {
-            (*self.0.stub).get(self.0.request, self.0.options).await
+            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlUsersGetRequest::instance].
@@ -3580,7 +3580,7 @@ pub mod sql_users_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).insert(self.0.request, self.0.options).await
+            (*self.0.stub).insert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlUsersInsertRequest::instance].
@@ -3634,7 +3634,7 @@ pub mod sql_users_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UsersListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await
+            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlUsersListRequest::instance].
@@ -3682,7 +3682,7 @@ pub mod sql_users_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).update(self.0.request, self.0.options).await
+            (*self.0.stub).update(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [host][crate::model::SqlUsersUpdateRequest::host].

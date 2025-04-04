@@ -23,163 +23,163 @@ pub trait DataprocMetastore: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>>;
 
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service>;
+    ) -> crate::Result<gax::response::Response<crate::model::Service>>;
 
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_service(
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_service(
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_metadata_imports(
         &self,
         req: crate::model::ListMetadataImportsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMetadataImportsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListMetadataImportsResponse>>;
 
     async fn get_metadata_import(
         &self,
         req: crate::model::GetMetadataImportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MetadataImport>;
+    ) -> crate::Result<gax::response::Response<crate::model::MetadataImport>>;
 
     async fn create_metadata_import(
         &self,
         req: crate::model::CreateMetadataImportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_metadata_import(
         &self,
         req: crate::model::UpdateMetadataImportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn export_metadata(
         &self,
         req: crate::model::ExportMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn restore_service(
         &self,
         req: crate::model::RestoreServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBackupsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>;
 
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Backup>;
+    ) -> crate::Result<gax::response::Response<crate::model::Backup>>;
 
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn query_metadata(
         &self,
         req: crate::model::QueryMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn move_table_to_database(
         &self,
         req: crate::model::MoveTableToDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn alter_metadata_resource_location(
         &self,
         req: crate::model::AlterMetadataResourceLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -200,7 +200,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>> {
         T::list_services(self, req, options).await
     }
 
@@ -209,7 +209,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service> {
+    ) -> crate::Result<gax::response::Response<crate::model::Service>> {
         T::get_service(self, req, options).await
     }
 
@@ -218,7 +218,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_service(self, req, options).await
     }
 
@@ -227,7 +227,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_service(self, req, options).await
     }
 
@@ -236,7 +236,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_service(self, req, options).await
     }
 
@@ -245,7 +245,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::ListMetadataImportsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMetadataImportsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListMetadataImportsResponse>> {
         T::list_metadata_imports(self, req, options).await
     }
 
@@ -254,7 +254,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::GetMetadataImportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MetadataImport> {
+    ) -> crate::Result<gax::response::Response<crate::model::MetadataImport>> {
         T::get_metadata_import(self, req, options).await
     }
 
@@ -263,7 +263,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::CreateMetadataImportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_metadata_import(self, req, options).await
     }
 
@@ -272,7 +272,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::UpdateMetadataImportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_metadata_import(self, req, options).await
     }
 
@@ -281,7 +281,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::ExportMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::export_metadata(self, req, options).await
     }
 
@@ -290,7 +290,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::RestoreServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::restore_service(self, req, options).await
     }
 
@@ -299,7 +299,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::ListBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBackupsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>> {
         T::list_backups(self, req, options).await
     }
 
@@ -308,7 +308,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::GetBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Backup> {
+    ) -> crate::Result<gax::response::Response<crate::model::Backup>> {
         T::get_backup(self, req, options).await
     }
 
@@ -317,7 +317,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::CreateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_backup(self, req, options).await
     }
 
@@ -326,7 +326,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_backup(self, req, options).await
     }
 
@@ -335,7 +335,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::QueryMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::query_metadata(self, req, options).await
     }
 
@@ -344,7 +344,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::MoveTableToDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::move_table_to_database(self, req, options).await
     }
 
@@ -353,7 +353,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: crate::model::AlterMetadataResourceLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::alter_metadata_resource_location(self, req, options).await
     }
 
@@ -362,7 +362,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -371,7 +371,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -380,7 +380,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -389,7 +389,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -398,7 +398,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -407,7 +407,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -416,7 +416,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -425,7 +425,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -434,7 +434,7 @@ impl<T: super::DataprocMetastore> DataprocMetastore for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -460,85 +460,85 @@ pub trait DataprocMetastoreFederation: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListFederationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListFederationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListFederationsResponse>>;
 
     async fn get_federation(
         &self,
         req: crate::model::GetFederationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Federation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Federation>>;
 
     async fn create_federation(
         &self,
         req: crate::model::CreateFederationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_federation(
         &self,
         req: crate::model::UpdateFederationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_federation(
         &self,
         req: crate::model::DeleteFederationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -559,7 +559,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: crate::model::ListFederationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListFederationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListFederationsResponse>> {
         T::list_federations(self, req, options).await
     }
 
@@ -568,7 +568,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: crate::model::GetFederationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Federation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Federation>> {
         T::get_federation(self, req, options).await
     }
 
@@ -577,7 +577,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: crate::model::CreateFederationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_federation(self, req, options).await
     }
 
@@ -586,7 +586,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: crate::model::UpdateFederationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_federation(self, req, options).await
     }
 
@@ -595,7 +595,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: crate::model::DeleteFederationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_federation(self, req, options).await
     }
 
@@ -604,7 +604,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -613,7 +613,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -622,7 +622,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -631,7 +631,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -640,7 +640,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -649,7 +649,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -658,7 +658,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -667,7 +667,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -676,7 +676,7 @@ impl<T: super::DataprocMetastoreFederation> DataprocMetastoreFederation for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

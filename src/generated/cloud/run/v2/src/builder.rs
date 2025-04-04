@@ -93,6 +93,7 @@ pub mod builds {
             (*self.0.stub)
                 .submit_build(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::SubmitBuildRequest::parent].
@@ -185,6 +186,7 @@ pub mod builds {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -263,6 +265,7 @@ pub mod builds {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -308,6 +311,7 @@ pub mod builds {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -353,6 +357,7 @@ pub mod builds {
             (*self.0.stub)
                 .wait_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
@@ -455,6 +460,7 @@ pub mod executions {
             (*self.0.stub)
                 .get_execution(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExecutionRequest::name].
@@ -497,6 +503,7 @@ pub mod executions {
             (*self.0.stub)
                 .list_executions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -577,6 +584,7 @@ pub mod executions {
             (*self.0.stub)
                 .delete_execution(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_execution`.
@@ -666,6 +674,7 @@ pub mod executions {
             (*self.0.stub)
                 .cancel_execution(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `cancel_execution`.
@@ -753,6 +762,7 @@ pub mod executions {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -831,6 +841,7 @@ pub mod executions {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -876,6 +887,7 @@ pub mod executions {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -921,6 +933,7 @@ pub mod executions {
             (*self.0.stub)
                 .wait_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
@@ -1028,6 +1041,7 @@ pub mod jobs {
             (*self.0.stub)
                 .create_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_job`.
@@ -1115,7 +1129,10 @@ pub mod jobs {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Job> {
-            (*self.0.stub).get_job(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobRequest::name].
@@ -1158,6 +1175,7 @@ pub mod jobs {
             (*self.0.stub)
                 .list_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1237,6 +1255,7 @@ pub mod jobs {
             (*self.0.stub)
                 .update_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_job`.
@@ -1326,6 +1345,7 @@ pub mod jobs {
             (*self.0.stub)
                 .delete_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_job`.
@@ -1412,7 +1432,10 @@ pub mod jobs {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [run_job][super::super::client::Jobs::run_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            (*self.0.stub).run_job(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .run_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_job`.
@@ -1508,6 +1531,7 @@ pub mod jobs {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1559,6 +1583,7 @@ pub mod jobs {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1622,6 +1647,7 @@ pub mod jobs {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1678,6 +1704,7 @@ pub mod jobs {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1756,6 +1783,7 @@ pub mod jobs {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1801,6 +1829,7 @@ pub mod jobs {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1846,6 +1875,7 @@ pub mod jobs {
             (*self.0.stub)
                 .wait_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
@@ -1948,6 +1978,7 @@ pub mod revisions {
             (*self.0.stub)
                 .get_revision(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRevisionRequest::name].
@@ -1990,6 +2021,7 @@ pub mod revisions {
             (*self.0.stub)
                 .list_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2070,6 +2102,7 @@ pub mod revisions {
             (*self.0.stub)
                 .delete_revision(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_revision`.
@@ -2157,6 +2190,7 @@ pub mod revisions {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2235,6 +2269,7 @@ pub mod revisions {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2280,6 +2315,7 @@ pub mod revisions {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2325,6 +2361,7 @@ pub mod revisions {
             (*self.0.stub)
                 .wait_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
@@ -2432,6 +2469,7 @@ pub mod services {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_service`.
@@ -2525,6 +2563,7 @@ pub mod services {
             (*self.0.stub)
                 .get_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
@@ -2567,6 +2606,7 @@ pub mod services {
             (*self.0.stub)
                 .list_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2647,6 +2687,7 @@ pub mod services {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_service`.
@@ -2748,6 +2789,7 @@ pub mod services {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
@@ -2832,6 +2874,7 @@ pub mod services {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2883,6 +2926,7 @@ pub mod services {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2946,6 +2990,7 @@ pub mod services {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3002,6 +3047,7 @@ pub mod services {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3080,6 +3126,7 @@ pub mod services {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3125,6 +3172,7 @@ pub mod services {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3170,6 +3218,7 @@ pub mod services {
             (*self.0.stub)
                 .wait_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
@@ -3272,6 +3321,7 @@ pub mod tasks {
             (*self.0.stub)
                 .get_task(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTaskRequest::name].
@@ -3314,6 +3364,7 @@ pub mod tasks {
             (*self.0.stub)
                 .list_tasks(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3391,6 +3442,7 @@ pub mod tasks {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3469,6 +3521,7 @@ pub mod tasks {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3514,6 +3567,7 @@ pub mod tasks {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3559,6 +3613,7 @@ pub mod tasks {
             (*self.0.stub)
                 .wait_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].

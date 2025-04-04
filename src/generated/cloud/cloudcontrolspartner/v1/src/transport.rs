@@ -44,7 +44,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         &self,
         req: crate::model::GetWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Workload> {
+    ) -> Result<gax::response::Response<crate::model::Workload>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -54,16 +54,18 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Workload = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_workloads(
         &self,
         req: crate::model::ListWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkloadsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,16 +82,18 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        self.inner
+        let response: crate::model::ListWorkloadsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_customer(
         &self,
         req: crate::model::GetCustomerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Customer> {
+    ) -> Result<gax::response::Response<crate::model::Customer>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -99,16 +103,18 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Customer = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_customers(
         &self,
         req: crate::model::ListCustomersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCustomersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCustomersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -125,16 +131,18 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        self.inner
+        let response: crate::model::ListCustomersResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_ekm_connections(
         &self,
         req: crate::model::GetEkmConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EkmConnections> {
+    ) -> Result<gax::response::Response<crate::model::EkmConnections>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -144,16 +152,18 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::EkmConnections = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_partner_permissions(
         &self,
         req: crate::model::GetPartnerPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PartnerPermissions> {
+    ) -> Result<gax::response::Response<crate::model::PartnerPermissions>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -163,16 +173,18 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::PartnerPermissions = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_access_approval_requests(
         &self,
         req: crate::model::ListAccessApprovalRequestsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAccessApprovalRequestsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -189,16 +201,18 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
-        self.inner
+        let response: crate::model::ListAccessApprovalRequestsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_partner(
         &self,
         req: crate::model::GetPartnerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Partner> {
+    ) -> Result<gax::response::Response<crate::model::Partner>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -208,9 +222,11 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Partner = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }
 
@@ -240,7 +256,7 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
         &self,
         req: crate::model::ListViolationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListViolationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListViolationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -267,16 +283,18 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "interval")
             });
-        self.inner
+        let response: crate::model::ListViolationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_violation(
         &self,
         req: crate::model::GetViolationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Violation> {
+    ) -> Result<gax::response::Response<crate::model::Violation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -286,8 +304,10 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Violation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

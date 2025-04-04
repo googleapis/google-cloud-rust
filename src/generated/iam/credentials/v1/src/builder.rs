@@ -96,6 +96,7 @@ pub mod iam_credentials {
             (*self.0.stub)
                 .generate_access_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateAccessTokenRequest::name].
@@ -166,6 +167,7 @@ pub mod iam_credentials {
             (*self.0.stub)
                 .generate_id_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateIdTokenRequest::name].
@@ -231,6 +233,7 @@ pub mod iam_credentials {
             (*self.0.stub)
                 .sign_blob(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SignBlobRequest::name].
@@ -290,6 +293,7 @@ pub mod iam_credentials {
             (*self.0.stub)
                 .sign_jwt(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SignJwtRequest::name].

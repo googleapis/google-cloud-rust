@@ -44,7 +44,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         &self,
         req: crate::model::BatchAnnotateImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchAnnotateImagesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchAnnotateImagesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -54,14 +54,16 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::BatchAnnotateImagesResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn batch_annotate_files(
         &self,
         req: crate::model::BatchAnnotateFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchAnnotateFilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchAnnotateFilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -71,14 +73,16 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::BatchAnnotateFilesResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn async_batch_annotate_images(
         &self,
         req: crate::model::AsyncBatchAnnotateImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -91,14 +95,16 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn async_batch_annotate_files(
         &self,
         req: crate::model::AsyncBatchAnnotateFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -111,14 +117,16 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -128,9 +136,11 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     fn get_polling_error_policy(
@@ -174,7 +184,7 @@ impl super::stub::ProductSearch for ProductSearch {
         &self,
         req: crate::model::CreateProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProductSet> {
+    ) -> Result<gax::response::Response<crate::model::ProductSet>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -188,16 +198,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("productSetId", &req.product_set_id)]);
-        self.inner
+        let response: crate::model::ProductSet = self
+            .inner
             .execute(builder, Some(req.product_set), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_product_sets(
         &self,
         req: crate::model::ListProductSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProductSetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProductSetsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -212,16 +224,18 @@ impl super::stub::ProductSearch for ProductSearch {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListProductSetsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_product_set(
         &self,
         req: crate::model::GetProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProductSet> {
+    ) -> Result<gax::response::Response<crate::model::ProductSet>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -231,16 +245,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ProductSet = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_product_set(
         &self,
         req: crate::model::UpdateProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProductSet> {
+    ) -> Result<gax::response::Response<crate::model::ProductSet>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -269,16 +285,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::ProductSet = self
+            .inner
             .execute(builder, Some(req.product_set), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_product_set(
         &self,
         req: crate::model::DeleteProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -288,17 +306,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn create_product(
         &self,
         req: crate::model::CreateProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Product> {
+    ) -> Result<gax::response::Response<crate::model::Product>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -312,16 +331,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("productId", &req.product_id)]);
-        self.inner
+        let response: crate::model::Product = self
+            .inner
             .execute(builder, Some(req.product), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_products(
         &self,
         req: crate::model::ListProductsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProductsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProductsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -333,16 +354,18 @@ impl super::stub::ProductSearch for ProductSearch {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListProductsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_product(
         &self,
         req: crate::model::GetProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Product> {
+    ) -> Result<gax::response::Response<crate::model::Product>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -352,16 +375,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Product = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_product(
         &self,
         req: crate::model::UpdateProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Product> {
+    ) -> Result<gax::response::Response<crate::model::Product>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -390,16 +415,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::Product = self
+            .inner
             .execute(builder, Some(req.product), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_product(
         &self,
         req: crate::model::DeleteProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -409,17 +436,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn create_reference_image(
         &self,
         req: crate::model::CreateReferenceImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReferenceImage> {
+    ) -> Result<gax::response::Response<crate::model::ReferenceImage>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -433,16 +461,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("referenceImageId", &req.reference_image_id)]);
-        self.inner
+        let response: crate::model::ReferenceImage = self
+            .inner
             .execute(builder, Some(req.reference_image), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_reference_image(
         &self,
         req: crate::model::DeleteReferenceImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -452,17 +482,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_reference_images(
         &self,
         req: crate::model::ListReferenceImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListReferenceImagesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListReferenceImagesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -477,16 +508,18 @@ impl super::stub::ProductSearch for ProductSearch {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListReferenceImagesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_reference_image(
         &self,
         req: crate::model::GetReferenceImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReferenceImage> {
+    ) -> Result<gax::response::Response<crate::model::ReferenceImage>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -496,16 +529,18 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ReferenceImage = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn add_product_to_product_set(
         &self,
         req: crate::model::AddProductToProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -518,17 +553,15 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn remove_product_from_product_set(
         &self,
         req: crate::model::RemoveProductFromProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -541,17 +574,15 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_products_in_product_set(
         &self,
         req: crate::model::ListProductsInProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProductsInProductSetResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProductsInProductSetResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -563,16 +594,18 @@ impl super::stub::ProductSearch for ProductSearch {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListProductsInProductSetResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn import_product_sets(
         &self,
         req: crate::model::ImportProductSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -585,14 +618,16 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn purge_products(
         &self,
         req: crate::model::PurgeProductsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -605,14 +640,16 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -622,9 +659,11 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     fn get_polling_error_policy(

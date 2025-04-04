@@ -101,6 +101,7 @@ pub mod policy_bindings {
             (*self.0.stub)
                 .create_policy_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_policy_binding`.
@@ -201,6 +202,7 @@ pub mod policy_bindings {
             (*self.0.stub)
                 .get_policy_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyBindingRequest::name].
@@ -251,6 +253,7 @@ pub mod policy_bindings {
             (*self.0.stub)
                 .update_policy_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_policy_binding`.
@@ -353,6 +356,7 @@ pub mod policy_bindings {
             (*self.0.stub)
                 .delete_policy_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_policy_binding`.
@@ -440,6 +444,7 @@ pub mod policy_bindings {
             (*self.0.stub)
                 .list_policy_bindings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -520,6 +525,7 @@ pub mod policy_bindings {
             (*self.0.stub)
                 .search_target_policy_bindings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -600,6 +606,7 @@ pub mod policy_bindings {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -710,6 +717,7 @@ pub mod principal_access_boundary_policies {
             (*self.0.stub)
                 .create_principal_access_boundary_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_principal_access_boundary_policy`.
@@ -821,6 +829,7 @@ pub mod principal_access_boundary_policies {
             (*self.0.stub)
                 .get_principal_access_boundary_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPrincipalAccessBoundaryPolicyRequest::name].
@@ -875,6 +884,7 @@ pub mod principal_access_boundary_policies {
             (*self.0.stub)
                 .update_principal_access_boundary_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_principal_access_boundary_policy`.
@@ -985,6 +995,7 @@ pub mod principal_access_boundary_policies {
             (*self.0.stub)
                 .delete_principal_access_boundary_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_principal_access_boundary_policy`.
@@ -1084,6 +1095,7 @@ pub mod principal_access_boundary_policies {
             (*self.0.stub)
                 .list_principal_access_boundary_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1166,6 +1178,7 @@ pub mod principal_access_boundary_policies {
             (*self.0.stub)
                 .search_principal_access_boundary_policy_bindings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1242,6 +1255,7 @@ pub mod principal_access_boundary_policies {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

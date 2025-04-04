@@ -44,7 +44,7 @@ impl super::stub::OsLoginService for OsLoginService {
         &self,
         req: crate::model::CreateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<oslogin_common::model::SshPublicKey> {
+    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,16 +57,18 @@ impl super::stub::OsLoginService for OsLoginService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: oslogin_common::model::SshPublicKey = self
+            .inner
             .execute(builder, Some(req.ssh_public_key), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_posix_account(
         &self,
         req: crate::model::DeletePosixAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -76,17 +78,18 @@ impl super::stub::OsLoginService for OsLoginService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn delete_ssh_public_key(
         &self,
         req: crate::model::DeleteSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -96,17 +99,18 @@ impl super::stub::OsLoginService for OsLoginService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn get_login_profile(
         &self,
         req: crate::model::GetLoginProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LoginProfile> {
+    ) -> Result<gax::response::Response<crate::model::LoginProfile>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -121,16 +125,18 @@ impl super::stub::OsLoginService for OsLoginService {
             );
         let builder = builder.query(&[("projectId", &req.project_id)]);
         let builder = builder.query(&[("systemId", &req.system_id)]);
-        self.inner
+        let response: crate::model::LoginProfile = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_ssh_public_key(
         &self,
         req: crate::model::GetSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<oslogin_common::model::SshPublicKey> {
+    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -140,16 +146,18 @@ impl super::stub::OsLoginService for OsLoginService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: oslogin_common::model::SshPublicKey = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn import_ssh_public_key(
         &self,
         req: crate::model::ImportSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ImportSshPublicKeyResponse> {
+    ) -> Result<gax::response::Response<crate::model::ImportSshPublicKeyResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -167,16 +175,18 @@ impl super::stub::OsLoginService for OsLoginService {
             .regions
             .iter()
             .fold(builder, |builder, p| builder.query(&[("regions", p)]));
-        self.inner
+        let response: crate::model::ImportSshPublicKeyResponse = self
+            .inner
             .execute(builder, Some(req.ssh_public_key), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_ssh_public_key(
         &self,
         req: crate::model::UpdateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<oslogin_common::model::SshPublicKey> {
+    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -196,8 +206,10 @@ impl super::stub::OsLoginService for OsLoginService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: oslogin_common::model::SshPublicKey = self
+            .inner
             .execute(builder, Some(req.ssh_public_key), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

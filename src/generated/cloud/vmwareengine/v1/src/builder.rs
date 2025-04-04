@@ -96,6 +96,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_private_clouds(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -177,6 +178,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_private_cloud(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPrivateCloudRequest::name].
@@ -227,6 +229,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_private_cloud(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_private_cloud`.
@@ -337,6 +340,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_private_cloud(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_private_cloud`.
@@ -438,6 +442,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_private_cloud(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_cloud`.
@@ -539,6 +544,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .undelete_private_cloud(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_private_cloud`.
@@ -620,6 +626,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -701,6 +708,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
@@ -748,6 +756,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
@@ -854,6 +863,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
@@ -957,6 +967,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
@@ -1035,6 +1046,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_nodes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1103,6 +1115,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_node(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNodeRequest::name].
@@ -1148,6 +1161,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_external_addresses(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1236,6 +1250,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .fetch_network_policy_external_addresses(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1310,6 +1325,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_external_address(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExternalAddressRequest::name].
@@ -1360,6 +1376,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_external_address(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_external_address`.
@@ -1465,6 +1482,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_external_address(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_external_address`.
@@ -1567,6 +1585,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_external_address(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_external_address`.
@@ -1645,6 +1664,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_subnets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1714,6 +1734,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_subnet(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSubnetRequest::name].
@@ -1761,6 +1782,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_subnet(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_subnet`.
@@ -1852,6 +1874,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_external_access_rules(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1938,6 +1961,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_external_access_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExternalAccessRuleRequest::name].
@@ -1990,6 +2014,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_external_access_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_external_access_rule`.
@@ -2099,6 +2124,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_external_access_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_external_access_rule`.
@@ -2205,6 +2231,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_external_access_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_external_access_rule`.
@@ -2286,6 +2313,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_logging_servers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2370,6 +2398,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_logging_server(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLoggingServerRequest::name].
@@ -2420,6 +2449,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_logging_server(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_logging_server`.
@@ -2525,6 +2555,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_logging_server(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_logging_server`.
@@ -2627,6 +2658,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_logging_server(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_logging_server`.
@@ -2705,6 +2737,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_node_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2780,6 +2813,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_node_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNodeTypeRequest::name].
@@ -2825,6 +2859,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .show_nsx_credentials(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [private_cloud][crate::model::ShowNsxCredentialsRequest::private_cloud].
@@ -2870,6 +2905,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .show_vcenter_credentials(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [private_cloud][crate::model::ShowVcenterCredentialsRequest::private_cloud].
@@ -2926,6 +2962,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .reset_nsx_credentials(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reset_nsx_credentials`.
@@ -3017,6 +3054,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .reset_vcenter_credentials(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reset_vcenter_credentials`.
@@ -3107,6 +3145,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_dns_forwarding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDnsForwardingRequest::name].
@@ -3157,6 +3196,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_dns_forwarding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_dns_forwarding`.
@@ -3254,6 +3294,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_network_peering(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNetworkPeeringRequest::name].
@@ -3299,6 +3340,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_network_peerings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3388,6 +3430,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_network_peering(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_network_peering`.
@@ -3493,6 +3536,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_network_peering(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network_peering`.
@@ -3579,6 +3623,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_network_peering(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_network_peering`.
@@ -3676,6 +3721,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_peering_routes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3759,6 +3805,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_hcx_activation_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_hcx_activation_key`.
@@ -3861,6 +3908,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_hcx_activation_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3933,6 +3981,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_hcx_activation_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetHcxActivationKeyRequest::name].
@@ -3978,6 +4027,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_network_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNetworkPolicyRequest::name].
@@ -4023,6 +4073,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_network_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4112,6 +4163,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_network_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_network_policy`.
@@ -4217,6 +4269,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_network_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_network_policy`.
@@ -4319,6 +4372,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_network_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_network_policy`.
@@ -4402,6 +4456,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_management_dns_zone_bindings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4490,6 +4545,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetManagementDnsZoneBindingRequest::name].
@@ -4542,6 +4598,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_management_dns_zone_binding`.
@@ -4656,6 +4713,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_management_dns_zone_binding`.
@@ -4764,6 +4822,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_management_dns_zone_binding`.
@@ -4852,6 +4911,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .repair_management_dns_zone_binding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `repair_management_dns_zone_binding`.
@@ -4946,6 +5006,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_vmware_engine_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_vmware_engine_network`.
@@ -5055,6 +5116,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_vmware_engine_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_vmware_engine_network`.
@@ -5161,6 +5223,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_vmware_engine_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vmware_engine_network`.
@@ -5248,6 +5311,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_vmware_engine_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVmwareEngineNetworkRequest::name].
@@ -5295,6 +5359,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_vmware_engine_networks(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5388,6 +5453,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_private_connection`.
@@ -5490,6 +5556,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_private_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPrivateConnectionRequest::name].
@@ -5535,6 +5602,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_private_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5628,6 +5696,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .update_private_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_private_connection`.
@@ -5734,6 +5803,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
@@ -5819,6 +5889,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_private_connection_peering_routes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5898,6 +5969,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .grant_dns_bind_permission(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `grant_dns_bind_permission`.
@@ -5992,6 +6064,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_dns_bind_permission(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDnsBindPermissionRequest::name].
@@ -6044,6 +6117,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .revoke_dns_bind_permission(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `revoke_dns_bind_permission`.
@@ -6138,6 +6212,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -6213,6 +6288,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -6255,6 +6331,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -6315,6 +6392,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -6369,6 +6447,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -6425,6 +6504,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -6503,6 +6583,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -6548,6 +6629,7 @@ pub mod vmware_engine {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].

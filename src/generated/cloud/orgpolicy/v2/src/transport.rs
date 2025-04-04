@@ -44,7 +44,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::ListConstraintsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConstraintsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConstraintsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -59,16 +59,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListConstraintsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_policies(
         &self,
         req: crate::model::ListPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPoliciesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,16 +82,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListPoliciesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -99,16 +103,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Policy = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_effective_policy(
         &self,
         req: crate::model::GetEffectivePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -121,16 +127,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Policy = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_policy(
         &self,
         req: crate::model::CreatePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -143,14 +151,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.policy), options).await
+        let response: crate::model::Policy = self
+            .inner
+            .execute(builder, Some(req.policy), options)
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_policy(
         &self,
         req: crate::model::UpdatePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -179,14 +191,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.policy), options).await
+        let response: crate::model::Policy = self
+            .inner
+            .execute(builder, Some(req.policy), options)
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_policy(
         &self,
         req: crate::model::DeletePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -197,17 +213,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("etag", &req.etag)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn create_custom_constraint(
         &self,
         req: crate::model::CreateCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CustomConstraint> {
+    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -220,16 +237,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::CustomConstraint = self
+            .inner
             .execute(builder, Some(req.custom_constraint), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_custom_constraint(
         &self,
         req: crate::model::UpdateCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CustomConstraint> {
+    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -248,16 +267,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::CustomConstraint = self
+            .inner
             .execute(builder, Some(req.custom_constraint), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_custom_constraint(
         &self,
         req: crate::model::GetCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CustomConstraint> {
+    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -267,16 +288,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::CustomConstraint = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_custom_constraints(
         &self,
         req: crate::model::ListCustomConstraintsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCustomConstraintsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCustomConstraintsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -291,16 +314,18 @@ impl super::stub::OrgPolicy for OrgPolicy {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListCustomConstraintsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_custom_constraint(
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -310,9 +335,10 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 }

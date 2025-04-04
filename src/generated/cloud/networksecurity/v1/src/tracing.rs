@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListAuthorizationPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAuthorizationPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAuthorizationPoliciesResponse>> {
         self.inner.list_authorization_policies(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetAuthorizationPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AuthorizationPolicy> {
+    ) -> Result<gax::response::Response<crate::model::AuthorizationPolicy>> {
         self.inner.get_authorization_policy(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateAuthorizationPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_authorization_policy(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateAuthorizationPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_authorization_policy(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteAuthorizationPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_authorization_policy(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListServerTlsPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServerTlsPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServerTlsPoliciesResponse>> {
         self.inner.list_server_tls_policies(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetServerTlsPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServerTlsPolicy> {
+    ) -> Result<gax::response::Response<crate::model::ServerTlsPolicy>> {
         self.inner.get_server_tls_policy(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::CreateServerTlsPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_server_tls_policy(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::UpdateServerTlsPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_server_tls_policy(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteServerTlsPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_server_tls_policy(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::ListClientTlsPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListClientTlsPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListClientTlsPoliciesResponse>> {
         self.inner.list_client_tls_policies(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::GetClientTlsPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ClientTlsPolicy> {
+    ) -> Result<gax::response::Response<crate::model::ClientTlsPolicy>> {
         self.inner.get_client_tls_policy(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::CreateClientTlsPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_client_tls_policy(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::UpdateClientTlsPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_client_tls_policy(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::DeleteClientTlsPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_client_tls_policy(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

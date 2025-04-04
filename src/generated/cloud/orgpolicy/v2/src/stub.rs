@@ -45,11 +45,12 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListConstraintsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListConstraintsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListConstraintsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListConstraintsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListConstraintsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OrgPolicy::list_policies].
@@ -57,11 +58,12 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPoliciesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPoliciesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListPoliciesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListPoliciesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListPoliciesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OrgPolicy::get_policy].
@@ -69,10 +71,12 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::OrgPolicy::get_effective_policy].
@@ -80,10 +84,12 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetEffectivePolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::OrgPolicy::create_policy].
@@ -91,10 +97,12 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreatePolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::OrgPolicy::update_policy].
@@ -102,10 +110,12 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdatePolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::OrgPolicy::delete_policy].
@@ -113,8 +123,10 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::OrgPolicy::create_custom_constraint].
@@ -122,11 +134,12 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateCustomConstraintRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::CustomConstraint>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::CustomConstraint>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CustomConstraint>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::CustomConstraint>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OrgPolicy::update_custom_constraint].
@@ -134,11 +147,12 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateCustomConstraintRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::CustomConstraint>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::CustomConstraint>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CustomConstraint>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::CustomConstraint>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OrgPolicy::get_custom_constraint].
@@ -146,11 +160,12 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetCustomConstraintRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::CustomConstraint>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::CustomConstraint>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CustomConstraint>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::CustomConstraint>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OrgPolicy::list_custom_constraints].
@@ -159,11 +174,13 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListCustomConstraintsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListCustomConstraintsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListCustomConstraintsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListCustomConstraintsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListCustomConstraintsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OrgPolicy::delete_custom_constraint].
@@ -171,7 +188,9 @@ pub trait OrgPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteCustomConstraintRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 }

@@ -100,6 +100,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .list_migration_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -183,6 +184,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .get_migration_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMigrationJobRequest::name].
@@ -235,6 +237,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .create_migration_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_migration_job`.
@@ -341,6 +344,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .update_migration_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_migration_job`.
@@ -444,6 +448,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .delete_migration_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_migration_job`.
@@ -538,6 +543,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .start_migration_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_migration_job`.
@@ -629,6 +635,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .stop_migration_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_migration_job`.
@@ -714,6 +721,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .resume_migration_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `resume_migration_job`.
@@ -799,6 +807,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .promote_migration_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `promote_migration_job`.
@@ -884,6 +893,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .verify_migration_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `verify_migration_job`.
@@ -987,6 +997,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .restart_migration_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restart_migration_job`.
@@ -1073,6 +1084,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .generate_ssh_script(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [migration_job][crate::model::GenerateSshScriptRequest::migration_job].
@@ -1143,6 +1155,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .generate_tcp_proxy_script(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [migration_job][crate::model::GenerateTcpProxyScriptRequest::migration_job].
@@ -1214,6 +1227,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .list_connection_profiles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1302,6 +1316,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .get_connection_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectionProfileRequest::name].
@@ -1356,6 +1371,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .create_connection_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_connection_profile`.
@@ -1479,6 +1495,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .update_connection_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_connection_profile`.
@@ -1599,6 +1616,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .delete_connection_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection_profile`.
@@ -1695,6 +1713,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_private_connection`.
@@ -1805,6 +1824,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .get_private_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPrivateConnectionRequest::name].
@@ -1852,6 +1872,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .list_private_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1947,6 +1968,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
@@ -2030,6 +2052,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .get_conversion_workspace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConversionWorkspaceRequest::name].
@@ -2079,6 +2102,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .list_conversion_workspaces(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2168,6 +2192,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .create_conversion_workspace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_conversion_workspace`.
@@ -2279,6 +2304,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .update_conversion_workspace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_conversion_workspace`.
@@ -2387,6 +2413,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .delete_conversion_workspace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_conversion_workspace`.
@@ -2476,6 +2503,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .create_mapping_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateMappingRuleRequest::parent].
@@ -2544,6 +2572,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .delete_mapping_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteMappingRuleRequest::name].
@@ -2597,6 +2626,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .list_mapping_rules(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2668,6 +2698,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .get_mapping_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMappingRuleRequest::name].
@@ -2722,6 +2753,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .seed_conversion_workspace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `seed_conversion_workspace`.
@@ -2825,6 +2857,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .import_mapping_rules(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_mapping_rules`.
@@ -2939,6 +2972,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .convert_conversion_workspace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `convert_conversion_workspace`.
@@ -3045,6 +3079,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .commit_conversion_workspace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `commit_conversion_workspace`.
@@ -3139,6 +3174,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .rollback_conversion_workspace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `rollback_conversion_workspace`.
@@ -3227,6 +3263,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .apply_conversion_workspace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `apply_conversion_workspace`.
@@ -3339,6 +3376,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .describe_database_entities(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3448,6 +3486,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .search_background_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [conversion_workspace][crate::model::SearchBackgroundJobsRequest::conversion_workspace].
@@ -3520,6 +3559,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .describe_conversion_workspace_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [conversion_workspace][crate::model::DescribeConversionWorkspaceRevisionsRequest::conversion_workspace].
@@ -3570,6 +3610,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .fetch_static_ips(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchStaticIpsRequest::name].
@@ -3629,6 +3670,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3706,6 +3748,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3750,6 +3793,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -3812,6 +3856,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -3868,6 +3913,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3926,6 +3972,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4006,6 +4053,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4053,6 +4101,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4100,6 +4149,7 @@ pub mod data_migration_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

@@ -101,6 +101,7 @@ pub mod environments {
             (*self.0.stub)
                 .create_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_environment`.
@@ -185,6 +186,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
@@ -230,6 +232,7 @@ pub mod environments {
             (*self.0.stub)
                 .list_environments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -307,6 +310,7 @@ pub mod environments {
             (*self.0.stub)
                 .update_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_environment`.
@@ -408,6 +412,7 @@ pub mod environments {
             (*self.0.stub)
                 .delete_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_environment`.
@@ -483,6 +488,7 @@ pub mod environments {
             (*self.0.stub)
                 .execute_airflow_command(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::ExecuteAirflowCommandRequest::environment].
@@ -551,6 +557,7 @@ pub mod environments {
             (*self.0.stub)
                 .stop_airflow_command(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::StopAirflowCommandRequest::environment].
@@ -620,6 +627,7 @@ pub mod environments {
             (*self.0.stub)
                 .poll_airflow_command(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::PollAirflowCommandRequest::environment].
@@ -686,6 +694,7 @@ pub mod environments {
             (*self.0.stub)
                 .list_workloads(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -766,6 +775,7 @@ pub mod environments {
             (*self.0.stub)
                 .check_upgrade(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `check_upgrade`.
@@ -853,6 +863,7 @@ pub mod environments {
             (*self.0.stub)
                 .create_user_workloads_secret(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateUserWorkloadsSecretRequest::parent].
@@ -909,6 +920,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_user_workloads_secret(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUserWorkloadsSecretRequest::name].
@@ -956,6 +968,7 @@ pub mod environments {
             (*self.0.stub)
                 .list_user_workloads_secrets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1032,6 +1045,7 @@ pub mod environments {
             (*self.0.stub)
                 .update_user_workloads_secret(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
@@ -1084,6 +1098,7 @@ pub mod environments {
             (*self.0.stub)
                 .delete_user_workloads_secret(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteUserWorkloadsSecretRequest::name].
@@ -1131,6 +1146,7 @@ pub mod environments {
             (*self.0.stub)
                 .create_user_workloads_config_map(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateUserWorkloadsConfigMapRequest::parent].
@@ -1189,6 +1205,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_user_workloads_config_map(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUserWorkloadsConfigMapRequest::name].
@@ -1236,6 +1253,7 @@ pub mod environments {
             (*self.0.stub)
                 .list_user_workloads_config_maps(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1312,6 +1330,7 @@ pub mod environments {
             (*self.0.stub)
                 .update_user_workloads_config_map(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
@@ -1364,6 +1383,7 @@ pub mod environments {
             (*self.0.stub)
                 .delete_user_workloads_config_map(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteUserWorkloadsConfigMapRequest::name].
@@ -1411,6 +1431,7 @@ pub mod environments {
             (*self.0.stub)
                 .save_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `save_snapshot`.
@@ -1498,6 +1519,7 @@ pub mod environments {
             (*self.0.stub)
                 .load_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `load_snapshot`.
@@ -1612,6 +1634,7 @@ pub mod environments {
             (*self.0.stub)
                 .database_failover(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `database_failover`.
@@ -1695,6 +1718,7 @@ pub mod environments {
             (*self.0.stub)
                 .fetch_database_properties(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [environment][crate::model::FetchDatabasePropertiesRequest::environment].
@@ -1740,6 +1764,7 @@ pub mod environments {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1818,6 +1843,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1863,6 +1889,7 @@ pub mod environments {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1962,6 +1989,7 @@ pub mod image_versions {
             (*self.0.stub)
                 .list_image_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2040,6 +2068,7 @@ pub mod image_versions {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2118,6 +2147,7 @@ pub mod image_versions {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2163,6 +2193,7 @@ pub mod image_versions {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
