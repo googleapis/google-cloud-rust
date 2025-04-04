@@ -131,7 +131,7 @@ impl Credentials {
 /// # Notes
 ///
 /// Application developers who directly use the Auth SDK can use this trait,
-/// along with [crate::credentials::Credential::from()] to mock the credentials.
+/// along with [crate::credentials::Credentials::from()] to mock the credentials.
 /// Application developers who use the Google Cloud Rust SDK directly should not
 /// need this functionality.
 ///
