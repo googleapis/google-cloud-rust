@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use auth::credentials::{ApiKeyOptions, create_access_token_credential, create_api_key_credentials};
+use auth::credentials::{
+    ApiKeyOptions, create_access_token_credential, create_api_key_credentials,
+};
 use gax::error::Error;
 use language::client::LanguageService;
 use language::model::Document;
