@@ -19,31 +19,78 @@ use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
 use reqwest::{Client, Method};
+use serde_json::Value;
 use std::sync::Arc;
 use std::time::Duration;
 
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
-pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credentials> {
-    let au = serde_json::from_value::<AuthorizedUser>(js).map_err(errors::non_retryable)?;
+pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
+    Builder::new(js).build()
+}
 
-    let endpoint = au.token_uri.unwrap_or_else(|| OAUTH2_ENDPOINT.to_string());
+pub struct Builder {
+    authorized_user: Value,
+    scopes: Option<Vec<String>>,
+}
 
-    let token_provider = UserTokenProvider {
-        client_id: au.client_id,
-        client_secret: au.client_secret,
-        refresh_token: au.refresh_token,
-        endpoint,
-    };
+impl Builder {
+    pub fn new(authorized_user: Value) -> Self {
+        Self {
+            authorized_user,
+            scopes: None,
+        }
+    }
 
-    let cached_token_provider = TokenCache::new(token_provider);
+    pub fn with_token_uri<S: Into<String>>(mut self, token_uri: S) -> Self {
+        self.authorized_user["token_uri"] = Value::from(token_uri.into());
+        self
+    }
 
-    Ok(Credentials {
-        inner: Arc::new(UserCredentials {
-            token_provider: cached_token_provider,
-            quota_project_id: au.quota_project_id,
-        }),
-    })
+    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
+        self
+    }
+
+    /// Sets the [quota project] for this credentials.
+    ///
+    /// In some services, you can use a service account in
+    /// one project for authentication and authorization, and charge
+    /// the usage to a different project. This requires that the
+    /// service account has `serviceusage.services.use` permissions on the quota project.
+    ///
+    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.authorized_user["quota_project_id"] = Value::from(quota_project_id.into());
+        self
+    }
+
+    /// Returns a [Credentials] instance with the configured settings.
+    pub fn build(self) -> Result<Credentials> {
+        let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
+            .map_err(errors::non_retryable)?;
+        let token_provider = UserTokenProvider {
+            client_id: authorized_user.client_id,
+            client_secret: authorized_user.client_secret,
+            refresh_token: authorized_user.refresh_token,
+            endpoint: authorized_user
+                .token_uri
+                .unwrap_or_else(|| OAUTH2_ENDPOINT.to_string()),
+            scopes: self.scopes.map(|scopes| scopes.join(" ")),
+        };
+        let token_provider = TokenCache::new(token_provider);
+
+        Ok(Credentials {
+            inner: Arc::new(UserCredentials {
+                token_provider,
+                quota_project_id: authorized_user.quota_project_id,
+            }),
+        })
+    }
 }
 
 #[derive(PartialEq)]
@@ -52,6 +99,7 @@ struct UserTokenProvider {
     client_secret: String,
     refresh_token: String,
     endpoint: String,
+    scopes: Option<String>,
 }
 
 impl std::fmt::Debug for UserTokenProvider {
@@ -61,6 +109,7 @@ impl std::fmt::Debug for UserTokenProvider {
             .field("client_secret", &"[censored]")
             .field("refresh_token", &"[censored]")
             .field("endpoint", &self.endpoint)
+            .field("scopes", &self.scopes)
             .finish()
     }
 }
@@ -76,6 +125,7 @@ impl TokenProvider for UserTokenProvider {
             client_id: self.client_id.clone(),
             client_secret: self.client_secret.clone(),
             refresh_token: self.refresh_token.clone(),
+            scopes: self.scopes.clone(),
         };
         let header = HeaderValue::from_static("application/json");
         let builder = client
@@ -174,6 +224,7 @@ struct Oauth2RefreshRequest {
     client_id: String,
     client_secret: String,
     refresh_token: String,
+    scopes: Option<String>,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -208,12 +259,17 @@ mod test {
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: OAUTH2_ENDPOINT.to_string(),
+            scopes: Some("https://www.googleapis.com/auth/pubsub".to_string()),
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("test-client-id"), "{fmt}");
         assert!(!fmt.contains("test-client-secret"), "{fmt}");
         assert!(!fmt.contains("test-refresh-token"), "{fmt}");
         assert!(fmt.contains(OAUTH2_ENDPOINT), "{fmt}");
+        assert!(
+            fmt.contains("https://www.googleapis.com/auth/pubsub"),
+            "{fmt}"
+        );
     }
 
     #[test]
@@ -404,6 +460,7 @@ mod test {
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
+            scopes: Some("scope1 scope2".to_string()),
         };
 
         let json = serde_json::to_value(&request).unwrap();
@@ -411,7 +468,8 @@ mod test {
             "grant_type": "refresh_token",
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
-            "refresh_token": "test-refresh-token"
+            "refresh_token": "test-refresh-token",
+            "scopes": "scope1 scope2",
         });
         assert_eq!(json, expected);
         let roundtrip = serde_json::from_value::<Oauth2RefreshRequest>(json).unwrap();
@@ -503,6 +561,7 @@ mod test {
         }
     }
 
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_full() -> TestResult {
         let response = Oauth2RefreshResponse {
@@ -517,18 +576,16 @@ mod test {
             start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
         println!("endpoint = {endpoint}");
 
-        let token_provider = UserTokenProvider {
-            client_id: "test-client-id".to_string(),
-            client_secret: "test-client-secret".to_string(),
-            refresh_token: "test-refresh-token".to_string(),
-            endpoint: endpoint,
-        };
-        let uc = UserCredentials {
-            token_provider,
-            quota_project_id: None,
-        };
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "endpoint": endpoint,
+        });
+        let cred = Builder::new(authorized_user).build()?;
+
         let now = std::time::Instant::now();
-        let token = uc.get_token().await?;
+        let token = cred.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -540,6 +597,47 @@ mod test {
             token.expires_at
         );
 
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn token_provider_full_with_quota_project() -> TestResult {
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            refresh_token: Some("test-refresh-token".to_string()),
+            scope: Some("scope1 scope2".to_string()),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_string(&response).unwrap();
+        let (endpoint, _server) =
+            start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
+        println!("endpoint = {endpoint}");
+
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "endpoint": endpoint,
+        });
+        let cred = Builder::new(authorized_user).with_quota_project_id("test-project").build()?;
+
+        let headers: Vec<HV> = HV::from(cred.get_headers().await.unwrap());
+        assert_eq!(
+            headers,
+            vec![
+                HV {
+                    header: AUTHORIZATION.to_string(),
+                    value: "test-token-type test-access-token".to_string(),
+                    is_sensitive: true,
+                },
+                HV {
+                    header: QUOTA_PROJECT_KEY.to_string(),
+                    value: "test-project".to_string(),
+                    is_sensitive: false,
+                }
+            ]
+        );
         Ok(())
     }
 
@@ -597,16 +695,13 @@ mod test {
             start(StatusCode::OK, response_body, Arc::new(Mutex::new(0))).await;
         println!("endpoint = {endpoint}");
 
-        let token_provider = UserTokenProvider {
-            client_id: "test-client-id".to_string(),
-            client_secret: "test-client-secret".to_string(),
-            refresh_token: "test-refresh-token".to_string(),
-            endpoint: endpoint,
-        };
-        let uc = UserCredentials {
-            token_provider,
-            quota_project_id: None,
-        };
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "endpoint": endpoint});
+
+        let uc = Builder::new(authorized_user).build()?;
         let token = uc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
@@ -625,16 +720,13 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let token_provider = UserTokenProvider {
-            client_id: "test-client-id".to_string(),
-            client_secret: "test-client-secret".to_string(),
-            refresh_token: "test-refresh-token".to_string(),
-            endpoint: endpoint,
-        };
-        let uc = UserCredentials {
-            token_provider,
-            quota_project_id: None,
-        };
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "endpoint": endpoint});
+
+        let uc = Builder::new(authorized_user).build()?;
         let e = uc.get_token().await.err().unwrap();
         assert!(e.is_retryable(), "{e}");
         assert!(e.source().unwrap().to_string().contains("try again"), "{e}");
@@ -652,16 +744,13 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let token_provider = UserTokenProvider {
-            client_id: "test-client-id".to_string(),
-            client_secret: "test-client-secret".to_string(),
-            refresh_token: "test-refresh-token".to_string(),
-            endpoint: endpoint,
-        };
-        let uc = UserCredentials {
-            token_provider,
-            quota_project_id: None,
-        };
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "endpoint": endpoint});
+
+        let uc = Builder::new(authorized_user).build()?;
         let e = uc.get_token().await.err().unwrap();
         assert!(!e.is_retryable(), "{e}");
         assert!(e.source().unwrap().to_string().contains("epic fail"), "{e}");
@@ -679,16 +768,13 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let token_provider = UserTokenProvider {
-            client_id: "test-client-id".to_string(),
-            client_secret: "test-client-secret".to_string(),
-            refresh_token: "test-refresh-token".to_string(),
-            endpoint: endpoint,
-        };
-        let uc = UserCredentials {
-            token_provider,
-            quota_project_id: None,
-        };
+        let authorized_user = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "endpoint": endpoint});
+
+        let uc = Builder::new(authorized_user).build()?;
         let e = uc.get_token().await.err().unwrap();
         assert!(!e.is_retryable(), "{e}");
 
