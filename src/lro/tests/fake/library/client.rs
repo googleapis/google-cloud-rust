@@ -45,7 +45,8 @@ impl Client {
     }
 }
 
-pub type ClientBuilder = gax::client_builder::ClientBuilder<Factory, auth::credentials::Credentials>;
+pub type ClientBuilder =
+    gax::client_builder::ClientBuilder<Factory, auth::credentials::Credentials>;
 pub struct Factory;
 impl gax::client_builder::internal::ClientFactory for Factory {
     type Client = Client;
