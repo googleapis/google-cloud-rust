@@ -37,7 +37,7 @@
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use google_cloud_auth::errors::CredentialError;
 //! # tokio_test::block_on(async {
-//! let credentials: Credentials = Builder::default().quota_project_id("my-quota-project").build();
+//! let credentials: Credentials = Builder::default().with_quota_project_id("my-quota-project").build();
 //! let token = credentials.get_token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialError>(())
@@ -103,7 +103,7 @@ impl Builder {
     /// Sets the endpoint for this credential.
     ///
     /// If not set, the credentials use `http://metadata.google.internal/`.
-    pub fn endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
+    pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
         self
     }
@@ -116,7 +116,7 @@ impl Builder {
     /// service account has `serviceusage.services.use` permissions on the quota project.
     ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
-    pub fn quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
         self
     }
@@ -127,7 +127,7 @@ impl Builder {
     /// the API endpoints to use for making requests.
     /// If not set, then credentials use `${service}.googleapis.com`,
     /// otherwise they use `${service}.${universe_domain}.
-    pub fn universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
@@ -140,7 +140,7 @@ impl Builder {
     ///
     /// [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
-    pub fn scopes<I, S>(mut self, scopes: I) -> Self
+    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
     where
         I: IntoIterator<Item = S>,
         S: Into<String>,
@@ -533,9 +533,9 @@ mod test {
         .await;
 
         let mdsc = Builder::default()
-            .scopes(["scope1", "scope2"])
-            .endpoint(endpoint)
-            .quota_project_id("test-project")
+            .with_scopes(["scope1", "scope2"])
+            .with_endpoint(endpoint)
+            .with_quota_project_id("test-project")
             .build();
 
         let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
@@ -581,7 +581,10 @@ mod test {
         )]))
         .await;
 
-        let mdsc = Builder::default().scopes(scopes).endpoint(endpoint).build();
+        let mdsc = Builder::default()
+            .with_scopes(scopes)
+            .with_endpoint(endpoint)
+            .build();
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         let token = mdsc.get_token().await?;
@@ -618,7 +621,10 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let mdsc = Builder::default().scopes(scopes).endpoint(endpoint).build();
+        let mdsc = Builder::default()
+            .with_scopes(scopes)
+            .with_endpoint(endpoint)
+            .build();
         let now = std::time::Instant::now();
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -680,7 +686,7 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let mdsc = Builder::default().endpoint(endpoint).build();
+        let mdsc = Builder::default().with_endpoint(endpoint).build();
         let now = std::time::Instant::now();
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -718,7 +724,10 @@ mod test {
         .await;
         println!("endpoint = {endpoint}");
 
-        let mdsc = Builder::default().endpoint(endpoint).scopes(scopes).build();
+        let mdsc = Builder::default()
+            .with_endpoint(endpoint)
+            .with_scopes(scopes)
+            .build();
         let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
@@ -744,7 +753,10 @@ mod test {
         )]))
         .await;
 
-        let mdsc = Builder::default().endpoint(endpoint).scopes(scopes).build();
+        let mdsc = Builder::default()
+            .with_endpoint(endpoint)
+            .with_scopes(scopes)
+            .build();
         let e = mdsc.get_token().await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
@@ -769,7 +781,10 @@ mod test {
         )]))
         .await;
 
-        let mdsc = Builder::default().endpoint(endpoint).scopes(scopes).build();
+        let mdsc = Builder::default()
+            .with_endpoint(endpoint)
+            .with_scopes(scopes)
+            .build();
 
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
@@ -795,7 +810,10 @@ mod test {
         )]))
         .await;
 
-        let mdsc = Builder::default().endpoint(endpoint).scopes(scopes).build();
+        let mdsc = Builder::default()
+            .with_endpoint(endpoint)
+            .with_scopes(scopes)
+            .build();
 
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
@@ -817,7 +835,7 @@ mod test {
     async fn get_custom_universe_domain_success() {
         let universe_domain = "test-universe";
         let universe_domain_response = Builder::default()
-            .universe_domain(universe_domain)
+            .with_universe_domain(universe_domain)
             .build()
             .get_universe_domain()
             .await
