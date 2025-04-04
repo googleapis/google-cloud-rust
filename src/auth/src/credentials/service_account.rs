@@ -47,7 +47,7 @@
 //!
 //! ```
 //! # use google_cloud_auth::credentials::service_account::Builder;
-//! # use google_cloud_auth::credentials::Credential;
+//! # use google_cloud_auth::credentials::Credentials;
 //! # use google_cloud_auth::errors::CredentialError;
 //! # tokio_test::block_on(async {
 //! let service_account_key = serde_json::json!({
@@ -57,8 +57,8 @@
 //! "project_id": "test-project-id",
 //! "universe_domain": "test-universe-domain",
 //! });
-//! let credential: Credential = Builder::new(service_account_key).with_quota_project_id("my-quota-project").build()?;
-//! let token = credential.get_token().await?;
+//! let credentials: Credentials = Builder::new(service_account_key).with_quota_project_id("my-quota-project").build()?;
+//! let token = credentials.get_token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialError>(())
 //! # });

@@ -27,9 +27,9 @@ mod test {
 
     mockall::mock! {
         #[derive(Debug)]
-        Credential {}
+        Credentials {}
 
-        impl CredentialsTrait for Credential {
+        impl CredentialsTrait for Credentials {
             async fn get_token(&self) -> AuthResult<Token>;
             async fn get_headers(&self) -> AuthResult<Vec<(HeaderName, HeaderValue)>>;
             async fn get_universe_domain(&self) -> Option<String>;
@@ -43,7 +43,7 @@ mod test {
         // We use mock credentials instead of fake credentials, because
         // 1. we can test that multiple headers are included in the request
         // 2. it gives us extra confidence that our interfaces are called
-        let mut mock = MockCredential::new();
+        let mut mock = MockCredentials::new();
         mock.expect_get_headers().return_once(|| {
             Ok(vec![
                 (
@@ -58,7 +58,7 @@ mod test {
         });
 
         let client = echo_server::builder(endpoint)
-            .with_credentials(Credential::from(mock))
+            .with_credentials(Credentials::from(mock))
             .build()
             .await?;
 
@@ -82,14 +82,14 @@ mod test {
     async fn auth_error_retryable() -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
         let retry_count = 3;
-        let mut mock = MockCredential::new();
+        let mut mock = MockCredentials::new();
         mock.expect_get_headers()
             .times(retry_count..)
             .returning(|| Err(CredentialError::from_str(true, "mock retryable error")));
 
         let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
         let client = echo_server::builder(endpoint)
-            .with_credentials(Credential::from(mock))
+            .with_credentials(Credentials::from(mock))
             .with_retry_policy(retry_policy)
             .build()
             .await?;
@@ -119,13 +119,13 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn auth_error_non_retryable() -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
-        let mut mock = MockCredential::new();
+        let mut mock = MockCredentials::new();
         mock.expect_get_headers()
             .times(1)
             .returning(|| Err(CredentialError::from_str(false, "mock non-retryable error")));
 
         let client = echo_server::builder(endpoint)
-            .with_credentials(Credential::from(mock))
+            .with_credentials(Credentials::from(mock))
             .build()
             .await?;
 

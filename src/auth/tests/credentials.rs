@@ -165,7 +165,7 @@ mod test {
         mock.expect_get_headers().return_once(|| Ok(Vec::new()));
         mock.expect_get_universe_domain().return_once(|| None);
 
-        let creds = Credential::from(mock);
+        let creds = Credentials::from(mock);
         assert_eq!(creds.get_token().await?.token, "test-token");
         assert!(creds.get_headers().await?.is_empty());
         assert_eq!(creds.get_universe_domain().await, None);

@@ -146,7 +146,7 @@ impl Client {
     #[allow(clippy::too_many_arguments)]
     pub async fn request_attempt<Request, Response>(
         inner: &mut InnerClient,
-        credentials: &Credential,
+        credentials: &Credentials,
         method: tonic::GrpcMethod<'static>,
         path: http::uri::PathAndQuery,
         request: Request,
@@ -195,7 +195,7 @@ impl Client {
     }
 
     async fn make_headers(
-        credentials: &Credential,
+        credentials: &Credentials,
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<http::header::HeaderMap> {
