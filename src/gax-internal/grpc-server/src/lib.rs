@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use std::collections::VecDeque;
+use std::sync::Arc;
+use std::sync::Mutex;
 use tokio::task::JoinHandle;
+type EchoResult = tonic::Result<tonic::Response<google::test::v1::EchoResponse>>;
 
 pub mod google {
     pub mod test {
@@ -28,6 +32,27 @@ pub async fn start_echo_server() -> anyhow::Result<(String, JoinHandle<()>)> {
 
     let server = tokio::spawn(async {
         let echo = Echo::default();
+        let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
+
+        let _ = tonic::transport::Server::builder()
+            .add_service(google::test::v1::echo_service_server::EchoServiceServer::new(echo))
+            .serve_with_incoming(stream)
+            .await;
+    });
+
+    Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
+}
+
+pub async fn start_fixed_responses<I, V>(responses: I) -> anyhow::Result<(String, JoinHandle<()>)>
+where
+    I: IntoIterator<Item = V>,
+    V: Into<EchoResult>,
+{
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+    let addr = listener.local_addr()?;
+
+    let echo = FixedResponses::new(responses);
+    let server = tokio::spawn(async move {
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
         let _ = tonic::transport::Server::builder()
@@ -92,5 +117,37 @@ impl google::test::v1::echo_service_server::EchoService for Echo {
         };
 
         Ok(tonic::Response::new(response))
+    }
+}
+
+#[derive(Debug, Default)]
+struct FixedResponses {
+    responses: Arc<Mutex<VecDeque<EchoResult>>>,
+}
+
+impl FixedResponses {
+    pub fn new<I, V>(r: I) -> Self
+    where
+        I: IntoIterator<Item = V>,
+        V: Into<EchoResult>,
+    {
+        let responses: VecDeque<EchoResult> = r.into_iter().map(|v| v.into()).collect();
+        Self {
+            responses: Arc::new(Mutex::new(responses)),
+        }
+    }
+}
+
+#[tonic::async_trait]
+impl google::test::v1::echo_service_server::EchoService for FixedResponses {
+    async fn echo(
+        &self,
+        _: tonic::Request<google::test::v1::EchoRequest>,
+    ) -> tonic::Result<tonic::Response<google::test::v1::EchoResponse>, tonic::Status> {
+        let mut responses = self.responses.lock().expect("responses are poisoned");
+        if let Some(r) = responses.pop_front() {
+            return r;
+        }
+        Err(tonic::Status::failed_precondition("no available responses"))
     }
 }

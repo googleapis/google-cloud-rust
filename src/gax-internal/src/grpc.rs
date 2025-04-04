@@ -14,10 +14,17 @@
 
 //! Implements the common features of all gRPC-based client.
 
+use auth::credentials::Credential;
 use gax::Result;
+use gax::backoff_policy::BackoffPolicy;
 use gax::error::Error;
 mod from_status;
 use from_status::to_gax_error;
+use gax::exponential_backoff::ExponentialBackoff;
+use gax::retry_policy::RetryPolicy;
+use gax::retry_throttler::SharedRetryThrottler;
+use std::sync::Arc;
+use std::time::Duration;
 
 #[doc(hidden)]
 pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
@@ -26,15 +33,24 @@ pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,
-    cred: auth::credentials::Credential,
+    credentials: auth::credentials::Credential,
+    retry_policy: Option<Arc<dyn RetryPolicy>>,
+    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_throttler: SharedRetryThrottler,
 }
 
 impl Client {
     /// Create a new client.
     pub async fn new(config: crate::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
-        let cred = Self::make_credentials(&config).await?;
+        let credentials = Self::make_credentials(&config).await?;
         let inner = Self::make_inner(config.endpoint, default_endpoint).await?;
-        Ok(Self { inner, cred })
+        Ok(Self {
+            inner,
+            credentials,
+            retry_policy: config.retry_policy.clone(),
+            backoff_policy: config.backoff_policy.clone(),
+            retry_throttler: config.retry_throttler,
+        })
     }
 
     /// Sends a request.
@@ -43,7 +59,98 @@ impl Client {
         method: tonic::GrpcMethod<'static>,
         path: http::uri::PathAndQuery,
         request: Request,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
+        api_client_header: &'static str,
+        request_params: &'static str,
+    ) -> Result<Response>
+    where
+        Request: prost::Message + 'static + Clone,
+        Response: prost::Message + std::default::Default + 'static,
+    {
+        match self.get_retry_policy(&options) {
+            None => {
+                let mut inner = self.inner.clone();
+                Self::request_attempt::<Request, Response>(
+                    &mut inner,
+                    &self.credentials,
+                    method,
+                    path,
+                    request,
+                    &options,
+                    api_client_header,
+                    request_params,
+                )
+                .await
+            }
+            Some(policy) => {
+                self.retry_loop::<Request, Response>(
+                    policy,
+                    method,
+                    path,
+                    request,
+                    options,
+                    api_client_header,
+                    request_params,
+                )
+                .await
+            }
+        }
+    }
+
+    /// Runs the retry loop.
+    #[allow(clippy::too_many_arguments)]
+    pub async fn retry_loop<Request, Response>(
+        &self,
+        retry_policy: Arc<dyn RetryPolicy>,
+        method: tonic::GrpcMethod<'static>,
+        path: http::uri::PathAndQuery,
+        request: Request,
+        options: gax::options::RequestOptions,
+        api_client_header: &'static str,
+        request_params: &'static str,
+    ) -> Result<Response>
+    where
+        Request: prost::Message + 'static + Clone,
+        Response: prost::Message + std::default::Default + 'static,
+    {
+        let idempotent = options.idempotent().unwrap_or(false);
+        let retry_throttler = self.get_retry_throttler(&options);
+        let backoff_policy = self.get_backoff_policy(&options);
+        let credentials = self.credentials.clone();
+        let inner = async move |_d: Option<Duration>| {
+            Self::request_attempt::<Request, Response>(
+                &mut self.inner.clone(),
+                &credentials,
+                method.clone(),
+                path.clone(),
+                request.clone(),
+                &options,
+                api_client_header,
+                request_params,
+            )
+            .await
+        };
+        let sleep = async |d| tokio::time::sleep(d).await;
+        gax::retry_loop_internal::retry_loop(
+            inner,
+            sleep,
+            idempotent,
+            retry_throttler,
+            retry_policy,
+            backoff_policy,
+        )
+        .await
+    }
+
+    /// Makes a single request attempt.
+    #[allow(clippy::too_many_arguments)]
+    pub async fn request_attempt<Request, Response>(
+        inner: &mut InnerClient,
+        credentials: &Credential,
+        method: tonic::GrpcMethod<'static>,
+        path: http::uri::PathAndQuery,
+        request: Request,
+        _options: &gax::options::RequestOptions,
         api_client_header: &'static str,
         request_params: &'static str,
     ) -> Result<Response>
@@ -51,10 +158,8 @@ impl Client {
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
     {
-        let headers = self.make_headers(api_client_header, request_params).await?;
+        let headers = Self::make_headers(credentials, api_client_header, request_params).await?;
 
-        let mut inner = self.inner.clone();
-        use gax::error::Error;
         let mut extensions = tonic::Extensions::new();
         extensions.insert(method);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
@@ -90,12 +195,11 @@ impl Client {
     }
 
     async fn make_headers(
-        &self,
+        credentials: &Credential,
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<http::header::HeaderMap> {
-        let mut headers = self
-            .cred
+        let mut headers = credentials
             .get_headers()
             .await
             .map_err(Error::authentication)?;
@@ -108,5 +212,36 @@ impl Client {
             http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
         ));
         Ok(http::header::HeaderMap::from_iter(headers))
+    }
+
+    fn get_retry_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Option<Arc<dyn RetryPolicy>> {
+        options
+            .retry_policy()
+            .clone()
+            .or_else(|| self.retry_policy.clone())
+    }
+
+    pub(crate) fn get_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn BackoffPolicy> {
+        options
+            .backoff_policy()
+            .clone()
+            .or_else(|| self.backoff_policy.clone())
+            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
+    }
+
+    pub(crate) fn get_retry_throttler(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> SharedRetryThrottler {
+        options
+            .retry_throttler()
+            .clone()
+            .unwrap_or_else(|| self.retry_throttler.clone())
     }
 }
