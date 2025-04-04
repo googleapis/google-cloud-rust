@@ -33,7 +33,7 @@ pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,
-    credentials: auth::credentials::Credential,
+    credentials: auth::credentials::Credentials,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     retry_throttler: SharedRetryThrottler,
@@ -185,7 +185,7 @@ impl Client {
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> Result<auth::credentials::Credential> {
+    ) -> Result<auth::credentials::Credentials> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }

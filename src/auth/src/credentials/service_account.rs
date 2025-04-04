@@ -73,7 +73,7 @@ mod jws;
 
 use crate::credentials::QUOTA_PROJECT_KEY;
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credential, Result};
+use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialError};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -89,7 +89,7 @@ use time::OffsetDateTime;
 
 const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 
-pub(crate) fn creds_from(js: Value) -> Result<Credential> {
+pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
     Builder::new(js).build()
 }
 
@@ -115,7 +115,7 @@ impl ServiceAccountRestrictions {
     }
 }
 
-/// A builder for constructing service account [Credential] instances.
+/// A builder for constructing service account [Credentials] instances.
 ///
 /// # Example
 /// ```
@@ -155,11 +155,11 @@ impl Builder {
         }
     }
 
-    /// Sets the audience for this credential.
+    /// Sets the audience for this credentials.
     ///
     /// `aud` is a [JWT] claim specifying intended recipient(s) of the token,
     /// that is, a service(s).
-    /// Only one of audience or scopes can be specified for a credential.
+    /// Only one of audience or scopes can be specified for a credentials.
     /// Setting the audience will replace any previously configured scopes.
     /// The value should be `https://{SERVICE}/`, e.g., `https://pubsub.googleapis.com/`
     ///
@@ -176,10 +176,10 @@ impl Builder {
         self
     }
 
-    /// Sets the [scopes] for this credential.
+    /// Sets the [scopes] for this credentials.
     ///
     /// `scopes` is a [JWT] claim specifying requested permission(s) for the token.
-    /// Only one of audience or scopes can be specified for a credential.
+    /// Only one of audience or scopes can be specified for a credentials.
     /// Setting the scopes will replace any previously configured audience.
     ///
     /// `scopes` define the *permissions being requested* for this specific session
@@ -212,7 +212,7 @@ impl Builder {
         self
     }
 
-    /// Sets the [quota project] for this credential.
+    /// Sets the [quota project] for this credentials.
     ///
     /// In some services, you can use a service account in
     /// one project for authentication and authorization, and charge
@@ -225,7 +225,7 @@ impl Builder {
         self
     }
 
-    /// Returns a [Credential] instance with the configured settings.
+    /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
     ///
@@ -237,7 +237,7 @@ impl Builder {
     /// relevant section in the [service account keys] guide.
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
-    pub fn build(self) -> Result<Credential> {
+    pub fn build(self) -> Result<Credentials> {
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
                 .map_err(errors::non_retryable)?;
@@ -247,7 +247,7 @@ impl Builder {
         };
         let token_provider = TokenCache::new(token_provider);
 
-        Ok(Credential {
+        Ok(Credentials {
             inner: Arc::new(ServiceAccountCredential {
                 token_provider,
                 quota_project_id: self.quota_project_id,

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
+use crate::credentials::{Credentials, QUOTA_PROJECT_KEY, Result};
 use crate::errors;
 use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue};
@@ -58,7 +58,7 @@ impl ApiKeyOptions {
 pub async fn create_api_key_credentials<T: Into<String>>(
     api_key: T,
     o: ApiKeyOptions,
-) -> Result<Credential> {
+) -> Result<Credentials> {
     let token_provider = ApiKeyTokenProvider {
         api_key: api_key.into(),
     };
@@ -67,7 +67,7 @@ pub async fn create_api_key_credentials<T: Into<String>>(
         .ok()
         .or(o.quota_project);
 
-    Ok(Credential {
+    Ok(Credentials {
         inner: Arc::new(ApiKeyCredentials {
             token_provider,
             quota_project_id,
