@@ -71,7 +71,7 @@ pub(crate) fn new() -> Credentials {
 }
 
 #[derive(Debug)]
-struct MDSCredential<T>
+struct MDSCredentials<T>
 where
     T: TokenProvider,
 {
@@ -159,7 +159,7 @@ impl Builder {
             .build();
         let cached_token_provider = crate::token_cache::TokenCache::new(token_provider);
 
-        let mdsc = MDSCredential {
+        let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id,
             token_provider: cached_token_provider,
             universe_domain: self.universe_domain,
@@ -171,7 +171,7 @@ impl Builder {
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialsTrait for MDSCredential<T>
+impl<T> CredentialsTrait for MDSCredentials<T>
 where
     T: TokenProvider,
 {
@@ -341,7 +341,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(expected_clone));
 
-        let mdsc = MDSCredential {
+        let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
             token_provider: mock,
@@ -357,7 +357,7 @@ mod test {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let mdsc = MDSCredential {
+        let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
             token_provider: mock,
@@ -377,7 +377,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let mdsc = MDSCredential {
+        let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
             token_provider: mock,
@@ -401,7 +401,7 @@ mod test {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let mdsc = MDSCredential {
+        let mdsc = MDSCredentials {
             quota_project_id: None,
             universe_domain: None,
             token_provider: mock,

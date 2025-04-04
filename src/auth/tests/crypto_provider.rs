@@ -40,7 +40,7 @@ mod test {
 
         let creds = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", creds);
-        assert!(fmt.contains("ServiceAccountCredential"));
+        assert!(fmt.contains("ServiceAccountCredentials"));
 
         creds
     }
