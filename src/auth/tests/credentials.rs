@@ -16,7 +16,7 @@ use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
 use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::{
-    ApiKeyOptions, Credentials, CredentialsTrait, create_access_token_credential,
+    ApiKeyOptions, Credentials, CredentialsTrait, create_access_token_credentials,
     create_api_key_credentials,
 };
 use google_cloud_auth::errors::CredentialError;
@@ -34,21 +34,21 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_fallback_to_mds() {
+    async fn create_access_token_credentials_fallback_to_mds() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
 
-        let mds = create_access_token_credential().await.unwrap();
+        let mds = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", mds);
         assert!(fmt.contains("MDSCredential"));
     }
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_errors_if_adc_env_is_not_a_file() {
+    async fn create_access_token_credentials_errors_if_adc_env_is_not_a_file() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
-        let err = create_access_token_credential().await.err().unwrap();
+        let err = create_access_token_credentials().await.err().unwrap();
         let msg = err.source().unwrap().to_string();
         assert!(msg.contains("Failed to load Application Default Credentials"));
         assert!(msg.contains("file-does-not-exist.json"));
@@ -57,14 +57,14 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_malformed_adc_is_error() {
+    async fn create_access_token_credentials_malformed_adc_is_error() {
         for contents in ["{}", r#"{"type": 42}"#] {
             let file = tempfile::NamedTempFile::new().unwrap();
             let path = file.into_temp_path();
             std::fs::write(&path, contents).expect("Unable to write to temporary file.");
             let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-            let err = create_access_token_credential().await.err().unwrap();
+            let err = create_access_token_credentials().await.err().unwrap();
             let msg = err.source().unwrap().to_string();
             assert!(msg.contains("Failed to parse"));
             assert!(msg.contains("`type` field"));
@@ -73,7 +73,7 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_adc_unimplemented_credential_type() {
+    async fn create_access_token_credentials_adc_unimplemented_credential_type() {
         let contents = r#"{
             "type": "some_unknown_credential_type"
         }"#;
@@ -83,7 +83,7 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let err = create_access_token_credential().await.err().unwrap();
+        let err = create_access_token_credentials().await.err().unwrap();
         let msg = err.source().unwrap().to_string();
         assert!(msg.contains("Unimplemented"));
         assert!(msg.contains("some_unknown_credential_type"));
@@ -91,7 +91,7 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_adc_user_credentials() {
+    async fn create_access_token_credentials_adc_user_credentials() {
         let contents = r#"{
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
@@ -104,14 +104,14 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let uc = create_access_token_credential().await.unwrap();
+        let uc = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", uc);
         assert!(fmt.contains("UserCredential"));
     }
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_adc_service_account_credentials() {
+    async fn create_access_token_credentials_adc_service_account_credentials() {
         let contents = r#"{
             "type": "service_account",
             "project_id": "test-project-id",
@@ -126,7 +126,7 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let sac = create_access_token_credential().await.unwrap();
+        let sac = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", sac);
         assert!(fmt.contains("ServiceAccountCredential"));
     }

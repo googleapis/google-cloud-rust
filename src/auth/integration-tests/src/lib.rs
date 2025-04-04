@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use auth::credentials::{
-    ApiKeyOptions, create_access_token_credential, create_api_key_credentials,
+    ApiKeyOptions, create_access_token_credentials, create_api_key_credentials,
 };
 use gax::error::Error;
 use language::client::LanguageService;
@@ -51,7 +51,7 @@ pub async fn service_account() -> Result<()> {
 
     // Create credentials for the principal under test.
     let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
-    let creds = create_access_token_credential()
+    let creds = create_access_token_credentials()
         .await
         .map_err(Error::authentication)?;
 

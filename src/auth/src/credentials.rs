@@ -236,10 +236,10 @@ pub(crate) mod dynamic {
 /// Example usage:
 ///
 /// ```
-/// # use google_cloud_auth::credentials::create_access_token_credential;
+/// # use google_cloud_auth::credentials::create_access_token_credentials;
 /// # use google_cloud_auth::errors::CredentialError;
 /// # tokio_test::block_on(async {
-/// let mut creds = create_access_token_credential().await?;
+/// let mut creds = create_access_token_credentials().await?;
 /// let token = creds.get_token().await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialError>(())
@@ -252,7 +252,7 @@ pub(crate) mod dynamic {
 /// [gce-link]: https://cloud.google.com/products/compute
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
-pub async fn create_access_token_credential() -> Result<Credentials> {
+pub async fn create_access_token_credentials() -> Result<Credentials> {
     let contents = match load_adc()? {
         AdcContents::Contents(contents) => contents,
         AdcContents::FallbackToMds => return Ok(mds::new()),
