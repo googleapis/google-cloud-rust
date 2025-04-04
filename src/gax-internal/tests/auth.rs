@@ -14,7 +14,7 @@
 
 #[cfg(all(test, feature = "_internal_http_client"))]
 mod test {
-    use auth::credentials::{Credential, CredentialsTrait};
+    use auth::credentials::{Credentials, CredentialsTrait};
     use auth::errors::CredentialError;
     use auth::token::Token;
     use gax::options::*;

@@ -16,7 +16,7 @@ use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
 use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::{
-    ApiKeyOptions, Credential, CredentialsTrait, create_access_token_credential,
+    ApiKeyOptions, Credentials, CredentialsTrait, create_access_token_credential,
     create_api_key_credentials,
 };
 use google_cloud_auth::errors::CredentialError;
