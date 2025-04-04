@@ -1225,6 +1225,321 @@ pub mod firestore_admin {
         }
     }
 
+    /// The request builder for [FirestoreAdmin::create_user_creds][super::super::client::FirestoreAdmin::create_user_creds] calls.
+    #[derive(Clone, Debug)]
+    pub struct CreateUserCreds(RequestBuilder<crate::model::CreateUserCredsRequest>);
+
+    impl CreateUserCreds {
+        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateUserCredsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::UserCreds> {
+            (*self.0.stub)
+                .create_user_creds(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [parent][crate::model::CreateUserCredsRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [user_creds][crate::model::CreateUserCredsRequest::user_creds].
+        pub fn set_user_creds<T: Into<std::option::Option<crate::model::UserCreds>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.user_creds = v.into();
+            self
+        }
+
+        /// Sets the value of [user_creds_id][crate::model::CreateUserCredsRequest::user_creds_id].
+        pub fn set_user_creds_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.user_creds_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateUserCreds {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirestoreAdmin::get_user_creds][super::super::client::FirestoreAdmin::get_user_creds] calls.
+    #[derive(Clone, Debug)]
+    pub struct GetUserCreds(RequestBuilder<crate::model::GetUserCredsRequest>);
+
+    impl GetUserCreds {
+        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetUserCredsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::UserCreds> {
+            (*self.0.stub)
+                .get_user_creds(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::GetUserCredsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetUserCreds {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirestoreAdmin::list_user_creds][super::super::client::FirestoreAdmin::list_user_creds] calls.
+    #[derive(Clone, Debug)]
+    pub struct ListUserCreds(RequestBuilder<crate::model::ListUserCredsRequest>);
+
+    impl ListUserCreds {
+        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListUserCredsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListUserCredsResponse> {
+            (*self.0.stub)
+                .list_user_creds(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [parent][crate::model::ListUserCredsRequest::parent].
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListUserCreds {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirestoreAdmin::enable_user_creds][super::super::client::FirestoreAdmin::enable_user_creds] calls.
+    #[derive(Clone, Debug)]
+    pub struct EnableUserCreds(RequestBuilder<crate::model::EnableUserCredsRequest>);
+
+    impl EnableUserCreds {
+        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::EnableUserCredsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::UserCreds> {
+            (*self.0.stub)
+                .enable_user_creds(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::EnableUserCredsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for EnableUserCreds {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirestoreAdmin::disable_user_creds][super::super::client::FirestoreAdmin::disable_user_creds] calls.
+    #[derive(Clone, Debug)]
+    pub struct DisableUserCreds(RequestBuilder<crate::model::DisableUserCredsRequest>);
+
+    impl DisableUserCreds {
+        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DisableUserCredsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::UserCreds> {
+            (*self.0.stub)
+                .disable_user_creds(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::DisableUserCredsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DisableUserCreds {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirestoreAdmin::reset_user_password][super::super::client::FirestoreAdmin::reset_user_password] calls.
+    #[derive(Clone, Debug)]
+    pub struct ResetUserPassword(RequestBuilder<crate::model::ResetUserPasswordRequest>);
+
+    impl ResetUserPassword {
+        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ResetUserPasswordRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::UserCreds> {
+            (*self.0.stub)
+                .reset_user_password(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::ResetUserPasswordRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ResetUserPassword {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirestoreAdmin::delete_user_creds][super::super::client::FirestoreAdmin::delete_user_creds] calls.
+    #[derive(Clone, Debug)]
+    pub struct DeleteUserCreds(RequestBuilder<crate::model::DeleteUserCredsRequest>);
+
+    impl DeleteUserCreds {
+        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteUserCredsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_user_creds(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [name][crate::model::DeleteUserCredsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteUserCreds {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [FirestoreAdmin::get_backup][super::super::client::FirestoreAdmin::get_backup] calls.
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
