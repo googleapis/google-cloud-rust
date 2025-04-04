@@ -46,6 +46,8 @@ pub mod error;
 /// Defines some types and traits to convert and use List RPCs as a Stream.
 pub mod paginator;
 
+pub mod response;
+
 pub mod backoff_policy;
 pub mod client_builder;
 pub mod exponential_backoff;

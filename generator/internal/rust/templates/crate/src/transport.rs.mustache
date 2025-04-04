@@ -53,7 +53,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
-    ) -> Result<{{Codec.ReturnType}}> {
+    ) -> Result<gax::response::Response<{{Codec.ReturnType}}>> {
         let options = options.set_default_idempotency(reqwest::Method::{{PathInfo.Codec.Method}}.is_idempotent());
         let builder = self
             .inner
@@ -78,14 +78,27 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         {{#Codec.QueryParams}}
         {{{Codec.AddQueryParameter}}}
         {{/Codec.QueryParams}}
-        self.inner.execute(
-            builder,
-            {{#PathInfo.Codec.HasBody}}Some(req{{Codec.BodyAccessor}}){{/PathInfo.Codec.HasBody}}
-            {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
-            options,
-        ).await
+        {{^ReturnsEmpty}}
+        let response : {{OutputType.Codec.QualifiedName}} = self.inner
+            .execute(
+                builder,
+                {{#PathInfo.Codec.HasBody}}Some(req{{Codec.BodyAccessor}}){{/PathInfo.Codec.HasBody}}
+                {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
+        {{/ReturnsEmpty}}
         {{#ReturnsEmpty}}
-        .map(|_: {{OutputType.Codec.QualifiedName}}| ())
+        let _ : {{OutputType.Codec.QualifiedName}} = self.inner
+            .execute(
+                builder,
+                {{#PathInfo.Codec.HasBody}}Some(req{{Codec.BodyAccessor}}){{/PathInfo.Codec.HasBody}}
+                {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(()))
         {{/ReturnsEmpty}}
     }
 
