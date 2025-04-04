@@ -82,4 +82,5 @@ Cloud Shell is a great environment to run small examples and tests.
 
 [cloud shell]: https://cloud.google.com/shell
 [rustup]: https://rust-lang.github.io/rustup/
+[secret manager]: https://cloud.google.com/secret-manager/docs/overview
 [tokio]: https://crates.io/crates/tokio
