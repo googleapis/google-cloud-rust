@@ -106,7 +106,7 @@ mod test {
 
         let uc = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", uc);
-        assert!(fmt.contains("UserCredential"));
+        assert!(fmt.contains("UserCredentials"));
     }
 
     #[tokio::test]
@@ -137,14 +137,14 @@ mod test {
             .await
             .unwrap();
         let fmt = format!("{:?}", creds);
-        assert!(fmt.contains("ApiKeyCredential"), "{fmt:?}");
+        assert!(fmt.contains("ApiKeyCredentials"), "{fmt:?}");
     }
 
     mockall::mock! {
         #[derive(Debug)]
-        Credential {}
+        Credentials {}
 
-        impl CredentialsTrait for Credential {
+        impl CredentialsTrait for Credentials {
             async fn get_token(&self) -> Result<Token>;
             async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
             async fn get_universe_domain(&self) -> Option<String>;
@@ -153,7 +153,7 @@ mod test {
 
     #[tokio::test]
     async fn mocking() -> Result<()> {
-        let mut mock = MockCredential::new();
+        let mut mock = MockCredentials::new();
         mock.expect_get_token().return_once(|| {
             Ok(Token {
                 token: "test-token".to_string(),

@@ -100,7 +100,7 @@ pub struct Builder {
 }
 
 impl Builder {
-    /// Sets the endpoint for this credential.
+    /// Sets the endpoint for this credentials.
     ///
     /// If not set, the credentials use `http://metadata.google.internal/`.
     pub fn endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
@@ -108,7 +108,7 @@ impl Builder {
         self
     }
 
-    /// Set the [quota project] for this credential.
+    /// Set the [quota project] for this credentials.
     ///
     /// In some services, you can use a service account in
     /// one project for authentication and authorization, and charge
@@ -121,7 +121,7 @@ impl Builder {
         self
     }
 
-    /// Sets the universe domain for this credential.
+    /// Sets the universe domain for this credentials.
     ///
     /// Client libraries use `universe_domain` to determine
     /// the API endpoints to use for making requests.
@@ -132,10 +132,10 @@ impl Builder {
         self
     }
 
-    /// Sets the [scopes] for this credential.
+    /// Sets the [scopes] for this credentials.
     ///
     /// Metadata server issues tokens based on the requested scopes.
-    /// If no scopes are specified, the credential defaults to all
+    /// If no scopes are specified, the credentials defaults to all
     /// scopes configured for the [default service account] on the instance.
     ///
     /// [default service account]: https://cloud.google.com/iam/docs/service-account-types#default

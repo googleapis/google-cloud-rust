@@ -654,8 +654,8 @@ mod test {
             "universe_domain": "test-universe-domain"
         });
 
-        let credential = creds_from(json_value)?;
-        let token = credential.get_token().await?;
+        let credentials = creds_from(json_value)?;
+        let token = credentials.get_token().await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).unwrap();
@@ -670,7 +670,7 @@ mod test {
         std::thread::sleep(Duration::from_secs(1));
 
         // Get the token again.
-        let token = credential.get_token().await?;
+        let token = credentials.get_token().await?;
         let captures = re.captures(&token.token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());

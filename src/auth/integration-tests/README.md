@@ -101,7 +101,7 @@ For each principal we have:
 The steps in the test are:
 
 1. The principal running the build pulls the ADC JSON from SecretManager.
-1. We create a credential object from the ADC JSON.
+1. We create a credentials object from the ADC JSON.
 1. We create a SecretManager client using these credentials.
 1. We use this client to access the principal-specific secret.
 
