@@ -21,7 +21,7 @@ pub mod service_account;
 pub(crate) mod user_credentials;
 
 use crate::Result;
-use crate::errors::{self, CredentialError};
+use crate::errors::{self, CredentialsError};
 use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
 use std::sync::Arc;
@@ -237,12 +237,12 @@ pub(crate) mod dynamic {
 ///
 /// ```
 /// # use google_cloud_auth::credentials::create_access_token_credentials;
-/// # use google_cloud_auth::errors::CredentialError;
+/// # use google_cloud_auth::errors::CredentialsError;
 /// # tokio_test::block_on(async {
 /// let mut creds = create_access_token_credentials().await?;
 /// let token = creds.get_token().await?;
 /// println!("Token: {}", token.token);
-/// # Ok::<(), CredentialError>(())
+/// # Ok::<(), CredentialsError>(())
 /// # });
 /// ```
 ///
@@ -285,7 +285,7 @@ enum AdcContents {
     FallbackToMds,
 }
 
-fn path_not_found(path: String) -> CredentialError {
+fn path_not_found(path: String) -> CredentialsError {
     errors::non_retryable_from_str(format!(
         "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
     ))
@@ -400,11 +400,11 @@ pub mod testing {
     #[async_trait::async_trait]
     impl CredentialsTrait for ErrorCredentials {
         async fn get_token(&self) -> Result<Token> {
-            Err(super::CredentialError::from_str(self.0, "test-only"))
+            Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-            Err(super::CredentialError::from_str(self.0, "test-only"))
+            Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
         async fn get_universe_domain(&self) -> Option<String> {

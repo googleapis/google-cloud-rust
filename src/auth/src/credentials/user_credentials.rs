@@ -14,7 +14,7 @@
 
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, QUOTA_PROJECT_KEY, Result};
-use crate::errors::{self, CredentialError, is_retryable};
+use crate::errors::{self, CredentialsError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
@@ -90,15 +90,15 @@ impl TokenProvider for UserTokenProvider {
             let body = resp
                 .text()
                 .await
-                .map_err(|e| CredentialError::new(is_retryable(status), e))?;
-            return Err(CredentialError::from_str(
+                .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
+            return Err(CredentialsError::from_str(
                 is_retryable(status),
                 format!("Failed to fetch token. {body}"),
             ));
         }
         let response = resp.json::<Oauth2RefreshResponse>().await.map_err(|e| {
             let retryable = !e.is_decode();
-            CredentialError::new(retryable, e)
+            CredentialsError::new(retryable, e)
         })?;
         let token = Token {
             token: response.access_token,

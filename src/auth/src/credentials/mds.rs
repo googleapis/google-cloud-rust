@@ -35,12 +35,12 @@
 //! ```
 //! # use google_cloud_auth::credentials::mds::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
-//! # use google_cloud_auth::errors::CredentialError;
+//! # use google_cloud_auth::errors::CredentialsError;
 //! # tokio_test::block_on(async {
 //! let credentials: Credentials = Builder::default().quota_project_id("my-quota-project").build();
 //! let token = credentials.get_token().await?;
 //! println!("Token: {}", token.token);
-//! # Ok::<(), CredentialError>(())
+//! # Ok::<(), CredentialsError>(())
 //! # });
 //! ```
 //!
@@ -52,7 +52,7 @@
 
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY, Result};
-use crate::errors::{self, CredentialError, is_retryable};
+use crate::errors::{self, CredentialsError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use bon::Builder;
@@ -278,15 +278,15 @@ impl TokenProvider for MDSAccessTokenProvider {
             let body = response
                 .text()
                 .await
-                .map_err(|e| CredentialError::new(is_retryable(status), e))?;
-            return Err(CredentialError::from_str(
+                .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
+            return Err(CredentialsError::from_str(
                 is_retryable(status),
                 format!("Failed to fetch token. {body}"),
             ));
         }
         let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
             let retryable = !e.is_decode();
-            CredentialError::new(retryable, e)
+            CredentialsError::new(retryable, e)
         })?;
         let token = Token {
             token: response.access_token,

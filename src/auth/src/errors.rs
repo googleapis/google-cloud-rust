@@ -17,25 +17,25 @@
 use http::StatusCode;
 use std::error::Error;
 
-pub use gax::error::CredentialError;
+pub use gax::error::CredentialsError;
 
 /// A helper to create a retryable error.
-pub(crate) fn retryable<T: Error + Send + Sync + 'static>(source: T) -> CredentialError {
-    CredentialError::new(true, source)
+pub(crate) fn retryable<T: Error + Send + Sync + 'static>(source: T) -> CredentialsError {
+    CredentialsError::new(true, source)
 }
 
 #[allow(dead_code)]
-pub(crate) fn retryable_from_str<T: Into<String>>(message: T) -> CredentialError {
-    CredentialError::from_str(true, message)
+pub(crate) fn retryable_from_str<T: Into<String>>(message: T) -> CredentialsError {
+    CredentialsError::from_str(true, message)
 }
 
 /// A helper to create a non-retryable error.
-pub(crate) fn non_retryable<T: Error + Send + Sync + 'static>(source: T) -> CredentialError {
-    CredentialError::new(false, source)
+pub(crate) fn non_retryable<T: Error + Send + Sync + 'static>(source: T) -> CredentialsError {
+    CredentialsError::new(false, source)
 }
 
-pub(crate) fn non_retryable_from_str<T: Into<String>>(message: T) -> CredentialError {
-    CredentialError::from_str(false, message)
+pub(crate) fn non_retryable_from_str<T: Into<String>>(message: T) -> CredentialsError {
+    CredentialsError::from_str(false, message)
 }
 
 pub(crate) fn is_retryable(c: StatusCode) -> bool {

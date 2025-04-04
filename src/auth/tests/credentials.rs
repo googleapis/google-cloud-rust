@@ -19,11 +19,11 @@ use google_cloud_auth::credentials::{
     ApiKeyOptions, Credentials, CredentialsTrait, create_access_token_credentials,
     create_api_key_credentials,
 };
-use google_cloud_auth::errors::CredentialError;
+use google_cloud_auth::errors::CredentialsError;
 use google_cloud_auth::token::Token;
 use serde_json::json;
 
-type Result<T> = std::result::Result<T, CredentialError>;
+type Result<T> = std::result::Result<T, CredentialsError>;
 
 #[cfg(test)]
 mod test {
