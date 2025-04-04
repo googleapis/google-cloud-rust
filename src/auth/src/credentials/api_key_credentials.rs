@@ -21,7 +21,7 @@ use std::sync::Arc;
 
 const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
 
-/// Configuration options for an API key credential.
+/// Configuration options for API key credentials.
 #[derive(Default)]
 pub struct ApiKeyOptions {
     quota_project: Option<String>,
@@ -68,7 +68,7 @@ pub async fn create_api_key_credentials<T: Into<String>>(
         .or(o.quota_project);
 
     Ok(Credential {
-        inner: Arc::new(ApiKeyCredential {
+        inner: Arc::new(ApiKeyCredentials {
             token_provider,
             quota_project_id,
         }),
@@ -81,7 +81,7 @@ struct ApiKeyTokenProvider {
 
 impl std::fmt::Debug for ApiKeyTokenProvider {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("ApiKeyCredential")
+        f.debug_struct("ApiKeyCredentials")
             .field("api_key", &"[censored]")
             .finish()
     }
@@ -100,7 +100,7 @@ impl TokenProvider for ApiKeyTokenProvider {
 }
 
 #[derive(Debug)]
-struct ApiKeyCredential<T>
+struct ApiKeyCredentials<T>
 where
     T: TokenProvider,
 {
@@ -109,7 +109,7 @@ where
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialsTrait for ApiKeyCredential<T>
+impl<T> CredentialsTrait for ApiKeyCredentials<T>
 where
     T: TokenProvider,
 {
