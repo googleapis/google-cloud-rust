@@ -32,8 +32,8 @@ use std::sync::Arc;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_gax::error::CredentialError;
-/// let err = CredentialError::from_str(
+/// # use google_cloud_gax::error::CredentialsError;
+/// let err = CredentialsError::from_str(
 ///     true, "simulated retryable error while trying to create credentials");
 /// assert!(err.is_retryable());
 /// assert!(format!("{err}").contains("simulated retryable error"));
@@ -42,7 +42,7 @@ use std::sync::Arc;
 /// [access tokens]: https://cloud.google.com/docs/authentication/token-types
 /// [Credential]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credential.html
 #[derive(Clone, Debug)]
-pub struct CredentialError {
+pub struct CredentialsError {
     /// A boolean value indicating whether the error is retryable.
     ///
     /// If `true`, the operation that resulted in this error might succeed upon
@@ -52,17 +52,17 @@ pub struct CredentialError {
     /// The underlying source of the error.
     ///
     /// This provides more specific information about the cause of the failure.
-    source: CredentialErrorImpl,
+    source: CredentialsErrorImpl,
 }
 
 #[derive(Clone, Debug)]
-enum CredentialErrorImpl {
+enum CredentialsErrorImpl {
     SimpleMessage(String),
     Source(Arc<dyn Error + Send + Sync>),
 }
 
-impl CredentialError {
-    /// Creates a new `CredentialError`.
+impl CredentialsError {
+    /// Creates a new `CredentialsError`.
     ///
     /// This function is only intended for use in the client libraries
     /// implementation. Application may use this in mocks, though we do not
@@ -71,9 +71,9 @@ impl CredentialError {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::error::CredentialError;
+    /// # use google_cloud_gax::error::CredentialsError;
     /// # use google_cloud_gax::error::Error;
-    /// let err = CredentialError::new(
+    /// let err = CredentialsError::new(
     ///     false, Error::other("simulated non-retryable error while trying to create credentials"));
     /// assert!(!err.is_retryable());
     /// assert!(format!("{err}").contains("simulated non-retryable error"));
@@ -82,13 +82,13 @@ impl CredentialError {
     /// * `is_retryable` - A boolean indicating whether the error is retryable.
     /// * `source` - The underlying error that caused the auth failure.
     pub fn new<T: Error + Send + Sync + 'static>(is_retryable: bool, source: T) -> Self {
-        CredentialError {
+        CredentialsError {
             is_retryable,
-            source: CredentialErrorImpl::Source(Arc::new(source)),
+            source: CredentialsErrorImpl::Source(Arc::new(source)),
         }
     }
 
-    /// Creates a new `CredentialError`.
+    /// Creates a new `CredentialsError`.
     ///
     /// This function is only intended for use in the client libraries
     /// implementation. Application may use this in mocks, though we do not
@@ -97,8 +97,8 @@ impl CredentialError {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::error::CredentialError;
-    /// let err = CredentialError::from_str(
+    /// # use google_cloud_gax::error::CredentialsError;
+    /// let err = CredentialsError::from_str(
     ///     true, "simulated retryable error while trying to create credentials");
     /// assert!(err.is_retryable());
     /// assert!(format!("{err}").contains("simulated retryable error"));
@@ -108,9 +108,9 @@ impl CredentialError {
     /// * `is_retryable` - A boolean indicating whether the error is retryable.
     /// * `message` - The underlying error that caused the auth failure.
     pub fn from_str<T: Into<String>>(is_retryable: bool, message: T) -> Self {
-        CredentialError::new(
+        CredentialsError::new(
             is_retryable,
-            CredentialErrorImpl::SimpleMessage(message.into()),
+            CredentialsErrorImpl::SimpleMessage(message.into()),
         )
     }
 
@@ -120,25 +120,25 @@ impl CredentialError {
     }
 }
 
-impl std::error::Error for CredentialErrorImpl {
+impl std::error::Error for CredentialsErrorImpl {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match &self {
-            CredentialErrorImpl::SimpleMessage(_) => None,
-            CredentialErrorImpl::Source(source) => Some(source),
+            CredentialsErrorImpl::SimpleMessage(_) => None,
+            CredentialsErrorImpl::Source(source) => Some(source),
         }
     }
 }
 
-impl Display for CredentialErrorImpl {
+impl Display for CredentialsErrorImpl {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         match &self {
-            CredentialErrorImpl::SimpleMessage(message) => write!(f, "{}", message),
-            CredentialErrorImpl::Source(source) => write!(f, "{}", source),
+            CredentialsErrorImpl::SimpleMessage(message) => write!(f, "{}", message),
+            CredentialsErrorImpl::Source(source) => write!(f, "{}", source),
         }
     }
 }
 
-impl std::error::Error for CredentialError {
+impl std::error::Error for CredentialsError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         self.source.source()
     }
@@ -147,7 +147,7 @@ impl std::error::Error for CredentialError {
 const RETRYABLE_MSG: &str = "but future attempts may succeed";
 const NON_RETRYABLE_MSG: &str = "and future attempts will not succeed";
 
-impl Display for CredentialError {
+impl Display for CredentialsError {
     /// Formats the error message to include retryability and source.
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         let msg = if self.is_retryable {
@@ -177,7 +177,7 @@ mod test {
             HashMap::new(),
             Some(bytes::Bytes::from_static("test-only".as_bytes())),
         );
-        let got = CredentialError::new(retryable, source);
+        let got = CredentialsError::new(retryable, source);
         assert_eq!(got.is_retryable(), retryable, "{got}");
         assert!(got.source().is_some(), "{got}");
         assert!(format!("{got}").contains("test-only"), "{got}");
@@ -186,7 +186,7 @@ mod test {
     #[test_case(true)]
     #[test_case(false)]
     fn from_str(retryable: bool) {
-        let got = CredentialError::from_str(retryable, "test-only");
+        let got = CredentialsError::from_str(retryable, "test-only");
         assert_eq!(got.is_retryable(), retryable, "{got}");
         assert!(got.source().is_some(), "{got}");
         assert!(format!("{got}").contains("test-only"), "{got}");
@@ -194,12 +194,12 @@ mod test {
 
     #[test]
     fn fmt() {
-        let e = CredentialError::from_str(true, "test-only-err-123");
+        let e = CredentialsError::from_str(true, "test-only-err-123");
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(RETRYABLE_MSG), "{got}");
 
-        let e = CredentialError::from_str(false, "test-only-err-123");
+        let e = CredentialsError::from_str(false, "test-only-err-123");
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
@@ -207,9 +207,9 @@ mod test {
 
     #[test]
     fn source() {
-        let got = CredentialErrorImpl::SimpleMessage("test-only".into());
+        let got = CredentialsErrorImpl::SimpleMessage("test-only".into());
         assert!(got.source().is_none(), "{got}");
-        let got = CredentialErrorImpl::Source(Arc::new(crate::error::Error::other("test-only")));
+        let got = CredentialsErrorImpl::Source(Arc::new(crate::error::Error::other("test-only")));
         assert!(got.source().is_some(), "{got}");
     }
 }

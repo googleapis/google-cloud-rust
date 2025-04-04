@@ -48,7 +48,7 @@
 //! ```
 //! # use google_cloud_auth::credentials::service_account::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
-//! # use google_cloud_auth::errors::CredentialError;
+//! # use google_cloud_auth::errors::CredentialsError;
 //! # tokio_test::block_on(async {
 //! let service_account_key = serde_json::json!({
 //! "client_email": "test-client-email",
@@ -60,7 +60,7 @@
 //! let credentials: Credentials = Builder::new(service_account_key).with_quota_project_id("my-quota-project").build()?;
 //! let token = credentials.get_token().await?;
 //! println!("Token: {}", token.token);
-//! # Ok::<(), CredentialError>(())
+//! # Ok::<(), CredentialsError>(())
 //! # });
 //! ```
 //!
@@ -74,7 +74,7 @@ mod jws;
 use crate::credentials::QUOTA_PROJECT_KEY;
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, Result};
-use crate::errors::{self, CredentialError};
+use crate::errors::{self, CredentialsError};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use async_trait::async_trait;
@@ -229,7 +229,7 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialError] if the `service_account_key`
+    /// Returns a [CredentialsError] if the `service_account_key`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for a service account key. This typically happens if the
     /// JSON value is malformed or missing required fields. For more information,
@@ -377,7 +377,7 @@ impl ServiceAccountTokenProvider {
             .ok_or_else(|| errors::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
     }
 
-    fn unexpected_private_key_error(private_key_format: Item) -> CredentialError {
+    fn unexpected_private_key_error(private_key_format: Item) -> CredentialsError {
         errors::non_retryable_from_str(format!(
             "expected key to be in form of PKCS8, found {:?}",
             private_key_format
