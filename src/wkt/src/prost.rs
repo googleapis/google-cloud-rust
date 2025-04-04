@@ -167,7 +167,7 @@ impl Convert<prost_types::NullValue> for crate::NullValue {
     }
 }
 
-impl std::convert::From<crate::NullValue> for i32 {
+impl From<crate::NullValue> for i32 {
     fn from(_value: crate::NullValue) -> Self {
         i32::default()
     }
@@ -176,7 +176,6 @@ impl std::convert::From<crate::NullValue> for i32 {
 #[cfg(test)]
 mod test {
     use super::*;
-    use serde_json::json;
     use test_case::test_case;
 
     #[test]

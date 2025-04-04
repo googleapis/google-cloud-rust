@@ -136,7 +136,7 @@ impl crate::message::Message for Any {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Any"
     }
-    fn to_map(&self) -> Result<crate::message::Map, crate::AnyError> {
+    fn to_map(&self) -> Result<crate::message::Map, AnyError> {
         use serde_json::Value;
         let map = [
             ("@type", Value::String(Self::typename().into())),
@@ -147,14 +147,14 @@ impl crate::message::Message for Any {
         .collect::<crate::message::Map>();
         Ok(map)
     }
-    fn from_map(map: &crate::message::Map) -> Result<Self, crate::AnyError> {
+    fn from_map(map: &crate::message::Map) -> Result<Self, AnyError> {
         crate::message::from_value(map)
     }
 }
 
 /// Implement [`serde`](::serde) serialization for [Any].
 impl serde::ser::Serialize for Any {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {

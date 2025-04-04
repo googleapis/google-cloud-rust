@@ -71,13 +71,13 @@ pub trait BackoffPolicy: Send + Sync + std::fmt::Debug {
 #[derive(Clone)]
 pub struct BackoffPolicyArg(pub(crate) Arc<dyn BackoffPolicy>);
 
-impl<T: BackoffPolicy + 'static> std::convert::From<T> for BackoffPolicyArg {
+impl<T: BackoffPolicy + 'static> From<T> for BackoffPolicyArg {
     fn from(value: T) -> Self {
         Self(Arc::new(value))
     }
 }
 
-impl std::convert::From<Arc<dyn BackoffPolicy>> for BackoffPolicyArg {
+impl From<Arc<dyn BackoffPolicy>> for BackoffPolicyArg {
     fn from(value: Arc<dyn BackoffPolicy>) -> Self {
         Self(value)
     }

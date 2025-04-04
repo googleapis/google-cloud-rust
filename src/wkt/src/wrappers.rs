@@ -297,8 +297,8 @@ mod test {
     #[test_case(DoubleValue::default(), BytesValue::default())]
     fn test_wrapper_in_any_with_bad_typenames<T, U>(from: T, _into: U) -> Result
     where
-        T: crate::message::Message + std::fmt::Debug + serde::ser::Serialize,
-        U: crate::message::Message + std::fmt::Debug + serde::de::DeserializeOwned,
+        T: Message + std::fmt::Debug + serde::ser::Serialize,
+        U: Message + std::fmt::Debug + serde::de::DeserializeOwned,
     {
         let any = Any::try_from(&from)?;
         assert!(any.try_into_message::<U>().is_err());
@@ -309,10 +309,7 @@ mod test {
     #[test_case(UInt64Value::default(), "UInt64Value")]
     fn test_wrapper_bad_encoding<T>(_input: T, typename: &str) -> Result
     where
-        T: crate::message::Message
-            + std::fmt::Debug
-            + serde::ser::Serialize
-            + serde::de::DeserializeOwned,
+        T: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         let map = serde_json::json!({
             "@type": format!("type.googleapis.com/google.protobuf.{}", typename),

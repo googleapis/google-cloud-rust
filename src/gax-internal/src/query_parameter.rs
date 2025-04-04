@@ -56,7 +56,7 @@ impl QueryParameter for serde_json::Value {
 mod tests {
     use super::*;
     use serde_json::json;
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    type TestResult = Result<(), Box<dyn std::error::Error>>;
 
     fn split_query(r: &reqwest::Request) -> Vec<&str> {
         r.url()

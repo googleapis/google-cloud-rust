@@ -14,7 +14,7 @@
 
 #[cfg(all(test, feature = "_internal_http_client"))]
 mod test {
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    type TestResult = Result<(), Box<dyn std::error::Error>>;
 
     /// A test policy, the only interesting bit is the name, which is included
     /// in debug messages and used in the tests.

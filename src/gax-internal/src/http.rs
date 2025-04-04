@@ -207,7 +207,7 @@ impl ReqwestClient {
     pub fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+    ) -> Arc<dyn PollingErrorPolicy> {
         options
             .polling_error_policy()
             .clone()
@@ -218,7 +218,7 @@ impl ReqwestClient {
     pub fn get_polling_backoff_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+    ) -> Arc<dyn PollingBackoffPolicy> {
         options
             .polling_backoff_policy()
             .clone()
