@@ -47,7 +47,7 @@ resource "google_secret_manager_secret_version" "test-sa-creds-json-secret-versi
 # Note that this is not really a "secret", in that we are not trying to hide its
 # contents.
 #
-# In order to validate our credential types, we need a GCP resource we can set
+# In order to validate our credentials types, we need a GCP resource we can set
 # fine-grained ACL on. We have picked Secret Manager secrets for this purpose.
 #
 resource "google_secret_manager_secret" "test-sa-creds-secret" {

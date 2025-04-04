@@ -56,7 +56,7 @@ struct UserTokenProvider {
 
 impl std::fmt::Debug for UserTokenProvider {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("UserTokenCredential")
+        f.debug_struct("UserCredentials")
             .field("client_id", &self.client_id)
             .field("client_secret", &"[censored]")
             .field("refresh_token", &"[censored]")

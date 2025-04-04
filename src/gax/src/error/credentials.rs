@@ -16,14 +16,14 @@ use std::error::Error;
 use std::fmt::{Debug, Display, Formatter, Result};
 use std::sync::Arc;
 
-/// Represents an error creating or using a [Credential].
+/// Represents an error creating or using a [Credentials].
 ///
 /// The Google Cloud client libraries may experience problems creating
 /// credentials and/or using them. An example of problems creating credentials
 /// may be a badly formatted or missing key file. An example of problems using
 /// credentials may be a temporary failure to retrieve or create
 /// [access tokens]. Note that the latter kind of errors may happen even after
-/// the credential files are successfully loaded and parsed.
+/// the credentials files are successfully loaded and parsed.
 ///
 /// Applications rarely need to create instances of this error type. The
 /// exception might be when testing application code, where the application is
@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// ```
 ///
 /// [access tokens]: https://cloud.google.com/docs/authentication/token-types
-/// [Credential]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credential.html
+/// [Credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credential.html
 #[derive(Clone, Debug)]
 pub struct CredentialsError {
     /// A boolean value indicating whether the error is retryable.

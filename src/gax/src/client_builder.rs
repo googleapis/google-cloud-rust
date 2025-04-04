@@ -121,7 +121,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// Most Google Cloud services require authentication, though some services
     /// allow for anonymous access, and some services provide emulators where
-    /// no authentication is required. More information about valid credential
+    /// no authentication is required. More information about valid credentials
     /// types can be found in the [google-cloud-auth] crate documentation.
     ///
     /// ```

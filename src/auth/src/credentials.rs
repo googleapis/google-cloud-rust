@@ -156,7 +156,7 @@ pub trait CredentialsTrait: std::fmt::Debug {
     /// The underlying implementation refreshes the token as needed.
     fn get_headers(&self) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
 
-    /// Retrieves the universe domain associated with the credential, if any.
+    /// Retrieves the universe domain associated with the credentials, if any.
     fn get_universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
 }
 
