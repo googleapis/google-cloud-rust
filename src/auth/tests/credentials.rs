@@ -187,8 +187,8 @@ mod test {
         let test_quota_project = "test-quota-project";
         let test_universe_domain = "test-universe-domain";
         let mdcs = MdsBuilder::default()
-            .quota_project_id(test_quota_project)
-            .universe_domain(test_universe_domain)
+            .with_quota_project_id(test_quota_project)
+            .with_universe_domain(test_universe_domain)
             .build();
         let fmt = format!("{:?}", mdcs);
         assert!(fmt.contains("MDSCredentials"));
