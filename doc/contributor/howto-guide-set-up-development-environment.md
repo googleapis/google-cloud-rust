@@ -301,5 +301,6 @@ git ls-files -z -- '*.tf' ':!:**/testdata/**' | xargs -0 terraform fmt
 [golang-install]: https://go.dev/doc/install
 [google cloud cli]: https://cloud.google.com/cli
 [install terraform]: https://developer.hashicorp.com/terraform/install
+[mdbook]: https://rust-lang.github.io/mdBook/
 [secret manager]: https://cloud.google.com/secret-manager/
 [workflows]: https://cloud.google.com/workflows/
