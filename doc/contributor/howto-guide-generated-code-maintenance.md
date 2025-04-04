@@ -5,6 +5,20 @@ walk you through the steps necessary to generate a new library, update libraries
 with new changes in the proto specifications, and refresh the generated code
 when the generator changes.
 
+## Prerequisites
+
+The generator uses the protobuf compiler, `protoc`, with the `--retain_options`
+flag.
+
+Ensure that you have `protoc` installed and that its version is >= v23.0.
+
+```bash
+protoc --version
+```
+
+If not, follow the steps in [Protocol Buffer Compiler Installation] to download
+a suitable version.
+
 ## Generate new library
 
 We will use "Web Security Scanner" as an example, most likely you will generate
@@ -113,3 +127,5 @@ And we will be able to issue shorter commands, such as:
 ```bash
 sidekick update && taplo fmt .sidekick.toml && cargo fmt
 ```
+
+[protocol buffer compiler installation]: https://protobuf.dev/installation/
