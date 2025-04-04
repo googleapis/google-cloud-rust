@@ -41,7 +41,7 @@ mod test {
 
         let mds = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", mds);
-        assert!(fmt.contains("MDSCredential"));
+        assert!(fmt.contains("MDSCredentials"));
     }
 
     #[tokio::test]
@@ -128,7 +128,7 @@ mod test {
 
         let sac = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", sac);
-        assert!(fmt.contains("ServiceAccountCredential"));
+        assert!(fmt.contains("ServiceAccountCredentials"));
     }
 
     #[tokio::test]
@@ -191,7 +191,7 @@ mod test {
             .universe_domain(test_universe_domain)
             .build();
         let fmt = format!("{:?}", mdcs);
-        assert!(fmt.contains("MDSCredential"));
+        assert!(fmt.contains("MDSCredentials"));
         assert!(fmt.contains(test_quota_project));
         assert!(fmt.contains(test_universe_domain));
         Ok(())
@@ -211,7 +211,7 @@ mod test {
             .with_quota_project_id(test_quota_project)
             .build()?;
         let fmt = format!("{:?}", service_account);
-        assert!(fmt.contains("ServiceAccountCredential"));
+        assert!(fmt.contains("ServiceAccountCredentials"));
         assert!(fmt.contains(test_quota_project));
         Ok(())
     }

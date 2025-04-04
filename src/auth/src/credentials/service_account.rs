@@ -248,7 +248,7 @@ impl Builder {
         let token_provider = TokenCache::new(token_provider);
 
         Ok(Credentials {
-            inner: Arc::new(ServiceAccountCredential {
+            inner: Arc::new(ServiceAccountCredentials {
                 token_provider,
                 quota_project_id: self.quota_project_id,
             }),
@@ -288,7 +288,7 @@ impl std::fmt::Debug for ServiceAccountKey {
 }
 
 #[derive(Debug)]
-struct ServiceAccountCredential<T>
+struct ServiceAccountCredentials<T>
 where
     T: TokenProvider,
 {
@@ -386,7 +386,7 @@ impl ServiceAccountTokenProvider {
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialsTrait for ServiceAccountCredential<T>
+impl<T> CredentialsTrait for ServiceAccountCredentials<T>
 where
     T: TokenProvider,
 {
@@ -460,7 +460,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(expected_clone));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -475,7 +475,7 @@ mod test {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -494,7 +494,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -524,7 +524,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: Some(quota_project.to_string()),
         };
@@ -554,7 +554,7 @@ mod test {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
