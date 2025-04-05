@@ -194,7 +194,7 @@ where
         Ok(headers)
     }
 
-    async fn get_universe_domain(&self) -> Option<String> {
+    async fn universe_domain(&self) -> Option<String> {
         if self.universe_domain.is_some() {
             return self.universe_domain.clone();
         }
@@ -805,11 +805,7 @@ mod test {
 
     #[tokio::test]
     async fn get_default_universe_domain_success() {
-        let universe_domain_response = Builder::default()
-            .build()
-            .get_universe_domain()
-            .await
-            .unwrap();
+        let universe_domain_response = Builder::default().build().universe_domain().await.unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
     }
 
@@ -819,7 +815,7 @@ mod test {
         let universe_domain_response = Builder::default()
             .universe_domain(universe_domain)
             .build()
-            .get_universe_domain()
+            .universe_domain()
             .await
             .unwrap();
         assert_eq!(universe_domain_response, universe_domain);

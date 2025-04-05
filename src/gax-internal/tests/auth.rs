@@ -32,7 +32,7 @@ mod test {
         impl CredentialsTrait for Credentials {
             async fn get_token(&self) -> AuthResult<Token>;
             async fn get_headers(&self) -> AuthResult<Vec<(HeaderName, HeaderValue)>>;
-            async fn get_universe_domain(&self) -> Option<String>;
+            async fn universe_domain(&self) -> Option<String>;
         }
     }
 
