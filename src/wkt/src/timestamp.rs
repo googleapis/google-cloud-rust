@@ -98,7 +98,7 @@ impl Timestamp {
     ///
     /// * `seconds` - the seconds on the timestamp.
     /// * `nanos` - the nanoseconds on the timestamp.
-    pub fn new(seconds: i64, nanos: i32) -> std::result::Result<Self, Error> {
+    pub fn new(seconds: i64, nanos: i32) -> Result<Self, Error> {
         if !(Self::MIN_SECONDS..=Self::MAX_SECONDS).contains(&seconds) {
             return Err(Error::OutOfRange());
         }
@@ -182,7 +182,7 @@ const NS: i128 = 1_000_000_000;
 
 /// Implement [`serde`](::serde) serialization for timestamps.
 impl serde::ser::Serialize for Timestamp {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
@@ -227,7 +227,7 @@ impl<'de> serde::de::Deserialize<'de> for Timestamp {
 impl TryFrom<time::OffsetDateTime> for Timestamp {
     type Error = TimestampError;
 
-    fn try_from(value: time::OffsetDateTime) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: time::OffsetDateTime) -> Result<Self, Self::Error> {
         use time::convert::{Nanosecond, Second};
 
         let seconds = value.unix_timestamp();
@@ -243,7 +243,7 @@ impl TryFrom<time::OffsetDateTime> for Timestamp {
 #[cfg(feature = "time")]
 impl TryFrom<Timestamp> for time::OffsetDateTime {
     type Error = time::error::ComponentRange;
-    fn try_from(value: Timestamp) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: Timestamp) -> Result<Self, Self::Error> {
         let ts = time::OffsetDateTime::from_unix_timestamp(value.seconds())?;
         Ok(ts + time::Duration::nanoseconds(value.nanos() as i64))
     }
@@ -252,7 +252,7 @@ impl TryFrom<Timestamp> for time::OffsetDateTime {
 /// Converts a [Timestamp] to its [String] representation.
 impl TryFrom<&Timestamp> for String {
     type Error = TimestampError;
-    fn try_from(timestamp: &Timestamp) -> std::result::Result<Self, Self::Error> {
+    fn try_from(timestamp: &Timestamp) -> Result<Self, Self::Error> {
         let ts = time::OffsetDateTime::from_unix_timestamp_nanos(
             timestamp.seconds as i128 * NS + timestamp.nanos as i128,
         )
@@ -265,7 +265,7 @@ impl TryFrom<&Timestamp> for String {
 /// Converts the [String] representation of a timestamp to [Timestamp].
 impl TryFrom<&str> for Timestamp {
     type Error = TimestampError;
-    fn try_from(value: &str) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
         let odt = time::OffsetDateTime::parse(value, &Rfc3339)
             .map_err(|e| TimestampError::Deserialize(format!("{e}")))?;
         let nanos_since_epoch = odt.unix_timestamp_nanos();
@@ -285,7 +285,7 @@ impl TryFrom<&str> for Timestamp {
 impl TryFrom<chrono::DateTime<chrono::Utc>> for Timestamp {
     type Error = TimestampError;
 
-    fn try_from(value: chrono::DateTime<chrono::Utc>) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: chrono::DateTime<chrono::Utc>) -> Result<Self, Self::Error> {
         assert!(value.timestamp_subsec_nanos() <= (i32::MAX as u32));
         Timestamp::new(value.timestamp(), value.timestamp_subsec_nanos() as i32)
     }
@@ -295,7 +295,7 @@ impl TryFrom<chrono::DateTime<chrono::Utc>> for Timestamp {
 #[cfg(feature = "chrono")]
 impl TryFrom<Timestamp> for chrono::DateTime<chrono::Utc> {
     type Error = TimestampError;
-    fn try_from(value: Timestamp) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: Timestamp) -> Result<Self, Self::Error> {
         let ts = chrono::DateTime::from_timestamp(value.seconds, 0).unwrap();
         Ok(ts + chrono::Duration::nanoseconds(value.nanos as i64))
     }
@@ -349,8 +349,10 @@ mod test {
     #[test_case(0, -1_400_000_000, -2, 600_000_000; "nanos underflow")]
     #[test_case(self::get_max_seconds() + 1, 0, get_max_seconds(), 0; "seconds over range")]
     #[test_case(self::get_min_seconds() - 1, 0, get_min_seconds(), 0; "seconds below range")]
-    #[test_case(self::get_max_seconds() - 1, 2_000_000_001, get_max_seconds(), 0; "nanos overflow range")]
-    #[test_case(self::get_min_seconds() + 1, -1_500_000_000, get_min_seconds(), 0; "nanos underflow range")]
+    #[test_case(self::get_max_seconds() - 1, 2_000_000_001, get_max_seconds(), 0; "nanos overflow range"
+	)]
+    #[test_case(self::get_min_seconds() + 1, -1_500_000_000, get_min_seconds(), 0; "nanos underflow range"
+	)]
     fn clamp(seconds: i64, nanos: i32, want_seconds: i64, want_nanos: i32) {
         let got = Timestamp::clamp(seconds, nanos);
         let want = Timestamp {
@@ -433,9 +435,11 @@ mod test {
 
     #[test_case("1970-01-01T00:00:00Z", Timestamp::clamp(0, 0); "zulu offset")]
     #[test_case("1970-01-01T00:00:00+02:00", Timestamp::clamp(-2 * 60 * 60, 0); "2h positive")]
-    #[test_case("1970-01-01T00:00:00+02:45", Timestamp::clamp(-2 * 60 * 60 - 45 * 60, 0); "2h45m positive")]
+    #[test_case("1970-01-01T00:00:00+02:45", Timestamp::clamp(-2 * 60 * 60 - 45 * 60, 0); "2h45m positive"
+	)]
     #[test_case("1970-01-01T00:00:00-02:00", Timestamp::clamp(2 * 60 * 60, 0); "2h negative")]
-    #[test_case("1970-01-01T00:00:00-02:45", Timestamp::clamp(2 * 60 * 60 + 45 * 60, 0); "2h45m negative")]
+    #[test_case("1970-01-01T00:00:00-02:45", Timestamp::clamp(2 * 60 * 60 + 45 * 60, 0); "2h45m negative"
+	)]
     fn deserialize_offsets(input: &str, want: Timestamp) -> Result {
         let json = serde_json::Value::String(input.to_string());
         let got = serde_json::from_value::<Timestamp>(json)?;

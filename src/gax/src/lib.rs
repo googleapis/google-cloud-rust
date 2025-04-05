@@ -33,7 +33,7 @@
 /// An alias of [std::result::Result] where the error is always [Error][crate::error::Error].
 ///
 /// This is the result type used by all functions wrapping RPCs.
-pub type Result<T> = std::result::Result<T, crate::error::Error>;
+pub type Result<T> = std::result::Result<T, error::Error>;
 
 /// Implements helpers to create telemetry headers.
 #[cfg(feature = "unstable-sdk-client")]

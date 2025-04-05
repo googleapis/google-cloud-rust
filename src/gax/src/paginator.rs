@@ -172,7 +172,7 @@ where
     /// Convert the paginator to a stream.
     ///
     /// This API is gated by the `unstable-stream` feature.
-    pub fn into_stream(self) -> impl futures::Stream<Item = Result<T::PageItem, E>> + Unpin {
+    pub fn into_stream(self) -> impl Stream<Item = Result<T::PageItem, E>> + Unpin {
         Box::pin(unfold(Some(self), move |state| async move {
             if let Some(mut paginator) = state {
                 if let Some(pr) = paginator.next().await {

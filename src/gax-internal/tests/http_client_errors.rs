@@ -41,7 +41,7 @@ mod test {
                 let inner = e.as_inner::<gax::error::ServiceError>().unwrap();
                 assert_eq!(
                     inner.http_status_code().unwrap_or_default(),
-                    axum::http::StatusCode::BAD_REQUEST.as_u16()
+                    http::StatusCode::BAD_REQUEST.as_u16()
                 );
                 assert!(inner.headers().is_some(), "missing headers in {inner:?}");
                 let headers = inner.headers().clone().unwrap();

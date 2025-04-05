@@ -101,13 +101,13 @@ pub type SharedRetryThrottler = Arc<Mutex<dyn RetryThrottler>>;
 #[derive(Clone)]
 pub struct RetryThrottlerArg(pub(crate) SharedRetryThrottler);
 
-impl<T: RetryThrottler + 'static> std::convert::From<T> for RetryThrottlerArg {
+impl<T: RetryThrottler + 'static> From<T> for RetryThrottlerArg {
     fn from(value: T) -> Self {
         Self(Arc::new(Mutex::new(value)))
     }
 }
 
-impl std::convert::From<SharedRetryThrottler> for RetryThrottlerArg {
+impl From<SharedRetryThrottler> for RetryThrottlerArg {
     fn from(value: SharedRetryThrottler) -> Self {
         Self(value)
     }
@@ -411,7 +411,7 @@ mod tests {
     }
 
     fn test_error() -> Error {
-        Error::other(format!("test only"))
+        Error::other("test only".to_string())
     }
 
     #[test]

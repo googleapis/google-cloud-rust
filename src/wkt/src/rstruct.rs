@@ -142,19 +142,19 @@ impl NullValue {
     }
 }
 
-impl std::convert::From<i32> for crate::NullValue {
+impl From<i32> for NullValue {
     fn from(_value: i32) -> Self {
         Self
     }
 }
 
-impl std::convert::From<NullValue> for serde_json::Value {
+impl From<NullValue> for serde_json::Value {
     fn from(_value: NullValue) -> Self {
         serde_json::Value::Null
     }
 }
 
-impl std::convert::From<&NullValue> for serde_json::Value {
+impl From<&NullValue> for serde_json::Value {
     fn from(_value: &NullValue) -> Self {
         serde_json::Value::Null
     }
@@ -162,7 +162,7 @@ impl std::convert::From<&NullValue> for serde_json::Value {
 
 /// Implement [`serde`](::serde) serialization for [NullValue].
 impl serde::ser::Serialize for NullValue {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
@@ -176,7 +176,7 @@ impl<'de> serde::de::Deserialize<'de> for NullValue {
     where
         D: serde::Deserializer<'de>,
     {
-        let value = serde_json::Value::deserialize(deserializer)?;
+        let value = Value::deserialize(deserializer)?;
         if value.is_null() {
             return Ok(NullValue);
         }
@@ -197,10 +197,10 @@ mod any_tests {
     #[test]
     fn test_null_value_interface() {
         let input = NullValue;
-        assert_eq!(input.value(), NullValue::default().value());
+        assert_eq!(input.value(), NullValue.value());
         assert_eq!(input.as_str_name().as_ref(), "NULL_VALUE");
         assert_eq!(NullValue::from_str_name("NULL_VALUE"), Some(NullValue));
-        assert_eq!(NullValue::from(0), NullValue::default());
+        assert_eq!(NullValue::from(0), NullValue);
     }
 
     #[test]

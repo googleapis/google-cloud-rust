@@ -147,7 +147,7 @@ impl ExponentialBackoffBuilder {
         }
     }
 
-    fn validate(&self) -> Option<crate::error::Error> {
+    fn validate(&self) -> Option<Error> {
         if self.scaling < 1.0 {
             return Some(Error::other(format!(
                 "scaling ({}) must be >= 1.0",
@@ -170,7 +170,7 @@ impl ExponentialBackoffBuilder {
     }
 }
 
-impl std::default::Default for ExponentialBackoffBuilder {
+impl Default for ExponentialBackoffBuilder {
     fn default() -> Self {
         Self::new()
     }
@@ -210,7 +210,7 @@ impl ExponentialBackoff {
     }
 }
 
-impl std::default::Default for ExponentialBackoff {
+impl Default for ExponentialBackoff {
     fn default() -> Self {
         Self {
             initial_delay: Duration::from_secs(1),
@@ -306,7 +306,8 @@ mod tests {
     }
 
     #[test_case::test_case(Duration::from_secs(1), Duration::MAX, 0.5; "scaling below range")]
-    #[test_case::test_case(Duration::from_secs(1), Duration::MAX, 1_000_000.0; "scaling over range")]
+    #[test_case::test_case(Duration::from_secs(1), Duration::MAX, 1_000_000.0; "scaling over range"
+	)]
     #[test_case::test_case(Duration::from_secs(1), Duration::MAX, 8.0; "max over range")]
     #[test_case::test_case(Duration::from_secs(1), Duration::ZERO, 8.0; "max below range")]
     #[test_case::test_case(Duration::from_secs(10), Duration::ZERO, 8.0; "init over range")]
