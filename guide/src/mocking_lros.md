@@ -157,6 +157,80 @@ response.
 {{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:client-call}}
 ```
 
+## Simulating errors
+
+Errors can arise in an LRO from a few places.
+
+If your application uses automatic polling, the following cases are all
+equivalent: `until_done()` returns the error in the `Result`, regardless of
+where it originated.
+[Simulating an error starting an LRO](#simulating-an-error-starting-an-lro)
+will yield the simplest test.
+
+### Simulating an error starting an LRO
+
+The simplest way to simulate an error is to have the initial request fail with
+an error.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-initial}}
+```
+
+For manual polling, an error starting an LRO is returned via the completed
+branch. This ends the polling loop.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../samples/tests/mocking_lros_error.rs:completed-branch}}
+```
+
+### Simulating an LRO resulting in an error
+
+If you need to simulate an LRO resulting in an error, after intermediate
+metadata is returned, we need to return the error in the final
+`longrunning::model::Operation`.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../samples/tests/mocking_lros_error.rs:error-op}}
+```
+
+We set our expectations to return the `Operation` from `get_operation` as
+before.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-final}}
+```
+
+An LRO ending in an error will be returned via the completed branch. This ends
+the polling loop.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../samples/tests/mocking_lros_error.rs:completed-branch}}
+```
+
+### Simulating a polling error
+
+Polling loops can also exit because the polling policy has been exhausted. When
+this happens, the client library can not say definitively whether the LRO has
+completed or not.
+
+If your application has custom logic to deal with this case, we can exercise it
+by returning an error from the `get_operation` expectation.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-polling-error}}
+```
+
+An LRO ending with a polling error will be returned via the polling error
+branch.
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../samples/tests/mocking_lros_error.rs:polling-error-branch}}
+```
+
+Note that the stubbed out client does not have an associated polling policy. The
+polling loop will terminate on the first error, even if the error is typically
+considered transient.
+
 ______________________________________________________________________
 
 ## Automatic polling - Full test
@@ -169,6 +243,12 @@ ______________________________________________________________________
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:all}}
+```
+
+## Simulating errors - Full tests
+
+```rust,ignore,noplayground
+{{#rustdoc_include ../samples/tests/mocking_lros_error.rs:all}}
 ```
 
 [sequence]: https://docs.rs/mockall/latest/mockall/struct.Sequence.html
