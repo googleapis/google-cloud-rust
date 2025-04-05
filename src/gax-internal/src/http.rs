@@ -127,11 +127,7 @@ impl ReqwestClient {
         builder = Self::effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
-        let auth_headers = self
-            .cred
-            .get_headers()
-            .await
-            .map_err(Error::authentication)?;
+        let auth_headers = self.cred.headers().await.map_err(Error::authentication)?;
         for header in auth_headers.into_iter() {
             builder = builder.header(header.0, header.1);
         }

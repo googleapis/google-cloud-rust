@@ -199,10 +199,7 @@ impl Client {
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<http::header::HeaderMap> {
-        let mut headers = credentials
-            .get_headers()
-            .await
-            .map_err(Error::authentication)?;
+        let mut headers = credentials.headers().await.map_err(Error::authentication)?;
         headers.push((
             http::header::HeaderName::from_static("x-goog-api-client"),
             http::header::HeaderValue::from_static(api_client_header),

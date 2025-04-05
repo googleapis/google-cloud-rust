@@ -179,7 +179,7 @@ where
         self.token_provider.get_token().await
     }
 
-    async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+    async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)?;
@@ -366,7 +366,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_success() {
+    async fn headers_success() {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -382,7 +382,7 @@ mod test {
             universe_domain: None,
             token_provider: mock,
         };
-        let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(mdsc.headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -395,7 +395,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_failure() {
+    async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
@@ -406,7 +406,7 @@ mod test {
             universe_domain: None,
             token_provider: mock,
         };
-        assert!(mdsc.get_headers().await.is_err());
+        assert!(mdsc.headers().await.is_err());
     }
 
     fn handle_token_factory(
@@ -509,7 +509,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_success_with_quota_project() {
+    async fn headers_success_with_quota_project() {
         let scopes = vec!["scope1".to_string(), "scope2".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
@@ -538,7 +538,7 @@ mod test {
             .with_quota_project_id("test-project")
             .build();
 
-        let headers: Vec<HV> = HV::from(mdsc.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(mdsc.headers().await.unwrap());
         assert_eq!(
             headers,
             vec![

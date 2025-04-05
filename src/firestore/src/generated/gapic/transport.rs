@@ -93,11 +93,7 @@ impl Firestore {
         options: &gax::options::RequestOptions,
         request_params: &str,
     ) -> Result<http::header::HeaderMap> {
-        let mut headers = self
-            .cred
-            .get_headers()
-            .await
-            .map_err(Error::authentication)?;
+        let mut headers = self.cred.headers().await.map_err(Error::authentication)?;
         headers.push((
             http::header::HeaderName::from_static("x-goog-api-client"),
             http::header::HeaderValue::from_static(&info::X_GOOG_API_CLIENT_HEADER),

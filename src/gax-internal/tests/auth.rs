@@ -31,7 +31,7 @@ mod test {
 
         impl CredentialsTrait for Credentials {
             async fn get_token(&self) -> AuthResult<Token>;
-            async fn get_headers(&self) -> AuthResult<Vec<(HeaderName, HeaderValue)>>;
+            async fn headers(&self) -> AuthResult<Vec<(HeaderName, HeaderValue)>>;
             async fn universe_domain(&self) -> Option<String>;
         }
     }
@@ -44,7 +44,7 @@ mod test {
         // 1. we can test that multiple headers are included in the request
         // 2. it gives us extra confidence that our interfaces are called
         let mut mock = MockCredentials::new();
-        mock.expect_get_headers().return_once(|| {
+        mock.expect_headers().return_once(|| {
             Ok(vec![
                 (
                     HeaderName::from_static("auth-key-1"),
@@ -83,7 +83,7 @@ mod test {
         let (endpoint, _server) = echo_server::start().await?;
         let retry_count = 3;
         let mut mock = MockCredentials::new();
-        mock.expect_get_headers()
+        mock.expect_headers()
             .times(retry_count..)
             .returning(|| Err(CredentialsError::from_str(true, "mock retryable error")));
 
@@ -120,7 +120,7 @@ mod test {
     async fn auth_error_non_retryable() -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
         let mut mock = MockCredentials::new();
-        mock.expect_get_headers().times(1).returning(|| {
+        mock.expect_headers().times(1).returning(|| {
             Err(CredentialsError::from_str(
                 false,
                 "mock non-retryable error",
