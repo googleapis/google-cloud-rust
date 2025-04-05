@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::TranslateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TranslateTextResponse> {
+    ) -> Result<gax::response::Response<crate::model::TranslateTextResponse>> {
         self.inner.translate_text(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::RomanizeTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RomanizeTextResponse> {
+    ) -> Result<gax::response::Response<crate::model::RomanizeTextResponse>> {
         self.inner.romanize_text(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::DetectLanguageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DetectLanguageResponse> {
+    ) -> Result<gax::response::Response<crate::model::DetectLanguageResponse>> {
         self.inner.detect_language(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetSupportedLanguagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SupportedLanguages> {
+    ) -> Result<gax::response::Response<crate::model::SupportedLanguages>> {
         self.inner.get_supported_languages(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::TranslateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TranslateDocumentResponse> {
+    ) -> Result<gax::response::Response<crate::model::TranslateDocumentResponse>> {
         self.inner.translate_document(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::BatchTranslateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_translate_text(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::BatchTranslateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_translate_document(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::CreateGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_glossary(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::UpdateGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_glossary(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ListGlossariesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGlossariesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGlossariesResponse>> {
         self.inner.list_glossaries(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::GetGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Glossary> {
+    ) -> Result<gax::response::Response<crate::model::Glossary>> {
         self.inner.get_glossary(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::DeleteGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_glossary(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::GetGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GlossaryEntry> {
+    ) -> Result<gax::response::Response<crate::model::GlossaryEntry>> {
         self.inner.get_glossary_entry(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::ListGlossaryEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGlossaryEntriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGlossaryEntriesResponse>> {
         self.inner.list_glossary_entries(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::CreateGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GlossaryEntry> {
+    ) -> Result<gax::response::Response<crate::model::GlossaryEntry>> {
         self.inner.create_glossary_entry(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::UpdateGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GlossaryEntry> {
+    ) -> Result<gax::response::Response<crate::model::GlossaryEntry>> {
         self.inner.update_glossary_entry(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::DeleteGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_glossary_entry(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::CreateDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_dataset(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::GetDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dataset> {
+    ) -> Result<gax::response::Response<crate::model::Dataset>> {
         self.inner.get_dataset(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::ListDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDatasetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDatasetsResponse>> {
         self.inner.list_datasets(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_dataset(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::CreateAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AdaptiveMtDataset> {
+    ) -> Result<gax::response::Response<crate::model::AdaptiveMtDataset>> {
         self.inner.create_adaptive_mt_dataset(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::DeleteAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_adaptive_mt_dataset(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: crate::model::GetAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AdaptiveMtDataset> {
+    ) -> Result<gax::response::Response<crate::model::AdaptiveMtDataset>> {
         self.inner.get_adaptive_mt_dataset(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::ListAdaptiveMtDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAdaptiveMtDatasetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAdaptiveMtDatasetsResponse>> {
         self.inner.list_adaptive_mt_datasets(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::AdaptiveMtTranslateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AdaptiveMtTranslateResponse> {
+    ) -> Result<gax::response::Response<crate::model::AdaptiveMtTranslateResponse>> {
         self.inner.adaptive_mt_translate(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::GetAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AdaptiveMtFile> {
+    ) -> Result<gax::response::Response<crate::model::AdaptiveMtFile>> {
         self.inner.get_adaptive_mt_file(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::DeleteAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_adaptive_mt_file(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: crate::model::ImportAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ImportAdaptiveMtFileResponse> {
+    ) -> Result<gax::response::Response<crate::model::ImportAdaptiveMtFileResponse>> {
         self.inner.import_adaptive_mt_file(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: crate::model::ListAdaptiveMtFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAdaptiveMtFilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAdaptiveMtFilesResponse>> {
         self.inner.list_adaptive_mt_files(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: crate::model::ListAdaptiveMtSentencesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAdaptiveMtSentencesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAdaptiveMtSentencesResponse>> {
         self.inner.list_adaptive_mt_sentences(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: crate::model::ImportDataRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.import_data(req, options).await
     }
 
@@ -330,7 +330,7 @@ where
         &self,
         req: crate::model::ExportDataRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.export_data(req, options).await
     }
 
@@ -339,7 +339,7 @@ where
         &self,
         req: crate::model::ListExamplesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListExamplesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListExamplesResponse>> {
         self.inner.list_examples(req, options).await
     }
 
@@ -348,7 +348,7 @@ where
         &self,
         req: crate::model::CreateModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_model(req, options).await
     }
 
@@ -357,7 +357,7 @@ where
         &self,
         req: crate::model::ListModelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListModelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListModelsResponse>> {
         self.inner.list_models(req, options).await
     }
 
@@ -366,7 +366,7 @@ where
         &self,
         req: crate::model::GetModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Model> {
+    ) -> Result<gax::response::Response<crate::model::Model>> {
         self.inner.get_model(req, options).await
     }
 
@@ -375,7 +375,7 @@ where
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_model(req, options).await
     }
 
@@ -384,7 +384,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -393,7 +393,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -402,7 +402,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -411,7 +411,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -420,7 +420,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -429,7 +429,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -438,7 +438,7 @@ where
         &self,
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.wait_operation(req, options).await
     }
 

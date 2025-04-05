@@ -23,493 +23,497 @@ pub trait VmwareEngine: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListPrivateCloudsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPrivateCloudsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPrivateCloudsResponse>>;
 
     async fn get_private_cloud(
         &self,
         req: crate::model::GetPrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PrivateCloud>;
+    ) -> crate::Result<gax::response::Response<crate::model::PrivateCloud>>;
 
     async fn create_private_cloud(
         &self,
         req: crate::model::CreatePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_private_cloud(
         &self,
         req: crate::model::UpdatePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_private_cloud(
         &self,
         req: crate::model::DeletePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn undelete_private_cloud(
         &self,
         req: crate::model::UndeletePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_clusters(
         &self,
         req: crate::model::ListClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListClustersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListClustersResponse>>;
 
     async fn get_cluster(
         &self,
         req: crate::model::GetClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Cluster>;
+    ) -> crate::Result<gax::response::Response<crate::model::Cluster>>;
 
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_cluster(
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_cluster(
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_nodes(
         &self,
         req: crate::model::ListNodesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNodesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNodesResponse>>;
 
     async fn get_node(
         &self,
         req: crate::model::GetNodeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Node>;
+    ) -> crate::Result<gax::response::Response<crate::model::Node>>;
 
     async fn list_external_addresses(
         &self,
         req: crate::model::ListExternalAddressesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListExternalAddressesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListExternalAddressesResponse>>;
 
     async fn fetch_network_policy_external_addresses(
         &self,
         req: crate::model::FetchNetworkPolicyExternalAddressesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchNetworkPolicyExternalAddressesResponse>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchNetworkPolicyExternalAddressesResponse>,
+    >;
 
     async fn get_external_address(
         &self,
         req: crate::model::GetExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ExternalAddress>;
+    ) -> crate::Result<gax::response::Response<crate::model::ExternalAddress>>;
 
     async fn create_external_address(
         &self,
         req: crate::model::CreateExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_external_address(
         &self,
         req: crate::model::UpdateExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_external_address(
         &self,
         req: crate::model::DeleteExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_subnets(
         &self,
         req: crate::model::ListSubnetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListSubnetsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListSubnetsResponse>>;
 
     async fn get_subnet(
         &self,
         req: crate::model::GetSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Subnet>;
+    ) -> crate::Result<gax::response::Response<crate::model::Subnet>>;
 
     async fn update_subnet(
         &self,
         req: crate::model::UpdateSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_external_access_rules(
         &self,
         req: crate::model::ListExternalAccessRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListExternalAccessRulesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListExternalAccessRulesResponse>>;
 
     async fn get_external_access_rule(
         &self,
         req: crate::model::GetExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ExternalAccessRule>;
+    ) -> crate::Result<gax::response::Response<crate::model::ExternalAccessRule>>;
 
     async fn create_external_access_rule(
         &self,
         req: crate::model::CreateExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_external_access_rule(
         &self,
         req: crate::model::UpdateExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_external_access_rule(
         &self,
         req: crate::model::DeleteExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_logging_servers(
         &self,
         req: crate::model::ListLoggingServersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListLoggingServersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListLoggingServersResponse>>;
 
     async fn get_logging_server(
         &self,
         req: crate::model::GetLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LoggingServer>;
+    ) -> crate::Result<gax::response::Response<crate::model::LoggingServer>>;
 
     async fn create_logging_server(
         &self,
         req: crate::model::CreateLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_logging_server(
         &self,
         req: crate::model::UpdateLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_logging_server(
         &self,
         req: crate::model::DeleteLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_node_types(
         &self,
         req: crate::model::ListNodeTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNodeTypesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNodeTypesResponse>>;
 
     async fn get_node_type(
         &self,
         req: crate::model::GetNodeTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NodeType>;
+    ) -> crate::Result<gax::response::Response<crate::model::NodeType>>;
 
     async fn show_nsx_credentials(
         &self,
         req: crate::model::ShowNsxCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Credentials>;
+    ) -> crate::Result<gax::response::Response<crate::model::Credentials>>;
 
     async fn show_vcenter_credentials(
         &self,
         req: crate::model::ShowVcenterCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Credentials>;
+    ) -> crate::Result<gax::response::Response<crate::model::Credentials>>;
 
     async fn reset_nsx_credentials(
         &self,
         req: crate::model::ResetNsxCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn reset_vcenter_credentials(
         &self,
         req: crate::model::ResetVcenterCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_dns_forwarding(
         &self,
         req: crate::model::GetDnsForwardingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DnsForwarding>;
+    ) -> crate::Result<gax::response::Response<crate::model::DnsForwarding>>;
 
     async fn update_dns_forwarding(
         &self,
         req: crate::model::UpdateDnsForwardingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_network_peering(
         &self,
         req: crate::model::GetNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NetworkPeering>;
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkPeering>>;
 
     async fn list_network_peerings(
         &self,
         req: crate::model::ListNetworkPeeringsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNetworkPeeringsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNetworkPeeringsResponse>>;
 
     async fn create_network_peering(
         &self,
         req: crate::model::CreateNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_network_peering(
         &self,
         req: crate::model::DeleteNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_network_peering(
         &self,
         req: crate::model::UpdateNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_peering_routes(
         &self,
         req: crate::model::ListPeeringRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPeeringRoutesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPeeringRoutesResponse>>;
 
     async fn create_hcx_activation_key(
         &self,
         req: crate::model::CreateHcxActivationKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_hcx_activation_keys(
         &self,
         req: crate::model::ListHcxActivationKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListHcxActivationKeysResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListHcxActivationKeysResponse>>;
 
     async fn get_hcx_activation_key(
         &self,
         req: crate::model::GetHcxActivationKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::HcxActivationKey>;
+    ) -> crate::Result<gax::response::Response<crate::model::HcxActivationKey>>;
 
     async fn get_network_policy(
         &self,
         req: crate::model::GetNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NetworkPolicy>;
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkPolicy>>;
 
     async fn list_network_policies(
         &self,
         req: crate::model::ListNetworkPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNetworkPoliciesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNetworkPoliciesResponse>>;
 
     async fn create_network_policy(
         &self,
         req: crate::model::CreateNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_network_policy(
         &self,
         req: crate::model::UpdateNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_network_policy(
         &self,
         req: crate::model::DeleteNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_management_dns_zone_bindings(
         &self,
         req: crate::model::ListManagementDnsZoneBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListManagementDnsZoneBindingsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListManagementDnsZoneBindingsResponse>>;
 
     async fn get_management_dns_zone_binding(
         &self,
         req: crate::model::GetManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ManagementDnsZoneBinding>;
+    ) -> crate::Result<gax::response::Response<crate::model::ManagementDnsZoneBinding>>;
 
     async fn create_management_dns_zone_binding(
         &self,
         req: crate::model::CreateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_management_dns_zone_binding(
         &self,
         req: crate::model::UpdateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_management_dns_zone_binding(
         &self,
         req: crate::model::DeleteManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn repair_management_dns_zone_binding(
         &self,
         req: crate::model::RepairManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_vmware_engine_network(
         &self,
         req: crate::model::CreateVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_vmware_engine_network(
         &self,
         req: crate::model::UpdateVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_vmware_engine_network(
         &self,
         req: crate::model::DeleteVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_vmware_engine_network(
         &self,
         req: crate::model::GetVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VmwareEngineNetwork>;
+    ) -> crate::Result<gax::response::Response<crate::model::VmwareEngineNetwork>>;
 
     async fn list_vmware_engine_networks(
         &self,
         req: crate::model::ListVmwareEngineNetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVmwareEngineNetworksResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListVmwareEngineNetworksResponse>>;
 
     async fn create_private_connection(
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_private_connection(
         &self,
         req: crate::model::GetPrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PrivateConnection>;
+    ) -> crate::Result<gax::response::Response<crate::model::PrivateConnection>>;
 
     async fn list_private_connections(
         &self,
         req: crate::model::ListPrivateConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPrivateConnectionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPrivateConnectionsResponse>>;
 
     async fn update_private_connection(
         &self,
         req: crate::model::UpdatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_private_connection(
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_private_connection_peering_routes(
         &self,
         req: crate::model::ListPrivateConnectionPeeringRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPrivateConnectionPeeringRoutesResponse>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListPrivateConnectionPeeringRoutesResponse>,
+    >;
 
     async fn grant_dns_bind_permission(
         &self,
         req: crate::model::GrantDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_dns_bind_permission(
         &self,
         req: crate::model::GetDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DnsBindPermission>;
+    ) -> crate::Result<gax::response::Response<crate::model::DnsBindPermission>>;
 
     async fn revoke_dns_bind_permission(
         &self,
         req: crate::model::RevokeDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -530,7 +534,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListPrivateCloudsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPrivateCloudsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPrivateCloudsResponse>> {
         T::list_private_clouds(self, req, options).await
     }
 
@@ -539,7 +543,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetPrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PrivateCloud> {
+    ) -> crate::Result<gax::response::Response<crate::model::PrivateCloud>> {
         T::get_private_cloud(self, req, options).await
     }
 
@@ -548,7 +552,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreatePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_private_cloud(self, req, options).await
     }
 
@@ -557,7 +561,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdatePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_private_cloud(self, req, options).await
     }
 
@@ -566,7 +570,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeletePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_private_cloud(self, req, options).await
     }
 
@@ -575,7 +579,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UndeletePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::undelete_private_cloud(self, req, options).await
     }
 
@@ -584,7 +588,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListClustersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListClustersResponse>> {
         T::list_clusters(self, req, options).await
     }
 
@@ -593,7 +597,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Cluster> {
+    ) -> crate::Result<gax::response::Response<crate::model::Cluster>> {
         T::get_cluster(self, req, options).await
     }
 
@@ -602,7 +606,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_cluster(self, req, options).await
     }
 
@@ -611,7 +615,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_cluster(self, req, options).await
     }
 
@@ -620,7 +624,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_cluster(self, req, options).await
     }
 
@@ -629,7 +633,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListNodesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNodesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNodesResponse>> {
         T::list_nodes(self, req, options).await
     }
 
@@ -638,7 +642,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetNodeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Node> {
+    ) -> crate::Result<gax::response::Response<crate::model::Node>> {
         T::get_node(self, req, options).await
     }
 
@@ -647,7 +651,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListExternalAddressesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListExternalAddressesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListExternalAddressesResponse>> {
         T::list_external_addresses(self, req, options).await
     }
 
@@ -656,7 +660,9 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::FetchNetworkPolicyExternalAddressesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchNetworkPolicyExternalAddressesResponse> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::FetchNetworkPolicyExternalAddressesResponse>,
+    > {
         T::fetch_network_policy_external_addresses(self, req, options).await
     }
 
@@ -665,7 +671,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ExternalAddress> {
+    ) -> crate::Result<gax::response::Response<crate::model::ExternalAddress>> {
         T::get_external_address(self, req, options).await
     }
 
@@ -674,7 +680,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_external_address(self, req, options).await
     }
 
@@ -683,7 +689,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_external_address(self, req, options).await
     }
 
@@ -692,7 +698,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_external_address(self, req, options).await
     }
 
@@ -701,7 +707,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListSubnetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListSubnetsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListSubnetsResponse>> {
         T::list_subnets(self, req, options).await
     }
 
@@ -710,7 +716,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Subnet> {
+    ) -> crate::Result<gax::response::Response<crate::model::Subnet>> {
         T::get_subnet(self, req, options).await
     }
 
@@ -719,7 +725,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_subnet(self, req, options).await
     }
 
@@ -728,7 +734,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListExternalAccessRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListExternalAccessRulesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListExternalAccessRulesResponse>> {
         T::list_external_access_rules(self, req, options).await
     }
 
@@ -737,7 +743,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ExternalAccessRule> {
+    ) -> crate::Result<gax::response::Response<crate::model::ExternalAccessRule>> {
         T::get_external_access_rule(self, req, options).await
     }
 
@@ -746,7 +752,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_external_access_rule(self, req, options).await
     }
 
@@ -755,7 +761,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_external_access_rule(self, req, options).await
     }
 
@@ -764,7 +770,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_external_access_rule(self, req, options).await
     }
 
@@ -773,7 +779,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListLoggingServersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListLoggingServersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListLoggingServersResponse>> {
         T::list_logging_servers(self, req, options).await
     }
 
@@ -782,7 +788,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LoggingServer> {
+    ) -> crate::Result<gax::response::Response<crate::model::LoggingServer>> {
         T::get_logging_server(self, req, options).await
     }
 
@@ -791,7 +797,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_logging_server(self, req, options).await
     }
 
@@ -800,7 +806,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_logging_server(self, req, options).await
     }
 
@@ -809,7 +815,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_logging_server(self, req, options).await
     }
 
@@ -818,7 +824,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListNodeTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNodeTypesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNodeTypesResponse>> {
         T::list_node_types(self, req, options).await
     }
 
@@ -827,7 +833,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetNodeTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NodeType> {
+    ) -> crate::Result<gax::response::Response<crate::model::NodeType>> {
         T::get_node_type(self, req, options).await
     }
 
@@ -836,7 +842,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ShowNsxCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Credentials> {
+    ) -> crate::Result<gax::response::Response<crate::model::Credentials>> {
         T::show_nsx_credentials(self, req, options).await
     }
 
@@ -845,7 +851,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ShowVcenterCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Credentials> {
+    ) -> crate::Result<gax::response::Response<crate::model::Credentials>> {
         T::show_vcenter_credentials(self, req, options).await
     }
 
@@ -854,7 +860,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ResetNsxCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::reset_nsx_credentials(self, req, options).await
     }
 
@@ -863,7 +869,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ResetVcenterCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::reset_vcenter_credentials(self, req, options).await
     }
 
@@ -872,7 +878,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetDnsForwardingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DnsForwarding> {
+    ) -> crate::Result<gax::response::Response<crate::model::DnsForwarding>> {
         T::get_dns_forwarding(self, req, options).await
     }
 
@@ -881,7 +887,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateDnsForwardingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_dns_forwarding(self, req, options).await
     }
 
@@ -890,7 +896,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NetworkPeering> {
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkPeering>> {
         T::get_network_peering(self, req, options).await
     }
 
@@ -899,7 +905,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListNetworkPeeringsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNetworkPeeringsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNetworkPeeringsResponse>> {
         T::list_network_peerings(self, req, options).await
     }
 
@@ -908,7 +914,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_network_peering(self, req, options).await
     }
 
@@ -917,7 +923,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_network_peering(self, req, options).await
     }
 
@@ -926,7 +932,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_network_peering(self, req, options).await
     }
 
@@ -935,7 +941,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListPeeringRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPeeringRoutesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPeeringRoutesResponse>> {
         T::list_peering_routes(self, req, options).await
     }
 
@@ -944,7 +950,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateHcxActivationKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_hcx_activation_key(self, req, options).await
     }
 
@@ -953,7 +959,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListHcxActivationKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListHcxActivationKeysResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListHcxActivationKeysResponse>> {
         T::list_hcx_activation_keys(self, req, options).await
     }
 
@@ -962,7 +968,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetHcxActivationKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::HcxActivationKey> {
+    ) -> crate::Result<gax::response::Response<crate::model::HcxActivationKey>> {
         T::get_hcx_activation_key(self, req, options).await
     }
 
@@ -971,7 +977,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NetworkPolicy> {
+    ) -> crate::Result<gax::response::Response<crate::model::NetworkPolicy>> {
         T::get_network_policy(self, req, options).await
     }
 
@@ -980,7 +986,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListNetworkPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNetworkPoliciesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNetworkPoliciesResponse>> {
         T::list_network_policies(self, req, options).await
     }
 
@@ -989,7 +995,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_network_policy(self, req, options).await
     }
 
@@ -998,7 +1004,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_network_policy(self, req, options).await
     }
 
@@ -1007,7 +1013,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_network_policy(self, req, options).await
     }
 
@@ -1016,7 +1022,8 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListManagementDnsZoneBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListManagementDnsZoneBindingsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListManagementDnsZoneBindingsResponse>>
+    {
         T::list_management_dns_zone_bindings(self, req, options).await
     }
 
@@ -1025,7 +1032,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ManagementDnsZoneBinding> {
+    ) -> crate::Result<gax::response::Response<crate::model::ManagementDnsZoneBinding>> {
         T::get_management_dns_zone_binding(self, req, options).await
     }
 
@@ -1034,7 +1041,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_management_dns_zone_binding(self, req, options).await
     }
 
@@ -1043,7 +1050,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_management_dns_zone_binding(self, req, options).await
     }
 
@@ -1052,7 +1059,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_management_dns_zone_binding(self, req, options).await
     }
 
@@ -1061,7 +1068,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::RepairManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::repair_management_dns_zone_binding(self, req, options).await
     }
 
@@ -1070,7 +1077,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreateVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_vmware_engine_network(self, req, options).await
     }
 
@@ -1079,7 +1086,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdateVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_vmware_engine_network(self, req, options).await
     }
 
@@ -1088,7 +1095,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeleteVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_vmware_engine_network(self, req, options).await
     }
 
@@ -1097,7 +1104,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VmwareEngineNetwork> {
+    ) -> crate::Result<gax::response::Response<crate::model::VmwareEngineNetwork>> {
         T::get_vmware_engine_network(self, req, options).await
     }
 
@@ -1106,7 +1113,8 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListVmwareEngineNetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVmwareEngineNetworksResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListVmwareEngineNetworksResponse>>
+    {
         T::list_vmware_engine_networks(self, req, options).await
     }
 
@@ -1115,7 +1123,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_private_connection(self, req, options).await
     }
 
@@ -1124,7 +1132,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetPrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PrivateConnection> {
+    ) -> crate::Result<gax::response::Response<crate::model::PrivateConnection>> {
         T::get_private_connection(self, req, options).await
     }
 
@@ -1133,7 +1141,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListPrivateConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPrivateConnectionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPrivateConnectionsResponse>> {
         T::list_private_connections(self, req, options).await
     }
 
@@ -1142,7 +1150,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::UpdatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_private_connection(self, req, options).await
     }
 
@@ -1151,7 +1159,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_private_connection(self, req, options).await
     }
 
@@ -1160,7 +1168,9 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::ListPrivateConnectionPeeringRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPrivateConnectionPeeringRoutesResponse> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListPrivateConnectionPeeringRoutesResponse>,
+    > {
         T::list_private_connection_peering_routes(self, req, options).await
     }
 
@@ -1169,7 +1179,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GrantDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::grant_dns_bind_permission(self, req, options).await
     }
 
@@ -1178,7 +1188,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::GetDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DnsBindPermission> {
+    ) -> crate::Result<gax::response::Response<crate::model::DnsBindPermission>> {
         T::get_dns_bind_permission(self, req, options).await
     }
 
@@ -1187,7 +1197,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: crate::model::RevokeDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::revoke_dns_bind_permission(self, req, options).await
     }
 
@@ -1196,7 +1206,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -1205,7 +1215,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -1214,7 +1224,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -1223,7 +1233,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -1232,7 +1242,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -1241,7 +1251,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -1250,7 +1260,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -1259,7 +1269,7 @@ impl<T: super::VmwareEngine> VmwareEngine for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 

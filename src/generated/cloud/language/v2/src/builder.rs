@@ -96,6 +96,7 @@ pub mod language_service {
             (*self.0.stub)
                 .analyze_sentiment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
@@ -147,6 +148,7 @@ pub mod language_service {
             (*self.0.stub)
                 .analyze_entities(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
@@ -198,6 +200,7 @@ pub mod language_service {
             (*self.0.stub)
                 .classify_text(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
@@ -243,6 +246,7 @@ pub mod language_service {
             (*self.0.stub)
                 .moderate_text(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::ModerateTextRequest::document].
@@ -297,6 +301,7 @@ pub mod language_service {
             (*self.0.stub)
                 .annotate_text(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [document][crate::model::AnnotateTextRequest::document].

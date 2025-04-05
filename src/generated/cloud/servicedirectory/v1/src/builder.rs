@@ -93,6 +93,7 @@ pub mod lookup_service {
             (*self.0.stub)
                 .resolve_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResolveServiceRequest::name].
@@ -150,6 +151,7 @@ pub mod lookup_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -225,6 +227,7 @@ pub mod lookup_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -321,6 +324,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .create_namespace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateNamespaceRequest::parent].
@@ -378,6 +382,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .list_namespaces(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -459,6 +464,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .get_namespace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNamespaceRequest::name].
@@ -501,6 +507,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .update_namespace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
@@ -555,6 +562,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .delete_namespace(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteNamespaceRequest::name].
@@ -597,6 +605,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
@@ -654,6 +663,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .list_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -735,6 +745,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .get_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
@@ -777,6 +788,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
@@ -831,6 +843,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
@@ -873,6 +886,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .create_endpoint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
@@ -930,6 +944,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .list_endpoints(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1011,6 +1026,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .get_endpoint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEndpointRequest::name].
@@ -1053,6 +1069,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .update_endpoint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
@@ -1107,6 +1124,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .delete_endpoint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].
@@ -1149,6 +1167,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1200,6 +1219,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1263,6 +1283,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1319,6 +1340,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1394,6 +1416,7 @@ pub mod registration_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].

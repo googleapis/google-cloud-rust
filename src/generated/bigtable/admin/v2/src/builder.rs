@@ -102,6 +102,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_instance`.
@@ -206,6 +207,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -250,6 +252,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_instances(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
@@ -300,6 +303,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::Instance::name].
@@ -402,6 +406,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .partial_update_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `partial_update_instance`.
@@ -492,6 +497,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -541,6 +547,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
@@ -633,6 +640,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
@@ -677,6 +685,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
@@ -732,6 +741,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
@@ -870,6 +880,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .partial_update_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `partial_update_cluster`.
@@ -960,6 +971,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -1007,6 +1019,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .create_app_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAppProfileRequest::parent].
@@ -1072,6 +1085,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_app_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAppProfileRequest::name].
@@ -1116,6 +1130,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_app_profiles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1195,6 +1210,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .update_app_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_app_profile`.
@@ -1294,6 +1310,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_app_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAppProfileRequest::name].
@@ -1344,6 +1361,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1397,6 +1415,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1462,6 +1481,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1517,6 +1537,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_hot_tablets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1611,6 +1632,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .create_logical_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_logical_view`.
@@ -1704,6 +1726,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_logical_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLogicalViewRequest::name].
@@ -1751,6 +1774,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_logical_views(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1830,6 +1854,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .update_logical_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_logical_view`.
@@ -1923,6 +1948,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_logical_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteLogicalViewRequest::name].
@@ -1981,6 +2007,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .create_materialized_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_materialized_view`.
@@ -2081,6 +2108,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_materialized_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMaterializedViewRequest::name].
@@ -2128,6 +2156,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_materialized_views(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2207,6 +2236,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .update_materialized_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_materialized_view`.
@@ -2304,6 +2334,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_materialized_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteMaterializedViewRequest::name].
@@ -2357,6 +2388,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2437,6 +2469,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2484,6 +2517,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2531,6 +2565,7 @@ pub mod bigtable_instance_admin {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2627,6 +2662,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .create_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTableRequest::parent].
@@ -2705,6 +2741,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .create_table_from_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_table_from_snapshot`.
@@ -2793,6 +2830,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_tables(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2868,6 +2906,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTableRequest::name].
@@ -2921,6 +2960,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .update_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_table`.
@@ -3013,6 +3053,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTableRequest::name].
@@ -3060,6 +3101,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .undelete_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_table`.
@@ -3143,6 +3185,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .create_authorized_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_authorized_view`.
@@ -3239,6 +3282,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_authorized_views(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3320,6 +3364,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_authorized_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAuthorizedViewRequest::name].
@@ -3379,6 +3424,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .update_authorized_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_authorized_view`.
@@ -3478,6 +3524,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_authorized_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAuthorizedViewRequest::name].
@@ -3529,6 +3576,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .modify_column_families(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ModifyColumnFamiliesRequest::name].
@@ -3588,6 +3636,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .drop_row_range(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DropRowRangeRequest::name].
@@ -3644,6 +3693,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .generate_consistency_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateConsistencyTokenRequest::name].
@@ -3689,6 +3739,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .check_consistency(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CheckConsistencyRequest::name].
@@ -3751,6 +3802,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .snapshot_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `snapshot_table`.
@@ -3850,6 +3902,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
@@ -3892,6 +3945,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_snapshots(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3961,6 +4015,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
@@ -4008,6 +4063,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup`.
@@ -4098,6 +4154,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -4140,6 +4197,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
@@ -4194,6 +4252,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -4236,6 +4295,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4322,6 +4382,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .restore_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_table`.
@@ -4417,6 +4478,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .copy_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `copy_backup`.
@@ -4512,6 +4574,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -4563,6 +4626,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -4626,6 +4690,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -4682,6 +4747,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4760,6 +4826,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4805,6 +4872,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4850,6 +4918,7 @@ pub mod bigtable_table_admin {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

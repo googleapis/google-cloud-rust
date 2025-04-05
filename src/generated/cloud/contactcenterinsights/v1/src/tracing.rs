@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Conversation> {
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
         self.inner.create_conversation(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::UploadConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.upload_conversation(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::UpdateConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Conversation> {
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
         self.inner.update_conversation(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Conversation> {
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
         self.inner.get_conversation(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::ListConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConversationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConversationsResponse>> {
         self.inner.list_conversations(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_conversation(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::CreateAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_analysis(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::GetAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Analysis> {
+    ) -> Result<gax::response::Response<crate::model::Analysis>> {
         self.inner.get_analysis(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::ListAnalysesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAnalysesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAnalysesResponse>> {
         self.inner.list_analyses(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_analysis(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::BulkAnalyzeConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.bulk_analyze_conversations(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::BulkDeleteConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.bulk_delete_conversations(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::IngestConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.ingest_conversations(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::ExportInsightsDataRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.export_insights_data(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::CreateIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_issue_model(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::UpdateIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IssueModel> {
+    ) -> Result<gax::response::Response<crate::model::IssueModel>> {
         self.inner.update_issue_model(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::GetIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IssueModel> {
+    ) -> Result<gax::response::Response<crate::model::IssueModel>> {
         self.inner.get_issue_model(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::ListIssueModelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIssueModelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIssueModelsResponse>> {
         self.inner.list_issue_models(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::DeleteIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_issue_model(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::DeployIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.deploy_issue_model(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::UndeployIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.undeploy_issue_model(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::ExportIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.export_issue_model(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::ImportIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.import_issue_model(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: crate::model::GetIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Issue> {
+    ) -> Result<gax::response::Response<crate::model::Issue>> {
         self.inner.get_issue(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::ListIssuesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIssuesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIssuesResponse>> {
         self.inner.list_issues(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::UpdateIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Issue> {
+    ) -> Result<gax::response::Response<crate::model::Issue>> {
         self.inner.update_issue(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::DeleteIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_issue(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::CalculateIssueModelStatsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CalculateIssueModelStatsResponse> {
+    ) -> Result<gax::response::Response<crate::model::CalculateIssueModelStatsResponse>> {
         self.inner.calculate_issue_model_stats(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: crate::model::CreatePhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PhraseMatcher> {
+    ) -> Result<gax::response::Response<crate::model::PhraseMatcher>> {
         self.inner.create_phrase_matcher(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: crate::model::GetPhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PhraseMatcher> {
+    ) -> Result<gax::response::Response<crate::model::PhraseMatcher>> {
         self.inner.get_phrase_matcher(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: crate::model::ListPhraseMatchersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPhraseMatchersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPhraseMatchersResponse>> {
         self.inner.list_phrase_matchers(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: crate::model::DeletePhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_phrase_matcher(req, options).await
     }
 
@@ -330,7 +330,7 @@ where
         &self,
         req: crate::model::UpdatePhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PhraseMatcher> {
+    ) -> Result<gax::response::Response<crate::model::PhraseMatcher>> {
         self.inner.update_phrase_matcher(req, options).await
     }
 
@@ -339,7 +339,7 @@ where
         &self,
         req: crate::model::CalculateStatsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CalculateStatsResponse> {
+    ) -> Result<gax::response::Response<crate::model::CalculateStatsResponse>> {
         self.inner.calculate_stats(req, options).await
     }
 
@@ -348,7 +348,7 @@ where
         &self,
         req: crate::model::GetSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         self.inner.get_settings(req, options).await
     }
 
@@ -357,7 +357,7 @@ where
         &self,
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         self.inner.update_settings(req, options).await
     }
 
@@ -366,7 +366,7 @@ where
         &self,
         req: crate::model::CreateAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalysisRule> {
+    ) -> Result<gax::response::Response<crate::model::AnalysisRule>> {
         self.inner.create_analysis_rule(req, options).await
     }
 
@@ -375,7 +375,7 @@ where
         &self,
         req: crate::model::GetAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalysisRule> {
+    ) -> Result<gax::response::Response<crate::model::AnalysisRule>> {
         self.inner.get_analysis_rule(req, options).await
     }
 
@@ -384,7 +384,7 @@ where
         &self,
         req: crate::model::ListAnalysisRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAnalysisRulesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAnalysisRulesResponse>> {
         self.inner.list_analysis_rules(req, options).await
     }
 
@@ -393,7 +393,7 @@ where
         &self,
         req: crate::model::UpdateAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalysisRule> {
+    ) -> Result<gax::response::Response<crate::model::AnalysisRule>> {
         self.inner.update_analysis_rule(req, options).await
     }
 
@@ -402,7 +402,7 @@ where
         &self,
         req: crate::model::DeleteAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_analysis_rule(req, options).await
     }
 
@@ -411,7 +411,7 @@ where
         &self,
         req: crate::model::GetEncryptionSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EncryptionSpec> {
+    ) -> Result<gax::response::Response<crate::model::EncryptionSpec>> {
         self.inner.get_encryption_spec(req, options).await
     }
 
@@ -420,7 +420,7 @@ where
         &self,
         req: crate::model::InitializeEncryptionSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.initialize_encryption_spec(req, options).await
     }
 
@@ -429,7 +429,7 @@ where
         &self,
         req: crate::model::CreateViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::View> {
+    ) -> Result<gax::response::Response<crate::model::View>> {
         self.inner.create_view(req, options).await
     }
 
@@ -438,7 +438,7 @@ where
         &self,
         req: crate::model::GetViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::View> {
+    ) -> Result<gax::response::Response<crate::model::View>> {
         self.inner.get_view(req, options).await
     }
 
@@ -447,7 +447,7 @@ where
         &self,
         req: crate::model::ListViewsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListViewsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListViewsResponse>> {
         self.inner.list_views(req, options).await
     }
 
@@ -456,7 +456,7 @@ where
         &self,
         req: crate::model::UpdateViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::View> {
+    ) -> Result<gax::response::Response<crate::model::View>> {
         self.inner.update_view(req, options).await
     }
 
@@ -465,7 +465,7 @@ where
         &self,
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_view(req, options).await
     }
 
@@ -474,7 +474,7 @@ where
         &self,
         req: crate::model::QueryMetricsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.query_metrics(req, options).await
     }
 
@@ -483,7 +483,7 @@ where
         &self,
         req: crate::model::CreateQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaQuestion> {
+    ) -> Result<gax::response::Response<crate::model::QaQuestion>> {
         self.inner.create_qa_question(req, options).await
     }
 
@@ -492,7 +492,7 @@ where
         &self,
         req: crate::model::GetQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaQuestion> {
+    ) -> Result<gax::response::Response<crate::model::QaQuestion>> {
         self.inner.get_qa_question(req, options).await
     }
 
@@ -501,7 +501,7 @@ where
         &self,
         req: crate::model::UpdateQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaQuestion> {
+    ) -> Result<gax::response::Response<crate::model::QaQuestion>> {
         self.inner.update_qa_question(req, options).await
     }
 
@@ -510,7 +510,7 @@ where
         &self,
         req: crate::model::DeleteQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_qa_question(req, options).await
     }
 
@@ -519,7 +519,7 @@ where
         &self,
         req: crate::model::ListQaQuestionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListQaQuestionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListQaQuestionsResponse>> {
         self.inner.list_qa_questions(req, options).await
     }
 
@@ -528,7 +528,7 @@ where
         &self,
         req: crate::model::CreateQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecard> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecard>> {
         self.inner.create_qa_scorecard(req, options).await
     }
 
@@ -537,7 +537,7 @@ where
         &self,
         req: crate::model::GetQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecard> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecard>> {
         self.inner.get_qa_scorecard(req, options).await
     }
 
@@ -546,7 +546,7 @@ where
         &self,
         req: crate::model::UpdateQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecard> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecard>> {
         self.inner.update_qa_scorecard(req, options).await
     }
 
@@ -555,7 +555,7 @@ where
         &self,
         req: crate::model::DeleteQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_qa_scorecard(req, options).await
     }
 
@@ -564,7 +564,7 @@ where
         &self,
         req: crate::model::ListQaScorecardsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListQaScorecardsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListQaScorecardsResponse>> {
         self.inner.list_qa_scorecards(req, options).await
     }
 
@@ -573,7 +573,7 @@ where
         &self,
         req: crate::model::CreateQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecardRevision> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
         self.inner.create_qa_scorecard_revision(req, options).await
     }
 
@@ -582,7 +582,7 @@ where
         &self,
         req: crate::model::GetQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecardRevision> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
         self.inner.get_qa_scorecard_revision(req, options).await
     }
 
@@ -591,7 +591,7 @@ where
         &self,
         req: crate::model::TuneQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.tune_qa_scorecard_revision(req, options).await
     }
 
@@ -600,7 +600,7 @@ where
         &self,
         req: crate::model::DeployQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecardRevision> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
         self.inner.deploy_qa_scorecard_revision(req, options).await
     }
 
@@ -609,7 +609,7 @@ where
         &self,
         req: crate::model::UndeployQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecardRevision> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
         self.inner
             .undeploy_qa_scorecard_revision(req, options)
             .await
@@ -620,7 +620,7 @@ where
         &self,
         req: crate::model::DeleteQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_qa_scorecard_revision(req, options).await
     }
 
@@ -629,7 +629,7 @@ where
         &self,
         req: crate::model::ListQaScorecardRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListQaScorecardRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListQaScorecardRevisionsResponse>> {
         self.inner.list_qa_scorecard_revisions(req, options).await
     }
 
@@ -638,7 +638,7 @@ where
         &self,
         req: crate::model::CreateFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FeedbackLabel> {
+    ) -> Result<gax::response::Response<crate::model::FeedbackLabel>> {
         self.inner.create_feedback_label(req, options).await
     }
 
@@ -647,7 +647,7 @@ where
         &self,
         req: crate::model::ListFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFeedbackLabelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFeedbackLabelsResponse>> {
         self.inner.list_feedback_labels(req, options).await
     }
 
@@ -656,7 +656,7 @@ where
         &self,
         req: crate::model::GetFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FeedbackLabel> {
+    ) -> Result<gax::response::Response<crate::model::FeedbackLabel>> {
         self.inner.get_feedback_label(req, options).await
     }
 
@@ -665,7 +665,7 @@ where
         &self,
         req: crate::model::UpdateFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FeedbackLabel> {
+    ) -> Result<gax::response::Response<crate::model::FeedbackLabel>> {
         self.inner.update_feedback_label(req, options).await
     }
 
@@ -674,7 +674,7 @@ where
         &self,
         req: crate::model::DeleteFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_feedback_label(req, options).await
     }
 
@@ -683,7 +683,7 @@ where
         &self,
         req: crate::model::ListAllFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAllFeedbackLabelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAllFeedbackLabelsResponse>> {
         self.inner.list_all_feedback_labels(req, options).await
     }
 
@@ -692,7 +692,7 @@ where
         &self,
         req: crate::model::BulkUploadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.bulk_upload_feedback_labels(req, options).await
     }
 
@@ -701,7 +701,7 @@ where
         &self,
         req: crate::model::BulkDownloadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.bulk_download_feedback_labels(req, options).await
     }
 
@@ -710,7 +710,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -719,7 +719,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -728,7 +728,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

@@ -93,6 +93,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .delete_log(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [log_name][crate::model::DeleteLogRequest::log_name].
@@ -135,6 +136,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .write_log_entries(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [log_name][crate::model::WriteLogEntriesRequest::log_name].
@@ -220,6 +222,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .list_log_entries(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -311,6 +314,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .list_monitored_resource_descriptors(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -376,6 +380,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .list_logs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListLogsRequest::parent].
@@ -444,6 +449,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -522,6 +528,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -567,6 +574,7 @@ pub mod logging_service_v_2 {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -663,6 +671,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_buckets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -732,6 +741,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_bucket(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBucketRequest::name].
@@ -779,6 +789,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_bucket_async(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_bucket_async`.
@@ -873,6 +884,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_bucket_async(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_bucket_async`.
@@ -965,6 +977,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_bucket(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
@@ -1022,6 +1035,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_bucket(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateBucketRequest::name].
@@ -1082,6 +1096,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .delete_bucket(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBucketRequest::name].
@@ -1124,6 +1139,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .undelete_bucket(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UndeleteBucketRequest::name].
@@ -1166,6 +1182,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_views(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1234,6 +1251,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetViewRequest::name].
@@ -1276,6 +1294,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateViewRequest::parent].
@@ -1333,6 +1352,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateViewRequest::name].
@@ -1393,6 +1413,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .delete_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteViewRequest::name].
@@ -1435,6 +1456,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_sinks(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1503,6 +1525,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_sink(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [sink_name][crate::model::GetSinkRequest::sink_name].
@@ -1545,6 +1568,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_sink(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSinkRequest::parent].
@@ -1602,6 +1626,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_sink(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [sink_name][crate::model::UpdateSinkRequest::sink_name].
@@ -1668,6 +1693,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .delete_sink(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [sink_name][crate::model::DeleteSinkRequest::sink_name].
@@ -1715,6 +1741,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_link(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_link`.
@@ -1804,6 +1831,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .delete_link(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_link`.
@@ -1876,6 +1904,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_links(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1944,6 +1973,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_link(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLinkRequest::name].
@@ -1986,6 +2016,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_exclusions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2055,6 +2086,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_exclusion(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExclusionRequest::name].
@@ -2097,6 +2129,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .create_exclusion(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateExclusionRequest::parent].
@@ -2148,6 +2181,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_exclusion(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateExclusionRequest::name].
@@ -2208,6 +2242,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .delete_exclusion(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteExclusionRequest::name].
@@ -2250,6 +2285,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_cmek_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCmekSettingsRequest::name].
@@ -2295,6 +2331,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_cmek_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateCmekSettingsRequest::name].
@@ -2355,6 +2392,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
@@ -2397,6 +2435,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .update_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateSettingsRequest::name].
@@ -2462,6 +2501,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .copy_log_entries(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `copy_log_entries`.
@@ -2555,6 +2595,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2633,6 +2674,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2678,6 +2720,7 @@ pub mod config_service_v_2 {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2774,6 +2817,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .list_log_metrics(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2843,6 +2887,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .get_log_metric(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [metric_name][crate::model::GetLogMetricRequest::metric_name].
@@ -2885,6 +2930,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .create_log_metric(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateLogMetricRequest::parent].
@@ -2936,6 +2982,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .update_log_metric(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [metric_name][crate::model::UpdateLogMetricRequest::metric_name].
@@ -2987,6 +3034,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .delete_log_metric(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [metric_name][crate::model::DeleteLogMetricRequest::metric_name].
@@ -3032,6 +3080,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3110,6 +3159,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3155,6 +3205,7 @@ pub mod metrics_service_v_2 {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

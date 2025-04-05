@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ExportAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.export_assets(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAssetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAssetsResponse>> {
         self.inner.list_assets(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::BatchGetAssetsHistoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchGetAssetsHistoryResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchGetAssetsHistoryResponse>> {
         self.inner.batch_get_assets_history(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::CreateFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Feed> {
+    ) -> Result<gax::response::Response<crate::model::Feed>> {
         self.inner.create_feed(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::GetFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Feed> {
+    ) -> Result<gax::response::Response<crate::model::Feed>> {
         self.inner.get_feed(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListFeedsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFeedsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFeedsResponse>> {
         self.inner.list_feeds(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UpdateFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Feed> {
+    ) -> Result<gax::response::Response<crate::model::Feed>> {
         self.inner.update_feed(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::DeleteFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_feed(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::SearchAllResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchAllResourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchAllResourcesResponse>> {
         self.inner.search_all_resources(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::SearchAllIamPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchAllIamPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchAllIamPoliciesResponse>> {
         self.inner.search_all_iam_policies(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::AnalyzeIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeIamPolicyResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeIamPolicyResponse>> {
         self.inner.analyze_iam_policy(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::AnalyzeIamPolicyLongrunningRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .analyze_iam_policy_longrunning(req, options)
             .await
@@ -152,7 +152,7 @@ where
         &self,
         req: crate::model::AnalyzeMoveRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeMoveResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeMoveResponse>> {
         self.inner.analyze_move(req, options).await
     }
 
@@ -161,7 +161,7 @@ where
         &self,
         req: crate::model::QueryAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryAssetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryAssetsResponse>> {
         self.inner.query_assets(req, options).await
     }
 
@@ -170,7 +170,7 @@ where
         &self,
         req: crate::model::CreateSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SavedQuery> {
+    ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
         self.inner.create_saved_query(req, options).await
     }
 
@@ -179,7 +179,7 @@ where
         &self,
         req: crate::model::GetSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SavedQuery> {
+    ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
         self.inner.get_saved_query(req, options).await
     }
 
@@ -188,7 +188,7 @@ where
         &self,
         req: crate::model::ListSavedQueriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSavedQueriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSavedQueriesResponse>> {
         self.inner.list_saved_queries(req, options).await
     }
 
@@ -197,7 +197,7 @@ where
         &self,
         req: crate::model::UpdateSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SavedQuery> {
+    ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
         self.inner.update_saved_query(req, options).await
     }
 
@@ -206,7 +206,7 @@ where
         &self,
         req: crate::model::DeleteSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_saved_query(req, options).await
     }
 
@@ -215,7 +215,7 @@ where
         &self,
         req: crate::model::BatchGetEffectiveIamPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchGetEffectiveIamPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchGetEffectiveIamPoliciesResponse>> {
         self.inner
             .batch_get_effective_iam_policies(req, options)
             .await
@@ -226,7 +226,7 @@ where
         &self,
         req: crate::model::AnalyzeOrgPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeOrgPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPoliciesResponse>> {
         self.inner.analyze_org_policies(req, options).await
     }
 
@@ -235,7 +235,8 @@ where
         &self,
         req: crate::model::AnalyzeOrgPolicyGovernedContainersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeOrgPolicyGovernedContainersResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>>
+    {
         self.inner
             .analyze_org_policy_governed_containers(req, options)
             .await
@@ -246,7 +247,7 @@ where
         &self,
         req: crate::model::AnalyzeOrgPolicyGovernedAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>> {
         self.inner
             .analyze_org_policy_governed_assets(req, options)
             .await
@@ -257,7 +258,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

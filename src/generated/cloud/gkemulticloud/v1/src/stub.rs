@@ -46,11 +46,12 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAttachedClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AttachedClusters::update_attached_cluster].
@@ -58,11 +59,12 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAttachedClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AttachedClusters::import_attached_cluster].
@@ -70,11 +72,12 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ImportAttachedClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AttachedClusters::get_attached_cluster].
@@ -82,11 +85,12 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAttachedClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AttachedCluster>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AttachedCluster>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AttachedCluster>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AttachedCluster>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AttachedClusters::list_attached_clusters].
@@ -94,11 +98,12 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAttachedClustersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAttachedClustersResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ListAttachedClustersResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAttachedClustersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAttachedClustersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AttachedClusters::delete_attached_cluster].
@@ -106,11 +111,12 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAttachedClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AttachedClusters::get_attached_server_config].
@@ -118,11 +124,12 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAttachedServerConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AttachedServerConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AttachedServerConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AttachedServerConfig>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AttachedServerConfig>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AttachedClusters::generate_attached_cluster_install_manifest].
@@ -131,10 +138,16 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         _req: crate::model::GenerateAttachedClusterInstallManifestRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GenerateAttachedClusterInstallManifestResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>,
+        >,
     > + Send {
         std::future::ready::<
-            crate::Result<crate::model::GenerateAttachedClusterInstallManifestResponse>,
+            crate::Result<
+                gax::response::Response<
+                    crate::model::GenerateAttachedClusterInstallManifestResponse,
+                >,
+            >,
         >(Err(Error::other("unimplemented")))
     }
 
@@ -144,11 +157,15 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         _req: crate::model::GenerateAttachedClusterAgentTokenRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GenerateAttachedClusterAgentTokenResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::GenerateAttachedClusterAgentTokenResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AttachedClusters::list_operations].
@@ -156,11 +173,12 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AttachedClusters::get_operation].
@@ -168,11 +186,12 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AttachedClusters::delete_operation].
@@ -180,8 +199,10 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::AttachedClusters::cancel_operation].
@@ -189,8 +210,10 @@ pub trait AttachedClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.
@@ -233,11 +256,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAwsClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::update_aws_cluster].
@@ -245,11 +269,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAwsClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::get_aws_cluster].
@@ -257,10 +282,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAwsClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AwsCluster>> + Send {
-        std::future::ready::<crate::Result<crate::model::AwsCluster>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AwsCluster>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AwsCluster>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AwsClusters::list_aws_clusters].
@@ -268,11 +295,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAwsClustersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAwsClustersResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAwsClustersResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAwsClustersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAwsClustersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AwsClusters::delete_aws_cluster].
@@ -280,11 +308,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAwsClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::generate_aws_cluster_agent_token].
@@ -293,11 +322,15 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         _req: crate::model::GenerateAwsClusterAgentTokenRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GenerateAwsClusterAgentTokenResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::GenerateAwsClusterAgentTokenResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AwsClusters::generate_aws_access_token].
@@ -306,11 +339,13 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         _req: crate::model::GenerateAwsAccessTokenRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GenerateAwsAccessTokenResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateAwsAccessTokenResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::GenerateAwsAccessTokenResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateAwsAccessTokenResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AwsClusters::create_aws_node_pool].
@@ -318,11 +353,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAwsNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::update_aws_node_pool].
@@ -330,11 +366,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAwsNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::rollback_aws_node_pool_update].
@@ -342,11 +379,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RollbackAwsNodePoolUpdateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::get_aws_node_pool].
@@ -354,10 +392,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAwsNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AwsNodePool>> + Send {
-        std::future::ready::<crate::Result<crate::model::AwsNodePool>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AwsNodePool>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AwsNodePool>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::list_aws_node_pools].
@@ -365,11 +405,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAwsNodePoolsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAwsNodePoolsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAwsNodePoolsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAwsNodePoolsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAwsNodePoolsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AwsClusters::delete_aws_node_pool].
@@ -377,11 +418,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAwsNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::get_aws_open_id_config].
@@ -389,11 +431,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAwsOpenIdConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AwsOpenIdConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AwsOpenIdConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AwsOpenIdConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AwsOpenIdConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::get_aws_json_web_keys].
@@ -401,10 +444,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAwsJsonWebKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AwsJsonWebKeys>> + Send {
-        std::future::ready::<crate::Result<crate::model::AwsJsonWebKeys>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AwsJsonWebKeys>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AwsJsonWebKeys>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::get_aws_server_config].
@@ -412,11 +457,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAwsServerConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AwsServerConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AwsServerConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AwsServerConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AwsServerConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::list_operations].
@@ -424,11 +470,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AwsClusters::get_operation].
@@ -436,11 +483,12 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AwsClusters::delete_operation].
@@ -448,8 +496,10 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::AwsClusters::cancel_operation].
@@ -457,8 +507,10 @@ pub trait AwsClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.
@@ -501,11 +553,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAzureClientRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::get_azure_client].
@@ -513,10 +566,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAzureClientRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AzureClient>> + Send {
-        std::future::ready::<crate::Result<crate::model::AzureClient>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AzureClient>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AzureClient>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::list_azure_clients].
@@ -524,11 +579,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAzureClientsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAzureClientsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAzureClientsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAzureClientsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAzureClientsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AzureClusters::delete_azure_client].
@@ -536,11 +592,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAzureClientRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::create_azure_cluster].
@@ -548,11 +605,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAzureClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::update_azure_cluster].
@@ -560,11 +618,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAzureClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::get_azure_cluster].
@@ -572,10 +631,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAzureClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AzureCluster>> + Send {
-        std::future::ready::<crate::Result<crate::model::AzureCluster>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AzureCluster>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AzureCluster>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::list_azure_clusters].
@@ -583,11 +644,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAzureClustersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAzureClustersResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAzureClustersResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAzureClustersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAzureClustersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AzureClusters::delete_azure_cluster].
@@ -595,11 +657,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAzureClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::generate_azure_cluster_agent_token].
@@ -608,11 +671,15 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         _req: crate::model::GenerateAzureClusterAgentTokenRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GenerateAzureClusterAgentTokenResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::GenerateAzureClusterAgentTokenResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AzureClusters::generate_azure_access_token].
@@ -621,11 +688,13 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         _req: crate::model::GenerateAzureAccessTokenRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GenerateAzureAccessTokenResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::GenerateAzureAccessTokenResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AzureClusters::create_azure_node_pool].
@@ -633,11 +702,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAzureNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::update_azure_node_pool].
@@ -645,11 +715,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAzureNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::get_azure_node_pool].
@@ -657,10 +728,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAzureNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AzureNodePool>> + Send {
-        std::future::ready::<crate::Result<crate::model::AzureNodePool>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AzureNodePool>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AzureNodePool>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::list_azure_node_pools].
@@ -668,11 +741,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAzureNodePoolsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAzureNodePoolsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAzureNodePoolsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAzureNodePoolsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAzureNodePoolsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AzureClusters::delete_azure_node_pool].
@@ -680,11 +754,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAzureNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::get_azure_open_id_config].
@@ -692,11 +767,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAzureOpenIdConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AzureOpenIdConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AzureOpenIdConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AzureOpenIdConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AzureOpenIdConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::get_azure_json_web_keys].
@@ -704,11 +780,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAzureJsonWebKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AzureJsonWebKeys>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AzureJsonWebKeys>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AzureJsonWebKeys>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AzureJsonWebKeys>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::get_azure_server_config].
@@ -716,11 +793,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAzureServerConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AzureServerConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AzureServerConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AzureServerConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AzureServerConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::list_operations].
@@ -728,11 +806,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AzureClusters::get_operation].
@@ -740,11 +819,12 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AzureClusters::delete_operation].
@@ -752,8 +832,10 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::AzureClusters::cancel_operation].
@@ -761,8 +843,10 @@ pub trait AzureClusters: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

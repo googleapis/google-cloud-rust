@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::AnalyzeSentimentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeSentimentResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>> {
         self.inner.analyze_sentiment(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::AnalyzeEntitiesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeEntitiesResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>> {
         self.inner.analyze_entities(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::ClassifyTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ClassifyTextResponse> {
+    ) -> Result<gax::response::Response<crate::model::ClassifyTextResponse>> {
         self.inner.classify_text(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::ModerateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ModerateTextResponse> {
+    ) -> Result<gax::response::Response<crate::model::ModerateTextResponse>> {
         self.inner.moderate_text(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::AnnotateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnnotateTextResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
         self.inner.annotate_text(req, options).await
     }
 }

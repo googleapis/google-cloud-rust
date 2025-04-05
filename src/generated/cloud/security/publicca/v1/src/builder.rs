@@ -102,6 +102,7 @@ pub mod public_certificate_authority_service {
             (*self.0.stub)
                 .create_external_account_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateExternalAccountKeyRequest::parent].

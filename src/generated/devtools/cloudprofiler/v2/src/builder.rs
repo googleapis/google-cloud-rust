@@ -93,6 +93,7 @@ pub mod profiler_service {
             (*self.0.stub)
                 .create_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProfileRequest::parent].
@@ -158,6 +159,7 @@ pub mod profiler_service {
             (*self.0.stub)
                 .create_offline_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateOfflineProfileRequest::parent].
@@ -209,6 +211,7 @@ pub mod profiler_service {
             (*self.0.stub)
                 .update_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [profile][crate::model::UpdateProfileRequest::profile].
@@ -317,6 +320,7 @@ pub mod export_service {
             (*self.0.stub)
                 .list_profiles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.

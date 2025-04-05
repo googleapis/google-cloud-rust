@@ -44,7 +44,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         &self,
         req: crate::model::CreateContactRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Contact> {
+    ) -> Result<gax::response::Response<crate::model::Contact>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,16 +57,18 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Contact = self
+            .inner
             .execute(builder, Some(req.contact), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_contact(
         &self,
         req: crate::model::UpdateContactRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Contact> {
+    ) -> Result<gax::response::Response<crate::model::Contact>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -95,16 +97,18 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::Contact = self
+            .inner
             .execute(builder, Some(req.contact), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_contacts(
         &self,
         req: crate::model::ListContactsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListContactsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListContactsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -116,16 +120,18 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListContactsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_contact(
         &self,
         req: crate::model::GetContactRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Contact> {
+    ) -> Result<gax::response::Response<crate::model::Contact>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -135,16 +141,18 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Contact = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_contact(
         &self,
         req: crate::model::DeleteContactRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -154,17 +162,18 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn compute_contacts(
         &self,
         req: crate::model::ComputeContactsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ComputeContactsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ComputeContactsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -185,16 +194,18 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
             });
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ComputeContactsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn send_test_message(
         &self,
         req: crate::model::SendTestMessageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -207,9 +218,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 }

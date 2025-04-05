@@ -44,7 +44,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         &self,
         req: crate::model::ListEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEventsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -58,16 +58,18 @@ impl super::stub::ServiceHealth for ServiceHealth {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("view", &req.view.value())]);
-        self.inner
+        let response: crate::model::ListEventsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_event(
         &self,
         req: crate::model::GetEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Event> {
+    ) -> Result<gax::response::Response<crate::model::Event>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -77,16 +79,18 @@ impl super::stub::ServiceHealth for ServiceHealth {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Event = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_organization_events(
         &self,
         req: crate::model::ListOrganizationEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrganizationEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrganizationEventsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -103,16 +107,18 @@ impl super::stub::ServiceHealth for ServiceHealth {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("view", &req.view.value())]);
-        self.inner
+        let response: crate::model::ListOrganizationEventsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_organization_event(
         &self,
         req: crate::model::GetOrganizationEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OrganizationEvent> {
+    ) -> Result<gax::response::Response<crate::model::OrganizationEvent>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -122,16 +128,18 @@ impl super::stub::ServiceHealth for ServiceHealth {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::OrganizationEvent = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_organization_impacts(
         &self,
         req: crate::model::ListOrganizationImpactsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrganizationImpactsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrganizationImpactsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -147,16 +155,18 @@ impl super::stub::ServiceHealth for ServiceHealth {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner
+        let response: crate::model::ListOrganizationImpactsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_organization_impact(
         &self,
         req: crate::model::GetOrganizationImpactRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OrganizationImpact> {
+    ) -> Result<gax::response::Response<crate::model::OrganizationImpact>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -166,16 +176,18 @@ impl super::stub::ServiceHealth for ServiceHealth {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::OrganizationImpact = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -188,16 +200,18 @@ impl super::stub::ServiceHealth for ServiceHealth {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: location::model::ListLocationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -207,8 +221,10 @@ impl super::stub::ServiceHealth for ServiceHealth {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: location::model::Location = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

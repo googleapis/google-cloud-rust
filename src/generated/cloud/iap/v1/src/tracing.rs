@@ -42,7 +42,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetIapSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IapSettings> {
+    ) -> Result<gax::response::Response<crate::model::IapSettings>> {
         self.inner.get_iap_settings(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateIapSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IapSettings> {
+    ) -> Result<gax::response::Response<crate::model::IapSettings>> {
         self.inner.update_iap_settings(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListTunnelDestGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTunnelDestGroupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTunnelDestGroupsResponse>> {
         self.inner.list_tunnel_dest_groups(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::CreateTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TunnelDestGroup> {
+    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         self.inner.create_tunnel_dest_group(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::GetTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TunnelDestGroup> {
+    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         self.inner.get_tunnel_dest_group(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::DeleteTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_tunnel_dest_group(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::UpdateTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TunnelDestGroup> {
+    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         self.inner.update_tunnel_dest_group(req, options).await
     }
 }
@@ -155,7 +155,7 @@ where
         &self,
         req: crate::model::ListBrandsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBrandsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBrandsResponse>> {
         self.inner.list_brands(req, options).await
     }
 
@@ -164,7 +164,7 @@ where
         &self,
         req: crate::model::CreateBrandRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Brand> {
+    ) -> Result<gax::response::Response<crate::model::Brand>> {
         self.inner.create_brand(req, options).await
     }
 
@@ -173,7 +173,7 @@ where
         &self,
         req: crate::model::GetBrandRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Brand> {
+    ) -> Result<gax::response::Response<crate::model::Brand>> {
         self.inner.get_brand(req, options).await
     }
 
@@ -182,7 +182,7 @@ where
         &self,
         req: crate::model::CreateIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IdentityAwareProxyClient> {
+    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
         self.inner
             .create_identity_aware_proxy_client(req, options)
             .await
@@ -193,7 +193,7 @@ where
         &self,
         req: crate::model::ListIdentityAwareProxyClientsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIdentityAwareProxyClientsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>> {
         self.inner
             .list_identity_aware_proxy_clients(req, options)
             .await
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::GetIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IdentityAwareProxyClient> {
+    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
         self.inner
             .get_identity_aware_proxy_client(req, options)
             .await
@@ -215,7 +215,7 @@ where
         &self,
         req: crate::model::ResetIdentityAwareProxyClientSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IdentityAwareProxyClient> {
+    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
         self.inner
             .reset_identity_aware_proxy_client_secret(req, options)
             .await
@@ -226,7 +226,7 @@ where
         &self,
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner
             .delete_identity_aware_proxy_client(req, options)
             .await

@@ -45,10 +45,12 @@ pub trait ServiceController: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CheckRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::CheckResponse>> + Send {
-        std::future::ready::<crate::Result<crate::model::CheckResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CheckResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::CheckResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ServiceController::report].
@@ -56,9 +58,11 @@ pub trait ServiceController: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReportRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ReportResponse>> + Send {
-        std::future::ready::<crate::Result<crate::model::ReportResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ReportResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReportResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

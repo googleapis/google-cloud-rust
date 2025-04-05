@@ -44,7 +44,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::CreateScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanConfig> {
+    ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,16 +57,18 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ScanConfig = self
+            .inner
             .execute(builder, Some(req.scan_config), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_scan_config(
         &self,
         req: crate::model::DeleteScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -76,17 +78,18 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn get_scan_config(
         &self,
         req: crate::model::GetScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanConfig> {
+    ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -96,16 +99,18 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ScanConfig = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_scan_configs(
         &self,
         req: crate::model::ListScanConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListScanConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListScanConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -120,16 +125,18 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
             );
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
-        self.inner
+        let response: crate::model::ListScanConfigsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_scan_config(
         &self,
         req: crate::model::UpdateScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanConfig> {
+    ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -158,16 +165,18 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::ScanConfig = self
+            .inner
             .execute(builder, Some(req.scan_config), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn start_scan_run(
         &self,
         req: crate::model::StartScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanRun> {
+    ) -> Result<gax::response::Response<crate::model::ScanRun>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -177,14 +186,16 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::ScanRun =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_scan_run(
         &self,
         req: crate::model::GetScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanRun> {
+    ) -> Result<gax::response::Response<crate::model::ScanRun>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -194,16 +205,18 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ScanRun = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_scan_runs(
         &self,
         req: crate::model::ListScanRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListScanRunsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListScanRunsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -215,16 +228,18 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
             );
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
-        self.inner
+        let response: crate::model::ListScanRunsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn stop_scan_run(
         &self,
         req: crate::model::StopScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanRun> {
+    ) -> Result<gax::response::Response<crate::model::ScanRun>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -234,14 +249,16 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::ScanRun =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_crawled_urls(
         &self,
         req: crate::model::ListCrawledUrlsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCrawledUrlsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -256,16 +273,18 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
             );
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
-        self.inner
+        let response: crate::model::ListCrawledUrlsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_finding(
         &self,
         req: crate::model::GetFindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -275,16 +294,18 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Finding = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_findings(
         &self,
         req: crate::model::ListFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFindingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -297,16 +318,18 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
-        self.inner
+        let response: crate::model::ListFindingsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_finding_type_stats(
         &self,
         req: crate::model::ListFindingTypeStatsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFindingTypeStatsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -319,8 +342,10 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ListFindingTypeStatsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

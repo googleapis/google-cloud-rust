@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.get_policy(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::UpdatePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.update_policy(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Attestor> {
+    ) -> Result<gax::response::Response<crate::model::Attestor>> {
         self.inner.create_attestor(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Attestor> {
+    ) -> Result<gax::response::Response<crate::model::Attestor>> {
         self.inner.get_attestor(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Attestor> {
+    ) -> Result<gax::response::Response<crate::model::Attestor>> {
         self.inner.update_attestor(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListAttestorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAttestorsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAttestorsResponse>> {
         self.inner.list_attestors(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::DeleteAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_attestor(req, options).await
     }
 }
@@ -128,7 +128,7 @@ where
         &self,
         req: crate::model::GetSystemPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.get_system_policy(req, options).await
     }
 }
@@ -160,7 +160,7 @@ where
         &self,
         req: crate::model::ValidateAttestationOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ValidateAttestationOccurrenceResponse> {
+    ) -> Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>> {
         self.inner
             .validate_attestation_occurrence(req, options)
             .await

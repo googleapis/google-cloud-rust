@@ -98,6 +98,7 @@ pub mod api_keys {
             (*self.0.stub)
                 .create_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_key`.
@@ -182,6 +183,7 @@ pub mod api_keys {
             (*self.0.stub)
                 .list_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -253,7 +255,10 @@ pub mod api_keys {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Key> {
-            (*self.0.stub).get_key(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_key(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKeyRequest::name].
@@ -296,6 +301,7 @@ pub mod api_keys {
             (*self.0.stub)
                 .get_key_string(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKeyStringRequest::name].
@@ -343,6 +349,7 @@ pub mod api_keys {
             (*self.0.stub)
                 .update_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_key`.
@@ -429,6 +436,7 @@ pub mod api_keys {
             (*self.0.stub)
                 .delete_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_key`.
@@ -512,6 +520,7 @@ pub mod api_keys {
             (*self.0.stub)
                 .undelete_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_key`.
@@ -584,6 +593,7 @@ pub mod api_keys {
             (*self.0.stub)
                 .lookup_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [key_string][crate::model::LookupKeyRequest::key_string].
@@ -629,6 +639,7 @@ pub mod api_keys {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

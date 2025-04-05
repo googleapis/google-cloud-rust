@@ -21,43 +21,43 @@ pub trait MigrationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MigrationWorkflow>;
+    ) -> crate::Result<gax::response::Response<crate::model::MigrationWorkflow>>;
 
     async fn get_migration_workflow(
         &self,
         req: crate::model::GetMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MigrationWorkflow>;
+    ) -> crate::Result<gax::response::Response<crate::model::MigrationWorkflow>>;
 
     async fn list_migration_workflows(
         &self,
         req: crate::model::ListMigrationWorkflowsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMigrationWorkflowsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListMigrationWorkflowsResponse>>;
 
     async fn delete_migration_workflow(
         &self,
         req: crate::model::DeleteMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn start_migration_workflow(
         &self,
         req: crate::model::StartMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_migration_subtask(
         &self,
         req: crate::model::GetMigrationSubtaskRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MigrationSubtask>;
+    ) -> crate::Result<gax::response::Response<crate::model::MigrationSubtask>>;
 
     async fn list_migration_subtasks(
         &self,
         req: crate::model::ListMigrationSubtasksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMigrationSubtasksResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>>;
 }
 
 /// All implementations of [super::MigrationService] also implement [MigrationService].
@@ -68,7 +68,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: crate::model::CreateMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MigrationWorkflow> {
+    ) -> crate::Result<gax::response::Response<crate::model::MigrationWorkflow>> {
         T::create_migration_workflow(self, req, options).await
     }
 
@@ -77,7 +77,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: crate::model::GetMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MigrationWorkflow> {
+    ) -> crate::Result<gax::response::Response<crate::model::MigrationWorkflow>> {
         T::get_migration_workflow(self, req, options).await
     }
 
@@ -86,7 +86,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: crate::model::ListMigrationWorkflowsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMigrationWorkflowsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListMigrationWorkflowsResponse>> {
         T::list_migration_workflows(self, req, options).await
     }
 
@@ -95,7 +95,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: crate::model::DeleteMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_migration_workflow(self, req, options).await
     }
 
@@ -104,7 +104,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: crate::model::StartMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::start_migration_workflow(self, req, options).await
     }
 
@@ -113,7 +113,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: crate::model::GetMigrationSubtaskRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MigrationSubtask> {
+    ) -> crate::Result<gax::response::Response<crate::model::MigrationSubtask>> {
         T::get_migration_subtask(self, req, options).await
     }
 
@@ -122,7 +122,7 @@ impl<T: super::MigrationService> MigrationService for T {
         &self,
         req: crate::model::ListMigrationSubtasksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMigrationSubtasksResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>> {
         T::list_migration_subtasks(self, req, options).await
     }
 }

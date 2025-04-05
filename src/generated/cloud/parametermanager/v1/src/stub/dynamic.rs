@@ -21,79 +21,79 @@ pub trait ParameterManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListParametersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListParametersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListParametersResponse>>;
 
     async fn get_parameter(
         &self,
         req: crate::model::GetParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Parameter>;
+    ) -> crate::Result<gax::response::Response<crate::model::Parameter>>;
 
     async fn create_parameter(
         &self,
         req: crate::model::CreateParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Parameter>;
+    ) -> crate::Result<gax::response::Response<crate::model::Parameter>>;
 
     async fn update_parameter(
         &self,
         req: crate::model::UpdateParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Parameter>;
+    ) -> crate::Result<gax::response::Response<crate::model::Parameter>>;
 
     async fn delete_parameter(
         &self,
         req: crate::model::DeleteParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_parameter_versions(
         &self,
         req: crate::model::ListParameterVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListParameterVersionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListParameterVersionsResponse>>;
 
     async fn get_parameter_version(
         &self,
         req: crate::model::GetParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ParameterVersion>;
+    ) -> crate::Result<gax::response::Response<crate::model::ParameterVersion>>;
 
     async fn render_parameter_version(
         &self,
         req: crate::model::RenderParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RenderParameterVersionResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::RenderParameterVersionResponse>>;
 
     async fn create_parameter_version(
         &self,
         req: crate::model::CreateParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ParameterVersion>;
+    ) -> crate::Result<gax::response::Response<crate::model::ParameterVersion>>;
 
     async fn update_parameter_version(
         &self,
         req: crate::model::UpdateParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ParameterVersion>;
+    ) -> crate::Result<gax::response::Response<crate::model::ParameterVersion>>;
 
     async fn delete_parameter_version(
         &self,
         req: crate::model::DeleteParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 }
 
 /// All implementations of [super::ParameterManager] also implement [ParameterManager].
@@ -104,7 +104,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::ListParametersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListParametersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListParametersResponse>> {
         T::list_parameters(self, req, options).await
     }
 
@@ -113,7 +113,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::GetParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Parameter> {
+    ) -> crate::Result<gax::response::Response<crate::model::Parameter>> {
         T::get_parameter(self, req, options).await
     }
 
@@ -122,7 +122,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::CreateParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Parameter> {
+    ) -> crate::Result<gax::response::Response<crate::model::Parameter>> {
         T::create_parameter(self, req, options).await
     }
 
@@ -131,7 +131,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::UpdateParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Parameter> {
+    ) -> crate::Result<gax::response::Response<crate::model::Parameter>> {
         T::update_parameter(self, req, options).await
     }
 
@@ -140,7 +140,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::DeleteParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_parameter(self, req, options).await
     }
 
@@ -149,7 +149,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::ListParameterVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListParameterVersionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListParameterVersionsResponse>> {
         T::list_parameter_versions(self, req, options).await
     }
 
@@ -158,7 +158,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::GetParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ParameterVersion> {
+    ) -> crate::Result<gax::response::Response<crate::model::ParameterVersion>> {
         T::get_parameter_version(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::RenderParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RenderParameterVersionResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::RenderParameterVersionResponse>> {
         T::render_parameter_version(self, req, options).await
     }
 
@@ -176,7 +176,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::CreateParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ParameterVersion> {
+    ) -> crate::Result<gax::response::Response<crate::model::ParameterVersion>> {
         T::create_parameter_version(self, req, options).await
     }
 
@@ -185,7 +185,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::UpdateParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ParameterVersion> {
+    ) -> crate::Result<gax::response::Response<crate::model::ParameterVersion>> {
         T::update_parameter_version(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: crate::model::DeleteParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_parameter_version(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::ParameterManager> ParameterManager for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

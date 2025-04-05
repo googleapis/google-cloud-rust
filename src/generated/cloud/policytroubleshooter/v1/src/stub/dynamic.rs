@@ -21,7 +21,7 @@ pub trait IamChecker: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::TroubleshootIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TroubleshootIamPolicyResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>>;
 }
 
 /// All implementations of [super::IamChecker] also implement [IamChecker].
@@ -32,7 +32,7 @@ impl<T: super::IamChecker> IamChecker for T {
         &self,
         req: crate::model::TroubleshootIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TroubleshootIamPolicyResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>> {
         T::troubleshoot_iam_policy(self, req, options).await
     }
 }

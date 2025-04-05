@@ -44,7 +44,7 @@ impl super::stub::Recommender for Recommender {
         &self,
         req: crate::model::ListInsightsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInsightsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInsightsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -57,16 +57,18 @@ impl super::stub::Recommender for Recommender {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner
+        let response: crate::model::ListInsightsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_insight(
         &self,
         req: crate::model::GetInsightRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Insight> {
+    ) -> Result<gax::response::Response<crate::model::Insight>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -76,16 +78,18 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Insight = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn mark_insight_accepted(
         &self,
         req: crate::model::MarkInsightAcceptedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Insight> {
+    ) -> Result<gax::response::Response<crate::model::Insight>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -98,14 +102,16 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Insight =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_recommendations(
         &self,
         req: crate::model::ListRecommendationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRecommendationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRecommendationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -121,16 +127,18 @@ impl super::stub::Recommender for Recommender {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner
+        let response: crate::model::ListRecommendationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_recommendation(
         &self,
         req: crate::model::GetRecommendationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -140,16 +148,18 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Recommendation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn mark_recommendation_dismissed(
         &self,
         req: crate::model::MarkRecommendationDismissedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -162,14 +172,16 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Recommendation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn mark_recommendation_claimed(
         &self,
         req: crate::model::MarkRecommendationClaimedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -182,14 +194,16 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Recommendation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn mark_recommendation_succeeded(
         &self,
         req: crate::model::MarkRecommendationSucceededRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -202,14 +216,16 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Recommendation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn mark_recommendation_failed(
         &self,
         req: crate::model::MarkRecommendationFailedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -222,14 +238,16 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Recommendation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_recommender_config(
         &self,
         req: crate::model::GetRecommenderConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RecommenderConfig> {
+    ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -239,16 +257,18 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::RecommenderConfig = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_recommender_config(
         &self,
         req: crate::model::UpdateRecommenderConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RecommenderConfig> {
+    ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -278,16 +298,18 @@ impl super::stub::Recommender for Recommender {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner
+        let response: crate::model::RecommenderConfig = self
+            .inner
             .execute(builder, Some(req.recommender_config), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_insight_type_config(
         &self,
         req: crate::model::GetInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InsightTypeConfig> {
+    ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -297,16 +319,18 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::InsightTypeConfig = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_insight_type_config(
         &self,
         req: crate::model::UpdateInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InsightTypeConfig> {
+    ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -336,8 +360,10 @@ impl super::stub::Recommender for Recommender {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner
+        let response: crate::model::InsightTypeConfig = self
+            .inner
             .execute(builder, Some(req.insight_type_config), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

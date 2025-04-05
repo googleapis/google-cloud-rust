@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Workload> {
+    ) -> Result<gax::response::Response<crate::model::Workload>> {
         self.inner.get_workload(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkloadsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
         self.inner.list_workloads(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetCustomerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Customer> {
+    ) -> Result<gax::response::Response<crate::model::Customer>> {
         self.inner.get_customer(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::ListCustomersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCustomersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCustomersResponse>> {
         self.inner.list_customers(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::GetEkmConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EkmConnections> {
+    ) -> Result<gax::response::Response<crate::model::EkmConnections>> {
         self.inner.get_ekm_connections(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::GetPartnerPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PartnerPermissions> {
+    ) -> Result<gax::response::Response<crate::model::PartnerPermissions>> {
         self.inner.get_partner_permissions(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::ListAccessApprovalRequestsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAccessApprovalRequestsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>> {
         self.inner.list_access_approval_requests(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::GetPartnerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Partner> {
+    ) -> Result<gax::response::Response<crate::model::Partner>> {
         self.inner.get_partner(req, options).await
     }
 }
@@ -137,7 +137,7 @@ where
         &self,
         req: crate::model::ListViolationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListViolationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListViolationsResponse>> {
         self.inner.list_violations(req, options).await
     }
 
@@ -146,7 +146,7 @@ where
         &self,
         req: crate::model::GetViolationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Violation> {
+    ) -> Result<gax::response::Response<crate::model::Violation>> {
         self.inner.get_violation(req, options).await
     }
 }

@@ -45,11 +45,12 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AnalyzeSentimentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AnalyzeSentimentResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AnalyzeSentimentResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::LanguageService::analyze_entities].
@@ -57,11 +58,12 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AnalyzeEntitiesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AnalyzeEntitiesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AnalyzeEntitiesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::LanguageService::classify_text].
@@ -69,11 +71,12 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ClassifyTextRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ClassifyTextResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ClassifyTextResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ClassifyTextResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ClassifyTextResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::LanguageService::moderate_text].
@@ -81,11 +84,12 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ModerateTextRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ModerateTextResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ModerateTextResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ModerateTextResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ModerateTextResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::LanguageService::annotate_text].
@@ -93,10 +97,11 @@ pub trait LanguageService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AnnotateTextRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AnnotateTextResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AnnotateTextResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnnotateTextResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AnnotateTextResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }

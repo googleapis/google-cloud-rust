@@ -21,55 +21,55 @@ pub trait AccessApproval: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListApprovalRequestsMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListApprovalRequestsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListApprovalRequestsResponse>>;
 
     async fn get_approval_request(
         &self,
         req: crate::model::GetApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ApprovalRequest>;
+    ) -> crate::Result<gax::response::Response<crate::model::ApprovalRequest>>;
 
     async fn approve_approval_request(
         &self,
         req: crate::model::ApproveApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ApprovalRequest>;
+    ) -> crate::Result<gax::response::Response<crate::model::ApprovalRequest>>;
 
     async fn dismiss_approval_request(
         &self,
         req: crate::model::DismissApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ApprovalRequest>;
+    ) -> crate::Result<gax::response::Response<crate::model::ApprovalRequest>>;
 
     async fn invalidate_approval_request(
         &self,
         req: crate::model::InvalidateApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ApprovalRequest>;
+    ) -> crate::Result<gax::response::Response<crate::model::ApprovalRequest>>;
 
     async fn get_access_approval_settings(
         &self,
         req: crate::model::GetAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AccessApprovalSettings>;
+    ) -> crate::Result<gax::response::Response<crate::model::AccessApprovalSettings>>;
 
     async fn update_access_approval_settings(
         &self,
         req: crate::model::UpdateAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AccessApprovalSettings>;
+    ) -> crate::Result<gax::response::Response<crate::model::AccessApprovalSettings>>;
 
     async fn delete_access_approval_settings(
         &self,
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_access_approval_service_account(
         &self,
         req: crate::model::GetAccessApprovalServiceAccountMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AccessApprovalServiceAccount>;
+    ) -> crate::Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>>;
 }
 
 /// All implementations of [super::AccessApproval] also implement [AccessApproval].
@@ -80,7 +80,7 @@ impl<T: super::AccessApproval> AccessApproval for T {
         &self,
         req: crate::model::ListApprovalRequestsMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListApprovalRequestsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListApprovalRequestsResponse>> {
         T::list_approval_requests(self, req, options).await
     }
 
@@ -89,7 +89,7 @@ impl<T: super::AccessApproval> AccessApproval for T {
         &self,
         req: crate::model::GetApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ApprovalRequest> {
+    ) -> crate::Result<gax::response::Response<crate::model::ApprovalRequest>> {
         T::get_approval_request(self, req, options).await
     }
 
@@ -98,7 +98,7 @@ impl<T: super::AccessApproval> AccessApproval for T {
         &self,
         req: crate::model::ApproveApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ApprovalRequest> {
+    ) -> crate::Result<gax::response::Response<crate::model::ApprovalRequest>> {
         T::approve_approval_request(self, req, options).await
     }
 
@@ -107,7 +107,7 @@ impl<T: super::AccessApproval> AccessApproval for T {
         &self,
         req: crate::model::DismissApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ApprovalRequest> {
+    ) -> crate::Result<gax::response::Response<crate::model::ApprovalRequest>> {
         T::dismiss_approval_request(self, req, options).await
     }
 
@@ -116,7 +116,7 @@ impl<T: super::AccessApproval> AccessApproval for T {
         &self,
         req: crate::model::InvalidateApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ApprovalRequest> {
+    ) -> crate::Result<gax::response::Response<crate::model::ApprovalRequest>> {
         T::invalidate_approval_request(self, req, options).await
     }
 
@@ -125,7 +125,7 @@ impl<T: super::AccessApproval> AccessApproval for T {
         &self,
         req: crate::model::GetAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AccessApprovalSettings> {
+    ) -> crate::Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
         T::get_access_approval_settings(self, req, options).await
     }
 
@@ -134,7 +134,7 @@ impl<T: super::AccessApproval> AccessApproval for T {
         &self,
         req: crate::model::UpdateAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AccessApprovalSettings> {
+    ) -> crate::Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
         T::update_access_approval_settings(self, req, options).await
     }
 
@@ -143,7 +143,7 @@ impl<T: super::AccessApproval> AccessApproval for T {
         &self,
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_access_approval_settings(self, req, options).await
     }
 
@@ -152,7 +152,7 @@ impl<T: super::AccessApproval> AccessApproval for T {
         &self,
         req: crate::model::GetAccessApprovalServiceAccountMessage,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AccessApprovalServiceAccount> {
+    ) -> crate::Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>> {
         T::get_access_approval_service_account(self, req, options).await
     }
 }

@@ -101,6 +101,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_connection`.
@@ -191,6 +192,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .get_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
@@ -233,6 +235,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .list_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -310,6 +313,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_connection`.
@@ -417,6 +421,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection`.
@@ -509,6 +514,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_repository`.
@@ -609,6 +615,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .batch_create_repositories(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_create_repositories`.
@@ -700,6 +707,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .get_repository(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
@@ -745,6 +753,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .list_repositories(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -828,6 +837,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
@@ -915,6 +925,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .fetch_read_write_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [repository][crate::model::FetchReadWriteTokenRequest::repository].
@@ -957,6 +968,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .fetch_read_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [repository][crate::model::FetchReadTokenRequest::repository].
@@ -1004,6 +1016,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .fetch_linkable_repositories(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1075,6 +1088,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .fetch_git_refs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [repository][crate::model::FetchGitRefsRequest::repository].
@@ -1126,6 +1140,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1186,6 +1201,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1240,6 +1256,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1296,6 +1313,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1341,6 +1359,7 @@ pub mod repository_manager {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

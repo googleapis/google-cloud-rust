@@ -96,6 +96,7 @@ pub mod image_annotator {
             (*self.0.stub)
                 .batch_annotate_images(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
@@ -163,6 +164,7 @@ pub mod image_annotator {
             (*self.0.stub)
                 .batch_annotate_files(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
@@ -237,6 +239,7 @@ pub mod image_annotator {
             (*self.0.stub)
                 .async_batch_annotate_images(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `async_batch_annotate_images`.
@@ -358,6 +361,7 @@ pub mod image_annotator {
             (*self.0.stub)
                 .async_batch_annotate_files(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `async_batch_annotate_files`.
@@ -463,6 +467,7 @@ pub mod image_annotator {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -562,6 +567,7 @@ pub mod product_search {
             (*self.0.stub)
                 .create_product_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProductSetRequest::parent].
@@ -619,6 +625,7 @@ pub mod product_search {
             (*self.0.stub)
                 .list_product_sets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -688,6 +695,7 @@ pub mod product_search {
             (*self.0.stub)
                 .get_product_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProductSetRequest::name].
@@ -733,6 +741,7 @@ pub mod product_search {
             (*self.0.stub)
                 .update_product_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
@@ -790,6 +799,7 @@ pub mod product_search {
             (*self.0.stub)
                 .delete_product_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteProductSetRequest::name].
@@ -832,6 +842,7 @@ pub mod product_search {
             (*self.0.stub)
                 .create_product(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProductRequest::parent].
@@ -889,6 +900,7 @@ pub mod product_search {
             (*self.0.stub)
                 .list_products(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -958,6 +970,7 @@ pub mod product_search {
             (*self.0.stub)
                 .get_product(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProductRequest::name].
@@ -1000,6 +1013,7 @@ pub mod product_search {
             (*self.0.stub)
                 .update_product(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [product][crate::model::UpdateProductRequest::product].
@@ -1054,6 +1068,7 @@ pub mod product_search {
             (*self.0.stub)
                 .delete_product(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteProductRequest::name].
@@ -1099,6 +1114,7 @@ pub mod product_search {
             (*self.0.stub)
                 .create_reference_image(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateReferenceImageRequest::parent].
@@ -1159,6 +1175,7 @@ pub mod product_search {
             (*self.0.stub)
                 .delete_reference_image(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteReferenceImageRequest::name].
@@ -1204,6 +1221,7 @@ pub mod product_search {
             (*self.0.stub)
                 .list_reference_images(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1276,6 +1294,7 @@ pub mod product_search {
             (*self.0.stub)
                 .get_reference_image(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReferenceImageRequest::name].
@@ -1321,6 +1340,7 @@ pub mod product_search {
             (*self.0.stub)
                 .add_product_to_product_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AddProductToProductSetRequest::name].
@@ -1374,6 +1394,7 @@ pub mod product_search {
             (*self.0.stub)
                 .remove_product_from_product_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RemoveProductFromProductSetRequest::name].
@@ -1427,6 +1448,7 @@ pub mod product_search {
             (*self.0.stub)
                 .list_products_in_product_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1506,6 +1528,7 @@ pub mod product_search {
             (*self.0.stub)
                 .import_product_sets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_product_sets`.
@@ -1602,6 +1625,7 @@ pub mod product_search {
             (*self.0.stub)
                 .purge_products(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `purge_products`.
@@ -1692,6 +1716,7 @@ pub mod product_search {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

@@ -46,11 +46,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchDomainsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchDomainsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SearchDomainsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SearchDomainsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SearchDomainsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Domains::retrieve_register_parameters].
@@ -59,11 +60,15 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         _req: crate::model::RetrieveRegisterParametersRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::RetrieveRegisterParametersResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::RetrieveRegisterParametersResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::RetrieveRegisterParametersResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::RetrieveRegisterParametersResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Domains::register_domain].
@@ -71,11 +76,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RegisterDomainRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::retrieve_transfer_parameters].
@@ -84,11 +90,15 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         _req: crate::model::RetrieveTransferParametersRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::RetrieveTransferParametersResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::RetrieveTransferParametersResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::RetrieveTransferParametersResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::RetrieveTransferParametersResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Domains::transfer_domain].
@@ -96,11 +106,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::TransferDomainRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::list_registrations].
@@ -108,11 +119,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListRegistrationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListRegistrationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListRegistrationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListRegistrationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListRegistrationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Domains::get_registration].
@@ -120,10 +132,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetRegistrationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Registration>> + Send {
-        std::future::ready::<crate::Result<crate::model::Registration>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Registration>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Registration>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::update_registration].
@@ -131,11 +145,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateRegistrationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::configure_management_settings].
@@ -143,11 +158,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ConfigureManagementSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::configure_dns_settings].
@@ -155,11 +171,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ConfigureDnsSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::configure_contact_settings].
@@ -167,11 +184,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ConfigureContactSettingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::export_registration].
@@ -179,11 +197,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ExportRegistrationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::delete_registration].
@@ -191,11 +210,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteRegistrationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::retrieve_authorization_code].
@@ -203,11 +223,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RetrieveAuthorizationCodeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AuthorizationCode>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AuthorizationCode>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AuthorizationCode>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AuthorizationCode>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::reset_authorization_code].
@@ -215,11 +236,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ResetAuthorizationCodeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AuthorizationCode>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AuthorizationCode>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AuthorizationCode>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AuthorizationCode>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Domains::list_operations].
@@ -227,11 +249,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Domains::get_operation].
@@ -239,11 +262,12 @@ pub trait Domains: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Returns the polling error policy.

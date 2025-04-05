@@ -45,10 +45,12 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBillingAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::BillingAccount>> + Send {
-        std::future::ready::<crate::Result<crate::model::BillingAccount>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BillingAccount>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BillingAccount>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBilling::list_billing_accounts].
@@ -56,11 +58,12 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBillingAccountsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListBillingAccountsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListBillingAccountsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBillingAccountsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBillingAccountsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::CloudBilling::update_billing_account].
@@ -68,10 +71,12 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBillingAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::BillingAccount>> + Send {
-        std::future::ready::<crate::Result<crate::model::BillingAccount>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BillingAccount>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BillingAccount>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBilling::create_billing_account].
@@ -79,10 +84,12 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBillingAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::BillingAccount>> + Send {
-        std::future::ready::<crate::Result<crate::model::BillingAccount>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BillingAccount>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BillingAccount>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBilling::list_project_billing_info].
@@ -91,11 +98,13 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListProjectBillingInfoRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListProjectBillingInfoResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListProjectBillingInfoResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListProjectBillingInfoResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListProjectBillingInfoResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::CloudBilling::get_project_billing_info].
@@ -103,11 +112,12 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetProjectBillingInfoRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ProjectBillingInfo>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ProjectBillingInfo>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ProjectBillingInfo>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProjectBillingInfo>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBilling::update_project_billing_info].
@@ -115,11 +125,12 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateProjectBillingInfoRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ProjectBillingInfo>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ProjectBillingInfo>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ProjectBillingInfo>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProjectBillingInfo>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::CloudBilling::get_iam_policy].
@@ -127,10 +138,12 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudBilling::set_iam_policy].
@@ -138,10 +151,12 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::CloudBilling::test_iam_permissions].
@@ -149,11 +164,12 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::CloudBilling::move_billing_account].
@@ -161,10 +177,12 @@ pub trait CloudBilling: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MoveBillingAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::BillingAccount>> + Send {
-        std::future::ready::<crate::Result<crate::model::BillingAccount>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BillingAccount>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BillingAccount>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }
 
@@ -185,11 +203,12 @@ pub trait CloudCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListServicesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListServicesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListServicesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListServicesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListServicesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::CloudCatalog::list_skus].
@@ -197,10 +216,11 @@ pub trait CloudCatalog: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSkusRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSkusResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListSkusResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSkusResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListSkusResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

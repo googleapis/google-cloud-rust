@@ -96,6 +96,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_storage_pools(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -185,6 +186,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_storage_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_storage_pool`.
@@ -275,6 +277,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_storage_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetStoragePoolRequest::name].
@@ -325,6 +328,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_storage_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_storage_pool`.
@@ -420,6 +424,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_storage_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_storage_pool`.
@@ -502,6 +507,7 @@ pub mod net_app {
             (*self.0.stub)
                 .validate_directory_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `validate_directory_service`.
@@ -593,6 +599,7 @@ pub mod net_app {
             (*self.0.stub)
                 .switch_active_replica_zone(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `switch_active_replica_zone`.
@@ -668,6 +675,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_volumes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -749,6 +757,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_volume(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVolumeRequest::name].
@@ -796,6 +805,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_volume(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_volume`.
@@ -890,6 +900,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_volume`.
@@ -981,6 +992,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_volume(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_volume`.
@@ -1064,6 +1076,7 @@ pub mod net_app {
             (*self.0.stub)
                 .revert_volume(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `revert_volume`.
@@ -1144,6 +1157,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_snapshots(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1225,6 +1239,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
@@ -1272,6 +1287,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_snapshot`.
@@ -1367,6 +1383,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_snapshot`.
@@ -1444,6 +1461,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_snapshot`.
@@ -1534,6 +1552,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_active_directories(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1618,6 +1637,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_active_directory(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetActiveDirectoryRequest::name].
@@ -1668,6 +1688,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_active_directory(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_active_directory`.
@@ -1767,6 +1788,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_active_directory(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_active_directory`.
@@ -1863,6 +1885,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_active_directory(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_active_directory`.
@@ -1935,6 +1958,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_kms_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2021,6 +2045,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_kms_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_kms_config`.
@@ -2111,6 +2136,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_kms_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKmsConfigRequest::name].
@@ -2158,6 +2184,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_kms_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_kms_config`.
@@ -2250,6 +2277,7 @@ pub mod net_app {
             (*self.0.stub)
                 .encrypt_volumes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `encrypt_volumes`.
@@ -2325,6 +2353,7 @@ pub mod net_app {
             (*self.0.stub)
                 .verify_kms_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::VerifyKmsConfigRequest::name].
@@ -2372,6 +2401,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_kms_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_kms_config`.
@@ -2447,6 +2477,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_replications(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2528,6 +2559,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_replication(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReplicationRequest::name].
@@ -2578,6 +2610,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_replication(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_replication`.
@@ -2676,6 +2709,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_replication(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_replication`.
@@ -2756,6 +2790,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_replication(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_replication`.
@@ -2848,6 +2883,7 @@ pub mod net_app {
             (*self.0.stub)
                 .stop_replication(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_replication`.
@@ -2937,6 +2973,7 @@ pub mod net_app {
             (*self.0.stub)
                 .resume_replication(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `resume_replication`.
@@ -3022,6 +3059,7 @@ pub mod net_app {
             (*self.0.stub)
                 .reverse_replication_direction(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reverse_replication_direction`.
@@ -3105,6 +3143,7 @@ pub mod net_app {
             (*self.0.stub)
                 .establish_peering(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `establish_peering`.
@@ -3214,6 +3253,7 @@ pub mod net_app {
             (*self.0.stub)
                 .sync_replication(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `sync_replication`.
@@ -3297,6 +3337,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_backup_vault(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup_vault`.
@@ -3387,6 +3428,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_backup_vault(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupVaultRequest::name].
@@ -3432,6 +3474,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_backup_vaults(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3521,6 +3564,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_backup_vault(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_backup_vault`.
@@ -3616,6 +3660,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_backup_vault(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_vault`.
@@ -3693,6 +3738,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup`.
@@ -3782,6 +3828,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -3824,6 +3871,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3910,6 +3958,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
@@ -3987,6 +4036,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_backup`.
@@ -4081,6 +4131,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_backup_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup_policy`.
@@ -4171,6 +4222,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_backup_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupPolicyRequest::name].
@@ -4216,6 +4268,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_backup_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4305,6 +4358,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_backup_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_backup_policy`.
@@ -4400,6 +4454,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_backup_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_policy`.
@@ -4472,6 +4527,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_quota_rules(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4553,6 +4609,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_quota_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQuotaRuleRequest::name].
@@ -4600,6 +4657,7 @@ pub mod net_app {
             (*self.0.stub)
                 .create_quota_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_quota_rule`.
@@ -4695,6 +4753,7 @@ pub mod net_app {
             (*self.0.stub)
                 .update_quota_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_quota_rule`.
@@ -4787,6 +4846,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_quota_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_quota_rule`.
@@ -4862,6 +4922,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4937,6 +4998,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -4982,6 +5044,7 @@ pub mod net_app {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5060,6 +5123,7 @@ pub mod net_app {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -5105,6 +5169,7 @@ pub mod net_app {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -5150,6 +5215,7 @@ pub mod net_app {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

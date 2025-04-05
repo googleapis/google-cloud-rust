@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::OptimizeToursRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OptimizeToursResponse> {
+    ) -> Result<gax::response::Response<crate::model::OptimizeToursResponse>> {
         self.inner.optimize_tours(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::BatchOptimizeToursRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_optimize_tours(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

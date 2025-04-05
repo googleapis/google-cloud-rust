@@ -96,6 +96,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .create_ssh_public_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSshPublicKeyRequest::parent].
@@ -152,6 +153,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .delete_posix_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePosixAccountRequest::name].
@@ -197,6 +199,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .delete_ssh_public_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSshPublicKeyRequest::name].
@@ -239,6 +242,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .get_login_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLoginProfileRequest::name].
@@ -293,6 +297,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .get_ssh_public_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSshPublicKeyRequest::name].
@@ -338,6 +343,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .import_ssh_public_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportSshPublicKeyRequest::parent].
@@ -411,6 +417,7 @@ pub mod os_login_service {
             (*self.0.stub)
                 .update_ssh_public_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateSshPublicKeyRequest::name].

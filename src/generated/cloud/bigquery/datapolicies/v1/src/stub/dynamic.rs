@@ -21,55 +21,55 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataPolicy>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>>;
 
     async fn update_data_policy(
         &self,
         req: crate::model::UpdateDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataPolicy>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>>;
 
     async fn rename_data_policy(
         &self,
         req: crate::model::RenameDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataPolicy>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>>;
 
     async fn delete_data_policy(
         &self,
         req: crate::model::DeleteDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_data_policy(
         &self,
         req: crate::model::GetDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataPolicy>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>>;
 
     async fn list_data_policies(
         &self,
         req: crate::model::ListDataPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataPoliciesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataPoliciesResponse>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 }
 
 /// All implementations of [super::DataPolicyService] also implement [DataPolicyService].
@@ -80,7 +80,7 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
         &self,
         req: crate::model::CreateDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataPolicy> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>> {
         T::create_data_policy(self, req, options).await
     }
 
@@ -89,7 +89,7 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
         &self,
         req: crate::model::UpdateDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataPolicy> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>> {
         T::update_data_policy(self, req, options).await
     }
 
@@ -98,7 +98,7 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
         &self,
         req: crate::model::RenameDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataPolicy> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>> {
         T::rename_data_policy(self, req, options).await
     }
 
@@ -107,7 +107,7 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
         &self,
         req: crate::model::DeleteDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_data_policy(self, req, options).await
     }
 
@@ -116,7 +116,7 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
         &self,
         req: crate::model::GetDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataPolicy> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataPolicy>> {
         T::get_data_policy(self, req, options).await
     }
 
@@ -125,7 +125,7 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
         &self,
         req: crate::model::ListDataPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataPoliciesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataPoliciesResponse>> {
         T::list_data_policies(self, req, options).await
     }
 
@@ -134,7 +134,7 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -143,7 +143,7 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -152,7 +152,7 @@ impl<T: super::DataPolicyService> DataPolicyService for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 }

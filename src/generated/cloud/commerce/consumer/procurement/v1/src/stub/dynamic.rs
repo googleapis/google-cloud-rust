@@ -23,37 +23,37 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetLicensePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LicensePool>;
+    ) -> crate::Result<gax::response::Response<crate::model::LicensePool>>;
 
     async fn update_license_pool(
         &self,
         req: crate::model::UpdateLicensePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LicensePool>;
+    ) -> crate::Result<gax::response::Response<crate::model::LicensePool>>;
 
     async fn assign(
         &self,
         req: crate::model::AssignRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AssignResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::AssignResponse>>;
 
     async fn unassign(
         &self,
         req: crate::model::UnassignRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UnassignResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::UnassignResponse>>;
 
     async fn enumerate_licensed_users(
         &self,
         req: crate::model::EnumerateLicensedUsersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::EnumerateLicensedUsersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::EnumerateLicensedUsersResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 }
 
 /// All implementations of [super::LicenseManagementService] also implement [LicenseManagementService].
@@ -64,7 +64,7 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
         &self,
         req: crate::model::GetLicensePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LicensePool> {
+    ) -> crate::Result<gax::response::Response<crate::model::LicensePool>> {
         T::get_license_pool(self, req, options).await
     }
 
@@ -73,7 +73,7 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
         &self,
         req: crate::model::UpdateLicensePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LicensePool> {
+    ) -> crate::Result<gax::response::Response<crate::model::LicensePool>> {
         T::update_license_pool(self, req, options).await
     }
 
@@ -82,7 +82,7 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
         &self,
         req: crate::model::AssignRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AssignResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::AssignResponse>> {
         T::assign(self, req, options).await
     }
 
@@ -91,7 +91,7 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
         &self,
         req: crate::model::UnassignRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UnassignResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::UnassignResponse>> {
         T::unassign(self, req, options).await
     }
 
@@ -100,7 +100,7 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
         &self,
         req: crate::model::EnumerateLicensedUsersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::EnumerateLicensedUsersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::EnumerateLicensedUsersResponse>> {
         T::enumerate_licensed_users(self, req, options).await
     }
 
@@ -109,7 +109,7 @@ impl<T: super::LicenseManagementService> LicenseManagementService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 }
@@ -121,37 +121,37 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::PlaceOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_order(
         &self,
         req: crate::model::GetOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Order>;
+    ) -> crate::Result<gax::response::Response<crate::model::Order>>;
 
     async fn list_orders(
         &self,
         req: crate::model::ListOrdersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListOrdersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListOrdersResponse>>;
 
     async fn modify_order(
         &self,
         req: crate::model::ModifyOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn cancel_order(
         &self,
         req: crate::model::CancelOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -172,7 +172,7 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
         &self,
         req: crate::model::PlaceOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::place_order(self, req, options).await
     }
 
@@ -181,7 +181,7 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
         &self,
         req: crate::model::GetOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Order> {
+    ) -> crate::Result<gax::response::Response<crate::model::Order>> {
         T::get_order(self, req, options).await
     }
 
@@ -190,7 +190,7 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
         &self,
         req: crate::model::ListOrdersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListOrdersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListOrdersResponse>> {
         T::list_orders(self, req, options).await
     }
 
@@ -199,7 +199,7 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
         &self,
         req: crate::model::ModifyOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::modify_order(self, req, options).await
     }
 
@@ -208,7 +208,7 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
         &self,
         req: crate::model::CancelOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::cancel_order(self, req, options).await
     }
 
@@ -217,7 +217,7 @@ impl<T: super::ConsumerProcurementService> ConsumerProcurementService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

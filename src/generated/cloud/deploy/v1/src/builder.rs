@@ -96,6 +96,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_delivery_pipelines(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -180,6 +181,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_delivery_pipeline(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeliveryPipelineRequest::name].
@@ -230,6 +232,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_delivery_pipeline(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_delivery_pipeline`.
@@ -343,6 +346,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .update_delivery_pipeline(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_delivery_pipeline`.
@@ -459,6 +463,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_delivery_pipeline(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_delivery_pipeline`.
@@ -561,6 +566,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_targets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -642,6 +648,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .rollback_target(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RollbackTargetRequest::name].
@@ -736,6 +743,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_target(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTargetRequest::name].
@@ -783,6 +791,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_target(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_target`.
@@ -889,6 +898,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .update_target(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_target`.
@@ -998,6 +1008,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_target(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_target`.
@@ -1097,6 +1108,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_custom_target_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1181,6 +1193,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_custom_target_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCustomTargetTypeRequest::name].
@@ -1231,6 +1244,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_custom_target_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_custom_target_type`.
@@ -1344,6 +1358,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .update_custom_target_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_custom_target_type`.
@@ -1460,6 +1475,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_custom_target_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_custom_target_type`.
@@ -1556,6 +1572,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_releases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1637,6 +1654,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_release(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReleaseRequest::name].
@@ -1684,6 +1702,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_release(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_release`.
@@ -1796,6 +1815,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .abandon_release(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AbandonReleaseRequest::name].
@@ -1846,6 +1866,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_deploy_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_deploy_policy`.
@@ -1956,6 +1977,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .update_deploy_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_deploy_policy`.
@@ -2069,6 +2091,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_deploy_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_deploy_policy`.
@@ -2168,6 +2191,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_deploy_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2249,6 +2273,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_deploy_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeployPolicyRequest::name].
@@ -2291,6 +2316,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .approve_rollout(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveRolloutRequest::name].
@@ -2350,6 +2376,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .advance_rollout(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AdvanceRolloutRequest::name].
@@ -2409,6 +2436,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .cancel_rollout(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelRolloutRequest::name].
@@ -2462,6 +2490,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_rollouts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2543,6 +2572,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_rollout(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRolloutRequest::name].
@@ -2590,6 +2620,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_rollout(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_rollout`.
@@ -2708,6 +2739,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .ignore_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [rollout][crate::model::IgnoreJobRequest::rollout].
@@ -2773,6 +2805,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .retry_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [rollout][crate::model::RetryJobRequest::rollout].
@@ -2838,6 +2871,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_job_runs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2919,6 +2953,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_job_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobRunRequest::name].
@@ -2961,6 +2996,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .terminate_job_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::TerminateJobRunRequest::name].
@@ -3014,6 +3050,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConfigRequest::name].
@@ -3064,6 +3101,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .create_automation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_automation`.
@@ -3174,6 +3212,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .update_automation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_automation`.
@@ -3287,6 +3326,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_automation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_automation`.
@@ -3383,6 +3423,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_automation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAutomationRequest::name].
@@ -3425,6 +3466,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_automations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3509,6 +3551,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_automation_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAutomationRunRequest::name].
@@ -3554,6 +3597,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_automation_runs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3638,6 +3682,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .cancel_automation_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelAutomationRunRequest::name].
@@ -3683,6 +3728,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3758,6 +3804,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3800,6 +3847,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -3860,6 +3908,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -3914,6 +3963,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3970,6 +4020,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4048,6 +4099,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4093,6 +4145,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4138,6 +4191,7 @@ pub mod cloud_deploy {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

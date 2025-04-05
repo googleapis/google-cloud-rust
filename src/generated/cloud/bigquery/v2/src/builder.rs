@@ -93,6 +93,7 @@ pub mod dataset_service {
             (*self.0.stub)
                 .get_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetDatasetRequest::project_id].
@@ -156,6 +157,7 @@ pub mod dataset_service {
             (*self.0.stub)
                 .insert_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::InsertDatasetRequest::project_id].
@@ -216,6 +218,7 @@ pub mod dataset_service {
             (*self.0.stub)
                 .patch_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchDatasetRequest::project_id].
@@ -282,6 +285,7 @@ pub mod dataset_service {
             (*self.0.stub)
                 .update_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchDatasetRequest::project_id].
@@ -345,6 +349,7 @@ pub mod dataset_service {
             (*self.0.stub)
                 .delete_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteDatasetRequest::project_id].
@@ -399,6 +404,7 @@ pub mod dataset_service {
             (*self.0.stub)
                 .list_datasets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListDatasetsRequest::project_id].
@@ -468,6 +474,7 @@ pub mod dataset_service {
             (*self.0.stub)
                 .undelete_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UndeleteDatasetRequest::project_id].
@@ -579,6 +586,7 @@ pub mod model_service {
             (*self.0.stub)
                 .get_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetModelRequest::project_id].
@@ -633,6 +641,7 @@ pub mod model_service {
             (*self.0.stub)
                 .list_models(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListModelsRequest::project_id].
@@ -696,6 +705,7 @@ pub mod model_service {
             (*self.0.stub)
                 .patch_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::PatchModelRequest::project_id].
@@ -759,6 +769,7 @@ pub mod model_service {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteModelRequest::project_id].
@@ -870,6 +881,7 @@ pub mod project_service {
             (*self.0.stub)
                 .get_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetServiceAccountRequest::project_id].
@@ -966,6 +978,7 @@ pub mod routine_service {
             (*self.0.stub)
                 .get_routine(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetRoutineRequest::project_id].
@@ -1020,6 +1033,7 @@ pub mod routine_service {
             (*self.0.stub)
                 .insert_routine(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::InsertRoutineRequest::project_id].
@@ -1077,6 +1091,7 @@ pub mod routine_service {
             (*self.0.stub)
                 .update_routine(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateRoutineRequest::project_id].
@@ -1140,6 +1155,7 @@ pub mod routine_service {
             (*self.0.stub)
                 .delete_routine(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteRoutineRequest::project_id].
@@ -1194,6 +1210,7 @@ pub mod routine_service {
             (*self.0.stub)
                 .list_routines(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListRoutinesRequest::project_id].
@@ -1324,6 +1341,7 @@ pub mod row_access_policy_service {
             (*self.0.stub)
                 .list_row_access_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1410,6 +1428,7 @@ pub mod row_access_policy_service {
             (*self.0.stub)
                 .get_row_access_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetRowAccessPolicyRequest::project_id].
@@ -1475,6 +1494,7 @@ pub mod row_access_policy_service {
             (*self.0.stub)
                 .create_row_access_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CreateRowAccessPolicyRequest::project_id].
@@ -1545,6 +1565,7 @@ pub mod row_access_policy_service {
             (*self.0.stub)
                 .update_row_access_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateRowAccessPolicyRequest::project_id].
@@ -1621,6 +1642,7 @@ pub mod row_access_policy_service {
             (*self.0.stub)
                 .delete_row_access_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteRowAccessPolicyRequest::project_id].
@@ -1694,6 +1716,7 @@ pub mod row_access_policy_service {
             (*self.0.stub)
                 .batch_delete_row_access_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::BatchDeleteRowAccessPoliciesRequest::project_id].
@@ -1819,6 +1842,7 @@ pub mod table_service {
             (*self.0.stub)
                 .get_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetTableRequest::project_id].
@@ -1888,6 +1912,7 @@ pub mod table_service {
             (*self.0.stub)
                 .insert_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::InsertTableRequest::project_id].
@@ -1948,6 +1973,7 @@ pub mod table_service {
             (*self.0.stub)
                 .patch_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchTableRequest::project_id].
@@ -2020,6 +2046,7 @@ pub mod table_service {
             (*self.0.stub)
                 .update_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateOrPatchTableRequest::project_id].
@@ -2089,6 +2116,7 @@ pub mod table_service {
             (*self.0.stub)
                 .delete_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteTableRequest::project_id].
@@ -2143,6 +2171,7 @@ pub mod table_service {
             (*self.0.stub)
                 .list_tables(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListTablesRequest::project_id].

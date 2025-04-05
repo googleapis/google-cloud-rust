@@ -44,7 +44,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         &self,
         req: crate::model::ListNotificationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNotificationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNotificationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -61,16 +61,18 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("view", &req.view.value())]);
         let builder = builder.query(&[("languageCode", &req.language_code)]);
-        self.inner
+        let response: crate::model::ListNotificationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_notification(
         &self,
         req: crate::model::GetNotificationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Notification> {
+    ) -> Result<gax::response::Response<crate::model::Notification>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -81,16 +83,18 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("languageCode", &req.language_code)]);
-        self.inner
+        let response: crate::model::Notification = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_settings(
         &self,
         req: crate::model::GetSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -100,16 +104,18 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Settings = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_settings(
         &self,
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -128,8 +134,10 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Settings = self
+            .inner
             .execute(builder, Some(req.settings), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

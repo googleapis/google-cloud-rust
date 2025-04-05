@@ -23,49 +23,49 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_workload(
         &self,
         req: crate::model::UpdateWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Workload>;
+    ) -> crate::Result<gax::response::Response<crate::model::Workload>>;
 
     async fn restrict_allowed_resources(
         &self,
         req: crate::model::RestrictAllowedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RestrictAllowedResourcesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::RestrictAllowedResourcesResponse>>;
 
     async fn delete_workload(
         &self,
         req: crate::model::DeleteWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_workload(
         &self,
         req: crate::model::GetWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Workload>;
+    ) -> crate::Result<gax::response::Response<crate::model::Workload>>;
 
     async fn list_workloads(
         &self,
         req: crate::model::ListWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkloadsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -86,7 +86,7 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
         &self,
         req: crate::model::CreateWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_workload(self, req, options).await
     }
 
@@ -95,7 +95,7 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
         &self,
         req: crate::model::UpdateWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Workload> {
+    ) -> crate::Result<gax::response::Response<crate::model::Workload>> {
         T::update_workload(self, req, options).await
     }
 
@@ -104,7 +104,8 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
         &self,
         req: crate::model::RestrictAllowedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RestrictAllowedResourcesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::RestrictAllowedResourcesResponse>>
+    {
         T::restrict_allowed_resources(self, req, options).await
     }
 
@@ -113,7 +114,7 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
         &self,
         req: crate::model::DeleteWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_workload(self, req, options).await
     }
 
@@ -122,7 +123,7 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
         &self,
         req: crate::model::GetWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Workload> {
+    ) -> crate::Result<gax::response::Response<crate::model::Workload>> {
         T::get_workload(self, req, options).await
     }
 
@@ -131,7 +132,7 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
         &self,
         req: crate::model::ListWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkloadsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
         T::list_workloads(self, req, options).await
     }
 
@@ -140,7 +141,7 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -149,7 +150,7 @@ impl<T: super::AssuredWorkloadsService> AssuredWorkloadsService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

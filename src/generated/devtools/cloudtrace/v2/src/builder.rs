@@ -93,6 +93,7 @@ pub mod trace_service {
             (*self.0.stub)
                 .batch_write_spans(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::BatchWriteSpansRequest::name].
@@ -146,6 +147,7 @@ pub mod trace_service {
             (*self.0.stub)
                 .create_span(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::Span::name].

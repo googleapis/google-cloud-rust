@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Environment> {
+    ) -> Result<gax::response::Response<crate::model::Environment>> {
         self.inner.get_environment(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::StartEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.start_environment(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::AuthorizeEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.authorize_environment(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::AddPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.add_public_key(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::RemovePublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.remove_public_key(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

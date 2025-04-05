@@ -23,37 +23,37 @@ pub trait CloudShellService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Environment>;
+    ) -> crate::Result<gax::response::Response<crate::model::Environment>>;
 
     async fn start_environment(
         &self,
         req: crate::model::StartEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn authorize_environment(
         &self,
         req: crate::model::AuthorizeEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn add_public_key(
         &self,
         req: crate::model::AddPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn remove_public_key(
         &self,
         req: crate::model::RemovePublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -74,7 +74,7 @@ impl<T: super::CloudShellService> CloudShellService for T {
         &self,
         req: crate::model::GetEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Environment> {
+    ) -> crate::Result<gax::response::Response<crate::model::Environment>> {
         T::get_environment(self, req, options).await
     }
 
@@ -83,7 +83,7 @@ impl<T: super::CloudShellService> CloudShellService for T {
         &self,
         req: crate::model::StartEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::start_environment(self, req, options).await
     }
 
@@ -92,7 +92,7 @@ impl<T: super::CloudShellService> CloudShellService for T {
         &self,
         req: crate::model::AuthorizeEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::authorize_environment(self, req, options).await
     }
 
@@ -101,7 +101,7 @@ impl<T: super::CloudShellService> CloudShellService for T {
         &self,
         req: crate::model::AddPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::add_public_key(self, req, options).await
     }
 
@@ -110,7 +110,7 @@ impl<T: super::CloudShellService> CloudShellService for T {
         &self,
         req: crate::model::RemovePublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::remove_public_key(self, req, options).await
     }
 
@@ -119,7 +119,7 @@ impl<T: super::CloudShellService> CloudShellService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

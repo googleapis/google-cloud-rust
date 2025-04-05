@@ -21,25 +21,25 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlBackupRunsDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn get(
         &self,
         req: crate::model::SqlBackupRunsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BackupRun>;
+    ) -> crate::Result<gax::response::Response<crate::model::BackupRun>>;
 
     async fn insert(
         &self,
         req: crate::model::SqlBackupRunsInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn list(
         &self,
         req: crate::model::SqlBackupRunsListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BackupRunsListResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::BackupRunsListResponse>>;
 
 }
 
@@ -51,7 +51,7 @@ impl<T: super::SqlBackupRunsService> SqlBackupRunsService for T {
         &self,
         req: crate::model::SqlBackupRunsDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::delete(self, req, options).await
     }
 
@@ -60,7 +60,7 @@ impl<T: super::SqlBackupRunsService> SqlBackupRunsService for T {
         &self,
         req: crate::model::SqlBackupRunsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BackupRun> {
+    ) -> crate::Result<gax::response::Response<crate::model::BackupRun>> {
         T::get(self, req, options).await
     }
 
@@ -69,7 +69,7 @@ impl<T: super::SqlBackupRunsService> SqlBackupRunsService for T {
         &self,
         req: crate::model::SqlBackupRunsInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::insert(self, req, options).await
     }
 
@@ -78,7 +78,7 @@ impl<T: super::SqlBackupRunsService> SqlBackupRunsService for T {
         &self,
         req: crate::model::SqlBackupRunsListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BackupRunsListResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::BackupRunsListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -91,13 +91,13 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetConnectSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ConnectSettings>;
+    ) -> crate::Result<gax::response::Response<crate::model::ConnectSettings>>;
 
     async fn generate_ephemeral_cert(
         &self,
         req: crate::model::GenerateEphemeralCertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GenerateEphemeralCertResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>>;
 
 }
 
@@ -109,7 +109,7 @@ impl<T: super::SqlConnectService> SqlConnectService for T {
         &self,
         req: crate::model::GetConnectSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ConnectSettings> {
+    ) -> crate::Result<gax::response::Response<crate::model::ConnectSettings>> {
         T::get_connect_settings(self, req, options).await
     }
 
@@ -118,7 +118,7 @@ impl<T: super::SqlConnectService> SqlConnectService for T {
         &self,
         req: crate::model::GenerateEphemeralCertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GenerateEphemeralCertResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>> {
         T::generate_ephemeral_cert(self, req, options).await
     }
 
@@ -131,37 +131,37 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlDatabasesDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn get(
         &self,
         req: crate::model::SqlDatabasesGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Database>;
+    ) -> crate::Result<gax::response::Response<crate::model::Database>>;
 
     async fn insert(
         &self,
         req: crate::model::SqlDatabasesInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn list(
         &self,
         req: crate::model::SqlDatabasesListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DatabasesListResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::DatabasesListResponse>>;
 
     async fn patch(
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn update(
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
 }
 
@@ -173,7 +173,7 @@ impl<T: super::SqlDatabasesService> SqlDatabasesService for T {
         &self,
         req: crate::model::SqlDatabasesDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::delete(self, req, options).await
     }
 
@@ -182,7 +182,7 @@ impl<T: super::SqlDatabasesService> SqlDatabasesService for T {
         &self,
         req: crate::model::SqlDatabasesGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Database> {
+    ) -> crate::Result<gax::response::Response<crate::model::Database>> {
         T::get(self, req, options).await
     }
 
@@ -191,7 +191,7 @@ impl<T: super::SqlDatabasesService> SqlDatabasesService for T {
         &self,
         req: crate::model::SqlDatabasesInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::insert(self, req, options).await
     }
 
@@ -200,7 +200,7 @@ impl<T: super::SqlDatabasesService> SqlDatabasesService for T {
         &self,
         req: crate::model::SqlDatabasesListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DatabasesListResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::DatabasesListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -209,7 +209,7 @@ impl<T: super::SqlDatabasesService> SqlDatabasesService for T {
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
     }
 
@@ -218,7 +218,7 @@ impl<T: super::SqlDatabasesService> SqlDatabasesService for T {
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update(self, req, options).await
     }
 
@@ -231,7 +231,7 @@ pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlFlagsListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FlagsListResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FlagsListResponse>>;
 
 }
 
@@ -243,7 +243,7 @@ impl<T: super::SqlFlagsService> SqlFlagsService for T {
         &self,
         req: crate::model::SqlFlagsListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FlagsListResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FlagsListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -256,205 +256,205 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesAddServerCaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn clone(
         &self,
         req: crate::model::SqlInstancesCloneRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn delete(
         &self,
         req: crate::model::SqlInstancesDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn demote_master(
         &self,
         req: crate::model::SqlInstancesDemoteMasterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn demote(
         &self,
         req: crate::model::SqlInstancesDemoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn export(
         &self,
         req: crate::model::SqlInstancesExportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn failover(
         &self,
         req: crate::model::SqlInstancesFailoverRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn reencrypt(
         &self,
         req: crate::model::SqlInstancesReencryptRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn get(
         &self,
         req: crate::model::SqlInstancesGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DatabaseInstance>;
+    ) -> crate::Result<gax::response::Response<crate::model::DatabaseInstance>>;
 
     async fn import(
         &self,
         req: crate::model::SqlInstancesImportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn insert(
         &self,
         req: crate::model::SqlInstancesInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn list(
         &self,
         req: crate::model::SqlInstancesListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::InstancesListResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::InstancesListResponse>>;
 
     async fn list_server_cas(
         &self,
         req: crate::model::SqlInstancesListServerCasRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::InstancesListServerCasResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::InstancesListServerCasResponse>>;
 
     async fn patch(
         &self,
         req: crate::model::SqlInstancesPatchRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn promote_replica(
         &self,
         req: crate::model::SqlInstancesPromoteReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn switchover(
         &self,
         req: crate::model::SqlInstancesSwitchoverRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn reset_ssl_config(
         &self,
         req: crate::model::SqlInstancesResetSslConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn restart(
         &self,
         req: crate::model::SqlInstancesRestartRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn restore_backup(
         &self,
         req: crate::model::SqlInstancesRestoreBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn rotate_server_ca(
         &self,
         req: crate::model::SqlInstancesRotateServerCaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn start_replica(
         &self,
         req: crate::model::SqlInstancesStartReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn stop_replica(
         &self,
         req: crate::model::SqlInstancesStopReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn truncate_log(
         &self,
         req: crate::model::SqlInstancesTruncateLogRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn update(
         &self,
         req: crate::model::SqlInstancesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn create_ephemeral(
         &self,
         req: crate::model::SqlInstancesCreateEphemeralCertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SslCert>;
+    ) -> crate::Result<gax::response::Response<crate::model::SslCert>>;
 
     async fn reschedule_maintenance(
         &self,
         req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn verify_external_sync_settings(
         &self,
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>;
 
     async fn start_external_sync(
         &self,
         req: crate::model::SqlInstancesStartExternalSyncRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn perform_disk_shrink(
         &self,
         req: crate::model::SqlInstancesPerformDiskShrinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn get_disk_shrink_config(
         &self,
         req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SqlInstancesGetDiskShrinkConfigResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>;
 
     async fn reset_replica_size(
         &self,
         req: crate::model::SqlInstancesResetReplicaSizeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn get_latest_recovery_time(
         &self,
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>;
 
     async fn acquire_ssrs_lease(
         &self,
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SqlInstancesAcquireSsrsLeaseResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>>;
 
     async fn release_ssrs_lease(
         &self,
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SqlInstancesReleaseSsrsLeaseResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>>;
 
 }
 
@@ -466,7 +466,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesAddServerCaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::add_server_ca(self, req, options).await
     }
 
@@ -475,7 +475,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesCloneRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::clone(self, req, options).await
     }
 
@@ -484,7 +484,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::delete(self, req, options).await
     }
 
@@ -493,7 +493,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesDemoteMasterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::demote_master(self, req, options).await
     }
 
@@ -502,7 +502,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesDemoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::demote(self, req, options).await
     }
 
@@ -511,7 +511,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesExportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::export(self, req, options).await
     }
 
@@ -520,7 +520,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesFailoverRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::failover(self, req, options).await
     }
 
@@ -529,7 +529,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesReencryptRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::reencrypt(self, req, options).await
     }
 
@@ -538,7 +538,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DatabaseInstance> {
+    ) -> crate::Result<gax::response::Response<crate::model::DatabaseInstance>> {
         T::get(self, req, options).await
     }
 
@@ -547,7 +547,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesImportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::import(self, req, options).await
     }
 
@@ -556,7 +556,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::insert(self, req, options).await
     }
 
@@ -565,7 +565,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::InstancesListResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::InstancesListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -574,7 +574,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesListServerCasRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::InstancesListServerCasResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::InstancesListServerCasResponse>> {
         T::list_server_cas(self, req, options).await
     }
 
@@ -583,7 +583,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesPatchRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
     }
 
@@ -592,7 +592,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesPromoteReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::promote_replica(self, req, options).await
     }
 
@@ -601,7 +601,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesSwitchoverRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::switchover(self, req, options).await
     }
 
@@ -610,7 +610,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesResetSslConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::reset_ssl_config(self, req, options).await
     }
 
@@ -619,7 +619,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesRestartRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::restart(self, req, options).await
     }
 
@@ -628,7 +628,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesRestoreBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::restore_backup(self, req, options).await
     }
 
@@ -637,7 +637,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesRotateServerCaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::rotate_server_ca(self, req, options).await
     }
 
@@ -646,7 +646,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesStartReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::start_replica(self, req, options).await
     }
 
@@ -655,7 +655,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesStopReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::stop_replica(self, req, options).await
     }
 
@@ -664,7 +664,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesTruncateLogRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::truncate_log(self, req, options).await
     }
 
@@ -673,7 +673,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update(self, req, options).await
     }
 
@@ -682,7 +682,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesCreateEphemeralCertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SslCert> {
+    ) -> crate::Result<gax::response::Response<crate::model::SslCert>> {
         T::create_ephemeral(self, req, options).await
     }
 
@@ -691,7 +691,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::reschedule_maintenance(self, req, options).await
     }
 
@@ -700,7 +700,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>> {
         T::verify_external_sync_settings(self, req, options).await
     }
 
@@ -709,7 +709,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesStartExternalSyncRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::start_external_sync(self, req, options).await
     }
 
@@ -718,7 +718,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesPerformDiskShrinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::perform_disk_shrink(self, req, options).await
     }
 
@@ -727,7 +727,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SqlInstancesGetDiskShrinkConfigResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>> {
         T::get_disk_shrink_config(self, req, options).await
     }
 
@@ -736,7 +736,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesResetReplicaSizeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::reset_replica_size(self, req, options).await
     }
 
@@ -745,7 +745,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SqlInstancesGetLatestRecoveryTimeResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>> {
         T::get_latest_recovery_time(self, req, options).await
     }
 
@@ -754,7 +754,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SqlInstancesAcquireSsrsLeaseResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
         T::acquire_ssrs_lease(self, req, options).await
     }
 
@@ -763,7 +763,7 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SqlInstancesReleaseSsrsLeaseResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
         T::release_ssrs_lease(self, req, options).await
     }
 
@@ -776,19 +776,19 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlOperationsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn list(
         &self,
         req: crate::model::SqlOperationsListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::OperationsListResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::OperationsListResponse>>;
 
     async fn cancel(
         &self,
         req: crate::model::SqlOperationsCancelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
 }
 
@@ -800,7 +800,7 @@ impl<T: super::SqlOperationsService> SqlOperationsService for T {
         &self,
         req: crate::model::SqlOperationsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get(self, req, options).await
     }
 
@@ -809,7 +809,7 @@ impl<T: super::SqlOperationsService> SqlOperationsService for T {
         &self,
         req: crate::model::SqlOperationsListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::OperationsListResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::OperationsListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -818,7 +818,7 @@ impl<T: super::SqlOperationsService> SqlOperationsService for T {
         &self,
         req: crate::model::SqlOperationsCancelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel(self, req, options).await
     }
 
@@ -831,25 +831,25 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlSslCertsDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn get(
         &self,
         req: crate::model::SqlSslCertsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SslCert>;
+    ) -> crate::Result<gax::response::Response<crate::model::SslCert>>;
 
     async fn insert(
         &self,
         req: crate::model::SqlSslCertsInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SslCertsInsertResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SslCertsInsertResponse>>;
 
     async fn list(
         &self,
         req: crate::model::SqlSslCertsListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SslCertsListResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SslCertsListResponse>>;
 
 }
 
@@ -861,7 +861,7 @@ impl<T: super::SqlSslCertsService> SqlSslCertsService for T {
         &self,
         req: crate::model::SqlSslCertsDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::delete(self, req, options).await
     }
 
@@ -870,7 +870,7 @@ impl<T: super::SqlSslCertsService> SqlSslCertsService for T {
         &self,
         req: crate::model::SqlSslCertsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SslCert> {
+    ) -> crate::Result<gax::response::Response<crate::model::SslCert>> {
         T::get(self, req, options).await
     }
 
@@ -879,7 +879,7 @@ impl<T: super::SqlSslCertsService> SqlSslCertsService for T {
         &self,
         req: crate::model::SqlSslCertsInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SslCertsInsertResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SslCertsInsertResponse>> {
         T::insert(self, req, options).await
     }
 
@@ -888,7 +888,7 @@ impl<T: super::SqlSslCertsService> SqlSslCertsService for T {
         &self,
         req: crate::model::SqlSslCertsListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SslCertsListResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SslCertsListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -901,7 +901,7 @@ pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlTiersListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TiersListResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::TiersListResponse>>;
 
 }
 
@@ -913,7 +913,7 @@ impl<T: super::SqlTiersService> SqlTiersService for T {
         &self,
         req: crate::model::SqlTiersListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TiersListResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::TiersListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -926,31 +926,31 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlUsersDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn get(
         &self,
         req: crate::model::SqlUsersGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::User>;
+    ) -> crate::Result<gax::response::Response<crate::model::User>>;
 
     async fn insert(
         &self,
         req: crate::model::SqlUsersInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn list(
         &self,
         req: crate::model::SqlUsersListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UsersListResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::UsersListResponse>>;
 
     async fn update(
         &self,
         req: crate::model::SqlUsersUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
 }
 
@@ -962,7 +962,7 @@ impl<T: super::SqlUsersService> SqlUsersService for T {
         &self,
         req: crate::model::SqlUsersDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::delete(self, req, options).await
     }
 
@@ -971,7 +971,7 @@ impl<T: super::SqlUsersService> SqlUsersService for T {
         &self,
         req: crate::model::SqlUsersGetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::User> {
+    ) -> crate::Result<gax::response::Response<crate::model::User>> {
         T::get(self, req, options).await
     }
 
@@ -980,7 +980,7 @@ impl<T: super::SqlUsersService> SqlUsersService for T {
         &self,
         req: crate::model::SqlUsersInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::insert(self, req, options).await
     }
 
@@ -989,7 +989,7 @@ impl<T: super::SqlUsersService> SqlUsersService for T {
         &self,
         req: crate::model::SqlUsersListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UsersListResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::UsersListResponse>> {
         T::list(self, req, options).await
     }
 
@@ -998,7 +998,7 @@ impl<T: super::SqlUsersService> SqlUsersService for T {
         &self,
         req: crate::model::SqlUsersUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update(self, req, options).await
     }
 

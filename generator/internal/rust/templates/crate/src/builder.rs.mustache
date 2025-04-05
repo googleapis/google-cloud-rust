@@ -109,7 +109,7 @@ pub mod {{Codec.ModuleName}} {
                 traits (e.g. `std::clone::Clone`) making the call ambiguous.
                 Using `*self.0.stub` makes the call not-ambiguous.
             }}
-            (*self.0.stub).{{Codec.Name}}(self.0.request, self.0.options).await
+            (*self.0.stub).{{Codec.Name}}(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
         {{#Pagination}}
 

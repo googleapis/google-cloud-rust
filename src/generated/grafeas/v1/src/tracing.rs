@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Occurrence> {
+    ) -> Result<gax::response::Response<crate::model::Occurrence>> {
         self.inner.get_occurrence(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOccurrencesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOccurrencesResponse>> {
         self.inner.list_occurrences(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::DeleteOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_occurrence(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::CreateOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Occurrence> {
+    ) -> Result<gax::response::Response<crate::model::Occurrence>> {
         self.inner.create_occurrence(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::BatchCreateOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchCreateOccurrencesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchCreateOccurrencesResponse>> {
         self.inner.batch_create_occurrences(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::UpdateOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Occurrence> {
+    ) -> Result<gax::response::Response<crate::model::Occurrence>> {
         self.inner.update_occurrence(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetOccurrenceNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Note> {
+    ) -> Result<gax::response::Response<crate::model::Note>> {
         self.inner.get_occurrence_note(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::GetNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Note> {
+    ) -> Result<gax::response::Response<crate::model::Note>> {
         self.inner.get_note(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::ListNotesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNotesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNotesResponse>> {
         self.inner.list_notes(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_note(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::CreateNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Note> {
+    ) -> Result<gax::response::Response<crate::model::Note>> {
         self.inner.create_note(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::BatchCreateNotesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchCreateNotesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchCreateNotesResponse>> {
         self.inner.batch_create_notes(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::UpdateNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Note> {
+    ) -> Result<gax::response::Response<crate::model::Note>> {
         self.inner.update_note(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::ListNoteOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNoteOccurrencesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>> {
         self.inner.list_note_occurrences(req, options).await
     }
 }

@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateExternalAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExternalAccountKey> {
+    ) -> Result<gax::response::Response<crate::model::ExternalAccountKey>> {
         self.inner.create_external_account_key(req, options).await
     }
 }

@@ -98,6 +98,7 @@ pub mod datastore_admin {
             (*self.0.stub)
                 .export_entities(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_entities`.
@@ -207,6 +208,7 @@ pub mod datastore_admin {
             (*self.0.stub)
                 .import_entities(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_entities`.
@@ -310,6 +312,7 @@ pub mod datastore_admin {
             (*self.0.stub)
                 .create_index(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_index`.
@@ -399,6 +402,7 @@ pub mod datastore_admin {
             (*self.0.stub)
                 .delete_index(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_index`.
@@ -480,6 +484,7 @@ pub mod datastore_admin {
             (*self.0.stub)
                 .get_index(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetIndexRequest::project_id].
@@ -528,6 +533,7 @@ pub mod datastore_admin {
             (*self.0.stub)
                 .list_indexes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -606,6 +612,7 @@ pub mod datastore_admin {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -684,6 +691,7 @@ pub mod datastore_admin {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -729,6 +737,7 @@ pub mod datastore_admin {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -774,6 +783,7 @@ pub mod datastore_admin {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

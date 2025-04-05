@@ -97,6 +97,7 @@ pub mod case_attachment_service {
             (*self.0.stub)
                 .list_attachments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -220,6 +221,7 @@ pub mod case_service {
             (*self.0.stub)
                 .get_case(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCaseRequest::name].
@@ -262,6 +264,7 @@ pub mod case_service {
             (*self.0.stub)
                 .list_cases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -336,6 +339,7 @@ pub mod case_service {
             (*self.0.stub)
                 .search_cases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -411,6 +415,7 @@ pub mod case_service {
             (*self.0.stub)
                 .create_case(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCaseRequest::parent].
@@ -459,6 +464,7 @@ pub mod case_service {
             (*self.0.stub)
                 .update_case(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [case][crate::model::UpdateCaseRequest::case].
@@ -510,6 +516,7 @@ pub mod case_service {
             (*self.0.stub)
                 .escalate_case(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::EscalateCaseRequest::name].
@@ -561,6 +568,7 @@ pub mod case_service {
             (*self.0.stub)
                 .close_case(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CloseCaseRequest::name].
@@ -608,6 +616,7 @@ pub mod case_service {
             (*self.0.stub)
                 .search_case_classifications(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -733,6 +742,7 @@ pub mod comment_service {
             (*self.0.stub)
                 .list_comments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -802,6 +812,7 @@ pub mod comment_service {
             (*self.0.stub)
                 .create_comment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCommentRequest::parent].

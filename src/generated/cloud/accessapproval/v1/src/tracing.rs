@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListApprovalRequestsMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListApprovalRequestsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListApprovalRequestsResponse>> {
         self.inner.list_approval_requests(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ApprovalRequest> {
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         self.inner.get_approval_request(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::ApproveApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ApprovalRequest> {
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         self.inner.approve_approval_request(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DismissApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ApprovalRequest> {
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         self.inner.dismiss_approval_request(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::InvalidateApprovalRequestMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ApprovalRequest> {
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         self.inner.invalidate_approval_request(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::GetAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AccessApprovalSettings> {
+    ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
         self.inner.get_access_approval_settings(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UpdateAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AccessApprovalSettings> {
+    ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
         self.inner
             .update_access_approval_settings(req, options)
             .await
@@ -107,7 +107,7 @@ where
         &self,
         req: crate::model::DeleteAccessApprovalSettingsMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner
             .delete_access_approval_settings(req, options)
             .await
@@ -118,7 +118,7 @@ where
         &self,
         req: crate::model::GetAccessApprovalServiceAccountMessage,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AccessApprovalServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>> {
         self.inner
             .get_access_approval_service_account(req, options)
             .await

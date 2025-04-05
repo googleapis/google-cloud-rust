@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetMetricsScopeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MetricsScope> {
+    ) -> Result<gax::response::Response<crate::model::MetricsScope>> {
         self.inner.get_metrics_scope(req, options).await
     }
 
@@ -51,7 +51,8 @@ where
         &self,
         req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMetricsScopesByMonitoredProjectResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>>
+    {
         self.inner
             .list_metrics_scopes_by_monitored_project(req, options)
             .await
@@ -62,7 +63,7 @@ where
         &self,
         req: crate::model::CreateMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_monitored_project(req, options).await
     }
 
@@ -71,7 +72,7 @@ where
         &self,
         req: crate::model::DeleteMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_monitored_project(req, options).await
     }
 
@@ -80,7 +81,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

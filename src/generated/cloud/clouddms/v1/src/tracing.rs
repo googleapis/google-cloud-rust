@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListMigrationJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMigrationJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMigrationJobsResponse>> {
         self.inner.list_migration_jobs(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MigrationJob> {
+    ) -> Result<gax::response::Response<crate::model::MigrationJob>> {
         self.inner.get_migration_job(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_migration_job(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_migration_job(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_migration_job(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::StartMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.start_migration_job(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::StopMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.stop_migration_job(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::ResumeMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.resume_migration_job(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::PromoteMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.promote_migration_job(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::VerifyMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.verify_migration_job(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::RestartMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.restart_migration_job(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::GenerateSshScriptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SshScript> {
+    ) -> Result<gax::response::Response<crate::model::SshScript>> {
         self.inner.generate_ssh_script(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::GenerateTcpProxyScriptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TcpProxyScript> {
+    ) -> Result<gax::response::Response<crate::model::TcpProxyScript>> {
         self.inner.generate_tcp_proxy_script(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::ListConnectionProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConnectionProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConnectionProfilesResponse>> {
         self.inner.list_connection_profiles(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::GetConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ConnectionProfile> {
+    ) -> Result<gax::response::Response<crate::model::ConnectionProfile>> {
         self.inner.get_connection_profile(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::CreateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_connection_profile(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::UpdateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_connection_profile(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::DeleteConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_connection_profile(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_private_connection(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::GetPrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PrivateConnection> {
+    ) -> Result<gax::response::Response<crate::model::PrivateConnection>> {
         self.inner.get_private_connection(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::ListPrivateConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPrivateConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPrivateConnectionsResponse>> {
         self.inner.list_private_connections(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_private_connection(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::GetConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ConversionWorkspace> {
+    ) -> Result<gax::response::Response<crate::model::ConversionWorkspace>> {
         self.inner.get_conversion_workspace(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: crate::model::ListConversionWorkspacesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConversionWorkspacesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConversionWorkspacesResponse>> {
         self.inner.list_conversion_workspaces(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::CreateConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_conversion_workspace(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::UpdateConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_conversion_workspace(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::DeleteConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_conversion_workspace(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::CreateMappingRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MappingRule> {
+    ) -> Result<gax::response::Response<crate::model::MappingRule>> {
         self.inner.create_mapping_rule(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: crate::model::DeleteMappingRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_mapping_rule(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: crate::model::ListMappingRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMappingRulesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMappingRulesResponse>> {
         self.inner.list_mapping_rules(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: crate::model::GetMappingRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MappingRule> {
+    ) -> Result<gax::response::Response<crate::model::MappingRule>> {
         self.inner.get_mapping_rule(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: crate::model::SeedConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.seed_conversion_workspace(req, options).await
     }
 
@@ -330,7 +330,7 @@ where
         &self,
         req: crate::model::ImportMappingRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.import_mapping_rules(req, options).await
     }
 
@@ -339,7 +339,7 @@ where
         &self,
         req: crate::model::ConvertConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.convert_conversion_workspace(req, options).await
     }
 
@@ -348,7 +348,7 @@ where
         &self,
         req: crate::model::CommitConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.commit_conversion_workspace(req, options).await
     }
 
@@ -357,7 +357,7 @@ where
         &self,
         req: crate::model::RollbackConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.rollback_conversion_workspace(req, options).await
     }
 
@@ -366,7 +366,7 @@ where
         &self,
         req: crate::model::ApplyConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.apply_conversion_workspace(req, options).await
     }
 
@@ -375,7 +375,7 @@ where
         &self,
         req: crate::model::DescribeDatabaseEntitiesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DescribeDatabaseEntitiesResponse> {
+    ) -> Result<gax::response::Response<crate::model::DescribeDatabaseEntitiesResponse>> {
         self.inner.describe_database_entities(req, options).await
     }
 
@@ -384,7 +384,7 @@ where
         &self,
         req: crate::model::SearchBackgroundJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchBackgroundJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchBackgroundJobsResponse>> {
         self.inner.search_background_jobs(req, options).await
     }
 
@@ -393,7 +393,8 @@ where
         &self,
         req: crate::model::DescribeConversionWorkspaceRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DescribeConversionWorkspaceRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::DescribeConversionWorkspaceRevisionsResponse>>
+    {
         self.inner
             .describe_conversion_workspace_revisions(req, options)
             .await
@@ -404,7 +405,7 @@ where
         &self,
         req: crate::model::FetchStaticIpsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchStaticIpsResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchStaticIpsResponse>> {
         self.inner.fetch_static_ips(req, options).await
     }
 
@@ -413,7 +414,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -422,7 +423,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -431,7 +432,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -440,7 +441,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -449,7 +450,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -458,7 +459,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -467,7 +468,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -476,7 +477,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -485,7 +486,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

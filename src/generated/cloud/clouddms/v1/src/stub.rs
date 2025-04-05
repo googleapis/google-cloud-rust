@@ -46,11 +46,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListMigrationJobsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListMigrationJobsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListMigrationJobsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListMigrationJobsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListMigrationJobsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::get_migration_job].
@@ -58,10 +59,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetMigrationJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::MigrationJob>> + Send {
-        std::future::ready::<crate::Result<crate::model::MigrationJob>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MigrationJob>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::MigrationJob>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::create_migration_job].
@@ -69,11 +72,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateMigrationJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::update_migration_job].
@@ -81,11 +85,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateMigrationJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::delete_migration_job].
@@ -93,11 +98,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteMigrationJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::start_migration_job].
@@ -105,11 +111,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::StartMigrationJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::stop_migration_job].
@@ -117,11 +124,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::StopMigrationJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::resume_migration_job].
@@ -129,11 +137,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ResumeMigrationJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::promote_migration_job].
@@ -141,11 +150,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PromoteMigrationJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::verify_migration_job].
@@ -153,11 +163,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::VerifyMigrationJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::restart_migration_job].
@@ -165,11 +176,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RestartMigrationJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::generate_ssh_script].
@@ -177,10 +189,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateSshScriptRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SshScript>> + Send {
-        std::future::ready::<crate::Result<crate::model::SshScript>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SshScript>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SshScript>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataMigrationService::generate_tcp_proxy_script].
@@ -188,10 +202,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateTcpProxyScriptRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TcpProxyScript>> + Send {
-        std::future::ready::<crate::Result<crate::model::TcpProxyScript>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TcpProxyScript>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::TcpProxyScript>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::list_connection_profiles].
@@ -200,11 +216,13 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListConnectionProfilesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListConnectionProfilesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListConnectionProfilesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListConnectionProfilesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListConnectionProfilesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::get_connection_profile].
@@ -212,11 +230,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetConnectionProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ConnectionProfile>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ConnectionProfile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ConnectionProfile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ConnectionProfile>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::create_connection_profile].
@@ -224,11 +243,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateConnectionProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::update_connection_profile].
@@ -236,11 +256,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateConnectionProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::delete_connection_profile].
@@ -248,11 +269,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteConnectionProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::create_private_connection].
@@ -260,11 +282,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreatePrivateConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::get_private_connection].
@@ -272,11 +295,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPrivateConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PrivateConnection>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::PrivateConnection>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PrivateConnection>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PrivateConnection>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::list_private_connections].
@@ -285,11 +309,13 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListPrivateConnectionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListPrivateConnectionsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListPrivateConnectionsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListPrivateConnectionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListPrivateConnectionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::delete_private_connection].
@@ -297,11 +323,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePrivateConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::get_conversion_workspace].
@@ -309,11 +336,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetConversionWorkspaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ConversionWorkspace>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ConversionWorkspace>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ConversionWorkspace>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ConversionWorkspace>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::list_conversion_workspaces].
@@ -322,11 +350,13 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListConversionWorkspacesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListConversionWorkspacesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListConversionWorkspacesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListConversionWorkspacesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListConversionWorkspacesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::create_conversion_workspace].
@@ -334,11 +364,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateConversionWorkspaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::update_conversion_workspace].
@@ -346,11 +377,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateConversionWorkspaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::delete_conversion_workspace].
@@ -358,11 +390,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteConversionWorkspaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::create_mapping_rule].
@@ -370,10 +403,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateMappingRuleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::MappingRule>> + Send {
-        std::future::ready::<crate::Result<crate::model::MappingRule>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MappingRule>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::MappingRule>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::delete_mapping_rule].
@@ -381,8 +416,10 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteMappingRuleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DataMigrationService::list_mapping_rules].
@@ -390,11 +427,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListMappingRulesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListMappingRulesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListMappingRulesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListMappingRulesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListMappingRulesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::get_mapping_rule].
@@ -402,10 +440,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetMappingRuleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::MappingRule>> + Send {
-        std::future::ready::<crate::Result<crate::model::MappingRule>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MappingRule>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::MappingRule>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::seed_conversion_workspace].
@@ -413,11 +453,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SeedConversionWorkspaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::import_mapping_rules].
@@ -425,11 +466,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ImportMappingRulesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::convert_conversion_workspace].
@@ -437,11 +479,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ConvertConversionWorkspaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::commit_conversion_workspace].
@@ -449,11 +492,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CommitConversionWorkspaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::rollback_conversion_workspace].
@@ -461,11 +505,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RollbackConversionWorkspaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::apply_conversion_workspace].
@@ -473,11 +518,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ApplyConversionWorkspaceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::describe_database_entities].
@@ -486,11 +532,13 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DescribeDatabaseEntitiesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::DescribeDatabaseEntitiesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::DescribeDatabaseEntitiesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::DescribeDatabaseEntitiesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::DescribeDatabaseEntitiesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::search_background_jobs].
@@ -498,11 +546,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchBackgroundJobsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchBackgroundJobsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::SearchBackgroundJobsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SearchBackgroundJobsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SearchBackgroundJobsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::describe_conversion_workspace_revisions].
@@ -511,10 +560,14 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::DescribeConversionWorkspaceRevisionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::DescribeConversionWorkspaceRevisionsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::DescribeConversionWorkspaceRevisionsResponse>,
+        >,
     > + Send {
         std::future::ready::<
-            crate::Result<crate::model::DescribeConversionWorkspaceRevisionsResponse>,
+            crate::Result<
+                gax::response::Response<crate::model::DescribeConversionWorkspaceRevisionsResponse>,
+            >,
         >(Err(Error::other("unimplemented")))
     }
 
@@ -523,11 +576,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FetchStaticIpsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::FetchStaticIpsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::FetchStaticIpsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FetchStaticIpsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::FetchStaticIpsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::list_locations].
@@ -535,11 +589,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::get_location].
@@ -547,10 +602,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::set_iam_policy].
@@ -558,10 +615,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataMigrationService::get_iam_policy].
@@ -569,10 +628,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataMigrationService::test_iam_permissions].
@@ -580,11 +641,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::list_operations].
@@ -592,11 +654,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataMigrationService::get_operation].
@@ -604,11 +667,12 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DataMigrationService::delete_operation].
@@ -616,8 +680,10 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DataMigrationService::cancel_operation].
@@ -625,8 +691,10 @@ pub trait DataMigrationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

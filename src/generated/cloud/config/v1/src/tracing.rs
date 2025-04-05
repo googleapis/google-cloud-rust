@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDeploymentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
         self.inner.list_deployments(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         self.inner.get_deployment(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_deployment(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_deployment(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_deployment(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRevisionsResponse>> {
         self.inner.list_revisions(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Revision> {
+    ) -> Result<gax::response::Response<crate::model::Revision>> {
         self.inner.get_revision(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::GetResourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Resource> {
+    ) -> Result<gax::response::Response<crate::model::Resource>> {
         self.inner.get_resource(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::ListResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListResourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListResourcesResponse>> {
         self.inner.list_resources(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ExportDeploymentStatefileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Statefile> {
+    ) -> Result<gax::response::Response<crate::model::Statefile>> {
         self.inner.export_deployment_statefile(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::ExportRevisionStatefileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Statefile> {
+    ) -> Result<gax::response::Response<crate::model::Statefile>> {
         self.inner.export_revision_statefile(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::ImportStatefileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Statefile> {
+    ) -> Result<gax::response::Response<crate::model::Statefile>> {
         self.inner.import_statefile(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::DeleteStatefileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_statefile(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::LockDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.lock_deployment(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::UnlockDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.unlock_deployment(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::ExportLockInfoRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LockInfo> {
+    ) -> Result<gax::response::Response<crate::model::LockInfo>> {
         self.inner.export_lock_info(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::CreatePreviewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_preview(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::GetPreviewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Preview> {
+    ) -> Result<gax::response::Response<crate::model::Preview>> {
         self.inner.get_preview(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::ListPreviewsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPreviewsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPreviewsResponse>> {
         self.inner.list_previews(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::DeletePreviewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_preview(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::ExportPreviewResultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExportPreviewResultResponse> {
+    ) -> Result<gax::response::Response<crate::model::ExportPreviewResultResponse>> {
         self.inner.export_preview_result(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::ListTerraformVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTerraformVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTerraformVersionsResponse>> {
         self.inner.list_terraform_versions(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::GetTerraformVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TerraformVersion> {
+    ) -> Result<gax::response::Response<crate::model::TerraformVersion>> {
         self.inner.get_terraform_version(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

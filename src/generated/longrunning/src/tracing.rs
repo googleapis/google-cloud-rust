@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }

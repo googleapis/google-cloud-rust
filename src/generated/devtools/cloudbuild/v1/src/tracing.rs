@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_build(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Build> {
+    ) -> Result<gax::response::Response<crate::model::Build>> {
         self.inner.get_build(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::ListBuildsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBuildsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBuildsResponse>> {
         self.inner.list_builds(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::CancelBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Build> {
+    ) -> Result<gax::response::Response<crate::model::Build>> {
         self.inner.cancel_build(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::RetryBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.retry_build(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ApproveBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.approve_build(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::CreateBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BuildTrigger> {
+    ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         self.inner.create_build_trigger(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::GetBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BuildTrigger> {
+    ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         self.inner.get_build_trigger(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::ListBuildTriggersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBuildTriggersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBuildTriggersResponse>> {
         self.inner.list_build_triggers(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_build_trigger(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::UpdateBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BuildTrigger> {
+    ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         self.inner.update_build_trigger(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::RunBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.run_build_trigger(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::ReceiveTriggerWebhookRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReceiveTriggerWebhookResponse> {
+    ) -> Result<gax::response::Response<crate::model::ReceiveTriggerWebhookResponse>> {
         self.inner.receive_trigger_webhook(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::CreateWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_worker_pool(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::GetWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::WorkerPool> {
+    ) -> Result<gax::response::Response<crate::model::WorkerPool>> {
         self.inner.get_worker_pool(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::DeleteWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_worker_pool(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::UpdateWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_worker_pool(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::ListWorkerPoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkerPoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>> {
         self.inner.list_worker_pools(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

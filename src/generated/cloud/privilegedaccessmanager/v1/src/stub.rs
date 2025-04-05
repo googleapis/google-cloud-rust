@@ -47,11 +47,13 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         _req: crate::model::CheckOnboardingStatusRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::CheckOnboardingStatusResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::CheckOnboardingStatusResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::CheckOnboardingStatusResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::CheckOnboardingStatusResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PrivilegedAccessManager::list_entitlements].
@@ -59,11 +61,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListEntitlementsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListEntitlementsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListEntitlementsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListEntitlementsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListEntitlementsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PrivilegedAccessManager::search_entitlements].
@@ -71,11 +74,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchEntitlementsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchEntitlementsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SearchEntitlementsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SearchEntitlementsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SearchEntitlementsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PrivilegedAccessManager::get_entitlement].
@@ -83,10 +87,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetEntitlementRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Entitlement>> + Send {
-        std::future::ready::<crate::Result<crate::model::Entitlement>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Entitlement>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Entitlement>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::PrivilegedAccessManager::create_entitlement].
@@ -94,11 +100,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateEntitlementRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::PrivilegedAccessManager::delete_entitlement].
@@ -106,11 +113,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteEntitlementRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::PrivilegedAccessManager::update_entitlement].
@@ -118,11 +126,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateEntitlementRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::PrivilegedAccessManager::list_grants].
@@ -130,11 +139,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListGrantsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListGrantsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListGrantsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListGrantsResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListGrantsResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::PrivilegedAccessManager::search_grants].
@@ -142,11 +152,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchGrantsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchGrantsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SearchGrantsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SearchGrantsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SearchGrantsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PrivilegedAccessManager::get_grant].
@@ -154,8 +165,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetGrantRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Grant>> + Send {
-        std::future::ready::<crate::Result<crate::model::Grant>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Grant>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Grant>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PrivilegedAccessManager::create_grant].
@@ -163,8 +178,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateGrantRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Grant>> + Send {
-        std::future::ready::<crate::Result<crate::model::Grant>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Grant>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Grant>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PrivilegedAccessManager::approve_grant].
@@ -172,8 +191,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ApproveGrantRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Grant>> + Send {
-        std::future::ready::<crate::Result<crate::model::Grant>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Grant>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Grant>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PrivilegedAccessManager::deny_grant].
@@ -181,8 +204,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DenyGrantRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Grant>> + Send {
-        std::future::ready::<crate::Result<crate::model::Grant>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Grant>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Grant>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::PrivilegedAccessManager::revoke_grant].
@@ -190,11 +217,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RevokeGrantRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::PrivilegedAccessManager::list_locations].
@@ -202,11 +230,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PrivilegedAccessManager::get_location].
@@ -214,10 +243,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::PrivilegedAccessManager::list_operations].
@@ -225,11 +256,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::PrivilegedAccessManager::get_operation].
@@ -237,11 +269,12 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::PrivilegedAccessManager::delete_operation].
@@ -249,8 +282,10 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

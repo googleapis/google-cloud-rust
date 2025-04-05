@@ -93,6 +93,7 @@ pub mod cloud_scheduler {
             (*self.0.stub)
                 .list_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -158,7 +159,10 @@ pub mod cloud_scheduler {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Job> {
-            (*self.0.stub).get_job(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobRequest::name].
@@ -201,6 +205,7 @@ pub mod cloud_scheduler {
             (*self.0.stub)
                 .create_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
@@ -249,6 +254,7 @@ pub mod cloud_scheduler {
             (*self.0.stub)
                 .update_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
@@ -300,6 +306,7 @@ pub mod cloud_scheduler {
             (*self.0.stub)
                 .delete_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteJobRequest::name].
@@ -342,6 +349,7 @@ pub mod cloud_scheduler {
             (*self.0.stub)
                 .pause_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PauseJobRequest::name].
@@ -384,6 +392,7 @@ pub mod cloud_scheduler {
             (*self.0.stub)
                 .resume_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResumeJobRequest::name].
@@ -423,7 +432,10 @@ pub mod cloud_scheduler {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Job> {
-            (*self.0.stub).run_job(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .run_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RunJobRequest::name].
@@ -469,6 +481,7 @@ pub mod cloud_scheduler {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -544,6 +557,7 @@ pub mod cloud_scheduler {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].

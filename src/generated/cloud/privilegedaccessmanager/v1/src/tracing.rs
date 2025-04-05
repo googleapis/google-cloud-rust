@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CheckOnboardingStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CheckOnboardingStatusResponse> {
+    ) -> Result<gax::response::Response<crate::model::CheckOnboardingStatusResponse>> {
         self.inner.check_onboarding_status(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListEntitlementsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEntitlementsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEntitlementsResponse>> {
         self.inner.list_entitlements(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::SearchEntitlementsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchEntitlementsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchEntitlementsResponse>> {
         self.inner.search_entitlements(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Entitlement> {
+    ) -> Result<gax::response::Response<crate::model::Entitlement>> {
         self.inner.get_entitlement(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::CreateEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_entitlement(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_entitlement(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UpdateEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_entitlement(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::ListGrantsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGrantsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGrantsResponse>> {
         self.inner.list_grants(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::SearchGrantsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchGrantsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchGrantsResponse>> {
         self.inner.search_grants(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::GetGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Grant> {
+    ) -> Result<gax::response::Response<crate::model::Grant>> {
         self.inner.get_grant(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::CreateGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Grant> {
+    ) -> Result<gax::response::Response<crate::model::Grant>> {
         self.inner.create_grant(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::ApproveGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Grant> {
+    ) -> Result<gax::response::Response<crate::model::Grant>> {
         self.inner.approve_grant(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::DenyGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Grant> {
+    ) -> Result<gax::response::Response<crate::model::Grant>> {
         self.inner.deny_grant(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::RevokeGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.revoke_grant(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 

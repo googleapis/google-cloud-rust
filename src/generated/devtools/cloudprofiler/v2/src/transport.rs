@@ -44,7 +44,7 @@ impl super::stub::ProfilerService for ProfilerService {
         &self,
         req: crate::model::CreateProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Profile> {
+    ) -> Result<gax::response::Response<crate::model::Profile>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,14 +57,16 @@ impl super::stub::ProfilerService for ProfilerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::Profile =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_offline_profile(
         &self,
         req: crate::model::CreateOfflineProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Profile> {
+    ) -> Result<gax::response::Response<crate::model::Profile>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -77,16 +79,18 @@ impl super::stub::ProfilerService for ProfilerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Profile = self
+            .inner
             .execute(builder, Some(req.profile), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_profile(
         &self,
         req: crate::model::UpdateProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Profile> {
+    ) -> Result<gax::response::Response<crate::model::Profile>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -115,9 +119,11 @@ impl super::stub::ProfilerService for ProfilerService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::Profile = self
+            .inner
             .execute(builder, Some(req.profile), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }
 
@@ -147,7 +153,7 @@ impl super::stub::ExportService for ExportService {
         &self,
         req: crate::model::ListProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProfilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -159,8 +165,10 @@ impl super::stub::ExportService for ExportService {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListProfilesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 }

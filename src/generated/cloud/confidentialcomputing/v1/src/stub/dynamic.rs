@@ -21,25 +21,25 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateChallengeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Challenge>;
+    ) -> crate::Result<gax::response::Response<crate::model::Challenge>>;
 
     async fn verify_attestation(
         &self,
         req: crate::model::VerifyAttestationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VerifyAttestationResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::VerifyAttestationResponse>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 }
 
 /// All implementations of [super::ConfidentialComputing] also implement [ConfidentialComputing].
@@ -50,7 +50,7 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
         &self,
         req: crate::model::CreateChallengeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Challenge> {
+    ) -> crate::Result<gax::response::Response<crate::model::Challenge>> {
         T::create_challenge(self, req, options).await
     }
 
@@ -59,7 +59,7 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
         &self,
         req: crate::model::VerifyAttestationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VerifyAttestationResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::VerifyAttestationResponse>> {
         T::verify_attestation(self, req, options).await
     }
 
@@ -68,7 +68,7 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -77,7 +77,7 @@ impl<T: super::ConfidentialComputing> ConfidentialComputing for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

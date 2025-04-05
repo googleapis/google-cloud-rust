@@ -23,37 +23,37 @@ pub trait Applications: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Application>;
+    ) -> crate::Result<gax::response::Response<crate::model::Application>>;
 
     async fn create_application(
         &self,
         req: crate::model::CreateApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_application(
         &self,
         req: crate::model::UpdateApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn repair_application(
         &self,
         req: crate::model::RepairApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -74,7 +74,7 @@ impl<T: super::Applications> Applications for T {
         &self,
         req: crate::model::GetApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Application> {
+    ) -> crate::Result<gax::response::Response<crate::model::Application>> {
         T::get_application(self, req, options).await
     }
 
@@ -83,7 +83,7 @@ impl<T: super::Applications> Applications for T {
         &self,
         req: crate::model::CreateApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_application(self, req, options).await
     }
 
@@ -92,7 +92,7 @@ impl<T: super::Applications> Applications for T {
         &self,
         req: crate::model::UpdateApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_application(self, req, options).await
     }
 
@@ -101,7 +101,7 @@ impl<T: super::Applications> Applications for T {
         &self,
         req: crate::model::RepairApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::repair_application(self, req, options).await
     }
 
@@ -110,7 +110,7 @@ impl<T: super::Applications> Applications for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -119,7 +119,7 @@ impl<T: super::Applications> Applications for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -145,37 +145,37 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>>;
 
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service>;
+    ) -> crate::Result<gax::response::Response<crate::model::Service>>;
 
     async fn update_service(
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_service(
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -196,7 +196,7 @@ impl<T: super::Services> Services for T {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>> {
         T::list_services(self, req, options).await
     }
 
@@ -205,7 +205,7 @@ impl<T: super::Services> Services for T {
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service> {
+    ) -> crate::Result<gax::response::Response<crate::model::Service>> {
         T::get_service(self, req, options).await
     }
 
@@ -214,7 +214,7 @@ impl<T: super::Services> Services for T {
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_service(self, req, options).await
     }
 
@@ -223,7 +223,7 @@ impl<T: super::Services> Services for T {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_service(self, req, options).await
     }
 
@@ -232,7 +232,7 @@ impl<T: super::Services> Services for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -241,7 +241,7 @@ impl<T: super::Services> Services for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -267,43 +267,43 @@ pub trait Versions: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVersionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListVersionsResponse>>;
 
     async fn get_version(
         &self,
         req: crate::model::GetVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Version>;
+    ) -> crate::Result<gax::response::Response<crate::model::Version>>;
 
     async fn create_version(
         &self,
         req: crate::model::CreateVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_version(
         &self,
         req: crate::model::UpdateVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_version(
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -324,7 +324,7 @@ impl<T: super::Versions> Versions for T {
         &self,
         req: crate::model::ListVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVersionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListVersionsResponse>> {
         T::list_versions(self, req, options).await
     }
 
@@ -333,7 +333,7 @@ impl<T: super::Versions> Versions for T {
         &self,
         req: crate::model::GetVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Version> {
+    ) -> crate::Result<gax::response::Response<crate::model::Version>> {
         T::get_version(self, req, options).await
     }
 
@@ -342,7 +342,7 @@ impl<T: super::Versions> Versions for T {
         &self,
         req: crate::model::CreateVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_version(self, req, options).await
     }
 
@@ -351,7 +351,7 @@ impl<T: super::Versions> Versions for T {
         &self,
         req: crate::model::UpdateVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_version(self, req, options).await
     }
 
@@ -360,7 +360,7 @@ impl<T: super::Versions> Versions for T {
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_version(self, req, options).await
     }
 
@@ -369,7 +369,7 @@ impl<T: super::Versions> Versions for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -378,7 +378,7 @@ impl<T: super::Versions> Versions for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -404,37 +404,37 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInstancesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>;
 
     async fn get_instance(
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance>;
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>>;
 
     async fn delete_instance(
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn debug_instance(
         &self,
         req: crate::model::DebugInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -455,7 +455,7 @@ impl<T: super::Instances> Instances for T {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInstancesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>> {
         T::list_instances(self, req, options).await
     }
 
@@ -464,7 +464,7 @@ impl<T: super::Instances> Instances for T {
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance> {
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>> {
         T::get_instance(self, req, options).await
     }
 
@@ -473,7 +473,7 @@ impl<T: super::Instances> Instances for T {
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_instance(self, req, options).await
     }
 
@@ -482,7 +482,7 @@ impl<T: super::Instances> Instances for T {
         &self,
         req: crate::model::DebugInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::debug_instance(self, req, options).await
     }
 
@@ -491,7 +491,7 @@ impl<T: super::Instances> Instances for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -500,7 +500,7 @@ impl<T: super::Instances> Instances for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -526,49 +526,49 @@ pub trait Firewall: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListIngressRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListIngressRulesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListIngressRulesResponse>>;
 
     async fn batch_update_ingress_rules(
         &self,
         req: crate::model::BatchUpdateIngressRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BatchUpdateIngressRulesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::BatchUpdateIngressRulesResponse>>;
 
     async fn create_ingress_rule(
         &self,
         req: crate::model::CreateIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FirewallRule>;
+    ) -> crate::Result<gax::response::Response<crate::model::FirewallRule>>;
 
     async fn get_ingress_rule(
         &self,
         req: crate::model::GetIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FirewallRule>;
+    ) -> crate::Result<gax::response::Response<crate::model::FirewallRule>>;
 
     async fn update_ingress_rule(
         &self,
         req: crate::model::UpdateIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FirewallRule>;
+    ) -> crate::Result<gax::response::Response<crate::model::FirewallRule>>;
 
     async fn delete_ingress_rule(
         &self,
         req: crate::model::DeleteIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 }
 
 /// All implementations of [super::Firewall] also implement [Firewall].
@@ -579,7 +579,7 @@ impl<T: super::Firewall> Firewall for T {
         &self,
         req: crate::model::ListIngressRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListIngressRulesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListIngressRulesResponse>> {
         T::list_ingress_rules(self, req, options).await
     }
 
@@ -588,7 +588,7 @@ impl<T: super::Firewall> Firewall for T {
         &self,
         req: crate::model::BatchUpdateIngressRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BatchUpdateIngressRulesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchUpdateIngressRulesResponse>> {
         T::batch_update_ingress_rules(self, req, options).await
     }
 
@@ -597,7 +597,7 @@ impl<T: super::Firewall> Firewall for T {
         &self,
         req: crate::model::CreateIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FirewallRule> {
+    ) -> crate::Result<gax::response::Response<crate::model::FirewallRule>> {
         T::create_ingress_rule(self, req, options).await
     }
 
@@ -606,7 +606,7 @@ impl<T: super::Firewall> Firewall for T {
         &self,
         req: crate::model::GetIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FirewallRule> {
+    ) -> crate::Result<gax::response::Response<crate::model::FirewallRule>> {
         T::get_ingress_rule(self, req, options).await
     }
 
@@ -615,7 +615,7 @@ impl<T: super::Firewall> Firewall for T {
         &self,
         req: crate::model::UpdateIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FirewallRule> {
+    ) -> crate::Result<gax::response::Response<crate::model::FirewallRule>> {
         T::update_ingress_rule(self, req, options).await
     }
 
@@ -624,7 +624,7 @@ impl<T: super::Firewall> Firewall for T {
         &self,
         req: crate::model::DeleteIngressRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_ingress_rule(self, req, options).await
     }
 
@@ -633,7 +633,7 @@ impl<T: super::Firewall> Firewall for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -642,7 +642,7 @@ impl<T: super::Firewall> Firewall for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 }
@@ -654,19 +654,19 @@ pub trait AuthorizedDomains: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListAuthorizedDomainsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAuthorizedDomainsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListAuthorizedDomainsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 }
 
 /// All implementations of [super::AuthorizedDomains] also implement [AuthorizedDomains].
@@ -677,7 +677,7 @@ impl<T: super::AuthorizedDomains> AuthorizedDomains for T {
         &self,
         req: crate::model::ListAuthorizedDomainsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAuthorizedDomainsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAuthorizedDomainsResponse>> {
         T::list_authorized_domains(self, req, options).await
     }
 
@@ -686,7 +686,7 @@ impl<T: super::AuthorizedDomains> AuthorizedDomains for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -695,7 +695,7 @@ impl<T: super::AuthorizedDomains> AuthorizedDomains for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 }
@@ -707,43 +707,43 @@ pub trait AuthorizedCertificates: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListAuthorizedCertificatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAuthorizedCertificatesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListAuthorizedCertificatesResponse>>;
 
     async fn get_authorized_certificate(
         &self,
         req: crate::model::GetAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AuthorizedCertificate>;
+    ) -> crate::Result<gax::response::Response<crate::model::AuthorizedCertificate>>;
 
     async fn create_authorized_certificate(
         &self,
         req: crate::model::CreateAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AuthorizedCertificate>;
+    ) -> crate::Result<gax::response::Response<crate::model::AuthorizedCertificate>>;
 
     async fn update_authorized_certificate(
         &self,
         req: crate::model::UpdateAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AuthorizedCertificate>;
+    ) -> crate::Result<gax::response::Response<crate::model::AuthorizedCertificate>>;
 
     async fn delete_authorized_certificate(
         &self,
         req: crate::model::DeleteAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 }
 
 /// All implementations of [super::AuthorizedCertificates] also implement [AuthorizedCertificates].
@@ -754,7 +754,8 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
         &self,
         req: crate::model::ListAuthorizedCertificatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAuthorizedCertificatesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAuthorizedCertificatesResponse>>
+    {
         T::list_authorized_certificates(self, req, options).await
     }
 
@@ -763,7 +764,7 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
         &self,
         req: crate::model::GetAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AuthorizedCertificate> {
+    ) -> crate::Result<gax::response::Response<crate::model::AuthorizedCertificate>> {
         T::get_authorized_certificate(self, req, options).await
     }
 
@@ -772,7 +773,7 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
         &self,
         req: crate::model::CreateAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AuthorizedCertificate> {
+    ) -> crate::Result<gax::response::Response<crate::model::AuthorizedCertificate>> {
         T::create_authorized_certificate(self, req, options).await
     }
 
@@ -781,7 +782,7 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
         &self,
         req: crate::model::UpdateAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AuthorizedCertificate> {
+    ) -> crate::Result<gax::response::Response<crate::model::AuthorizedCertificate>> {
         T::update_authorized_certificate(self, req, options).await
     }
 
@@ -790,7 +791,7 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
         &self,
         req: crate::model::DeleteAuthorizedCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_authorized_certificate(self, req, options).await
     }
 
@@ -799,7 +800,7 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -808,7 +809,7 @@ impl<T: super::AuthorizedCertificates> AuthorizedCertificates for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 }
@@ -820,43 +821,43 @@ pub trait DomainMappings: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListDomainMappingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDomainMappingsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDomainMappingsResponse>>;
 
     async fn get_domain_mapping(
         &self,
         req: crate::model::GetDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DomainMapping>;
+    ) -> crate::Result<gax::response::Response<crate::model::DomainMapping>>;
 
     async fn create_domain_mapping(
         &self,
         req: crate::model::CreateDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_domain_mapping(
         &self,
         req: crate::model::UpdateDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_domain_mapping(
         &self,
         req: crate::model::DeleteDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -877,7 +878,7 @@ impl<T: super::DomainMappings> DomainMappings for T {
         &self,
         req: crate::model::ListDomainMappingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDomainMappingsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDomainMappingsResponse>> {
         T::list_domain_mappings(self, req, options).await
     }
 
@@ -886,7 +887,7 @@ impl<T: super::DomainMappings> DomainMappings for T {
         &self,
         req: crate::model::GetDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DomainMapping> {
+    ) -> crate::Result<gax::response::Response<crate::model::DomainMapping>> {
         T::get_domain_mapping(self, req, options).await
     }
 
@@ -895,7 +896,7 @@ impl<T: super::DomainMappings> DomainMappings for T {
         &self,
         req: crate::model::CreateDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_domain_mapping(self, req, options).await
     }
 
@@ -904,7 +905,7 @@ impl<T: super::DomainMappings> DomainMappings for T {
         &self,
         req: crate::model::UpdateDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_domain_mapping(self, req, options).await
     }
 
@@ -913,7 +914,7 @@ impl<T: super::DomainMappings> DomainMappings for T {
         &self,
         req: crate::model::DeleteDomainMappingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_domain_mapping(self, req, options).await
     }
 
@@ -922,7 +923,7 @@ impl<T: super::DomainMappings> DomainMappings for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -931,7 +932,7 @@ impl<T: super::DomainMappings> DomainMappings for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

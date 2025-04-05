@@ -44,7 +44,7 @@ impl super::stub::IAMPolicy for IAMPolicy {
         &self,
         req: crate::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -56,19 +56,22 @@ impl super::stub::IAMPolicy for IAMPolicy {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+        let response : crate::model::Policy = self.inner
+            .execute(
+                builder,
+                Some(req)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -80,19 +83,22 @@ impl super::stub::IAMPolicy for IAMPolicy {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+        let response : crate::model::Policy = self.inner
+            .execute(
+                builder,
+                Some(req)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -104,12 +110,15 @@ impl super::stub::IAMPolicy for IAMPolicy {
             )
             .query(&[("$alt", "json;enum-encoding=int")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(
-            builder,
-            Some(req)
-            ,
-            options,
-        ).await
+        let response : crate::model::TestIamPermissionsResponse = self.inner
+            .execute(
+                builder,
+                Some(req)
+                ,
+                options,
+            )
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
 }

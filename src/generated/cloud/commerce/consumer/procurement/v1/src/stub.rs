@@ -46,10 +46,12 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLicensePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::LicensePool>> + Send {
-        std::future::ready::<crate::Result<crate::model::LicensePool>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LicensePool>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::LicensePool>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::LicenseManagementService::update_license_pool].
@@ -57,10 +59,12 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateLicensePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::LicensePool>> + Send {
-        std::future::ready::<crate::Result<crate::model::LicensePool>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LicensePool>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::LicensePool>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::LicenseManagementService::assign].
@@ -68,10 +72,12 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AssignRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AssignResponse>> + Send {
-        std::future::ready::<crate::Result<crate::model::AssignResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AssignResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AssignResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::LicenseManagementService::unassign].
@@ -79,11 +85,12 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UnassignRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::UnassignResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::UnassignResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::UnassignResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::UnassignResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::LicenseManagementService::enumerate_licensed_users].
@@ -92,11 +99,13 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         _req: crate::model::EnumerateLicensedUsersRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::EnumerateLicensedUsersResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::EnumerateLicensedUsersResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::EnumerateLicensedUsersResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::EnumerateLicensedUsersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::LicenseManagementService::get_operation].
@@ -104,11 +113,12 @@ pub trait LicenseManagementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }
 
@@ -129,11 +139,12 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PlaceOrderRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ConsumerProcurementService::get_order].
@@ -141,8 +152,12 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOrderRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Order>> + Send {
-        std::future::ready::<crate::Result<crate::model::Order>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Order>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Order>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ConsumerProcurementService::list_orders].
@@ -150,11 +165,12 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListOrdersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListOrdersResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListOrdersResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListOrdersResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListOrdersResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ConsumerProcurementService::modify_order].
@@ -162,11 +178,12 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ModifyOrderRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ConsumerProcurementService::cancel_order].
@@ -174,11 +191,12 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CancelOrderRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ConsumerProcurementService::get_operation].
@@ -186,11 +204,12 @@ pub trait ConsumerProcurementService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Returns the polling error policy.

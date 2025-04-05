@@ -23,289 +23,289 @@ pub trait Eventarc: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Trigger>;
+    ) -> crate::Result<gax::response::Response<crate::model::Trigger>>;
 
     async fn list_triggers(
         &self,
         req: crate::model::ListTriggersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTriggersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTriggersResponse>>;
 
     async fn create_trigger(
         &self,
         req: crate::model::CreateTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_trigger(
         &self,
         req: crate::model::UpdateTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_trigger(
         &self,
         req: crate::model::DeleteTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_channel(
         &self,
         req: crate::model::GetChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Channel>;
+    ) -> crate::Result<gax::response::Response<crate::model::Channel>>;
 
     async fn list_channels(
         &self,
         req: crate::model::ListChannelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListChannelsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListChannelsResponse>>;
 
     async fn create_channel(
         &self,
         req: crate::model::CreateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_channel(
         &self,
         req: crate::model::UpdateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_channel(
         &self,
         req: crate::model::DeleteChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_provider(
         &self,
         req: crate::model::GetProviderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Provider>;
+    ) -> crate::Result<gax::response::Response<crate::model::Provider>>;
 
     async fn list_providers(
         &self,
         req: crate::model::ListProvidersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListProvidersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListProvidersResponse>>;
 
     async fn get_channel_connection(
         &self,
         req: crate::model::GetChannelConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ChannelConnection>;
+    ) -> crate::Result<gax::response::Response<crate::model::ChannelConnection>>;
 
     async fn list_channel_connections(
         &self,
         req: crate::model::ListChannelConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListChannelConnectionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListChannelConnectionsResponse>>;
 
     async fn create_channel_connection(
         &self,
         req: crate::model::CreateChannelConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_channel_connection(
         &self,
         req: crate::model::DeleteChannelConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_google_channel_config(
         &self,
         req: crate::model::GetGoogleChannelConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GoogleChannelConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::GoogleChannelConfig>>;
 
     async fn update_google_channel_config(
         &self,
         req: crate::model::UpdateGoogleChannelConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GoogleChannelConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::GoogleChannelConfig>>;
 
     async fn get_message_bus(
         &self,
         req: crate::model::GetMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MessageBus>;
+    ) -> crate::Result<gax::response::Response<crate::model::MessageBus>>;
 
     async fn list_message_buses(
         &self,
         req: crate::model::ListMessageBusesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMessageBusesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListMessageBusesResponse>>;
 
     async fn list_message_bus_enrollments(
         &self,
         req: crate::model::ListMessageBusEnrollmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMessageBusEnrollmentsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListMessageBusEnrollmentsResponse>>;
 
     async fn create_message_bus(
         &self,
         req: crate::model::CreateMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_message_bus(
         &self,
         req: crate::model::UpdateMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_message_bus(
         &self,
         req: crate::model::DeleteMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_enrollment(
         &self,
         req: crate::model::GetEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Enrollment>;
+    ) -> crate::Result<gax::response::Response<crate::model::Enrollment>>;
 
     async fn list_enrollments(
         &self,
         req: crate::model::ListEnrollmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEnrollmentsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListEnrollmentsResponse>>;
 
     async fn create_enrollment(
         &self,
         req: crate::model::CreateEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_enrollment(
         &self,
         req: crate::model::UpdateEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_enrollment(
         &self,
         req: crate::model::DeleteEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_pipeline(
         &self,
         req: crate::model::GetPipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Pipeline>;
+    ) -> crate::Result<gax::response::Response<crate::model::Pipeline>>;
 
     async fn list_pipelines(
         &self,
         req: crate::model::ListPipelinesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPipelinesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPipelinesResponse>>;
 
     async fn create_pipeline(
         &self,
         req: crate::model::CreatePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_pipeline(
         &self,
         req: crate::model::UpdatePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_pipeline(
         &self,
         req: crate::model::DeletePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_google_api_source(
         &self,
         req: crate::model::GetGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GoogleApiSource>;
+    ) -> crate::Result<gax::response::Response<crate::model::GoogleApiSource>>;
 
     async fn list_google_api_sources(
         &self,
         req: crate::model::ListGoogleApiSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGoogleApiSourcesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListGoogleApiSourcesResponse>>;
 
     async fn create_google_api_source(
         &self,
         req: crate::model::CreateGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_google_api_source(
         &self,
         req: crate::model::UpdateGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_google_api_source(
         &self,
         req: crate::model::DeleteGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -326,7 +326,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::GetTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Trigger> {
+    ) -> crate::Result<gax::response::Response<crate::model::Trigger>> {
         T::get_trigger(self, req, options).await
     }
 
@@ -335,7 +335,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::ListTriggersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTriggersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTriggersResponse>> {
         T::list_triggers(self, req, options).await
     }
 
@@ -344,7 +344,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_trigger(self, req, options).await
     }
 
@@ -353,7 +353,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_trigger(self, req, options).await
     }
 
@@ -362,7 +362,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_trigger(self, req, options).await
     }
 
@@ -371,7 +371,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::GetChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Channel> {
+    ) -> crate::Result<gax::response::Response<crate::model::Channel>> {
         T::get_channel(self, req, options).await
     }
 
@@ -380,7 +380,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::ListChannelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListChannelsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListChannelsResponse>> {
         T::list_channels(self, req, options).await
     }
 
@@ -389,7 +389,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_channel(self, req, options).await
     }
 
@@ -398,7 +398,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_channel(self, req, options).await
     }
 
@@ -407,7 +407,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_channel(self, req, options).await
     }
 
@@ -416,7 +416,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::GetProviderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Provider> {
+    ) -> crate::Result<gax::response::Response<crate::model::Provider>> {
         T::get_provider(self, req, options).await
     }
 
@@ -425,7 +425,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::ListProvidersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListProvidersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListProvidersResponse>> {
         T::list_providers(self, req, options).await
     }
 
@@ -434,7 +434,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::GetChannelConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ChannelConnection> {
+    ) -> crate::Result<gax::response::Response<crate::model::ChannelConnection>> {
         T::get_channel_connection(self, req, options).await
     }
 
@@ -443,7 +443,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::ListChannelConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListChannelConnectionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListChannelConnectionsResponse>> {
         T::list_channel_connections(self, req, options).await
     }
 
@@ -452,7 +452,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateChannelConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_channel_connection(self, req, options).await
     }
 
@@ -461,7 +461,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteChannelConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_channel_connection(self, req, options).await
     }
 
@@ -470,7 +470,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::GetGoogleChannelConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GoogleChannelConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::GoogleChannelConfig>> {
         T::get_google_channel_config(self, req, options).await
     }
 
@@ -479,7 +479,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateGoogleChannelConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GoogleChannelConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::GoogleChannelConfig>> {
         T::update_google_channel_config(self, req, options).await
     }
 
@@ -488,7 +488,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::GetMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::MessageBus> {
+    ) -> crate::Result<gax::response::Response<crate::model::MessageBus>> {
         T::get_message_bus(self, req, options).await
     }
 
@@ -497,7 +497,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::ListMessageBusesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMessageBusesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListMessageBusesResponse>> {
         T::list_message_buses(self, req, options).await
     }
 
@@ -506,7 +506,8 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::ListMessageBusEnrollmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMessageBusEnrollmentsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListMessageBusEnrollmentsResponse>>
+    {
         T::list_message_bus_enrollments(self, req, options).await
     }
 
@@ -515,7 +516,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_message_bus(self, req, options).await
     }
 
@@ -524,7 +525,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_message_bus(self, req, options).await
     }
 
@@ -533,7 +534,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteMessageBusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_message_bus(self, req, options).await
     }
 
@@ -542,7 +543,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::GetEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Enrollment> {
+    ) -> crate::Result<gax::response::Response<crate::model::Enrollment>> {
         T::get_enrollment(self, req, options).await
     }
 
@@ -551,7 +552,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::ListEnrollmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEnrollmentsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListEnrollmentsResponse>> {
         T::list_enrollments(self, req, options).await
     }
 
@@ -560,7 +561,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_enrollment(self, req, options).await
     }
 
@@ -569,7 +570,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_enrollment(self, req, options).await
     }
 
@@ -578,7 +579,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteEnrollmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_enrollment(self, req, options).await
     }
 
@@ -587,7 +588,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::GetPipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Pipeline> {
+    ) -> crate::Result<gax::response::Response<crate::model::Pipeline>> {
         T::get_pipeline(self, req, options).await
     }
 
@@ -596,7 +597,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::ListPipelinesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPipelinesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPipelinesResponse>> {
         T::list_pipelines(self, req, options).await
     }
 
@@ -605,7 +606,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreatePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_pipeline(self, req, options).await
     }
 
@@ -614,7 +615,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdatePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_pipeline(self, req, options).await
     }
 
@@ -623,7 +624,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeletePipelineRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_pipeline(self, req, options).await
     }
 
@@ -632,7 +633,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::GetGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GoogleApiSource> {
+    ) -> crate::Result<gax::response::Response<crate::model::GoogleApiSource>> {
         T::get_google_api_source(self, req, options).await
     }
 
@@ -641,7 +642,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::ListGoogleApiSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGoogleApiSourcesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListGoogleApiSourcesResponse>> {
         T::list_google_api_sources(self, req, options).await
     }
 
@@ -650,7 +651,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::CreateGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_google_api_source(self, req, options).await
     }
 
@@ -659,7 +660,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::UpdateGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_google_api_source(self, req, options).await
     }
 
@@ -668,7 +669,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: crate::model::DeleteGoogleApiSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_google_api_source(self, req, options).await
     }
 
@@ -677,7 +678,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -686,7 +687,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -695,7 +696,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -704,7 +705,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -713,7 +714,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -722,7 +723,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -731,7 +732,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -740,7 +741,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -749,7 +750,7 @@ impl<T: super::Eventarc> Eventarc for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

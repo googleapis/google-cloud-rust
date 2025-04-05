@@ -23,157 +23,157 @@ pub trait Connectors: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>;
 
     async fn get_connection(
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection>;
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>>;
 
     async fn create_connection(
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_connection(
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_connection(
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_providers(
         &self,
         req: crate::model::ListProvidersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListProvidersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListProvidersResponse>>;
 
     async fn get_provider(
         &self,
         req: crate::model::GetProviderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Provider>;
+    ) -> crate::Result<gax::response::Response<crate::model::Provider>>;
 
     async fn list_connectors(
         &self,
         req: crate::model::ListConnectorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectorsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectorsResponse>>;
 
     async fn get_connector(
         &self,
         req: crate::model::GetConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connector>;
+    ) -> crate::Result<gax::response::Response<crate::model::Connector>>;
 
     async fn list_connector_versions(
         &self,
         req: crate::model::ListConnectorVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectorVersionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectorVersionsResponse>>;
 
     async fn get_connector_version(
         &self,
         req: crate::model::GetConnectorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ConnectorVersion>;
+    ) -> crate::Result<gax::response::Response<crate::model::ConnectorVersion>>;
 
     async fn get_connection_schema_metadata(
         &self,
         req: crate::model::GetConnectionSchemaMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ConnectionSchemaMetadata>;
+    ) -> crate::Result<gax::response::Response<crate::model::ConnectionSchemaMetadata>>;
 
     async fn refresh_connection_schema_metadata(
         &self,
         req: crate::model::RefreshConnectionSchemaMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_runtime_entity_schemas(
         &self,
         req: crate::model::ListRuntimeEntitySchemasRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRuntimeEntitySchemasResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeEntitySchemasResponse>>;
 
     async fn list_runtime_action_schemas(
         &self,
         req: crate::model::ListRuntimeActionSchemasRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRuntimeActionSchemasResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeActionSchemasResponse>>;
 
     async fn get_runtime_config(
         &self,
         req: crate::model::GetRuntimeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RuntimeConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::RuntimeConfig>>;
 
     async fn get_global_settings(
         &self,
         req: crate::model::GetGlobalSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Settings>;
+    ) -> crate::Result<gax::response::Response<crate::model::Settings>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -194,7 +194,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         T::list_connections(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection> {
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>> {
         T::get_connection(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_connection(self, req, options).await
     }
 
@@ -221,7 +221,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_connection(self, req, options).await
     }
 
@@ -230,7 +230,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_connection(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::ListProvidersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListProvidersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListProvidersResponse>> {
         T::list_providers(self, req, options).await
     }
 
@@ -248,7 +248,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::GetProviderRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Provider> {
+    ) -> crate::Result<gax::response::Response<crate::model::Provider>> {
         T::get_provider(self, req, options).await
     }
 
@@ -257,7 +257,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::ListConnectorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectorsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectorsResponse>> {
         T::list_connectors(self, req, options).await
     }
 
@@ -266,7 +266,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::GetConnectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connector> {
+    ) -> crate::Result<gax::response::Response<crate::model::Connector>> {
         T::get_connector(self, req, options).await
     }
 
@@ -275,7 +275,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::ListConnectorVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectorVersionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectorVersionsResponse>> {
         T::list_connector_versions(self, req, options).await
     }
 
@@ -284,7 +284,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::GetConnectorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ConnectorVersion> {
+    ) -> crate::Result<gax::response::Response<crate::model::ConnectorVersion>> {
         T::get_connector_version(self, req, options).await
     }
 
@@ -293,7 +293,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::GetConnectionSchemaMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ConnectionSchemaMetadata> {
+    ) -> crate::Result<gax::response::Response<crate::model::ConnectionSchemaMetadata>> {
         T::get_connection_schema_metadata(self, req, options).await
     }
 
@@ -302,7 +302,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::RefreshConnectionSchemaMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::refresh_connection_schema_metadata(self, req, options).await
     }
 
@@ -311,7 +311,8 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::ListRuntimeEntitySchemasRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRuntimeEntitySchemasResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeEntitySchemasResponse>>
+    {
         T::list_runtime_entity_schemas(self, req, options).await
     }
 
@@ -320,7 +321,8 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::ListRuntimeActionSchemasRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRuntimeActionSchemasResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimeActionSchemasResponse>>
+    {
         T::list_runtime_action_schemas(self, req, options).await
     }
 
@@ -329,7 +331,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::GetRuntimeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RuntimeConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::RuntimeConfig>> {
         T::get_runtime_config(self, req, options).await
     }
 
@@ -338,7 +340,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: crate::model::GetGlobalSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Settings> {
+    ) -> crate::Result<gax::response::Response<crate::model::Settings>> {
         T::get_global_settings(self, req, options).await
     }
 
@@ -347,7 +349,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -356,7 +358,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -365,7 +367,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -374,7 +376,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -383,7 +385,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -392,7 +394,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -401,7 +403,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -410,7 +412,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -419,7 +421,7 @@ impl<T: super::Connectors> Connectors for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

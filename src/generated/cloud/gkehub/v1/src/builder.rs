@@ -93,6 +93,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .list_memberships(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .list_features(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -255,6 +257,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .get_membership(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMembershipRequest::name].
@@ -297,6 +300,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .get_feature(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFeatureRequest::name].
@@ -347,6 +351,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .create_membership(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_membership`.
@@ -448,6 +453,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .create_feature(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_feature`.
@@ -551,6 +557,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .delete_membership(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_membership`.
@@ -640,6 +647,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .delete_feature(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_feature`.
@@ -732,6 +740,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .update_membership(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_membership`.
@@ -836,6 +845,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .update_feature(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_feature`.
@@ -939,6 +949,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .generate_connect_manifest(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateConnectManifestRequest::name].
@@ -1020,6 +1031,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1098,6 +1110,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1143,6 +1156,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1188,6 +1202,7 @@ pub mod gke_hub {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

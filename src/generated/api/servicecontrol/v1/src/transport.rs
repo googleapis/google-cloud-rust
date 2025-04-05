@@ -44,7 +44,7 @@ impl super::stub::QuotaController for QuotaController {
         &self,
         req: crate::model::AllocateQuotaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AllocateQuotaResponse> {
+    ) -> Result<gax::response::Response<crate::model::AllocateQuotaResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,7 +57,9 @@ impl super::stub::QuotaController for QuotaController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::AllocateQuotaResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 }
 
@@ -87,7 +89,7 @@ impl super::stub::ServiceController for ServiceController {
         &self,
         req: crate::model::CheckRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CheckResponse> {
+    ) -> Result<gax::response::Response<crate::model::CheckResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -100,14 +102,16 @@ impl super::stub::ServiceController for ServiceController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::CheckResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn report(
         &self,
         req: crate::model::ReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReportResponse> {
+    ) -> Result<gax::response::Response<crate::model::ReportResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -120,6 +124,8 @@ impl super::stub::ServiceController for ServiceController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::ReportResponse =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 }

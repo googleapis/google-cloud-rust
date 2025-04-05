@@ -44,7 +44,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         &self,
         req: crate::model::CreateConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Conversation> {
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -58,16 +58,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("conversationId", &req.conversation_id)]);
-        self.inner
+        let response: crate::model::Conversation = self
+            .inner
             .execute(builder, Some(req.conversation), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn upload_conversation(
         &self,
         req: crate::model::UploadConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -80,14 +82,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_conversation(
         &self,
         req: crate::model::UpdateConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Conversation> {
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -116,16 +120,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::Conversation = self
+            .inner
             .execute(builder, Some(req.conversation), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_conversation(
         &self,
         req: crate::model::GetConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Conversation> {
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -136,16 +142,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("view", &req.view.value())]);
-        self.inner
+        let response: crate::model::Conversation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_conversations(
         &self,
         req: crate::model::ListConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConversationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConversationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -163,16 +171,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("orderBy", &req.order_by)]);
         let builder = builder.query(&[("view", &req.view.value())]);
-        self.inner
+        let response: crate::model::ListConversationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_conversation(
         &self,
         req: crate::model::DeleteConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -183,17 +193,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn create_analysis(
         &self,
         req: crate::model::CreateAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -206,16 +217,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.analysis), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_analysis(
         &self,
         req: crate::model::GetAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Analysis> {
+    ) -> Result<gax::response::Response<crate::model::Analysis>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -225,16 +238,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Analysis = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_analyses(
         &self,
         req: crate::model::ListAnalysesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAnalysesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAnalysesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -247,16 +262,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner
+        let response: crate::model::ListAnalysesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_analysis(
         &self,
         req: crate::model::DeleteAnalysisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -266,17 +283,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn bulk_analyze_conversations(
         &self,
         req: crate::model::BulkAnalyzeConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -289,14 +307,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn bulk_delete_conversations(
         &self,
         req: crate::model::BulkDeleteConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -309,14 +329,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn ingest_conversations(
         &self,
         req: crate::model::IngestConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -329,14 +351,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn export_insights_data(
         &self,
         req: crate::model::ExportInsightsDataRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -349,14 +373,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_issue_model(
         &self,
         req: crate::model::CreateIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -369,16 +395,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, Some(req.issue_model), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_issue_model(
         &self,
         req: crate::model::UpdateIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IssueModel> {
+    ) -> Result<gax::response::Response<crate::model::IssueModel>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -407,16 +435,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::IssueModel = self
+            .inner
             .execute(builder, Some(req.issue_model), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_issue_model(
         &self,
         req: crate::model::GetIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IssueModel> {
+    ) -> Result<gax::response::Response<crate::model::IssueModel>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -426,16 +456,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::IssueModel = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_issue_models(
         &self,
         req: crate::model::ListIssueModelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIssueModelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIssueModelsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -448,16 +480,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ListIssueModelsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_issue_model(
         &self,
         req: crate::model::DeleteIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -467,16 +501,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn deploy_issue_model(
         &self,
         req: crate::model::DeployIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -486,14 +522,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn undeploy_issue_model(
         &self,
         req: crate::model::UndeployIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -503,14 +541,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn export_issue_model(
         &self,
         req: crate::model::ExportIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -520,14 +560,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn import_issue_model(
         &self,
         req: crate::model::ImportIssueModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -540,14 +582,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_issue(
         &self,
         req: crate::model::GetIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Issue> {
+    ) -> Result<gax::response::Response<crate::model::Issue>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -557,16 +601,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Issue = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_issues(
         &self,
         req: crate::model::ListIssuesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIssuesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIssuesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -576,16 +622,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::ListIssuesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_issue(
         &self,
         req: crate::model::UpdateIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Issue> {
+    ) -> Result<gax::response::Response<crate::model::Issue>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -614,14 +662,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.issue), options).await
+        let response: crate::model::Issue = self
+            .inner
+            .execute(builder, Some(req.issue), options)
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_issue(
         &self,
         req: crate::model::DeleteIssueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -631,17 +683,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn calculate_issue_model_stats(
         &self,
         req: crate::model::CalculateIssueModelStatsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CalculateIssueModelStatsResponse> {
+    ) -> Result<gax::response::Response<crate::model::CalculateIssueModelStatsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -654,16 +707,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::CalculateIssueModelStatsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_phrase_matcher(
         &self,
         req: crate::model::CreatePhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PhraseMatcher> {
+    ) -> Result<gax::response::Response<crate::model::PhraseMatcher>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -676,16 +731,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::PhraseMatcher = self
+            .inner
             .execute(builder, Some(req.phrase_matcher), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_phrase_matcher(
         &self,
         req: crate::model::GetPhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PhraseMatcher> {
+    ) -> Result<gax::response::Response<crate::model::PhraseMatcher>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -695,16 +752,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::PhraseMatcher = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_phrase_matchers(
         &self,
         req: crate::model::ListPhraseMatchersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPhraseMatchersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPhraseMatchersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -720,16 +779,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner
+        let response: crate::model::ListPhraseMatchersResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_phrase_matcher(
         &self,
         req: crate::model::DeletePhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -739,17 +800,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn update_phrase_matcher(
         &self,
         req: crate::model::UpdatePhraseMatcherRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PhraseMatcher> {
+    ) -> Result<gax::response::Response<crate::model::PhraseMatcher>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -778,16 +840,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::PhraseMatcher = self
+            .inner
             .execute(builder, Some(req.phrase_matcher), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn calculate_stats(
         &self,
         req: crate::model::CalculateStatsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CalculateStatsResponse> {
+    ) -> Result<gax::response::Response<crate::model::CalculateStatsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -801,16 +865,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner
+        let response: crate::model::CalculateStatsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_settings(
         &self,
         req: crate::model::GetSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -820,16 +886,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Settings = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_settings(
         &self,
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -858,16 +926,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::Settings = self
+            .inner
             .execute(builder, Some(req.settings), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_analysis_rule(
         &self,
         req: crate::model::CreateAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalysisRule> {
+    ) -> Result<gax::response::Response<crate::model::AnalysisRule>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -880,16 +950,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::AnalysisRule = self
+            .inner
             .execute(builder, Some(req.analysis_rule), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_analysis_rule(
         &self,
         req: crate::model::GetAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalysisRule> {
+    ) -> Result<gax::response::Response<crate::model::AnalysisRule>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -899,16 +971,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::AnalysisRule = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_analysis_rules(
         &self,
         req: crate::model::ListAnalysisRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAnalysisRulesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAnalysisRulesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -923,16 +997,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListAnalysisRulesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_analysis_rule(
         &self,
         req: crate::model::UpdateAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalysisRule> {
+    ) -> Result<gax::response::Response<crate::model::AnalysisRule>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -961,16 +1037,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::AnalysisRule = self
+            .inner
             .execute(builder, Some(req.analysis_rule), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_analysis_rule(
         &self,
         req: crate::model::DeleteAnalysisRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -980,17 +1058,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn get_encryption_spec(
         &self,
         req: crate::model::GetEncryptionSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EncryptionSpec> {
+    ) -> Result<gax::response::Response<crate::model::EncryptionSpec>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1000,16 +1079,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::EncryptionSpec = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn initialize_encryption_spec(
         &self,
         req: crate::model::InitializeEncryptionSpecRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1028,14 +1109,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_view(
         &self,
         req: crate::model::CreateViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::View> {
+    ) -> Result<gax::response::Response<crate::model::View>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1045,14 +1128,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.view), options).await
+        let response: crate::model::View =
+            self.inner.execute(builder, Some(req.view), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_view(
         &self,
         req: crate::model::GetViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::View> {
+    ) -> Result<gax::response::Response<crate::model::View>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1062,16 +1147,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::View = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_views(
         &self,
         req: crate::model::ListViewsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListViewsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListViewsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1083,16 +1170,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListViewsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_view(
         &self,
         req: crate::model::UpdateViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::View> {
+    ) -> Result<gax::response::Response<crate::model::View>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1121,14 +1210,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.view), options).await
+        let response: crate::model::View =
+            self.inner.execute(builder, Some(req.view), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_view(
         &self,
         req: crate::model::DeleteViewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1138,17 +1229,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn query_metrics(
         &self,
         req: crate::model::QueryMetricsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1161,14 +1253,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_qa_question(
         &self,
         req: crate::model::CreateQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaQuestion> {
+    ) -> Result<gax::response::Response<crate::model::QaQuestion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1182,16 +1276,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("qaQuestionId", &req.qa_question_id)]);
-        self.inner
+        let response: crate::model::QaQuestion = self
+            .inner
             .execute(builder, Some(req.qa_question), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_qa_question(
         &self,
         req: crate::model::GetQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaQuestion> {
+    ) -> Result<gax::response::Response<crate::model::QaQuestion>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1201,16 +1297,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::QaQuestion = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_qa_question(
         &self,
         req: crate::model::UpdateQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaQuestion> {
+    ) -> Result<gax::response::Response<crate::model::QaQuestion>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1239,16 +1337,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::QaQuestion = self
+            .inner
             .execute(builder, Some(req.qa_question), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_qa_question(
         &self,
         req: crate::model::DeleteQaQuestionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1258,17 +1358,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_qa_questions(
         &self,
         req: crate::model::ListQaQuestionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListQaQuestionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListQaQuestionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1283,16 +1384,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListQaQuestionsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_qa_scorecard(
         &self,
         req: crate::model::CreateQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecard> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecard>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1306,16 +1409,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("qaScorecardId", &req.qa_scorecard_id)]);
-        self.inner
+        let response: crate::model::QaScorecard = self
+            .inner
             .execute(builder, Some(req.qa_scorecard), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_qa_scorecard(
         &self,
         req: crate::model::GetQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecard> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecard>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1325,16 +1430,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::QaScorecard = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_qa_scorecard(
         &self,
         req: crate::model::UpdateQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecard> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecard>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1363,16 +1470,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::QaScorecard = self
+            .inner
             .execute(builder, Some(req.qa_scorecard), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_qa_scorecard(
         &self,
         req: crate::model::DeleteQaScorecardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1383,17 +1492,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_qa_scorecards(
         &self,
         req: crate::model::ListQaScorecardsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListQaScorecardsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListQaScorecardsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1408,16 +1518,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             );
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListQaScorecardsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_qa_scorecard_revision(
         &self,
         req: crate::model::CreateQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecardRevision> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1431,16 +1543,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("qaScorecardRevisionId", &req.qa_scorecard_revision_id)]);
-        self.inner
+        let response: crate::model::QaScorecardRevision = self
+            .inner
             .execute(builder, Some(req.qa_scorecard_revision), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_qa_scorecard_revision(
         &self,
         req: crate::model::GetQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecardRevision> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1450,16 +1564,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::QaScorecardRevision = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn tune_qa_scorecard_revision(
         &self,
         req: crate::model::TuneQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1472,14 +1588,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn deploy_qa_scorecard_revision(
         &self,
         req: crate::model::DeployQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecardRevision> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1489,14 +1607,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::QaScorecardRevision =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn undeploy_qa_scorecard_revision(
         &self,
         req: crate::model::UndeployQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QaScorecardRevision> {
+    ) -> Result<gax::response::Response<crate::model::QaScorecardRevision>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1506,14 +1626,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: crate::model::QaScorecardRevision =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_qa_scorecard_revision(
         &self,
         req: crate::model::DeleteQaScorecardRevisionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1524,17 +1646,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("force", &req.force)]);
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_qa_scorecard_revisions(
         &self,
         req: crate::model::ListQaScorecardRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListQaScorecardRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListQaScorecardRevisionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1550,16 +1673,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner
+        let response: crate::model::ListQaScorecardRevisionsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_feedback_label(
         &self,
         req: crate::model::CreateFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FeedbackLabel> {
+    ) -> Result<gax::response::Response<crate::model::FeedbackLabel>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1573,16 +1698,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("feedbackLabelId", &req.feedback_label_id)]);
-        self.inner
+        let response: crate::model::FeedbackLabel = self
+            .inner
             .execute(builder, Some(req.feedback_label), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_feedback_labels(
         &self,
         req: crate::model::ListFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFeedbackLabelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFeedbackLabelsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1598,16 +1725,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: crate::model::ListFeedbackLabelsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_feedback_label(
         &self,
         req: crate::model::GetFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FeedbackLabel> {
+    ) -> Result<gax::response::Response<crate::model::FeedbackLabel>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1617,16 +1746,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::FeedbackLabel = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn update_feedback_label(
         &self,
         req: crate::model::UpdateFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FeedbackLabel> {
+    ) -> Result<gax::response::Response<crate::model::FeedbackLabel>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1655,16 +1786,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
+        let response: crate::model::FeedbackLabel = self
+            .inner
             .execute(builder, Some(req.feedback_label), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_feedback_label(
         &self,
         req: crate::model::DeleteFeedbackLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1674,17 +1807,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn list_all_feedback_labels(
         &self,
         req: crate::model::ListAllFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAllFeedbackLabelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAllFeedbackLabelsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1700,16 +1834,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
-        self.inner
+        let response: crate::model::ListAllFeedbackLabelsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn bulk_upload_feedback_labels(
         &self,
         req: crate::model::BulkUploadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1722,14 +1858,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn bulk_download_feedback_labels(
         &self,
         req: crate::model::BulkDownloadFeedbackLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1742,14 +1880,16 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1762,16 +1902,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1781,16 +1923,18 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1800,10 +1944,11 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     fn get_polling_error_policy(

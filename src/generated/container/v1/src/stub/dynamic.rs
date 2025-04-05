@@ -21,205 +21,205 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListClustersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListClustersResponse>>;
 
     async fn get_cluster(
         &self,
         req: crate::model::GetClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Cluster>;
+    ) -> crate::Result<gax::response::Response<crate::model::Cluster>>;
 
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn update_cluster(
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn update_node_pool(
         &self,
         req: crate::model::UpdateNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_node_pool_autoscaling(
         &self,
         req: crate::model::SetNodePoolAutoscalingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_logging_service(
         &self,
         req: crate::model::SetLoggingServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_monitoring_service(
         &self,
         req: crate::model::SetMonitoringServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_addons_config(
         &self,
         req: crate::model::SetAddonsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_locations(
         &self,
         req: crate::model::SetLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn update_master(
         &self,
         req: crate::model::UpdateMasterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_master_auth(
         &self,
         req: crate::model::SetMasterAuthRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn delete_cluster(
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: crate::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: crate::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn cancel_operation(
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_server_config(
         &self,
         req: crate::model::GetServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServerConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServerConfig>>;
 
     async fn get_json_web_keys(
         &self,
         req: crate::model::GetJSONWebKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GetJSONWebKeysResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>>;
 
     async fn list_node_pools(
         &self,
         req: crate::model::ListNodePoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNodePoolsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNodePoolsResponse>>;
 
     async fn get_node_pool(
         &self,
         req: crate::model::GetNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NodePool>;
+    ) -> crate::Result<gax::response::Response<crate::model::NodePool>>;
 
     async fn create_node_pool(
         &self,
         req: crate::model::CreateNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn delete_node_pool(
         &self,
         req: crate::model::DeleteNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn complete_node_pool_upgrade(
         &self,
         req: crate::model::CompleteNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn rollback_node_pool_upgrade(
         &self,
         req: crate::model::RollbackNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_node_pool_management(
         &self,
         req: crate::model::SetNodePoolManagementRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_labels(
         &self,
         req: crate::model::SetLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_legacy_abac(
         &self,
         req: crate::model::SetLegacyAbacRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn start_ip_rotation(
         &self,
         req: crate::model::StartIPRotationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn complete_ip_rotation(
         &self,
         req: crate::model::CompleteIPRotationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_node_pool_size(
         &self,
         req: crate::model::SetNodePoolSizeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_network_policy(
         &self,
         req: crate::model::SetNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn set_maintenance_policy(
         &self,
         req: crate::model::SetMaintenancePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn list_usable_subnetworks(
         &self,
         req: crate::model::ListUsableSubnetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUsableSubnetworksResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListUsableSubnetworksResponse>>;
 
     async fn check_autopilot_compatibility(
         &self,
         req: crate::model::CheckAutopilotCompatibilityRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CheckAutopilotCompatibilityResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>>;
 }
 
 /// All implementations of [super::ClusterManager] also implement [ClusterManager].
@@ -230,7 +230,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::ListClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListClustersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListClustersResponse>> {
         T::list_clusters(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::GetClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Cluster> {
+    ) -> crate::Result<gax::response::Response<crate::model::Cluster>> {
         T::get_cluster(self, req, options).await
     }
 
@@ -248,7 +248,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::create_cluster(self, req, options).await
     }
 
@@ -257,7 +257,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update_cluster(self, req, options).await
     }
 
@@ -266,7 +266,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::UpdateNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update_node_pool(self, req, options).await
     }
 
@@ -275,7 +275,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetNodePoolAutoscalingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_node_pool_autoscaling(self, req, options).await
     }
 
@@ -284,7 +284,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetLoggingServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_logging_service(self, req, options).await
     }
 
@@ -293,7 +293,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetMonitoringServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_monitoring_service(self, req, options).await
     }
 
@@ -302,7 +302,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetAddonsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_addons_config(self, req, options).await
     }
 
@@ -311,7 +311,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_locations(self, req, options).await
     }
 
@@ -320,7 +320,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::UpdateMasterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update_master(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetMasterAuthRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_master_auth(self, req, options).await
     }
 
@@ -338,7 +338,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::delete_cluster(self, req, options).await
     }
 
@@ -347,7 +347,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -356,7 +356,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -365,7 +365,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -374,7 +374,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::GetServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServerConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServerConfig>> {
         T::get_server_config(self, req, options).await
     }
 
@@ -383,7 +383,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::GetJSONWebKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GetJSONWebKeysResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>> {
         T::get_json_web_keys(self, req, options).await
     }
 
@@ -392,7 +392,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::ListNodePoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNodePoolsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNodePoolsResponse>> {
         T::list_node_pools(self, req, options).await
     }
 
@@ -401,7 +401,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::GetNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NodePool> {
+    ) -> crate::Result<gax::response::Response<crate::model::NodePool>> {
         T::get_node_pool(self, req, options).await
     }
 
@@ -410,7 +410,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::CreateNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::create_node_pool(self, req, options).await
     }
 
@@ -419,7 +419,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::DeleteNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::delete_node_pool(self, req, options).await
     }
 
@@ -428,7 +428,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::CompleteNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::complete_node_pool_upgrade(self, req, options).await
     }
 
@@ -437,7 +437,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::RollbackNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::rollback_node_pool_upgrade(self, req, options).await
     }
 
@@ -446,7 +446,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetNodePoolManagementRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_node_pool_management(self, req, options).await
     }
 
@@ -455,7 +455,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_labels(self, req, options).await
     }
 
@@ -464,7 +464,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetLegacyAbacRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_legacy_abac(self, req, options).await
     }
 
@@ -473,7 +473,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::StartIPRotationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::start_ip_rotation(self, req, options).await
     }
 
@@ -482,7 +482,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::CompleteIPRotationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::complete_ip_rotation(self, req, options).await
     }
 
@@ -491,7 +491,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetNodePoolSizeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_node_pool_size(self, req, options).await
     }
 
@@ -500,7 +500,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_network_policy(self, req, options).await
     }
 
@@ -509,7 +509,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::SetMaintenancePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_maintenance_policy(self, req, options).await
     }
 
@@ -518,7 +518,7 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::ListUsableSubnetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUsableSubnetworksResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListUsableSubnetworksResponse>> {
         T::list_usable_subnetworks(self, req, options).await
     }
 
@@ -527,7 +527,8 @@ impl<T: super::ClusterManager> ClusterManager for T {
         &self,
         req: crate::model::CheckAutopilotCompatibilityRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CheckAutopilotCompatibilityResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>>
+    {
         T::check_autopilot_compatibility(self, req, options).await
     }
 }

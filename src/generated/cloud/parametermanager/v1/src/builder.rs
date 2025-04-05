@@ -93,6 +93,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .list_parameters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .get_parameter(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetParameterRequest::name].
@@ -216,6 +218,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .create_parameter(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateParameterRequest::parent].
@@ -279,6 +282,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .update_parameter(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
@@ -339,6 +343,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .delete_parameter(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteParameterRequest::name].
@@ -390,6 +395,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .list_parameter_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -474,6 +480,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .get_parameter_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetParameterVersionRequest::name].
@@ -525,6 +532,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .render_parameter_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenderParameterVersionRequest::name].
@@ -570,6 +578,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .create_parameter_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateParameterVersionRequest::parent].
@@ -638,6 +647,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .update_parameter_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
@@ -703,6 +713,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .delete_parameter_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteParameterVersionRequest::name].
@@ -754,6 +765,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -829,6 +841,7 @@ pub mod parameter_manager {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].

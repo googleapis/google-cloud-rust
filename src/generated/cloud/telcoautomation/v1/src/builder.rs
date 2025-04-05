@@ -98,6 +98,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_orchestration_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -186,6 +187,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_orchestration_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrchestrationClusterRequest::name].
@@ -238,6 +240,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .create_orchestration_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_orchestration_cluster`.
@@ -347,6 +350,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .delete_orchestration_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_orchestration_cluster`.
@@ -425,6 +429,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_edge_slms(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -506,6 +511,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_edge_slm(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEdgeSlmRequest::name].
@@ -553,6 +559,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .create_edge_slm(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_edge_slm`.
@@ -653,6 +660,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .delete_edge_slm(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_edge_slm`.
@@ -731,6 +739,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .create_blueprint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBlueprintRequest::parent].
@@ -788,6 +797,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .update_blueprint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [blueprint][crate::model::UpdateBlueprintRequest::blueprint].
@@ -842,6 +852,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_blueprint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBlueprintRequest::name].
@@ -890,6 +901,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .delete_blueprint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBlueprintRequest::name].
@@ -932,6 +944,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_blueprints(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1010,6 +1023,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .approve_blueprint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveBlueprintRequest::name].
@@ -1055,6 +1069,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .propose_blueprint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ProposeBlueprintRequest::name].
@@ -1097,6 +1112,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .reject_blueprint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RejectBlueprintRequest::name].
@@ -1142,6 +1158,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_blueprint_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1218,6 +1235,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .search_blueprint_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1300,6 +1318,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .search_deployment_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1382,6 +1401,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .discard_blueprint_changes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiscardBlueprintChangesRequest::name].
@@ -1427,6 +1447,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_public_blueprints(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1499,6 +1520,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_public_blueprint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPublicBlueprintRequest::name].
@@ -1544,6 +1566,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .create_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
@@ -1604,6 +1627,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .update_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
@@ -1658,6 +1682,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
@@ -1709,6 +1734,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .remove_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RemoveDeploymentRequest::name].
@@ -1751,6 +1777,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_deployments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1831,6 +1858,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_deployment_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1907,6 +1935,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .discard_deployment_changes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DiscardDeploymentChangesRequest::name].
@@ -1949,6 +1978,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .apply_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApplyDeploymentRequest::name].
@@ -1996,6 +2026,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .compute_deployment_status(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ComputeDeploymentStatusRequest::name].
@@ -2041,6 +2072,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .rollback_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RollbackDeploymentRequest::name].
@@ -2092,6 +2124,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_hydrated_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetHydratedDeploymentRequest::name].
@@ -2139,6 +2172,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_hydrated_deployments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2215,6 +2249,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .update_hydrated_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [hydrated_deployment][crate::model::UpdateHydratedDeploymentRequest::hydrated_deployment].
@@ -2276,6 +2311,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .apply_hydrated_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApplyHydratedDeploymentRequest::name].
@@ -2321,6 +2357,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2396,6 +2433,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2441,6 +2479,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2519,6 +2558,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2564,6 +2604,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2609,6 +2650,7 @@ pub mod telco_automation {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

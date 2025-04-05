@@ -21,7 +21,7 @@ pub trait QuotaController: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::AllocateQuotaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AllocateQuotaResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::AllocateQuotaResponse>>;
 }
 
 /// All implementations of [super::QuotaController] also implement [QuotaController].
@@ -32,7 +32,7 @@ impl<T: super::QuotaController> QuotaController for T {
         &self,
         req: crate::model::AllocateQuotaRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AllocateQuotaResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::AllocateQuotaResponse>> {
         T::allocate_quota(self, req, options).await
     }
 }
@@ -44,13 +44,13 @@ pub trait ServiceController: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CheckRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CheckResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::CheckResponse>>;
 
     async fn report(
         &self,
         req: crate::model::ReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReportResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ReportResponse>>;
 }
 
 /// All implementations of [super::ServiceController] also implement [ServiceController].
@@ -61,7 +61,7 @@ impl<T: super::ServiceController> ServiceController for T {
         &self,
         req: crate::model::CheckRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CheckResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::CheckResponse>> {
         T::check(self, req, options).await
     }
 
@@ -70,7 +70,7 @@ impl<T: super::ServiceController> ServiceController for T {
         &self,
         req: crate::model::ReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReportResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ReportResponse>> {
         T::report(self, req, options).await
     }
 }

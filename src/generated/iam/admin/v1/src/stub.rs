@@ -45,11 +45,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListServiceAccountsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListServiceAccountsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListServiceAccountsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListServiceAccountsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListServiceAccountsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Iam::get_service_account].
@@ -57,10 +58,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetServiceAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceAccount>> + Send {
-        std::future::ready::<crate::Result<crate::model::ServiceAccount>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ServiceAccount>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServiceAccount>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Iam::create_service_account].
@@ -68,10 +71,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateServiceAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceAccount>> + Send {
-        std::future::ready::<crate::Result<crate::model::ServiceAccount>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ServiceAccount>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServiceAccount>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Iam::update_service_account].
@@ -79,10 +84,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ServiceAccount,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceAccount>> + Send {
-        std::future::ready::<crate::Result<crate::model::ServiceAccount>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ServiceAccount>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServiceAccount>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Iam::patch_service_account].
@@ -90,10 +97,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PatchServiceAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceAccount>> + Send {
-        std::future::ready::<crate::Result<crate::model::ServiceAccount>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ServiceAccount>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServiceAccount>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Iam::delete_service_account].
@@ -101,8 +110,10 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteServiceAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::Iam::undelete_service_account].
@@ -111,11 +122,13 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         _req: crate::model::UndeleteServiceAccountRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::UndeleteServiceAccountResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::UndeleteServiceAccountResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::UndeleteServiceAccountResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::UndeleteServiceAccountResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Iam::enable_service_account].
@@ -123,8 +136,10 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EnableServiceAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::Iam::disable_service_account].
@@ -132,8 +147,10 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DisableServiceAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::Iam::list_service_account_keys].
@@ -142,11 +159,13 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListServiceAccountKeysRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListServiceAccountKeysResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListServiceAccountKeysResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListServiceAccountKeysResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListServiceAccountKeysResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Iam::get_service_account_key].
@@ -154,11 +173,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetServiceAccountKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceAccountKey>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ServiceAccountKey>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ServiceAccountKey>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServiceAccountKey>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Iam::create_service_account_key].
@@ -166,11 +186,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateServiceAccountKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceAccountKey>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ServiceAccountKey>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ServiceAccountKey>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServiceAccountKey>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Iam::upload_service_account_key].
@@ -178,11 +199,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UploadServiceAccountKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServiceAccountKey>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ServiceAccountKey>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ServiceAccountKey>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServiceAccountKey>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Iam::delete_service_account_key].
@@ -190,8 +212,10 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteServiceAccountKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::Iam::disable_service_account_key].
@@ -199,8 +223,10 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DisableServiceAccountKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::Iam::enable_service_account_key].
@@ -208,8 +234,10 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EnableServiceAccountKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::Iam::sign_blob].
@@ -217,11 +245,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SignBlobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SignBlobResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SignBlobResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SignBlobResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SignBlobResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Iam::sign_jwt].
@@ -229,11 +258,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SignJwtRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SignJwtResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SignJwtResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SignJwtResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SignJwtResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Iam::get_iam_policy].
@@ -241,10 +271,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Iam::set_iam_policy].
@@ -252,10 +284,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Iam::test_iam_permissions].
@@ -263,11 +297,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Iam::query_grantable_roles].
@@ -275,11 +310,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::QueryGrantableRolesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::QueryGrantableRolesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::QueryGrantableRolesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::QueryGrantableRolesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::QueryGrantableRolesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Iam::list_roles].
@@ -287,11 +323,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListRolesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListRolesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListRolesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListRolesResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListRolesResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Iam::get_role].
@@ -299,8 +336,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetRoleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Role>> + Send {
-        std::future::ready::<crate::Result<crate::model::Role>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Role>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Role>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Iam::create_role].
@@ -308,8 +349,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateRoleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Role>> + Send {
-        std::future::ready::<crate::Result<crate::model::Role>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Role>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Role>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Iam::update_role].
@@ -317,8 +362,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateRoleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Role>> + Send {
-        std::future::ready::<crate::Result<crate::model::Role>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Role>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Role>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Iam::delete_role].
@@ -326,8 +375,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteRoleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Role>> + Send {
-        std::future::ready::<crate::Result<crate::model::Role>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Role>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Role>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Iam::undelete_role].
@@ -335,8 +388,12 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UndeleteRoleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Role>> + Send {
-        std::future::ready::<crate::Result<crate::model::Role>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Role>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Role>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Iam::query_testable_permissions].
@@ -345,11 +402,13 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         _req: crate::model::QueryTestablePermissionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::QueryTestablePermissionsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::QueryTestablePermissionsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::QueryTestablePermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::QueryTestablePermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Iam::query_auditable_services].
@@ -358,11 +417,13 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         _req: crate::model::QueryAuditableServicesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::QueryAuditableServicesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::QueryAuditableServicesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::QueryAuditableServicesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::QueryAuditableServicesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Iam::lint_policy].
@@ -370,10 +431,11 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::LintPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::LintPolicyResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::LintPolicyResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LintPolicyResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::LintPolicyResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

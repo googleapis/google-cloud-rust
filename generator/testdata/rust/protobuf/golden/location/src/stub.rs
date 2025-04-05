@@ -46,8 +46,8 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLocationsResponse>> + Send {
-        std::future::ready::<crate::Result<crate::model::ListLocationsResponse>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::ListLocationsResponse>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListLocationsResponse>>>(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Locations::get_location].
@@ -55,8 +55,8 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Location>> + Send {
-        std::future::ready::<crate::Result<crate::model::Location>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Location>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Location>>>(Err(Error::other("unimplemented")))
     }
 }
 

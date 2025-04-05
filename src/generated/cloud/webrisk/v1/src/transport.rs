@@ -44,7 +44,7 @@ impl super::stub::WebRiskService for WebRiskService {
         &self,
         req: crate::model::ComputeThreatListDiffRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ComputeThreatListDiffResponse> {
+    ) -> Result<gax::response::Response<crate::model::ComputeThreatListDiffResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -69,16 +69,18 @@ impl super::stub::WebRiskService for WebRiskService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "constraints")
             });
-        self.inner
+        let response: crate::model::ComputeThreatListDiffResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn search_uris(
         &self,
         req: crate::model::SearchUrisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchUrisResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchUrisResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -92,16 +94,18 @@ impl super::stub::WebRiskService for WebRiskService {
         let builder = req.threat_types.iter().fold(builder, |builder, p| {
             builder.query(&[("threatTypes", p.value())])
         });
-        self.inner
+        let response: crate::model::SearchUrisResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn search_hashes(
         &self,
         req: crate::model::SearchHashesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchHashesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchHashesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -115,16 +119,18 @@ impl super::stub::WebRiskService for WebRiskService {
         let builder = req.threat_types.iter().fold(builder, |builder, p| {
             builder.query(&[("threatTypes", p.value())])
         });
-        self.inner
+        let response: crate::model::SearchHashesResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn create_submission(
         &self,
         req: crate::model::CreateSubmissionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Submission> {
+    ) -> Result<gax::response::Response<crate::model::Submission>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -137,16 +143,18 @@ impl super::stub::WebRiskService for WebRiskService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: crate::model::Submission = self
+            .inner
             .execute(builder, Some(req.submission), options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn submit_uri(
         &self,
         req: crate::model::SubmitUriRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -159,14 +167,16 @@ impl super::stub::WebRiskService for WebRiskService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        let response: longrunning::model::Operation =
+            self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -179,16 +189,18 @@ impl super::stub::WebRiskService for WebRiskService {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
-        self.inner
+        let response: longrunning::model::ListOperationsResponse = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -198,16 +210,18 @@ impl super::stub::WebRiskService for WebRiskService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let response: longrunning::model::Operation = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
+            .await?;
+        Ok(gax::response::Response::from(response))
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -217,17 +231,18 @@ impl super::stub::WebRiskService for WebRiskService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
+        let _: wkt::Empty = self
+            .inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
-            .await
-            .map(|_: wkt::Empty| ())
+            .await?;
+        Ok(gax::response::Response::from(()))
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -237,10 +252,8 @@ impl super::stub::WebRiskService for WebRiskService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        let _: wkt::Empty = self.inner.execute(builder, Some(req), options).await?;
+        Ok(gax::response::Response::from(()))
     }
 
     fn get_polling_error_policy(

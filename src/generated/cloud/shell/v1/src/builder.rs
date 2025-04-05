@@ -93,6 +93,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .get_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
@@ -143,6 +144,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .start_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_environment`.
@@ -248,6 +250,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .authorize_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `authorize_environment`.
@@ -354,6 +357,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .add_public_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `add_public_key`.
@@ -443,6 +447,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .remove_public_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `remove_public_key`.
@@ -530,6 +535,7 @@ pub mod cloud_shell_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

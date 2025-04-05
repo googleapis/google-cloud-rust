@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<oslogin_common::model::SshPublicKey> {
+    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         self.inner.create_ssh_public_key(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::DeletePosixAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_posix_account(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::DeleteSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_ssh_public_key(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetLoginProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LoginProfile> {
+    ) -> Result<gax::response::Response<crate::model::LoginProfile>> {
         self.inner.get_login_profile(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::GetSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<oslogin_common::model::SshPublicKey> {
+    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         self.inner.get_ssh_public_key(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ImportSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ImportSshPublicKeyResponse> {
+    ) -> Result<gax::response::Response<crate::model::ImportSshPublicKeyResponse>> {
         self.inner.import_ssh_public_key(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UpdateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<oslogin_common::model::SshPublicKey> {
+    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         self.inner.update_ssh_public_key(req, options).await
     }
 }

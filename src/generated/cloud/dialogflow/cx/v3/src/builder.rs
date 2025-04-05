@@ -93,6 +93,7 @@ pub mod agents {
             (*self.0.stub)
                 .list_agents(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -162,6 +163,7 @@ pub mod agents {
             (*self.0.stub)
                 .get_agent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAgentRequest::name].
@@ -204,6 +206,7 @@ pub mod agents {
             (*self.0.stub)
                 .create_agent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAgentRequest::parent].
@@ -255,6 +258,7 @@ pub mod agents {
             (*self.0.stub)
                 .update_agent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [agent][crate::model::UpdateAgentRequest::agent].
@@ -309,6 +313,7 @@ pub mod agents {
             (*self.0.stub)
                 .delete_agent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAgentRequest::name].
@@ -356,6 +361,7 @@ pub mod agents {
             (*self.0.stub)
                 .export_agent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_agent`.
@@ -471,6 +477,7 @@ pub mod agents {
             (*self.0.stub)
                 .restore_agent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_agent`.
@@ -561,6 +568,7 @@ pub mod agents {
             (*self.0.stub)
                 .validate_agent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ValidateAgentRequest::name].
@@ -614,6 +622,7 @@ pub mod agents {
             (*self.0.stub)
                 .get_agent_validation_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAgentValidationResultRequest::name].
@@ -665,6 +674,7 @@ pub mod agents {
             (*self.0.stub)
                 .get_generative_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGenerativeSettingsRequest::name].
@@ -718,6 +728,7 @@ pub mod agents {
             (*self.0.stub)
                 .update_generative_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [generative_settings][crate::model::UpdateGenerativeSettingsRequest::generative_settings].
@@ -777,6 +788,7 @@ pub mod agents {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -852,6 +864,7 @@ pub mod agents {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -897,6 +910,7 @@ pub mod agents {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -975,6 +989,7 @@ pub mod agents {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1020,6 +1035,7 @@ pub mod agents {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -1116,6 +1132,7 @@ pub mod changelogs {
             (*self.0.stub)
                 .list_changelogs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1191,6 +1208,7 @@ pub mod changelogs {
             (*self.0.stub)
                 .get_changelog(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetChangelogRequest::name].
@@ -1236,6 +1254,7 @@ pub mod changelogs {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1311,6 +1330,7 @@ pub mod changelogs {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1356,6 +1376,7 @@ pub mod changelogs {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1434,6 +1455,7 @@ pub mod changelogs {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1479,6 +1501,7 @@ pub mod changelogs {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -1575,6 +1598,7 @@ pub mod deployments {
             (*self.0.stub)
                 .list_deployments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1644,6 +1668,7 @@ pub mod deployments {
             (*self.0.stub)
                 .get_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
@@ -1689,6 +1714,7 @@ pub mod deployments {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1764,6 +1790,7 @@ pub mod deployments {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1809,6 +1836,7 @@ pub mod deployments {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1887,6 +1915,7 @@ pub mod deployments {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1932,6 +1961,7 @@ pub mod deployments {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2028,6 +2058,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .get_entity_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEntityTypeRequest::name].
@@ -2079,6 +2110,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .create_entity_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntityTypeRequest::parent].
@@ -2139,6 +2171,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .update_entity_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [entity_type][crate::model::UpdateEntityTypeRequest::entity_type].
@@ -2202,6 +2235,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .delete_entity_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntityTypeRequest::name].
@@ -2250,6 +2284,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .list_entity_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2333,6 +2368,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .export_entity_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_entity_types`.
@@ -2458,6 +2494,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .import_entity_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_entity_types`.
@@ -2567,6 +2604,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2642,6 +2680,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2687,6 +2726,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2765,6 +2805,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2810,6 +2851,7 @@ pub mod entity_types {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2909,6 +2951,7 @@ pub mod environments {
             (*self.0.stub)
                 .list_environments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2978,6 +3021,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
@@ -3028,6 +3072,7 @@ pub mod environments {
             (*self.0.stub)
                 .create_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_environment`.
@@ -3117,6 +3162,7 @@ pub mod environments {
             (*self.0.stub)
                 .update_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_environment`.
@@ -3204,6 +3250,7 @@ pub mod environments {
             (*self.0.stub)
                 .delete_environment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEnvironmentRequest::name].
@@ -3251,6 +3298,7 @@ pub mod environments {
             (*self.0.stub)
                 .lookup_environment_history(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3330,6 +3378,7 @@ pub mod environments {
             (*self.0.stub)
                 .run_continuous_test(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_continuous_test`.
@@ -3415,6 +3464,7 @@ pub mod environments {
             (*self.0.stub)
                 .list_continuous_test_results(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3491,6 +3541,7 @@ pub mod environments {
             (*self.0.stub)
                 .deploy_flow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `deploy_flow`.
@@ -3576,6 +3627,7 @@ pub mod environments {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3651,6 +3703,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3696,6 +3749,7 @@ pub mod environments {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3774,6 +3828,7 @@ pub mod environments {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3819,6 +3874,7 @@ pub mod environments {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3915,6 +3971,7 @@ pub mod experiments {
             (*self.0.stub)
                 .list_experiments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3984,6 +4041,7 @@ pub mod experiments {
             (*self.0.stub)
                 .get_experiment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExperimentRequest::name].
@@ -4029,6 +4087,7 @@ pub mod experiments {
             (*self.0.stub)
                 .create_experiment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateExperimentRequest::parent].
@@ -4083,6 +4142,7 @@ pub mod experiments {
             (*self.0.stub)
                 .update_experiment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [experiment][crate::model::UpdateExperimentRequest::experiment].
@@ -4140,6 +4200,7 @@ pub mod experiments {
             (*self.0.stub)
                 .delete_experiment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteExperimentRequest::name].
@@ -4182,6 +4243,7 @@ pub mod experiments {
             (*self.0.stub)
                 .start_experiment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StartExperimentRequest::name].
@@ -4224,6 +4286,7 @@ pub mod experiments {
             (*self.0.stub)
                 .stop_experiment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StopExperimentRequest::name].
@@ -4269,6 +4332,7 @@ pub mod experiments {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4344,6 +4408,7 @@ pub mod experiments {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -4389,6 +4454,7 @@ pub mod experiments {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4467,6 +4533,7 @@ pub mod experiments {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4512,6 +4579,7 @@ pub mod experiments {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -4608,6 +4676,7 @@ pub mod flows {
             (*self.0.stub)
                 .create_flow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFlowRequest::parent].
@@ -4662,6 +4731,7 @@ pub mod flows {
             (*self.0.stub)
                 .delete_flow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFlowRequest::name].
@@ -4710,6 +4780,7 @@ pub mod flows {
             (*self.0.stub)
                 .list_flows(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4784,6 +4855,7 @@ pub mod flows {
             (*self.0.stub)
                 .get_flow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFlowRequest::name].
@@ -4832,6 +4904,7 @@ pub mod flows {
             (*self.0.stub)
                 .update_flow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [flow][crate::model::UpdateFlowRequest::flow].
@@ -4894,6 +4967,7 @@ pub mod flows {
             (*self.0.stub)
                 .train_flow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `train_flow`.
@@ -4966,6 +5040,7 @@ pub mod flows {
             (*self.0.stub)
                 .validate_flow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ValidateFlowRequest::name].
@@ -5019,6 +5094,7 @@ pub mod flows {
             (*self.0.stub)
                 .get_flow_validation_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFlowValidationResultRequest::name].
@@ -5072,6 +5148,7 @@ pub mod flows {
             (*self.0.stub)
                 .import_flow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_flow`.
@@ -5178,6 +5255,7 @@ pub mod flows {
             (*self.0.stub)
                 .export_flow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_flow`.
@@ -5265,6 +5343,7 @@ pub mod flows {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5340,6 +5419,7 @@ pub mod flows {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -5385,6 +5465,7 @@ pub mod flows {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5463,6 +5544,7 @@ pub mod flows {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -5508,6 +5590,7 @@ pub mod flows {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -5604,6 +5687,7 @@ pub mod generators {
             (*self.0.stub)
                 .list_generators(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5679,6 +5763,7 @@ pub mod generators {
             (*self.0.stub)
                 .get_generator(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGeneratorRequest::name].
@@ -5727,6 +5812,7 @@ pub mod generators {
             (*self.0.stub)
                 .create_generator(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateGeneratorRequest::parent].
@@ -5784,6 +5870,7 @@ pub mod generators {
             (*self.0.stub)
                 .update_generator(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [generator][crate::model::UpdateGeneratorRequest::generator].
@@ -5844,6 +5931,7 @@ pub mod generators {
             (*self.0.stub)
                 .delete_generator(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteGeneratorRequest::name].
@@ -5895,6 +5983,7 @@ pub mod generators {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5970,6 +6059,7 @@ pub mod generators {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -6015,6 +6105,7 @@ pub mod generators {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -6093,6 +6184,7 @@ pub mod generators {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -6138,6 +6230,7 @@ pub mod generators {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -6234,6 +6327,7 @@ pub mod intents {
             (*self.0.stub)
                 .list_intents(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -6315,6 +6409,7 @@ pub mod intents {
             (*self.0.stub)
                 .get_intent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIntentRequest::name].
@@ -6363,6 +6458,7 @@ pub mod intents {
             (*self.0.stub)
                 .create_intent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateIntentRequest::parent].
@@ -6420,6 +6516,7 @@ pub mod intents {
             (*self.0.stub)
                 .update_intent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [intent][crate::model::UpdateIntentRequest::intent].
@@ -6480,6 +6577,7 @@ pub mod intents {
             (*self.0.stub)
                 .delete_intent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIntentRequest::name].
@@ -6527,6 +6625,7 @@ pub mod intents {
             (*self.0.stub)
                 .import_intents(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_intents`.
@@ -6628,6 +6727,7 @@ pub mod intents {
             (*self.0.stub)
                 .export_intents(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_intents`.
@@ -6740,6 +6840,7 @@ pub mod intents {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -6815,6 +6916,7 @@ pub mod intents {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -6860,6 +6962,7 @@ pub mod intents {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -6938,6 +7041,7 @@ pub mod intents {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -6983,6 +7087,7 @@ pub mod intents {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -7079,6 +7184,7 @@ pub mod pages {
             (*self.0.stub)
                 .list_pages(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -7153,6 +7259,7 @@ pub mod pages {
             (*self.0.stub)
                 .get_page(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPageRequest::name].
@@ -7201,6 +7308,7 @@ pub mod pages {
             (*self.0.stub)
                 .create_page(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePageRequest::parent].
@@ -7255,6 +7363,7 @@ pub mod pages {
             (*self.0.stub)
                 .update_page(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [page][crate::model::UpdatePageRequest::page].
@@ -7312,6 +7421,7 @@ pub mod pages {
             (*self.0.stub)
                 .delete_page(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePageRequest::name].
@@ -7363,6 +7473,7 @@ pub mod pages {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -7438,6 +7549,7 @@ pub mod pages {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -7483,6 +7595,7 @@ pub mod pages {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -7561,6 +7674,7 @@ pub mod pages {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -7606,6 +7720,7 @@ pub mod pages {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -7709,6 +7824,7 @@ pub mod security_settings_service {
             (*self.0.stub)
                 .create_security_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSecuritySettingsRequest::parent].
@@ -7767,6 +7883,7 @@ pub mod security_settings_service {
             (*self.0.stub)
                 .get_security_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSecuritySettingsRequest::name].
@@ -7814,6 +7931,7 @@ pub mod security_settings_service {
             (*self.0.stub)
                 .update_security_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [security_settings][crate::model::UpdateSecuritySettingsRequest::security_settings].
@@ -7875,6 +7993,7 @@ pub mod security_settings_service {
             (*self.0.stub)
                 .list_security_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -7949,6 +8068,7 @@ pub mod security_settings_service {
             (*self.0.stub)
                 .delete_security_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSecuritySettingsRequest::name].
@@ -7996,6 +8116,7 @@ pub mod security_settings_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -8073,6 +8194,7 @@ pub mod security_settings_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -8120,6 +8242,7 @@ pub mod security_settings_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -8200,6 +8323,7 @@ pub mod security_settings_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -8247,6 +8371,7 @@ pub mod security_settings_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -8343,6 +8468,7 @@ pub mod sessions {
             (*self.0.stub)
                 .detect_intent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [session][crate::model::DetectIntentRequest::session].
@@ -8414,6 +8540,7 @@ pub mod sessions {
             (*self.0.stub)
                 .match_intent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [session][crate::model::MatchIntentRequest::session].
@@ -8480,6 +8607,7 @@ pub mod sessions {
             (*self.0.stub)
                 .fulfill_intent(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [match_intent_request][crate::model::FulfillIntentRequest::match_intent_request].
@@ -8550,6 +8678,7 @@ pub mod sessions {
             (*self.0.stub)
                 .submit_answer_feedback(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [session][crate::model::SubmitAnswerFeedbackRequest::session].
@@ -8619,6 +8748,7 @@ pub mod sessions {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -8694,6 +8824,7 @@ pub mod sessions {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -8739,6 +8870,7 @@ pub mod sessions {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -8817,6 +8949,7 @@ pub mod sessions {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -8862,6 +8995,7 @@ pub mod sessions {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -8961,6 +9095,7 @@ pub mod session_entity_types {
             (*self.0.stub)
                 .list_session_entity_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -9035,6 +9170,7 @@ pub mod session_entity_types {
             (*self.0.stub)
                 .get_session_entity_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSessionEntityTypeRequest::name].
@@ -9082,6 +9218,7 @@ pub mod session_entity_types {
             (*self.0.stub)
                 .create_session_entity_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSessionEntityTypeRequest::parent].
@@ -9140,6 +9277,7 @@ pub mod session_entity_types {
             (*self.0.stub)
                 .update_session_entity_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [session_entity_type][crate::model::UpdateSessionEntityTypeRequest::session_entity_type].
@@ -9201,6 +9339,7 @@ pub mod session_entity_types {
             (*self.0.stub)
                 .delete_session_entity_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSessionEntityTypeRequest::name].
@@ -9246,6 +9385,7 @@ pub mod session_entity_types {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -9321,6 +9461,7 @@ pub mod session_entity_types {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -9366,6 +9507,7 @@ pub mod session_entity_types {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -9444,6 +9586,7 @@ pub mod session_entity_types {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -9489,6 +9632,7 @@ pub mod session_entity_types {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -9585,6 +9729,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .list_test_cases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -9666,6 +9811,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .batch_delete_test_cases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteTestCasesRequest::parent].
@@ -9719,6 +9865,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .get_test_case(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTestCaseRequest::name].
@@ -9761,6 +9908,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .create_test_case(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTestCaseRequest::parent].
@@ -9812,6 +9960,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .update_test_case(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [test_case][crate::model::UpdateTestCaseRequest::test_case].
@@ -9871,6 +10020,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .run_test_case(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_test_case`.
@@ -9963,6 +10113,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .batch_run_test_cases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_run_test_cases`.
@@ -10063,6 +10214,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .calculate_coverage(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [agent][crate::model::CalculateCoverageRequest::agent].
@@ -10119,6 +10271,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .import_test_cases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_test_cases`.
@@ -10211,6 +10364,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .export_test_cases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_test_cases`.
@@ -10318,6 +10472,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .list_test_case_results(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -10396,6 +10551,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .get_test_case_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTestCaseResultRequest::name].
@@ -10441,6 +10597,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -10516,6 +10673,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -10561,6 +10719,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -10639,6 +10798,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -10684,6 +10844,7 @@ pub mod test_cases {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -10789,6 +10950,7 @@ pub mod transition_route_groups {
             (*self.0.stub)
                 .list_transition_route_groups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -10873,6 +11035,7 @@ pub mod transition_route_groups {
             (*self.0.stub)
                 .get_transition_route_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTransitionRouteGroupRequest::name].
@@ -10928,6 +11091,7 @@ pub mod transition_route_groups {
             (*self.0.stub)
                 .create_transition_route_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTransitionRouteGroupRequest::parent].
@@ -10994,6 +11158,7 @@ pub mod transition_route_groups {
             (*self.0.stub)
                 .update_transition_route_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [transition_route_group][crate::model::UpdateTransitionRouteGroupRequest::transition_route_group].
@@ -11063,6 +11228,7 @@ pub mod transition_route_groups {
             (*self.0.stub)
                 .delete_transition_route_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTransitionRouteGroupRequest::name].
@@ -11116,6 +11282,7 @@ pub mod transition_route_groups {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -11193,6 +11360,7 @@ pub mod transition_route_groups {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -11240,6 +11408,7 @@ pub mod transition_route_groups {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -11320,6 +11489,7 @@ pub mod transition_route_groups {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -11367,6 +11537,7 @@ pub mod transition_route_groups {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -11463,6 +11634,7 @@ pub mod versions {
             (*self.0.stub)
                 .list_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -11532,6 +11704,7 @@ pub mod versions {
             (*self.0.stub)
                 .get_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVersionRequest::name].
@@ -11579,6 +11752,7 @@ pub mod versions {
             (*self.0.stub)
                 .create_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_version`.
@@ -11664,6 +11838,7 @@ pub mod versions {
             (*self.0.stub)
                 .update_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
@@ -11718,6 +11893,7 @@ pub mod versions {
             (*self.0.stub)
                 .delete_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteVersionRequest::name].
@@ -11765,6 +11941,7 @@ pub mod versions {
             (*self.0.stub)
                 .load_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `load_version`.
@@ -11843,6 +12020,7 @@ pub mod versions {
             (*self.0.stub)
                 .compare_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [base_version][crate::model::CompareVersionsRequest::base_version].
@@ -11900,6 +12078,7 @@ pub mod versions {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -11975,6 +12154,7 @@ pub mod versions {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -12020,6 +12200,7 @@ pub mod versions {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -12098,6 +12279,7 @@ pub mod versions {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -12143,6 +12325,7 @@ pub mod versions {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -12239,6 +12422,7 @@ pub mod webhooks {
             (*self.0.stub)
                 .list_webhooks(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -12308,6 +12492,7 @@ pub mod webhooks {
             (*self.0.stub)
                 .get_webhook(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWebhookRequest::name].
@@ -12350,6 +12535,7 @@ pub mod webhooks {
             (*self.0.stub)
                 .create_webhook(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateWebhookRequest::parent].
@@ -12401,6 +12587,7 @@ pub mod webhooks {
             (*self.0.stub)
                 .update_webhook(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [webhook][crate::model::UpdateWebhookRequest::webhook].
@@ -12455,6 +12642,7 @@ pub mod webhooks {
             (*self.0.stub)
                 .delete_webhook(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteWebhookRequest::name].
@@ -12506,6 +12694,7 @@ pub mod webhooks {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -12581,6 +12770,7 @@ pub mod webhooks {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -12626,6 +12816,7 @@ pub mod webhooks {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -12704,6 +12895,7 @@ pub mod webhooks {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -12749,6 +12941,7 @@ pub mod webhooks {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::SearchDomainsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchDomainsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchDomainsResponse>> {
         self.inner.search_domains(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::RetrieveRegisterParametersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RetrieveRegisterParametersResponse> {
+    ) -> Result<gax::response::Response<crate::model::RetrieveRegisterParametersResponse>> {
         self.inner.retrieve_register_parameters(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::RegisterDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.register_domain(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::RetrieveTransferParametersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RetrieveTransferParametersResponse> {
+    ) -> Result<gax::response::Response<crate::model::RetrieveTransferParametersResponse>> {
         self.inner.retrieve_transfer_parameters(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::TransferDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.transfer_domain(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListRegistrationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRegistrationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRegistrationsResponse>> {
         self.inner.list_registrations(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Registration> {
+    ) -> Result<gax::response::Response<crate::model::Registration>> {
         self.inner.get_registration(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::UpdateRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_registration(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::ConfigureManagementSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.configure_management_settings(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ConfigureDnsSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.configure_dns_settings(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::ConfigureContactSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.configure_contact_settings(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::ExportRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.export_registration(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::DeleteRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_registration(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::RetrieveAuthorizationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AuthorizationCode> {
+    ) -> Result<gax::response::Response<crate::model::AuthorizationCode>> {
         self.inner.retrieve_authorization_code(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::ResetAuthorizationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AuthorizationCode> {
+    ) -> Result<gax::response::Response<crate::model::AuthorizationCode>> {
         self.inner.reset_authorization_code(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

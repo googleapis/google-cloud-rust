@@ -21,187 +21,187 @@ pub trait Iam: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListServiceAccountsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceAccountsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceAccountsResponse>>;
 
     async fn get_service_account(
         &self,
         req: crate::model::GetServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccount>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccount>>;
 
     async fn create_service_account(
         &self,
         req: crate::model::CreateServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccount>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccount>>;
 
     async fn update_service_account(
         &self,
         req: crate::model::ServiceAccount,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccount>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccount>>;
 
     async fn patch_service_account(
         &self,
         req: crate::model::PatchServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccount>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccount>>;
 
     async fn delete_service_account(
         &self,
         req: crate::model::DeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn undelete_service_account(
         &self,
         req: crate::model::UndeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UndeleteServiceAccountResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::UndeleteServiceAccountResponse>>;
 
     async fn enable_service_account(
         &self,
         req: crate::model::EnableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn disable_service_account(
         &self,
         req: crate::model::DisableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_service_account_keys(
         &self,
         req: crate::model::ListServiceAccountKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceAccountKeysResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceAccountKeysResponse>>;
 
     async fn get_service_account_key(
         &self,
         req: crate::model::GetServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccountKey>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccountKey>>;
 
     async fn create_service_account_key(
         &self,
         req: crate::model::CreateServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccountKey>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccountKey>>;
 
     async fn upload_service_account_key(
         &self,
         req: crate::model::UploadServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccountKey>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccountKey>>;
 
     async fn delete_service_account_key(
         &self,
         req: crate::model::DeleteServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn disable_service_account_key(
         &self,
         req: crate::model::DisableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn enable_service_account_key(
         &self,
         req: crate::model::EnableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn sign_blob(
         &self,
         req: crate::model::SignBlobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SignBlobResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SignBlobResponse>>;
 
     async fn sign_jwt(
         &self,
         req: crate::model::SignJwtRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SignJwtResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SignJwtResponse>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn query_grantable_roles(
         &self,
         req: crate::model::QueryGrantableRolesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryGrantableRolesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::QueryGrantableRolesResponse>>;
 
     async fn list_roles(
         &self,
         req: crate::model::ListRolesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRolesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRolesResponse>>;
 
     async fn get_role(
         &self,
         req: crate::model::GetRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Role>;
+    ) -> crate::Result<gax::response::Response<crate::model::Role>>;
 
     async fn create_role(
         &self,
         req: crate::model::CreateRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Role>;
+    ) -> crate::Result<gax::response::Response<crate::model::Role>>;
 
     async fn update_role(
         &self,
         req: crate::model::UpdateRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Role>;
+    ) -> crate::Result<gax::response::Response<crate::model::Role>>;
 
     async fn delete_role(
         &self,
         req: crate::model::DeleteRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Role>;
+    ) -> crate::Result<gax::response::Response<crate::model::Role>>;
 
     async fn undelete_role(
         &self,
         req: crate::model::UndeleteRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Role>;
+    ) -> crate::Result<gax::response::Response<crate::model::Role>>;
 
     async fn query_testable_permissions(
         &self,
         req: crate::model::QueryTestablePermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryTestablePermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTestablePermissionsResponse>>;
 
     async fn query_auditable_services(
         &self,
         req: crate::model::QueryAuditableServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryAuditableServicesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::QueryAuditableServicesResponse>>;
 
     async fn lint_policy(
         &self,
         req: crate::model::LintPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LintPolicyResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::LintPolicyResponse>>;
 }
 
 /// All implementations of [super::Iam] also implement [Iam].
@@ -212,7 +212,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::ListServiceAccountsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceAccountsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceAccountsResponse>> {
         T::list_service_accounts(self, req, options).await
     }
 
@@ -221,7 +221,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::GetServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccount> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccount>> {
         T::get_service_account(self, req, options).await
     }
 
@@ -230,7 +230,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::CreateServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccount> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccount>> {
         T::create_service_account(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::ServiceAccount,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccount> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccount>> {
         T::update_service_account(self, req, options).await
     }
 
@@ -248,7 +248,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::PatchServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccount> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccount>> {
         T::patch_service_account(self, req, options).await
     }
 
@@ -257,7 +257,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::DeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_service_account(self, req, options).await
     }
 
@@ -266,7 +266,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::UndeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UndeleteServiceAccountResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::UndeleteServiceAccountResponse>> {
         T::undelete_service_account(self, req, options).await
     }
 
@@ -275,7 +275,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::EnableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::enable_service_account(self, req, options).await
     }
 
@@ -284,7 +284,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::DisableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::disable_service_account(self, req, options).await
     }
 
@@ -293,7 +293,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::ListServiceAccountKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceAccountKeysResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceAccountKeysResponse>> {
         T::list_service_account_keys(self, req, options).await
     }
 
@@ -302,7 +302,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::GetServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccountKey> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccountKey>> {
         T::get_service_account_key(self, req, options).await
     }
 
@@ -311,7 +311,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::CreateServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccountKey> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccountKey>> {
         T::create_service_account_key(self, req, options).await
     }
 
@@ -320,7 +320,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::UploadServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceAccountKey> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceAccountKey>> {
         T::upload_service_account_key(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::DeleteServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_service_account_key(self, req, options).await
     }
 
@@ -338,7 +338,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::DisableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::disable_service_account_key(self, req, options).await
     }
 
@@ -347,7 +347,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::EnableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::enable_service_account_key(self, req, options).await
     }
 
@@ -356,7 +356,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::SignBlobRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SignBlobResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SignBlobResponse>> {
         T::sign_blob(self, req, options).await
     }
 
@@ -365,7 +365,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::SignJwtRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SignJwtResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SignJwtResponse>> {
         T::sign_jwt(self, req, options).await
     }
 
@@ -374,7 +374,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -383,7 +383,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -392,7 +392,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -401,7 +401,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::QueryGrantableRolesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryGrantableRolesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryGrantableRolesResponse>> {
         T::query_grantable_roles(self, req, options).await
     }
 
@@ -410,7 +410,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::ListRolesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRolesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRolesResponse>> {
         T::list_roles(self, req, options).await
     }
 
@@ -419,7 +419,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::GetRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Role> {
+    ) -> crate::Result<gax::response::Response<crate::model::Role>> {
         T::get_role(self, req, options).await
     }
 
@@ -428,7 +428,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::CreateRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Role> {
+    ) -> crate::Result<gax::response::Response<crate::model::Role>> {
         T::create_role(self, req, options).await
     }
 
@@ -437,7 +437,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::UpdateRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Role> {
+    ) -> crate::Result<gax::response::Response<crate::model::Role>> {
         T::update_role(self, req, options).await
     }
 
@@ -446,7 +446,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::DeleteRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Role> {
+    ) -> crate::Result<gax::response::Response<crate::model::Role>> {
         T::delete_role(self, req, options).await
     }
 
@@ -455,7 +455,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::UndeleteRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Role> {
+    ) -> crate::Result<gax::response::Response<crate::model::Role>> {
         T::undelete_role(self, req, options).await
     }
 
@@ -464,7 +464,8 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::QueryTestablePermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryTestablePermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTestablePermissionsResponse>>
+    {
         T::query_testable_permissions(self, req, options).await
     }
 
@@ -473,7 +474,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::QueryAuditableServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryAuditableServicesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryAuditableServicesResponse>> {
         T::query_auditable_services(self, req, options).await
     }
 
@@ -482,7 +483,7 @@ impl<T: super::Iam> Iam for T {
         &self,
         req: crate::model::LintPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LintPolicyResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::LintPolicyResponse>> {
         T::lint_policy(self, req, options).await
     }
 }

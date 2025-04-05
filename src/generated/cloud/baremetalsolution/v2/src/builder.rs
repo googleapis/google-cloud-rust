@@ -93,6 +93,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_instances(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -168,6 +169,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -215,6 +217,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_instance`.
@@ -302,6 +305,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .rename_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameInstanceRequest::name].
@@ -355,6 +359,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .reset_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reset_instance`.
@@ -438,6 +443,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .start_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_instance`.
@@ -521,6 +527,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .stop_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_instance`.
@@ -607,6 +614,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .enable_interactive_serial_console(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `enable_interactive_serial_console`.
@@ -697,6 +705,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .disable_interactive_serial_console(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `disable_interactive_serial_console`.
@@ -782,6 +791,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .detach_lun(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `detach_lun`.
@@ -869,6 +879,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_ssh_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -938,6 +949,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .create_ssh_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSSHKeyRequest::parent].
@@ -995,6 +1007,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .delete_ssh_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSSHKeyRequest::name].
@@ -1037,6 +1050,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_volumes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1112,6 +1126,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_volume(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVolumeRequest::name].
@@ -1159,6 +1174,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_volume`.
@@ -1245,6 +1261,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .rename_volume(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameVolumeRequest::name].
@@ -1298,6 +1315,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .evict_volume(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `evict_volume`.
@@ -1375,6 +1393,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .resize_volume(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `resize_volume`.
@@ -1455,6 +1474,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_networks(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1533,6 +1553,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_network_usage(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [location][crate::model::ListNetworkUsageRequest::location].
@@ -1575,6 +1596,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNetworkRequest::name].
@@ -1622,6 +1644,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .update_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_network`.
@@ -1711,6 +1734,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .create_volume_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateVolumeSnapshotRequest::parent].
@@ -1770,6 +1794,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .restore_volume_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_volume_snapshot`.
@@ -1849,6 +1874,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .delete_volume_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteVolumeSnapshotRequest::name].
@@ -1894,6 +1920,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_volume_snapshot(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVolumeSnapshotRequest::name].
@@ -1939,6 +1966,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_volume_snapshots(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2005,7 +2033,10 @@ pub mod bare_metal_solution {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Lun> {
-            (*self.0.stub).get_lun(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_lun(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLunRequest::name].
@@ -2048,6 +2079,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_luns(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2121,6 +2153,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .evict_lun(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `evict_lun`.
@@ -2193,6 +2226,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_nfs_share(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNfsShareRequest::name].
@@ -2235,6 +2269,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_nfs_shares(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2315,6 +2350,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .update_nfs_share(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_nfs_share`.
@@ -2407,6 +2443,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .create_nfs_share(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_nfs_share`.
@@ -2491,6 +2528,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .rename_nfs_share(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameNfsShareRequest::name].
@@ -2544,6 +2582,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .delete_nfs_share(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_nfs_share`.
@@ -2619,6 +2658,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_provisioning_quotas(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2695,6 +2735,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .submit_provisioning_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::SubmitProvisioningConfigRequest::parent].
@@ -2757,6 +2798,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_provisioning_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProvisioningConfigRequest::name].
@@ -2804,6 +2846,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .create_provisioning_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProvisioningConfigRequest::parent].
@@ -2868,6 +2911,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .update_provisioning_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
@@ -2930,6 +2974,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .rename_network(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameNetworkRequest::name].
@@ -2978,6 +3023,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_os_images(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3050,6 +3096,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3125,6 +3172,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3170,6 +3218,7 @@ pub mod bare_metal_solution {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

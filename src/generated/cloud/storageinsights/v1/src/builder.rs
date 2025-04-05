@@ -96,6 +96,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .list_report_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -177,6 +178,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .get_report_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReportConfigRequest::name].
@@ -222,6 +224,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .create_report_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateReportConfigRequest::parent].
@@ -282,6 +285,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .update_report_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReportConfigRequest::update_mask].
@@ -345,6 +349,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .delete_report_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteReportConfigRequest::name].
@@ -402,6 +407,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .list_report_details(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -483,6 +489,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .get_report_detail(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReportDetailRequest::name].
@@ -528,6 +535,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -603,6 +611,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -648,6 +657,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -726,6 +736,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -771,6 +782,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -816,6 +828,7 @@ pub mod storage_insights {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

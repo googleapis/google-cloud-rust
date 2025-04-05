@@ -93,6 +93,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_sources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSourceRequest::name].
@@ -221,6 +223,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .create_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_source`.
@@ -321,6 +324,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .update_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_source`.
@@ -418,6 +422,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .delete_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_source`.
@@ -496,6 +501,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .fetch_inventory(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [source][crate::model::FetchInventoryRequest::source].
@@ -547,6 +553,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_utilization_reports(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -639,6 +646,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_utilization_report(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUtilizationReportRequest::name].
@@ -697,6 +705,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .create_utilization_report(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_utilization_report`.
@@ -806,6 +815,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .delete_utilization_report(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_utilization_report`.
@@ -889,6 +899,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_datacenter_connectors(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -975,6 +986,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_datacenter_connector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDatacenterConnectorRequest::name].
@@ -1027,6 +1039,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .create_datacenter_connector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_datacenter_connector`.
@@ -1136,6 +1149,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .delete_datacenter_connector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_datacenter_connector`.
@@ -1222,6 +1236,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .upgrade_appliance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `upgrade_appliance`.
@@ -1314,6 +1329,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .create_migrating_vm(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_migrating_vm`.
@@ -1413,6 +1429,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_migrating_vms(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1500,6 +1517,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_migrating_vm(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMigratingVmRequest::name].
@@ -1556,6 +1574,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .update_migrating_vm(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_migrating_vm`.
@@ -1657,6 +1676,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .delete_migrating_vm(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_migrating_vm`.
@@ -1734,6 +1754,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .start_migration(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_migration`.
@@ -1817,6 +1838,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .resume_migration(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `resume_migration`.
@@ -1900,6 +1922,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .pause_migration(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `pause_migration`.
@@ -1986,6 +2009,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .finalize_migration(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `finalize_migration`.
@@ -2069,6 +2093,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .create_clone_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_clone_job`.
@@ -2170,6 +2195,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .cancel_clone_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `cancel_clone_job`.
@@ -2248,6 +2274,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_clone_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2329,6 +2356,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_clone_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCloneJobRequest::name].
@@ -2379,6 +2407,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .create_cutover_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cutover_job`.
@@ -2483,6 +2512,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .cancel_cutover_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `cancel_cutover_job`.
@@ -2561,6 +2591,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_cutover_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2642,6 +2673,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_cutover_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCutoverJobRequest::name].
@@ -2684,6 +2716,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_groups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2765,6 +2798,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGroupRequest::name].
@@ -2812,6 +2846,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .create_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_group`.
@@ -2912,6 +2947,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_group`.
@@ -3009,6 +3045,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .delete_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_group`.
@@ -3095,6 +3132,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .add_group_migration(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `add_group_migration`.
@@ -3187,6 +3225,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .remove_group_migration(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `remove_group_migration`.
@@ -3274,6 +3313,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_target_projects(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3358,6 +3398,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_target_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTargetProjectRequest::name].
@@ -3408,6 +3449,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .create_target_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_target_project`.
@@ -3513,6 +3555,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .update_target_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_target_project`.
@@ -3615,6 +3658,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .delete_target_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_target_project`.
@@ -3696,6 +3740,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_replication_cycles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3780,6 +3825,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_replication_cycle(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReplicationCycleRequest::name].
@@ -3825,6 +3871,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3900,6 +3947,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3945,6 +3993,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4023,6 +4072,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4068,6 +4118,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4113,6 +4164,7 @@ pub mod vm_migration {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

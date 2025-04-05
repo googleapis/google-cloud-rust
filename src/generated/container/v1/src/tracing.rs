@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListClustersResponse>> {
         self.inner.list_clusters(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Cluster> {
+    ) -> Result<gax::response::Response<crate::model::Cluster>> {
         self.inner.get_cluster(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.create_cluster(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.update_cluster(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.update_node_pool(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::SetNodePoolAutoscalingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_node_pool_autoscaling(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::SetLoggingServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_logging_service(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::SetMonitoringServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_monitoring_service(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::SetAddonsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_addons_config(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::SetLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_locations(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::UpdateMasterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.update_master(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::SetMasterAuthRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_master_auth(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.delete_cluster(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::GetServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServerConfig> {
+    ) -> Result<gax::response::Response<crate::model::ServerConfig>> {
         self.inner.get_server_config(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::GetJSONWebKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GetJSONWebKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>> {
         self.inner.get_json_web_keys(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::ListNodePoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNodePoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNodePoolsResponse>> {
         self.inner.list_node_pools(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::GetNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NodePool> {
+    ) -> Result<gax::response::Response<crate::model::NodePool>> {
         self.inner.get_node_pool(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::CreateNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.create_node_pool(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::DeleteNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.delete_node_pool(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::CompleteNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.complete_node_pool_upgrade(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: crate::model::RollbackNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.rollback_node_pool_upgrade(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::SetNodePoolManagementRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_node_pool_management(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::SetLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_labels(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::SetLegacyAbacRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_legacy_abac(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::StartIPRotationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.start_ip_rotation(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: crate::model::CompleteIPRotationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.complete_ip_rotation(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: crate::model::SetNodePoolSizeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_node_pool_size(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: crate::model::SetNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_network_policy(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: crate::model::SetMaintenancePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_maintenance_policy(req, options).await
     }
 
@@ -330,7 +330,7 @@ where
         &self,
         req: crate::model::ListUsableSubnetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUsableSubnetworksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUsableSubnetworksResponse>> {
         self.inner.list_usable_subnetworks(req, options).await
     }
 
@@ -339,7 +339,7 @@ where
         &self,
         req: crate::model::CheckAutopilotCompatibilityRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CheckAutopilotCompatibilityResponse> {
+    ) -> Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>> {
         self.inner.check_autopilot_compatibility(req, options).await
     }
 }

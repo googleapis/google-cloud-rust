@@ -96,6 +96,7 @@ pub mod datastream {
             (*self.0.stub)
                 .list_connection_profiles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -182,6 +183,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_connection_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectionProfileRequest::name].
@@ -234,6 +236,7 @@ pub mod datastream {
             (*self.0.stub)
                 .create_connection_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_connection_profile`.
@@ -355,6 +358,7 @@ pub mod datastream {
             (*self.0.stub)
                 .update_connection_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_connection_profile`.
@@ -473,6 +477,7 @@ pub mod datastream {
             (*self.0.stub)
                 .delete_connection_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection_profile`.
@@ -556,6 +561,7 @@ pub mod datastream {
             (*self.0.stub)
                 .discover_connection_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::DiscoverConnectionProfileRequest::parent].
@@ -631,6 +637,7 @@ pub mod datastream {
             (*self.0.stub)
                 .list_streams(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -712,6 +719,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_stream(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetStreamRequest::name].
@@ -759,6 +767,7 @@ pub mod datastream {
             (*self.0.stub)
                 .create_stream(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_stream`.
@@ -871,6 +880,7 @@ pub mod datastream {
             (*self.0.stub)
                 .update_stream(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_stream`.
@@ -980,6 +990,7 @@ pub mod datastream {
             (*self.0.stub)
                 .delete_stream(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_stream`.
@@ -1063,6 +1074,7 @@ pub mod datastream {
             (*self.0.stub)
                 .run_stream(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_stream`.
@@ -1152,6 +1164,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_stream_object(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetStreamObjectRequest::name].
@@ -1197,6 +1210,7 @@ pub mod datastream {
             (*self.0.stub)
                 .lookup_stream_object(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::LookupStreamObjectRequest::parent].
@@ -1253,6 +1267,7 @@ pub mod datastream {
             (*self.0.stub)
                 .list_stream_objects(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1325,6 +1340,7 @@ pub mod datastream {
             (*self.0.stub)
                 .start_backfill_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [object][crate::model::StartBackfillJobRequest::object].
@@ -1367,6 +1383,7 @@ pub mod datastream {
             (*self.0.stub)
                 .stop_backfill_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [object][crate::model::StopBackfillJobRequest::object].
@@ -1409,6 +1426,7 @@ pub mod datastream {
             (*self.0.stub)
                 .fetch_static_ips(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchStaticIpsRequest::name].
@@ -1473,6 +1491,7 @@ pub mod datastream {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_private_connection`.
@@ -1581,6 +1600,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_private_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPrivateConnectionRequest::name].
@@ -1626,6 +1646,7 @@ pub mod datastream {
             (*self.0.stub)
                 .list_private_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1719,6 +1740,7 @@ pub mod datastream {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
@@ -1808,6 +1830,7 @@ pub mod datastream {
             (*self.0.stub)
                 .create_route(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_route`.
@@ -1903,6 +1926,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_route(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRouteRequest::name].
@@ -1945,6 +1969,7 @@ pub mod datastream {
             (*self.0.stub)
                 .list_routes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2031,6 +2056,7 @@ pub mod datastream {
             (*self.0.stub)
                 .delete_route(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_route`.
@@ -2112,6 +2138,7 @@ pub mod datastream {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2187,6 +2214,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2232,6 +2260,7 @@ pub mod datastream {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2310,6 +2339,7 @@ pub mod datastream {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2355,6 +2385,7 @@ pub mod datastream {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2400,6 +2431,7 @@ pub mod datastream {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

@@ -93,6 +93,7 @@ pub mod function_service {
             (*self.0.stub)
                 .get_function(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFunctionRequest::name].
@@ -141,6 +142,7 @@ pub mod function_service {
             (*self.0.stub)
                 .list_functions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -227,6 +229,7 @@ pub mod function_service {
             (*self.0.stub)
                 .create_function(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_function`.
@@ -322,6 +325,7 @@ pub mod function_service {
             (*self.0.stub)
                 .update_function(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_function`.
@@ -414,6 +418,7 @@ pub mod function_service {
             (*self.0.stub)
                 .delete_function(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_function`.
@@ -489,6 +494,7 @@ pub mod function_service {
             (*self.0.stub)
                 .generate_upload_url(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GenerateUploadUrlRequest::parent].
@@ -546,6 +552,7 @@ pub mod function_service {
             (*self.0.stub)
                 .generate_download_url(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateDownloadUrlRequest::name].
@@ -588,6 +595,7 @@ pub mod function_service {
             (*self.0.stub)
                 .list_runtimes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListRuntimesRequest::parent].
@@ -639,6 +647,7 @@ pub mod function_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -714,6 +723,7 @@ pub mod function_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -774,6 +784,7 @@ pub mod function_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -828,6 +839,7 @@ pub mod function_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -884,6 +896,7 @@ pub mod function_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -962,6 +975,7 @@ pub mod function_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

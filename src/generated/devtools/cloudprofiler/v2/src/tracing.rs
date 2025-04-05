@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Profile> {
+    ) -> Result<gax::response::Response<crate::model::Profile>> {
         self.inner.create_profile(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::CreateOfflineProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Profile> {
+    ) -> Result<gax::response::Response<crate::model::Profile>> {
         self.inner.create_offline_profile(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::UpdateProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Profile> {
+    ) -> Result<gax::response::Response<crate::model::Profile>> {
         self.inner.update_profile(req, options).await
     }
 }
@@ -92,7 +92,7 @@ where
         &self,
         req: crate::model::ListProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProfilesResponse>> {
         self.inner.list_profiles(req, options).await
     }
 }

@@ -46,11 +46,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::TranslateTextRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TranslateTextResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::TranslateTextResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TranslateTextResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::TranslateTextResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::romanize_text].
@@ -58,11 +59,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RomanizeTextRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::RomanizeTextResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::RomanizeTextResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RomanizeTextResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::RomanizeTextResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::detect_language].
@@ -70,11 +72,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DetectLanguageRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DetectLanguageResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::DetectLanguageResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DetectLanguageResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::DetectLanguageResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::get_supported_languages].
@@ -82,11 +85,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSupportedLanguagesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SupportedLanguages>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SupportedLanguages>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SupportedLanguages>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SupportedLanguages>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::translate_document].
@@ -94,11 +98,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::TranslateDocumentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TranslateDocumentResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::TranslateDocumentResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TranslateDocumentResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::TranslateDocumentResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::batch_translate_text].
@@ -106,11 +111,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BatchTranslateTextRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::batch_translate_document].
@@ -118,11 +124,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::BatchTranslateDocumentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::create_glossary].
@@ -130,11 +137,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateGlossaryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::update_glossary].
@@ -142,11 +150,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateGlossaryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::list_glossaries].
@@ -154,11 +163,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListGlossariesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListGlossariesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListGlossariesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListGlossariesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListGlossariesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::get_glossary].
@@ -166,10 +176,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetGlossaryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Glossary>> + Send {
-        std::future::ready::<crate::Result<crate::model::Glossary>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Glossary>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Glossary>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::TranslationService::delete_glossary].
@@ -177,11 +189,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteGlossaryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::get_glossary_entry].
@@ -189,10 +202,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetGlossaryEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::GlossaryEntry>> + Send {
-        std::future::ready::<crate::Result<crate::model::GlossaryEntry>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GlossaryEntry>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::GlossaryEntry>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::list_glossary_entries].
@@ -200,11 +215,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListGlossaryEntriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListGlossaryEntriesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListGlossaryEntriesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListGlossaryEntriesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListGlossaryEntriesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::create_glossary_entry].
@@ -212,10 +228,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateGlossaryEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::GlossaryEntry>> + Send {
-        std::future::ready::<crate::Result<crate::model::GlossaryEntry>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GlossaryEntry>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::GlossaryEntry>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::update_glossary_entry].
@@ -223,10 +241,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateGlossaryEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::GlossaryEntry>> + Send {
-        std::future::ready::<crate::Result<crate::model::GlossaryEntry>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GlossaryEntry>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::GlossaryEntry>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::delete_glossary_entry].
@@ -234,8 +254,10 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteGlossaryEntryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::TranslationService::create_dataset].
@@ -243,11 +265,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateDatasetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::get_dataset].
@@ -255,10 +278,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDatasetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Dataset>> + Send {
-        std::future::ready::<crate::Result<crate::model::Dataset>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Dataset>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Dataset>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::TranslationService::list_datasets].
@@ -266,11 +291,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDatasetsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDatasetsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListDatasetsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDatasetsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDatasetsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::delete_dataset].
@@ -278,11 +304,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDatasetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::create_adaptive_mt_dataset].
@@ -290,11 +317,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAdaptiveMtDatasetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AdaptiveMtDataset>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AdaptiveMtDataset>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AdaptiveMtDataset>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AdaptiveMtDataset>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::delete_adaptive_mt_dataset].
@@ -302,8 +330,10 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAdaptiveMtDatasetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::TranslationService::get_adaptive_mt_dataset].
@@ -311,11 +341,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAdaptiveMtDatasetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AdaptiveMtDataset>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AdaptiveMtDataset>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AdaptiveMtDataset>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AdaptiveMtDataset>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::list_adaptive_mt_datasets].
@@ -324,11 +355,13 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListAdaptiveMtDatasetsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListAdaptiveMtDatasetsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListAdaptiveMtDatasetsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListAdaptiveMtDatasetsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAdaptiveMtDatasetsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::adaptive_mt_translate].
@@ -336,11 +369,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AdaptiveMtTranslateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AdaptiveMtTranslateResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AdaptiveMtTranslateResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AdaptiveMtTranslateResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AdaptiveMtTranslateResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::get_adaptive_mt_file].
@@ -348,10 +382,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAdaptiveMtFileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AdaptiveMtFile>> + Send {
-        std::future::ready::<crate::Result<crate::model::AdaptiveMtFile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AdaptiveMtFile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AdaptiveMtFile>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::delete_adaptive_mt_file].
@@ -359,8 +395,10 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAdaptiveMtFileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::TranslationService::import_adaptive_mt_file].
@@ -368,11 +406,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ImportAdaptiveMtFileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ImportAdaptiveMtFileResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ImportAdaptiveMtFileResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ImportAdaptiveMtFileResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ImportAdaptiveMtFileResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::list_adaptive_mt_files].
@@ -380,11 +419,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAdaptiveMtFilesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAdaptiveMtFilesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAdaptiveMtFilesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAdaptiveMtFilesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAdaptiveMtFilesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::list_adaptive_mt_sentences].
@@ -393,11 +433,13 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListAdaptiveMtSentencesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListAdaptiveMtSentencesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListAdaptiveMtSentencesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListAdaptiveMtSentencesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAdaptiveMtSentencesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::import_data].
@@ -405,11 +447,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ImportDataRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::export_data].
@@ -417,11 +460,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ExportDataRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::list_examples].
@@ -429,11 +473,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListExamplesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListExamplesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListExamplesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListExamplesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListExamplesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::create_model].
@@ -441,11 +486,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateModelRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::list_models].
@@ -453,11 +499,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListModelsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListModelsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListModelsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListModelsResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListModelsResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::get_model].
@@ -465,8 +512,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetModelRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Model>> + Send {
-        std::future::ready::<crate::Result<crate::model::Model>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Model>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Model>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::TranslationService::delete_model].
@@ -474,11 +525,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteModelRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::list_locations].
@@ -486,11 +538,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::get_location].
@@ -498,10 +551,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::list_operations].
@@ -509,11 +564,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TranslationService::get_operation].
@@ -521,11 +577,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TranslationService::delete_operation].
@@ -533,8 +590,10 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::TranslationService::cancel_operation].
@@ -542,8 +601,10 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::TranslationService::wait_operation].
@@ -551,11 +612,12 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::WaitOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Returns the polling error policy.

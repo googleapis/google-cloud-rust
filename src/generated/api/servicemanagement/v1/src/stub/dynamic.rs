@@ -23,109 +23,109 @@ pub trait ServiceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>>;
 
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ManagedService>;
+    ) -> crate::Result<gax::response::Response<crate::model::ManagedService>>;
 
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_service(
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn undelete_service(
         &self,
         req: crate::model::UndeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_service_configs(
         &self,
         req: crate::model::ListServiceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceConfigsResponse>>;
 
     async fn get_service_config(
         &self,
         req: crate::model::GetServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<api::model::Service>;
+    ) -> crate::Result<gax::response::Response<api::model::Service>>;
 
     async fn create_service_config(
         &self,
         req: crate::model::CreateServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<api::model::Service>;
+    ) -> crate::Result<gax::response::Response<api::model::Service>>;
 
     async fn submit_config_source(
         &self,
         req: crate::model::SubmitConfigSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_service_rollouts(
         &self,
         req: crate::model::ListServiceRolloutsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceRolloutsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceRolloutsResponse>>;
 
     async fn get_service_rollout(
         &self,
         req: crate::model::GetServiceRolloutRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Rollout>;
+    ) -> crate::Result<gax::response::Response<crate::model::Rollout>>;
 
     async fn create_service_rollout(
         &self,
         req: crate::model::CreateServiceRolloutRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn generate_config_report(
         &self,
         req: crate::model::GenerateConfigReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GenerateConfigReportResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateConfigReportResponse>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -146,7 +146,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>> {
         T::list_services(self, req, options).await
     }
 
@@ -155,7 +155,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ManagedService> {
+    ) -> crate::Result<gax::response::Response<crate::model::ManagedService>> {
         T::get_service(self, req, options).await
     }
 
@@ -164,7 +164,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_service(self, req, options).await
     }
 
@@ -173,7 +173,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_service(self, req, options).await
     }
 
@@ -182,7 +182,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::UndeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::undelete_service(self, req, options).await
     }
 
@@ -191,7 +191,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::ListServiceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceConfigsResponse>> {
         T::list_service_configs(self, req, options).await
     }
 
@@ -200,7 +200,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::GetServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<api::model::Service> {
+    ) -> crate::Result<gax::response::Response<api::model::Service>> {
         T::get_service_config(self, req, options).await
     }
 
@@ -209,7 +209,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::CreateServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<api::model::Service> {
+    ) -> crate::Result<gax::response::Response<api::model::Service>> {
         T::create_service_config(self, req, options).await
     }
 
@@ -218,7 +218,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::SubmitConfigSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::submit_config_source(self, req, options).await
     }
 
@@ -227,7 +227,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::ListServiceRolloutsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceRolloutsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceRolloutsResponse>> {
         T::list_service_rollouts(self, req, options).await
     }
 
@@ -236,7 +236,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::GetServiceRolloutRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Rollout> {
+    ) -> crate::Result<gax::response::Response<crate::model::Rollout>> {
         T::get_service_rollout(self, req, options).await
     }
 
@@ -245,7 +245,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::CreateServiceRolloutRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_service_rollout(self, req, options).await
     }
 
@@ -254,7 +254,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: crate::model::GenerateConfigReportRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GenerateConfigReportResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateConfigReportResponse>> {
         T::generate_config_report(self, req, options).await
     }
 
@@ -263,7 +263,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -272,7 +272,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -281,7 +281,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -290,7 +290,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -299,7 +299,7 @@ impl<T: super::ServiceManager> ServiceManager for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
