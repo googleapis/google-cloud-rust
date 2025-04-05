@@ -62,7 +62,7 @@ pub trait BackoffPolicy: Send + Sync + std::fmt::Debug {
     /// # Parameters
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is always called
-    ///    after the first attempt.
+    ///   after the first attempt.
     fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32)
     -> std::time::Duration;
 }

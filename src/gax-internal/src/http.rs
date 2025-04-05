@@ -357,7 +357,7 @@ mod test {
         let err = response.err().unwrap();
         let err = err.as_inner::<ServiceError>().unwrap();
         assert_eq!(err.status(), &status);
-        assert_eq!(err.http_status_code(), &Some(404 as u16));
+        assert_eq!(err.http_status_code(), &Some(404_u16));
         let want = HashMap::from(
             [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
         );
