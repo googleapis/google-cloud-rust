@@ -378,6 +378,144 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
             .await
     }
 
+    async fn create_user_creds(
+        &self,
+        req: crate::model::CreateUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::UserCreds> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}/userCreds", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("userCredsId", &req.user_creds_id)]);
+        self.inner
+            .execute(builder, Some(req.user_creds), options)
+            .await
+    }
+
+    async fn get_user_creds(
+        &self,
+        req: crate::model::GetUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::UserCreds> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn list_user_creds(
+        &self,
+        req: crate::model::ListUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListUserCredsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}/userCreds", req.parent),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn enable_user_creds(
+        &self,
+        req: crate::model::EnableUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::UserCreds> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::POST, format!("/v1/{}:enable", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
+    async fn disable_user_creds(
+        &self,
+        req: crate::model::DisableUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::UserCreds> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::POST, format!("/v1/{}:disable", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
+    async fn reset_user_password(
+        &self,
+        req: crate::model::ResetUserPasswordRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::UserCreds> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}:resetPassword", req.name),
+            )
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
+    async fn delete_user_creds(
+        &self,
+        req: crate::model::DeleteUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<()> {
+        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
+        let builder = self
+            .inner
+            .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+            .map(|_: wkt::Empty| ())
+    }
+
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,

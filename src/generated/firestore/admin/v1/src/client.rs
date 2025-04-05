@@ -414,6 +414,70 @@ impl FirestoreAdmin {
             .set_name(name.into())
     }
 
+    /// Create a user creds.
+    pub fn create_user_creds(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::firestore_admin::CreateUserCreds {
+        super::builder::firestore_admin::CreateUserCreds::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Gets a user creds resource. Note that the returned resource does not
+    /// contain the secret value itself.
+    pub fn get_user_creds(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::firestore_admin::GetUserCreds {
+        super::builder::firestore_admin::GetUserCreds::new(self.inner.clone()).set_name(name.into())
+    }
+
+    /// List all user creds in the database. Note that the returned resource
+    /// does not contain the secret value itself.
+    pub fn list_user_creds(
+        &self,
+        parent: impl Into<std::string::String>,
+    ) -> super::builder::firestore_admin::ListUserCreds {
+        super::builder::firestore_admin::ListUserCreds::new(self.inner.clone())
+            .set_parent(parent.into())
+    }
+
+    /// Enables a user creds. No-op if the user creds are already enabled.
+    pub fn enable_user_creds(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::firestore_admin::EnableUserCreds {
+        super::builder::firestore_admin::EnableUserCreds::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Disables a user creds. No-op if the user creds are already disabled.
+    pub fn disable_user_creds(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::firestore_admin::DisableUserCreds {
+        super::builder::firestore_admin::DisableUserCreds::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Resets the password of a user creds.
+    pub fn reset_user_password(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::firestore_admin::ResetUserPassword {
+        super::builder::firestore_admin::ResetUserPassword::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
+    /// Deletes a user creds.
+    pub fn delete_user_creds(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> super::builder::firestore_admin::DeleteUserCreds {
+        super::builder::firestore_admin::DeleteUserCreds::new(self.inner.clone())
+            .set_name(name.into())
+    }
+
     /// Gets information about a backup.
     pub fn get_backup(
         &self,

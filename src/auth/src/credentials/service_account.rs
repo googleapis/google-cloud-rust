@@ -47,8 +47,8 @@
 //!
 //! ```
 //! # use google_cloud_auth::credentials::service_account::Builder;
-//! # use google_cloud_auth::credentials::Credential;
-//! # use google_cloud_auth::errors::CredentialError;
+//! # use google_cloud_auth::credentials::Credentials;
+//! # use google_cloud_auth::errors::CredentialsError;
 //! # tokio_test::block_on(async {
 //! let service_account_key = serde_json::json!({
 //! "client_email": "test-client-email",
@@ -57,10 +57,10 @@
 //! "project_id": "test-project-id",
 //! "universe_domain": "test-universe-domain",
 //! });
-//! let credential: Credential = Builder::new(service_account_key).with_quota_project_id("my-quota-project").build()?;
-//! let token = credential.get_token().await?;
+//! let credentials: Credentials = Builder::new(service_account_key).with_quota_project_id("my-quota-project").build()?;
+//! let token = credentials.get_token().await?;
 //! println!("Token: {}", token.token);
-//! # Ok::<(), CredentialError>(())
+//! # Ok::<(), CredentialsError>(())
 //! # });
 //! ```
 //!
@@ -73,8 +73,8 @@ mod jws;
 
 use crate::credentials::QUOTA_PROJECT_KEY;
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credential, Result};
-use crate::errors::{self, CredentialError};
+use crate::credentials::{Credentials, Result};
+use crate::errors::{self, CredentialsError};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use async_trait::async_trait;
@@ -89,7 +89,7 @@ use time::OffsetDateTime;
 
 const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 
-pub(crate) fn creds_from(js: Value) -> Result<Credential> {
+pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
     Builder::new(js).build()
 }
 
@@ -115,7 +115,7 @@ impl ServiceAccountRestrictions {
     }
 }
 
-/// A builder for constructing service account [Credential] instances.
+/// A builder for constructing service account [Credentials] instances.
 ///
 /// # Example
 /// ```
@@ -155,11 +155,11 @@ impl Builder {
         }
     }
 
-    /// Sets the audience for this credential.
+    /// Sets the audience for this credentials.
     ///
     /// `aud` is a [JWT] claim specifying intended recipient(s) of the token,
     /// that is, a service(s).
-    /// Only one of audience or scopes can be specified for a credential.
+    /// Only one of audience or scopes can be specified for a credentials.
     /// Setting the audience will replace any previously configured scopes.
     /// The value should be `https://{SERVICE}/`, e.g., `https://pubsub.googleapis.com/`
     ///
@@ -176,10 +176,10 @@ impl Builder {
         self
     }
 
-    /// Sets the [scopes] for this credential.
+    /// Sets the [scopes] for this credentials.
     ///
     /// `scopes` is a [JWT] claim specifying requested permission(s) for the token.
-    /// Only one of audience or scopes can be specified for a credential.
+    /// Only one of audience or scopes can be specified for a credentials.
     /// Setting the scopes will replace any previously configured audience.
     ///
     /// `scopes` define the *permissions being requested* for this specific session
@@ -212,7 +212,7 @@ impl Builder {
         self
     }
 
-    /// Sets the [quota project] for this credential.
+    /// Sets the [quota project] for this credentials.
     ///
     /// In some services, you can use a service account in
     /// one project for authentication and authorization, and charge
@@ -225,11 +225,11 @@ impl Builder {
         self
     }
 
-    /// Returns a [Credential] instance with the configured settings.
+    /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialError] if the `service_account_key`
+    /// Returns a [CredentialsError] if the `service_account_key`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for a service account key. This typically happens if the
     /// JSON value is malformed or missing required fields. For more information,
@@ -237,7 +237,7 @@ impl Builder {
     /// relevant section in the [service account keys] guide.
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
-    pub fn build(self) -> Result<Credential> {
+    pub fn build(self) -> Result<Credentials> {
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
                 .map_err(errors::non_retryable)?;
@@ -247,8 +247,8 @@ impl Builder {
         };
         let token_provider = TokenCache::new(token_provider);
 
-        Ok(Credential {
-            inner: Arc::new(ServiceAccountCredential {
+        Ok(Credentials {
+            inner: Arc::new(ServiceAccountCredentials {
                 token_provider,
                 quota_project_id: self.quota_project_id,
             }),
@@ -288,7 +288,7 @@ impl std::fmt::Debug for ServiceAccountKey {
 }
 
 #[derive(Debug)]
-struct ServiceAccountCredential<T>
+struct ServiceAccountCredentials<T>
 where
     T: TokenProvider,
 {
@@ -377,7 +377,7 @@ impl ServiceAccountTokenProvider {
             .ok_or_else(|| errors::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
     }
 
-    fn unexpected_private_key_error(private_key_format: Item) -> CredentialError {
+    fn unexpected_private_key_error(private_key_format: Item) -> CredentialsError {
         errors::non_retryable_from_str(format!(
             "expected key to be in form of PKCS8, found {:?}",
             private_key_format
@@ -386,7 +386,7 @@ impl ServiceAccountTokenProvider {
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialsTrait for ServiceAccountCredential<T>
+impl<T> CredentialsTrait for ServiceAccountCredentials<T>
 where
     T: TokenProvider,
 {
@@ -460,7 +460,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(expected_clone));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -475,7 +475,7 @@ mod test {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -494,7 +494,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -524,7 +524,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: Some(quota_project.to_string()),
         };
@@ -554,7 +554,7 @@ mod test {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -654,8 +654,8 @@ mod test {
             "universe_domain": "test-universe-domain"
         });
 
-        let credential = creds_from(json_value)?;
-        let token = credential.get_token().await?;
+        let credentials = creds_from(json_value)?;
+        let token = credentials.get_token().await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).unwrap();
@@ -670,7 +670,7 @@ mod test {
         std::thread::sleep(Duration::from_secs(1));
 
         // Get the token again.
-        let token = credential.get_token().await?;
+        let token = credentials.get_token().await?;
         let captures = re.captures(&token.token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());

@@ -23,7 +23,7 @@ mod test {
     // TODO(#1442) : We should use auth's factory function specifically for
     // service account credentials when it is available, instead of using the
     // generic ADC factory function with delicately crafted json.
-    async fn test_service_account_credentials() -> Credential {
+    async fn test_service_account_credentials() -> Credentials {
         let contents = r#"{
             "type": "service_account",
             "project_id": "test-project-id",
@@ -38,9 +38,9 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let creds = create_access_token_credential().await.unwrap();
+        let creds = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", creds);
-        assert!(fmt.contains("ServiceAccountCredential"));
+        assert!(fmt.contains("ServiceAccountCredentials"));
 
         creds
     }

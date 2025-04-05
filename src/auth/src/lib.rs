@@ -21,7 +21,7 @@
 //!
 //! This crate contains types and functions used to authenticate applications
 //! on Google Cloud.  The SDK clients consume an implementation of
-//! [credentials::Credential] and use these credentials to authenticate RPCs
+//! [credentials::Credentials] and use these credentials to authenticate RPCs
 //! issued by the application.
 //!
 //! [Authentication methods at Google] is a good introduction on the topic of
@@ -50,5 +50,5 @@ pub mod token;
 pub(crate) mod token_cache;
 
 /// A `Result` alias where the `Err` case is
-/// `google_cloud_auth::errors::CredentialError`.
-pub(crate) type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
+/// `google_cloud_auth::errors::CredentialsError`.
+pub(crate) type Result<T> = std::result::Result<T, crate::errors::CredentialsError>;

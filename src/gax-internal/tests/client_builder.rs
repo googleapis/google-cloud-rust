@@ -19,7 +19,7 @@ mod test {
 
     #[cfg(feature = "_internal_grpc_client")]
     mod grpc {
-        use auth::credentials::Credential;
+        use auth::credentials::Credentials;
         use google_cloud_gax_internal as gaxi;
 
         #[tokio::test]
@@ -48,7 +48,7 @@ mod test {
         }
         /// Make this visible for documentation purposes.
         pub type ClientBuilder =
-            gax::client_builder::ClientBuilder<fake_client::Factory, Credential>;
+            gax::client_builder::ClientBuilder<fake_client::Factory, Credentials>;
         // Note the pub(self), the types in this module are not accessible to
         // application developers.
         pub(self) mod fake_client {
@@ -56,7 +56,7 @@ mod test {
             pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
                 type Client = super::FakeClient;
-                type Credentials = super::Credential;
+                type Credentials = super::Credentials;
                 async fn build(
                     self,
                     config: gaxi::options::ClientConfig,
@@ -69,7 +69,7 @@ mod test {
 
     #[cfg(feature = "_internal_http_client")]
     mod http {
-        use auth::credentials::Credential;
+        use auth::credentials::Credentials;
         use google_cloud_gax_internal as gaxi;
 
         #[tokio::test]
@@ -98,7 +98,7 @@ mod test {
         }
         /// Make this visible for documentation purposes.
         pub type ClientBuilder =
-            gax::client_builder::ClientBuilder<fake_client::Factory, Credential>;
+            gax::client_builder::ClientBuilder<fake_client::Factory, Credentials>;
         // Note the pub(self), the types in this module are not accessible to
         // application developers.
         pub(self) mod fake_client {
@@ -106,7 +106,7 @@ mod test {
             pub struct Factory;
             impl gax::client_builder::internal::ClientFactory for Factory {
                 type Client = super::FakeClient;
-                type Credentials = super::Credential;
+                type Credentials = super::Credentials;
                 async fn build(
                     self,
                     config: gaxi::options::ClientConfig,

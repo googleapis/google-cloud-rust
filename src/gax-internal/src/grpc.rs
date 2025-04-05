@@ -14,7 +14,7 @@
 
 //! Implements the common features of all gRPC-based client.
 
-use auth::credentials::Credential;
+use auth::credentials::Credentials;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::error::Error;
@@ -33,7 +33,7 @@ pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,
-    credentials: Credential,
+    credentials: Credentials,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     retry_throttler: SharedRetryThrottler,
@@ -146,7 +146,7 @@ impl Client {
     #[allow(clippy::too_many_arguments)]
     pub async fn request_attempt<Request, Response>(
         inner: &mut InnerClient,
-        credentials: &Credential,
+        credentials: &Credentials,
         method: tonic::GrpcMethod<'static>,
         path: http::uri::PathAndQuery,
         request: Request,
@@ -185,17 +185,17 @@ impl Client {
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> Result<auth::credentials::Credential> {
+    ) -> Result<auth::credentials::Credentials> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
-        auth::credentials::create_access_token_credential()
+        auth::credentials::create_access_token_credentials()
             .await
             .map_err(Error::authentication)
     }
 
     async fn make_headers(
-        credentials: &Credential,
+        credentials: &Credentials,
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<http::header::HeaderMap> {

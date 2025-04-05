@@ -16,14 +16,14 @@ use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
 use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
 use google_cloud_auth::credentials::testing::test_credentials;
 use google_cloud_auth::credentials::{
-    ApiKeyOptions, Credential, CredentialsTrait, create_access_token_credential,
+    ApiKeyOptions, Credentials, CredentialsTrait, create_access_token_credentials,
     create_api_key_credentials,
 };
-use google_cloud_auth::errors::CredentialError;
+use google_cloud_auth::errors::CredentialsError;
 use google_cloud_auth::token::Token;
 use serde_json::json;
 
-type Result<T> = std::result::Result<T, CredentialError>;
+type Result<T> = std::result::Result<T, CredentialsError>;
 
 #[cfg(test)]
 mod test {
@@ -34,21 +34,21 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_fallback_to_mds() {
+    async fn create_access_token_credentials_fallback_to_mds() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
 
-        let mds = create_access_token_credential().await.unwrap();
+        let mds = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", mds);
-        assert!(fmt.contains("MDSCredential"));
+        assert!(fmt.contains("MDSCredentials"));
     }
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_errors_if_adc_env_is_not_a_file() {
+    async fn create_access_token_credentials_errors_if_adc_env_is_not_a_file() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
-        let err = create_access_token_credential().await.err().unwrap();
+        let err = create_access_token_credentials().await.err().unwrap();
         let msg = err.source().unwrap().to_string();
         assert!(msg.contains("Failed to load Application Default Credentials"));
         assert!(msg.contains("file-does-not-exist.json"));
@@ -57,14 +57,14 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_malformed_adc_is_error() {
+    async fn create_access_token_credentials_malformed_adc_is_error() {
         for contents in ["{}", r#"{"type": 42}"#] {
             let file = tempfile::NamedTempFile::new().unwrap();
             let path = file.into_temp_path();
             std::fs::write(&path, contents).expect("Unable to write to temporary file.");
             let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-            let err = create_access_token_credential().await.err().unwrap();
+            let err = create_access_token_credentials().await.err().unwrap();
             let msg = err.source().unwrap().to_string();
             assert!(msg.contains("Failed to parse"));
             assert!(msg.contains("`type` field"));
@@ -73,7 +73,7 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_adc_unimplemented_credential_type() {
+    async fn create_access_token_credentials_adc_unimplemented_credential_type() {
         let contents = r#"{
             "type": "some_unknown_credential_type"
         }"#;
@@ -83,7 +83,7 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let err = create_access_token_credential().await.err().unwrap();
+        let err = create_access_token_credentials().await.err().unwrap();
         let msg = err.source().unwrap().to_string();
         assert!(msg.contains("Unimplemented"));
         assert!(msg.contains("some_unknown_credential_type"));
@@ -91,7 +91,7 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_adc_user_credentials() {
+    async fn create_access_token_credentials_adc_user_credentials() {
         let contents = r#"{
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
@@ -104,14 +104,14 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let uc = create_access_token_credential().await.unwrap();
+        let uc = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", uc);
-        assert!(fmt.contains("UserCredential"));
+        assert!(fmt.contains("UserCredentials"));
     }
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_adc_service_account_credentials() {
+    async fn create_access_token_credentials_adc_service_account_credentials() {
         let contents = r#"{
             "type": "service_account",
             "project_id": "test-project-id",
@@ -126,9 +126,9 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let sac = create_access_token_credential().await.unwrap();
+        let sac = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", sac);
-        assert!(fmt.contains("ServiceAccountCredential"));
+        assert!(fmt.contains("ServiceAccountCredentials"));
     }
 
     #[tokio::test]
@@ -137,23 +137,23 @@ mod test {
             .await
             .unwrap();
         let fmt = format!("{:?}", creds);
-        assert!(fmt.contains("ApiKeyCredential"), "{fmt:?}");
+        assert!(fmt.contains("ApiKeyCredentials"), "{fmt:?}");
     }
 
     mockall::mock! {
         #[derive(Debug)]
-        Credential {}
+        Credentials {}
 
-        impl CredentialsTrait for Credential {
+        impl CredentialsTrait for Credentials {
             async fn get_token(&self) -> Result<Token>;
             async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
-            async fn get_universe_domain(&self) -> Option<String>;
+            async fn universe_domain(&self) -> Option<String>;
         }
     }
 
     #[tokio::test]
     async fn mocking() -> Result<()> {
-        let mut mock = MockCredential::new();
+        let mut mock = MockCredentials::new();
         mock.expect_get_token().return_once(|| {
             Ok(Token {
                 token: "test-token".to_string(),
@@ -163,12 +163,12 @@ mod test {
             })
         });
         mock.expect_get_headers().return_once(|| Ok(Vec::new()));
-        mock.expect_get_universe_domain().return_once(|| None);
+        mock.expect_universe_domain().return_once(|| None);
 
-        let creds = Credential::from(mock);
+        let creds = Credentials::from(mock);
         assert_eq!(creds.get_token().await?.token, "test-token");
         assert!(creds.get_headers().await?.is_empty());
-        assert_eq!(creds.get_universe_domain().await, None);
+        assert_eq!(creds.universe_domain().await, None);
 
         Ok(())
     }
@@ -178,7 +178,7 @@ mod test {
         let creds = test_credentials();
         assert_eq!(creds.get_token().await?.token, "test-only-token");
         assert!(creds.get_headers().await?.is_empty());
-        assert_eq!(creds.get_universe_domain().await, None);
+        assert_eq!(creds.universe_domain().await, None);
         Ok(())
     }
 
@@ -187,11 +187,11 @@ mod test {
         let test_quota_project = "test-quota-project";
         let test_universe_domain = "test-universe-domain";
         let mdcs = MdsBuilder::default()
-            .quota_project_id(test_quota_project)
-            .universe_domain(test_universe_domain)
+            .with_quota_project_id(test_quota_project)
+            .with_universe_domain(test_universe_domain)
             .build();
         let fmt = format!("{:?}", mdcs);
-        assert!(fmt.contains("MDSCredential"));
+        assert!(fmt.contains("MDSCredentials"));
         assert!(fmt.contains(test_quota_project));
         assert!(fmt.contains(test_universe_domain));
         Ok(())
@@ -211,7 +211,7 @@ mod test {
             .with_quota_project_id(test_quota_project)
             .build()?;
         let fmt = format!("{:?}", service_account);
-        assert!(fmt.contains("ServiceAccountCredential"));
+        assert!(fmt.contains("ServiceAccountCredentials"));
         assert!(fmt.contains(test_quota_project));
         Ok(())
     }

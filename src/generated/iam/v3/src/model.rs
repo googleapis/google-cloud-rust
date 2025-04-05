@@ -787,11 +787,9 @@ pub struct ListPolicyBindingsRequest {
     ///
     /// Some examples of filter queries:
     ///
-    /// | Query            | Description                                         |
-    /// |------------------|-----------------------------------------------------|
-    /// | `target:ex*`     | The binding target's name starts with "ex".         |
-    /// | `target:example` | The binding target's name is `example`.             |
-    /// | `policy:example` | The binding policy's name is `example`.             |
+    /// * `target:ex*`: The binding target's name starts with "ex".
+    /// * `target:example`: The binding target's name is `example`.
+    /// * `policy:example`: The binding policy's name is `example`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
 }
@@ -1333,6 +1331,7 @@ impl wkt::message::Message for ListPrincipalAccessBoundaryPoliciesRequest {
     }
 }
 
+/// Response message for ListPrincipalAccessBoundaryPolicies method.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]

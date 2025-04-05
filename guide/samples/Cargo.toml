@@ -45,6 +45,7 @@ google-cloud-secretmanager-v1 = { version = "0.2", path = "../../src/generated/c
 # ANCHOR: language
 google-cloud-language-v2 = { version = "0.2", path = "../../src/generated/cloud/language/v2" }
 # ANCHOR_END: language
+google-cloud-wkt = { version = "0.3", path = "../../src/wkt" }
 
 # ANCHOR: mockall
 [dev-dependencies]

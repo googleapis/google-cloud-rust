@@ -45,11 +45,12 @@ impl Client {
     }
 }
 
-pub type ClientBuilder = gax::client_builder::ClientBuilder<Factory, auth::credentials::Credential>;
+pub type ClientBuilder =
+    gax::client_builder::ClientBuilder<Factory, auth::credentials::Credentials>;
 pub struct Factory;
 impl gax::client_builder::internal::ClientFactory for Factory {
     type Client = Client;
-    type Credentials = auth::credentials::Credential;
+    type Credentials = auth::credentials::Credentials;
     async fn build(self, config: gaxi::options::ClientConfig) -> Result<Self::Client> {
         Self::Client::new(config).await
     }

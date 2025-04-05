@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credential, QUOTA_PROJECT_KEY, Result};
-use crate::errors::{self, CredentialError, is_retryable};
+use crate::credentials::{Credentials, QUOTA_PROJECT_KEY, Result};
+use crate::errors::{self, CredentialsError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
@@ -24,7 +24,7 @@ use std::time::Duration;
 
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
-pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
+pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credentials> {
     let au = serde_json::from_value::<AuthorizedUser>(js).map_err(errors::non_retryable)?;
 
     let endpoint = au.token_uri.unwrap_or_else(|| OAUTH2_ENDPOINT.to_string());
@@ -38,7 +38,7 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
 
     let cached_token_provider = TokenCache::new(token_provider);
 
-    Ok(Credential {
+    Ok(Credentials {
         inner: Arc::new(UserCredentials {
             token_provider: cached_token_provider,
             quota_project_id: au.quota_project_id,
@@ -56,7 +56,7 @@ struct UserTokenProvider {
 
 impl std::fmt::Debug for UserTokenProvider {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("UserTokenCredential")
+        f.debug_struct("UserCredentials")
             .field("client_id", &self.client_id)
             .field("client_secret", &"[censored]")
             .field("refresh_token", &"[censored]")
@@ -90,15 +90,15 @@ impl TokenProvider for UserTokenProvider {
             let body = resp
                 .text()
                 .await
-                .map_err(|e| CredentialError::new(is_retryable(status), e))?;
-            return Err(CredentialError::from_str(
+                .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
+            return Err(CredentialsError::from_str(
                 is_retryable(status),
                 format!("Failed to fetch token. {body}"),
             ));
         }
         let response = resp.json::<Oauth2RefreshResponse>().await.map_err(|e| {
             let retryable = !e.is_decode();
-            CredentialError::new(retryable, e)
+            CredentialsError::new(retryable, e)
         })?;
         let token = Token {
             token: response.access_token,

@@ -74,9 +74,6 @@ partitoned   = "partitoned"
 identifiy = "identifiy"
 # src/generated/cloud/dataproc/v1, has some typos, they need to be fixed upstream.
 andd = "andd"
-# src/generated/functions/v1 has some typos, they need to be fixed upstream.
-oder     = "oder"
-Regsitry = "Regsitry"
 # src/generated/cloud/baremetalsolution/v2 has typos, they need to be fixed
 # upstream.
 idenfity   = "idenfity"
@@ -104,6 +101,7 @@ inputed = "inputed"
 diagnositcs = "diagnositcs"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
+oder     = "oder"
 # src/generated/cloud/financialservices/v1 has a typo, it needs to be fixed upstream.
 woud = "woud"
 # src/generated/cloud/gkebackup/v1 has a typo, it needs to be fixed upstream.

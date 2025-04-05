@@ -967,7 +967,6 @@ impl wkt::message::Message for Submission {
 
 /// Context about the submission including the type of abuse found on the URI and
 /// supporting details.
-/// option (google.api.message_visibility).restriction = "TRUSTED_TESTER";
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1626,7 +1625,6 @@ impl wkt::message::Message for SubmitUriRequest {
 }
 
 /// Metadata for the Submit URI long-running operation.
-/// option (google.api.message_visibility).restriction = "TRUSTED_TESTER";
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]

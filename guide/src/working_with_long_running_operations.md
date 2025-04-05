@@ -215,9 +215,9 @@ In our example, with the Speech-to-Text service, we treat this as an error:
 {{#rustdoc_include ../samples/src/lro.rs:manual-match-none}}
 ```
 
-Assuming we have a result value this may be an error or a valid response:
-starting a long-running operation successfully does not guarantee that it will
-complete successfully. We need to check for both. First check for errors:
+Starting a long-running operation successfully does not guarantee that it will
+complete successfully. The result may be an error or a valid response. We need
+to check for both. First check for errors:
 
 ```rust,ignore
 {{#rustdoc_include ../samples/src/lro.rs:manual-match-error}}
@@ -305,6 +305,8 @@ You can find the [full function](#manually-polling-a-long-running-operation-comp
 
 - [Configuring polling policies](/configuring_polling_policies.md) describes how
   to customize error handling and backoff periods for LROs.
+- [How to write tests for long-running operations](/mocking_lros.md) describes
+  how to simulate LROs in your unit tests.
 
 [batch recognize]: https://cloud.google.com/speech-to-text/v2/docs/batch-recognize
 [configuring polling policies]: ./configuring_polling_policies.md

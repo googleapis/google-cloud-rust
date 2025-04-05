@@ -14,25 +14,25 @@
 
 #[cfg(all(test, feature = "_internal_http_client"))]
 mod test {
-    use auth::credentials::{Credential, CredentialsTrait};
-    use auth::errors::CredentialError;
+    use auth::credentials::{Credentials, CredentialsTrait};
+    use auth::errors::CredentialsError;
     use auth::token::Token;
     use gax::options::*;
     use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use http::header::{HeaderName, HeaderValue};
     use serde_json::json;
 
-    type AuthResult<T> = std::result::Result<T, CredentialError>;
+    type AuthResult<T> = std::result::Result<T, CredentialsError>;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
     mockall::mock! {
         #[derive(Debug)]
-        Credential {}
+        Credentials {}
 
-        impl CredentialsTrait for Credential {
+        impl CredentialsTrait for Credentials {
             async fn get_token(&self) -> AuthResult<Token>;
             async fn get_headers(&self) -> AuthResult<Vec<(HeaderName, HeaderValue)>>;
-            async fn get_universe_domain(&self) -> Option<String>;
+            async fn universe_domain(&self) -> Option<String>;
         }
     }
 
@@ -43,7 +43,7 @@ mod test {
         // We use mock credentials instead of fake credentials, because
         // 1. we can test that multiple headers are included in the request
         // 2. it gives us extra confidence that our interfaces are called
-        let mut mock = MockCredential::new();
+        let mut mock = MockCredentials::new();
         mock.expect_get_headers().return_once(|| {
             Ok(vec![
                 (
@@ -58,7 +58,7 @@ mod test {
         });
 
         let client = echo_server::builder(endpoint)
-            .with_credentials(Credential::from(mock))
+            .with_credentials(Credentials::from(mock))
             .build()
             .await?;
 
@@ -82,14 +82,14 @@ mod test {
     async fn auth_error_retryable() -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
         let retry_count = 3;
-        let mut mock = MockCredential::new();
+        let mut mock = MockCredentials::new();
         mock.expect_get_headers()
             .times(retry_count..)
-            .returning(|| Err(CredentialError::from_str(true, "mock retryable error")));
+            .returning(|| Err(CredentialsError::from_str(true, "mock retryable error")));
 
         let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
         let client = echo_server::builder(endpoint)
-            .with_credentials(Credential::from(mock))
+            .with_credentials(Credentials::from(mock))
             .with_retry_policy(retry_policy)
             .build()
             .await?;
@@ -103,13 +103,13 @@ mod test {
         assert!(result.is_err());
 
         if let Err(e) = result {
-            if let Some(cred_err) = e.as_inner::<CredentialError>() {
+            if let Some(cred_err) = e.as_inner::<CredentialsError>() {
                 assert!(
                     cred_err.is_retryable(),
-                    "Expected a retryable CredentialError, but got non-retryable"
+                    "Expected a retryable CredentialsError, but got non-retryable"
                 );
             } else {
-                panic!("Expected a CredentialError, but got some other error: {e:?}");
+                panic!("Expected a CredentialsError, but got some other error: {e:?}");
             }
         }
 
@@ -119,13 +119,16 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn auth_error_non_retryable() -> Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
-        let mut mock = MockCredential::new();
-        mock.expect_get_headers()
-            .times(1)
-            .returning(|| Err(CredentialError::from_str(false, "mock non-retryable error")));
+        let mut mock = MockCredentials::new();
+        mock.expect_get_headers().times(1).returning(|| {
+            Err(CredentialsError::from_str(
+                false,
+                "mock non-retryable error",
+            ))
+        });
 
         let client = echo_server::builder(endpoint)
-            .with_credentials(Credential::from(mock))
+            .with_credentials(Credentials::from(mock))
             .build()
             .await?;
 
@@ -139,13 +142,13 @@ mod test {
         assert!(result.is_err());
 
         if let Err(e) = result {
-            if let Some(cred_err) = e.as_inner::<CredentialError>() {
+            if let Some(cred_err) = e.as_inner::<CredentialsError>() {
                 assert!(
                     !cred_err.is_retryable(),
-                    "Expected a non-retryable CredentialError, but got retryable"
+                    "Expected a non-retryable CredentialsError, but got retryable"
                 );
             } else {
-                panic!("Expected a CredentialError, but got another error type: {e:?}");
+                panic!("Expected a CredentialsError, but got another error type: {e:?}");
             }
         }
 

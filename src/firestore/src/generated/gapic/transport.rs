@@ -40,7 +40,7 @@ mod info {
 #[derive(Clone)]
 pub struct Firestore {
     inner: tonic::client::Grpc<tonic::transport::Channel>,
-    cred: auth::credentials::Credential,
+    cred: auth::credentials::Credentials,
     retry_policy: Option<Arc<dyn gax::retry_policy::RetryPolicy>>,
     backoff_policy: Option<Arc<dyn gax::backoff_policy::BackoffPolicy>>,
     retry_throttler: gax::retry_throttler::SharedRetryThrottler,
@@ -79,11 +79,11 @@ impl Firestore {
 
     async fn make_credentials(
         config: &gaxi::options::ClientConfig,
-    ) -> Result<auth::credentials::Credential> {
+    ) -> Result<auth::credentials::Credentials> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
-        auth::credentials::create_access_token_credential()
+        auth::credentials::create_access_token_credentials()
             .await
             .map_err(Error::authentication)
     }

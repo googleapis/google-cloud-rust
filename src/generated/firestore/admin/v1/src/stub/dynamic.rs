@@ -109,6 +109,48 @@ pub trait FirestoreAdmin: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
 
+    async fn create_user_creds(
+        &self,
+        req: crate::model::CreateUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::UserCreds>;
+
+    async fn get_user_creds(
+        &self,
+        req: crate::model::GetUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::UserCreds>;
+
+    async fn list_user_creds(
+        &self,
+        req: crate::model::ListUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListUserCredsResponse>;
+
+    async fn enable_user_creds(
+        &self,
+        req: crate::model::EnableUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::UserCreds>;
+
+    async fn disable_user_creds(
+        &self,
+        req: crate::model::DisableUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::UserCreds>;
+
+    async fn reset_user_password(
+        &self,
+        req: crate::model::ResetUserPasswordRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::UserCreds>;
+
+    async fn delete_user_creds(
+        &self,
+        req: crate::model::DeleteUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<()>;
+
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
@@ -334,6 +376,69 @@ impl<T: super::FirestoreAdmin> FirestoreAdmin for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation> {
         T::delete_database(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_user_creds(
+        &self,
+        req: crate::model::CreateUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::UserCreds> {
+        T::create_user_creds(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_user_creds(
+        &self,
+        req: crate::model::GetUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::UserCreds> {
+        T::get_user_creds(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_user_creds(
+        &self,
+        req: crate::model::ListUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::ListUserCredsResponse> {
+        T::list_user_creds(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn enable_user_creds(
+        &self,
+        req: crate::model::EnableUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::UserCreds> {
+        T::enable_user_creds(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn disable_user_creds(
+        &self,
+        req: crate::model::DisableUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::UserCreds> {
+        T::disable_user_creds(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn reset_user_password(
+        &self,
+        req: crate::model::ResetUserPasswordRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<crate::model::UserCreds> {
+        T::reset_user_password(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_user_creds(
+        &self,
+        req: crate::model::DeleteUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<()> {
+        T::delete_user_creds(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
