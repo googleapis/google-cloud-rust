@@ -197,10 +197,10 @@ mod any_tests {
     #[test]
     fn test_null_value_interface() {
         let input = NullValue;
-        assert_eq!(input.value(), NullValue::default().value());
+        assert_eq!(input.value(), NullValue.value());
         assert_eq!(input.as_str_name().as_ref(), "NULL_VALUE");
         assert_eq!(NullValue::from_str_name("NULL_VALUE"), Some(NullValue));
-        assert_eq!(NullValue::from(0), NullValue::default());
+        assert_eq!(NullValue::from(0), NullValue);
     }
 
     #[test]

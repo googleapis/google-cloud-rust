@@ -176,6 +176,7 @@ impl From<crate::NullValue> for i32 {
 #[cfg(test)]
 mod test {
     use super::*;
+    use serde_json::json;
     use test_case::test_case;
 
     #[test]
@@ -186,11 +187,11 @@ mod test {
     }
 
     #[test_case(0 as f32)]
-    #[test_case(0 as i32)]
-    #[test_case(0 as u32)]
+    #[test_case(0_i32)]
+    #[test_case(0_u32)]
     #[test_case(0 as f64)]
-    #[test_case(0 as i64)]
-    #[test_case(0 as u64)]
+    #[test_case(0_i64)]
+    #[test_case(0_u64)]
     fn primitive_numeric<T>(input: T)
     where
         T: std::fmt::Debug + Copy + PartialEq + Convert<T>,
