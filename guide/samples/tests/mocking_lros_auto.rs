@@ -15,6 +15,7 @@
 //! Examples showing how to simulate LROs in tests.
 
 // ANCHOR: all
+use gax::response::Response;
 use gax::Result;
 use gax::error::Error;
 use google_cloud_gax as gax;
@@ -60,7 +61,7 @@ mod test {
         #[derive(Debug)]
         Speech {}
         impl speech::stub::Speech for Speech {
-            async fn batch_recognize(&self, req: BatchRecognizeRequest, _options: gax::options::RequestOptions) -> Result<Operation>;
+            async fn batch_recognize(&self, req: BatchRecognizeRequest, _options: gax::options::RequestOptions) -> Result<Response<Operation>>;
         }
     }
     // ANCHOR_END: mockall-macro
@@ -76,14 +77,14 @@ mod test {
     // ANCHOR_END: expected-response
 
     // ANCHOR: finished-op
-    fn make_finished_operation(response: &BatchRecognizeResponse) -> Result<Operation> {
+    fn make_finished_operation(response: &BatchRecognizeResponse) -> Result<Response<Operation>> {
         let any = wkt::Any::try_from(response).map_err(Error::serde)?;
         let operation = Operation::new()
             // ANCHOR: set-done-true
             .set_done(true)
             // ANCHOR_END: set-done-true
             .set_result(OperationResult::Response(any.into()));
-        Ok(operation)
+        Ok(Response::from(operation))
     }
     // ANCHOR_END: finished-op
 
