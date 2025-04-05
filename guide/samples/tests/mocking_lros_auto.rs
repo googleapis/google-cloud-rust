@@ -15,9 +15,9 @@
 //! Examples showing how to simulate LROs in tests.
 
 // ANCHOR: all
-use gax::response::Response;
 use gax::Result;
 use gax::error::Error;
+use gax::response::Response;
 use google_cloud_gax as gax;
 use google_cloud_longrunning as longrunning;
 use google_cloud_speech_v2 as speech;

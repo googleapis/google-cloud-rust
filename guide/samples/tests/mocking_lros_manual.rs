@@ -115,7 +115,9 @@ mod test {
         BatchRecognizeResponse::new().set_total_billed_duration(expected_duration())
     }
 
-    fn make_finished_operation(response: &BatchRecognizeResponse) -> Result<gax::response::Response<Operation>> {
+    fn make_finished_operation(
+        response: &BatchRecognizeResponse,
+    ) -> Result<gax::response::Response<Operation>> {
         let any = wkt::Any::try_from(response).map_err(Error::serde)?;
         let operation = Operation::new()
             .set_done(true)
