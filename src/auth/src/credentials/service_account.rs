@@ -394,8 +394,8 @@ where
         self.token_provider.get_token().await
     }
 
-    async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        //TODO(#1686) Refactor the common logic out of the individual get_headers methods.
+    async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+        //TODO(#1686) Refactor the common logic out of the individual headers methods.
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)?;
@@ -483,7 +483,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_success_without_quota_project() {
+    async fn headers_success_without_quota_project() {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -498,7 +498,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        let headers: Vec<HV> = HV::from(sac.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(sac.headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -511,7 +511,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_success_with_quota_project() {
+    async fn headers_success_with_quota_project() {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -528,7 +528,7 @@ mod test {
             token_provider: mock,
             quota_project_id: Some(quota_project.to_string()),
         };
-        let headers: Vec<HV> = HV::from(sac.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(sac.headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -548,7 +548,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_failure() {
+    async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
@@ -558,7 +558,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(sac.get_headers().await.is_err());
+        assert!(sac.headers().await.is_err());
     }
 
     fn get_mock_service_key() -> Value {

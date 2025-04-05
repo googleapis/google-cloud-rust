@@ -129,7 +129,7 @@ impl ReqwestClient {
             .fold(builder, |b, t| b.timeout(t));
         let auth_headers = self
             .cred
-            .get_headers()
+            .headers()
             .await
             .map_err(Error::authentication)?;
         for header in auth_headers.into_iter() {

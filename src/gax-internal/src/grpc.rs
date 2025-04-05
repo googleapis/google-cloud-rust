@@ -200,7 +200,7 @@ impl Client {
         request_params: &str,
     ) -> Result<http::header::HeaderMap> {
         let mut headers = credentials
-            .get_headers()
+            .headers()
             .await
             .map_err(Error::authentication)?;
         headers.push((

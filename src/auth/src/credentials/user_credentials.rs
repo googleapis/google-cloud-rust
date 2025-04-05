@@ -133,7 +133,7 @@ where
         self.token_provider.get_token().await
     }
 
-    async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+    async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)?;
@@ -322,7 +322,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_success() {
+    async fn headers_success() {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -337,7 +337,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        let headers: Vec<HV> = HV::from(uc.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(uc.headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -350,7 +350,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_failure() {
+    async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
@@ -360,11 +360,11 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(uc.get_headers().await.is_err());
+        assert!(uc.headers().await.is_err());
     }
 
     #[tokio::test]
-    async fn get_headers_with_quota_project_success() {
+    async fn headers_with_quota_project_success() {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -379,7 +379,7 @@ mod test {
             token_provider: mock,
             quota_project_id: Some("test-project".to_string()),
         };
-        let headers: Vec<HV> = HV::from(uc.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(uc.headers().await.unwrap());
         assert_eq!(
             headers,
             vec![

@@ -91,8 +91,8 @@ impl Credentials {
         self.inner.get_token().await
     }
 
-    pub async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        self.inner.get_headers().await
+    pub async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+        self.inner.headers().await
     }
 
     pub async fn universe_domain(&self) -> Option<String> {
@@ -154,7 +154,7 @@ pub trait CredentialsTrait: std::fmt::Debug {
     /// sent with a request.
     ///
     /// The underlying implementation refreshes the token as needed.
-    fn get_headers(&self) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
+    fn headers(&self) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
 
     /// Retrieves the universe domain associated with the credentials, if any.
     fn universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
@@ -180,7 +180,7 @@ pub(crate) mod dynamic {
         /// sent with a request.
         ///
         /// The underlying implementation refreshes the token as needed.
-        async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
+        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
 
         /// Retrieves the universe domain associated with the credentials, if any.
         async fn universe_domain(&self) -> Option<String> {
@@ -197,8 +197,8 @@ pub(crate) mod dynamic {
         async fn get_token(&self) -> Result<crate::token::Token> {
             T::get_token(self).await
         }
-        async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-            T::get_headers(self).await
+        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+            T::headers(self).await
         }
         async fn universe_domain(&self) -> Option<String> {
             T::universe_domain(self).await
@@ -376,7 +376,7 @@ pub mod testing {
             })
         }
 
-        async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
             Ok(Vec::new())
         }
 
@@ -387,7 +387,7 @@ pub mod testing {
 
     /// A simple credentials implementation to use in tests.
     ///
-    /// Always return an error in `get_token()` and `get_headers()`.
+    /// Always return an error in `get_token()` and `headers()`.
     pub fn error_credentials(retryable: bool) -> Credentials {
         Credentials {
             inner: Arc::from(ErrorCredentials(retryable)),
@@ -403,7 +403,7 @@ pub mod testing {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
-        async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
@@ -574,7 +574,7 @@ mod test {
         );
         let err = credentials.get_token().await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
-        let err = credentials.get_headers().await.err().unwrap();
+        let err = credentials.headers().await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
     }
 }
