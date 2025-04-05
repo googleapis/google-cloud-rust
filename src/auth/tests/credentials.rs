@@ -147,7 +147,7 @@ mod test {
         impl CredentialsTrait for Credentials {
             async fn get_token(&self) -> Result<Token>;
             async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
-            async fn get_universe_domain(&self) -> Option<String>;
+            async fn universe_domain(&self) -> Option<String>;
         }
     }
 
@@ -163,12 +163,12 @@ mod test {
             })
         });
         mock.expect_get_headers().return_once(|| Ok(Vec::new()));
-        mock.expect_get_universe_domain().return_once(|| None);
+        mock.expect_universe_domain().return_once(|| None);
 
         let creds = Credentials::from(mock);
         assert_eq!(creds.get_token().await?.token, "test-token");
         assert!(creds.get_headers().await?.is_empty());
-        assert_eq!(creds.get_universe_domain().await, None);
+        assert_eq!(creds.universe_domain().await, None);
 
         Ok(())
     }
@@ -178,7 +178,7 @@ mod test {
         let creds = test_credentials();
         assert_eq!(creds.get_token().await?.token, "test-only-token");
         assert!(creds.get_headers().await?.is_empty());
-        assert_eq!(creds.get_universe_domain().await, None);
+        assert_eq!(creds.universe_domain().await, None);
         Ok(())
     }
 

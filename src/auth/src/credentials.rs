@@ -95,8 +95,8 @@ impl Credentials {
         self.inner.get_headers().await
     }
 
-    pub async fn get_universe_domain(&self) -> Option<String> {
-        self.inner.get_universe_domain().await
+    pub async fn universe_domain(&self) -> Option<String> {
+        self.inner.universe_domain().await
     }
 }
 
@@ -157,7 +157,7 @@ pub trait CredentialsTrait: std::fmt::Debug {
     fn get_headers(&self) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
 
     /// Retrieves the universe domain associated with the credentials, if any.
-    fn get_universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
+    fn universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
 }
 
 pub(crate) mod dynamic {
@@ -183,7 +183,7 @@ pub(crate) mod dynamic {
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
 
         /// Retrieves the universe domain associated with the credentials, if any.
-        async fn get_universe_domain(&self) -> Option<String> {
+        async fn universe_domain(&self) -> Option<String> {
             Some("googleapis.com".to_string())
         }
     }
@@ -200,8 +200,8 @@ pub(crate) mod dynamic {
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
             T::get_headers(self).await
         }
-        async fn get_universe_domain(&self) -> Option<String> {
-            T::get_universe_domain(self).await
+        async fn universe_domain(&self) -> Option<String> {
+            T::universe_domain(self).await
         }
     }
 }
@@ -380,7 +380,7 @@ pub mod testing {
             Ok(Vec::new())
         }
 
-        async fn get_universe_domain(&self) -> Option<String> {
+        async fn universe_domain(&self) -> Option<String> {
             None
         }
     }
@@ -407,7 +407,7 @@ pub mod testing {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
-        async fn get_universe_domain(&self) -> Option<String> {
+        async fn universe_domain(&self) -> Option<String> {
             None
         }
     }
@@ -569,7 +569,7 @@ mod test {
     async fn error_credentials(retryable: bool) {
         let credentials = super::testing::error_credentials(retryable);
         assert!(
-            credentials.get_universe_domain().await.is_none(),
+            credentials.universe_domain().await.is_none(),
             "{credentials:?}"
         );
         let err = credentials.get_token().await.err().unwrap();
