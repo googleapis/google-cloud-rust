@@ -42,8 +42,50 @@ var usesCustomEncoding = map[string]string{
 	".google.protobuf.Timestamp": ".google.protobuf.Timestamp",
 }
 
+// Dart reserved words.
+//
+// This blocklist includes words that can never be used as an identifier as well
+// as a few that could be used depending on context. We can add additional
+// context keywords as we discover conflicts.
+//
+// See also https://dart.dev/language/keywords.
 var reservedNames = map[string]string{
+	"assert":   "",
+	"await":    "",
+	"break":    "",
+	"case":     "",
+	"catch":    "",
+	"class":    "",
+	"const":    "",
+	"continue": "",
+	"default":  "",
+	"do":       "",
+	"else":     "",
+	"enum":     "",
+	"extends":  "",
+	"false":    "",
+	"final":    "",
+	"finally":  "",
+	"for":      "",
 	"Function": "",
+	"if":       "",
+	"in":       "",
+	"is":       "",
+	"new":      "",
+	"null":     "",
+	"rethrow":  "",
+	"return":   "",
+	"super":    "",
+	"switch":   "",
+	"this":     "",
+	"throw":    "",
+	"true":     "",
+	"try":      "",
+	"var":      "",
+	"void":     "",
+	"while":    "",
+	"with":     "",
+	"yield":    "",
 }
 
 func messageName(m *api.Message) string {
@@ -67,7 +109,11 @@ func qualifiedName(m *api.Message) string {
 }
 
 func fieldName(field *api.Field) string {
-	return strcase.ToLowerCamel(field.Name)
+	name := strcase.ToLowerCamel(field.Name)
+	if _, hasConflict := reservedNames[name]; hasConflict {
+		name = name + "$"
+	}
+	return name
 }
 
 func enumName(e *api.Enum) string {
@@ -78,7 +124,11 @@ func enumName(e *api.Enum) string {
 }
 
 func enumValueName(e *api.EnumValue) string {
-	return strcase.ToLowerCamel(e.Name)
+	name := strcase.ToLowerCamel(e.Name)
+	if _, hasConflict := reservedNames[name]; hasConflict {
+		name = name + "$"
+	}
+	return name
 }
 
 func httpPathFmt(pathInfo *api.PathInfo) string {
