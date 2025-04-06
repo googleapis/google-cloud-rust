@@ -1,4 +1,4 @@
-# Architectuire Guide
+# Architecture Guide
 
 This document describes the high-level architecture of the Google Cloud Rust
 Client libraries. Its main audience are developers and contributors making
@@ -18,7 +18,7 @@ services in [Google Cloud](https://cloud.google.com). All services are in scope.
 As of 2025-03 we have over 100 libraries, covering most Google Cloud services.
 The APIs are not stable, they are **not** ready for use in production code.
 
-What do we mean by idiomatic? We mean that CRust developers will find the APIs
+What do we mean by idiomatic? We mean that Rust developers will find the APIs
 familiar, or "natural", that these APIs will fit well with the rest of the Rust
 ecosystem, and that very few new "concepts" are needed to understand how to use
 these libraries.
@@ -34,7 +34,7 @@ More specifically, the functionality offered by these libraries include:
 - Optional parameters can be provided as needed, there is no need to initialize
   parameters to their default values.
 - The libraries convert pagination APIs into streams.
-- The libraries convert long-running operations into a an asynchronous function
+- The libraries convert long-running operations into an asynchronous function
   that simply returns the final outcome of the long-running operation.
   Applications that need more fine-grained control over the request can still
   do so.
