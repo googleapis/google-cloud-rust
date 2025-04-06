@@ -203,7 +203,7 @@ impl ReqwestClient {
     pub fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+    ) -> Arc<dyn PollingErrorPolicy> {
         options
             .polling_error_policy()
             .clone()
@@ -214,7 +214,7 @@ impl ReqwestClient {
     pub fn get_polling_backoff_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+    ) -> Arc<dyn PollingBackoffPolicy> {
         options
             .polling_backoff_policy()
             .clone()
@@ -353,7 +353,7 @@ mod test {
         let err = response.err().unwrap();
         let err = err.as_inner::<ServiceError>().unwrap();
         assert_eq!(err.status(), &status);
-        assert_eq!(err.http_status_code(), &Some(404 as u16));
+        assert_eq!(err.http_status_code(), &Some(404_u16));
         let want = HashMap::from(
             [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
         );

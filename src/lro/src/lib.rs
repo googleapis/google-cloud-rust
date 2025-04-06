@@ -318,9 +318,9 @@ mod test {
         let op = TestOperation::new(op);
         assert_eq!(op.name(), "test-only-name");
         assert!(!op.done());
-        assert!(matches!(op.metadata(), Some(_)));
-        assert!(matches!(op.response(), None));
-        assert!(matches!(op.error(), None));
+        assert!(op.metadata().is_some());
+        assert!(op.response().is_none());
+        assert!(op.error().is_none());
         let got = op
             .metadata()
             .unwrap()
@@ -367,9 +367,9 @@ mod test {
         let op = TestOperation::new(op);
         assert_eq!(op.name(), "test-only-name");
         assert!(!op.done());
-        assert!(matches!(op.metadata(), None));
-        assert!(matches!(op.response(), None));
-        assert!(matches!(op.error(), Some(_)));
+        assert!(op.metadata().is_none());
+        assert!(op.response().is_none());
+        assert!(op.error().is_some());
         let got = op.error().unwrap();
         assert_eq!(got, &rpc);
 

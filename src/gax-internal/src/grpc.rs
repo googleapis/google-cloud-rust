@@ -33,7 +33,7 @@ pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,
-    credentials: auth::credentials::Credentials,
+    credentials: Credentials,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     retry_throttler: SharedRetryThrottler,
@@ -65,7 +65,7 @@ impl Client {
     ) -> Result<Response>
     where
         Request: prost::Message + 'static + Clone,
-        Response: prost::Message + std::default::Default + 'static,
+        Response: prost::Message + Default + 'static,
     {
         match self.get_retry_policy(&options) {
             None => {
@@ -111,7 +111,7 @@ impl Client {
     ) -> Result<Response>
     where
         Request: prost::Message + 'static + Clone,
-        Response: prost::Message + std::default::Default + 'static,
+        Response: prost::Message + Default + 'static,
     {
         let idempotent = options.idempotent().unwrap_or(false);
         let retry_throttler = self.get_retry_throttler(&options);

@@ -139,7 +139,7 @@ mod test {
         Ok(())
     }
 
-    fn test_options(timeout: &std::time::Duration) -> RequestOptions {
+    fn test_options(timeout: &Duration) -> RequestOptions {
         let mut options = RequestOptions::default();
         options.set_attempt_timeout(timeout.clone());
         options
