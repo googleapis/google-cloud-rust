@@ -4399,6 +4399,7 @@ dependencies = [
 name = "google-cloud-wkt"
 version = "0.3.0"
 dependencies = [
+ "anyhow",
  "base64",
  "bytes",
  "chrono",
