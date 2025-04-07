@@ -145,7 +145,7 @@ mod test {
         Credentials {}
 
         impl CredentialsTrait for Credentials {
-            async fn get_token(&self) -> Result<Token>;
+            async fn token(&self) -> Result<Token>;
             async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
             async fn universe_domain(&self) -> Option<String>;
         }
@@ -154,7 +154,7 @@ mod test {
     #[tokio::test]
     async fn mocking() -> Result<()> {
         let mut mock = MockCredentials::new();
-        mock.expect_get_token().return_once(|| {
+        mock.expect_token().return_once(|| {
             Ok(Token {
                 token: "test-token".to_string(),
                 token_type: "Bearer".to_string(),
@@ -166,7 +166,7 @@ mod test {
         mock.expect_universe_domain().return_once(|| None);
 
         let creds = Credentials::from(mock);
-        assert_eq!(creds.get_token().await?.token, "test-token");
+        assert_eq!(creds.token().await?.token, "test-token");
         assert!(creds.headers().await?.is_empty());
         assert_eq!(creds.universe_domain().await, None);
 
@@ -176,7 +176,7 @@ mod test {
     #[tokio::test]
     async fn testing_credentials() -> Result<()> {
         let creds = test_credentials();
-        assert_eq!(creds.get_token().await?.token, "test-only-token");
+        assert_eq!(creds.token().await?.token, "test-only-token");
         assert!(creds.headers().await?.is_empty());
         assert_eq!(creds.universe_domain().await, None);
         Ok(())
