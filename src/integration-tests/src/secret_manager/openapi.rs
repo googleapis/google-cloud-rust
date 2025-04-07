@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
+use gax::paginator::Paginator;
 use rand::{Rng, distr::Alphanumeric};
 
 pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -> Result<()> {

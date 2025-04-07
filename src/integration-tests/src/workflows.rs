@@ -14,6 +14,7 @@
 
 use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+use gax::paginator::{ItemPaginator, Paginator};
 use gax::{error::Error, options::RequestOptionsBuilder};
 use rand::{Rng, distr::Alphanumeric};
 use std::time::Duration;
