@@ -85,7 +85,7 @@ mod test {
         // Try to use the service account credentials. This calls into the
         // custom crypto provider.
         let creds = test_service_account_credentials().await;
-        let e = creds.get_token().await.err().unwrap();
+        let e = creds.token().await.err().unwrap();
         assert!(e.to_string().contains(CUSTOM_ERROR), "{e}");
     }
 }

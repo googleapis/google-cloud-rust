@@ -89,7 +89,7 @@ impl std::fmt::Debug for ApiKeyTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for ApiKeyTokenProvider {
-    async fn get_token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<Token> {
         Ok(Token {
             token: self.api_key.clone(),
             token_type: String::new(),
@@ -113,12 +113,12 @@ impl<T> CredentialsTrait for ApiKeyCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn get_token(&self) -> Result<Token> {
-        self.token_provider.get_token().await
+    async fn token(&self) -> Result<Token> {
+        self.token_provider.token().await
     }
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        let token = self.get_token().await?;
+        let token = self.token().await?;
         let mut value = HeaderValue::from_str(&token.token).map_err(errors::non_retryable)?;
         value.set_sensitive(true);
         let mut headers = vec![(HeaderName::from_static(API_KEY_HEADER_KEY), value)];
@@ -155,7 +155,7 @@ mod test {
         let creds = create_api_key_credentials("test-api-key", ApiKeyOptions::default())
             .await
             .unwrap();
-        let token = creds.get_token().await.unwrap();
+        let token = creds.token().await.unwrap();
         assert_eq!(
             token,
             Token {
