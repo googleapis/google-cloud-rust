@@ -32,6 +32,8 @@ pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
 pub struct Builder {
     authorized_user: Value,
     scopes: Option<Vec<String>>,
+    quota_project_id: Option<String>,
+    token_uri: Option<String>,
 }
 
 impl Builder {
@@ -39,11 +41,13 @@ impl Builder {
         Self {
             authorized_user,
             scopes: None,
+            quota_project_id: None,
+            token_uri: None,
         }
     }
 
     pub fn with_token_uri<S: Into<String>>(mut self, token_uri: S) -> Self {
-        self.authorized_user["token_uri"] = Value::from(token_uri.into());
+        self.token_uri = Some(token_uri.into());
         self
     }
 
@@ -65,7 +69,7 @@ impl Builder {
     ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
-        self.authorized_user["quota_project_id"] = Value::from(quota_project_id.into());
+        self.quota_project_id = Some(quota_project_id.into());
         self
     }
 
@@ -73,13 +77,19 @@ impl Builder {
     pub fn build(self) -> Result<Credentials> {
         let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
             .map_err(errors::non_retryable)?;
+        let endpoint = self
+            .token_uri
+            .or_else(|| authorized_user.token_uri)
+            .unwrap_or(OAUTH2_ENDPOINT.to_string());
+        let quota_project_id = self
+            .quota_project_id
+            .or_else(|| authorized_user.quota_project_id);
+
         let token_provider = UserTokenProvider {
             client_id: authorized_user.client_id,
             client_secret: authorized_user.client_secret,
             refresh_token: authorized_user.refresh_token,
-            endpoint: authorized_user
-                .token_uri
-                .unwrap_or_else(|| OAUTH2_ENDPOINT.to_string()),
+            endpoint,
             scopes: self.scopes.map(|scopes| scopes.join(" ")),
         };
         let token_provider = TokenCache::new(token_provider);
@@ -87,7 +97,7 @@ impl Builder {
         Ok(Credentials {
             inner: Arc::new(UserCredentials {
                 token_provider,
-                quota_project_id: authorized_user.quota_project_id,
+                quota_project_id,
             }),
         })
     }
@@ -561,7 +571,6 @@ mod test {
         }
     }
 
-
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_full() -> TestResult {
         let response = Oauth2RefreshResponse {
@@ -620,7 +629,9 @@ mod test {
             "refresh_token": "test-refresh-token",
             "endpoint": endpoint,
         });
-        let cred = Builder::new(authorized_user).with_quota_project_id("test-project").build()?;
+        let cred = Builder::new(authorized_user)
+            .with_quota_project_id("test-project")
+            .build()?;
 
         let headers: Vec<HV> = HV::from(cred.get_headers().await.unwrap());
         assert_eq!(
