@@ -33,7 +33,7 @@ mod test {
     use test_case::test_case;
 
     #[test_case(tonic::Code::Ok, rpc::Code::Ok)]
-    #[test_case(tonic::Code::Cancelled, rpc::Code::Canceled)]
+    #[test_case(tonic::Code::Cancelled, rpc::Code::Cancelled)]
     #[test_case(tonic::Code::Unknown, rpc::Code::Unknown)]
     #[test_case(tonic::Code::InvalidArgument, rpc::Code::InvalidArgument)]
     #[test_case(tonic::Code::DeadlineExceeded, rpc::Code::DeadlineExceeded)]
