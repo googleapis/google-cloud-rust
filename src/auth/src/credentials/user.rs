@@ -79,11 +79,9 @@ impl Builder {
             .map_err(errors::non_retryable)?;
         let endpoint = self
             .token_uri
-            .or_else(|| authorized_user.token_uri)
+            .or(authorized_user.token_uri)
             .unwrap_or(OAUTH2_ENDPOINT.to_string());
-        let quota_project_id = self
-            .quota_project_id
-            .or_else(|| authorized_user.quota_project_id);
+        let quota_project_id = self.quota_project_id.or(authorized_user.quota_project_id);
 
         let token_provider = UserTokenProvider {
             client_id: authorized_user.client_id,
@@ -589,6 +587,7 @@ mod test {
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
             "endpoint": endpoint,
         });
         let cred = Builder::new(authorized_user).build()?;
@@ -627,13 +626,14 @@ mod test {
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
             "endpoint": endpoint,
         });
         let cred = Builder::new(authorized_user)
             .with_quota_project_id("test-project")
             .build()?;
 
-        let headers: Vec<HV> = HV::from(cred.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(cred.headers().await.unwrap());
         assert_eq!(
             headers,
             vec![
@@ -710,6 +710,7 @@ mod test {
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
             "endpoint": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
@@ -735,6 +736,7 @@ mod test {
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
             "endpoint": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
@@ -759,6 +761,7 @@ mod test {
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
             "endpoint": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
@@ -783,6 +786,7 @@ mod test {
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
             "endpoint": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;

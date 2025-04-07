@@ -18,7 +18,7 @@ pub use api_key_credentials::{ApiKeyOptions, create_api_key_credentials};
 
 pub mod mds;
 pub mod service_account;
-pub(crate) mod user;
+pub mod user;
 
 use crate::Result;
 use crate::errors::{self, CredentialsError};
