@@ -236,6 +236,8 @@ extend-ignore-re = [
   # src/generated/cloud/gkemulticloud/v1 uses AKS as an acronym.
   "\\WAKS\\W",
   "\\Waks\\W",
+  # src/generated/cloud/licensemanager/v1 uses `MAK` as an acronym.
+  "(MAK)",
   # src/generated/cloud/orchestration/airflow/service/v1, typos splits this as
   # "I-Dentifier"
   "IDentifier",
