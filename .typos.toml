@@ -26,7 +26,7 @@ extend-glob = ["*.mustache"]
 [type.mustache.extend-words]
 ser = "ser"
 
-[type.rust.extend-words]
+[default.extend-words]
 # This is correct, https://en.wikipedia.org/wiki/Comune
 comune = "comune"
 # A common spelling, but typos-cli prefers implementers
@@ -198,7 +198,7 @@ combintation = "combintation"
 
 # These are not good ideas for "extend-words" because they will catch too many
 # true positives
-[type.rust]
+[default]
 extend-ignore-re = [
   # This is intentional, `typ` is the name of a field in OAuth2 claims:
   "\"typ\"",
@@ -236,6 +236,8 @@ extend-ignore-re = [
   # src/generated/cloud/gkemulticloud/v1 uses AKS as an acronym.
   "\\WAKS\\W",
   "\\Waks\\W",
+  # src/generated/cloud/licensemanager/v1 uses `MAK` as an acronym.
+  "(MAK)",
   # src/generated/cloud/orchestration/airflow/service/v1, typos splits this as
   # "I-Dentifier"
   "IDentifier",

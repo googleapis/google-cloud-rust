@@ -58,7 +58,7 @@
 //! "universe_domain": "test-universe-domain",
 //! });
 //! let credentials: Credentials = Builder::new(service_account_key).with_quota_project_id("my-quota-project").build()?;
-//! let token = credentials.get_token().await?;
+//! let token = credentials.token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
 //! # });
@@ -304,7 +304,7 @@ struct ServiceAccountTokenProvider {
 
 #[async_trait]
 impl TokenProvider for ServiceAccountTokenProvider {
-    async fn get_token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<Token> {
         let signer = self.signer(&self.service_account_key.private_key)?;
 
         let expires_at = std::time::Instant::now() - CLOCK_SKEW_FUDGE + DEFAULT_TOKEN_TIMEOUT;
@@ -390,13 +390,13 @@ impl<T> CredentialsTrait for ServiceAccountCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn get_token(&self) -> Result<Token> {
-        self.token_provider.get_token().await
+    async fn token(&self) -> Result<Token> {
+        self.token_provider.token().await
     }
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         //TODO(#1686) Refactor the common logic out of the individual headers methods.
-        let token = self.get_token().await?;
+        let token = self.token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)?;
         value.set_sensitive(true);
@@ -446,7 +446,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_token_success() {
+    async fn token_success() {
         let expected = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -456,7 +456,7 @@ mod test {
         let expected_clone = expected.clone();
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
+        mock.expect_token()
             .times(1)
             .return_once(|| Ok(expected_clone));
 
@@ -464,14 +464,14 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        let actual = sac.get_token().await.unwrap();
+        let actual = sac.token().await.unwrap();
         assert_eq!(actual, expected);
     }
 
     #[tokio::test]
-    async fn get_token_failure() {
+    async fn token_failure() {
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
+        mock.expect_token()
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
@@ -479,7 +479,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(sac.get_token().await.is_err());
+        assert!(sac.token().await.is_err());
     }
 
     #[tokio::test]
@@ -492,7 +492,7 @@ mod test {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token().times(1).return_once(|| Ok(token));
+        mock.expect_token().times(1).return_once(|| Ok(token));
 
         let sac = ServiceAccountCredentials {
             token_provider: mock,
@@ -522,7 +522,7 @@ mod test {
         let quota_project = "test-quota-project";
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token().times(1).return_once(|| Ok(token));
+        mock.expect_token().times(1).return_once(|| Ok(token));
 
         let sac = ServiceAccountCredentials {
             token_provider: mock,
@@ -550,7 +550,7 @@ mod test {
     #[tokio::test]
     async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
+        mock.expect_token()
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
@@ -587,7 +587,7 @@ mod test {
         let cred = Builder::new(service_account_key).build()?;
         let expected_error_message = "expected key to be in form of PKCS8, found Pkcs1Key";
         assert!(
-            cred.get_token()
+            cred.token()
                 .await
                 .is_err_and(|e| e.to_string().contains(expected_error_message))
         );
@@ -619,7 +619,7 @@ mod test {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
         let cred = Builder::new(service_account_key.clone()).build()?;
-        let token = cred.get_token().await?;
+        let token = cred.token().await?;
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).ok_or_else(|| {
             format!(
@@ -655,7 +655,7 @@ mod test {
         });
 
         let credentials = creds_from(json_value)?;
-        let token = credentials.get_token().await?;
+        let token = credentials.token().await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).unwrap();
@@ -670,7 +670,7 @@ mod test {
         std::thread::sleep(Duration::from_secs(1));
 
         // Get the token again.
-        let token = credentials.get_token().await?;
+        let token = credentials.token().await?;
         let captures = re.captures(&token.token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());
@@ -690,7 +690,7 @@ mod test {
         service_account_key["private_key"] = Value::from(pem_data);
         let cred = Builder::new(service_account_key).build()?;
 
-        let token = cred.get_token().await;
+        let token = cred.token().await;
         let expected_error_message = "failed to parse private key";
         assert!(token.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
@@ -739,7 +739,7 @@ mod test {
         let token = Builder::new(service_account_key.clone())
             .with_aud("test-audience")
             .build()?
-            .get_token()
+            .token()
             .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
@@ -774,7 +774,7 @@ mod test {
         let token = Builder::new(service_account_key.clone())
             .with_scopes(scopes.clone())
             .build()?
-            .get_token()
+            .token()
             .await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();

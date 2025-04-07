@@ -18,7 +18,7 @@ pub use api_key_credentials::{ApiKeyOptions, create_api_key_credentials};
 
 pub mod mds;
 pub mod service_account;
-pub(crate) mod user_credentials;
+pub(crate) mod user;
 
 use crate::Result;
 use crate::errors::{self, CredentialsError};
@@ -87,8 +87,8 @@ where
 }
 
 impl Credentials {
-    pub async fn get_token(&self) -> Result<crate::token::Token> {
-        self.inner.get_token().await
+    pub async fn token(&self) -> Result<crate::token::Token> {
+        self.inner.token().await
     }
 
     pub async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
@@ -145,7 +145,7 @@ pub trait CredentialsTrait: std::fmt::Debug {
     ///
     /// Returns a [Token][crate::token::Token] for the current credentials.
     /// The underlying implementation refreshes the token as needed.
-    fn get_token(&self) -> impl Future<Output = Result<crate::token::Token>> + Send;
+    fn token(&self) -> impl Future<Output = Result<crate::token::Token>> + Send;
 
     /// Asynchronously constructs the auth headers.
     ///
@@ -171,7 +171,7 @@ pub(crate) mod dynamic {
         ///
         /// Returns a [Token][crate::token::Token] for the current credentials.
         /// The underlying implementation refreshes the token as needed.
-        async fn get_token(&self) -> Result<crate::token::Token>;
+        async fn token(&self) -> Result<crate::token::Token>;
 
         /// Asynchronously constructs the auth headers.
         ///
@@ -194,8 +194,8 @@ pub(crate) mod dynamic {
     where
         T: super::CredentialsTrait + Send + Sync,
     {
-        async fn get_token(&self) -> Result<crate::token::Token> {
-            T::get_token(self).await
+        async fn token(&self) -> Result<crate::token::Token> {
+            T::token(self).await
         }
         async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
             T::headers(self).await
@@ -240,7 +240,7 @@ pub(crate) mod dynamic {
 /// # use google_cloud_auth::errors::CredentialsError;
 /// # tokio_test::block_on(async {
 /// let mut creds = create_access_token_credentials().await?;
-/// let token = creds.get_token().await?;
+/// let token = creds.token().await?;
 /// println!("Token: {}", token.token);
 /// # Ok::<(), CredentialsError>(())
 /// # });
@@ -265,7 +265,7 @@ pub async fn create_access_token_credentials() -> Result<Credentials> {
         .ok_or_else(|| errors::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
         )?;
     match cred_type {
-        "authorized_user" => user_credentials::creds_from(js),
+        "authorized_user" => user::creds_from(js),
         "service_account" => service_account::creds_from(js),
         _ => Err(errors::non_retryable_from_str(format!(
             "Unimplemented credentials type: {cred_type}"
@@ -367,7 +367,7 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsTrait for TestCredentials {
-        async fn get_token(&self) -> Result<Token> {
+        async fn token(&self) -> Result<Token> {
             Ok(Token {
                 token: "test-only-token".to_string(),
                 token_type: "Bearer".to_string(),
@@ -387,7 +387,7 @@ pub mod testing {
 
     /// A simple credentials implementation to use in tests.
     ///
-    /// Always return an error in `get_token()` and `headers()`.
+    /// Always return an error in `token()` and `headers()`.
     pub fn error_credentials(retryable: bool) -> Credentials {
         Credentials {
             inner: Arc::from(ErrorCredentials(retryable)),
@@ -399,7 +399,7 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsTrait for ErrorCredentials {
-        async fn get_token(&self) -> Result<Token> {
+        async fn token(&self) -> Result<Token> {
             Err(super::CredentialsError::from_str(self.0, "test-only"))
         }
 
@@ -572,7 +572,7 @@ mod test {
             credentials.universe_domain().await.is_none(),
             "{credentials:?}"
         );
-        let err = credentials.get_token().await.err().unwrap();
+        let err = credentials.token().await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
         let err = credentials.headers().await.err().unwrap();
         assert_eq!(err.is_retryable(), retryable, "{err:?}");
