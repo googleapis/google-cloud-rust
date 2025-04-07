@@ -99,7 +99,7 @@ impl {{Codec.Name}} {
     ) -> Result<http::header::HeaderMap> {
         let mut headers = self
             .cred
-            .get_headers()
+            .headers()
             .await
             .map_err(Error::authentication)?;
         headers.push((

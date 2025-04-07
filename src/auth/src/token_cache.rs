@@ -495,7 +495,7 @@ mod test {
     #[derive(Clone, Debug)]
     struct FakeTokenProvider {
         result: Result<Token>,
-        calls: Arc<std::sync::Mutex<i32>>,
+        calls: Arc<Mutex<i32>>,
     }
 
     impl FakeTokenProvider {
@@ -515,7 +515,7 @@ mod test {
     impl TokenProvider for FakeTokenProvider {
         async fn get_token(&self) -> Result<Token> {
             // We give enough time for the a thundering herd to pile up waiting for a change notification from watch channel
-            tokio::time::sleep(Duration::from_millis(50)).await;
+            sleep(Duration::from_millis(50)).await;
 
             // Track how many calls were made to the inner token provider.
             *self.calls.lock().unwrap() += 1;

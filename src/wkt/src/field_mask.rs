@@ -265,7 +265,7 @@ impl crate::message::Message for FieldMask {
 
 /// Implement [`serde`](::serde) serialization for [FieldMask]
 impl serde::ser::Serialize for FieldMask {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
@@ -340,7 +340,7 @@ mod test {
 
     #[test]
     fn deserialize_unexpected_input_type() -> Result {
-        let got = serde_json::from_value::<FieldMask>(serde_json::json!({"paths": {"a": "b"}}));
+        let got = serde_json::from_value::<FieldMask>(json!({"paths": {"a": "b"}}));
         assert!(got.is_err());
         let msg = format!("{got:?}");
         assert!(msg.contains("field mask paths"), "message={}", msg);

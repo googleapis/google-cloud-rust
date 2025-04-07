@@ -173,6 +173,69 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn create_user_creds(
+        &self,
+        req: crate::model::CreateUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::UserCreds> {
+        self.inner.create_user_creds(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_user_creds(
+        &self,
+        req: crate::model::GetUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::UserCreds> {
+        self.inner.get_user_creds(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_user_creds(
+        &self,
+        req: crate::model::ListUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListUserCredsResponse> {
+        self.inner.list_user_creds(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn enable_user_creds(
+        &self,
+        req: crate::model::EnableUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::UserCreds> {
+        self.inner.enable_user_creds(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn disable_user_creds(
+        &self,
+        req: crate::model::DisableUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::UserCreds> {
+        self.inner.disable_user_creds(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn reset_user_password(
+        &self,
+        req: crate::model::ResetUserPasswordRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::UserCreds> {
+        self.inner.reset_user_password(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_user_creds(
+        &self,
+        req: crate::model::DeleteUserCredsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<()> {
+        self.inner.delete_user_creds(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,

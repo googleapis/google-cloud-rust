@@ -3,7 +3,7 @@ module github.com/googleapis/google-cloud-rust/generator
 go 1.23.6
 
 require (
-	cloud.google.com/go/iam v1.4.2
+	cloud.google.com/go/iam v1.5.0
 	cloud.google.com/go/longrunning v0.6.6
 	github.com/cbroglie/mustache v1.4.0
 	github.com/ghodss/yaml v1.0.0
@@ -14,8 +14,8 @@ require (
 	github.com/walle/targz v0.0.0-20140417120357-57fe4206da5a
 	github.com/yuin/goldmark v1.7.8
 	google.golang.org/genproto v0.0.0-20250303144028-a0af3efb3deb
-	google.golang.org/genproto/googleapis/api v0.0.0-20250303144028-a0af3efb3deb
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250303144028-a0af3efb3deb
+	google.golang.org/genproto/googleapis/api v0.0.0-20250313205543-e70fdf4c4cb4
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250313205543-e70fdf4c4cb4
 	google.golang.org/protobuf v1.36.6
 )
 

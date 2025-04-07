@@ -52,7 +52,7 @@
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use crate::error::{CredentialError, Error};
+use crate::error::{CredentialsError, Error};
 use crate::loop_state::LoopState;
 use std::sync::Arc;
 
@@ -248,7 +248,7 @@ impl RetryPolicy for Aip194Strict {
                 }
             }
             ErrorKind::Authentication => {
-                if let Some(cred_err) = error.as_inner::<CredentialError>() {
+                if let Some(cred_err) = error.as_inner::<CredentialsError>() {
                     if cred_err.is_retryable() {
                         LoopState::Continue(error)
                     } else {

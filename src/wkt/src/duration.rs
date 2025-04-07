@@ -177,7 +177,7 @@ impl crate::message::Message for Duration {
 }
 
 /// Converts a [Duration] to its [String] representation.
-impl std::convert::From<&Duration> for String {
+impl From<&Duration> for String {
     fn from(duration: &Duration) -> String {
         let sign = if duration.seconds < 0 || duration.nanos < 0 {
             "-"
@@ -197,7 +197,7 @@ impl std::convert::From<&Duration> for String {
 }
 
 /// Converts the [String] representation of a duration to [Duration].
-impl std::convert::TryFrom<&str> for Duration {
+impl TryFrom<&str> for Duration {
     type Error = DurationError;
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         if !value.ends_with('s') {
@@ -231,7 +231,7 @@ impl std::convert::TryFrom<&str> for Duration {
 }
 
 /// Convert from [std::time::Duration] to [Duration].
-impl std::convert::TryFrom<std::time::Duration> for Duration {
+impl TryFrom<std::time::Duration> for Duration {
     type Error = DurationError;
 
     fn try_from(value: std::time::Duration) -> Result<Self, Self::Error> {
@@ -244,7 +244,7 @@ impl std::convert::TryFrom<std::time::Duration> for Duration {
 }
 
 /// Convert from [Duration] to [std::time::Duration].
-impl std::convert::TryFrom<Duration> for std::time::Duration {
+impl TryFrom<Duration> for std::time::Duration {
     type Error = DurationError;
 
     fn try_from(value: Duration) -> Result<Self, Self::Error> {
@@ -262,7 +262,7 @@ impl std::convert::TryFrom<Duration> for std::time::Duration {
 ///
 /// This conversion may fail if the [time::Duration] value is out of range.
 #[cfg(feature = "time")]
-impl std::convert::TryFrom<time::Duration> for Duration {
+impl TryFrom<time::Duration> for Duration {
     type Error = DurationError;
 
     fn try_from(value: time::Duration) -> Result<Self, Self::Error> {
@@ -275,7 +275,7 @@ impl std::convert::TryFrom<time::Duration> for Duration {
 /// This conversion is always safe because the range for [Duration] is
 /// guaranteed to fit into the destination type.
 #[cfg(feature = "time")]
-impl std::convert::From<Duration> for time::Duration {
+impl From<Duration> for time::Duration {
     fn from(value: Duration) -> Self {
         Self::new(value.seconds(), value.nanos())
     }
@@ -283,7 +283,7 @@ impl std::convert::From<Duration> for time::Duration {
 
 /// Converts from [chrono::Duration] to [Duration].
 #[cfg(feature = "chrono")]
-impl std::convert::TryFrom<chrono::Duration> for Duration {
+impl TryFrom<chrono::Duration> for Duration {
     type Error = DurationError;
 
     fn try_from(value: chrono::Duration) -> Result<Self, Self::Error> {
@@ -293,7 +293,7 @@ impl std::convert::TryFrom<chrono::Duration> for Duration {
 
 /// Converts from [Duration] to [chrono::Duration].
 #[cfg(feature = "chrono")]
-impl std::convert::From<Duration> for chrono::Duration {
+impl From<Duration> for chrono::Duration {
     fn from(value: Duration) -> Self {
         Self::seconds(value.seconds) + Self::nanoseconds(value.nanos as i64)
     }
@@ -369,8 +369,10 @@ mod test {
 
     #[test_case(10_000 * SECONDS_IN_YEAR , 0 ; "exactly 10,000 years")]
     #[test_case(- 10_000 * SECONDS_IN_YEAR , 0 ; "exactly negative 10,000 years")]
-    #[test_case(10_000 * SECONDS_IN_YEAR , 999_999_999 ; "exactly 10,000 years and 999,999,999 nanos")]
-    #[test_case(- 10_000 * SECONDS_IN_YEAR , -999_999_999 ; "exactly negative 10,000 years and 999,999,999 nanos")]
+    #[test_case(10_000 * SECONDS_IN_YEAR , 999_999_999 ; "exactly 10,000 years and 999,999,999 nanos"
+	)]
+    #[test_case(- 10_000 * SECONDS_IN_YEAR , -999_999_999 ; "exactly negative 10,000 years and 999,999,999 nanos"
+	)]
     #[test_case(0, 999_999_999 ; "exactly 999,999,999 nanos")]
     #[test_case(0 , -999_999_999 ; "exactly negative 999,999,999 nanos")]
     fn edge_of_range(seconds: i64, nanos: i32) -> Result {
@@ -398,12 +400,18 @@ mod test {
         Ok(())
     }
 
-    #[test_case(20_000 * SECONDS_IN_YEAR, 0, 10_000 * SECONDS_IN_YEAR, 0 ; "too many positive seconds")]
-    #[test_case(-20_000 * SECONDS_IN_YEAR, 0, -10_000 * SECONDS_IN_YEAR, 0 ; "too many negative seconds")]
-    #[test_case(10_000 * SECONDS_IN_YEAR - 1, 1_999_999_999, 10_000 * SECONDS_IN_YEAR, 999_999_999 ; "upper edge of range")]
-    #[test_case(-10_000 * SECONDS_IN_YEAR + 1, -1_999_999_999, -10_000 * SECONDS_IN_YEAR, -999_999_999 ; "lower edge of range")]
-    #[test_case(10_000 * SECONDS_IN_YEAR - 1 , 2 * 1_000_000_000_i32, 10_000 * SECONDS_IN_YEAR, 0 ; "nanos push over 10,000 years")]
-    #[test_case(-10_000 * SECONDS_IN_YEAR + 1, -2 * 1_000_000_000_i32, -10_000 * SECONDS_IN_YEAR, 0 ; "one push under -10,000 years")]
+    #[test_case(20_000 * SECONDS_IN_YEAR, 0, 10_000 * SECONDS_IN_YEAR, 0 ; "too many positive seconds"
+	)]
+    #[test_case(-20_000 * SECONDS_IN_YEAR, 0, -10_000 * SECONDS_IN_YEAR, 0 ; "too many negative seconds"
+	)]
+    #[test_case(10_000 * SECONDS_IN_YEAR - 1, 1_999_999_999, 10_000 * SECONDS_IN_YEAR, 999_999_999 ; "upper edge of range"
+	)]
+    #[test_case(-10_000 * SECONDS_IN_YEAR + 1, -1_999_999_999, -10_000 * SECONDS_IN_YEAR, -999_999_999 ; "lower edge of range"
+	)]
+    #[test_case(10_000 * SECONDS_IN_YEAR - 1 , 2 * 1_000_000_000_i32, 10_000 * SECONDS_IN_YEAR, 0 ; "nanos push over 10,000 years"
+	)]
+    #[test_case(-10_000 * SECONDS_IN_YEAR + 1, -2 * 1_000_000_000_i32, -10_000 * SECONDS_IN_YEAR, 0 ; "one push under -10,000 years"
+	)]
     #[test_case(0, 0, 0, 0 ; "all inputs are zero")]
     #[test_case(1, 0, 1, 0 ; "positive seconds and zero nanos")]
     #[test_case(1, 200_000, 1, 200_000 ; "positive seconds and nanos")]
@@ -435,7 +443,8 @@ mod test {
     #[test_case(-12, -123_000, "-12.000123s"; "negative seconds and micros")]
     #[test_case(-12, -123_000_000, "-12.123s"; "negative seconds and millis")]
     #[test_case(-12, -123_456_789, "-12.123456789s"; "negative seconds and full nanos")]
-    #[test_case(-10_000 * SECONDS_IN_YEAR, -999_999_999, "-315576000000.999999999s"; "range edge start")]
+    #[test_case(-10_000 * SECONDS_IN_YEAR, -999_999_999, "-315576000000.999999999s"; "range edge start"
+	)]
     #[test_case(10_000 * SECONDS_IN_YEAR, 999_999_999, "315576000000.999999999s"; "range edge end")]
     fn roundtrip(seconds: i64, nanos: i32, want: &str) -> Result {
         let input = Duration::new(seconds, nanos)?;
@@ -461,8 +470,10 @@ mod test {
 
     #[test_case(time::Duration::default(), Duration::default() ; "default")]
     #[test_case(time::Duration::new(0, 0), Duration::new(0, 0).unwrap() ; "zero")]
-    #[test_case(time::Duration::new(10_000 * SECONDS_IN_YEAR , 0), Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years")]
-    #[test_case(time::Duration::new(-10_000 * SECONDS_IN_YEAR , 0), Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years")]
+    #[test_case(time::Duration::new(10_000 * SECONDS_IN_YEAR , 0), Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years"
+	)]
+    #[test_case(time::Duration::new(-10_000 * SECONDS_IN_YEAR , 0), Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years"
+	)]
     fn from_time_in_range(value: time::Duration, want: Duration) -> Result {
         let got = Duration::try_from(value)?;
         assert_eq!(got, want);
@@ -478,8 +489,10 @@ mod test {
 
     #[test_case(Duration::default(), time::Duration::default() ; "default")]
     #[test_case(Duration::new(0, 0).unwrap(), time::Duration::new(0, 0) ; "zero")]
-    #[test_case(Duration::new(10_000 * SECONDS_IN_YEAR , 0).unwrap(), time::Duration::new(10_000 * SECONDS_IN_YEAR, 0) ; "exactly 10,000 years")]
-    #[test_case(Duration::new(-10_000 * SECONDS_IN_YEAR , 0).unwrap(), time::Duration::new(-10_000 * SECONDS_IN_YEAR, 0) ; "exactly negative 10,000 years")]
+    #[test_case(Duration::new(10_000 * SECONDS_IN_YEAR , 0).unwrap(), time::Duration::new(10_000 * SECONDS_IN_YEAR, 0) ; "exactly 10,000 years"
+	)]
+    #[test_case(Duration::new(-10_000 * SECONDS_IN_YEAR , 0).unwrap(), time::Duration::new(-10_000 * SECONDS_IN_YEAR, 0) ; "exactly negative 10,000 years"
+	)]
     fn to_time_in_range(value: Duration, want: time::Duration) -> Result {
         let got = time::Duration::from(value);
         assert_eq!(got, want);
@@ -518,8 +531,10 @@ mod test {
 
     #[test_case(chrono::Duration::default(), Duration::default() ; "default")]
     #[test_case(chrono::Duration::new(0, 0).unwrap(), Duration::new(0, 0).unwrap() ; "zero")]
-    #[test_case(chrono::Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap(), Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years")]
-    #[test_case(chrono::Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap(), Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years")]
+    #[test_case(chrono::Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap(), Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years"
+	)]
+    #[test_case(chrono::Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap(), Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years"
+	)]
     fn from_chrono_time_in_range(value: chrono::Duration, want: Duration) -> Result {
         let got = Duration::try_from(value)?;
         assert_eq!(got, want);
@@ -527,8 +542,10 @@ mod test {
     }
     #[test_case(Duration::default(), chrono::Duration::default() ; "default")]
     #[test_case(Duration::new(0, 0).unwrap(), chrono::Duration::new(0, 0).unwrap() ; "zero")]
-    #[test_case(Duration::new(10_000 * SECONDS_IN_YEAR , 0).unwrap(), chrono::Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years")]
-    #[test_case(Duration::new(-10_000 * SECONDS_IN_YEAR , 0).unwrap(), chrono::Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years")]
+    #[test_case(Duration::new(10_000 * SECONDS_IN_YEAR , 0).unwrap(), chrono::Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years"
+	)]
+    #[test_case(Duration::new(-10_000 * SECONDS_IN_YEAR , 0).unwrap(), chrono::Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years"
+	)]
     fn to_chrono_time_in_range(value: Duration, want: chrono::Duration) -> Result {
         let got = chrono::Duration::from(value);
         assert_eq!(got, want);

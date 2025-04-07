@@ -19,11 +19,11 @@ use google_cloud_auth::credentials::{
     ApiKeyOptions, Credentials, CredentialsTrait, create_access_token_credentials,
     create_api_key_credentials,
 };
-use google_cloud_auth::errors::CredentialError;
+use google_cloud_auth::errors::CredentialsError;
 use google_cloud_auth::token::Token;
 use serde_json::json;
 
-type Result<T> = std::result::Result<T, CredentialError>;
+type Result<T> = std::result::Result<T, CredentialsError>;
 
 #[cfg(test)]
 mod test {
@@ -41,7 +41,7 @@ mod test {
 
         let mds = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", mds);
-        assert!(fmt.contains("MDSCredential"));
+        assert!(fmt.contains("MDSCredentials"));
     }
 
     #[tokio::test]
@@ -106,7 +106,7 @@ mod test {
 
         let uc = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", uc);
-        assert!(fmt.contains("UserCredential"));
+        assert!(fmt.contains("UserCredentials"));
     }
 
     #[tokio::test]
@@ -128,7 +128,7 @@ mod test {
 
         let sac = create_access_token_credentials().await.unwrap();
         let fmt = format!("{:?}", sac);
-        assert!(fmt.contains("ServiceAccountCredential"));
+        assert!(fmt.contains("ServiceAccountCredentials"));
     }
 
     #[tokio::test]
@@ -137,23 +137,23 @@ mod test {
             .await
             .unwrap();
         let fmt = format!("{:?}", creds);
-        assert!(fmt.contains("ApiKeyCredential"), "{fmt:?}");
+        assert!(fmt.contains("ApiKeyCredentials"), "{fmt:?}");
     }
 
     mockall::mock! {
         #[derive(Debug)]
-        Credential {}
+        Credentials {}
 
-        impl CredentialsTrait for Credential {
+        impl CredentialsTrait for Credentials {
             async fn get_token(&self) -> Result<Token>;
-            async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
-            async fn get_universe_domain(&self) -> Option<String>;
+            async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
+            async fn universe_domain(&self) -> Option<String>;
         }
     }
 
     #[tokio::test]
     async fn mocking() -> Result<()> {
-        let mut mock = MockCredential::new();
+        let mut mock = MockCredentials::new();
         mock.expect_get_token().return_once(|| {
             Ok(Token {
                 token: "test-token".to_string(),
@@ -162,13 +162,13 @@ mod test {
                 metadata: None,
             })
         });
-        mock.expect_get_headers().return_once(|| Ok(Vec::new()));
-        mock.expect_get_universe_domain().return_once(|| None);
+        mock.expect_headers().return_once(|| Ok(Vec::new()));
+        mock.expect_universe_domain().return_once(|| None);
 
         let creds = Credentials::from(mock);
         assert_eq!(creds.get_token().await?.token, "test-token");
-        assert!(creds.get_headers().await?.is_empty());
-        assert_eq!(creds.get_universe_domain().await, None);
+        assert!(creds.headers().await?.is_empty());
+        assert_eq!(creds.universe_domain().await, None);
 
         Ok(())
     }
@@ -177,8 +177,8 @@ mod test {
     async fn testing_credentials() -> Result<()> {
         let creds = test_credentials();
         assert_eq!(creds.get_token().await?.token, "test-only-token");
-        assert!(creds.get_headers().await?.is_empty());
-        assert_eq!(creds.get_universe_domain().await, None);
+        assert!(creds.headers().await?.is_empty());
+        assert_eq!(creds.universe_domain().await, None);
         Ok(())
     }
 
@@ -187,11 +187,11 @@ mod test {
         let test_quota_project = "test-quota-project";
         let test_universe_domain = "test-universe-domain";
         let mdcs = MdsBuilder::default()
-            .quota_project_id(test_quota_project)
-            .universe_domain(test_universe_domain)
+            .with_quota_project_id(test_quota_project)
+            .with_universe_domain(test_universe_domain)
             .build();
         let fmt = format!("{:?}", mdcs);
-        assert!(fmt.contains("MDSCredential"));
+        assert!(fmt.contains("MDSCredentials"));
         assert!(fmt.contains(test_quota_project));
         assert!(fmt.contains(test_universe_domain));
         Ok(())
@@ -211,7 +211,7 @@ mod test {
             .with_quota_project_id(test_quota_project)
             .build()?;
         let fmt = format!("{:?}", service_account);
-        assert!(fmt.contains("ServiceAccountCredential"));
+        assert!(fmt.contains("ServiceAccountCredentials"));
         assert!(fmt.contains(test_quota_project));
         Ok(())
     }

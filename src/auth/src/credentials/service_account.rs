@@ -48,7 +48,7 @@
 //! ```
 //! # use google_cloud_auth::credentials::service_account::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
-//! # use google_cloud_auth::errors::CredentialError;
+//! # use google_cloud_auth::errors::CredentialsError;
 //! # tokio_test::block_on(async {
 //! let service_account_key = serde_json::json!({
 //! "client_email": "test-client-email",
@@ -60,7 +60,7 @@
 //! let credentials: Credentials = Builder::new(service_account_key).with_quota_project_id("my-quota-project").build()?;
 //! let token = credentials.get_token().await?;
 //! println!("Token: {}", token.token);
-//! # Ok::<(), CredentialError>(())
+//! # Ok::<(), CredentialsError>(())
 //! # });
 //! ```
 //!
@@ -74,7 +74,7 @@ mod jws;
 use crate::credentials::QUOTA_PROJECT_KEY;
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, Result};
-use crate::errors::{self, CredentialError};
+use crate::errors::{self, CredentialsError};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use async_trait::async_trait;
@@ -229,7 +229,7 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialError] if the `service_account_key`
+    /// Returns a [CredentialsError] if the `service_account_key`
     /// provided to [`Builder::new`] cannot be successfully deserialized into the
     /// expected format for a service account key. This typically happens if the
     /// JSON value is malformed or missing required fields. For more information,
@@ -248,7 +248,7 @@ impl Builder {
         let token_provider = TokenCache::new(token_provider);
 
         Ok(Credentials {
-            inner: Arc::new(ServiceAccountCredential {
+            inner: Arc::new(ServiceAccountCredentials {
                 token_provider,
                 quota_project_id: self.quota_project_id,
             }),
@@ -288,7 +288,7 @@ impl std::fmt::Debug for ServiceAccountKey {
 }
 
 #[derive(Debug)]
-struct ServiceAccountCredential<T>
+struct ServiceAccountCredentials<T>
 where
     T: TokenProvider,
 {
@@ -377,7 +377,7 @@ impl ServiceAccountTokenProvider {
             .ok_or_else(|| errors::non_retryable_from_str("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
     }
 
-    fn unexpected_private_key_error(private_key_format: Item) -> CredentialError {
+    fn unexpected_private_key_error(private_key_format: Item) -> CredentialsError {
         errors::non_retryable_from_str(format!(
             "expected key to be in form of PKCS8, found {:?}",
             private_key_format
@@ -386,7 +386,7 @@ impl ServiceAccountTokenProvider {
 }
 
 #[async_trait::async_trait]
-impl<T> CredentialsTrait for ServiceAccountCredential<T>
+impl<T> CredentialsTrait for ServiceAccountCredentials<T>
 where
     T: TokenProvider,
 {
@@ -394,8 +394,8 @@ where
         self.token_provider.get_token().await
     }
 
-    async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        //TODO(#1686) Refactor the common logic out of the individual get_headers methods.
+    async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+        //TODO(#1686) Refactor the common logic out of the individual headers methods.
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)?;
@@ -460,7 +460,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(expected_clone));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -475,7 +475,7 @@ mod test {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
@@ -483,7 +483,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_success_without_quota_project() {
+    async fn headers_success_without_quota_project() {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -494,11 +494,11 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
-        let headers: Vec<HV> = HV::from(sac.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(sac.headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -511,7 +511,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_success_with_quota_project() {
+    async fn headers_success_with_quota_project() {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -524,11 +524,11 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: Some(quota_project.to_string()),
         };
-        let headers: Vec<HV> = HV::from(sac.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(sac.headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -548,17 +548,17 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_failure() {
+    async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let sac = ServiceAccountCredential {
+        let sac = ServiceAccountCredentials {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(sac.get_headers().await.is_err());
+        assert!(sac.headers().await.is_err());
     }
 
     fn get_mock_service_key() -> Value {
@@ -654,8 +654,8 @@ mod test {
             "universe_domain": "test-universe-domain"
         });
 
-        let credential = creds_from(json_value)?;
-        let token = credential.get_token().await?;
+        let credentials = creds_from(json_value)?;
+        let token = credentials.get_token().await?;
 
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let captures = re.captures(&token.token).unwrap();
@@ -670,7 +670,7 @@ mod test {
         std::thread::sleep(Duration::from_secs(1));
 
         // Get the token again.
-        let token = credential.get_token().await?;
+        let token = credentials.get_token().await?;
         let captures = re.captures(&token.token).unwrap();
 
         let claims = b64_decode_to_json(captures["claims"].to_string());

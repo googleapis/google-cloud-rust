@@ -6555,8 +6555,8 @@ pub mod release {
             pub const VERIFICATION_CONFIG_NOT_FOUND: FailureCause = FailureCause::new(4);
 
             /// The render operation did not complete successfully because the custom
-            /// action required for predeploy or postdeploy was not found in the
-            /// Skaffold configuration. See failure_message for additional details.
+            /// action(s) required for Rollout jobs were not found in the Skaffold
+            /// configuration. See failure_message for additional details.
             pub const CUSTOM_ACTION_NOT_FOUND: FailureCause = FailureCause::new(5);
 
             /// Release failed during rendering because the release configuration is
@@ -7356,12 +7356,13 @@ impl wkt::message::Message for BuildArtifact {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TargetArtifact {
-    /// Output only. File path of the resolved Skaffold configuration relative to
-    /// the URI.
+    /// Output only. File path of the resolved Skaffold configuration for the
+    /// stable phase, relative to the URI.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub skaffold_config_path: std::string::String,
 
-    /// Output only. File path of the rendered manifest relative to the URI.
+    /// Output only. File path of the rendered manifest relative to the URI for the
+    /// stable phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub manifest_path: std::string::String,
 

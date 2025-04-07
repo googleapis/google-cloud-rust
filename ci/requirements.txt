@@ -15,7 +15,7 @@
 # A requirements file to install Python-based development tools. Using a file
 # makes these dependencies visible to robots like dependabot and renovatebot.
 
-mdformat==0.7.19
+mdformat==0.7.18
 mdformat-gfm==0.4.1
 mdformat-frontmatter==2.0.8
 mdformat-footnote==0.1.1

@@ -88,7 +88,7 @@ pub struct Function {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub url: std::string::String,
 
-    /// [Preview] Resource name of a KMS crypto key (managed by the user) used to
+    /// Resource name of a KMS crypto key (managed by the user) used to
     /// encrypt/decrypt function resources.
     ///
     /// It must match the pattern
@@ -931,6 +931,10 @@ pub struct BuildConfig {
     /// Docker Registry to use for this deployment. This configuration is only
     /// applicable to 1st Gen functions, 2nd Gen functions can only use Artifact
     /// Registry.
+    /// Deprecated: As of March 2025, `CONTAINER_REGISTRY` option is no longer
+    /// available in response to Container Registry's deprecation:
+    /// <https://cloud.google.com/artifact-registry/docs/transition/transition-from-gcr>
+    /// Please use Artifact Registry instead, which is the default choice.
     ///
     /// If unspecified, it defaults to `ARTIFACT_REGISTRY`.
     /// If `docker_repository` field is specified, this field should either be left
@@ -945,9 +949,6 @@ pub struct BuildConfig {
     ///
     /// It must match the pattern
     /// `projects/{project}/locations/{location}/repositories/{repository}`.
-    ///
-    /// Cross-project repositories are not supported.
-    /// Cross-location repositories are not supported.
     /// Repository format must be 'DOCKER'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub docker_repository: std::string::String,
@@ -2176,7 +2177,7 @@ pub struct GetFunctionRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// Optional. The version of the 1st gen function whose details should
+    /// Optional. The optional version of the 1st gen function whose details should
     /// be obtained. The version of a 1st gen function is an integer that starts
     /// from 1 and gets incremented on redeployments. GCF may keep historical
     /// configs for old versions of 1st gen function. This field can be specified
@@ -2244,7 +2245,7 @@ pub struct ListFunctionsRequest {
     pub filter: std::string::String,
 
     /// The sorting order of the resources returned. Value should be a comma
-    /// separated list of fields. The default sorting oder is ascending.
+    /// separated list of fields. The default sorting order is ascending.
     /// See <https://google.aip.dev/132#ordering>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
@@ -2510,7 +2511,7 @@ pub struct GenerateUploadUrlRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
-    /// [Preview] Resource name of a KMS crypto key (managed by the user) used to
+    /// Resource name of a KMS crypto key (managed by the user) used to
     /// encrypt/decrypt function source code objects in intermediate Cloud Storage
     /// buckets. When you generate an upload url and upload your source code, it
     /// gets copied to an intermediate Cloud Storage bucket. The source code is
@@ -3297,7 +3298,7 @@ pub mod stage {
         /// Not specified. Invalid name.
         pub const NAME_UNSPECIFIED: Name = Name::new(0);
 
-        /// Artifact Regsitry Stage
+        /// Artifact Registry Stage
         pub const ARTIFACT_REGISTRY: Name = Name::new(1);
 
         /// Build Stage

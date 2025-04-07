@@ -31,7 +31,7 @@ class {{Codec.Name}} extends Message {
   }{{/Codec.HasFields}}) : super(fullyQualifiedName){{Codec.ConstructorBody}}
 
   {{#Codec.HasCustomEncoding}}
-  factory {{Codec.Name}}.fromJson(String json) => {{Codec.Name}}Helper.decode(json);
+  factory {{Codec.Name}}.fromJson(Object json) => {{Codec.Name}}Helper.decode(json);
   {{/Codec.HasCustomEncoding}}
   {{^Codec.HasCustomEncoding}}
   factory {{Codec.Name}}.fromJson(Map<String, dynamic> json) {
