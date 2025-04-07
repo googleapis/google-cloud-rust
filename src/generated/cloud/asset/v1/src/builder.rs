@@ -224,7 +224,7 @@ pub mod asset_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -233,7 +233,7 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
@@ -643,7 +643,7 @@ pub mod asset_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchAllResourcesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchAllResourcesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -652,7 +652,7 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [scope][crate::model::SearchAllResourcesRequest::scope].
@@ -744,7 +744,7 @@ pub mod asset_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchAllIamPoliciesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchAllIamPoliciesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -753,7 +753,7 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [scope][crate::model::SearchAllIamPoliciesRequest::scope].
@@ -1264,7 +1264,7 @@ pub mod asset_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSavedQueriesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListSavedQueriesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1273,7 +1273,7 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListSavedQueriesRequest::parent].
@@ -1502,7 +1502,7 @@ pub mod asset_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::AnalyzeOrgPoliciesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::AnalyzeOrgPoliciesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1511,7 +1511,7 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [scope][crate::model::AnalyzeOrgPoliciesRequest::scope].
@@ -1590,7 +1590,7 @@ pub mod asset_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::AnalyzeOrgPolicyGovernedContainersResponse,
             gax::error::Error,
         > {
@@ -1601,7 +1601,7 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [scope][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::scope].
@@ -1678,7 +1678,7 @@ pub mod asset_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::AnalyzeOrgPolicyGovernedAssetsResponse,
             gax::error::Error,
         > {
@@ -1689,7 +1689,7 @@ pub mod asset_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [scope][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::scope].

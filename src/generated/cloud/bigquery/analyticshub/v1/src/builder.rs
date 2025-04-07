@@ -101,7 +101,7 @@ pub mod analytics_hub_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListDataExchangesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListDataExchangesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -110,7 +110,7 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListDataExchangesRequest::parent].
@@ -173,7 +173,7 @@ pub mod analytics_hub_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListOrgDataExchangesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListOrgDataExchangesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -182,7 +182,7 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [organization][crate::model::ListOrgDataExchangesRequest::organization].
@@ -446,7 +446,7 @@ pub mod analytics_hub_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListListingsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListListingsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -455,7 +455,7 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListListingsRequest::parent].
@@ -1012,7 +1012,7 @@ pub mod analytics_hub_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1021,7 +1021,7 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListSubscriptionsRequest::parent].
@@ -1092,7 +1092,7 @@ pub mod analytics_hub_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListSharedResourceSubscriptionsResponse,
             gax::error::Error,
         > {
@@ -1103,7 +1103,7 @@ pub mod analytics_hub_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [resource][crate::model::ListSharedResourceSubscriptionsRequest::resource].

@@ -101,7 +101,7 @@ pub mod iam {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListServiceAccountsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListServiceAccountsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -110,7 +110,7 @@ pub mod iam {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListServiceAccountsRequest::name].
@@ -1237,7 +1237,7 @@ pub mod iam {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::QueryGrantableRolesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::QueryGrantableRolesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1246,7 +1246,7 @@ pub mod iam {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [full_resource_name][crate::model::QueryGrantableRolesRequest::full_resource_name].
@@ -1312,7 +1312,8 @@ pub mod iam {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListRolesResponse, gax::error::Error> {
+        ) -> impl gax::paginator::Paginator<crate::model::ListRolesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1320,7 +1321,7 @@ pub mod iam {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListRolesRequest::parent].
@@ -1646,7 +1647,7 @@ pub mod iam {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::QueryTestablePermissionsResponse,
             gax::error::Error,
         > {
@@ -1657,7 +1658,7 @@ pub mod iam {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [full_resource_name][crate::model::QueryTestablePermissionsRequest::full_resource_name].

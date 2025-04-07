@@ -152,7 +152,7 @@ pub mod privileged_access_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -161,7 +161,7 @@ pub mod privileged_access_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListEntitlementsRequest::parent].
@@ -238,7 +238,7 @@ pub mod privileged_access_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchEntitlementsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchEntitlementsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -247,7 +247,7 @@ pub mod privileged_access_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::SearchEntitlementsRequest::parent].
@@ -670,7 +670,7 @@ pub mod privileged_access_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListGrantsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListGrantsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -679,7 +679,7 @@ pub mod privileged_access_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListGrantsRequest::parent].
@@ -753,7 +753,7 @@ pub mod privileged_access_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchGrantsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchGrantsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -762,7 +762,7 @@ pub mod privileged_access_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::SearchGrantsRequest::parent].
@@ -1134,7 +1134,7 @@ pub mod privileged_access_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1143,7 +1143,7 @@ pub mod privileged_access_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1258,7 +1258,7 @@ pub mod privileged_access_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1267,7 +1267,7 @@ pub mod privileged_access_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].

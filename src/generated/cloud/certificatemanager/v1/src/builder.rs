@@ -101,7 +101,7 @@ pub mod certificate_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListCertificatesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListCertificatesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -110,7 +110,7 @@ pub mod certificate_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCertificatesRequest::parent].
@@ -500,7 +500,7 @@ pub mod certificate_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListCertificateMapsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListCertificateMapsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -509,7 +509,7 @@ pub mod certificate_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateMapsRequest::parent].
@@ -906,7 +906,7 @@ pub mod certificate_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListCertificateMapEntriesResponse,
             gax::error::Error,
         > {
@@ -917,7 +917,7 @@ pub mod certificate_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateMapEntriesRequest::parent].
@@ -1322,7 +1322,7 @@ pub mod certificate_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListDnsAuthorizationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListDnsAuthorizationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1331,7 +1331,7 @@ pub mod certificate_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListDnsAuthorizationsRequest::parent].
@@ -1732,7 +1732,7 @@ pub mod certificate_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListCertificateIssuanceConfigsResponse,
             gax::error::Error,
         > {
@@ -1743,7 +1743,7 @@ pub mod certificate_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateIssuanceConfigsRequest::parent].
@@ -2055,7 +2055,7 @@ pub mod certificate_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListTrustConfigsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListTrustConfigsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2064,7 +2064,7 @@ pub mod certificate_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListTrustConfigsRequest::parent].
@@ -2460,7 +2460,7 @@ pub mod certificate_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2469,7 +2469,7 @@ pub mod certificate_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2580,7 +2580,7 @@ pub mod certificate_manager {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2589,7 +2589,7 @@ pub mod certificate_manager {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].

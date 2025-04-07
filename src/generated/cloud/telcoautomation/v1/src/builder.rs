@@ -103,7 +103,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListOrchestrationClustersResponse,
             gax::error::Error,
         > {
@@ -114,7 +114,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListOrchestrationClustersRequest::parent].
@@ -430,7 +430,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListEdgeSlmsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListEdgeSlmsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -439,7 +439,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListEdgeSlmsRequest::parent].
@@ -937,7 +937,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListBlueprintsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListBlueprintsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -946,7 +946,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListBlueprintsRequest::parent].
@@ -1147,7 +1147,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListBlueprintRevisionsResponse,
             gax::error::Error,
         > {
@@ -1158,7 +1158,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListBlueprintRevisionsRequest::name].
@@ -1223,7 +1223,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::SearchBlueprintRevisionsResponse,
             gax::error::Error,
         > {
@@ -1234,7 +1234,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::SearchBlueprintRevisionsRequest::parent].
@@ -1305,7 +1305,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::SearchDeploymentRevisionsResponse,
             gax::error::Error,
         > {
@@ -1316,7 +1316,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::SearchDeploymentRevisionsRequest::parent].
@@ -1432,7 +1432,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListPublicBlueprintsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListPublicBlueprintsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1441,7 +1441,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPublicBlueprintsRequest::parent].
@@ -1756,7 +1756,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1765,7 +1765,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListDeploymentsRequest::parent].
@@ -1836,7 +1836,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListDeploymentRevisionsResponse,
             gax::error::Error,
         > {
@@ -1847,7 +1847,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListDeploymentRevisionsRequest::name].
@@ -2144,7 +2144,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListHydratedDeploymentsResponse,
             gax::error::Error,
         > {
@@ -2155,7 +2155,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListHydratedDeploymentsRequest::parent].
@@ -2326,7 +2326,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2335,7 +2335,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2446,7 +2446,7 @@ pub mod telco_automation {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2455,7 +2455,7 @@ pub mod telco_automation {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].

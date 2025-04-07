@@ -277,7 +277,7 @@ pub mod os_config_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListPatchJobsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListPatchJobsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -286,7 +286,7 @@ pub mod os_config_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPatchJobsRequest::parent].
@@ -357,7 +357,7 @@ pub mod os_config_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListPatchJobInstanceDetailsResponse,
             gax::error::Error,
         > {
@@ -368,7 +368,7 @@ pub mod os_config_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPatchJobInstanceDetailsRequest::parent].
@@ -542,7 +542,7 @@ pub mod os_config_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListPatchDeploymentsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListPatchDeploymentsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -551,7 +551,7 @@ pub mod os_config_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPatchDeploymentsRequest::parent].
@@ -1218,7 +1218,7 @@ pub mod os_config_zonal_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentsResponse,
             gax::error::Error,
         > {
@@ -1229,7 +1229,7 @@ pub mod os_config_zonal_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListOSPolicyAssignmentsRequest::parent].
@@ -1296,7 +1296,7 @@ pub mod os_config_zonal_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentRevisionsResponse,
             gax::error::Error,
         > {
@@ -1307,7 +1307,7 @@ pub mod os_config_zonal_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListOSPolicyAssignmentRevisionsRequest::name].
@@ -1511,7 +1511,7 @@ pub mod os_config_zonal_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentReportsResponse,
             gax::error::Error,
         > {
@@ -1522,7 +1522,7 @@ pub mod os_config_zonal_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListOSPolicyAssignmentReportsRequest::parent].
@@ -1640,7 +1640,7 @@ pub mod os_config_zonal_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListInventoriesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListInventoriesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1649,7 +1649,7 @@ pub mod os_config_zonal_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListInventoriesRequest::parent].
@@ -1775,7 +1775,7 @@ pub mod os_config_zonal_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListVulnerabilityReportsResponse,
             gax::error::Error,
         > {
@@ -1786,7 +1786,7 @@ pub mod os_config_zonal_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListVulnerabilityReportsRequest::parent].

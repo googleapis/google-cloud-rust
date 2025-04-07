@@ -102,7 +102,7 @@ pub mod case_attachment_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -111,7 +111,7 @@ pub mod case_attachment_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAttachmentsRequest::parent].
@@ -267,7 +267,8 @@ pub mod case_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListCasesResponse, gax::error::Error> {
+        ) -> impl gax::paginator::Paginator<crate::model::ListCasesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -275,7 +276,7 @@ pub mod case_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCasesRequest::parent].
@@ -341,7 +342,7 @@ pub mod case_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchCasesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchCasesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -350,7 +351,7 @@ pub mod case_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::SearchCasesRequest::parent].
@@ -613,7 +614,7 @@ pub mod case_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::SearchCaseClassificationsResponse,
             gax::error::Error,
         > {
@@ -624,7 +625,7 @@ pub mod case_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [query][crate::model::SearchCaseClassificationsRequest::query].
@@ -738,7 +739,7 @@ pub mod comment_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListCommentsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListCommentsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -747,7 +748,7 @@ pub mod comment_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCommentsRequest::parent].

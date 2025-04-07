@@ -98,7 +98,7 @@ pub mod key_dashboard_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -107,7 +107,7 @@ pub mod key_dashboard_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
@@ -273,7 +273,7 @@ pub mod key_tracking_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::SearchProtectedResourcesResponse,
             gax::error::Error,
         > {
@@ -284,7 +284,7 @@ pub mod key_tracking_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [scope][crate::model::SearchProtectedResourcesRequest::scope].

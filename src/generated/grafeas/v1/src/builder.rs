@@ -140,7 +140,7 @@ pub mod grafeas {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListOccurrencesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListOccurrencesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -149,7 +149,7 @@ pub mod grafeas {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListOccurrencesRequest::parent].
@@ -520,7 +520,8 @@ pub mod grafeas {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListNotesResponse, gax::error::Error> {
+        ) -> impl gax::paginator::Paginator<crate::model::ListNotesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -528,7 +529,7 @@ pub mod grafeas {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListNotesRequest::parent].
@@ -806,7 +807,7 @@ pub mod grafeas {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListNoteOccurrencesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListNoteOccurrencesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -815,7 +816,7 @@ pub mod grafeas {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListNoteOccurrencesRequest::name].

@@ -1086,7 +1086,7 @@ pub mod security_center {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::GroupFindingsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::GroupFindingsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1095,7 +1095,7 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::GroupFindingsRequest::parent].
@@ -1167,7 +1167,7 @@ pub mod security_center {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListAttackPathsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListAttackPathsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1176,7 +1176,7 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAttackPathsRequest::parent].
@@ -1245,7 +1245,7 @@ pub mod security_center {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListBigQueryExportsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListBigQueryExportsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1254,7 +1254,7 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListBigQueryExportsRequest::parent].
@@ -1314,7 +1314,7 @@ pub mod security_center {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1323,7 +1323,7 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListFindingsRequest::parent].
@@ -1404,7 +1404,7 @@ pub mod security_center {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListMuteConfigsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListMuteConfigsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1413,7 +1413,7 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListMuteConfigsRequest::parent].
@@ -1478,7 +1478,7 @@ pub mod security_center {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListNotificationConfigsResponse,
             gax::error::Error,
         > {
@@ -1489,7 +1489,7 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListNotificationConfigsRequest::parent].
@@ -1554,7 +1554,7 @@ pub mod security_center {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListResourceValueConfigsResponse,
             gax::error::Error,
         > {
@@ -1565,7 +1565,7 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListResourceValueConfigsRequest::parent].
@@ -1625,7 +1625,7 @@ pub mod security_center {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1634,7 +1634,7 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListSourcesRequest::parent].
@@ -1697,7 +1697,7 @@ pub mod security_center {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListValuedResourcesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListValuedResourcesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1706,7 +1706,7 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListValuedResourcesRequest::parent].
@@ -2451,7 +2451,7 @@ pub mod security_center {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2460,7 +2460,7 @@ pub mod security_center {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].

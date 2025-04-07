@@ -247,7 +247,7 @@ pub mod cloud_build {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListBuildsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListBuildsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -256,7 +256,7 @@ pub mod cloud_build {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListBuildsRequest::parent].
@@ -680,7 +680,7 @@ pub mod cloud_build {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListBuildTriggersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListBuildTriggersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -689,7 +689,7 @@ pub mod cloud_build {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListBuildTriggersRequest::parent].
@@ -1408,7 +1408,7 @@ pub mod cloud_build {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListWorkerPoolsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListWorkerPoolsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1417,7 +1417,7 @@ pub mod cloud_build {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListWorkerPoolsRequest::parent].

@@ -445,7 +445,7 @@ pub mod policy_bindings {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListPolicyBindingsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListPolicyBindingsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -454,7 +454,7 @@ pub mod policy_bindings {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPolicyBindingsRequest::parent].
@@ -525,7 +525,7 @@ pub mod policy_bindings {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::SearchTargetPolicyBindingsResponse,
             gax::error::Error,
         > {
@@ -536,7 +536,7 @@ pub mod policy_bindings {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [target][crate::model::SearchTargetPolicyBindingsRequest::target].
@@ -1089,7 +1089,7 @@ pub mod principal_access_boundary_policies {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListPrincipalAccessBoundaryPoliciesResponse,
             gax::error::Error,
         > {
@@ -1100,7 +1100,7 @@ pub mod principal_access_boundary_policies {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPrincipalAccessBoundaryPoliciesRequest::parent].
@@ -1171,7 +1171,7 @@ pub mod principal_access_boundary_policies {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse,
             gax::error::Error,
         > {
@@ -1182,7 +1182,7 @@ pub mod principal_access_boundary_policies {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest::name].

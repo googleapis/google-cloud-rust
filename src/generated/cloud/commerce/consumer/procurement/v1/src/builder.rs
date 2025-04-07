@@ -316,7 +316,7 @@ pub mod license_management_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::EnumerateLicensedUsersResponse,
             gax::error::Error,
         > {
@@ -327,7 +327,7 @@ pub mod license_management_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::EnumerateLicensedUsersRequest::parent].
@@ -640,7 +640,7 @@ pub mod consumer_procurement_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListOrdersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListOrdersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -649,7 +649,7 @@ pub mod consumer_procurement_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListOrdersRequest::parent].
