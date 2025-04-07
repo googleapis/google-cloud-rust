@@ -18,7 +18,7 @@ pub use api_key_credentials::{ApiKeyOptions, create_api_key_credentials};
 
 pub mod mds;
 pub mod service_account;
-pub(crate) mod user_credentials;
+pub(crate) mod user;
 
 use crate::Result;
 use crate::errors::{self, CredentialsError};
@@ -265,7 +265,7 @@ pub async fn create_access_token_credentials() -> Result<Credentials> {
         .ok_or_else(|| errors::non_retryable_from_str("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
         )?;
     match cred_type {
-        "authorized_user" => user_credentials::creds_from(js),
+        "authorized_user" => user::creds_from(js),
         "service_account" => service_account::creds_from(js),
         _ => Err(errors::non_retryable_from_str(format!(
             "Unimplemented credentials type: {cred_type}"
