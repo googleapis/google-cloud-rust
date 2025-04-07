@@ -256,7 +256,3 @@ extend-ignore-re = [
   "\\WGAM\\W",
   "gam_[a-z]",
 ]
-
-[type.dart.extend-words]
-# This is correct, https://en.wikipedia.org/wiki/Comune
-comune = "comune"
