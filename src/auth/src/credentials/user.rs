@@ -14,7 +14,7 @@
 
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, QUOTA_PROJECT_KEY, Result};
-use crate::errors::{self, CredentialError, is_retryable};
+use crate::errors::{self, CredentialsError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
@@ -114,7 +114,7 @@ struct UserTokenProvider {
 
 impl std::fmt::Debug for UserTokenProvider {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("UserTokenCredential")
+        f.debug_struct("UserCredentials")
             .field("client_id", &self.client_id)
             .field("client_secret", &"[censored]")
             .field("refresh_token", &"[censored]")
@@ -150,15 +150,15 @@ impl TokenProvider for UserTokenProvider {
             let body = resp
                 .text()
                 .await
-                .map_err(|e| CredentialError::new(is_retryable(status), e))?;
-            return Err(CredentialError::from_str(
+                .map_err(|e| CredentialsError::new(is_retryable(status), e))?;
+            return Err(CredentialsError::from_str(
                 is_retryable(status),
                 format!("Failed to fetch token. {body}"),
             ));
         }
         let response = resp.json::<Oauth2RefreshResponse>().await.map_err(|e| {
             let retryable = !e.is_decode();
-            CredentialError::new(retryable, e)
+            CredentialsError::new(retryable, e)
         })?;
         let token = Token {
             token: response.access_token,
@@ -193,7 +193,7 @@ where
         self.token_provider.get_token().await
     }
 
-    async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+    async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)?;
@@ -388,7 +388,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_success() {
+    async fn headers_success() {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -403,7 +403,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        let headers: Vec<HV> = HV::from(uc.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(uc.headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -416,7 +416,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_headers_failure() {
+    async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
@@ -426,11 +426,11 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(uc.get_headers().await.is_err());
+        assert!(uc.headers().await.is_err());
     }
 
     #[tokio::test]
-    async fn get_headers_with_quota_project_success() {
+    async fn headers_with_quota_project_success() {
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -445,7 +445,7 @@ mod test {
             token_provider: mock,
             quota_project_id: Some("test-project".to_string()),
         };
-        let headers: Vec<HV> = HV::from(uc.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(uc.headers().await.unwrap());
         assert_eq!(
             headers,
             vec![

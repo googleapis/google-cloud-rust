@@ -2433,6 +2433,115 @@ impl wkt::message::Message for GenericArtifact {
     }
 }
 
+/// GoModule represents a Go module.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GoModule {
+    /// The resource name of a Go module.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// The version of the Go module. Must be a valid canonical version as defined
+    /// in <https://go.dev/ref/mod#glos-canonical-version>.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub version: std::string::String,
+
+    /// Output only. The time when the Go module is created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the Go module is updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl GoModule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GoModule::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::GoModule::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::GoModule::create_time].
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::GoModule::update_time].
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_time = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GoModule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.artifactregistry.v1.GoModule"
+    }
+}
+
+/// A detailed representation of a KFP artifact.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct KfpArtifact {
+    /// Output only. Resource name of the KFP artifact. Since users don't directly
+    /// interact with this resource, the name will be derived from the associated
+    /// version. For example, when version = ".../versions/sha256:abcdef...", the
+    /// name will be ".../kfpArtifacts/sha256:abcdef...".
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
+
+    /// The version associated with the KFP artifact. Must follow the Semantic
+    /// Versioning standard.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub version: std::string::String,
+}
+
+impl KfpArtifact {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::KfpArtifact::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::KfpArtifact::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for KfpArtifact {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.devtools.artifactregistry.v1.KfpArtifact"
+    }
+}
+
 /// Packages are named collections of versions.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -5357,6 +5466,11 @@ pub struct Repository {
     /// Output only. If set, the repository satisfies physical zone isolation.
     pub satisfies_pzi: bool,
 
+    /// Output only. The repository endpoint, for example:
+    /// `us-docker.pkg.dev/my-proj/my-repo`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub registry_uri: std::string::String,
+
     /// Repository-specific configurations.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub format_config: std::option::Option<crate::model::repository::FormatConfig>,
@@ -5463,6 +5577,12 @@ impl Repository {
     /// Sets the value of [satisfies_pzi][crate::model::Repository::satisfies_pzi].
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
+        self
+    }
+
+    /// Sets the value of [registry_uri][crate::model::Repository::registry_uri].
+    pub fn set_registry_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.registry_uri = v.into();
         self
     }
 
@@ -7935,7 +8055,8 @@ pub struct BatchDeleteVersionsRequest {
     pub parent: std::string::String,
 
     /// Required. The names of the versions to delete.
-    /// A maximum of 10000 versions can be deleted in a batch.
+    /// The maximum number of versions deleted per batch is determined by the
+    /// service and is dependent on the available resources in the region.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub names: std::vec::Vec<std::string::String>,
 

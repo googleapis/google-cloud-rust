@@ -121,7 +121,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// Most Google Cloud services require authentication, though some services
     /// allow for anonymous access, and some services provide emulators where
-    /// no authentication is required. More information about valid credential
+    /// no authentication is required. More information about valid credentials
     /// types can be found in the [google-cloud-auth] crate documentation.
     ///
     /// ```
@@ -422,7 +422,7 @@ pub mod examples {
             let config = client.0;
             assert_eq!(config.endpoint, None);
             assert_eq!(config.cred, None);
-            assert_eq!(config.tracing, false);
+            assert!(!config.tracing);
             assert!(
                 format!("{:?}", &config).contains("AdaptiveThrottler"),
                 "{config:?}"
@@ -448,7 +448,7 @@ pub mod examples {
         async fn tracing() {
             let client = Client::builder().with_tracing().build().await.unwrap();
             let config = client.0;
-            assert_eq!(config.tracing, true);
+            assert!(config.tracing);
         }
 
         #[tokio::test]

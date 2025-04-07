@@ -119,10 +119,7 @@ mod test {
             .expect("a valid backoff policy")
     }
 
-    pub async fn send_request(
-        client: grpc::Client,
-        msg: &str,
-    ) -> gax::Result<google::test::v1::EchoResponse> {
+    pub async fn send_request(client: grpc::Client, msg: &str) -> gax::Result<EchoResponse> {
         let request = google::test::v1::EchoRequest {
             message: msg.into(),
         };

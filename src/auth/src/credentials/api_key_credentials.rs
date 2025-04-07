@@ -117,7 +117,7 @@ where
         self.token_provider.get_token().await
     }
 
-    async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+    async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&token.token).map_err(errors::non_retryable)?;
         value.set_sensitive(true);
@@ -165,7 +165,7 @@ mod test {
                 metadata: None,
             }
         );
-        let headers: Vec<HV> = HV::from(creds.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(creds.headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -186,7 +186,7 @@ mod test {
         let creds = create_api_key_credentials("test-api-key", options)
             .await
             .unwrap();
-        let headers: Vec<HV> = HV::from(creds.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(creds.headers().await.unwrap());
 
         assert_eq!(
             headers,
@@ -213,7 +213,7 @@ mod test {
         let creds = create_api_key_credentials("test-api-key", options)
             .await
             .unwrap();
-        let headers: Vec<HV> = HV::from(creds.get_headers().await.unwrap());
+        let headers: Vec<HV> = HV::from(creds.headers().await.unwrap());
 
         assert_eq!(
             headers,

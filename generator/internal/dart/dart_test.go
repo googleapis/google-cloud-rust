@@ -108,6 +108,10 @@ func TestEnumValues(t *testing.T) {
 		Name: "NAME",
 		ID:   ".test.v1.SomeMessage.SomeEnum.NAME",
 	}
+	enumReservedName := &api.EnumValue{
+		Name: "in",
+		ID:   ".test.v1.SomeMessage.SomeEnum.in",
+	}
 	enumValueCompound := &api.EnumValue{
 		Name: "ENUM_VALUE",
 		ID:   ".test.v1.SomeMessage.SomeEnum.ENUM_VALUE",
@@ -115,7 +119,7 @@ func TestEnumValues(t *testing.T) {
 	someEnum := &api.Enum{
 		Name:    "SomeEnum",
 		ID:      ".test.v1.SomeMessage.SomeEnum",
-		Values:  []*api.EnumValue{enumValueSimple, enumValueCompound},
+		Values:  []*api.EnumValue{enumValueSimple, enumReservedName, enumValueCompound},
 		Package: "test.v1",
 	}
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{someEnum}, []*api.Service{})
@@ -128,6 +132,7 @@ func TestEnumValues(t *testing.T) {
 		wantName string
 	}{
 		{enumValueSimple, "name"},
+		{enumReservedName, "in$"},
 		{enumValueCompound, "enumValue"},
 	} {
 		if got := enumValueName(test.value); got != test.wantName {

@@ -31,7 +31,8 @@ extern crate std;
 extern crate tracing;
 extern crate wkt;
 
-/// Configuration for BigLake managed tables.
+/// Configuration for BigQuery tables for Apache Iceberg (formerly BigLake
+/// managed tables.)
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -108,7 +109,7 @@ pub mod big_lake_configuration {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Supported file formats for BigLake tables.
+    /// Supported file formats for BigQuery tables for Apache Iceberg.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct FileFormat(i32);
 
@@ -162,7 +163,7 @@ pub mod big_lake_configuration {
         }
     }
 
-    /// Supported table formats for BigLake tables.
+    /// Supported table formats for BigQuery tables for Apache Iceberg.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TableFormat(i32);
 
@@ -2565,6 +2566,31 @@ pub struct CsvOptions {
     /// interprets the empty string as an empty value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub null_marker: std::option::Option<wkt::StringValue>,
+
+    /// Optional. A list of strings represented as SQL NULL value in a CSV file.
+    ///
+    /// null_marker and null_markers can't be set at the same time.
+    /// If null_marker is set, null_markers has to be not set.
+    /// If null_markers is set, null_marker has to be not set.
+    /// If both null_marker and null_markers are set at the same time, a user
+    /// error would be thrown.
+    /// Any strings listed in null_markers, including
+    /// empty string would be interpreted as SQL NULL. This applies to all column
+    /// types.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub null_markers: std::vec::Vec<std::string::String>,
+
+    /// Optional. Controls the strategy used to match loaded columns to the schema.
+    /// If not set, a sensible default is chosen based on how the schema is
+    /// provided. If autodetect is used, then columns are matched by name.
+    /// Otherwise, columns are matched by position. This is done to keep the
+    /// behavior backward-compatible. Acceptable values are:
+    /// POSITION - matches by position. This assumes that the columns are ordered
+    /// the same way as the schema.
+    /// NAME - matches by name. This reads the header row as column names and
+    /// reorders columns to match the field names in the schema.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub source_column_match: std::string::String,
 }
 
 impl CsvOptions {
@@ -2637,6 +2663,26 @@ impl CsvOptions {
         v: T,
     ) -> Self {
         self.null_marker = v.into();
+        self
+    }
+
+    /// Sets the value of [source_column_match][crate::model::CsvOptions::source_column_match].
+    pub fn set_source_column_match<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_column_match = v.into();
+        self
+    }
+
+    /// Sets the value of [null_markers][crate::model::CsvOptions::null_markers].
+    pub fn set_null_markers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.null_markers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3236,6 +3282,32 @@ pub struct ExternalDataConfiguration {
     /// Optional. Metadata Cache Mode for the table. Set this to enable caching of
     /// metadata from external data source.
     pub metadata_cache_mode: crate::model::external_data_configuration::MetadataCacheMode,
+
+    /// Optional. Time zone used when parsing timestamp values that do not have
+    /// specific time zone information (e.g. 2024-04-20 12:34:56). The expected
+    /// format is a IANA timezone string (e.g. America/Los_Angeles).
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub time_zone: std::option::Option<std::string::String>,
+
+    /// Optional. Format used to parse DATE values. Supports C-style and SQL-style
+    /// values.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub date_format: std::option::Option<std::string::String>,
+
+    /// Optional. Format used to parse DATETIME values. Supports C-style and
+    /// SQL-style values.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub datetime_format: std::option::Option<std::string::String>,
+
+    /// Optional. Format used to parse TIME values. Supports C-style and SQL-style
+    /// values.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub time_format: std::option::Option<std::string::String>,
+
+    /// Optional. Format used to parse TIMESTAMP values. Supports C-style and
+    /// SQL-style values.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub timestamp_format: std::option::Option<std::string::String>,
 }
 
 impl ExternalDataConfiguration {
@@ -3422,6 +3494,51 @@ impl ExternalDataConfiguration {
         v: T,
     ) -> Self {
         self.metadata_cache_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [time_zone][crate::model::ExternalDataConfiguration::time_zone].
+    pub fn set_time_zone<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_zone = v.into();
+        self
+    }
+
+    /// Sets the value of [date_format][crate::model::ExternalDataConfiguration::date_format].
+    pub fn set_date_format<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.date_format = v.into();
+        self
+    }
+
+    /// Sets the value of [datetime_format][crate::model::ExternalDataConfiguration::datetime_format].
+    pub fn set_datetime_format<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.datetime_format = v.into();
+        self
+    }
+
+    /// Sets the value of [time_format][crate::model::ExternalDataConfiguration::time_format].
+    pub fn set_time_format<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_format = v.into();
+        self
+    }
+
+    /// Sets the value of [timestamp_format][crate::model::ExternalDataConfiguration::timestamp_format].
+    pub fn set_timestamp_format<T: std::convert::Into<std::option::Option<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.timestamp_format = v.into();
         self
     }
 
@@ -16469,7 +16586,8 @@ pub struct Table {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub external_data_configuration: std::option::Option<crate::model::ExternalDataConfiguration>,
 
-    /// Optional. Specifies the configuration of a BigLake managed table.
+    /// Optional. Specifies the configuration of a BigQuery table for Apache
+    /// Iceberg.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub biglake_configuration: std::option::Option<crate::model::BigLakeConfiguration>,
 

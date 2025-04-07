@@ -19,10 +19,20 @@ part of '../protobuf.dart';
 class Any extends Message {
   static const String fullyQualifiedName = 'google.protobuf.Any';
 
+  // This list needs to be kept in sync with generator/internal/dart/dart.go.
   static const Set<String> _customEncodedTypes = {
+    'google.protobuf.BoolValue',
+    'google.protobuf.BytesValue',
+    'google.protobuf.DoubleValue',
     'google.protobuf.Duration',
     'google.protobuf.FieldMask',
+    'google.protobuf.FloatValue',
+    'google.protobuf.Int32Value',
+    'google.protobuf.Int64Value',
+    'google.protobuf.StringValue',
     'google.protobuf.Timestamp',
+    'google.protobuf.UInt32Value',
+    'google.protobuf.UInt64Value',
   };
 
   /// The raw JSON encoding of the underlying value.
@@ -162,8 +172,8 @@ class DurationHelper {
   ///
   /// This is a decimal value suffixed with 's'. 3 seconds with 0 nanoseconds
   /// would be '3s'; 3 seconds with 70 nanosecond would be '3.00000007s'.
-  static Duration decode(String format) {
-    if (!format.endsWith('s')) {
+  static Duration decode(Object format) {
+    if (!(format as String).endsWith('s')) {
       throw FormatException("duration value should end in 's'");
     }
 
@@ -193,8 +203,8 @@ class FieldMaskHelper {
   }
 
   /// Decode the field mask from a single comma-separated string.
-  static FieldMask decode(String format) {
-    return FieldMask(paths: format.split(','));
+  static FieldMask decode(Object format) {
+    return FieldMask(paths: (format as String).split(','));
   }
 }
 
@@ -260,9 +270,9 @@ class TimestampHelper {
   }
 
   /// Decode the timestamp from a RFC3339/UTC format string.
-  static Timestamp decode(String value) {
+  static Timestamp decode(Object value) {
     // DateTime will throw a FormatException on parse issues.
-    final dateTime = DateTime.parse(value);
+    final dateTime = DateTime.parse(value as String);
     final seconds = dateTime.millisecondsSinceEpoch ~/ 1_000;
 
     // Parse nanos separately as DateTime only has microseconds resolution.
@@ -278,5 +288,103 @@ class TimestampHelper {
       seconds: seconds < 0 && nanos > 0 ? seconds - 1 : seconds,
       nanos: nanos,
     );
+  }
+}
+
+class DoubleValueHelper {
+  static double encode(DoubleValue value) {
+    return value.value!;
+  }
+
+  static DoubleValue decode(Object value) {
+    return DoubleValue(value: value as double);
+  }
+}
+
+class FloatValueHelper {
+  static double encode(FloatValue value) {
+    return value.value!;
+  }
+
+  static FloatValue decode(Object value) {
+    return FloatValue(value: value as double);
+  }
+}
+
+class Int64ValueHelper {
+  static String encode(Int64Value value) {
+    return '${value.value}';
+  }
+
+  static Int64Value decode(Object value) {
+    if (value is String) {
+      return Int64Value(value: int.parse(value));
+    } else {
+      return Int64Value(value: value as int);
+    }
+  }
+}
+
+class Uint64ValueHelper {
+  static String encode(Uint64Value value) {
+    return '${value.value}';
+  }
+
+  static Uint64Value decode(Object value) {
+    if (value is String) {
+      return Uint64Value(value: int.parse(value));
+    } else {
+      return Uint64Value(value: value as int);
+    }
+  }
+}
+
+class Int32ValueHelper {
+  static int encode(Int32Value value) {
+    return value.value!;
+  }
+
+  static Int32Value decode(Object value) {
+    return Int32Value(value: value as int);
+  }
+}
+
+class Uint32ValueHelper {
+  static int encode(Uint32Value value) {
+    return value.value!;
+  }
+
+  static Uint32Value decode(Object value) {
+    return Uint32Value(value: value as int);
+  }
+}
+
+class BoolValueHelper {
+  static bool encode(BoolValue value) {
+    return value.value!;
+  }
+
+  static BoolValue decode(Object value) {
+    return BoolValue(value: value as bool);
+  }
+}
+
+class StringValueHelper {
+  static String encode(StringValue value) {
+    return value.value!;
+  }
+
+  static StringValue decode(Object value) {
+    return StringValue(value: value as String);
+  }
+}
+
+class BytesValueHelper {
+  static String encode(BytesValue value) {
+    return encodeBytes(value.value!);
+  }
+
+  static BytesValue decode(Object value) {
+    return BytesValue(value: decodeBytes(value as String));
   }
 }

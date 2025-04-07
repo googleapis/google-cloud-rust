@@ -46,7 +46,7 @@ abstract class Enum implements JsonEncodable {
   int get hashCode => value.hashCode;
 
   @override
-  Object toJson() => value;
+  String toJson() => value;
 }
 
 class ServiceClient {

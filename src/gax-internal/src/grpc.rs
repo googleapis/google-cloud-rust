@@ -33,7 +33,7 @@ pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,
-    credentials: auth::credentials::Credentials,
+    credentials: Credentials,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     retry_throttler: SharedRetryThrottler,
@@ -65,7 +65,7 @@ impl Client {
     ) -> Result<Response>
     where
         Request: prost::Message + 'static + Clone,
-        Response: prost::Message + std::default::Default + 'static,
+        Response: prost::Message + Default + 'static,
     {
         match self.get_retry_policy(&options) {
             None => {
@@ -111,7 +111,7 @@ impl Client {
     ) -> Result<Response>
     where
         Request: prost::Message + 'static + Clone,
-        Response: prost::Message + std::default::Default + 'static,
+        Response: prost::Message + Default + 'static,
     {
         let idempotent = options.idempotent().unwrap_or(false);
         let retry_throttler = self.get_retry_throttler(&options);
@@ -199,10 +199,7 @@ impl Client {
         api_client_header: &'static str,
         request_params: &str,
     ) -> Result<http::header::HeaderMap> {
-        let mut headers = credentials
-            .get_headers()
-            .await
-            .map_err(Error::authentication)?;
+        let mut headers = credentials.headers().await.map_err(Error::authentication)?;
         headers.push((
             http::header::HeaderName::from_static("x-goog-api-client"),
             http::header::HeaderValue::from_static(api_client_header),

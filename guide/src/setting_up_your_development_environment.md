@@ -51,8 +51,8 @@ To install the gcloud CLI, see [Installing the gcloud CLI](https://cloud.google.
 
 ## Install the Cloud Client Libraries for Rust in a New Project
 
-The [Cloud Client Libraries for Rust] is the idiomatic way for Rust developers
-to integrate with Google Cloud services, such as Secret Manager and Workflows.
+The Cloud Client Libraries for Rust is the idiomatic way for Rust developers to
+integrate with Google Cloud services, such as Secret Manager and Workflows.
 
 For example, to use the package for an individual API, such as the
 Secret Manager API, do the following:
@@ -131,4 +131,5 @@ Note: The source of the Cloud Client Libraries for Rust is
 [google cloud cli]: https://cloud.google.com/sdk/
 [rust]: https://www.rust-lang.org/
 [rust-getting-started]: https://www.rust-lang.org/learn/get-started
+[secret manager]: https://cloud.google.com/secret-manager/docs/overview
 [tokio]: https://crates.io/crates/tokio
