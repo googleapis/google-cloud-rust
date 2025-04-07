@@ -110,7 +110,7 @@ class Duration extends Message {
     _validate();
   }
 
-  factory Duration.fromJson(String json) => DurationHelper.decode(json);
+  factory Duration.fromJson(Object json) => DurationHelper.decode(json);
 
   @override
   Object toJson() => DurationHelper.encode(this);
@@ -123,6 +123,31 @@ class Duration extends Message {
     ].join(',');
     return 'Duration($contents)';
   }
+}
+
+/// A generic empty message that you can re-use to avoid defining duplicated
+/// empty messages in your APIs. A typical example is to use it as the request
+/// or the response type of an API method. For instance:
+///
+///     service Foo {
+///       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+///     }
+class Empty extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.Empty';
+
+  Empty() : super(fullyQualifiedName);
+
+  factory Empty.fromJson(Map<String, dynamic> json) {
+    return Empty();
+  }
+
+  @override
+  Object toJson() {
+    return {};
+  }
+
+  @override
+  String toString() => 'Empty()';
 }
 
 /// `FieldMask` represents a set of symbolic field paths, for example:
@@ -334,7 +359,7 @@ class FieldMask extends Message {
     this.paths,
   }) : super(fullyQualifiedName);
 
-  factory FieldMask.fromJson(String json) => FieldMaskHelper.decode(json);
+  factory FieldMask.fromJson(Object json) => FieldMaskHelper.decode(json);
 
   @override
   Object toJson() => FieldMaskHelper.encode(this);
@@ -453,7 +478,7 @@ class Timestamp extends Message {
     _validate();
   }
 
-  factory Timestamp.fromJson(String json) => TimestampHelper.decode(json);
+  factory Timestamp.fromJson(Object json) => TimestampHelper.decode(json);
 
   @override
   Object toJson() => TimestampHelper.encode(this);
@@ -465,5 +490,248 @@ class Timestamp extends Message {
       if (nanos != null) 'nanos=$nanos',
     ].join(',');
     return 'Timestamp($contents)';
+  }
+}
+
+/// Wrapper message for `double`.
+///
+/// The JSON representation for `DoubleValue` is JSON number.
+class DoubleValue extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.DoubleValue';
+
+  /// The double value.
+  final double? value;
+
+  DoubleValue({
+    this.value,
+  }) : super(fullyQualifiedName);
+
+  factory DoubleValue.fromJson(Object json) => DoubleValueHelper.decode(json);
+
+  @override
+  Object toJson() => DoubleValueHelper.encode(this);
+
+  @override
+  String toString() {
+    final contents = [
+      if (value != null) 'value=$value',
+    ].join(',');
+    return 'DoubleValue($contents)';
+  }
+}
+
+/// Wrapper message for `float`.
+///
+/// The JSON representation for `FloatValue` is JSON number.
+class FloatValue extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.FloatValue';
+
+  /// The float value.
+  final double? value;
+
+  FloatValue({
+    this.value,
+  }) : super(fullyQualifiedName);
+
+  factory FloatValue.fromJson(Object json) => FloatValueHelper.decode(json);
+
+  @override
+  Object toJson() => FloatValueHelper.encode(this);
+
+  @override
+  String toString() {
+    final contents = [
+      if (value != null) 'value=$value',
+    ].join(',');
+    return 'FloatValue($contents)';
+  }
+}
+
+/// Wrapper message for `int64`.
+///
+/// The JSON representation for `Int64Value` is JSON string.
+class Int64Value extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.Int64Value';
+
+  /// The int64 value.
+  final int? value;
+
+  Int64Value({
+    this.value,
+  }) : super(fullyQualifiedName);
+
+  factory Int64Value.fromJson(Object json) => Int64ValueHelper.decode(json);
+
+  @override
+  Object toJson() => Int64ValueHelper.encode(this);
+
+  @override
+  String toString() {
+    final contents = [
+      if (value != null) 'value=$value',
+    ].join(',');
+    return 'Int64Value($contents)';
+  }
+}
+
+/// Wrapper message for `uint64`.
+///
+/// The JSON representation for `UInt64Value` is JSON string.
+class Uint64Value extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.UInt64Value';
+
+  /// The uint64 value.
+  final int? value;
+
+  Uint64Value({
+    this.value,
+  }) : super(fullyQualifiedName);
+
+  factory Uint64Value.fromJson(Object json) => Uint64ValueHelper.decode(json);
+
+  @override
+  Object toJson() => Uint64ValueHelper.encode(this);
+
+  @override
+  String toString() {
+    final contents = [
+      if (value != null) 'value=$value',
+    ].join(',');
+    return 'UInt64Value($contents)';
+  }
+}
+
+/// Wrapper message for `int32`.
+///
+/// The JSON representation for `Int32Value` is JSON number.
+class Int32Value extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.Int32Value';
+
+  /// The int32 value.
+  final int? value;
+
+  Int32Value({
+    this.value,
+  }) : super(fullyQualifiedName);
+
+  factory Int32Value.fromJson(Object json) => Int32ValueHelper.decode(json);
+
+  @override
+  Object toJson() => Int32ValueHelper.encode(this);
+
+  @override
+  String toString() {
+    final contents = [
+      if (value != null) 'value=$value',
+    ].join(',');
+    return 'Int32Value($contents)';
+  }
+}
+
+/// Wrapper message for `uint32`.
+///
+/// The JSON representation for `UInt32Value` is JSON number.
+class Uint32Value extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.UInt32Value';
+
+  /// The uint32 value.
+  final int? value;
+
+  Uint32Value({
+    this.value,
+  }) : super(fullyQualifiedName);
+
+  factory Uint32Value.fromJson(Object json) => Uint32ValueHelper.decode(json);
+
+  @override
+  Object toJson() => Uint32ValueHelper.encode(this);
+
+  @override
+  String toString() {
+    final contents = [
+      if (value != null) 'value=$value',
+    ].join(',');
+    return 'UInt32Value($contents)';
+  }
+}
+
+/// Wrapper message for `bool`.
+///
+/// The JSON representation for `BoolValue` is JSON `true` and `false`.
+class BoolValue extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.BoolValue';
+
+  /// The bool value.
+  final bool? value;
+
+  BoolValue({
+    this.value,
+  }) : super(fullyQualifiedName);
+
+  factory BoolValue.fromJson(Object json) => BoolValueHelper.decode(json);
+
+  @override
+  Object toJson() => BoolValueHelper.encode(this);
+
+  @override
+  String toString() {
+    final contents = [
+      if (value != null) 'value=$value',
+    ].join(',');
+    return 'BoolValue($contents)';
+  }
+}
+
+/// Wrapper message for `string`.
+///
+/// The JSON representation for `StringValue` is JSON string.
+class StringValue extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.StringValue';
+
+  /// The string value.
+  final String? value;
+
+  StringValue({
+    this.value,
+  }) : super(fullyQualifiedName);
+
+  factory StringValue.fromJson(Object json) => StringValueHelper.decode(json);
+
+  @override
+  Object toJson() => StringValueHelper.encode(this);
+
+  @override
+  String toString() {
+    final contents = [
+      if (value != null) 'value=$value',
+    ].join(',');
+    return 'StringValue($contents)';
+  }
+}
+
+/// Wrapper message for `bytes`.
+///
+/// The JSON representation for `BytesValue` is JSON string.
+class BytesValue extends Message {
+  static const String fullyQualifiedName = 'google.protobuf.BytesValue';
+
+  /// The bytes value.
+  final Uint8List? value;
+
+  BytesValue({
+    this.value,
+  }) : super(fullyQualifiedName);
+
+  factory BytesValue.fromJson(Object json) => BytesValueHelper.decode(json);
+
+  @override
+  Object toJson() => BytesValueHelper.encode(this);
+
+  @override
+  String toString() {
+    final contents = [
+      if (value != null) 'value=$value',
+    ].join(',');
+    return 'BytesValue($contents)';
   }
 }

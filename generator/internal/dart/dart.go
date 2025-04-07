@@ -36,10 +36,21 @@ var needsCtorValidation = map[string]string{
 	".google.protobuf.Timestamp": ".google.protobuf.Timestamp",
 }
 
+// This list needs to be kept in sync with
+// generator/dart/generated/google_cloud_protobuf/lib/src/protobuf.p.dart.
 var usesCustomEncoding = map[string]string{
-	".google.protobuf.Duration":  ".google.protobuf.Duration",
-	".google.protobuf.FieldMask": ".google.protobuf.FieldMask",
-	".google.protobuf.Timestamp": ".google.protobuf.Timestamp",
+	".google.protobuf.BoolValue":   "",
+	".google.protobuf.BytesValue":  "",
+	".google.protobuf.DoubleValue": "",
+	".google.protobuf.Duration":    "",
+	".google.protobuf.FieldMask":   "",
+	".google.protobuf.FloatValue":  "",
+	".google.protobuf.Int32Value":  "",
+	".google.protobuf.Int64Value":  "",
+	".google.protobuf.StringValue": "",
+	".google.protobuf.Timestamp":   "",
+	".google.protobuf.UInt32Value": "",
+	".google.protobuf.UInt64Value": "",
 }
 
 // Dart reserved words.
