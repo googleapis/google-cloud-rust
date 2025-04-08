@@ -24,6 +24,7 @@ service EchoService {
 
 message EchoRequest {
     string message = 1;
+    optional uint64 delay_ms = 2;
 }
 
 message EchoResponse {
