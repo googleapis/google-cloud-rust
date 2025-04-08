@@ -116,7 +116,7 @@ pub trait Poller<R, M> {
 
     /// Convert a poller to a [futures::Stream].
     #[cfg(feature = "unstable-stream")]
-    fn to_stream(self) -> impl futures::Stream<Item = PollingResult<R, M>>;
+    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<R, M>>;
 }
 
 /// Creates a new `impl Poller<R, M>` from the closures created by the generator.
@@ -277,7 +277,7 @@ where
     }
 
     #[cfg(feature = "unstable-stream")]
-    fn to_stream(self) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>>
+    fn into_stream(self) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>>
     where
         ResponseType: wkt::message::Message + serde::de::DeserializeOwned,
         MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
@@ -462,7 +462,7 @@ mod test {
             start,
             query,
         )
-        .to_stream();
+        .into_stream();
         let mut stream = std::pin::pin!(stream);
         let p0 = stream.next().await;
         match p0.unwrap() {
