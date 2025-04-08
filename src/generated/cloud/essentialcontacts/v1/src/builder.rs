@@ -211,7 +211,7 @@ pub mod essential_contacts_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListContactsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListContactsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -220,7 +220,7 @@ pub mod essential_contacts_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListContactsRequest::parent].
@@ -370,7 +370,7 @@ pub mod essential_contacts_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ComputeContactsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ComputeContactsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -379,7 +379,7 @@ pub mod essential_contacts_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ComputeContactsRequest::parent].

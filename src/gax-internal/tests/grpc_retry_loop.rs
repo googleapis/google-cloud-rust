@@ -122,6 +122,7 @@ mod test {
     pub async fn send_request(client: grpc::Client, msg: &str) -> gax::Result<EchoResponse> {
         let request = google::test::v1::EchoRequest {
             message: msg.into(),
+            ..google::test::v1::EchoRequest::default()
         };
         let mut request_options = RequestOptions::default();
         request_options.set_idempotency(true);

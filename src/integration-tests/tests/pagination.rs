@@ -14,6 +14,7 @@
 
 #[cfg(test)]
 mod mocking {
+    use gax::paginator::{ItemPaginator, Paginator};
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     mockall::mock! {

@@ -103,7 +103,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListCloudExadataInfrastructuresResponse,
             gax::error::Error,
         > {
@@ -114,7 +114,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCloudExadataInfrastructuresRequest::parent].
@@ -432,7 +432,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListCloudVmClustersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListCloudVmClustersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -441,7 +441,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCloudVmClustersRequest::parent].
@@ -752,7 +752,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -761,7 +761,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListEntitlementsRequest::parent].
@@ -821,7 +821,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListDbServersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListDbServersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -830,7 +830,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListDbServersRequest::parent].
@@ -890,7 +890,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListDbNodesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListDbNodesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -899,7 +899,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListDbNodesRequest::parent].
@@ -959,7 +959,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListGiVersionsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListGiVersionsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -968,7 +968,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListGiVersionsRequest::parent].
@@ -1031,7 +1031,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListDbSystemShapesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListDbSystemShapesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1040,7 +1040,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListDbSystemShapesRequest::parent].
@@ -1105,7 +1105,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListAutonomousDatabasesResponse,
             gax::error::Error,
         > {
@@ -1116,7 +1116,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAutonomousDatabasesRequest::parent].
@@ -1595,7 +1595,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListAutonomousDbVersionsResponse,
             gax::error::Error,
         > {
@@ -1606,7 +1606,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAutonomousDbVersionsRequest::parent].
@@ -1673,7 +1673,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListAutonomousDatabaseCharacterSetsResponse,
             gax::error::Error,
         > {
@@ -1684,7 +1684,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAutonomousDatabaseCharacterSetsRequest::parent].
@@ -1755,7 +1755,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListAutonomousDatabaseBackupsResponse,
             gax::error::Error,
         > {
@@ -1766,7 +1766,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAutonomousDatabaseBackupsRequest::parent].
@@ -1835,7 +1835,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1844,7 +1844,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1955,7 +1955,7 @@ pub mod oracle_database {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1964,7 +1964,7 @@ pub mod oracle_database {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].

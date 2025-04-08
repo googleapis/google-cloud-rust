@@ -146,7 +146,7 @@ pub mod cloud_billing {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListBillingAccountsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListBillingAccountsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -155,7 +155,7 @@ pub mod cloud_billing {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [page_size][crate::model::ListBillingAccountsRequest::page_size].
@@ -341,7 +341,7 @@ pub mod cloud_billing {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListProjectBillingInfoResponse,
             gax::error::Error,
         > {
@@ -352,7 +352,7 @@ pub mod cloud_billing {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListProjectBillingInfoRequest::name].
@@ -787,7 +787,7 @@ pub mod cloud_catalog {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -796,7 +796,7 @@ pub mod cloud_catalog {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
@@ -850,7 +850,8 @@ pub mod cloud_catalog {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSkusResponse, gax::error::Error> {
+        ) -> impl gax::paginator::Paginator<crate::model::ListSkusResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -858,7 +859,7 @@ pub mod cloud_catalog {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListSkusRequest::parent].

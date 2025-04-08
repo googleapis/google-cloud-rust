@@ -95,7 +95,7 @@ pub enum Code {
     /// The operation was cancelled, typically by the caller.
     ///
     /// HTTP Mapping: 499 Client Closed Request
-    Canceled = 1,
+    Cancelled = 1,
 
     /// Unknown error.  For example, this error may be returned when
     /// a `Status` value received from another address space belongs to
@@ -253,7 +253,7 @@ impl std::convert::From<i32> for Code {
     fn from(value: i32) -> Self {
         match value {
             0 => Code::Ok,
-            1 => Code::Canceled,
+            1 => Code::Cancelled,
             2 => Code::Unknown,
             3 => Code::InvalidArgument,
             4 => Code::DeadlineExceeded,
@@ -278,7 +278,7 @@ impl std::convert::From<Code> for String {
     fn from(value: Code) -> String {
         match value {
             Code::Ok => "OK",
-            Code::Canceled => "CANCELED",
+            Code::Cancelled => "CANCELLED",
             Code::Unknown => "UNKNOWN",
             Code::InvalidArgument => "INVALID_ARGUMENT",
             Code::DeadlineExceeded => "DEADLINE_EXCEEDED",
@@ -304,7 +304,7 @@ impl std::convert::TryFrom<&str> for Code {
     fn try_from(value: &str) -> std::result::Result<Code, Self::Error> {
         match value {
             "OK" => Ok(Code::Ok),
-            "CANCELED" => Ok(Code::Canceled),
+            "CANCELLED" => Ok(Code::Cancelled),
             "UNKNOWN" => Ok(Code::Unknown),
             "INVALID_ARGUMENT" => Ok(Code::InvalidArgument),
             "DEADLINE_EXCEEDED" => Ok(Code::DeadlineExceeded),
@@ -799,7 +799,7 @@ mod test {
     }
 
     #[test_case("OK")]
-    #[test_case("CANCELED")]
+    #[test_case("CANCELLED")]
     #[test_case("UNKNOWN")]
     #[test_case("INVALID_ARGUMENT")]
     #[test_case("DEADLINE_EXCEEDED")]
@@ -823,7 +823,7 @@ mod test {
     }
 
     #[test_case("OK")]
-    #[test_case("CANCELED")]
+    #[test_case("CANCELLED")]
     #[test_case("UNKNOWN")]
     #[test_case("INVALID_ARGUMENT")]
     #[test_case("DEADLINE_EXCEEDED")]

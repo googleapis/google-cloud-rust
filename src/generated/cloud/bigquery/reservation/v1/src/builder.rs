@@ -161,7 +161,7 @@ pub mod reservation_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListReservationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListReservationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -170,7 +170,7 @@ pub mod reservation_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListReservationsRequest::parent].
@@ -494,7 +494,7 @@ pub mod reservation_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListCapacityCommitmentsResponse,
             gax::error::Error,
         > {
@@ -505,7 +505,7 @@ pub mod reservation_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCapacityCommitmentsRequest::parent].
@@ -895,7 +895,7 @@ pub mod reservation_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListAssignmentsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListAssignmentsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -904,7 +904,7 @@ pub mod reservation_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAssignmentsRequest::parent].
@@ -1012,7 +1012,7 @@ pub mod reservation_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchAssignmentsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchAssignmentsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1021,7 +1021,7 @@ pub mod reservation_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::SearchAssignmentsRequest::parent].
@@ -1090,7 +1090,7 @@ pub mod reservation_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchAllAssignmentsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchAllAssignmentsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1099,7 +1099,7 @@ pub mod reservation_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::SearchAllAssignmentsRequest::parent].

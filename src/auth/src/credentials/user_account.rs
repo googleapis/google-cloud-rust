@@ -52,7 +52,7 @@
 //! // "token_uri" : "test-token-uri", // Optional: Set if needed
 //! });
 //! let credentials: Credentials = Builder::new(authorized_user).build()?;
-//! let token = credentials.get_token().await?;
+//! let token = credentials.token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
 //! # });
@@ -244,7 +244,7 @@ impl std::fmt::Debug for UserTokenProvider {
 
 #[async_trait::async_trait]
 impl TokenProvider for UserTokenProvider {
-    async fn get_token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<Token> {
         let client = Client::new();
 
         // Make the request
@@ -307,12 +307,12 @@ impl<T> CredentialsTrait for UserCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn get_token(&self) -> Result<Token> {
-        self.token_provider.get_token().await
+    async fn token(&self) -> Result<Token> {
+        self.token_provider.token().await
     }
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        let token = self.get_token().await?;
+        let token = self.token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)?;
         value.set_sensitive(true);
@@ -466,7 +466,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_token_success() {
+    async fn token_success() {
         let expected = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -476,7 +476,7 @@ mod test {
         let expected_clone = expected.clone();
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
+        mock.expect_token()
             .times(1)
             .return_once(|| Ok(expected_clone));
 
@@ -484,14 +484,14 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        let actual = uc.get_token().await.unwrap();
+        let actual = uc.token().await.unwrap();
         assert_eq!(actual, expected);
     }
 
     #[tokio::test]
-    async fn get_token_failure() {
+    async fn token_failure() {
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
+        mock.expect_token()
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
@@ -499,7 +499,7 @@ mod test {
             token_provider: mock,
             quota_project_id: None,
         };
-        assert!(uc.get_token().await.is_err());
+        assert!(uc.token().await.is_err());
     }
 
     #[tokio::test]
@@ -512,7 +512,7 @@ mod test {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token().times(1).return_once(|| Ok(token));
+        mock.expect_token().times(1).return_once(|| Ok(token));
 
         let uc = UserCredentials {
             token_provider: mock,
@@ -533,7 +533,7 @@ mod test {
     #[tokio::test]
     async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
+        mock.expect_token()
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
@@ -554,7 +554,7 @@ mod test {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token().times(1).return_once(|| Ok(token));
+        mock.expect_token().times(1).return_once(|| Ok(token));
 
         let uc = UserCredentials {
             token_provider: mock,
@@ -716,7 +716,7 @@ mod test {
             .build()?;
 
         let now = std::time::Instant::now();
-        let token = cred.get_token().await?;
+        let token = cred.token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -803,16 +803,14 @@ mod test {
             .with_scopes(vec!["scope1", "scope2"])
             .build()?;
 
-        // Test that the inner token provider was called
-
-        let token = cred.get_token().await?;
+        let token = cred.token().await?;
         assert_eq!(token.token, "test-access-token");
 
-        let token = cred.get_token().await?;
+        let token = cred.token().await?;
         assert_eq!(token.token, "test-access-token");
 
         // Test that the inner token provider was called only
-        // once even though get_token was called twice.
+        // once even though token was called twice.
         assert_eq!(*call_count.lock().unwrap(), 1);
 
         Ok(())
@@ -840,7 +838,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let token = uc.get_token().await?;
+        let token = uc.token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -872,7 +870,7 @@ mod test {
         let uc = Builder::new(authorized_user)
             .with_token_uri(endpoint)
             .build()?;
-        let token = uc.get_token().await?;
+        let token = uc.token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -905,7 +903,7 @@ mod test {
             .with_token_uri(endpoint)
             .with_scopes(vec!["scope1", "scope2"])
             .build()?;
-        let token = uc.get_token().await?;
+        let token = uc.token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -931,7 +929,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.get_token().await.err().unwrap();
+        let e = uc.token().await.err().unwrap();
         assert!(e.is_retryable(), "{e}");
         assert!(e.source().unwrap().to_string().contains("try again"), "{e}");
 
@@ -956,7 +954,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.get_token().await.err().unwrap();
+        let e = uc.token().await.err().unwrap();
         assert!(!e.is_retryable(), "{e}");
         assert!(e.source().unwrap().to_string().contains("epic fail"), "{e}");
 
@@ -981,7 +979,7 @@ mod test {
             "token_uri": endpoint});
 
         let uc = Builder::new(authorized_user).build()?;
-        let e = uc.get_token().await.err().unwrap();
+        let e = uc.token().await.err().unwrap();
         assert!(!e.is_retryable(), "{e}");
 
         Ok(())

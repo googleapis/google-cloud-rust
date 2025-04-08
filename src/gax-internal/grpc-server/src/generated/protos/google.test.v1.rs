@@ -3,6 +3,8 @@
 pub struct EchoRequest {
     #[prost(string, tag = "1")]
     pub message: ::prost::alloc::string::String,
+    #[prost(uint64, optional, tag = "2")]
+    pub delay_ms: ::core::option::Option<u64>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EchoResponse {

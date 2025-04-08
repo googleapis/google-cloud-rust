@@ -38,7 +38,7 @@
 //! # use google_cloud_auth::errors::CredentialsError;
 //! # tokio_test::block_on(async {
 //! let credentials: Credentials = Builder::default().with_quota_project_id("my-quota-project").build();
-//! let token = credentials.get_token().await?;
+//! let token = credentials.token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
 //! # });
@@ -175,12 +175,12 @@ impl<T> CredentialsTrait for MDSCredentials<T>
 where
     T: TokenProvider,
 {
-    async fn get_token(&self) -> Result<Token> {
-        self.token_provider.get_token().await
+    async fn token(&self) -> Result<Token> {
+        self.token_provider.token().await
     }
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        let token = self.get_token().await?;
+        let token = self.token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)?;
         value.set_sensitive(true);
@@ -249,7 +249,7 @@ impl MDSAccessTokenProvider {
 
 #[async_trait]
 impl TokenProvider for MDSAccessTokenProvider {
-    async fn get_token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<Token> {
         let client = Client::new();
         // Determine scopes, fetching from metadata server if needed.
         let scopes = match &self.scopes {
@@ -327,7 +327,7 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_token_success() {
+    async fn token_success() {
         let expected = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -337,7 +337,7 @@ mod test {
         let expected_clone = expected.clone();
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
+        mock.expect_token()
             .times(1)
             .return_once(|| Ok(expected_clone));
 
@@ -346,14 +346,14 @@ mod test {
             universe_domain: None,
             token_provider: mock,
         };
-        let actual = mdsc.get_token().await.unwrap();
+        let actual = mdsc.token().await.unwrap();
         assert_eq!(actual, expected);
     }
 
     #[tokio::test]
-    async fn get_token_failure() {
+    async fn token_failure() {
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
+        mock.expect_token()
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
@@ -362,7 +362,7 @@ mod test {
             universe_domain: None,
             token_provider: mock,
         };
-        assert!(mdsc.get_token().await.is_err());
+        assert!(mdsc.token().await.is_err());
     }
 
     #[tokio::test]
@@ -375,7 +375,7 @@ mod test {
         };
 
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token().times(1).return_once(|| Ok(token));
+        mock.expect_token().times(1).return_once(|| Ok(token));
 
         let mdsc = MDSCredentials {
             quota_project_id: None,
@@ -397,7 +397,7 @@ mod test {
     #[tokio::test]
     async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
+        mock.expect_token()
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
@@ -585,9 +585,9 @@ mod test {
             .with_scopes(scopes)
             .with_endpoint(endpoint)
             .build();
-        let token = mdsc.get_token().await?;
+        let token = mdsc.token().await?;
         assert_eq!(token.token, "test-access-token");
-        let token = mdsc.get_token().await?;
+        let token = mdsc.token().await?;
         assert_eq!(token.token, "test-access-token");
 
         // validate that the inner token provider is called only once
@@ -626,7 +626,7 @@ mod test {
             .with_endpoint(endpoint)
             .build();
         let now = std::time::Instant::now();
-        let token = mdsc.get_token().await?;
+        let token = mdsc.token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -688,7 +688,7 @@ mod test {
 
         let mdsc = Builder::default().with_endpoint(endpoint).build();
         let now = std::time::Instant::now();
-        let token = mdsc.get_token().await?;
+        let token = mdsc.token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(
@@ -728,7 +728,7 @@ mod test {
             .with_endpoint(endpoint)
             .with_scopes(scopes)
             .build();
-        let token = mdsc.get_token().await?;
+        let token = mdsc.token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -757,7 +757,7 @@ mod test {
             .with_endpoint(endpoint)
             .with_scopes(scopes)
             .build();
-        let e = mdsc.get_token().await.err().unwrap();
+        let e = mdsc.token().await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
 
@@ -786,7 +786,7 @@ mod test {
             .with_scopes(scopes)
             .build();
 
-        let e = mdsc.get_token().await.err().unwrap();
+        let e = mdsc.token().await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));
 
@@ -815,7 +815,7 @@ mod test {
             .with_scopes(scopes)
             .build();
 
-        let e = mdsc.get_token().await.err().unwrap();
+        let e = mdsc.token().await.err().unwrap();
         assert!(!e.is_retryable());
 
         Ok(())

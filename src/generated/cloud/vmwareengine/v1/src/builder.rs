@@ -101,7 +101,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListPrivateCloudsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListPrivateCloudsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -110,7 +110,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPrivateCloudsRequest::parent].
@@ -625,7 +625,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -634,7 +634,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
@@ -1040,7 +1040,8 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListNodesResponse, gax::error::Error> {
+        ) -> impl gax::paginator::Paginator<crate::model::ListNodesResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -1048,7 +1049,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListNodesRequest::parent].
@@ -1153,7 +1154,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListExternalAddressesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListExternalAddressesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1162,7 +1163,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListExternalAddressesRequest::parent].
@@ -1241,7 +1242,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::FetchNetworkPolicyExternalAddressesResponse,
             gax::error::Error,
         > {
@@ -1252,7 +1253,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [network_policy][crate::model::FetchNetworkPolicyExternalAddressesRequest::network_policy].
@@ -1650,7 +1651,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSubnetsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListSubnetsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1659,7 +1660,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListSubnetsRequest::parent].
@@ -1857,7 +1858,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListExternalAccessRulesResponse,
             gax::error::Error,
         > {
@@ -1868,7 +1869,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListExternalAccessRulesRequest::parent].
@@ -2291,7 +2292,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListLoggingServersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListLoggingServersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2300,7 +2301,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListLoggingServersRequest::parent].
@@ -2710,7 +2711,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListNodeTypesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListNodeTypesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2719,7 +2720,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListNodeTypesRequest::parent].
@@ -3304,7 +3305,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListNetworkPeeringsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListNetworkPeeringsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3313,7 +3314,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListNetworkPeeringsRequest::parent].
@@ -3681,7 +3682,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListPeeringRoutesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListPeeringRoutesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3690,7 +3691,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPeeringRoutesRequest::parent].
@@ -3866,7 +3867,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListHcxActivationKeysResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListHcxActivationKeysResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3875,7 +3876,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListHcxActivationKeysRequest::parent].
@@ -4028,7 +4029,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListNetworkPoliciesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListNetworkPoliciesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4037,7 +4038,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListNetworkPoliciesRequest::parent].
@@ -4407,7 +4408,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListManagementDnsZoneBindingsResponse,
             gax::error::Error,
         > {
@@ -4418,7 +4419,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListManagementDnsZoneBindingsRequest::parent].
@@ -5300,7 +5301,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListVmwareEngineNetworksResponse,
             gax::error::Error,
         > {
@@ -5311,7 +5312,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListVmwareEngineNetworksRequest::parent].
@@ -5540,7 +5541,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListPrivateConnectionsResponse,
             gax::error::Error,
         > {
@@ -5551,7 +5552,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPrivateConnectionsRequest::parent].
@@ -5824,7 +5825,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListPrivateConnectionPeeringRoutesResponse,
             gax::error::Error,
         > {
@@ -5835,7 +5836,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPrivateConnectionPeeringRoutesRequest::parent].
@@ -6143,7 +6144,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -6152,7 +6153,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -6430,7 +6431,7 @@ pub mod vmware_engine {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -6439,7 +6440,7 @@ pub mod vmware_engine {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
