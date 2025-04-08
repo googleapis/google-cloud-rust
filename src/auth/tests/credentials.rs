@@ -15,7 +15,7 @@
 use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
 use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
 use google_cloud_auth::credentials::testing::test_credentials;
-use google_cloud_auth::credentials::user::Builder as UserCredentialBuilder;
+use google_cloud_auth::credentials::user_account::Builder as UserAccountCredentialBuilder;
 use google_cloud_auth::credentials::{
     ApiKeyOptions, Credentials, CredentialsTrait, create_access_token_credentials,
     create_api_key_credentials,
@@ -221,18 +221,16 @@ mod test {
     async fn get_user_account_credentials_from_builder() -> Result<()> {
         let test_quota_project = "test-quota-project";
         let authorized_user = serde_json::json!({
-            "account": "",
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "universe_domain": "googleapis.com",
         });
-        let user_account = UserCredentialBuilder::new(authorized_user)
+        let user_account = UserAccountCredentialBuilder::new(authorized_user)
             .with_quota_project_id(test_quota_project)
             .build()?;
         let fmt = format!("{:?}", user_account);
-        assert!(fmt.contains("UserCredentiasls"), "{fmt:?}");
+        assert!(fmt.contains("UserCredentials"), "{fmt:?}");
         assert!(fmt.contains(test_quota_project));
         Ok(())
     }

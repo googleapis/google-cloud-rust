@@ -13,31 +13,32 @@
 // limitations under the License.
 
 //! [User Account] Credentials type.
-//! 
-//! 
-//! User account represent a developer, administrator, or any other person who 
-//! interacts with Google APIs and services. User accounts are managed as 
-//! [Google Accounts], either with [Google Workspace] or [Cloud Identity]. 
-//! They can also be user accounts that are managed by a third-party identity 
-//! provider and federated with [Workforce Identity Federation].
 //!
-//! This module provides user account credentials based on OAuth 2.0 refresh tokens. 
-//! These credentials usually access resources on behalf of a user (resource owner).
-//! 
-//! Specifically, this is intended to use refresh token acquired using the
-//! [Authorization Code grant] to fetch access token. Obtaining the initial 
-//! refresh token is outside of the scope of this module.
-//! Consult [rfc6749 section 4.1] for complete details on the
-//! Authorization Code grant flow.
-//! 
-//! The types in this module allow you to create access tokens, based on
-//! refresh tokens and can be used with the Google Cloud client
-//! libraries for Rust.
+//! User accounts represent a developer, administrator, or any other person who
+//! interacts with Google APIs and services. User accounts are managed as
+//! [Google Accounts], either via [Google Workspace] or [Cloud Identity].
+//! They can also be user accounts managed by a third-party identity
+//! provider and federated using [Workforce Identity Federation].
 //!
-//! While the Google Cloud client libraries for Rust automatically use the types
-//! in this module when ADC finds the assosiated credentials, you may want to
-//! use these types directly when the user account credentials is obtained from
-//! Cloud Secret Manager or a similar service.
+//! This module provides [Credentials] derived from user account
+//! information, specifically utilizing an OAuth 2.0 refresh token.
+//!
+//! This module is designed primarily for refresh tokens obtained via the standard
+//! [OAuth 2.0 Authorization Code grant flow][Authorization Code grant].
+//! Acquiring the initial refresh token (e.g., through user consent) is outside
+//! the scope of this library. See [RFC 6749 Section 4.1][rfc6749 section 4.1] for flow details.
+//!
+//! The Google Cloud client libraries for Rust will typically find and use these
+//! credentials automatically if a credentials file exists in the
+//! standard ADC search paths. This file is often created by running:
+//! `gcloud auth application-default login`. You might instantiate these credentials
+//! directly using the [`Builder`] if you need to:
+//! * Load credentials from a non-standard location or source.
+//! * Override the OAuth 2.0 **scopes** being requested for the access token.
+//! * Specify a **quota project ID** for billing and quota management, separate
+//!     from the project associated with the credentials themselves.
+//! * Use a custom **token URI endpoint**.
+//!
 //!
 //! Example usage:
 //!
@@ -46,14 +47,15 @@
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use google_cloud_auth::errors::CredentialsError;
 //! # tokio_test::block_on(async {
-//! let service_account_key = serde_json::json!({
-//! "client_email": "test-client-email",
-//! "private_key_id": "test-private-key-id",
-//! "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
-//! "project_id": "test-project-id",
-//! "universe_domain": "test-universe-domain",
+//! let authorized_user = serde_json::json!({
+//! "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
+//! "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
+//! "refresh_token": "YOUR_REFRESH_TOKEN", // Replace with the user's refresh token - LOAD SECURELY!
+//! "type": "authorized_user",
+//! // "quota_project_id": "your-billing-project-id", // Optional: Set if needed
+//! // "token_uri" : "test-token-uri", // Optional: Set if needed
 //! });
-//! let credentials: Credentials = Builder::new(service_account_key).with_quota_project_id("my-quota-project").build()?;
+//! let credentials: Credentials = Builder::new(authorized_user).build()?;
 //! let token = credentials.get_token().await?;
 //! println!("Token: {}", token.token);
 //! # Ok::<(), CredentialsError>(())
@@ -65,7 +67,6 @@
 //! [Cloud Identity]: https://cloud.google.com/identity
 //! [Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-identity-federation
 //! [rfc6749 section 4.1]: https://datatracker.ietf.org/doc/html/rfc6749#section-4.1
-
 
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, QUOTA_PROJECT_KEY, Result};
@@ -84,6 +85,16 @@ pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
     Builder::new(js).build()
 }
 
+/// A builder for constructing user account [Credentials] instance.
+///
+/// # Example
+/// ```
+/// # use google_cloud_auth::credentials::user_account::Builder;
+/// # tokio_test::block_on(async {
+/// let authorized_user = serde_json::json!("{ /* add details here */ }");
+/// let credentials = Builder::new(authorized_user).build();
+/// })
+/// ```
 pub struct Builder {
     authorized_user: Value,
     scopes: Option<Vec<String>>,
@@ -92,6 +103,12 @@ pub struct Builder {
 }
 
 impl Builder {
+    /// Creates a new builder using `authorized_user` JSON value.
+    /// This authorized_user JSON is typically generated when a user 
+    /// authenticates using the [application-default login] process.
+    /// (e.g., via `gcloud auth application-default login`).
+    ///
+    /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
     pub fn new(authorized_user: Value) -> Self {
         Self {
             authorized_user,
@@ -101,11 +118,33 @@ impl Builder {
         }
     }
 
+    /// Sets the URI for the token endpoint used to fetch access tokens.
+    ///
+    /// Any value provided here overrides a `token_uri` value from the input `authorized_user` JSON.
+    /// Defaults to `https://oauth2.googleapis.com/token` if not specified here or in the `authorized_user` JSON.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::user_account::Builder;
+    /// let authorized_user = serde_json::json!("{ /* add details here */ }");
+    /// let credentials = Builder::new(authorized_user).with_token_uri("https://oauth2.googleapis.com/token").build();
+    /// ```
     pub fn with_token_uri<S: Into<String>>(mut self, token_uri: S) -> Self {
         self.token_uri = Some(token_uri.into());
         self
     }
 
+    /// Sets the [scopes] for these credentials.
+    ///
+    /// `scopes` define the *permissions being requested* for this specific `access_token`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::user_account::Builder;
+    /// let authorized_user = serde_json::json!("{ /* add details here */ }");
+    /// let credentials = Builder::new(authorized_user).with_scopes(vec!["https://www.googleapis.com/auth/pubsub"]).build();
+    /// ```
+    /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
     where
         I: IntoIterator<Item = S>,
@@ -115,12 +154,22 @@ impl Builder {
         self
     }
 
-    /// Sets the [quota project] for this credentials.
+    /// Sets the [quota project] for these credentials.
     ///
-    /// In some services, you can use a service account in
+    /// In some services, you can use an account in
     /// one project for authentication and authorization, and charge
     /// the usage to a different project. This requires that the
-    /// service account has `serviceusage.services.use` permissions on the quota project.
+    /// user has `serviceusage.services.use` permissions on the quota project.
+    ///
+    /// Any value set here overrides a `quota_project_id` value from the 
+    /// input `authorized_user` JSON.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::user_account::Builder;
+    /// let authorized_user = serde_json::json!("{ /* add details here */ }");
+    /// let credentials = Builder::new(authorized_user).with_quota_project_id("my-project").build();
+    /// ```
     ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
@@ -129,6 +178,17 @@ impl Builder {
     }
 
     /// Returns a [Credentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if the `authorized_user`
+    /// provided to [`Builder::new`] cannot be successfully deserialized into the
+    /// expected format. This typically happens if the JSON value is malformed or
+    /// missing required fields. For more information, on how to generate
+    /// `authorized_user` json, consult the relevant section in the
+    /// [application-default credentials] guide.
+    ///
+    /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> Result<Credentials> {
         let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
             .map_err(errors::non_retryable)?;
@@ -339,12 +399,10 @@ mod test {
     #[test]
     fn authorized_user_full_from_json_success() {
         let json = serde_json::json!({
-            "account": "",
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "universe_domain": "googleapis.com",
             "quota_project_id": "test-project",
             "token_uri" : "test-token-uri",
         });
@@ -385,12 +443,10 @@ mod test {
     #[test]
     fn authorized_user_from_json_parse_fail() {
         let json_full = serde_json::json!({
-            "account": "",
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
-            "universe_domain": "googleapis.com",
             "quota_project_id": "test-project"
         });
 
@@ -729,7 +785,6 @@ mod test {
         println!("endpoint = {endpoint}");
 
         let json = serde_json::json!({
-            "account": "",
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
