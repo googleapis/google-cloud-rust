@@ -33,7 +33,7 @@
 /// An alias of [std::result::Result] where the error is always [Error][crate::error::Error].
 ///
 /// This is the result type used by all functions wrapping RPCs.
-pub type Result<T> = std::result::Result<T, error::Error>;
+pub type Result<T> = std::result::Result<T, crate::error::Error>;
 
 /// Implements helpers to create telemetry headers.
 #[cfg(feature = "unstable-sdk-client")]
@@ -45,6 +45,8 @@ pub mod error;
 
 /// Defines some types and traits to convert and use List RPCs as a Stream.
 pub mod paginator;
+
+pub mod response;
 
 pub mod backoff_policy;
 pub mod client_builder;
