@@ -22,6 +22,7 @@ use gax::exponential_backoff::ExponentialBackoff;
 use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_error_policy::Aip194Strict;
 use gax::polling_error_policy::PollingErrorPolicy;
+use gax::response::{Parts, Response};
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
 use std::sync::Arc;
@@ -74,7 +75,7 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
         options: gax::options::RequestOptions,
-    ) -> Result<O> {
+    ) -> Result<Response<O>> {
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
@@ -95,7 +96,7 @@ impl ReqwestClient {
         builder: reqwest::RequestBuilder,
         options: gax::options::RequestOptions,
         retry_policy: Arc<dyn RetryPolicy>,
-    ) -> Result<O> {
+    ) -> Result<Response<O>> {
         let idempotent = options.idempotent().unwrap_or(false);
         let throttler = self.get_retry_throttler(&options);
         let backoff = self.get_backoff_policy(&options);
@@ -123,7 +124,7 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
-    ) -> Result<O> {
+    ) -> Result<Response<O>> {
         builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
@@ -135,8 +136,17 @@ impl ReqwestClient {
         if !response.status().is_success() {
             return Self::to_http_error(response).await;
         }
-        let response = response.json::<O>().await.map_err(Error::serde)?;
-        Ok(response)
+        let response = http::Response::from(response);
+        let (parts, body) = response.into_parts();
+
+        let body = http_body_util::BodyExt::collect(body)
+            .await
+            .map_err(Error::io)?;
+        let response = serde_json::from_slice::<O>(&body.to_bytes()).map_err(Error::serde)?;
+        Ok(Response::from_parts(
+            Parts::new().set_headers(parts.headers),
+            response,
+        ))
     }
 
     async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {

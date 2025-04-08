@@ -56,7 +56,7 @@ impl CreateResource {
                 gax::options::RequestOptions::default(),
             )
             .await?;
-        Ok(r)
+        Ok(r.into_body())
     }
 
     pub fn poller(
@@ -132,6 +132,6 @@ impl GetOperation {
                 gax::options::RequestOptions::default(),
             )
             .await?;
-        Ok(r)
+        Ok(r.into_body())
     }
 }
