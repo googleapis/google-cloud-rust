@@ -232,7 +232,7 @@ mod test {
             .with_quota_project_id(test_quota_project)
             .build()?;
         let fmt = format!("{:?}", user_account);
-        assert!(fmt.contains("UserCredentials"));
+        assert!(fmt.contains("UserCredentiasls"), "{fmt:?}");
         assert!(fmt.contains(test_quota_project));
         Ok(())
     }
