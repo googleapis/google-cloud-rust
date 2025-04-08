@@ -17,16 +17,14 @@
 //! User accounts represent a developer, administrator, or any other person who
 //! interacts with Google APIs and services. User accounts are managed as
 //! [Google Accounts], either via [Google Workspace] or [Cloud Identity].
-//! They can also be user accounts managed by a third-party identity
-//! provider and federated using [Workforce Identity Federation].
 //!
 //! This module provides [Credentials] derived from user account
 //! information, specifically utilizing an OAuth 2.0 refresh token.
 //!
-//! This module is designed primarily for refresh tokens obtained via the standard
-//! [OAuth 2.0 Authorization Code grant flow][Authorization Code grant].
-//! Acquiring the initial refresh token (e.g., through user consent) is outside
-//! the scope of this library. See [RFC 6749 Section 4.1][rfc6749 section 4.1] for flow details.
+//! This module is designed for refresh tokens obtained via the standard
+//! [Authorization Code grant]. Acquiring the initial refresh token (e.g., through
+//! user consent) is outside the scope of this library.
+//! See [RFC 6749 Section 4.1] for flow details.
 //!
 //! The Google Cloud client libraries for Rust will typically find and use these
 //! credentials automatically if a credentials file exists in the
@@ -35,10 +33,8 @@
 //! directly using the [`Builder`] if you need to:
 //! * Load credentials from a non-standard location or source.
 //! * Override the OAuth 2.0 **scopes** being requested for the access token.
-//! * Specify a **quota project ID** for billing and quota management, separate
-//!     from the project associated with the credentials themselves.
-//! * Use a custom **token URI endpoint**.
-//!
+//! * Override the **quota project ID** for billing and quota management.
+//! * Override the **token URI** used to fetch access tokens.
 //!
 //! Example usage:
 //!
@@ -62,11 +58,13 @@
 //! # });
 //! ```
 //!
+//! [Authorization Code grant]: https://tools.ietf.org/html/rfc6749#section-1.3.1
+//! [Cloud Identity]: https://cloud.google.com/identity
 //! [Google Accounts]: https://myaccount.google.com/
 //! [Google Workspace]: https://workspace.google.com/
-//! [Cloud Identity]: https://cloud.google.com/identity
+//! [RFC 6749 Section 4.1]: https://datatracker.ietf.org/doc/html/rfc6749#section-4.1
+//! [User Account]: https://cloud.google.com/docs/authentication#user-accounts
 //! [Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-identity-federation
-//! [rfc6749 section 4.1]: https://datatracker.ietf.org/doc/html/rfc6749#section-4.1
 
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, QUOTA_PROJECT_KEY, Result};
@@ -85,7 +83,7 @@ pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
     Builder::new(js).build()
 }
 
-/// A builder for constructing user account [Credentials] instance.
+/// A builder for constructing `user_account` [Credentials] instance.
 ///
 /// # Example
 /// ```
@@ -104,9 +102,9 @@ pub struct Builder {
 
 impl Builder {
     /// Creates a new builder using `authorized_user` JSON value.
-    /// This authorized_user JSON is typically generated when a user 
+    ///
+    /// The `authorized_user` JSON is typically generated when a user
     /// authenticates using the [application-default login] process.
-    /// (e.g., via `gcloud auth application-default login`).
     ///
     /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
     pub fn new(authorized_user: Value) -> Self {
@@ -127,7 +125,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::user_account::Builder;
     /// let authorized_user = serde_json::json!("{ /* add details here */ }");
-    /// let credentials = Builder::new(authorized_user).with_token_uri("https://oauth2.googleapis.com/token").build();
+    /// let credentials = Builder::new(authorized_user).with_token_uri("https://oauth2-FOOBAR.p.googleapis.com").build();
     /// ```
     pub fn with_token_uri<S: Into<String>>(mut self, token_uri: S) -> Self {
         self.token_uri = Some(token_uri.into());
@@ -136,7 +134,14 @@ impl Builder {
 
     /// Sets the [scopes] for these credentials.
     ///
-    /// `scopes` define the *permissions being requested* for this specific `access_token`.
+    /// `scopes` define the *permissions being requested* for this specific access token
+    /// when interacting with a service. For example, `https://www.googleapis.com/auth/devstorage.read_write`.
+    /// IAM permissions, on the other hand, define the *underlying capabilities*
+    /// the user account possesses within a system. For example, `storage.buckets.delete`.
+    /// When a token generated with specific scopes is used, the request must be permitted
+    /// by both the user account's underlying IAM permissions and the scopes requested
+    /// for the token. Therefore, scopes act as an additional restriction on what the token
+    /// can be used for.
     ///
     /// # Example
     /// ```
@@ -161,7 +166,7 @@ impl Builder {
     /// the usage to a different project. This requires that the
     /// user has `serviceusage.services.use` permissions on the quota project.
     ///
-    /// Any value set here overrides a `quota_project_id` value from the 
+    /// Any value set here overrides a `quota_project_id` value from the
     /// input `authorized_user` JSON.
     ///
     /// # Example
