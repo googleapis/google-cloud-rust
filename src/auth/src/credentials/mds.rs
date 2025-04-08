@@ -51,9 +51,10 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY, Result};
+use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::token::{Token, TokenProvider};
+use crate::utils::headers_util::build_headers;
 use async_trait::async_trait;
 use bon::Builder;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
@@ -181,17 +182,13 @@ where
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.token().await?;
-        let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(errors::non_retryable)?;
-        value.set_sensitive(true);
-        let mut headers = vec![(AUTHORIZATION, value)];
-        if let Some(project) = &self.quota_project_id {
-            headers.push((
-                HeaderName::from_static(QUOTA_PROJECT_KEY),
-                HeaderValue::from_str(project).map_err(errors::non_retryable)?,
-            ));
-        }
-        Ok(headers)
+        build_headers(
+            &token,
+            &self.quota_project_id,
+            AUTHORIZATION,
+            |token| HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
+                .map_err(errors::non_retryable)
+        )
     }
 
     async fn universe_domain(&self) -> Option<String> {
@@ -303,6 +300,7 @@ impl TokenProvider for MDSAccessTokenProvider {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use axum::extract::Query;

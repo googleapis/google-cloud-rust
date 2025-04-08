@@ -52,3 +52,8 @@ pub(crate) mod token_cache;
 /// A `Result` alias where the `Err` case is
 /// `google_cloud_auth::errors::CredentialsError`.
 pub(crate) type Result<T> = std::result::Result<T, crate::errors::CredentialsError>;
+
+/// Utility functions to work with Google Cloud authentication [Credentials].
+///
+/// [Credentials]: https://cloud.google.com/docs/authentication#credentials
+pub mod utils;

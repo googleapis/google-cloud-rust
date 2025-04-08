@@ -13,9 +13,10 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credentials, QUOTA_PROJECT_KEY, Result};
+use crate::credentials::{Credentials, Result};
 use crate::errors;
 use crate::token::{Token, TokenProvider};
+use crate::utils::headers_util::build_headers;
 use http::header::{HeaderName, HeaderValue};
 use std::sync::Arc;
 
@@ -119,22 +120,20 @@ where
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.token().await?;
-        let mut value = HeaderValue::from_str(&token.token).map_err(errors::non_retryable)?;
-        value.set_sensitive(true);
-        let mut headers = vec![(HeaderName::from_static(API_KEY_HEADER_KEY), value)];
-        if let Some(project) = &self.quota_project_id {
-            headers.push((
-                HeaderName::from_static(QUOTA_PROJECT_KEY),
-                HeaderValue::from_str(project).map_err(errors::non_retryable)?,
-            ));
-        }
-        Ok(headers)
+        build_headers(
+            &token,
+            &self.quota_project_id,
+            HeaderName::from_static(API_KEY_HEADER_KEY),
+            |token| HeaderValue::from_str(&token.token)
+                .map_err(errors::non_retryable)
+        )
     }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use scoped_env::ScopedEnv;
 

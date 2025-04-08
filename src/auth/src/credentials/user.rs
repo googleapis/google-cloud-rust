@@ -13,10 +13,11 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credentials, QUOTA_PROJECT_KEY, Result};
+use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
+use crate::utils::headers_util::build_headers;
 use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
 use reqwest::{Client, Method};
 use std::sync::Arc;
@@ -135,17 +136,13 @@ where
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.token().await?;
-        let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(errors::non_retryable)?;
-        value.set_sensitive(true);
-        let mut headers = vec![(AUTHORIZATION, value)];
-        if let Some(project) = &self.quota_project_id {
-            headers.push((
-                HeaderName::from_static(QUOTA_PROJECT_KEY),
-                HeaderValue::from_str(project).map_err(errors::non_retryable)?,
-            ));
-        }
-        Ok(headers)
+        build_headers(
+            &token,
+            &self.quota_project_id,
+            AUTHORIZATION,
+            |token| HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
+                .map_err(errors::non_retryable)
+        )
     }
 }
 
@@ -191,6 +188,7 @@ struct Oauth2RefreshResponse {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use axum::extract::Json;
