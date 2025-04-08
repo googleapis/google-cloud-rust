@@ -48,10 +48,12 @@ As it is usual with Rust, you must declare the dependency in your
 {{#include ../samples/Cargo.toml:secretmanager}}
 ```
 
-Clients are created by calling `build()` on a
-[`ClientBuilder`][gax-client-builder]. The following creates a client with
-default configuration, which is designed to meet requirements for most use
-cases.
+You (1) call `Client::builder()` to obtain an appropriate
+[`ClientBuilder`][gax-client-builder] and (2) call `build()` on that builder to
+create a client.
+
+The following creates a client with the default configuration, which is designed
+to meet requirements for most use cases.
 
 ```rust,ignore,noplayground
 {{#include ../samples/tests/initialize_client.rs:new-client}}
