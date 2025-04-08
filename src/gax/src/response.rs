@@ -300,8 +300,7 @@ mod test {
             http::header::CONTENT_TYPE,
             http::HeaderValue::from_static("application/json"),
         );
-        let parts = Parts::new()
-            .set_headers(headers.clone());
+        let parts = Parts::new().set_headers(headers.clone());
 
         let response = Response::from_parts(parts, "abc123".to_string());
         assert_eq!(response.body().as_str(), "abc123");
@@ -321,8 +320,7 @@ mod test {
             http::header::CONTENT_TYPE,
             http::HeaderValue::from_static("application/json"),
         );
-        let parts = Parts::new()
-            .set_headers(headers.clone());
+        let parts = Parts::new().set_headers(headers.clone());
 
         assert_eq!(parts.headers, headers);
         assert_eq!(
