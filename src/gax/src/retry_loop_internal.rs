@@ -39,7 +39,7 @@ where
     F: AsyncFn(Option<std::time::Duration>) -> Result<Response> + Send,
     S: AsyncFn(std::time::Duration) -> () + Send,
 {
-    let loop_start = std::time::Instant::now();
+    let loop_start = tokio::time::Instant::now().into_std();
     let mut attempt_count = 0;
     loop {
         let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);

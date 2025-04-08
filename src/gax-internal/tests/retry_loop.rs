@@ -377,11 +377,12 @@ mod test {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn retry_loop_retry_transient_then_permanent() -> Result<()> {
-        // We create a server that will return two transient errors and then succeed.
+        // We create a server that will return a transient error, then a
+        // permanent error.
         let (endpoint, _server) = start(vec![transient(), permanent()]).await?;
 
-        // Create a matching policy provider. It returns a policy that expects two
-        // errors.
+        // Create a matching policy provider. It returns a policy that expects
+        // two errors.
         let mut seq = mockall::Sequence::new();
         let mut retry_policy = MockRetryPolicy::new();
         retry_policy

@@ -15,9 +15,12 @@
 #[cfg(all(test, feature = "_internal_http_client"))]
 mod test {
     use gax::options::*;
+    use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    use gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
     use serde_json::json;
+    use std::sync::{Arc, Mutex};
     use std::time::Duration;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -39,6 +42,7 @@ mod test {
             RequestOptions::default(),
         );
 
+        let start = tokio::time::Instant::now();
         tokio::pin!(server);
         tokio::pin!(response);
         loop {
@@ -55,6 +59,14 @@ mod test {
                 _ = interval.tick() => { },
             }
         }
+
+        let elapsed = tokio::time::Instant::now() - start;
+        assert!(
+            check_elapsed_time(elapsed, delay),
+            "got: {:?}, wanted closer to: {:?}",
+            elapsed,
+            delay
+        );
 
         Ok(())
     }
@@ -77,6 +89,7 @@ mod test {
             test_options(&timeout),
         );
 
+        let start = tokio::time::Instant::now();
         tokio::pin!(server);
         tokio::pin!(response);
         loop {
@@ -93,6 +106,14 @@ mod test {
                 _ = interval.tick() => { },
             }
         }
+
+        let elapsed = tokio::time::Instant::now() - start;
+        assert!(
+            check_elapsed_time(elapsed, delay),
+            "got: {:?}, wanted closer to: {:?}",
+            elapsed,
+            delay
+        );
 
         Ok(())
     }
@@ -115,6 +136,7 @@ mod test {
             test_options(&timeout),
         );
 
+        let start = tokio::time::Instant::now();
         tokio::pin!(server);
         tokio::pin!(response);
         loop {
@@ -136,6 +158,111 @@ mod test {
             }
         }
 
+        let elapsed = tokio::time::Instant::now() - start;
+        assert!(
+            check_elapsed_time(elapsed, timeout),
+            "got: {:?}, wanted closer to: {:?}",
+            elapsed,
+            delay
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_effective_timeout() -> Result<()> {
+        let (endpoint, server) = echo_server::start().await?;
+        let config = test_config();
+        let client = ReqwestClient::new(config, &endpoint).await?;
+
+        // The first attempt should timeout, because of the attempt timeout of
+        // 100ms. The next attempt should timeout, because of the overall
+        // timeout at 150ms.
+        let delay = Duration::from_millis(2000);
+        let attempt_timeout = Duration::from_millis(100);
+        let overall_timeout = Duration::from_millis(150);
+        let mut interval = tokio::time::interval(Duration::from_millis(10));
+        let builder = client
+            .builder(reqwest::Method::GET, "/echo".into())
+            .query(&[("delay_ms", format!("{}", delay.as_millis()))]);
+
+        #[derive(Default, Debug)]
+        struct TestBackoffPolicy {
+            pub elapsed_on_failure: Arc<Mutex<Option<Duration>>>,
+        }
+
+        impl gax::backoff_policy::BackoffPolicy for TestBackoffPolicy {
+            fn on_failure(
+                &self,
+                loop_start: std::time::Instant,
+                attempt_count: u32,
+            ) -> std::time::Duration {
+                if attempt_count == 1 {
+                    *self.elapsed_on_failure.lock().unwrap() =
+                        Some(tokio::time::Instant::now().into_std() - loop_start);
+                }
+
+                std::time::Duration::ZERO
+            }
+        }
+
+        let elapsed_on_failure = Arc::new(Mutex::new(None));
+        let mut request_options: RequestOptions = RequestOptions::default();
+        request_options.set_attempt_timeout(attempt_timeout);
+        request_options.set_retry_policy(AlwaysRetry.with_time_limit(overall_timeout));
+        request_options.set_backoff_policy(TestBackoffPolicy {
+            elapsed_on_failure: elapsed_on_failure.clone(),
+        });
+        disable_throttling(&mut request_options);
+
+        let response = client.execute::<serde_json::Value, serde_json::Value>(
+            builder,
+            Some(json!({})),
+            request_options,
+        );
+
+        let start = tokio::time::Instant::now();
+        tokio::pin!(server);
+        tokio::pin!(response);
+        loop {
+            tokio::select! {
+                _ = &mut server => {  },
+                r = &mut response => {
+                    use gax::error::ErrorKind;
+                    assert!(
+                        r.is_err(),
+                        "expected a timeout error, got={:?}",
+                        r
+                    );
+                    let err = r.err().unwrap();
+                    assert_eq!(err.kind(), ErrorKind::Io);
+                    break;
+                },
+                _ = interval.tick() => { },
+            }
+        }
+
+        // Verify the time at which we expect the initial attempt to complete
+        let elapsed = elapsed_on_failure
+            .lock()
+            .unwrap()
+            .expect("Backoff policy should be called.");
+        assert!(
+            check_elapsed_time(elapsed, attempt_timeout),
+            "got: {:?}, wanted closer to: {:?}",
+            elapsed,
+            attempt_timeout
+        );
+
+        // Verify the time at which we expect the operation to complete
+        let elapsed = tokio::time::Instant::now() - start;
+        assert!(
+            check_elapsed_time(elapsed, overall_timeout),
+            "got: {:?}, wanted closer to: {:?}",
+            elapsed,
+            delay
+        );
+
         Ok(())
     }
 
@@ -143,6 +270,12 @@ mod test {
         let mut options = RequestOptions::default();
         options.set_attempt_timeout(timeout.clone());
         options
+    }
+
+    fn disable_throttling(o: &mut RequestOptions) {
+        o.set_retry_throttler(RetryThrottlerArg::from(
+            CircuitBreaker::new(1000, 0, 0).expect("This is a valid configuration"),
+        ));
     }
 
     fn get_query_value(response: &serde_json::Value, name: &str) -> Option<String> {
@@ -161,5 +294,15 @@ mod test {
         let mut config = ClientConfig::default();
         config.cred = auth::credentials::testing::test_credentials().into();
         config
+    }
+
+    // Check the elapsed time, allowing for some error.
+    //
+    // In all tests, we use a clock tick of 10ms. We will return true if a
+    // given `d` is within -10ms and +20ms of `expected`. The upper bound is
+    // greater, because the tests always seem to add an extra tick of the clock.
+    fn check_elapsed_time(actual: Duration, expected: Duration) -> bool {
+        return expected - Duration::from_millis(10_u64) <= actual
+            && actual <= expected + Duration::from_millis(20_u64);
     }
 }
