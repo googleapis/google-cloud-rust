@@ -48,8 +48,12 @@ As it is usual with Rust, you must declare the dependency in your
 {{#include ../samples/Cargo.toml:secretmanager}}
 ```
 
-The default initialization is designed to meet the requirements for most
-cases. You create a default client using `new()`:
+You (1) call `Client::builder()` to obtain an appropriate
+[`ClientBuilder`][gax-client-builder] and (2) call `build()` on that builder to
+create a client.
+
+The following creates a client with the default configuration, which is designed
+to meet requirements for most use cases.
 
 ```rust,ignore,noplayground
 {{#include ../samples/tests/initialize_client.rs:new-client}}
@@ -74,4 +78,5 @@ Putting all this code together into a full program looks as follows:
 [application default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
 [authenticate for using client libraries]: https://cloud.google.com/docs/authentication/client-libraries
 [create a secret]: https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets
+[gax-client-builder]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/client_builder/struct.ClientBuilder.html
 [secret manager api]: https://cloud.google.com/secret-manager
