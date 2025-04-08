@@ -397,7 +397,7 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListConversationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListConversationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -406,7 +406,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListConversationsRequest::parent].
@@ -677,7 +677,7 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListAnalysesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListAnalysesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -686,7 +686,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAnalysesRequest::parent].
@@ -2349,7 +2349,7 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListPhraseMatchersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListPhraseMatchersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2358,7 +2358,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListPhraseMatchersRequest::parent].
@@ -2785,7 +2785,7 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListAnalysisRulesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListAnalysisRulesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2794,7 +2794,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAnalysisRulesRequest::parent].
@@ -3198,7 +3198,8 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error> {
+        ) -> impl gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -3206,7 +3207,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListViewsRequest::parent].
@@ -3699,7 +3700,7 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListQaQuestionsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListQaQuestionsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3708,7 +3709,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListQaQuestionsRequest::parent].
@@ -3991,7 +3992,7 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListQaScorecardsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListQaScorecardsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4000,7 +4001,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListQaScorecardsRequest::parent].
@@ -4437,7 +4438,7 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListQaScorecardRevisionsResponse,
             gax::error::Error,
         > {
@@ -4448,7 +4449,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListQaScorecardRevisionsRequest::parent].
@@ -4581,7 +4582,7 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListFeedbackLabelsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListFeedbackLabelsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4590,7 +4591,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListFeedbackLabelsRequest::parent].
@@ -4814,7 +4815,7 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListAllFeedbackLabelsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListAllFeedbackLabelsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -4823,7 +4824,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAllFeedbackLabelsRequest::parent].
@@ -5146,7 +5147,7 @@ pub mod contact_center_insights {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -5155,7 +5156,7 @@ pub mod contact_center_insights {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].

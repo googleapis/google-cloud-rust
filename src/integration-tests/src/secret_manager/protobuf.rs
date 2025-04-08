@@ -14,6 +14,7 @@
 
 use crate::Result;
 use gax::error::Error;
+use gax::paginator::{ItemPaginator, Paginator};
 use rand::{Rng, distr::Alphanumeric};
 
 pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) -> Result<()> {

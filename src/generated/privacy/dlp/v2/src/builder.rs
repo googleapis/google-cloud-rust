@@ -674,7 +674,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListInspectTemplatesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListInspectTemplatesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -683,7 +683,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListInspectTemplatesRequest::parent].
@@ -987,7 +987,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListDeidentifyTemplatesResponse,
             gax::error::Error,
         > {
@@ -998,7 +998,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListDeidentifyTemplatesRequest::parent].
@@ -1344,7 +1344,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListJobTriggersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListJobTriggersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1353,7 +1353,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListJobTriggersRequest::parent].
@@ -1698,7 +1698,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListDiscoveryConfigsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListDiscoveryConfigsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1707,7 +1707,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListDiscoveryConfigsRequest::parent].
@@ -1881,7 +1881,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListDlpJobsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListDlpJobsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1890,7 +1890,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListDlpJobsRequest::parent].
@@ -2277,7 +2277,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListStoredInfoTypesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListStoredInfoTypesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2286,7 +2286,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListStoredInfoTypesRequest::parent].
@@ -2408,7 +2408,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListProjectDataProfilesResponse,
             gax::error::Error,
         > {
@@ -2419,7 +2419,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListProjectDataProfilesRequest::parent].
@@ -2494,7 +2494,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListTableDataProfilesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListTableDataProfilesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2503,7 +2503,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListTableDataProfilesRequest::parent].
@@ -2578,7 +2578,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListColumnDataProfilesResponse,
             gax::error::Error,
         > {
@@ -2589,7 +2589,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListColumnDataProfilesRequest::parent].
@@ -2711,7 +2711,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListFileStoreDataProfilesResponse,
             gax::error::Error,
         > {
@@ -2722,7 +2722,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListFileStoreDataProfilesRequest::parent].
@@ -3215,7 +3215,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3224,7 +3224,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
@@ -3293,7 +3293,7 @@ pub mod dlp_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchConnectionsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchConnectionsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3302,7 +3302,7 @@ pub mod dlp_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::SearchConnectionsRequest::parent].

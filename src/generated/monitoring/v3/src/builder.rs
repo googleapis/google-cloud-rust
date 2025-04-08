@@ -101,7 +101,7 @@ pub mod alert_policy_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListAlertPoliciesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListAlertPoliciesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -110,7 +110,7 @@ pub mod alert_policy_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListAlertPoliciesRequest::name].
@@ -434,7 +434,7 @@ pub mod group_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -443,7 +443,7 @@ pub mod group_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListGroupsRequest::name].
@@ -713,7 +713,7 @@ pub mod group_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListGroupMembersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListGroupMembersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -722,7 +722,7 @@ pub mod group_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListGroupMembersRequest::name].
@@ -856,7 +856,7 @@ pub mod metric_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListMonitoredResourceDescriptorsResponse,
             gax::error::Error,
         > {
@@ -867,7 +867,7 @@ pub mod metric_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListMonitoredResourceDescriptorsRequest::name].
@@ -983,7 +983,7 @@ pub mod metric_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListMetricDescriptorsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListMetricDescriptorsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -992,7 +992,7 @@ pub mod metric_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListMetricDescriptorsRequest::name].
@@ -1208,7 +1208,7 @@ pub mod metric_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListTimeSeriesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListTimeSeriesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1217,7 +1217,7 @@ pub mod metric_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListTimeSeriesRequest::name].
@@ -1504,7 +1504,7 @@ pub mod notification_channel_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListNotificationChannelDescriptorsResponse,
             gax::error::Error,
         > {
@@ -1515,7 +1515,7 @@ pub mod notification_channel_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListNotificationChannelDescriptorsRequest::name].
@@ -1631,7 +1631,7 @@ pub mod notification_channel_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListNotificationChannelsResponse,
             gax::error::Error,
         > {
@@ -1642,7 +1642,7 @@ pub mod notification_channel_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListNotificationChannelsRequest::name].
@@ -2161,7 +2161,7 @@ pub mod query_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::QueryTimeSeriesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::QueryTimeSeriesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2170,7 +2170,7 @@ pub mod query_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::QueryTimeSeriesRequest::name].
@@ -2397,7 +2397,7 @@ pub mod service_monitoring_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2406,7 +2406,7 @@ pub mod service_monitoring_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
@@ -2706,7 +2706,7 @@ pub mod service_monitoring_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListServiceLevelObjectivesResponse,
             gax::error::Error,
         > {
@@ -2717,7 +2717,7 @@ pub mod service_monitoring_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListServiceLevelObjectivesRequest::parent].
@@ -3009,7 +3009,7 @@ pub mod snooze_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSnoozesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListSnoozesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3018,7 +3018,7 @@ pub mod snooze_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListSnoozesRequest::parent].
@@ -3237,7 +3237,7 @@ pub mod uptime_check_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListUptimeCheckConfigsResponse,
             gax::error::Error,
         > {
@@ -3248,7 +3248,7 @@ pub mod uptime_check_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListUptimeCheckConfigsRequest::parent].
@@ -3528,7 +3528,7 @@ pub mod uptime_check_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListUptimeCheckIpsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListUptimeCheckIpsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3537,7 +3537,7 @@ pub mod uptime_check_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [page_size][crate::model::ListUptimeCheckIpsRequest::page_size].

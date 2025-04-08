@@ -624,7 +624,7 @@ pub mod product_search {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListProductSetsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListProductSetsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -633,7 +633,7 @@ pub mod product_search {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListProductSetsRequest::parent].
@@ -894,7 +894,7 @@ pub mod product_search {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListProductsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListProductsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -903,7 +903,7 @@ pub mod product_search {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListProductsRequest::parent].
@@ -1209,7 +1209,7 @@ pub mod product_search {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListReferenceImagesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListReferenceImagesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1218,7 +1218,7 @@ pub mod product_search {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListReferenceImagesRequest::parent].
@@ -1432,7 +1432,7 @@ pub mod product_search {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListProductsInProductSetResponse,
             gax::error::Error,
         > {
@@ -1443,7 +1443,7 @@ pub mod product_search {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][crate::model::ListProductsInProductSetRequest::name].

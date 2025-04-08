@@ -146,7 +146,7 @@ pub mod cloud_controls_partner_core {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -155,7 +155,7 @@ pub mod cloud_controls_partner_core {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
@@ -273,7 +273,7 @@ pub mod cloud_controls_partner_core {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListCustomersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListCustomersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -282,7 +282,7 @@ pub mod cloud_controls_partner_core {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCustomersRequest::parent].
@@ -455,7 +455,7 @@ pub mod cloud_controls_partner_core {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListAccessApprovalRequestsResponse,
             gax::error::Error,
         > {
@@ -466,7 +466,7 @@ pub mod cloud_controls_partner_core {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListAccessApprovalRequestsRequest::parent].
@@ -640,7 +640,7 @@ pub mod cloud_controls_partner_monitoring {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListViolationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListViolationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -649,7 +649,7 @@ pub mod cloud_controls_partner_monitoring {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListViolationsRequest::parent].

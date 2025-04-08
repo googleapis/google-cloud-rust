@@ -29,6 +29,7 @@ pub async fn initialize_client(project_id: &str) -> Result {
 
     // Once initialized, use the client to make requests.
     // ANCHOR: make-rpc
+    use google_cloud_gax::paginator::Paginator as _;
     let mut items = client
         .list_locations(format!("projects/{project_id}"))
         .paginator()

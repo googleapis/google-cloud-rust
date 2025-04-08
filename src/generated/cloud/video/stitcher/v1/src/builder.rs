@@ -198,7 +198,7 @@ pub mod video_stitcher_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListCdnKeysResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListCdnKeysResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -207,7 +207,7 @@ pub mod video_stitcher_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListCdnKeysRequest::parent].
@@ -600,7 +600,7 @@ pub mod video_stitcher_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListVodStitchDetailsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListVodStitchDetailsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -609,7 +609,7 @@ pub mod video_stitcher_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListVodStitchDetailsRequest::parent].
@@ -721,7 +721,7 @@ pub mod video_stitcher_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListVodAdTagDetailsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListVodAdTagDetailsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -730,7 +730,7 @@ pub mod video_stitcher_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListVodAdTagDetailsRequest::parent].
@@ -842,7 +842,7 @@ pub mod video_stitcher_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListLiveAdTagDetailsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListLiveAdTagDetailsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -851,7 +851,7 @@ pub mod video_stitcher_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListLiveAdTagDetailsRequest::parent].
@@ -1062,7 +1062,7 @@ pub mod video_stitcher_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSlatesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListSlatesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1071,7 +1071,7 @@ pub mod video_stitcher_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListSlatesRequest::parent].
@@ -1567,7 +1567,7 @@ pub mod video_stitcher_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListLiveConfigsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListLiveConfigsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1576,7 +1576,7 @@ pub mod video_stitcher_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListLiveConfigsRequest::parent].
@@ -1976,7 +1976,7 @@ pub mod video_stitcher_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListVodConfigsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListVodConfigsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1985,7 +1985,7 @@ pub mod video_stitcher_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListVodConfigsRequest::parent].
@@ -2279,7 +2279,7 @@ pub mod video_stitcher_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2288,7 +2288,7 @@ pub mod video_stitcher_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].

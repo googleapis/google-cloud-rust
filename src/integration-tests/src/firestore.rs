@@ -16,6 +16,7 @@ use firestore::Error;
 use firestore::Result;
 use firestore::client::Firestore;
 use firestore::model;
+use gax::paginator::{ItemPaginator, Paginator};
 use rand::{Rng, distr::Alphanumeric};
 
 pub const COLLECTION_ID_LENGTH: usize = 32;

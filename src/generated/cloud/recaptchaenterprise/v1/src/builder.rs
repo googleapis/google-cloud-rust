@@ -298,7 +298,8 @@ pub mod recaptcha_enterprise_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error> {
+        ) -> impl gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error>
+        {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
             let execute = move |token: String| {
@@ -306,7 +307,7 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListKeysRequest::parent].
@@ -715,7 +716,7 @@ pub mod recaptcha_enterprise_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListIpOverridesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListIpOverridesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -724,7 +725,7 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListIpOverridesRequest::parent].
@@ -889,7 +890,7 @@ pub mod recaptcha_enterprise_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListFirewallPoliciesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListFirewallPoliciesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -898,7 +899,7 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListFirewallPoliciesRequest::parent].
@@ -1178,7 +1179,7 @@ pub mod recaptcha_enterprise_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListRelatedAccountGroupsResponse,
             gax::error::Error,
         > {
@@ -1189,7 +1190,7 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListRelatedAccountGroupsRequest::parent].
@@ -1258,7 +1259,7 @@ pub mod recaptcha_enterprise_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::ListRelatedAccountGroupMembershipsResponse,
             gax::error::Error,
         > {
@@ -1269,7 +1270,7 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListRelatedAccountGroupMembershipsRequest::parent].
@@ -1338,7 +1339,7 @@ pub mod recaptcha_enterprise_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<
+        ) -> impl gax::paginator::Paginator<
             crate::model::SearchRelatedAccountGroupMembershipsResponse,
             gax::error::Error,
         > {
@@ -1349,7 +1350,7 @@ pub mod recaptcha_enterprise_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [project][crate::model::SearchRelatedAccountGroupMembershipsRequest::project].

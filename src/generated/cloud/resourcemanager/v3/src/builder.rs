@@ -140,7 +140,7 @@ pub mod folders {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListFoldersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListFoldersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -149,7 +149,7 @@ pub mod folders {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListFoldersRequest::parent].
@@ -215,7 +215,7 @@ pub mod folders {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchFoldersResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchFoldersResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -224,7 +224,7 @@ pub mod folders {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [page_size][crate::model::SearchFoldersRequest::page_size].
@@ -1015,7 +1015,7 @@ pub mod organizations {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchOrganizationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchOrganizationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1024,7 +1024,7 @@ pub mod organizations {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [page_size][crate::model::SearchOrganizationsRequest::page_size].
@@ -1392,7 +1392,7 @@ pub mod projects {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListProjectsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListProjectsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1401,7 +1401,7 @@ pub mod projects {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListProjectsRequest::parent].
@@ -1467,7 +1467,7 @@ pub mod projects {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::SearchProjectsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::SearchProjectsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -1476,7 +1476,7 @@ pub mod projects {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [query][crate::model::SearchProjectsRequest::query].
@@ -2224,7 +2224,7 @@ pub mod tag_bindings {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListTagBindingsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListTagBindingsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2233,7 +2233,7 @@ pub mod tag_bindings {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListTagBindingsRequest::parent].
@@ -2471,7 +2471,7 @@ pub mod tag_bindings {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListEffectiveTagsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListEffectiveTagsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2480,7 +2480,7 @@ pub mod tag_bindings {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListEffectiveTagsRequest::parent].
@@ -2817,7 +2817,7 @@ pub mod tag_holds {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListTagHoldsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListTagHoldsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -2826,7 +2826,7 @@ pub mod tag_holds {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListTagHoldsRequest::parent].
@@ -2991,7 +2991,7 @@ pub mod tag_keys {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListTagKeysResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListTagKeysResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3000,7 +3000,7 @@ pub mod tag_keys {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListTagKeysRequest::parent].
@@ -3692,7 +3692,7 @@ pub mod tag_values {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListTagValuesResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListTagValuesResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone();
@@ -3701,7 +3701,7 @@ pub mod tag_values {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [parent][crate::model::ListTagValuesRequest::parent].

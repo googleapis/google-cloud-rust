@@ -102,7 +102,7 @@ pub mod secret_manager_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -111,7 +111,7 @@ pub mod secret_manager_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [project][crate::model::ListLocationsRequest::project].
@@ -235,7 +235,7 @@ pub mod secret_manager_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -244,7 +244,7 @@ pub mod secret_manager_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [project][crate::model::ListSecretsRequest::project].
@@ -382,7 +382,7 @@ pub mod secret_manager_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -391,7 +391,7 @@ pub mod secret_manager_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [project][crate::model::ListSecretsByProjectAndLocationRequest::project].
@@ -1066,7 +1066,7 @@ pub mod secret_manager_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -1075,7 +1075,7 @@ pub mod secret_manager_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [project][crate::model::ListSecretVersionsRequest::project].
@@ -1165,7 +1165,7 @@ pub mod secret_manager_service {
         /// Streams the responses back.
         pub async fn paginator(
             self,
-        ) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>
+        ) -> impl gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>
         {
             use std::clone::Clone;
             let token = self.0.request.page_token.clone().unwrap_or_default();
@@ -1174,7 +1174,7 @@ pub mod secret_manager_service {
                 builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
-            gax::paginator::Paginator::new(token, execute)
+            gax::paginator::internal::new_paginator(token, execute)
         }
 
         /// Sets the value of [project][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::project].
