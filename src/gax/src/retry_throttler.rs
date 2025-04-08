@@ -311,7 +311,7 @@ impl CircuitBreaker {
     pub fn new(tokens: u64, min_tokens: u64, error_cost: u64) -> Result<Self> {
         if min_tokens > tokens {
             return Err(Error::other(format!(
-                "min_tokens ({min_tokens}) must be greater than the initial token count ({tokens})"
+                "min_tokens ({min_tokens}) must be less than or equal to the initial token count ({tokens})"
             )));
         }
         Ok(Self {
