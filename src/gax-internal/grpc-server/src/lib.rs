@@ -107,6 +107,10 @@ impl google::test::v1::echo_service_server::EchoService for Echo {
             ));
         }
 
+        if let Some(delay) = request.delay_ms.map(tokio::time::Duration::from_millis) {
+            tokio::time::sleep(delay).await;
+        }
+
         let response = google::test::v1::EchoResponse {
             message: request.message,
             metadata: metadata

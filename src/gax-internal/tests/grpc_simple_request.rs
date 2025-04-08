@@ -104,6 +104,7 @@ mod test {
     ) -> gax::Result<google::test::v1::EchoResponse> {
         let request = google::test::v1::EchoRequest {
             message: msg.into(),
+            ..google::test::v1::EchoRequest::default()
         };
         let request_options = RequestOptions::default();
         client
