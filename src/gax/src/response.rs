@@ -65,7 +65,7 @@
 /// Represents a Google Cloud service response.
 ///
 /// A response from a Google Cloud service consists of a body (potentially the
-/// unit type), headers and maybe some extensions.
+/// unit type), and some metadata, currently just headers.
 ///
 /// Typically you get a response as the result of making a request via some
 /// client in the Google Cloud client libraries for Rust. You may also create
@@ -175,19 +175,7 @@ impl<T> Response<T> {
         &self.parts.headers
     }
 
-    /// Returns the extensions associated with this response.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gax::response::Response;
-    /// let response = Response::from(());
-    /// assert!(response.extensions().is_empty());
-    /// ```
-    pub fn extensions(&self) -> &http::Extensions {
-        &self.parts.extensions
-    }
-
-    /// Returns the extensions associated with this response.
+    /// Returns the body associated with this response.
     ///
     /// # Example
     /// ```
@@ -199,7 +187,7 @@ impl<T> Response<T> {
         &self.body
     }
 
-    /// Consumes the response returning the headers, extensions, and body.
+    /// Consumes the response returning the metadata, and body.
     ///
     /// # Example
     /// ```
@@ -208,7 +196,6 @@ impl<T> Response<T> {
     /// let (parts, body) = response.into_parts();
     /// assert_eq!(body.as_str(), "test");
     /// assert!(parts.headers.is_empty());
-    /// assert!(parts.extensions.is_empty());
     /// ```
     pub fn into_parts(self) -> (Parts, T) {
         (self.parts, self.body)
@@ -230,37 +217,31 @@ impl<T> Response<T> {
 
 /// Component parts of a response.
 ///
-/// The response parts, other than the body, consist of the headers and
-/// extensions.
+/// The response parts, other than the body, consist of just headers. We
+/// anticipate addition fields in the future.
 ///
 /// The headers are used to return gRPC metadata, as well as (unsurprisingly)
-/// HTTP headers. The extensions are used to return additional information about
-/// the response, maybe because the implementation uses a [tower] service.
+/// HTTP headers.
 ///
 /// # Example
 /// ```
 /// # use google_cloud_gax::response::Parts;
 /// let mut headers = http::HeaderMap::new();
 /// headers.insert(http::header::CONTENT_TYPE, http::HeaderValue::from_static("application/json"));
-/// let mut extensions = http::Extensions::new();
-/// extensions.insert(42_i32);
-/// let parts = Parts::new().set_headers(headers).set_extensions(extensions);
+/// let parts = Parts::new().set_headers(headers);
 ///
 /// assert_eq!(
 ///     parts.headers.get(http::header::CONTENT_TYPE),
 ///     Some(&http::HeaderValue::from_static("application/json"))
 /// );
-/// assert_eq!(parts.extensions.get::<i32>(), Some(&42_i32));
 /// ```
 ///  
 /// [tower]: https://github.com/tower-rs/tower
 #[derive(Clone, Debug, Default)]
+#[non_exhaustive]
 pub struct Parts {
     /// The HTTP headers or the gRPC metadata converted to HTTP headers.
     pub headers: http::HeaderMap<http::HeaderValue>,
-
-    /// Any data associated with extensions.
-    pub extensions: http::Extensions,
 }
 
 impl Parts {
@@ -271,7 +252,6 @@ impl Parts {
     /// # use google_cloud_gax::response::Parts;
     /// let parts = Parts::new();
     /// assert!(parts.headers.is_empty());
-    /// assert!(parts.extensions.is_empty());
     /// ```
     pub fn new() -> Self {
         Parts::default()
@@ -289,32 +269,12 @@ impl Parts {
     /// );
     /// let parts = Parts::new().set_headers(headers.clone());
     /// assert_eq!(parts.headers, headers);
-    /// assert!(parts.extensions.is_empty());
     /// ```
     pub fn set_headers<V>(mut self, v: V) -> Self
     where
         V: Into<http::HeaderMap>,
     {
         self.headers = v.into();
-        self
-    }
-
-    /// Set the extensions.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gax::response::Parts;
-    /// let mut extensions = http::Extensions::new();
-    /// extensions.insert(42_i32);
-    /// let parts = Parts::new().set_extensions(extensions);
-    /// assert_eq!(parts.extensions.get::<i32>(), Some(&42_i32));
-    /// assert!(parts.headers.is_empty());
-    /// ```
-    pub fn set_extensions<V>(mut self, v: V) -> Self
-    where
-        V: Into<http::Extensions>,
-    {
-        self.extensions = v.into();
         self
     }
 }
@@ -327,7 +287,6 @@ mod test {
     fn response_from() {
         let response = Response::from("abc123".to_string());
         assert!(response.headers().is_empty());
-        assert!(response.extensions().is_empty());
         assert_eq!(response.body().as_str(), "abc123");
 
         let body = response.into_body();
@@ -341,11 +300,8 @@ mod test {
             http::header::CONTENT_TYPE,
             http::HeaderValue::from_static("application/json"),
         );
-        let mut extensions = http::Extensions::new();
-        extensions.insert(42_i32);
         let parts = Parts::new()
-            .set_headers(headers.clone())
-            .set_extensions(extensions);
+            .set_headers(headers.clone());
 
         let response = Response::from_parts(parts, "abc123".to_string());
         assert_eq!(response.body().as_str(), "abc123");
@@ -353,31 +309,25 @@ mod test {
         let (parts, body) = response.into_parts();
         assert_eq!(body.as_str(), "abc123");
         assert_eq!(parts.headers, headers);
-        assert_eq!(parts.extensions.get::<i32>(), Some(&42_i32));
     }
 
     #[test]
     fn parts() {
         let parts = Parts::new();
         assert!(parts.headers.is_empty());
-        assert!(parts.extensions.is_empty());
 
         let mut headers = http::HeaderMap::new();
         headers.insert(
             http::header::CONTENT_TYPE,
             http::HeaderValue::from_static("application/json"),
         );
-        let mut extensions = http::Extensions::new();
-        extensions.insert(42_i32);
         let parts = Parts::new()
-            .set_headers(headers.clone())
-            .set_extensions(extensions);
+            .set_headers(headers.clone());
 
         assert_eq!(parts.headers, headers);
         assert_eq!(
             parts.headers.get(http::header::CONTENT_TYPE),
             Some(&http::HeaderValue::from_static("application/json"))
         );
-        assert_eq!(parts.extensions.get::<i32>(), Some(&42_i32));
     }
 }
