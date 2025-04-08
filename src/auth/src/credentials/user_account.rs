@@ -985,4 +985,18 @@ mod test {
 
         Ok(())
     }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn builder_malformed_authorized_json_nonretryable() -> TestResult {
+        let authorized_user = serde_json::json!({
+        "client_secret": "test-client-secret",
+        "refresh_token": "test-refresh-token",
+        "type": "authorized_user",
+        });
+
+        let e = Builder::new(authorized_user).build().unwrap_err();
+        assert!(!e.is_retryable(), "{e}");
+
+        Ok(())
+    }
 }
