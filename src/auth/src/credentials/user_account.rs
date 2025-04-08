@@ -376,7 +376,6 @@ mod test {
     use http::StatusCode;
     use std::error::Error;
     use std::sync::Mutex;
-    use std::vec;
     use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -404,10 +403,12 @@ mod test {
     #[test]
     fn authorized_user_full_from_json_success() {
         let json = serde_json::json!({
+            "account": "",
             "client_id": "test-client-id",
             "client_secret": "test-client-secret",
             "refresh_token": "test-refresh-token",
             "type": "authorized_user",
+            "universe_domain": "googleapis.com",
             "quota_project_id": "test-project",
             "token_uri" : "test-token-uri",
         });
