@@ -14,13 +14,10 @@
 
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, Result};
-use crate::errors;
 use crate::token::{Token, TokenProvider};
-use crate::utils::headers_util::build_headers;
+use crate::headers_util::build_api_key_headers;
 use http::header::{HeaderName, HeaderValue};
 use std::sync::Arc;
-
-const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
 
 /// Configuration options for API key credentials.
 #[derive(Default)]
@@ -120,13 +117,7 @@ where
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.token().await?;
-        build_headers(
-            &token,
-            &self.quota_project_id,
-            HeaderName::from_static(API_KEY_HEADER_KEY),
-            |token| HeaderValue::from_str(&token.token)
-                .map_err(errors::non_retryable)
-        )
+        build_api_key_headers(&token, &self.quota_project_id)
     }
 }
 
@@ -136,6 +127,8 @@ mod test {
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use scoped_env::ScopedEnv;
+
+    const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
 
     #[test]
     fn debug_token_provider() {

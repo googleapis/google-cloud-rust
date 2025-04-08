@@ -53,7 +53,7 @@ pub(crate) mod token_cache;
 /// `google_cloud_auth::errors::CredentialsError`.
 pub(crate) type Result<T> = std::result::Result<T, crate::errors::CredentialsError>;
 
-/// Utility functions to work with Google Cloud authentication [Credentials].
+/// Headers utility functions to work with Google Cloud authentication [Credentials].
 ///
 /// [Credentials]: https://cloud.google.com/docs/authentication#credentials
-pub(crate) mod utils;
+pub(crate) mod headers_util;

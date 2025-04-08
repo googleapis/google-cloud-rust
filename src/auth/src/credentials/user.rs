@@ -17,8 +17,8 @@ use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
-use crate::utils::headers_util::build_headers;
-use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
+use crate::headers_util::build_bearer_headers;
+use http::header::{CONTENT_TYPE, HeaderName, HeaderValue};
 use reqwest::{Client, Method};
 use std::sync::Arc;
 use std::time::Duration;
@@ -136,13 +136,7 @@ where
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.token().await?;
-        build_headers(
-            &token,
-            &self.quota_project_id,
-            AUTHORIZATION,
-            |token| HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-                .map_err(errors::non_retryable)
-        )
+        build_bearer_headers(&token, &self.quota_project_id)
     }
 }
 
@@ -191,6 +185,7 @@ mod test {
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
+    use http::header::AUTHORIZATION;
     use axum::extract::Json;
     use http::StatusCode;
     use std::error::Error;

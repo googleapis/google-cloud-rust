@@ -76,9 +76,9 @@ use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError};
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
-use crate::utils::headers_util::build_headers;
+use crate::headers_util::build_bearer_headers;
 use async_trait::async_trait;
-use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
+use http::header::{HeaderName, HeaderValue};
 use jws::{CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT, JwsClaims, JwsHeader};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
@@ -396,14 +396,7 @@ where
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.token().await?;
-
-        build_headers(
-            &token,
-            &self.quota_project_id,
-            AUTHORIZATION,
-            |token| HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-                .map_err(errors::non_retryable)
-        )
+        build_bearer_headers(&token, &self.quota_project_id)
     }
 }
 
@@ -413,6 +406,7 @@ mod test {
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
+    use http::header::AUTHORIZATION;
     use base64::Engine;
     use rsa::RsaPrivateKey;
     use rsa::pkcs1::EncodeRsaPrivateKey;

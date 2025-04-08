@@ -54,10 +54,10 @@ use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::token::{Token, TokenProvider};
-use crate::utils::headers_util::build_headers;
+use crate::headers_util::build_bearer_headers;
 use async_trait::async_trait;
 use bon::Builder;
-use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
+use http::header::{HeaderName, HeaderValue};
 use reqwest::Client;
 use std::default::Default;
 use std::sync::Arc;
@@ -182,13 +182,7 @@ where
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.token().await?;
-        build_headers(
-            &token,
-            &self.quota_project_id,
-            AUTHORIZATION,
-            |token| HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-                .map_err(errors::non_retryable)
-        )
+        build_bearer_headers(&token, &self.quota_project_id)
     }
 
     async fn universe_domain(&self) -> Option<String> {
@@ -303,6 +297,7 @@ mod test {
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
+    use http::header::AUTHORIZATION;
     use axum::extract::Query;
     use axum::response::IntoResponse;
     use reqwest::StatusCode;
