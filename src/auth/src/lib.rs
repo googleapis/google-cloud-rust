@@ -56,4 +56,4 @@ pub(crate) type Result<T> = std::result::Result<T, crate::errors::CredentialsErr
 /// Utility functions to work with Google Cloud authentication [Credentials].
 ///
 /// [Credentials]: https://cloud.google.com/docs/authentication#credentials
-pub mod utils;
+pub(crate) mod utils;
