@@ -241,7 +241,7 @@ class Function$ extends Message {
   /// Output only. The deployed url for the function.
   final String? url;
 
-  /// [Preview] Resource name of a KMS crypto key (managed by the user) used to
+  /// Resource name of a KMS crypto key (managed by the user) used to
   /// encrypt/decrypt function resources.
   ///
   /// It must match the pattern
@@ -743,6 +743,10 @@ class BuildConfig extends Message {
   /// Docker Registry to use for this deployment. This configuration is only
   /// applicable to 1st Gen functions, 2nd Gen functions can only use Artifact
   /// Registry.
+  /// Deprecated: As of March 2025, `CONTAINER_REGISTRY` option is no longer
+  /// available in response to Container Registry's deprecation:
+  /// https://cloud.google.com/artifact-registry/docs/transition/transition-from-gcr
+  /// Please use Artifact Registry instead, which is the default choice.
   ///
   /// If unspecified, it defaults to `ARTIFACT_REGISTRY`.
   /// If `docker_repository` field is specified, this field should either be left
@@ -757,9 +761,6 @@ class BuildConfig extends Message {
   ///
   /// It must match the pattern
   /// `projects/{project}/locations/{location}/repositories/{repository}`.
-  ///
-  /// Cross-project repositories are not supported.
-  /// Cross-location repositories are not supported.
   /// Repository format must be 'DOCKER'.
   final String? dockerRepository;
 
@@ -1571,7 +1572,7 @@ class GetFunctionRequest extends Message {
   /// Required. The name of the function which details should be obtained.
   final String name;
 
-  /// Optional. The version of the 1st gen function whose details should
+  /// Optional. The optional version of the 1st gen function whose details should
   /// be obtained. The version of a 1st gen function is an integer that starts
   /// from 1 and gets incremented on redeployments. GCF may keep historical
   /// configs for old versions of 1st gen function. This field can be specified
@@ -1639,7 +1640,7 @@ class ListFunctionsRequest extends Message {
   final String? filter;
 
   /// The sorting order of the resources returned. Value should be a comma
-  /// separated list of fields. The default sorting oder is ascending.
+  /// separated list of fields. The default sorting order is ascending.
   /// See https://google.aip.dev/132#ordering.
   final String? orderBy;
 
@@ -1864,7 +1865,7 @@ class GenerateUploadUrlRequest extends Message {
   /// URL should be generated, specified in the format `projects/*/locations/*`.
   final String parent;
 
-  /// [Preview] Resource name of a KMS crypto key (managed by the user) used to
+  /// Resource name of a KMS crypto key (managed by the user) used to
   /// encrypt/decrypt function source code objects in intermediate Cloud Storage
   /// buckets. When you generate an upload url and upload your source code, it
   /// gets copied to an intermediate Cloud Storage bucket. The source code is
@@ -2496,7 +2497,7 @@ class Stage$Name extends Enum {
   /// Not specified. Invalid name.
   static const nameUnspecified = Stage$Name('NAME_UNSPECIFIED');
 
-  /// Artifact Regsitry Stage
+  /// Artifact Registry Stage
   static const artifactRegistry = Stage$Name('ARTIFACT_REGISTRY');
 
   /// Build Stage

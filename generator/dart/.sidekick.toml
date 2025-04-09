@@ -17,8 +17,8 @@ language             = 'dart'
 specification-format = 'protobuf'
 
 [source]
-googleapis-root         = 'https://github.com/googleapis/googleapis/archive/d383e2fe6661b29ea0def03c3900080ba953dd26.tar.gz'
-googleapis-sha256       = 'f2e50a0fa277735eb048edb9520e8dcb2a6d026b2dcca3f4d9d6efabf9029782'
+googleapis-root         = 'https://github.com/googleapis/googleapis/archive/c98457cd51f80e56daf7de102ed8d4c347ada663.tar.gz'
+googleapis-sha256       = '956029bbf637abff993619f6528b6c5e757fa630b36dc1679fede4c1d9f5ead2'
 protobuf-extracted-name = 'protobuf-29.3'
 protobuf-root           = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
 protobuf-sha256         = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
