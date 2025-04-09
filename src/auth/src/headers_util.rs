@@ -25,13 +25,10 @@ pub(crate) fn build_bearer_headers(
     token: &crate::token::Token,
     quota_project_id: &Option<String>,
 ) -> Result<Vec<(HeaderName, HeaderValue)>> {
-    build_headers(
-        token,
-        quota_project_id,
-        AUTHORIZATION,
-        |token| HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
+    build_headers(token, quota_project_id, AUTHORIZATION, |token| {
+        HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(errors::non_retryable)
-    )
+    })
 }
 
 /// A utility function to create API key headers.
@@ -43,8 +40,7 @@ pub(crate) fn build_api_key_headers(
         token,
         quota_project_id,
         HeaderName::from_static(API_KEY_HEADER_KEY),
-        |token| HeaderValue::from_str(&token.token)
-            .map_err(errors::non_retryable)
+        |token| HeaderValue::from_str(&token.token).map_err(errors::non_retryable),
     )
 }
 
@@ -53,7 +49,7 @@ fn build_headers(
     token: &crate::token::Token,
     quota_project_id: &Option<String>,
     header_name: HeaderName,
-    build_header_value: impl FnOnce(&crate::token::Token) -> Result<HeaderValue>
+    build_header_value: impl FnOnce(&crate::token::Token) -> Result<HeaderValue>,
 ) -> Result<Vec<(HeaderName, HeaderValue)>> {
     let mut value = build_header_value(token)?;
     value.set_sensitive(true);
@@ -63,7 +59,7 @@ fn build_headers(
     if let Some(project) = quota_project_id {
         headers.push((
             HeaderName::from_static(QUOTA_PROJECT_KEY),
-            HeaderValue::from_str(project).map_err(errors::non_retryable)?
+            HeaderValue::from_str(project).map_err(errors::non_retryable)?,
         ));
     }
 
@@ -93,53 +89,65 @@ mod test {
 
         assert!(result.is_ok());
         let headers = result.unwrap();
-        
+
         assert_eq!(headers.len(), 1);
-        
+
         assert_eq!(headers[0].0, HeaderName::from_static("authorization"));
-        assert_eq!(headers[0].1, HeaderValue::from_str("Bearer test_token").unwrap());
+        assert_eq!(
+            headers[0].1,
+            HeaderValue::from_str("Bearer test_token").unwrap()
+        );
         assert!(headers[0].1.is_sensitive());
     }
 
     #[test]
     fn build_bearer_headers_with_quota_project_success() {
         let token = create_test_token("test_token", "Bearer");
-        
+
         let quota_project_id = Some("test-project-123".to_string());
         let result = build_bearer_headers(&token, &quota_project_id);
 
         assert!(result.is_ok());
         let headers = result.unwrap();
         assert_eq!(headers.len(), 2);
-        
+
         assert_eq!(headers[0].0, HeaderName::from_static("authorization"));
-        assert_eq!(headers[0].1, HeaderValue::from_str("Bearer test_token").unwrap());
+        assert_eq!(
+            headers[0].1,
+            HeaderValue::from_str("Bearer test_token").unwrap()
+        );
         assert!(headers[0].1.is_sensitive());
-        
+
         assert_eq!(headers[1].0, HeaderName::from_static(QUOTA_PROJECT_KEY));
-        assert_eq!(headers[1].1, HeaderValue::from_str("test-project-123").unwrap());
+        assert_eq!(
+            headers[1].1,
+            HeaderValue::from_str("test-project-123").unwrap()
+        );
     }
 
     #[test]
     fn build_bearer_headers_different_token_type() {
         let token = create_test_token("special_token", "MAC");
-        
+
         let result = build_bearer_headers(&token, &None);
 
         assert!(result.is_ok());
         let headers = result.unwrap();
-        
+
         assert_eq!(headers.len(), 1);
-        
+
         assert_eq!(headers[0].0, HeaderName::from_static("authorization"));
-        assert_eq!(headers[0].1, HeaderValue::from_str("MAC special_token").unwrap());
+        assert_eq!(
+            headers[0].1,
+            HeaderValue::from_str("MAC special_token").unwrap()
+        );
         assert!(headers[0].1.is_sensitive());
     }
 
     #[test]
     fn build_bearer_headers_invalid_token() {
         let token = create_test_token("token with \n invalid chars", "Bearer");
-        
+
         let result = build_bearer_headers(&token, &None);
 
         assert!(result.is_err());
@@ -155,38 +163,47 @@ mod test {
 
         assert!(result.is_ok());
         let headers = result.unwrap();
-        
+
         assert_eq!(headers.len(), 1);
-        
+
         assert_eq!(headers[0].0, HeaderName::from_static(API_KEY_HEADER_KEY));
-        assert_eq!(headers[0].1, HeaderValue::from_str("api_key_12345").unwrap());
+        assert_eq!(
+            headers[0].1,
+            HeaderValue::from_str("api_key_12345").unwrap()
+        );
         assert!(headers[0].1.is_sensitive());
     }
 
     #[test]
     fn build_api_key_headers_with_quota_project() {
         let token = create_test_token("api_key_12345", "Bearer");
-        
+
         let quota_project_id = Some("test-project-456".to_string());
         let result = build_api_key_headers(&token, &quota_project_id);
 
         assert!(result.is_ok());
         let headers = result.unwrap();
-        
+
         assert_eq!(headers.len(), 2);
-        
+
         assert_eq!(headers[0].0, HeaderName::from_static(API_KEY_HEADER_KEY));
-        assert_eq!(headers[0].1, HeaderValue::from_str("api_key_12345").unwrap());
+        assert_eq!(
+            headers[0].1,
+            HeaderValue::from_str("api_key_12345").unwrap()
+        );
         assert!(headers[0].1.is_sensitive());
-        
+
         assert_eq!(headers[1].0, HeaderName::from_static(QUOTA_PROJECT_KEY));
-        assert_eq!(headers[1].1, HeaderValue::from_str("test-project-456").unwrap());
+        assert_eq!(
+            headers[1].1,
+            HeaderValue::from_str("test-project-456").unwrap()
+        );
     }
 
     #[test]
     fn build_api_key_headers_invalid_token() {
         let token = create_test_token("api_key with \n invalid chars", "Bearer");
-        
+
         let result = build_api_key_headers(&token, &None);
 
         assert!(result.is_err());
@@ -197,7 +214,7 @@ mod test {
     #[test]
     fn build_api_key_headers_invalid_quota_project() {
         let token = create_test_token("api_key_12345", "Bearer");
-        
+
         let invalid_quota_project = Some("project with \n invalid chars".to_string());
         let result = build_api_key_headers(&token, &invalid_quota_project);
 

@@ -53,8 +53,8 @@
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
-use crate::token::{Token, TokenProvider};
 use crate::headers_util::build_bearer_headers;
+use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use bon::Builder;
 use http::header::{HeaderName, HeaderValue};
@@ -297,9 +297,9 @@ mod test {
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
-    use http::header::AUTHORIZATION;
     use axum::extract::Query;
     use axum::response::IntoResponse;
+    use http::header::AUTHORIZATION;
     use reqwest::StatusCode;
     use reqwest::header::HeaderMap;
     use serde::Deserialize;

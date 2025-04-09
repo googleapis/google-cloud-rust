@@ -14,8 +14,8 @@
 
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, Result};
-use crate::token::{Token, TokenProvider};
 use crate::headers_util::build_api_key_headers;
+use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue};
 use std::sync::Arc;
 

@@ -15,9 +15,9 @@
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
+use crate::headers_util::build_bearer_headers;
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
-use crate::headers_util::build_bearer_headers;
 use http::header::{CONTENT_TYPE, HeaderName, HeaderValue};
 use reqwest::{Client, Method};
 use std::sync::Arc;
@@ -185,9 +185,9 @@ mod test {
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
-    use http::header::AUTHORIZATION;
     use axum::extract::Json;
     use http::StatusCode;
+    use http::header::AUTHORIZATION;
     use std::error::Error;
     use std::sync::Mutex;
     use tokio::task::JoinHandle;
