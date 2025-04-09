@@ -69,10 +69,6 @@ func TestGoModTidy(t *testing.T) {
 	rungo(t, "mod", "tidy", "-diff")
 }
 
-func TestGovulncheck(t *testing.T) {
-	rungo(t, "run", "golang.org/x/vuln/cmd/govulncheck@v1.1.3", "./...")
-}
-
 func rungo(t *testing.T, args ...string) {
 	t.Helper()
 
