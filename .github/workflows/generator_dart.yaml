@@ -41,6 +41,17 @@ jobs:
         uses: actions/setup-go@v5
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
+
+      # Regenerate and check the existing clients. If there is any difference
+      # between the generated code and the committed code that is an error; all
+      # the inputs should be pinned, including the generator version and the
+      # googleapis SHA.
+      - name: Regenerate existing clients
+        working-directory: generator
+        run: go run ./cmd/sidekick refreshall -project-root dart
+      - run: git diff --exit-code
+
+      # Regenerate and check our goldens.
       - name: Generate a Dart secretmanager / protobuf client
         run: go test -run TestDart github.com/googleapis/google-cloud-rust/generator/internal/sidekick
         working-directory: generator
