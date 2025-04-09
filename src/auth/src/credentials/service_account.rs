@@ -71,14 +71,14 @@
 
 mod jws;
 
-use crate::credentials::QUOTA_PROJECT_KEY;
 use crate::credentials::dynamic::CredentialsTrait;
 use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError};
+use crate::headers_util::build_bearer_headers;
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use async_trait::async_trait;
-use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
+use http::header::{HeaderName, HeaderValue};
 use jws::{CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT, JwsClaims, JwsHeader};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
@@ -395,28 +395,19 @@ where
     }
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        //TODO(#1686) Refactor the common logic out of the individual headers methods.
         let token = self.token().await?;
-        let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(errors::non_retryable)?;
-        value.set_sensitive(true);
-        let mut headers = vec![(AUTHORIZATION, value)];
-        if let Some(project) = &self.quota_project_id {
-            headers.push((
-                HeaderName::from_static(QUOTA_PROJECT_KEY),
-                HeaderValue::from_str(project).map_err(errors::non_retryable)?,
-            ));
-        }
-        Ok(headers)
+        build_bearer_headers(&token, &self.quota_project_id)
     }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use base64::Engine;
+    use http::header::AUTHORIZATION;
     use rsa::RsaPrivateKey;
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
