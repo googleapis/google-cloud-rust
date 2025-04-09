@@ -88,7 +88,7 @@ class Document extends Message {
 
   /// Required. If the type is not set or is `TYPE_UNSPECIFIED`,
   /// returns an `INVALID_ARGUMENT` error.
-  final DocumentType? type;
+  final Document$Type? type;
 
   /// The content of the input in string format.
   /// Cloud audit logging exempt since it is based on user data.
@@ -119,7 +119,7 @@ class Document extends Message {
 
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
-      type: decode(json['type'], DocumentType.fromJson),
+      type: decode(json['type'], Document$Type.fromJson),
       content: json['content'],
       gcsContentUri: json['gcsContentUri'],
       languageCode: json['languageCode'],
@@ -149,23 +149,23 @@ class Document extends Message {
 }
 
 /// The document types enum.
-class DocumentType extends Enum {
+class Document$Type extends Enum {
   /// The content type is not specified.
-  static const typeUnspecified = DocumentType('TYPE_UNSPECIFIED');
+  static const typeUnspecified = Document$Type('TYPE_UNSPECIFIED');
 
   /// Plain text
-  static const plainText = DocumentType('PLAIN_TEXT');
+  static const plainText = Document$Type('PLAIN_TEXT');
 
   /// HTML
-  static const html = DocumentType('HTML');
+  static const html = Document$Type('HTML');
 
-  const DocumentType(super.value);
+  const Document$Type(super.value);
 
-  factory DocumentType.fromJson(String json) => DocumentType(json);
+  factory Document$Type.fromJson(String json) => Document$Type(json);
 
   @override
   bool operator ==(Object other) =>
-      other is DocumentType && value == other.value;
+      other is Document$Type && value == other.value;
 
   @override
   String toString() => 'Type.$value';
@@ -217,7 +217,7 @@ class Entity extends Message {
   final String? name;
 
   /// The entity type.
-  final EntityType? type;
+  final Entity$Type? type;
 
   /// Metadata associated with the entity.
   ///
@@ -246,7 +246,7 @@ class Entity extends Message {
   factory Entity.fromJson(Map<String, dynamic> json) {
     return Entity(
       name: json['name'],
-      type: decode(json['type'], EntityType.fromJson),
+      type: decode(json['type'], Entity$Type.fromJson),
       metadata: (json['metadata'] as Map?)?.cast(),
       mentions: decodeList(json['mentions'], EntityMention.fromJson),
       sentiment: decode(json['sentiment'], Sentiment.fromJson),
@@ -277,30 +277,30 @@ class Entity extends Message {
 /// The type of the entity. The table
 /// below lists the associated fields for entities that have different
 /// metadata.
-class EntityType extends Enum {
+class Entity$Type extends Enum {
   /// Unknown
-  static const unknown = EntityType('UNKNOWN');
+  static const unknown = Entity$Type('UNKNOWN');
 
   /// Person
-  static const person = EntityType('PERSON');
+  static const person = Entity$Type('PERSON');
 
   /// Location
-  static const location = EntityType('LOCATION');
+  static const location = Entity$Type('LOCATION');
 
   /// Organization
-  static const organization = EntityType('ORGANIZATION');
+  static const organization = Entity$Type('ORGANIZATION');
 
   /// Event
-  static const event = EntityType('EVENT');
+  static const event = Entity$Type('EVENT');
 
   /// Artwork
-  static const workOfArt = EntityType('WORK_OF_ART');
+  static const workOfArt = Entity$Type('WORK_OF_ART');
 
   /// Consumer product
-  static const consumerGood = EntityType('CONSUMER_GOOD');
+  static const consumerGood = Entity$Type('CONSUMER_GOOD');
 
   /// Other types of entities
-  static const other = EntityType('OTHER');
+  static const other = Entity$Type('OTHER');
 
   /// Phone number
   ///
@@ -313,7 +313,7 @@ class EntityType extends Enum {
   /// * `area_code` - region or area code, if detected
   /// * `extension` - phone extension (to be dialed after connection), if
   /// detected
-  static const phoneNumber = EntityType('PHONE_NUMBER');
+  static const phoneNumber = Entity$Type('PHONE_NUMBER');
 
   /// Address
   ///
@@ -330,7 +330,7 @@ class EntityType extends Enum {
   /// detected
   /// * `sublocality` - used in Asian addresses to demark a district within a
   /// city, if detected
-  static const address = EntityType('ADDRESS');
+  static const address = Entity$Type('ADDRESS');
 
   /// Date
   ///
@@ -339,24 +339,25 @@ class EntityType extends Enum {
   /// * `year` - four digit year, if detected
   /// * `month` - two digit month number, if detected
   /// * `day` - two digit day number, if detected
-  static const date = EntityType('DATE');
+  static const date = Entity$Type('DATE');
 
   /// Number
   ///
   /// The metadata is the number itself.
-  static const number = EntityType('NUMBER');
+  static const number = Entity$Type('NUMBER');
 
   /// Price
   ///
   /// The metadata identifies the `value` and `currency`.
-  static const price = EntityType('PRICE');
+  static const price = Entity$Type('PRICE');
 
-  const EntityType(super.value);
+  const Entity$Type(super.value);
 
-  factory EntityType.fromJson(String json) => EntityType(json);
+  factory Entity$Type.fromJson(String json) => Entity$Type(json);
 
   @override
-  bool operator ==(Object other) => other is EntityType && value == other.value;
+  bool operator ==(Object other) =>
+      other is Entity$Type && value == other.value;
 
   @override
   String toString() => 'Type.$value';
@@ -416,7 +417,7 @@ class EntityMention extends Message {
   final TextSpan? text;
 
   /// The type of the entity mention.
-  final EntityMentionType? type;
+  final EntityMention$Type? type;
 
   /// For calls to `AnalyzeEntitySentiment` or if
   /// `AnnotateTextRequest.Features.extract_entity_sentiment`
@@ -440,7 +441,7 @@ class EntityMention extends Message {
   factory EntityMention.fromJson(Map<String, dynamic> json) {
     return EntityMention(
       text: decode(json['text'], TextSpan.fromJson),
-      type: decode(json['type'], EntityMentionType.fromJson),
+      type: decode(json['type'], EntityMention$Type.fromJson),
       sentiment: decode(json['sentiment'], Sentiment.fromJson),
       probability: (json['probability'] as num?)?.toDouble(),
     );
@@ -467,23 +468,23 @@ class EntityMention extends Message {
 }
 
 /// The supported types of mentions.
-class EntityMentionType extends Enum {
+class EntityMention$Type extends Enum {
   /// Unknown
-  static const typeUnknown = EntityMentionType('TYPE_UNKNOWN');
+  static const typeUnknown = EntityMention$Type('TYPE_UNKNOWN');
 
   /// Proper name
-  static const proper = EntityMentionType('PROPER');
+  static const proper = EntityMention$Type('PROPER');
 
   /// Common noun (or noun compound)
-  static const common = EntityMentionType('COMMON');
+  static const common = EntityMention$Type('COMMON');
 
-  const EntityMentionType(super.value);
+  const EntityMention$Type(super.value);
 
-  factory EntityMentionType.fromJson(String json) => EntityMentionType(json);
+  factory EntityMention$Type.fromJson(String json) => EntityMention$Type(json);
 
   @override
   bool operator ==(Object other) =>
-      other is EntityMentionType && value == other.value;
+      other is EntityMention$Type && value == other.value;
 
   @override
   String toString() => 'Type.$value';
@@ -862,7 +863,7 @@ class ModerateTextRequest extends Message {
   final Document? document;
 
   /// Optional. The model version to use for ModerateText.
-  final ModerateTextRequestModelVersion? modelVersion;
+  final ModerateTextRequest$ModelVersion? modelVersion;
 
   ModerateTextRequest({
     this.document,
@@ -873,7 +874,7 @@ class ModerateTextRequest extends Message {
     return ModerateTextRequest(
       document: decode(json['document'], Document.fromJson),
       modelVersion: decode(
-          json['modelVersion'], ModerateTextRequestModelVersion.fromJson),
+          json['modelVersion'], ModerateTextRequest$ModelVersion.fromJson),
     );
   }
 
@@ -895,31 +896,31 @@ class ModerateTextRequest extends Message {
 }
 
 /// The model version to use for ModerateText.
-class ModerateTextRequestModelVersion extends Enum {
+class ModerateTextRequest$ModelVersion extends Enum {
   /// The default model version.
   static const modelVersionUnspecified =
-      ModerateTextRequestModelVersion('MODEL_VERSION_UNSPECIFIED');
+      ModerateTextRequest$ModelVersion('MODEL_VERSION_UNSPECIFIED');
 
   /// Use the v1 model, this model is used by default when not provided.
   /// The v1 model only returns probability (confidence) score for each
   /// category.
   static const modelVersion1 =
-      ModerateTextRequestModelVersion('MODEL_VERSION_1');
+      ModerateTextRequest$ModelVersion('MODEL_VERSION_1');
 
   /// Use the v2 model.
   /// The v2 model only returns probability (confidence) score for each
   /// category, and returns severity score for a subset of the categories.
   static const modelVersion2 =
-      ModerateTextRequestModelVersion('MODEL_VERSION_2');
+      ModerateTextRequest$ModelVersion('MODEL_VERSION_2');
 
-  const ModerateTextRequestModelVersion(super.value);
+  const ModerateTextRequest$ModelVersion(super.value);
 
-  factory ModerateTextRequestModelVersion.fromJson(String json) =>
-      ModerateTextRequestModelVersion(json);
+  factory ModerateTextRequest$ModelVersion.fromJson(String json) =>
+      ModerateTextRequest$ModelVersion(json);
 
   @override
   bool operator ==(Object other) =>
-      other is ModerateTextRequestModelVersion && value == other.value;
+      other is ModerateTextRequest$ModelVersion && value == other.value;
 
   @override
   String toString() => 'ModelVersion.$value';

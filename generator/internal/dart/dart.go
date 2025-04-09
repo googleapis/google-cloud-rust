@@ -57,7 +57,7 @@ var usesCustomEncoding = map[string]string{
 var nestedMessageChar = "_"
 
 // Used to concatenate a message and a child enum.
-var nestedEnumChar = ""
+var nestedEnumChar = "$"
 
 // Appended to a name to avoid conflicting with a Dart identifier.
 var deconflictChar = "$"
@@ -138,7 +138,11 @@ func fieldName(field *api.Field) string {
 
 func enumName(e *api.Enum) string {
 	if e.Parent != nil {
-		return messageName(e.Parent) + nestedEnumChar + strcase.ToCamel(e.Name)
+		parentName := messageName(e.Parent)
+		if !strings.HasSuffix(parentName, nestedEnumChar) {
+			parentName = parentName + nestedEnumChar
+		}
+		return parentName + strcase.ToCamel(e.Name)
 	}
 	return strcase.ToCamel(e.Name)
 }

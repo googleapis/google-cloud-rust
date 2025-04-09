@@ -402,7 +402,7 @@ class SecretVersion extends Message {
 
   /// Output only. The current state of the
   /// `SecretVersion`.
-  final SecretVersionState? state;
+  final SecretVersion$State? state;
 
   /// The replication status of the
   /// `SecretVersion`.
@@ -451,7 +451,7 @@ class SecretVersion extends Message {
       name: json['name'],
       createTime: decode(json['createTime'], Timestamp.fromJson),
       destroyTime: decode(json['destroyTime'], Timestamp.fromJson),
-      state: decode(json['state'], SecretVersionState.fromJson),
+      state: decode(json['state'], SecretVersion$State.fromJson),
       replicationStatus: decode(json['replicationStatus'], ReplicationStatus.fromJson),
       etag: json['etag'],
       clientSpecifiedPayloadChecksum: json['clientSpecifiedPayloadChecksum'],
@@ -490,33 +490,33 @@ class SecretVersion extends Message {
 /// The state of a
 /// `SecretVersion`, indicating if
 /// it can be accessed.
-class SecretVersionState extends Enum {
+class SecretVersion$State extends Enum {
   /// Not specified. This value is unused and invalid.
-  static const stateUnspecified = SecretVersionState('STATE_UNSPECIFIED');
+  static const stateUnspecified = SecretVersion$State('STATE_UNSPECIFIED');
 
   /// The `SecretVersion` may be
   /// accessed.
-  static const enabled = SecretVersionState('ENABLED');
+  static const enabled = SecretVersion$State('ENABLED');
 
   /// The `SecretVersion` may not
   /// be accessed, but the secret data is still available and can be placed
   /// back into the
   /// `ENABLED`
   /// state.
-  static const disabled = SecretVersionState('DISABLED');
+  static const disabled = SecretVersion$State('DISABLED');
 
   /// The `SecretVersion` is
   /// destroyed and the secret data is no longer stored. A version may not
   /// leave this state once entered.
-  static const destroyed = SecretVersionState('DESTROYED');
+  static const destroyed = SecretVersion$State('DESTROYED');
 
-  const SecretVersionState(super.value);
+  const SecretVersion$State(super.value);
 
-  factory SecretVersionState.fromJson(String json) => SecretVersionState(json);
+  factory SecretVersion$State.fromJson(String json) => SecretVersion$State(json);
 
   @override
   bool operator ==(Object other) =>
-      other is SecretVersionState && value == other.value;
+      other is SecretVersion$State && value == other.value;
 
   @override
   String toString() => 'State.$value';
