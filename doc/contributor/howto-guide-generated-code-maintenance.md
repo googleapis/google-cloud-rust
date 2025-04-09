@@ -21,12 +21,23 @@ a suitable version.
 
 ## Generate new library
 
-We will use "Web Security Scanner" as an example, most likely you will generate
-a different library, change the service config yaml path as needed. Start with a
-new branch in your fork:
+First define the library's name:
 
 ```bash
-git checkout -b feat-websecurityscanner-generate-library
+library=... # e.g. websecurityscanner
+```
+
+Next, define the service config yaml path. The following is optimistic; it is
+often right, but often wrong:
+
+```bash
+yaml="google/cloud/${library}/v1/${library}_v1.yaml"
+```
+
+Create a new branch in your fork:
+
+```bash
+git checkout -b feat-${library}-generate-library
 ```
 
 This command will generate the library, add the library to Cargo and git, and
@@ -35,7 +46,7 @@ run the necessary tests:
 ```bash
 go -C generator/ run ./cmd/sidekick rust-generate \
     -project-root .. \
-    -service-config google/cloud/websecurityscanner/v1/websecurityscanner_v1.yaml
+    -service-config ${yaml}
 ```
 
 Often we identify typos in the Protobuf comments. Add the typos to the ignore
@@ -45,7 +56,7 @@ blocker.
 Commit all these changes and send a PR to merge them:
 
 ```bash
-git commit -m "feat(websecurityscanner): generate library"
+git commit -m "feat(${library}): generate library"
 ```
 
 ### Generating a library with customized directories
