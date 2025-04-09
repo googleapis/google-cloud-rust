@@ -218,7 +218,7 @@ impl<T> Response<T> {
 /// Component parts of a response.
 ///
 /// The response parts, other than the body, consist of just headers. We
-/// anticipate addition fields in the future.
+/// anticipate the addition of new fields over time.
 ///
 /// The headers are used to return gRPC metadata, as well as (unsurprisingly)
 /// HTTP headers.
