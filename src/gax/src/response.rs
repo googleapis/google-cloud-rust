@@ -304,6 +304,7 @@ mod test {
 
         let response = Response::from_parts(parts, "abc123".to_string());
         assert_eq!(response.body().as_str(), "abc123");
+        assert_eq!(response.headers(), &headers);
 
         let (parts, body) = response.into_parts();
         assert_eq!(body.as_str(), "abc123");
