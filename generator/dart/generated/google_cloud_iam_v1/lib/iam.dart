@@ -703,7 +703,7 @@ class AuditLogConfig extends Message {
   static const String fullyQualifiedName = 'google.iam.v1.AuditLogConfig';
 
   /// The log type that this config enables.
-  final AuditLogConfig$LogType? logType;
+  final AuditLogConfigLogType? logType;
 
   /// Specifies the identities that do not cause logging for this type of
   /// permission.
@@ -718,7 +718,7 @@ class AuditLogConfig extends Message {
 
   factory AuditLogConfig.fromJson(Map<String, dynamic> json) {
     return AuditLogConfig(
-      logType: decode(json['logType'], AuditLogConfig$LogType.fromJson),
+      logType: decode(json['logType'], AuditLogConfigLogType.fromJson),
       exemptedMembers: (json['exemptedMembers'] as List?)?.cast(),
     );
   }
@@ -742,28 +742,28 @@ class AuditLogConfig extends Message {
 
 /// The list of valid permission types for which logging can be configured.
 /// Admin writes are always logged, and are not configurable.
-class AuditLogConfig$LogType extends Enum {
+class AuditLogConfigLogType extends Enum {
   /// Default case. Should never be this.
   static const logTypeUnspecified =
-      AuditLogConfig$LogType('LOG_TYPE_UNSPECIFIED');
+      AuditLogConfigLogType('LOG_TYPE_UNSPECIFIED');
 
   /// Admin reads. Example: CloudIAM getIamPolicy
-  static const adminRead = AuditLogConfig$LogType('ADMIN_READ');
+  static const adminRead = AuditLogConfigLogType('ADMIN_READ');
 
   /// Data writes. Example: CloudSQL Users create
-  static const dataWrite = AuditLogConfig$LogType('DATA_WRITE');
+  static const dataWrite = AuditLogConfigLogType('DATA_WRITE');
 
   /// Data reads. Example: CloudSQL Users list
-  static const dataRead = AuditLogConfig$LogType('DATA_READ');
+  static const dataRead = AuditLogConfigLogType('DATA_READ');
 
-  const AuditLogConfig$LogType(super.value);
+  const AuditLogConfigLogType(super.value);
 
-  factory AuditLogConfig$LogType.fromJson(String json) =>
-      AuditLogConfig$LogType(json);
+  factory AuditLogConfigLogType.fromJson(String json) =>
+      AuditLogConfigLogType(json);
 
   @override
   bool operator ==(Object other) =>
-      other is AuditLogConfig$LogType && value == other.value;
+      other is AuditLogConfigLogType && value == other.value;
 
   @override
   String toString() => 'LogType.$value';
@@ -812,7 +812,7 @@ class BindingDelta extends Message {
 
   /// The action that was performed on a Binding.
   /// Required
-  final BindingDelta$Action? action;
+  final BindingDeltaAction? action;
 
   /// Role that is assigned to `members`.
   /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
@@ -836,7 +836,7 @@ class BindingDelta extends Message {
 
   factory BindingDelta.fromJson(Map<String, dynamic> json) {
     return BindingDelta(
-      action: decode(json['action'], BindingDelta$Action.fromJson),
+      action: decode(json['action'], BindingDeltaAction.fromJson),
       role: json['role'],
       member: json['member'],
       condition: decode(json['condition'], Expr.fromJson),
@@ -865,24 +865,23 @@ class BindingDelta extends Message {
 }
 
 /// The type of action performed on a Binding in a policy.
-class BindingDelta$Action extends Enum {
+class BindingDeltaAction extends Enum {
   /// Unspecified.
-  static const actionUnspecified = BindingDelta$Action('ACTION_UNSPECIFIED');
+  static const actionUnspecified = BindingDeltaAction('ACTION_UNSPECIFIED');
 
   /// Addition of a Binding.
-  static const add = BindingDelta$Action('ADD');
+  static const add = BindingDeltaAction('ADD');
 
   /// Removal of a Binding.
-  static const remove = BindingDelta$Action('REMOVE');
+  static const remove = BindingDeltaAction('REMOVE');
 
-  const BindingDelta$Action(super.value);
+  const BindingDeltaAction(super.value);
 
-  factory BindingDelta$Action.fromJson(String json) =>
-      BindingDelta$Action(json);
+  factory BindingDeltaAction.fromJson(String json) => BindingDeltaAction(json);
 
   @override
   bool operator ==(Object other) =>
-      other is BindingDelta$Action && value == other.value;
+      other is BindingDeltaAction && value == other.value;
 
   @override
   String toString() => 'Action.$value';
@@ -895,7 +894,7 @@ class AuditConfigDelta extends Message {
 
   /// The action that was performed on an audit configuration in a policy.
   /// Required
-  final AuditConfigDelta$Action? action;
+  final AuditConfigDeltaAction? action;
 
   /// Specifies a service that was configured for Cloud Audit Logging.
   /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
@@ -922,7 +921,7 @@ class AuditConfigDelta extends Message {
 
   factory AuditConfigDelta.fromJson(Map<String, dynamic> json) {
     return AuditConfigDelta(
-      action: decode(json['action'], AuditConfigDelta$Action.fromJson),
+      action: decode(json['action'], AuditConfigDeltaAction.fromJson),
       service: json['service'],
       exemptedMember: json['exemptedMember'],
       logType: json['logType'],
@@ -952,25 +951,24 @@ class AuditConfigDelta extends Message {
 }
 
 /// The type of action performed on an audit configuration in a policy.
-class AuditConfigDelta$Action extends Enum {
+class AuditConfigDeltaAction extends Enum {
   /// Unspecified.
-  static const actionUnspecified =
-      AuditConfigDelta$Action('ACTION_UNSPECIFIED');
+  static const actionUnspecified = AuditConfigDeltaAction('ACTION_UNSPECIFIED');
 
   /// Addition of an audit configuration.
-  static const add = AuditConfigDelta$Action('ADD');
+  static const add = AuditConfigDeltaAction('ADD');
 
   /// Removal of an audit configuration.
-  static const remove = AuditConfigDelta$Action('REMOVE');
+  static const remove = AuditConfigDeltaAction('REMOVE');
 
-  const AuditConfigDelta$Action(super.value);
+  const AuditConfigDeltaAction(super.value);
 
-  factory AuditConfigDelta$Action.fromJson(String json) =>
-      AuditConfigDelta$Action(json);
+  factory AuditConfigDeltaAction.fromJson(String json) =>
+      AuditConfigDeltaAction(json);
 
   @override
   bool operator ==(Object other) =>
-      other is AuditConfigDelta$Action && value == other.value;
+      other is AuditConfigDeltaAction && value == other.value;
 
   @override
   String toString() => 'Action.$value';

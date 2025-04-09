@@ -35,7 +35,7 @@ void main(List<String> args) async {
   final service = LanguageService(client: client);
   final document = Document(
     content: 'Hello, world!',
-    type: Document$Type.plainText,
+    type: DocumentType.plainText,
   );
 
   try {

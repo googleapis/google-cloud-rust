@@ -402,7 +402,7 @@ class SecretVersion extends Message {
 
   /// Output only. The current state of the
   /// `SecretVersion`.
-  final SecretVersion$State? state;
+  final SecretVersionState? state;
 
   /// The replication status of the
   /// `SecretVersion`.
@@ -451,7 +451,7 @@ class SecretVersion extends Message {
       name: json['name'],
       createTime: decode(json['createTime'], Timestamp.fromJson),
       destroyTime: decode(json['destroyTime'], Timestamp.fromJson),
-      state: decode(json['state'], SecretVersion$State.fromJson),
+      state: decode(json['state'], SecretVersionState.fromJson),
       replicationStatus: decode(json['replicationStatus'], ReplicationStatus.fromJson),
       etag: json['etag'],
       clientSpecifiedPayloadChecksum: json['clientSpecifiedPayloadChecksum'],
@@ -490,33 +490,33 @@ class SecretVersion extends Message {
 /// The state of a
 /// `SecretVersion`, indicating if
 /// it can be accessed.
-class SecretVersion$State extends Enum {
+class SecretVersionState extends Enum {
   /// Not specified. This value is unused and invalid.
-  static const stateUnspecified = SecretVersion$State('STATE_UNSPECIFIED');
+  static const stateUnspecified = SecretVersionState('STATE_UNSPECIFIED');
 
   /// The `SecretVersion` may be
   /// accessed.
-  static const enabled = SecretVersion$State('ENABLED');
+  static const enabled = SecretVersionState('ENABLED');
 
   /// The `SecretVersion` may not
   /// be accessed, but the secret data is still available and can be placed
   /// back into the
   /// `ENABLED`
   /// state.
-  static const disabled = SecretVersion$State('DISABLED');
+  static const disabled = SecretVersionState('DISABLED');
 
   /// The `SecretVersion` is
   /// destroyed and the secret data is no longer stored. A version may not
   /// leave this state once entered.
-  static const destroyed = SecretVersion$State('DESTROYED');
+  static const destroyed = SecretVersionState('DESTROYED');
 
-  const SecretVersion$State(super.value);
+  const SecretVersionState(super.value);
 
-  factory SecretVersion$State.fromJson(String json) => SecretVersion$State(json);
+  factory SecretVersionState.fromJson(String json) => SecretVersionState(json);
 
   @override
   bool operator ==(Object other) =>
-      other is SecretVersion$State && value == other.value;
+      other is SecretVersionState && value == other.value;
 
   @override
   String toString() => 'State.$value';
@@ -528,11 +528,11 @@ class Replication extends Message {
 
   /// The `Secret` will automatically be
   /// replicated without any restrictions.
-  final Replication$Automatic? automatic;
+  final Replication_Automatic? automatic;
 
   /// The `Secret` will only be
   /// replicated into the locations specified.
-  final Replication$UserManaged? userManaged;
+  final Replication_UserManaged? userManaged;
 
   Replication({
     this.automatic,
@@ -541,8 +541,8 @@ class Replication extends Message {
 
   factory Replication.fromJson(Map<String, dynamic> json) {
     return Replication(
-      automatic: decode(json['automatic'], Replication$Automatic.fromJson),
-      userManaged: decode(json['userManaged'], Replication$UserManaged.fromJson),
+      automatic: decode(json['automatic'], Replication_Automatic.fromJson),
+      userManaged: decode(json['userManaged'], Replication_UserManaged.fromJson),
     );
   }
 
@@ -561,7 +561,7 @@ class Replication extends Message {
 /// A replication policy that replicates the
 /// `Secret` payload without any
 /// restrictions.
-class Replication$Automatic extends Message {
+class Replication_Automatic extends Message {
   static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Replication.Automatic';
 
   /// Optional. The customer-managed encryption configuration of the
@@ -575,12 +575,12 @@ class Replication$Automatic extends Message {
   /// `SecretVersions`.
   final CustomerManagedEncryption? customerManagedEncryption;
 
-  Replication$Automatic({
+  Replication_Automatic({
     this.customerManagedEncryption,
   }) : super(fullyQualifiedName);
 
-  factory Replication$Automatic.fromJson(Map<String, dynamic> json) {
-    return Replication$Automatic(
+  factory Replication_Automatic.fromJson(Map<String, dynamic> json) {
+    return Replication_Automatic(
       customerManagedEncryption: decode(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
     );
   }
@@ -599,22 +599,22 @@ class Replication$Automatic extends Message {
 /// A replication policy that replicates the
 /// `Secret` payload into the locations
 /// specified in `Secret.replication.user_managed.replicas`
-class Replication$UserManaged extends Message {
+class Replication_UserManaged extends Message {
   static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Replication.UserManaged';
 
   /// Required. The list of Replicas for this
   /// `Secret`.
   ///
   /// Cannot be empty.
-  final List<Replication$UserManaged$Replica>? replicas;
+  final List<Replication_UserManaged_Replica>? replicas;
 
-  Replication$UserManaged({
+  Replication_UserManaged({
     this.replicas,
   }) : super(fullyQualifiedName);
 
-  factory Replication$UserManaged.fromJson(Map<String, dynamic> json) {
-    return Replication$UserManaged(
-      replicas: decodeList(json['replicas'], Replication$UserManaged$Replica.fromJson),
+  factory Replication_UserManaged.fromJson(Map<String, dynamic> json) {
+    return Replication_UserManaged(
+      replicas: decodeList(json['replicas'], Replication_UserManaged_Replica.fromJson),
     );
   }
 
@@ -631,7 +631,7 @@ class Replication$UserManaged extends Message {
 
 /// Represents a Replica for this
 /// `Secret`.
-class Replication$UserManaged$Replica extends Message {
+class Replication_UserManaged_Replica extends Message {
   static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.Replication.UserManaged.Replica';
 
   /// The canonical IDs of the location to replicate data.
@@ -649,13 +649,13 @@ class Replication$UserManaged$Replica extends Message {
   /// `SecretVersions`.
   final CustomerManagedEncryption? customerManagedEncryption;
 
-  Replication$UserManaged$Replica({
+  Replication_UserManaged_Replica({
     this.location,
     this.customerManagedEncryption,
   }) : super(fullyQualifiedName);
 
-  factory Replication$UserManaged$Replica.fromJson(Map<String, dynamic> json) {
-    return Replication$UserManaged$Replica(
+  factory Replication_UserManaged_Replica.fromJson(Map<String, dynamic> json) {
+    return Replication_UserManaged_Replica(
       location: json['location'],
       customerManagedEncryption: decode(json['customerManagedEncryption'], CustomerManagedEncryption.fromJson),
     );
@@ -736,7 +736,7 @@ class ReplicationStatus extends Message {
   /// Only populated if the parent
   /// `Secret` has an automatic
   /// replication policy.
-  final ReplicationStatus$AutomaticStatus? automatic;
+  final ReplicationStatus_AutomaticStatus? automatic;
 
   /// Describes the replication status of a
   /// `SecretVersion` with
@@ -745,7 +745,7 @@ class ReplicationStatus extends Message {
   /// Only populated if the parent
   /// `Secret` has a user-managed
   /// replication policy.
-  final ReplicationStatus$UserManagedStatus? userManaged;
+  final ReplicationStatus_UserManagedStatus? userManaged;
 
   ReplicationStatus({
     this.automatic,
@@ -754,8 +754,8 @@ class ReplicationStatus extends Message {
 
   factory ReplicationStatus.fromJson(Map<String, dynamic> json) {
     return ReplicationStatus(
-      automatic: decode(json['automatic'], ReplicationStatus$AutomaticStatus.fromJson),
-      userManaged: decode(json['userManaged'], ReplicationStatus$UserManagedStatus.fromJson),
+      automatic: decode(json['automatic'], ReplicationStatus_AutomaticStatus.fromJson),
+      userManaged: decode(json['userManaged'], ReplicationStatus_UserManagedStatus.fromJson),
     );
   }
 
@@ -777,7 +777,7 @@ class ReplicationStatus extends Message {
 ///
 /// Only populated if the parent `Secret`
 /// has an automatic replication policy.
-class ReplicationStatus$AutomaticStatus extends Message {
+class ReplicationStatus_AutomaticStatus extends Message {
   static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ReplicationStatus.AutomaticStatus';
 
   /// Output only. The customer-managed encryption status of the
@@ -785,12 +785,12 @@ class ReplicationStatus$AutomaticStatus extends Message {
   /// populated if customer-managed encryption is used.
   final CustomerManagedEncryptionStatus? customerManagedEncryption;
 
-  ReplicationStatus$AutomaticStatus({
+  ReplicationStatus_AutomaticStatus({
     this.customerManagedEncryption,
   }) : super(fullyQualifiedName);
 
-  factory ReplicationStatus$AutomaticStatus.fromJson(Map<String, dynamic> json) {
-    return ReplicationStatus$AutomaticStatus(
+  factory ReplicationStatus_AutomaticStatus.fromJson(Map<String, dynamic> json) {
+    return ReplicationStatus_AutomaticStatus(
       customerManagedEncryption: decode(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
     );
   }
@@ -812,20 +812,20 @@ class ReplicationStatus$AutomaticStatus extends Message {
 ///
 /// Only populated if the parent `Secret`
 /// has a user-managed replication policy.
-class ReplicationStatus$UserManagedStatus extends Message {
+class ReplicationStatus_UserManagedStatus extends Message {
   static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ReplicationStatus.UserManagedStatus';
 
   /// Output only. The list of replica statuses for the
   /// `SecretVersion`.
-  final List<ReplicationStatus$UserManagedStatus$ReplicaStatus>? replicas;
+  final List<ReplicationStatus_UserManagedStatus_ReplicaStatus>? replicas;
 
-  ReplicationStatus$UserManagedStatus({
+  ReplicationStatus_UserManagedStatus({
     this.replicas,
   }) : super(fullyQualifiedName);
 
-  factory ReplicationStatus$UserManagedStatus.fromJson(Map<String, dynamic> json) {
-    return ReplicationStatus$UserManagedStatus(
-      replicas: decodeList(json['replicas'], ReplicationStatus$UserManagedStatus$ReplicaStatus.fromJson),
+  factory ReplicationStatus_UserManagedStatus.fromJson(Map<String, dynamic> json) {
+    return ReplicationStatus_UserManagedStatus(
+      replicas: decodeList(json['replicas'], ReplicationStatus_UserManagedStatus_ReplicaStatus.fromJson),
     );
   }
 
@@ -842,7 +842,7 @@ class ReplicationStatus$UserManagedStatus extends Message {
 
 /// Describes the status of a user-managed replica for the
 /// `SecretVersion`.
-class ReplicationStatus$UserManagedStatus$ReplicaStatus extends Message {
+class ReplicationStatus_UserManagedStatus_ReplicaStatus extends Message {
   static const String fullyQualifiedName = 'google.cloud.secretmanager.v1.ReplicationStatus.UserManagedStatus.ReplicaStatus';
 
   /// Output only. The canonical ID of the replica location.
@@ -854,13 +854,13 @@ class ReplicationStatus$UserManagedStatus$ReplicaStatus extends Message {
   /// populated if customer-managed encryption is used.
   final CustomerManagedEncryptionStatus? customerManagedEncryption;
 
-  ReplicationStatus$UserManagedStatus$ReplicaStatus({
+  ReplicationStatus_UserManagedStatus_ReplicaStatus({
     this.location,
     this.customerManagedEncryption,
   }) : super(fullyQualifiedName);
 
-  factory ReplicationStatus$UserManagedStatus$ReplicaStatus.fromJson(Map<String, dynamic> json) {
-    return ReplicationStatus$UserManagedStatus$ReplicaStatus(
+  factory ReplicationStatus_UserManagedStatus_ReplicaStatus.fromJson(Map<String, dynamic> json) {
+    return ReplicationStatus_UserManagedStatus_ReplicaStatus(
       location: json['location'],
       customerManagedEncryption: decode(json['customerManagedEncryption'], CustomerManagedEncryptionStatus.fromJson),
     );
