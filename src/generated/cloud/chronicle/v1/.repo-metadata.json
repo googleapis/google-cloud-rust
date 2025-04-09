@@ -1,0 +1,11 @@
+{
+    "api_id": "chronicle.googleapis.com",
+    "api_shortname": "chronicle",
+    "client_documentation": "https://docs.rs/google-cloud-chronicle-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Chronicle API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
