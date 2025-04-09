@@ -62,6 +62,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDatabasesResponse>| r.into_body())
     }
 
     async fn create_database(
@@ -81,7 +82,10 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_database(
@@ -101,6 +105,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Database>| r.into_body())
     }
 
     async fn update_database(
@@ -139,6 +144,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, Some(req.database), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_database_ddl(
@@ -155,7 +161,10 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn drop_database(
@@ -175,7 +184,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_database_ddl(
@@ -195,6 +204,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GetDatabaseDdlResponse>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -214,7 +224,10 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -234,7 +247,10 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -254,7 +270,9 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn create_backup(
@@ -282,7 +300,10 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "encryptionConfig")
             });
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn copy_backup(
@@ -302,7 +323,10 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_backup(
@@ -322,6 +346,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn update_backup(
@@ -357,7 +382,10 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn delete_backup(
@@ -377,7 +405,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_backups(
@@ -400,6 +428,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn restore_database(
@@ -419,7 +448,10 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_database_operations(
@@ -445,6 +477,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDatabaseOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_backup_operations(
@@ -470,6 +507,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBackupOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_database_roles(
@@ -494,6 +536,9 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDatabaseRolesResponse>| r.into_body(),
+            )
     }
 
     async fn add_split_points(
@@ -513,7 +558,10 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AddSplitPointsResponse>| r.into_body())
     }
 
     async fn create_backup_schedule(
@@ -537,6 +585,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, Some(req.backup_schedule), options)
             .await
+            .map(|r: gax::response::Response<crate::model::BackupSchedule>| r.into_body())
     }
 
     async fn get_backup_schedule(
@@ -556,6 +605,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BackupSchedule>| r.into_body())
     }
 
     async fn update_backup_schedule(
@@ -594,6 +644,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, Some(req.backup_schedule), options)
             .await
+            .map(|r: gax::response::Response<crate::model::BackupSchedule>| r.into_body())
     }
 
     async fn delete_backup_schedule(
@@ -613,7 +664,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_backup_schedules(
@@ -638,6 +689,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBackupSchedulesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -660,6 +716,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -679,6 +740,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -698,7 +760,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -718,7 +780,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

@@ -64,6 +64,11 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListConnectionProfilesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_connection_profile(
@@ -83,6 +88,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ConnectionProfile>| r.into_body())
     }
 
     async fn create_connection_profile(
@@ -109,6 +115,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, Some(req.connection_profile), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_connection_profile(
@@ -150,6 +157,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, Some(req.connection_profile), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_connection_profile(
@@ -170,6 +178,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn discover_connection_profile(
@@ -189,7 +198,11 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::DiscoverConnectionProfileResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn list_streams(
@@ -213,6 +226,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListStreamsResponse>| r.into_body())
     }
 
     async fn get_stream(
@@ -232,6 +246,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Stream>| r.into_body())
     }
 
     async fn create_stream(
@@ -252,7 +267,10 @@ impl super::stub::Datastream for Datastream {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("force", &req.force)]);
-        self.inner.execute(builder, Some(req.stream), options).await
+        self.inner
+            .execute(builder, Some(req.stream), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_stream(
@@ -291,7 +309,10 @@ impl super::stub::Datastream for Datastream {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("force", &req.force)]);
-        self.inner.execute(builder, Some(req.stream), options).await
+        self.inner
+            .execute(builder, Some(req.stream), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_stream(
@@ -312,6 +333,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn run_stream(
@@ -328,7 +350,10 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_stream_object(
@@ -348,6 +373,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::StreamObject>| r.into_body())
     }
 
     async fn lookup_stream_object(
@@ -367,7 +393,10 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::StreamObject>| r.into_body())
     }
 
     async fn list_stream_objects(
@@ -389,6 +418,9 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListStreamObjectsResponse>| r.into_body(),
+            )
     }
 
     async fn start_backfill_job(
@@ -408,7 +440,10 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::StartBackfillJobResponse>| r.into_body())
     }
 
     async fn stop_backfill_job(
@@ -428,7 +463,10 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::StopBackfillJobResponse>| r.into_body())
     }
 
     async fn fetch_static_ips(
@@ -453,6 +491,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FetchStaticIpsResponse>| r.into_body())
     }
 
     async fn create_private_connection(
@@ -478,6 +517,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, Some(req.private_connection), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_private_connection(
@@ -497,6 +537,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PrivateConnection>| r.into_body())
     }
 
     async fn list_private_connections(
@@ -523,6 +564,11 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPrivateConnectionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_private_connection(
@@ -544,6 +590,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_route(
@@ -562,7 +609,10 @@ impl super::stub::Datastream for Datastream {
             );
         let builder = builder.query(&[("routeId", &req.route_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.route), options).await
+        self.inner
+            .execute(builder, Some(req.route), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_route(
@@ -582,6 +632,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Route>| r.into_body())
     }
 
     async fn list_routes(
@@ -605,6 +656,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRoutesResponse>| r.into_body())
     }
 
     async fn delete_route(
@@ -625,6 +677,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -647,6 +700,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -666,6 +720,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -688,6 +743,11 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -707,6 +767,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -726,7 +787,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -746,7 +807,7 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

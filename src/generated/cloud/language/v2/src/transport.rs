@@ -57,7 +57,10 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AnalyzeSentimentResponse>| r.into_body())
     }
 
     async fn analyze_entities(
@@ -77,7 +80,10 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AnalyzeEntitiesResponse>| r.into_body())
     }
 
     async fn classify_text(
@@ -97,7 +103,10 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ClassifyTextResponse>| r.into_body())
     }
 
     async fn moderate_text(
@@ -117,7 +126,10 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ModerateTextResponse>| r.into_body())
     }
 
     async fn annotate_text(
@@ -137,6 +149,9 @@ impl super::stub::LanguageService for LanguageService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AnnotateTextResponse>| r.into_body())
     }
 }

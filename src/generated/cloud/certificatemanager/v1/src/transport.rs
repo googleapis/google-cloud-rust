@@ -64,6 +64,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCertificatesResponse>| r.into_body())
     }
 
     async fn get_certificate(
@@ -83,6 +84,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Certificate>| r.into_body())
     }
 
     async fn create_certificate(
@@ -106,6 +108,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.certificate), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_certificate(
@@ -144,6 +147,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.certificate), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_certificate(
@@ -163,6 +167,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_certificate_maps(
@@ -189,6 +194,11 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCertificateMapsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_certificate_map(
@@ -208,6 +218,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CertificateMap>| r.into_body())
     }
 
     async fn create_certificate_map(
@@ -231,6 +242,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.certificate_map), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_certificate_map(
@@ -269,6 +281,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.certificate_map), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_certificate_map(
@@ -288,6 +301,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_certificate_map_entries(
@@ -314,6 +328,11 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCertificateMapEntriesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_certificate_map_entry(
@@ -333,6 +352,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CertificateMapEntry>| r.into_body())
     }
 
     async fn create_certificate_map_entry(
@@ -356,6 +376,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.certificate_map_entry), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_certificate_map_entry(
@@ -394,6 +415,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.certificate_map_entry), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_certificate_map_entry(
@@ -413,6 +435,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_dns_authorizations(
@@ -439,6 +462,11 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDnsAuthorizationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_dns_authorization(
@@ -458,6 +486,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DnsAuthorization>| r.into_body())
     }
 
     async fn create_dns_authorization(
@@ -481,6 +510,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.dns_authorization), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_dns_authorization(
@@ -519,6 +549,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.dns_authorization), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_dns_authorization(
@@ -538,6 +569,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_certificate_issuance_configs(
@@ -564,6 +596,11 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListCertificateIssuanceConfigsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_certificate_issuance_config(
@@ -583,6 +620,9 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::CertificateIssuanceConfig>| r.into_body(),
+            )
     }
 
     async fn create_certificate_issuance_config(
@@ -609,6 +649,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.certificate_issuance_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_certificate_issuance_config(
@@ -628,6 +669,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_trust_configs(
@@ -654,6 +696,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTrustConfigsResponse>| r.into_body())
     }
 
     async fn get_trust_config(
@@ -673,6 +716,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TrustConfig>| r.into_body())
     }
 
     async fn create_trust_config(
@@ -696,6 +740,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.trust_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_trust_config(
@@ -734,6 +779,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req.trust_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_trust_config(
@@ -754,6 +800,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -776,6 +823,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -795,6 +843,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -817,6 +866,11 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -836,6 +890,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -855,7 +910,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -875,7 +930,7 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

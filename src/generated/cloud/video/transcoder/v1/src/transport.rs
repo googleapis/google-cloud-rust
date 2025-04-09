@@ -54,7 +54,10 @@ impl super::stub::TranscoderService for TranscoderService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.job), options).await
+        self.inner
+            .execute(builder, Some(req.job), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn list_jobs(
@@ -78,6 +81,7 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListJobsResponse>| r.into_body())
     }
 
     async fn get_job(
@@ -97,6 +101,7 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn delete_job(
@@ -117,7 +122,7 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_job_template(
@@ -141,6 +146,7 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, Some(req.job_template), options)
             .await
+            .map(|r: gax::response::Response<crate::model::JobTemplate>| r.into_body())
     }
 
     async fn list_job_templates(
@@ -167,6 +173,7 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListJobTemplatesResponse>| r.into_body())
     }
 
     async fn get_job_template(
@@ -186,6 +193,7 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::JobTemplate>| r.into_body())
     }
 
     async fn delete_job_template(
@@ -206,6 +214,6 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }

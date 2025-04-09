@@ -60,6 +60,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         self.inner
             .execute(builder, Some(req.contact), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Contact>| r.into_body())
     }
 
     async fn update_contact(
@@ -98,6 +99,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         self.inner
             .execute(builder, Some(req.contact), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Contact>| r.into_body())
     }
 
     async fn list_contacts(
@@ -119,6 +121,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListContactsResponse>| r.into_body())
     }
 
     async fn get_contact(
@@ -138,6 +141,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Contact>| r.into_body())
     }
 
     async fn delete_contact(
@@ -157,7 +161,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn compute_contacts(
@@ -188,6 +192,7 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ComputeContactsResponse>| r.into_body())
     }
 
     async fn send_test_message(
@@ -210,6 +215,6 @@ impl super::stub::EssentialContactsService for EssentialContactsService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }

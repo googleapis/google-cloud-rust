@@ -64,6 +64,7 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListParametersResponse>| r.into_body())
     }
 
     async fn get_parameter(
@@ -83,6 +84,7 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Parameter>| r.into_body())
     }
 
     async fn create_parameter(
@@ -107,6 +109,7 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, Some(req.parameter), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Parameter>| r.into_body())
     }
 
     async fn update_parameter(
@@ -146,6 +149,7 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, Some(req.parameter), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Parameter>| r.into_body())
     }
 
     async fn delete_parameter(
@@ -166,7 +170,7 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_parameter_versions(
@@ -190,6 +194,11 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListParameterVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_parameter_version(
@@ -210,6 +219,7 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ParameterVersion>| r.into_body())
     }
 
     async fn render_parameter_version(
@@ -229,6 +239,11 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::RenderParameterVersionResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_parameter_version(
@@ -253,6 +268,7 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, Some(req.parameter_version), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ParameterVersion>| r.into_body())
     }
 
     async fn update_parameter_version(
@@ -292,6 +308,7 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, Some(req.parameter_version), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ParameterVersion>| r.into_body())
     }
 
     async fn delete_parameter_version(
@@ -312,7 +329,7 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_locations(
@@ -335,6 +352,7 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -354,5 +372,6 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 }

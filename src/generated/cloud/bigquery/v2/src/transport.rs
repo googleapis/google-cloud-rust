@@ -65,6 +65,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dataset>| r.into_body())
     }
 
     async fn insert_dataset(
@@ -88,6 +89,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dataset>| r.into_body())
     }
 
     async fn patch_dataset(
@@ -114,6 +116,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dataset>| r.into_body())
     }
 
     async fn update_dataset(
@@ -140,6 +143,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dataset>| r.into_body())
     }
 
     async fn delete_dataset(
@@ -166,7 +170,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_datasets(
@@ -202,6 +206,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DatasetList>| r.into_body())
     }
 
     async fn undelete_dataset(
@@ -224,7 +229,10 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Dataset>| r.into_body())
     }
 }
 
@@ -273,6 +281,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn list_models(
@@ -309,6 +318,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListModelsResponse>| r.into_body())
     }
 
     async fn patch_model(
@@ -331,7 +341,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.model), options).await
+        self.inner
+            .execute(builder, Some(req.model), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn delete_model(
@@ -357,7 +370,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -403,6 +416,9 @@ impl super::stub::ProjectService for ProjectService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::GetServiceAccountResponse>| r.into_body(),
+            )
     }
 }
 
@@ -451,6 +467,7 @@ impl super::stub::RoutineService for RoutineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Routine>| r.into_body())
     }
 
     async fn insert_routine(
@@ -476,6 +493,7 @@ impl super::stub::RoutineService for RoutineService {
         self.inner
             .execute(builder, Some(req.routine), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Routine>| r.into_body())
     }
 
     async fn update_routine(
@@ -501,6 +519,7 @@ impl super::stub::RoutineService for RoutineService {
         self.inner
             .execute(builder, Some(req.routine), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Routine>| r.into_body())
     }
 
     async fn delete_routine(
@@ -526,7 +545,7 @@ impl super::stub::RoutineService for RoutineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_routines(
@@ -564,6 +583,7 @@ impl super::stub::RoutineService for RoutineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRoutinesResponse>| r.into_body())
     }
 }
 
@@ -614,6 +634,11 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListRowAccessPoliciesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_row_access_policy(
@@ -639,6 +664,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::RowAccessPolicy>| r.into_body())
     }
 
     async fn create_row_access_policy(
@@ -664,6 +690,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         self.inner
             .execute(builder, Some(req.row_access_policy), options)
             .await
+            .map(|r: gax::response::Response<crate::model::RowAccessPolicy>| r.into_body())
     }
 
     async fn update_row_access_policy(
@@ -689,6 +716,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         self.inner
             .execute(builder, Some(req.row_access_policy), options)
             .await
+            .map(|r: gax::response::Response<crate::model::RowAccessPolicy>| r.into_body())
     }
 
     async fn delete_row_access_policy(
@@ -718,7 +746,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn batch_delete_row_access_policies(
@@ -744,7 +772,7 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -795,6 +823,7 @@ impl super::stub::TableService for TableService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Table>| r.into_body())
     }
 
     async fn insert_table(
@@ -817,7 +846,10 @@ impl super::stub::TableService for TableService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.table), options).await
+        self.inner
+            .execute(builder, Some(req.table), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Table>| r.into_body())
     }
 
     async fn patch_table(
@@ -841,7 +873,10 @@ impl super::stub::TableService for TableService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("autodetectSchema", &req.autodetect_schema)]);
-        self.inner.execute(builder, Some(req.table), options).await
+        self.inner
+            .execute(builder, Some(req.table), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Table>| r.into_body())
     }
 
     async fn update_table(
@@ -865,7 +900,10 @@ impl super::stub::TableService for TableService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("autodetectSchema", &req.autodetect_schema)]);
-        self.inner.execute(builder, Some(req.table), options).await
+        self.inner
+            .execute(builder, Some(req.table), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Table>| r.into_body())
     }
 
     async fn delete_table(
@@ -891,7 +929,7 @@ impl super::stub::TableService for TableService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_tables(
@@ -928,5 +966,6 @@ impl super::stub::TableService for TableService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TableList>| r.into_body())
     }
 }

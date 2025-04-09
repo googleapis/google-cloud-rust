@@ -60,6 +60,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, Some(req.migration_workflow), options)
             .await
+            .map(|r: gax::response::Response<crate::model::MigrationWorkflow>| r.into_body())
     }
 
     async fn get_migration_workflow(
@@ -89,6 +90,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MigrationWorkflow>| r.into_body())
     }
 
     async fn list_migration_workflows(
@@ -123,6 +125,11 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListMigrationWorkflowsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_migration_workflow(
@@ -142,7 +149,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn start_migration_workflow(
@@ -162,7 +169,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_migration_subtask(
@@ -192,6 +199,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MigrationSubtask>| r.into_body())
     }
 
     async fn list_migration_subtasks(
@@ -224,5 +232,10 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListMigrationSubtasksResponse>| {
+                    r.into_body()
+                },
+            )
     }
 }

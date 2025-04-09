@@ -59,6 +59,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListClustersResponse>| r.into_body())
     }
 
     async fn get_cluster(
@@ -81,6 +82,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Cluster>| r.into_body())
     }
 
     async fn create_cluster(
@@ -100,7 +102,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn update_cluster(
@@ -117,7 +122,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn update_node_pool(
@@ -134,7 +142,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_node_pool_autoscaling(
@@ -154,7 +165,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_logging_service(
@@ -174,7 +188,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_monitoring_service(
@@ -194,7 +211,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_addons_config(
@@ -211,7 +231,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_locations(
@@ -231,7 +254,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn update_master(
@@ -251,7 +277,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_master_auth(
@@ -271,7 +300,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn delete_cluster(
@@ -294,6 +326,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -318,6 +351,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListOperationsResponse>| r.into_body())
     }
 
     async fn get_operation(
@@ -340,6 +374,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
@@ -359,7 +394,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_server_config(
@@ -384,6 +419,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServerConfig>| r.into_body())
     }
 
     async fn get_json_web_keys(
@@ -403,6 +439,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GetJSONWebKeysResponse>| r.into_body())
     }
 
     async fn list_node_pools(
@@ -428,6 +465,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNodePoolsResponse>| r.into_body())
     }
 
     async fn get_node_pool(
@@ -451,6 +489,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NodePool>| r.into_body())
     }
 
     async fn create_node_pool(
@@ -470,7 +509,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn delete_node_pool(
@@ -494,6 +536,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn complete_node_pool_upgrade(
@@ -516,7 +559,7 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn rollback_node_pool_upgrade(
@@ -533,7 +576,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_node_pool_management(
@@ -553,7 +599,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_labels(
@@ -573,7 +622,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_legacy_abac(
@@ -593,7 +645,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn start_ip_rotation(
@@ -613,7 +668,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn complete_ip_rotation(
@@ -633,7 +691,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_node_pool_size(
@@ -650,7 +711,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_network_policy(
@@ -670,7 +734,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn set_maintenance_policy(
@@ -690,7 +757,10 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn list_usable_subnetworks(
@@ -716,6 +786,11 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListUsableSubnetworksResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn check_autopilot_compatibility(
@@ -738,5 +813,10 @@ impl super::stub::ClusterManager for ClusterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>| {
+                    r.into_body()
+                },
+            )
     }
 }

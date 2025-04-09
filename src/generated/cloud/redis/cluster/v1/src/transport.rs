@@ -59,6 +59,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListClustersResponse>| r.into_body())
     }
 
     async fn get_cluster(
@@ -78,6 +79,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Cluster>| r.into_body())
     }
 
     async fn update_cluster(
@@ -117,6 +119,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_cluster(
@@ -137,6 +140,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_cluster(
@@ -161,6 +165,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_cluster_certificate_authority(
@@ -180,6 +185,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CertificateAuthority>| r.into_body())
     }
 
     async fn reschedule_cluster_maintenance(
@@ -199,7 +205,10 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_backup_collections(
@@ -224,6 +233,11 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBackupCollectionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_backup_collection(
@@ -243,6 +257,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BackupCollection>| r.into_body())
     }
 
     async fn list_backups(
@@ -264,6 +279,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn get_backup(
@@ -283,6 +299,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn delete_backup(
@@ -303,6 +320,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_backup(
@@ -319,7 +337,10 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn backup_cluster(
@@ -336,7 +357,10 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -359,6 +383,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -378,6 +403,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -400,6 +426,11 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -419,6 +450,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -438,7 +470,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -458,7 +490,7 @@ impl super::stub::CloudRedisCluster for CloudRedisCluster {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

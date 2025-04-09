@@ -64,6 +64,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInstancesResponse>| r.into_body())
     }
 
     async fn get_instance(
@@ -83,6 +84,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn create_instance(
@@ -106,6 +108,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_instance(
@@ -144,6 +147,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn restore_instance(
@@ -160,7 +164,10 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn revert_instance(
@@ -177,7 +184,10 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_instance(
@@ -198,6 +208,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_snapshots(
@@ -225,6 +236,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSnapshotsResponse>| r.into_body())
     }
 
     async fn get_snapshot(
@@ -244,6 +256,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Snapshot>| r.into_body())
     }
 
     async fn create_snapshot(
@@ -267,6 +280,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, Some(req.snapshot), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_snapshot(
@@ -286,6 +300,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_snapshot(
@@ -324,6 +339,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, Some(req.snapshot), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_backups(
@@ -347,6 +363,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn get_backup(
@@ -366,6 +383,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn create_backup(
@@ -383,7 +401,10 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("backupId", &req.backup_id)]);
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_backup(
@@ -403,6 +424,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_backup(
@@ -438,7 +460,10 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn promote_replica(
@@ -458,7 +483,10 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -481,6 +509,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -500,6 +529,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -522,6 +552,11 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -541,6 +576,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -560,7 +596,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -580,7 +616,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

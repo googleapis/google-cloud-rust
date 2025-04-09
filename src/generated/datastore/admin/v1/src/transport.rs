@@ -57,7 +57,10 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_entities(
@@ -77,7 +80,10 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_index(
@@ -97,7 +103,10 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.index), options).await
+        self.inner
+            .execute(builder, Some(req.index), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_index(
@@ -120,6 +129,7 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_index(
@@ -142,6 +152,7 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Index>| r.into_body())
     }
 
     async fn list_indexes(
@@ -167,6 +178,7 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListIndexesResponse>| r.into_body())
     }
 
     async fn list_operations(
@@ -189,6 +201,11 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -208,6 +225,7 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -227,7 +245,7 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -247,7 +265,7 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

@@ -61,6 +61,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.conversation), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Conversation>| r.into_body())
     }
 
     async fn upload_conversation(
@@ -80,7 +81,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_conversation(
@@ -119,6 +123,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.conversation), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Conversation>| r.into_body())
     }
 
     async fn get_conversation(
@@ -139,6 +144,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Conversation>| r.into_body())
     }
 
     async fn list_conversations(
@@ -166,6 +172,9 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListConversationsResponse>| r.into_body(),
+            )
     }
 
     async fn delete_conversation(
@@ -186,7 +195,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_analysis(
@@ -209,6 +218,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.analysis), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_analysis(
@@ -228,6 +238,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Analysis>| r.into_body())
     }
 
     async fn list_analyses(
@@ -250,6 +261,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAnalysesResponse>| r.into_body())
     }
 
     async fn delete_analysis(
@@ -269,7 +281,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn bulk_analyze_conversations(
@@ -289,7 +301,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn bulk_delete_conversations(
@@ -309,7 +324,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn ingest_conversations(
@@ -329,7 +347,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_insights_data(
@@ -349,7 +370,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_issue_model(
@@ -372,6 +396,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.issue_model), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_issue_model(
@@ -410,6 +435,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.issue_model), options)
             .await
+            .map(|r: gax::response::Response<crate::model::IssueModel>| r.into_body())
     }
 
     async fn get_issue_model(
@@ -429,6 +455,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::IssueModel>| r.into_body())
     }
 
     async fn list_issue_models(
@@ -451,6 +478,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListIssueModelsResponse>| r.into_body())
     }
 
     async fn delete_issue_model(
@@ -470,6 +498,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn deploy_issue_model(
@@ -486,7 +515,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undeploy_issue_model(
@@ -503,7 +535,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_issue_model(
@@ -520,7 +555,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_issue_model(
@@ -540,7 +578,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_issue(
@@ -560,6 +601,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Issue>| r.into_body())
     }
 
     async fn list_issues(
@@ -579,6 +621,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListIssuesResponse>| r.into_body())
     }
 
     async fn update_issue(
@@ -614,7 +657,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.issue), options).await
+        self.inner
+            .execute(builder, Some(req.issue), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Issue>| r.into_body())
     }
 
     async fn delete_issue(
@@ -634,7 +680,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn calculate_issue_model_stats(
@@ -657,6 +703,11 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::CalculateIssueModelStatsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_phrase_matcher(
@@ -679,6 +730,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.phrase_matcher), options)
             .await
+            .map(|r: gax::response::Response<crate::model::PhraseMatcher>| r.into_body())
     }
 
     async fn get_phrase_matcher(
@@ -698,6 +750,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PhraseMatcher>| r.into_body())
     }
 
     async fn list_phrase_matchers(
@@ -723,6 +776,11 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPhraseMatchersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_phrase_matcher(
@@ -742,7 +800,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_phrase_matcher(
@@ -781,6 +839,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.phrase_matcher), options)
             .await
+            .map(|r: gax::response::Response<crate::model::PhraseMatcher>| r.into_body())
     }
 
     async fn calculate_stats(
@@ -804,6 +863,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CalculateStatsResponse>| r.into_body())
     }
 
     async fn get_settings(
@@ -823,6 +883,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Settings>| r.into_body())
     }
 
     async fn update_settings(
@@ -861,6 +922,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.settings), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Settings>| r.into_body())
     }
 
     async fn create_analysis_rule(
@@ -883,6 +945,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.analysis_rule), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AnalysisRule>| r.into_body())
     }
 
     async fn get_analysis_rule(
@@ -902,6 +965,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AnalysisRule>| r.into_body())
     }
 
     async fn list_analysis_rules(
@@ -926,6 +990,9 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAnalysisRulesResponse>| r.into_body(),
+            )
     }
 
     async fn update_analysis_rule(
@@ -964,6 +1031,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.analysis_rule), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AnalysisRule>| r.into_body())
     }
 
     async fn delete_analysis_rule(
@@ -983,7 +1051,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_encryption_spec(
@@ -1003,6 +1071,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::EncryptionSpec>| r.into_body())
     }
 
     async fn initialize_encryption_spec(
@@ -1028,7 +1097,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_view(
@@ -1045,7 +1117,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.view), options).await
+        self.inner
+            .execute(builder, Some(req.view), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::View>| r.into_body())
     }
 
     async fn get_view(
@@ -1065,6 +1140,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::View>| r.into_body())
     }
 
     async fn list_views(
@@ -1086,6 +1162,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListViewsResponse>| r.into_body())
     }
 
     async fn update_view(
@@ -1121,7 +1198,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.view), options).await
+        self.inner
+            .execute(builder, Some(req.view), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::View>| r.into_body())
     }
 
     async fn delete_view(
@@ -1141,7 +1221,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn query_metrics(
@@ -1161,7 +1241,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_qa_question(
@@ -1185,6 +1268,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.qa_question), options)
             .await
+            .map(|r: gax::response::Response<crate::model::QaQuestion>| r.into_body())
     }
 
     async fn get_qa_question(
@@ -1204,6 +1288,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::QaQuestion>| r.into_body())
     }
 
     async fn update_qa_question(
@@ -1242,6 +1327,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.qa_question), options)
             .await
+            .map(|r: gax::response::Response<crate::model::QaQuestion>| r.into_body())
     }
 
     async fn delete_qa_question(
@@ -1261,7 +1347,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_qa_questions(
@@ -1286,6 +1372,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListQaQuestionsResponse>| r.into_body())
     }
 
     async fn create_qa_scorecard(
@@ -1309,6 +1396,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.qa_scorecard), options)
             .await
+            .map(|r: gax::response::Response<crate::model::QaScorecard>| r.into_body())
     }
 
     async fn get_qa_scorecard(
@@ -1328,6 +1416,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::QaScorecard>| r.into_body())
     }
 
     async fn update_qa_scorecard(
@@ -1366,6 +1455,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.qa_scorecard), options)
             .await
+            .map(|r: gax::response::Response<crate::model::QaScorecard>| r.into_body())
     }
 
     async fn delete_qa_scorecard(
@@ -1386,7 +1476,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_qa_scorecards(
@@ -1411,6 +1501,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListQaScorecardsResponse>| r.into_body())
     }
 
     async fn create_qa_scorecard_revision(
@@ -1434,6 +1525,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.qa_scorecard_revision), options)
             .await
+            .map(|r: gax::response::Response<crate::model::QaScorecardRevision>| r.into_body())
     }
 
     async fn get_qa_scorecard_revision(
@@ -1453,6 +1545,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::QaScorecardRevision>| r.into_body())
     }
 
     async fn tune_qa_scorecard_revision(
@@ -1472,7 +1565,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn deploy_qa_scorecard_revision(
@@ -1489,7 +1585,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::QaScorecardRevision>| r.into_body())
     }
 
     async fn undeploy_qa_scorecard_revision(
@@ -1506,7 +1605,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::QaScorecardRevision>| r.into_body())
     }
 
     async fn delete_qa_scorecard_revision(
@@ -1527,7 +1629,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_qa_scorecard_revisions(
@@ -1553,6 +1655,11 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListQaScorecardRevisionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_feedback_label(
@@ -1576,6 +1683,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.feedback_label), options)
             .await
+            .map(|r: gax::response::Response<crate::model::FeedbackLabel>| r.into_body())
     }
 
     async fn list_feedback_labels(
@@ -1601,6 +1709,11 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListFeedbackLabelsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_feedback_label(
@@ -1620,6 +1733,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FeedbackLabel>| r.into_body())
     }
 
     async fn update_feedback_label(
@@ -1658,6 +1772,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, Some(req.feedback_label), options)
             .await
+            .map(|r: gax::response::Response<crate::model::FeedbackLabel>| r.into_body())
     }
 
     async fn delete_feedback_label(
@@ -1677,7 +1792,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_all_feedback_labels(
@@ -1703,6 +1818,11 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAllFeedbackLabelsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn bulk_upload_feedback_labels(
@@ -1722,7 +1842,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn bulk_download_feedback_labels(
@@ -1742,7 +1865,10 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -1765,6 +1891,11 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1784,6 +1915,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
@@ -1803,7 +1935,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

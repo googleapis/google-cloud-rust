@@ -57,6 +57,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Authorization>| r.into_body())
     }
 
     async fn create_deployment(
@@ -80,6 +81,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         self.inner
             .execute(builder, Some(req.deployment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn replace_deployment(
@@ -108,6 +110,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         self.inner
             .execute(builder, Some(req.deployment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn get_deployment(
@@ -127,6 +130,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn list_deployments(
@@ -151,6 +155,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDeploymentsResponse>| r.into_body())
     }
 
     async fn delete_deployment(
@@ -171,7 +176,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn install_deployment(
@@ -191,7 +196,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn uninstall_deployment(
@@ -211,7 +216,7 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_install_status(
@@ -231,5 +236,6 @@ impl super::stub::GSuiteAddOns for GSuiteAddOns {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::InstallStatus>| r.into_body())
     }
 }

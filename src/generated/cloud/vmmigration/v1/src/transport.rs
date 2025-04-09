@@ -61,6 +61,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSourcesResponse>| r.into_body())
     }
 
     async fn get_source(
@@ -80,6 +81,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Source>| r.into_body())
     }
 
     async fn create_source(
@@ -98,7 +100,10 @@ impl super::stub::VmMigration for VmMigration {
             );
         let builder = builder.query(&[("sourceId", &req.source_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.source), options).await
+        self.inner
+            .execute(builder, Some(req.source), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_source(
@@ -135,7 +140,10 @@ impl super::stub::VmMigration for VmMigration {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.source), options).await
+        self.inner
+            .execute(builder, Some(req.source), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_source(
@@ -156,6 +164,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn fetch_inventory(
@@ -179,6 +188,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FetchInventoryResponse>| r.into_body())
     }
 
     async fn list_utilization_reports(
@@ -206,6 +216,11 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListUtilizationReportsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_utilization_report(
@@ -226,6 +241,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::UtilizationReport>| r.into_body())
     }
 
     async fn create_utilization_report(
@@ -250,6 +266,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, Some(req.utilization_report), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_utilization_report(
@@ -270,6 +287,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_datacenter_connectors(
@@ -296,6 +314,11 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDatacenterConnectorsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_datacenter_connector(
@@ -315,6 +338,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DatacenterConnector>| r.into_body())
     }
 
     async fn create_datacenter_connector(
@@ -339,6 +363,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, Some(req.datacenter_connector), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_datacenter_connector(
@@ -359,6 +384,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn upgrade_appliance(
@@ -378,7 +404,10 @@ impl super::stub::VmMigration for VmMigration {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_migrating_vm(
@@ -403,6 +432,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, Some(req.migrating_vm), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_migrating_vms(
@@ -430,6 +460,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListMigratingVmsResponse>| r.into_body())
     }
 
     async fn get_migrating_vm(
@@ -450,6 +481,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MigratingVm>| r.into_body())
     }
 
     async fn update_migrating_vm(
@@ -489,6 +521,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, Some(req.migrating_vm), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_migrating_vm(
@@ -508,6 +541,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn start_migration(
@@ -527,7 +561,10 @@ impl super::stub::VmMigration for VmMigration {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn resume_migration(
@@ -547,7 +584,10 @@ impl super::stub::VmMigration for VmMigration {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn pause_migration(
@@ -567,7 +607,10 @@ impl super::stub::VmMigration for VmMigration {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn finalize_migration(
@@ -587,7 +630,10 @@ impl super::stub::VmMigration for VmMigration {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_clone_job(
@@ -612,6 +658,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, Some(req.clone_job), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_clone_job(
@@ -628,7 +675,10 @@ impl super::stub::VmMigration for VmMigration {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_clone_jobs(
@@ -655,6 +705,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCloneJobsResponse>| r.into_body())
     }
 
     async fn get_clone_job(
@@ -674,6 +725,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CloneJob>| r.into_body())
     }
 
     async fn create_cutover_job(
@@ -698,6 +750,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, Some(req.cutover_job), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_cutover_job(
@@ -714,7 +767,10 @@ impl super::stub::VmMigration for VmMigration {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_cutover_jobs(
@@ -741,6 +797,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCutoverJobsResponse>| r.into_body())
     }
 
     async fn get_cutover_job(
@@ -760,6 +817,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CutoverJob>| r.into_body())
     }
 
     async fn list_groups(
@@ -783,6 +841,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListGroupsResponse>| r.into_body())
     }
 
     async fn get_group(
@@ -802,6 +861,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Group>| r.into_body())
     }
 
     async fn create_group(
@@ -820,7 +880,10 @@ impl super::stub::VmMigration for VmMigration {
             );
         let builder = builder.query(&[("groupId", &req.group_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.group), options).await
+        self.inner
+            .execute(builder, Some(req.group), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_group(
@@ -857,7 +920,10 @@ impl super::stub::VmMigration for VmMigration {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.group), options).await
+        self.inner
+            .execute(builder, Some(req.group), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_group(
@@ -878,6 +944,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn add_group_migration(
@@ -897,7 +964,10 @@ impl super::stub::VmMigration for VmMigration {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn remove_group_migration(
@@ -917,7 +987,10 @@ impl super::stub::VmMigration for VmMigration {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_target_projects(
@@ -944,6 +1017,11 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListTargetProjectsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_target_project(
@@ -963,6 +1041,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TargetProject>| r.into_body())
     }
 
     async fn create_target_project(
@@ -987,6 +1066,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, Some(req.target_project), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_target_project(
@@ -1026,6 +1106,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, Some(req.target_project), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_target_project(
@@ -1046,6 +1127,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_replication_cycles(
@@ -1072,6 +1154,11 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListReplicationCyclesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_replication_cycle(
@@ -1091,6 +1178,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ReplicationCycle>| r.into_body())
     }
 
     async fn list_locations(
@@ -1113,6 +1201,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1132,6 +1221,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -1154,6 +1244,11 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1173,6 +1268,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1192,7 +1288,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1212,7 +1308,7 @@ impl super::stub::VmMigration for VmMigration {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

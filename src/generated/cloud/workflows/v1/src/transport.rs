@@ -64,6 +64,7 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListWorkflowsResponse>| r.into_body())
     }
 
     async fn get_workflow(
@@ -84,6 +85,7 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Workflow>| r.into_body())
     }
 
     async fn create_workflow(
@@ -107,6 +109,7 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, Some(req.workflow), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_workflow(
@@ -126,6 +129,7 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_workflow(
@@ -164,6 +168,7 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, Some(req.workflow), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_workflow_revisions(
@@ -188,6 +193,11 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListWorkflowRevisionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_locations(
@@ -210,6 +220,7 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -229,6 +240,7 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -251,6 +263,11 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -270,6 +287,7 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -289,7 +307,7 @@ impl super::stub::Workflows for Workflows {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

@@ -62,6 +62,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInstancesResponse>| r.into_body())
     }
 
     async fn get_instance(
@@ -81,6 +82,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn create_instance(
@@ -105,6 +107,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_instance(
@@ -144,6 +147,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_instance(
@@ -164,6 +168,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_registered_parties(
@@ -183,7 +188,10 @@ impl super::stub::Aml for Aml {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_registered_parties(
@@ -203,7 +211,10 @@ impl super::stub::Aml for Aml {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_datasets(
@@ -227,6 +238,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDatasetsResponse>| r.into_body())
     }
 
     async fn get_dataset(
@@ -246,6 +258,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dataset>| r.into_body())
     }
 
     async fn create_dataset(
@@ -270,6 +283,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_dataset(
@@ -309,6 +323,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_dataset(
@@ -329,6 +344,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_models(
@@ -352,6 +368,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListModelsResponse>| r.into_body())
     }
 
     async fn get_model(
@@ -371,6 +388,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn create_model(
@@ -389,7 +407,10 @@ impl super::stub::Aml for Aml {
             );
         let builder = builder.query(&[("modelId", &req.model_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.model), options).await
+        self.inner
+            .execute(builder, Some(req.model), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_model(
@@ -426,7 +447,10 @@ impl super::stub::Aml for Aml {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.model), options).await
+        self.inner
+            .execute(builder, Some(req.model), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_model_metadata(
@@ -446,7 +470,10 @@ impl super::stub::Aml for Aml {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_model(
@@ -467,6 +494,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_engine_configs(
@@ -493,6 +521,9 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListEngineConfigsResponse>| r.into_body(),
+            )
     }
 
     async fn get_engine_config(
@@ -512,6 +543,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::EngineConfig>| r.into_body())
     }
 
     async fn create_engine_config(
@@ -536,6 +568,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req.engine_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_engine_config(
@@ -575,6 +608,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req.engine_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_engine_config_metadata(
@@ -594,7 +628,10 @@ impl super::stub::Aml for Aml {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_engine_config(
@@ -615,6 +652,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_engine_version(
@@ -634,6 +672,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::EngineVersion>| r.into_body())
     }
 
     async fn list_engine_versions(
@@ -660,6 +699,11 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListEngineVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_prediction_results(
@@ -686,6 +730,11 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPredictionResultsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_prediction_result(
@@ -705,6 +754,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PredictionResult>| r.into_body())
     }
 
     async fn create_prediction_result(
@@ -729,6 +779,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req.prediction_result), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_prediction_result(
@@ -768,6 +819,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req.prediction_result), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_prediction_result_metadata(
@@ -787,7 +839,10 @@ impl super::stub::Aml for Aml {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_prediction_result(
@@ -808,6 +863,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_backtest_results(
@@ -834,6 +890,11 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBacktestResultsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_backtest_result(
@@ -853,6 +914,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BacktestResult>| r.into_body())
     }
 
     async fn create_backtest_result(
@@ -877,6 +939,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req.backtest_result), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_backtest_result(
@@ -916,6 +979,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req.backtest_result), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_backtest_result_metadata(
@@ -935,7 +999,10 @@ impl super::stub::Aml for Aml {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_backtest_result(
@@ -956,6 +1023,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -978,6 +1046,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -997,6 +1066,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -1019,6 +1089,11 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1038,6 +1113,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1057,7 +1133,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1077,7 +1153,7 @@ impl super::stub::Aml for Aml {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

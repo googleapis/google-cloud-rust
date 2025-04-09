@@ -62,6 +62,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListConstraintsResponse>| r.into_body())
     }
 
     async fn list_policies(
@@ -83,6 +84,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListPoliciesResponse>| r.into_body())
     }
 
     async fn get_policy(
@@ -102,6 +104,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn get_effective_policy(
@@ -124,6 +127,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn create_policy(
@@ -143,7 +147,10 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.policy), options).await
+        self.inner
+            .execute(builder, Some(req.policy), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn update_policy(
@@ -179,7 +186,10 @@ impl super::stub::OrgPolicy for OrgPolicy {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.policy), options).await
+        self.inner
+            .execute(builder, Some(req.policy), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn delete_policy(
@@ -200,7 +210,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_custom_constraint(
@@ -223,6 +233,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, Some(req.custom_constraint), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CustomConstraint>| r.into_body())
     }
 
     async fn update_custom_constraint(
@@ -251,6 +262,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, Some(req.custom_constraint), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CustomConstraint>| r.into_body())
     }
 
     async fn get_custom_constraint(
@@ -270,6 +282,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CustomConstraint>| r.into_body())
     }
 
     async fn list_custom_constraints(
@@ -294,6 +307,11 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCustomConstraintsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_custom_constraint(
@@ -313,6 +331,6 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }

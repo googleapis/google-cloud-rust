@@ -57,7 +57,10 @@ impl super::stub::OsConfigService for OsConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::PatchJob>| r.into_body())
     }
 
     async fn get_patch_job(
@@ -77,6 +80,7 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PatchJob>| r.into_body())
     }
 
     async fn cancel_patch_job(
@@ -93,7 +97,10 @@ impl super::stub::OsConfigService for OsConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::PatchJob>| r.into_body())
     }
 
     async fn list_patch_jobs(
@@ -119,6 +126,7 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListPatchJobsResponse>| r.into_body())
     }
 
     async fn list_patch_job_instance_details(
@@ -144,6 +152,11 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_patch_deployment(
@@ -167,6 +180,7 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, Some(req.patch_deployment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::PatchDeployment>| r.into_body())
     }
 
     async fn get_patch_deployment(
@@ -186,6 +200,7 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PatchDeployment>| r.into_body())
     }
 
     async fn list_patch_deployments(
@@ -210,6 +225,11 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPatchDeploymentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_patch_deployment(
@@ -229,7 +249,7 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_patch_deployment(
@@ -268,6 +288,7 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, Some(req.patch_deployment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::PatchDeployment>| r.into_body())
     }
 
     async fn pause_patch_deployment(
@@ -284,7 +305,10 @@ impl super::stub::OsConfigService for OsConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::PatchDeployment>| r.into_body())
     }
 
     async fn resume_patch_deployment(
@@ -301,7 +325,10 @@ impl super::stub::OsConfigService for OsConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::PatchDeployment>| r.into_body())
     }
 
     async fn get_operation(
@@ -321,6 +348,7 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
@@ -340,7 +368,7 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -387,6 +415,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, Some(req.os_policy_assignment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_os_policy_assignment(
@@ -425,6 +454,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, Some(req.os_policy_assignment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_os_policy_assignment(
@@ -444,6 +474,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::OSPolicyAssignment>| r.into_body())
     }
 
     async fn list_os_policy_assignments(
@@ -468,6 +499,11 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_os_policy_assignment_revisions(
@@ -492,6 +528,11 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListOSPolicyAssignmentRevisionsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn delete_os_policy_assignment(
@@ -511,6 +552,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_os_policy_assignment_report(
@@ -530,6 +572,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::OSPolicyAssignmentReport>| r.into_body())
     }
 
     async fn list_os_policy_assignment_reports(
@@ -552,6 +595,11 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListOSPolicyAssignmentReportsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_inventory(
@@ -572,6 +620,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Inventory>| r.into_body())
     }
 
     async fn list_inventories(
@@ -598,6 +647,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInventoriesResponse>| r.into_body())
     }
 
     async fn get_vulnerability_report(
@@ -617,6 +667,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VulnerabilityReport>| r.into_body())
     }
 
     async fn list_vulnerability_reports(
@@ -642,6 +693,11 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListVulnerabilityReportsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -661,6 +717,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
@@ -680,7 +737,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

@@ -61,6 +61,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListClustersResponse>| r.into_body())
     }
 
     async fn get_cluster(
@@ -80,6 +81,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Cluster>| r.into_body())
     }
 
     async fn create_cluster(
@@ -104,6 +106,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_cluster(
@@ -143,6 +146,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn upgrade_cluster(
@@ -159,7 +163,10 @@ impl super::stub::EdgeContainer for EdgeContainer {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_cluster(
@@ -180,6 +187,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_access_token(
@@ -202,6 +210,11 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::GenerateAccessTokenResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn generate_offline_credential(
@@ -224,6 +237,11 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::GenerateOfflineCredentialResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_node_pools(
@@ -250,6 +268,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNodePoolsResponse>| r.into_body())
     }
 
     async fn get_node_pool(
@@ -269,6 +288,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NodePool>| r.into_body())
     }
 
     async fn create_node_pool(
@@ -293,6 +313,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, Some(req.node_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_node_pool(
@@ -332,6 +353,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, Some(req.node_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_node_pool(
@@ -352,6 +374,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_machines(
@@ -375,6 +398,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListMachinesResponse>| r.into_body())
     }
 
     async fn get_machine(
@@ -394,6 +418,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Machine>| r.into_body())
     }
 
     async fn list_vpn_connections(
@@ -420,6 +445,11 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListVpnConnectionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_vpn_connection(
@@ -439,6 +469,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VpnConnection>| r.into_body())
     }
 
     async fn create_vpn_connection(
@@ -463,6 +494,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, Some(req.vpn_connection), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_vpn_connection(
@@ -483,6 +515,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_server_config(
@@ -505,6 +538,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServerConfig>| r.into_body())
     }
 
     async fn list_locations(
@@ -527,6 +561,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -546,6 +581,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -568,6 +604,11 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -587,6 +628,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -606,7 +648,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -626,7 +668,7 @@ impl super::stub::EdgeContainer for EdgeContainer {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

@@ -59,6 +59,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListPosturesResponse>| r.into_body())
     }
 
     async fn list_posture_revisions(
@@ -83,6 +84,11 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPostureRevisionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_posture(
@@ -103,6 +109,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Posture>| r.into_body())
     }
 
     async fn create_posture(
@@ -126,6 +133,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, Some(req.posture), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_posture(
@@ -165,6 +173,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, Some(req.posture), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_posture(
@@ -185,6 +194,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn extract_posture(
@@ -204,7 +214,10 @@ impl super::stub::SecurityPosture for SecurityPosture {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_posture_deployments(
@@ -230,6 +243,11 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPostureDeploymentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_posture_deployment(
@@ -249,6 +267,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PostureDeployment>| r.into_body())
     }
 
     async fn create_posture_deployment(
@@ -272,6 +291,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, Some(req.posture_deployment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_posture_deployment(
@@ -310,6 +330,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, Some(req.posture_deployment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_posture_deployment(
@@ -330,6 +351,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_posture_templates(
@@ -355,6 +377,11 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPostureTemplatesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_posture_template(
@@ -375,6 +402,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PostureTemplate>| r.into_body())
     }
 
     async fn list_locations(
@@ -397,6 +425,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -416,6 +445,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -438,6 +468,11 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -457,6 +492,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -476,7 +512,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -496,7 +532,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

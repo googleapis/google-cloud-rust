@@ -62,6 +62,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, Some(req.attached_cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_attached_cluster(
@@ -101,6 +102,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, Some(req.attached_cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_attached_cluster(
@@ -120,7 +122,10 @@ impl super::stub::AttachedClusters for AttachedClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_attached_cluster(
@@ -140,6 +145,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AttachedCluster>| r.into_body())
     }
 
     async fn list_attached_clusters(
@@ -164,6 +170,11 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAttachedClustersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_attached_cluster(
@@ -187,6 +198,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_attached_server_config(
@@ -206,6 +218,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AttachedServerConfig>| r.into_body())
     }
 
     async fn generate_attached_cluster_install_manifest(
@@ -240,6 +253,11 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::GenerateAttachedClusterInstallManifestResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn generate_attached_cluster_agent_token(
@@ -262,7 +280,11 @@ impl super::stub::AttachedClusters for AttachedClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<
+                crate::model::GenerateAttachedClusterAgentTokenResponse,
+            >| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -285,6 +307,11 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -304,6 +331,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -323,7 +351,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -343,7 +371,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -405,6 +433,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, Some(req.aws_cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_aws_cluster(
@@ -444,6 +473,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, Some(req.aws_cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_aws_cluster(
@@ -463,6 +493,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AwsCluster>| r.into_body())
     }
 
     async fn list_aws_clusters(
@@ -487,6 +518,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAwsClustersResponse>| r.into_body())
     }
 
     async fn delete_aws_cluster(
@@ -510,6 +542,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_aws_cluster_agent_token(
@@ -529,7 +562,11 @@ impl super::stub::AwsClusters for AwsClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn generate_aws_access_token(
@@ -552,6 +589,11 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::GenerateAwsAccessTokenResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_aws_node_pool(
@@ -576,6 +618,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, Some(req.aws_node_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_aws_node_pool(
@@ -615,6 +658,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, Some(req.aws_node_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn rollback_aws_node_pool_update(
@@ -631,7 +675,10 @@ impl super::stub::AwsClusters for AwsClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_aws_node_pool(
@@ -651,6 +698,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AwsNodePool>| r.into_body())
     }
 
     async fn list_aws_node_pools(
@@ -675,6 +723,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAwsNodePoolsResponse>| r.into_body())
     }
 
     async fn delete_aws_node_pool(
@@ -698,6 +747,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_aws_open_id_config(
@@ -720,6 +770,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AwsOpenIdConfig>| r.into_body())
     }
 
     async fn get_aws_json_web_keys(
@@ -742,6 +793,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AwsJsonWebKeys>| r.into_body())
     }
 
     async fn get_aws_server_config(
@@ -761,6 +813,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AwsServerConfig>| r.into_body())
     }
 
     async fn list_operations(
@@ -783,6 +836,11 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -802,6 +860,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -821,7 +880,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -841,7 +900,7 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -903,6 +962,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, Some(req.azure_client), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_azure_client(
@@ -922,6 +982,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AzureClient>| r.into_body())
     }
 
     async fn list_azure_clients(
@@ -946,6 +1007,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAzureClientsResponse>| r.into_body())
     }
 
     async fn delete_azure_client(
@@ -967,6 +1029,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_azure_cluster(
@@ -991,6 +1054,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, Some(req.azure_cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_azure_cluster(
@@ -1030,6 +1094,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, Some(req.azure_cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_azure_cluster(
@@ -1049,6 +1114,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AzureCluster>| r.into_body())
     }
 
     async fn list_azure_clusters(
@@ -1073,6 +1139,9 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAzureClustersResponse>| r.into_body(),
+            )
     }
 
     async fn delete_azure_cluster(
@@ -1096,6 +1165,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_azure_cluster_agent_token(
@@ -1115,7 +1185,11 @@ impl super::stub::AzureClusters for AzureClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn generate_azure_access_token(
@@ -1138,6 +1212,11 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_azure_node_pool(
@@ -1162,6 +1241,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, Some(req.azure_node_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_azure_node_pool(
@@ -1201,6 +1281,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, Some(req.azure_node_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_azure_node_pool(
@@ -1220,6 +1301,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AzureNodePool>| r.into_body())
     }
 
     async fn list_azure_node_pools(
@@ -1244,6 +1326,11 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAzureNodePoolsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_azure_node_pool(
@@ -1267,6 +1354,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_azure_open_id_config(
@@ -1289,6 +1377,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AzureOpenIdConfig>| r.into_body())
     }
 
     async fn get_azure_json_web_keys(
@@ -1311,6 +1400,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AzureJsonWebKeys>| r.into_body())
     }
 
     async fn get_azure_server_config(
@@ -1330,6 +1420,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AzureServerConfig>| r.into_body())
     }
 
     async fn list_operations(
@@ -1352,6 +1443,11 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1371,6 +1467,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1390,7 +1487,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1410,7 +1507,7 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

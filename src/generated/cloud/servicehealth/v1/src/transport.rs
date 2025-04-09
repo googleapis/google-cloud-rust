@@ -61,6 +61,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEventsResponse>| r.into_body())
     }
 
     async fn get_event(
@@ -80,6 +81,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Event>| r.into_body())
     }
 
     async fn list_organization_events(
@@ -106,6 +108,11 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListOrganizationEventsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_organization_event(
@@ -125,6 +132,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::OrganizationEvent>| r.into_body())
     }
 
     async fn list_organization_impacts(
@@ -150,6 +158,11 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListOrganizationImpactsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_organization_impact(
@@ -169,6 +182,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::OrganizationImpact>| r.into_body())
     }
 
     async fn list_locations(
@@ -191,6 +205,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -210,5 +225,6 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 }

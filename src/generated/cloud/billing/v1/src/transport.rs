@@ -57,6 +57,7 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BillingAccount>| r.into_body())
     }
 
     async fn list_billing_accounts(
@@ -80,6 +81,11 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBillingAccountsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_billing_account(
@@ -109,6 +115,7 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, Some(req.account), options)
             .await
+            .map(|r: gax::response::Response<crate::model::BillingAccount>| r.into_body())
     }
 
     async fn create_billing_account(
@@ -129,6 +136,7 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, Some(req.billing_account), options)
             .await
+            .map(|r: gax::response::Response<crate::model::BillingAccount>| r.into_body())
     }
 
     async fn list_project_billing_info(
@@ -150,6 +158,11 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListProjectBillingInfoResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_project_billing_info(
@@ -172,6 +185,7 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProjectBillingInfo>| r.into_body())
     }
 
     async fn update_project_billing_info(
@@ -194,6 +208,7 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, Some(req.project_billing_info), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProjectBillingInfo>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -226,6 +241,7 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -245,7 +261,10 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -265,7 +284,9 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn move_billing_account(
@@ -282,7 +303,10 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::BillingAccount>| r.into_body())
     }
 }
 
@@ -327,6 +351,7 @@ impl super::stub::CloudCatalog for CloudCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListServicesResponse>| r.into_body())
     }
 
     async fn list_skus(
@@ -369,5 +394,6 @@ impl super::stub::CloudCatalog for CloudCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSkusResponse>| r.into_body())
     }
 }

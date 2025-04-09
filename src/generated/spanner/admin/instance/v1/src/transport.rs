@@ -62,6 +62,11 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListInstanceConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_instance_config(
@@ -81,6 +86,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::InstanceConfig>| r.into_body())
     }
 
     async fn create_instance_config(
@@ -100,7 +106,10 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_instance_config(
@@ -126,7 +135,10 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_instance_config(
@@ -148,7 +160,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_instance_config_operations(
@@ -174,6 +186,11 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListInstanceConfigOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_instances(
@@ -209,6 +226,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInstancesResponse>| r.into_body())
     }
 
     async fn list_instance_partitions(
@@ -243,6 +261,11 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListInstancePartitionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_instance(
@@ -272,6 +295,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn create_instance(
@@ -291,7 +315,10 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_instance(
@@ -317,7 +344,10 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_instance(
@@ -337,7 +367,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn set_iam_policy(
@@ -357,7 +387,10 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -377,7 +410,10 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -397,7 +433,9 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_instance_partition(
@@ -417,6 +455,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::InstancePartition>| r.into_body())
     }
 
     async fn create_instance_partition(
@@ -436,7 +475,10 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_instance_partition(
@@ -457,7 +499,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_instance_partition(
@@ -483,7 +525,10 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_instance_partition_operations(
@@ -519,6 +564,11 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListInstancePartitionOperationsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn move_instance(
@@ -535,7 +585,10 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -558,6 +611,11 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -577,6 +635,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -596,7 +655,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -616,7 +675,7 @@ impl super::stub::InstanceAdmin for InstanceAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

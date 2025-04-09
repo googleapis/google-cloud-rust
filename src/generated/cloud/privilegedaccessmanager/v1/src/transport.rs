@@ -60,6 +60,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::CheckOnboardingStatusResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_entitlements(
@@ -86,6 +91,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEntitlementsResponse>| r.into_body())
     }
 
     async fn search_entitlements(
@@ -112,6 +118,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchEntitlementsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_entitlement(
@@ -131,6 +142,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Entitlement>| r.into_body())
     }
 
     async fn create_entitlement(
@@ -155,6 +167,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, Some(req.entitlement), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_entitlement(
@@ -176,6 +189,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_entitlement(
@@ -214,6 +228,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, Some(req.entitlement), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_grants(
@@ -237,6 +252,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListGrantsResponse>| r.into_body())
     }
 
     async fn search_grants(
@@ -263,6 +279,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SearchGrantsResponse>| r.into_body())
     }
 
     async fn get_grant(
@@ -282,6 +299,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Grant>| r.into_body())
     }
 
     async fn create_grant(
@@ -299,7 +317,10 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.grant), options).await
+        self.inner
+            .execute(builder, Some(req.grant), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Grant>| r.into_body())
     }
 
     async fn approve_grant(
@@ -316,7 +337,10 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Grant>| r.into_body())
     }
 
     async fn deny_grant(
@@ -333,7 +357,10 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Grant>| r.into_body())
     }
 
     async fn revoke_grant(
@@ -350,7 +377,10 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -373,6 +403,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -392,6 +423,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -414,6 +446,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -433,6 +470,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -452,7 +490,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

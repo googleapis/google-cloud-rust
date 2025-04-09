@@ -57,6 +57,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataSource>| r.into_body())
     }
 
     async fn list_data_sources(
@@ -81,6 +82,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDataSourcesResponse>| r.into_body())
     }
 
     async fn create_transfer_config(
@@ -106,6 +108,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, Some(req.transfer_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TransferConfig>| r.into_body())
     }
 
     async fn update_transfer_config(
@@ -147,6 +150,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, Some(req.transfer_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TransferConfig>| r.into_body())
     }
 
     async fn delete_transfer_config(
@@ -166,7 +170,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_transfer_config(
@@ -186,6 +190,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TransferConfig>| r.into_body())
     }
 
     async fn list_transfer_configs(
@@ -214,6 +219,11 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListTransferConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn schedule_transfer_runs(
@@ -233,7 +243,9 @@ impl super::stub::DataTransferService for DataTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::ScheduleTransferRunsResponse>| r.into_body(),
+        )
     }
 
     async fn start_manual_transfer_runs(
@@ -253,7 +265,11 @@ impl super::stub::DataTransferService for DataTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::StartManualTransferRunsResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn get_transfer_run(
@@ -273,6 +289,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TransferRun>| r.into_body())
     }
 
     async fn delete_transfer_run(
@@ -292,7 +309,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_transfer_runs(
@@ -318,6 +335,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTransferRunsResponse>| r.into_body())
     }
 
     async fn list_transfer_logs(
@@ -345,6 +363,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTransferLogsResponse>| r.into_body())
     }
 
     async fn check_valid_creds(
@@ -364,7 +383,10 @@ impl super::stub::DataTransferService for DataTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::CheckValidCredsResponse>| r.into_body())
     }
 
     async fn enroll_data_sources(
@@ -387,7 +409,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn unenroll_data_sources(
@@ -410,7 +432,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_locations(
@@ -433,6 +455,7 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -452,5 +475,6 @@ impl super::stub::DataTransferService for DataTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 }

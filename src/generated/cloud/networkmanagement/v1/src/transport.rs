@@ -64,6 +64,11 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListConnectivityTestsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_connectivity_test(
@@ -83,6 +88,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ConnectivityTest>| r.into_body())
     }
 
     async fn create_connectivity_test(
@@ -106,6 +112,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, Some(req.resource), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_connectivity_test(
@@ -144,6 +151,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, Some(req.resource), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn rerun_connectivity_test(
@@ -160,7 +168,10 @@ impl super::stub::ReachabilityService for ReachabilityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_connectivity_test(
@@ -180,6 +191,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -202,6 +214,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -221,6 +234,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -240,7 +254,10 @@ impl super::stub::ReachabilityService for ReachabilityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -273,6 +290,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -292,7 +310,9 @@ impl super::stub::ReachabilityService for ReachabilityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -315,6 +335,11 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -334,6 +359,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -353,7 +379,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -373,7 +399,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -437,6 +463,11 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListVpcFlowLogsConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_vpc_flow_logs_config(
@@ -456,6 +487,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VpcFlowLogsConfig>| r.into_body())
     }
 
     async fn create_vpc_flow_logs_config(
@@ -479,6 +511,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, Some(req.vpc_flow_logs_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_vpc_flow_logs_config(
@@ -517,6 +550,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, Some(req.vpc_flow_logs_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_vpc_flow_logs_config(
@@ -536,6 +570,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -558,6 +593,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -577,6 +613,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -596,7 +633,10 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -629,6 +669,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -648,7 +689,9 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -671,6 +714,11 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -690,6 +738,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -709,7 +758,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -729,7 +778,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

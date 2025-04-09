@@ -60,6 +60,11 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServiceAccountsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_service_account(
@@ -79,6 +84,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceAccount>| r.into_body())
     }
 
     async fn create_service_account(
@@ -98,7 +104,10 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ServiceAccount>| r.into_body())
     }
 
     async fn update_service_account(
@@ -115,7 +124,10 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ServiceAccount>| r.into_body())
     }
 
     async fn patch_service_account(
@@ -141,7 +153,10 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ServiceAccount>| r.into_body())
     }
 
     async fn delete_service_account(
@@ -161,7 +176,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn undelete_service_account(
@@ -178,7 +193,11 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::UndeleteServiceAccountResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn enable_service_account(
@@ -198,7 +217,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn disable_service_account(
@@ -218,7 +237,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_service_account_keys(
@@ -241,6 +260,11 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServiceAccountKeysResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_service_account_key(
@@ -261,6 +285,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceAccountKey>| r.into_body())
     }
 
     async fn create_service_account_key(
@@ -277,7 +302,10 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ServiceAccountKey>| r.into_body())
     }
 
     async fn upload_service_account_key(
@@ -297,7 +325,10 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ServiceAccountKey>| r.into_body())
     }
 
     async fn delete_service_account_key(
@@ -317,7 +348,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn disable_service_account_key(
@@ -337,7 +368,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn enable_service_account_key(
@@ -357,7 +388,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn sign_blob(
@@ -374,7 +405,10 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SignBlobResponse>| r.into_body())
     }
 
     async fn sign_jwt(
@@ -391,7 +425,10 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SignJwtResponse>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -424,6 +461,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -443,7 +481,10 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -463,7 +504,9 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn query_grantable_roles(
@@ -483,7 +526,9 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::QueryGrantableRolesResponse>| r.into_body(),
+        )
     }
 
     async fn list_roles(
@@ -508,6 +553,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRolesResponse>| r.into_body())
     }
 
     async fn get_role(
@@ -527,6 +573,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Role>| r.into_body())
     }
 
     async fn create_role(
@@ -543,7 +590,10 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Role>| r.into_body())
     }
 
     async fn update_role(
@@ -570,7 +620,10 @@ impl super::stub::Iam for Iam {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.role), options).await
+        self.inner
+            .execute(builder, Some(req.role), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Role>| r.into_body())
     }
 
     async fn delete_role(
@@ -591,6 +644,7 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Role>| r.into_body())
     }
 
     async fn undelete_role(
@@ -607,7 +661,10 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Role>| r.into_body())
     }
 
     async fn query_testable_permissions(
@@ -627,7 +684,11 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::QueryTestablePermissionsResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn query_auditable_services(
@@ -647,7 +708,11 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::QueryAuditableServicesResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn lint_policy(
@@ -667,6 +732,9 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::LintPolicyResponse>| r.into_body())
     }
 }

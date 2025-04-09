@@ -54,7 +54,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SearchCatalogResponse>| r.into_body())
     }
 
     async fn create_entry_group(
@@ -78,6 +81,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, Some(req.entry_group), options)
             .await
+            .map(|r: gax::response::Response<crate::model::EntryGroup>| r.into_body())
     }
 
     async fn get_entry_group(
@@ -107,6 +111,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::EntryGroup>| r.into_body())
     }
 
     async fn update_entry_group(
@@ -145,6 +150,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, Some(req.entry_group), options)
             .await
+            .map(|r: gax::response::Response<crate::model::EntryGroup>| r.into_body())
     }
 
     async fn delete_entry_group(
@@ -165,7 +171,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_entry_groups(
@@ -190,6 +196,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEntryGroupsResponse>| r.into_body())
     }
 
     async fn create_entry(
@@ -207,7 +214,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("entryId", &req.entry_id)]);
-        self.inner.execute(builder, Some(req.entry), options).await
+        self.inner
+            .execute(builder, Some(req.entry), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Entry>| r.into_body())
     }
 
     async fn update_entry(
@@ -243,7 +253,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.entry), options).await
+        self.inner
+            .execute(builder, Some(req.entry), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Entry>| r.into_body())
     }
 
     async fn delete_entry(
@@ -263,7 +276,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_entry(
@@ -283,6 +296,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Entry>| r.into_body())
     }
 
     async fn lookup_entry(
@@ -320,6 +334,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Entry>| r.into_body())
     }
 
     async fn list_entries(
@@ -351,6 +366,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEntriesResponse>| r.into_body())
     }
 
     async fn modify_entry_overview(
@@ -370,7 +386,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::EntryOverview>| r.into_body())
     }
 
     async fn modify_entry_contacts(
@@ -390,7 +409,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Contacts>| r.into_body())
     }
 
     async fn create_tag_template(
@@ -414,6 +436,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, Some(req.tag_template), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TagTemplate>| r.into_body())
     }
 
     async fn get_tag_template(
@@ -433,6 +456,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TagTemplate>| r.into_body())
     }
 
     async fn update_tag_template(
@@ -471,6 +495,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, Some(req.tag_template), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TagTemplate>| r.into_body())
     }
 
     async fn delete_tag_template(
@@ -491,7 +516,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_tag_template_field(
@@ -512,6 +537,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, Some(req.tag_template_field), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TagTemplateField>| r.into_body())
     }
 
     async fn update_tag_template_field(
@@ -541,6 +567,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, Some(req.tag_template_field), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TagTemplateField>| r.into_body())
     }
 
     async fn rename_tag_template_field(
@@ -557,7 +584,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::TagTemplateField>| r.into_body())
     }
 
     async fn rename_tag_template_field_enum_value(
@@ -574,7 +604,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::TagTemplateField>| r.into_body())
     }
 
     async fn delete_tag_template_field(
@@ -595,7 +628,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_tag(
@@ -612,7 +645,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.tag), options).await
+        self.inner
+            .execute(builder, Some(req.tag), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Tag>| r.into_body())
     }
 
     async fn update_tag(
@@ -648,7 +684,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.tag), options).await
+        self.inner
+            .execute(builder, Some(req.tag), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Tag>| r.into_body())
     }
 
     async fn delete_tag(
@@ -668,7 +707,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_tags(
@@ -690,6 +729,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTagsResponse>| r.into_body())
     }
 
     async fn reconcile_tags(
@@ -709,7 +749,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn star_entry(
@@ -726,7 +769,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::StarEntryResponse>| r.into_body())
     }
 
     async fn unstar_entry(
@@ -743,7 +789,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::UnstarEntryResponse>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -763,7 +812,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -783,7 +835,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -803,7 +858,9 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn import_entries(
@@ -823,7 +880,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn set_config(
@@ -840,7 +900,10 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::MigrationConfig>| r.into_body())
     }
 
     async fn retrieve_config(
@@ -863,6 +926,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::OrganizationConfig>| r.into_body())
     }
 
     async fn retrieve_effective_config(
@@ -885,6 +949,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MigrationConfig>| r.into_body())
     }
 
     async fn list_operations(
@@ -907,6 +972,11 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -926,6 +996,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -945,7 +1016,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -965,7 +1036,7 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -1025,6 +1096,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, Some(req.taxonomy), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Taxonomy>| r.into_body())
     }
 
     async fn delete_taxonomy(
@@ -1044,7 +1116,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_taxonomy(
@@ -1083,6 +1155,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, Some(req.taxonomy), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Taxonomy>| r.into_body())
     }
 
     async fn list_taxonomies(
@@ -1108,6 +1181,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTaxonomiesResponse>| r.into_body())
     }
 
     async fn get_taxonomy(
@@ -1127,6 +1201,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Taxonomy>| r.into_body())
     }
 
     async fn create_policy_tag(
@@ -1149,6 +1224,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, Some(req.policy_tag), options)
             .await
+            .map(|r: gax::response::Response<crate::model::PolicyTag>| r.into_body())
     }
 
     async fn delete_policy_tag(
@@ -1168,7 +1244,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_policy_tag(
@@ -1207,6 +1283,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, Some(req.policy_tag), options)
             .await
+            .map(|r: gax::response::Response<crate::model::PolicyTag>| r.into_body())
     }
 
     async fn list_policy_tags(
@@ -1231,6 +1308,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListPolicyTagsResponse>| r.into_body())
     }
 
     async fn get_policy_tag(
@@ -1250,6 +1328,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PolicyTag>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1269,7 +1348,10 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1289,7 +1371,10 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1309,7 +1394,9 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1332,6 +1419,11 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1351,6 +1443,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1370,7 +1463,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1390,7 +1483,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -1430,7 +1523,10 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Taxonomy>| r.into_body())
     }
 
     async fn import_taxonomies(
@@ -1450,7 +1546,10 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ImportTaxonomiesResponse>| r.into_body())
     }
 
     async fn export_taxonomies(
@@ -1483,6 +1582,7 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ExportTaxonomiesResponse>| r.into_body())
     }
 
     async fn list_operations(
@@ -1505,6 +1605,11 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1524,6 +1629,7 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1543,7 +1649,7 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1563,6 +1669,6 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }

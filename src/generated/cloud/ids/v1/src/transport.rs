@@ -62,6 +62,7 @@ impl super::stub::Ids for Ids {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEndpointsResponse>| r.into_body())
     }
 
     async fn get_endpoint(
@@ -81,6 +82,7 @@ impl super::stub::Ids for Ids {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Endpoint>| r.into_body())
     }
 
     async fn create_endpoint(
@@ -105,6 +107,7 @@ impl super::stub::Ids for Ids {
         self.inner
             .execute(builder, Some(req.endpoint), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_endpoint(
@@ -125,6 +128,7 @@ impl super::stub::Ids for Ids {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -147,6 +151,11 @@ impl super::stub::Ids for Ids {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -166,6 +175,7 @@ impl super::stub::Ids for Ids {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -185,7 +195,7 @@ impl super::stub::Ids for Ids {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -205,7 +215,7 @@ impl super::stub::Ids for Ids {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

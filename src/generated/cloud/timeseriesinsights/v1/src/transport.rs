@@ -59,6 +59,7 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDataSetsResponse>| r.into_body())
     }
 
     async fn create_data_set(
@@ -81,6 +82,7 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataSet>| r.into_body())
     }
 
     async fn delete_data_set(
@@ -100,7 +102,7 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn append_events(
@@ -120,7 +122,10 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AppendEventsResponse>| r.into_body())
     }
 
     async fn query_data_set(
@@ -137,7 +142,10 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::QueryDataSetResponse>| r.into_body())
     }
 
     async fn evaluate_slice(
@@ -157,7 +165,10 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::EvaluatedSlice>| r.into_body())
     }
 
     async fn evaluate_timeseries(
@@ -177,6 +188,9 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::EvaluatedSlice>| r.into_body())
     }
 }

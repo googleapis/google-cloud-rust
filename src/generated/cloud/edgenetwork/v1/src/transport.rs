@@ -57,7 +57,10 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::InitializeZoneResponse>| r.into_body())
     }
 
     async fn list_zones(
@@ -81,6 +84,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListZonesResponse>| r.into_body())
     }
 
     async fn get_zone(
@@ -100,6 +104,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Zone>| r.into_body())
     }
 
     async fn list_networks(
@@ -123,6 +128,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNetworksResponse>| r.into_body())
     }
 
     async fn get_network(
@@ -142,6 +148,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Network>| r.into_body())
     }
 
     async fn diagnose_network(
@@ -161,6 +168,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DiagnoseNetworkResponse>| r.into_body())
     }
 
     async fn create_network(
@@ -185,6 +193,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, Some(req.network), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_network(
@@ -205,6 +214,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_subnets(
@@ -228,6 +238,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSubnetsResponse>| r.into_body())
     }
 
     async fn get_subnet(
@@ -247,6 +258,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Subnet>| r.into_body())
     }
 
     async fn create_subnet(
@@ -265,7 +277,10 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
             );
         let builder = builder.query(&[("subnetId", &req.subnet_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.subnet), options).await
+        self.inner
+            .execute(builder, Some(req.subnet), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_subnet(
@@ -302,7 +317,10 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.subnet), options).await
+        self.inner
+            .execute(builder, Some(req.subnet), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_subnet(
@@ -323,6 +341,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_interconnects(
@@ -349,6 +368,9 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListInterconnectsResponse>| r.into_body(),
+            )
     }
 
     async fn get_interconnect(
@@ -368,6 +390,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Interconnect>| r.into_body())
     }
 
     async fn diagnose_interconnect(
@@ -387,6 +410,11 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::DiagnoseInterconnectResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_interconnect_attachments(
@@ -413,6 +441,11 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListInterconnectAttachmentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_interconnect_attachment(
@@ -432,6 +465,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::InterconnectAttachment>| r.into_body())
     }
 
     async fn create_interconnect_attachment(
@@ -457,6 +491,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, Some(req.interconnect_attachment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_interconnect_attachment(
@@ -477,6 +512,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_routers(
@@ -500,6 +536,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRoutersResponse>| r.into_body())
     }
 
     async fn get_router(
@@ -519,6 +556,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Router>| r.into_body())
     }
 
     async fn diagnose_router(
@@ -538,6 +576,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DiagnoseRouterResponse>| r.into_body())
     }
 
     async fn create_router(
@@ -556,7 +595,10 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
             );
         let builder = builder.query(&[("routerId", &req.router_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.router), options).await
+        self.inner
+            .execute(builder, Some(req.router), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_router(
@@ -593,7 +635,10 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.router), options).await
+        self.inner
+            .execute(builder, Some(req.router), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_router(
@@ -614,6 +659,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -636,6 +682,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -655,6 +702,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -677,6 +725,11 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -696,6 +749,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -715,7 +769,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -735,7 +789,7 @@ impl super::stub::EdgeNetwork for EdgeNetwork {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

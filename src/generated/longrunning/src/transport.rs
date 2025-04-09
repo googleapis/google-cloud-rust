@@ -60,6 +60,7 @@ impl super::stub::Operations for Operations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListOperationsResponse>| r.into_body())
     }
 
     async fn get_operation(
@@ -79,6 +80,7 @@ impl super::stub::Operations for Operations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -98,7 +100,7 @@ impl super::stub::Operations for Operations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -118,6 +120,6 @@ impl super::stub::Operations for Operations {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }

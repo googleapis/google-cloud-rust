@@ -63,6 +63,11 @@ impl super::stub::AccessApproval for AccessApproval {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListApprovalRequestsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_approval_request(
@@ -82,6 +87,7 @@ impl super::stub::AccessApproval for AccessApproval {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ApprovalRequest>| r.into_body())
     }
 
     async fn approve_approval_request(
@@ -98,7 +104,10 @@ impl super::stub::AccessApproval for AccessApproval {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ApprovalRequest>| r.into_body())
     }
 
     async fn dismiss_approval_request(
@@ -115,7 +124,10 @@ impl super::stub::AccessApproval for AccessApproval {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ApprovalRequest>| r.into_body())
     }
 
     async fn invalidate_approval_request(
@@ -135,7 +147,10 @@ impl super::stub::AccessApproval for AccessApproval {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ApprovalRequest>| r.into_body())
     }
 
     async fn get_access_approval_settings(
@@ -155,6 +170,7 @@ impl super::stub::AccessApproval for AccessApproval {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AccessApprovalSettings>| r.into_body())
     }
 
     async fn update_access_approval_settings(
@@ -193,6 +209,7 @@ impl super::stub::AccessApproval for AccessApproval {
         self.inner
             .execute(builder, Some(req.settings), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AccessApprovalSettings>| r.into_body())
     }
 
     async fn delete_access_approval_settings(
@@ -212,7 +229,7 @@ impl super::stub::AccessApproval for AccessApproval {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_access_approval_service_account(
@@ -232,5 +249,10 @@ impl super::stub::AccessApproval for AccessApproval {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::AccessApprovalServiceAccount>| {
+                    r.into_body()
+                },
+            )
     }
 }

@@ -61,6 +61,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListClustersResponse>| r.into_body())
     }
 
     async fn get_cluster(
@@ -81,6 +82,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Cluster>| r.into_body())
     }
 
     async fn create_cluster(
@@ -106,6 +108,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_cluster(
@@ -147,6 +150,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_cluster(
@@ -170,6 +174,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn promote_cluster(
@@ -186,7 +191,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn switchover_cluster(
@@ -206,7 +214,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn restore_cluster(
@@ -226,7 +237,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_secondary_cluster(
@@ -252,6 +266,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_instances(
@@ -278,6 +293,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInstancesResponse>| r.into_body())
     }
 
     async fn get_instance(
@@ -298,6 +314,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn create_instance(
@@ -323,6 +340,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_secondary_instance(
@@ -348,6 +366,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn batch_create_instances(
@@ -371,6 +390,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, Some(req.requests), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_instance(
@@ -412,6 +432,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_instance(
@@ -434,6 +455,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn failover_instance(
@@ -450,7 +472,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn inject_fault(
@@ -470,7 +495,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn restart_instance(
@@ -487,7 +515,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn execute_sql(
@@ -507,7 +538,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ExecuteSqlResponse>| r.into_body())
     }
 
     async fn list_backups(
@@ -531,6 +565,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn get_backup(
@@ -550,6 +585,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn create_backup(
@@ -569,7 +605,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         let builder = builder.query(&[("backupId", &req.backup_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_backup(
@@ -608,7 +647,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_backup(
@@ -631,6 +673,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_supported_database_flags(
@@ -655,6 +698,11 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListSupportedDatabaseFlagsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn generate_client_certificate(
@@ -674,7 +722,11 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateClientCertificateResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn get_connection_info(
@@ -698,6 +750,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ConnectionInfo>| r.into_body())
     }
 
     async fn list_users(
@@ -721,6 +774,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListUsersResponse>| r.into_body())
     }
 
     async fn get_user(
@@ -740,6 +794,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::User>| r.into_body())
     }
 
     async fn create_user(
@@ -759,7 +814,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         let builder = builder.query(&[("userId", &req.user_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner.execute(builder, Some(req.user), options).await
+        self.inner
+            .execute(builder, Some(req.user), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::User>| r.into_body())
     }
 
     async fn update_user(
@@ -798,7 +856,10 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-        self.inner.execute(builder, Some(req.user), options).await
+        self.inner
+            .execute(builder, Some(req.user), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::User>| r.into_body())
     }
 
     async fn delete_user(
@@ -820,7 +881,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_databases(
@@ -846,6 +907,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDatabasesResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -868,6 +930,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -887,6 +950,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -909,6 +973,11 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -928,6 +997,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -947,7 +1017,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -967,7 +1037,7 @@ impl super::stub::AlloyDBAdmin for AlloyDBAdmin {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

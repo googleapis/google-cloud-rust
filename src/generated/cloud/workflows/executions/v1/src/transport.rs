@@ -65,6 +65,7 @@ impl super::stub::Executions for Executions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListExecutionsResponse>| r.into_body())
     }
 
     async fn create_execution(
@@ -87,6 +88,7 @@ impl super::stub::Executions for Executions {
         self.inner
             .execute(builder, Some(req.execution), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Execution>| r.into_body())
     }
 
     async fn get_execution(
@@ -107,6 +109,7 @@ impl super::stub::Executions for Executions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Execution>| r.into_body())
     }
 
     async fn cancel_execution(
@@ -123,6 +126,9 @@ impl super::stub::Executions for Executions {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Execution>| r.into_body())
     }
 }

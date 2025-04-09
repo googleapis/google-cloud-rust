@@ -62,6 +62,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, Some(req.channel), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_channels(
@@ -85,6 +86,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListChannelsResponse>| r.into_body())
     }
 
     async fn get_channel(
@@ -104,6 +106,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Channel>| r.into_body())
     }
 
     async fn delete_channel(
@@ -125,6 +128,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_channel(
@@ -164,6 +168,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, Some(req.channel), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn start_channel(
@@ -180,7 +185,10 @@ impl super::stub::LivestreamService for LivestreamService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn stop_channel(
@@ -197,7 +205,10 @@ impl super::stub::LivestreamService for LivestreamService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_input(
@@ -216,7 +227,10 @@ impl super::stub::LivestreamService for LivestreamService {
             );
         let builder = builder.query(&[("inputId", &req.input_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.input), options).await
+        self.inner
+            .execute(builder, Some(req.input), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_inputs(
@@ -240,6 +254,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInputsResponse>| r.into_body())
     }
 
     async fn get_input(
@@ -259,6 +274,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Input>| r.into_body())
     }
 
     async fn delete_input(
@@ -279,6 +295,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_input(
@@ -315,7 +332,10 @@ impl super::stub::LivestreamService for LivestreamService {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.input), options).await
+        self.inner
+            .execute(builder, Some(req.input), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_event(
@@ -334,7 +354,10 @@ impl super::stub::LivestreamService for LivestreamService {
             );
         let builder = builder.query(&[("eventId", &req.event_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.event), options).await
+        self.inner
+            .execute(builder, Some(req.event), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Event>| r.into_body())
     }
 
     async fn list_events(
@@ -358,6 +381,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEventsResponse>| r.into_body())
     }
 
     async fn get_event(
@@ -377,6 +401,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Event>| r.into_body())
     }
 
     async fn delete_event(
@@ -397,7 +422,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_clips(
@@ -421,6 +446,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListClipsResponse>| r.into_body())
     }
 
     async fn get_clip(
@@ -440,6 +466,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Clip>| r.into_body())
     }
 
     async fn create_clip(
@@ -458,7 +485,10 @@ impl super::stub::LivestreamService for LivestreamService {
             );
         let builder = builder.query(&[("clipId", &req.clip_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.clip), options).await
+        self.inner
+            .execute(builder, Some(req.clip), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_clip(
@@ -479,6 +509,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_asset(
@@ -497,7 +528,10 @@ impl super::stub::LivestreamService for LivestreamService {
             );
         let builder = builder.query(&[("assetId", &req.asset_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.asset), options).await
+        self.inner
+            .execute(builder, Some(req.asset), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_asset(
@@ -518,6 +552,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_asset(
@@ -537,6 +572,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Asset>| r.into_body())
     }
 
     async fn list_assets(
@@ -560,6 +596,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAssetsResponse>| r.into_body())
     }
 
     async fn get_pool(
@@ -579,6 +616,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Pool>| r.into_body())
     }
 
     async fn update_pool(
@@ -615,7 +653,10 @@ impl super::stub::LivestreamService for LivestreamService {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.pool), options).await
+        self.inner
+            .execute(builder, Some(req.pool), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -638,6 +679,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -657,6 +699,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -679,6 +722,11 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -698,6 +746,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -717,7 +766,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -737,7 +786,7 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

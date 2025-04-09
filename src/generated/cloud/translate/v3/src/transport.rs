@@ -57,7 +57,10 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::TranslateTextResponse>| r.into_body())
     }
 
     async fn romanize_text(
@@ -77,7 +80,10 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::RomanizeTextResponse>| r.into_body())
     }
 
     async fn detect_language(
@@ -97,7 +103,10 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::DetectLanguageResponse>| r.into_body())
     }
 
     async fn get_supported_languages(
@@ -122,6 +131,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SupportedLanguages>| r.into_body())
     }
 
     async fn translate_document(
@@ -141,7 +151,9 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::TranslateDocumentResponse>| r.into_body(),
+        )
     }
 
     async fn batch_translate_text(
@@ -161,7 +173,10 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn batch_translate_document(
@@ -181,7 +196,10 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_glossary(
@@ -204,6 +222,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.glossary), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_glossary(
@@ -242,6 +261,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.glossary), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_glossaries(
@@ -267,6 +287,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListGlossariesResponse>| r.into_body())
     }
 
     async fn get_glossary(
@@ -286,6 +307,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Glossary>| r.into_body())
     }
 
     async fn delete_glossary(
@@ -305,6 +327,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_glossary_entry(
@@ -324,6 +347,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GlossaryEntry>| r.into_body())
     }
 
     async fn list_glossary_entries(
@@ -348,6 +372,11 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListGlossaryEntriesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_glossary_entry(
@@ -370,6 +399,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.glossary_entry), options)
             .await
+            .map(|r: gax::response::Response<crate::model::GlossaryEntry>| r.into_body())
     }
 
     async fn update_glossary_entry(
@@ -398,6 +428,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.glossary_entry), options)
             .await
+            .map(|r: gax::response::Response<crate::model::GlossaryEntry>| r.into_body())
     }
 
     async fn delete_glossary_entry(
@@ -417,7 +448,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_dataset(
@@ -440,6 +471,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_dataset(
@@ -459,6 +491,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dataset>| r.into_body())
     }
 
     async fn list_datasets(
@@ -480,6 +513,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDatasetsResponse>| r.into_body())
     }
 
     async fn delete_dataset(
@@ -499,6 +533,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_adaptive_mt_dataset(
@@ -521,6 +556,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.adaptive_mt_dataset), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AdaptiveMtDataset>| r.into_body())
     }
 
     async fn delete_adaptive_mt_dataset(
@@ -540,7 +576,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_adaptive_mt_dataset(
@@ -560,6 +596,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AdaptiveMtDataset>| r.into_body())
     }
 
     async fn list_adaptive_mt_datasets(
@@ -585,6 +622,11 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAdaptiveMtDatasetsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn adaptive_mt_translate(
@@ -604,7 +646,9 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::AdaptiveMtTranslateResponse>| r.into_body(),
+        )
     }
 
     async fn get_adaptive_mt_file(
@@ -624,6 +668,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AdaptiveMtFile>| r.into_body())
     }
 
     async fn delete_adaptive_mt_file(
@@ -643,7 +688,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn import_adaptive_mt_file(
@@ -663,7 +708,9 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::ImportAdaptiveMtFileResponse>| r.into_body(),
+        )
     }
 
     async fn list_adaptive_mt_files(
@@ -688,6 +735,11 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAdaptiveMtFilesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_adaptive_mt_sentences(
@@ -712,6 +764,11 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAdaptiveMtSentencesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn import_data(
@@ -731,7 +788,10 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_data(
@@ -751,7 +811,10 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_examples(
@@ -774,6 +837,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListExamplesResponse>| r.into_body())
     }
 
     async fn create_model(
@@ -790,7 +854,10 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.model), options).await
+        self.inner
+            .execute(builder, Some(req.model), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_models(
@@ -813,6 +880,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListModelsResponse>| r.into_body())
     }
 
     async fn get_model(
@@ -832,6 +900,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn delete_model(
@@ -851,6 +920,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -873,6 +943,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -892,6 +963,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -914,6 +986,11 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -933,6 +1010,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -952,7 +1030,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -972,7 +1050,7 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -989,7 +1067,10 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

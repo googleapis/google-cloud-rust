@@ -57,6 +57,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::WorkstationCluster>| r.into_body())
     }
 
     async fn list_workstation_clusters(
@@ -81,6 +82,11 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListWorkstationClustersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_workstation_cluster(
@@ -105,6 +111,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, Some(req.workstation_cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_workstation_cluster(
@@ -145,6 +152,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, Some(req.workstation_cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_workstation_cluster(
@@ -167,6 +175,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_workstation_config(
@@ -186,6 +195,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::WorkstationConfig>| r.into_body())
     }
 
     async fn list_workstation_configs(
@@ -210,6 +220,11 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListWorkstationConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_usable_workstation_configs(
@@ -234,6 +249,11 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListUsableWorkstationConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_workstation_config(
@@ -258,6 +278,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, Some(req.workstation_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_workstation_config(
@@ -298,6 +319,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, Some(req.workstation_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_workstation_config(
@@ -320,6 +342,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_workstation(
@@ -339,6 +362,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Workstation>| r.into_body())
     }
 
     async fn list_workstations(
@@ -363,6 +387,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListWorkstationsResponse>| r.into_body())
     }
 
     async fn list_usable_workstations(
@@ -387,6 +412,11 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListUsableWorkstationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_workstation(
@@ -411,6 +441,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, Some(req.workstation), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_workstation(
@@ -451,6 +482,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, Some(req.workstation), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_workstation(
@@ -472,6 +504,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn start_workstation(
@@ -488,7 +521,10 @@ impl super::stub::Workstations for Workstations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn stop_workstation(
@@ -505,7 +541,10 @@ impl super::stub::Workstations for Workstations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_access_token(
@@ -525,7 +564,9 @@ impl super::stub::Workstations for Workstations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateAccessTokenResponse>| r.into_body(),
+        )
     }
 
     async fn set_iam_policy(
@@ -545,7 +586,10 @@ impl super::stub::Workstations for Workstations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -578,6 +622,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -597,7 +642,9 @@ impl super::stub::Workstations for Workstations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -620,6 +667,11 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -639,6 +691,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -658,7 +711,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -678,7 +731,7 @@ impl super::stub::Workstations for Workstations {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

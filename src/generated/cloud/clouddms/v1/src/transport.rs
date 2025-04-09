@@ -64,6 +64,9 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListMigrationJobsResponse>| r.into_body(),
+            )
     }
 
     async fn get_migration_job(
@@ -83,6 +86,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MigrationJob>| r.into_body())
     }
 
     async fn create_migration_job(
@@ -107,6 +111,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, Some(req.migration_job), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_migration_job(
@@ -146,6 +151,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, Some(req.migration_job), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_migration_job(
@@ -167,6 +173,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn start_migration_job(
@@ -183,7 +190,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn stop_migration_job(
@@ -200,7 +210,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn resume_migration_job(
@@ -217,7 +230,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn promote_migration_job(
@@ -234,7 +250,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn verify_migration_job(
@@ -251,7 +270,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn restart_migration_job(
@@ -268,7 +290,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_ssh_script(
@@ -288,7 +313,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SshScript>| r.into_body())
     }
 
     async fn generate_tcp_proxy_script(
@@ -308,7 +336,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::TcpProxyScript>| r.into_body())
     }
 
     async fn list_connection_profiles(
@@ -335,6 +366,11 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListConnectionProfilesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_connection_profile(
@@ -354,6 +390,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ConnectionProfile>| r.into_body())
     }
 
     async fn create_connection_profile(
@@ -380,6 +417,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, Some(req.connection_profile), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_connection_profile(
@@ -421,6 +459,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, Some(req.connection_profile), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_connection_profile(
@@ -442,6 +481,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_private_connection(
@@ -467,6 +507,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, Some(req.private_connection), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_private_connection(
@@ -486,6 +527,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PrivateConnection>| r.into_body())
     }
 
     async fn list_private_connections(
@@ -512,6 +554,11 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPrivateConnectionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_private_connection(
@@ -532,6 +579,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_conversion_workspace(
@@ -551,6 +599,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ConversionWorkspace>| r.into_body())
     }
 
     async fn list_conversion_workspaces(
@@ -576,6 +625,11 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListConversionWorkspacesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_conversion_workspace(
@@ -600,6 +654,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, Some(req.conversion_workspace), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_conversion_workspace(
@@ -639,6 +694,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, Some(req.conversion_workspace), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_conversion_workspace(
@@ -660,6 +716,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_mapping_rule(
@@ -684,6 +741,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, Some(req.mapping_rule), options)
             .await
+            .map(|r: gax::response::Response<crate::model::MappingRule>| r.into_body())
     }
 
     async fn delete_mapping_rule(
@@ -704,7 +762,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_mapping_rules(
@@ -729,6 +787,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListMappingRulesResponse>| r.into_body())
     }
 
     async fn get_mapping_rule(
@@ -748,6 +807,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MappingRule>| r.into_body())
     }
 
     async fn seed_conversion_workspace(
@@ -764,7 +824,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_mapping_rules(
@@ -784,7 +847,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn convert_conversion_workspace(
@@ -801,7 +867,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn commit_conversion_workspace(
@@ -818,7 +887,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn rollback_conversion_workspace(
@@ -835,7 +907,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn apply_conversion_workspace(
@@ -852,7 +927,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn describe_database_entities(
@@ -882,6 +960,11 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::DescribeDatabaseEntitiesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn search_background_jobs(
@@ -919,6 +1002,11 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchBackgroundJobsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn describe_conversion_workspace_revisions(
@@ -945,6 +1033,11 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::DescribeConversionWorkspaceRevisionsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn fetch_static_ips(
@@ -969,6 +1062,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FetchStaticIpsResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -991,6 +1085,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1010,6 +1105,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1029,7 +1125,10 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1062,6 +1161,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1081,7 +1181,9 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1104,6 +1206,11 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1123,6 +1230,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1142,7 +1250,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1162,7 +1270,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

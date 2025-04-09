@@ -64,6 +64,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListOrchestrationClustersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_orchestration_cluster(
@@ -83,6 +88,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::OrchestrationCluster>| r.into_body())
     }
 
     async fn create_orchestration_cluster(
@@ -107,6 +113,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.orchestration_cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_orchestration_cluster(
@@ -127,6 +134,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_edge_slms(
@@ -150,6 +158,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEdgeSlmsResponse>| r.into_body())
     }
 
     async fn get_edge_slm(
@@ -169,6 +178,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::EdgeSlm>| r.into_body())
     }
 
     async fn create_edge_slm(
@@ -193,6 +203,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.edge_slm), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_edge_slm(
@@ -213,6 +224,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_blueprint(
@@ -236,6 +248,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.blueprint), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
     }
 
     async fn update_blueprint(
@@ -274,6 +287,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.blueprint), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
     }
 
     async fn get_blueprint(
@@ -294,6 +308,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
     }
 
     async fn delete_blueprint(
@@ -313,7 +328,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_blueprints(
@@ -339,6 +354,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBlueprintsResponse>| r.into_body())
     }
 
     async fn approve_blueprint(
@@ -355,7 +371,10 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
     }
 
     async fn propose_blueprint(
@@ -372,7 +391,10 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
     }
 
     async fn reject_blueprint(
@@ -389,7 +411,10 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
     }
 
     async fn list_blueprint_revisions(
@@ -414,6 +439,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBlueprintRevisionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn search_blueprint_revisions(
@@ -439,6 +469,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn search_deployment_revisions(
@@ -464,6 +499,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn discard_blueprint_changes(
@@ -480,7 +520,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::DiscardBlueprintChangesResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn list_public_blueprints(
@@ -505,6 +549,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPublicBlueprintsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_public_blueprint(
@@ -524,6 +573,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PublicBlueprint>| r.into_body())
     }
 
     async fn create_deployment(
@@ -547,6 +597,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.deployment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn update_deployment(
@@ -585,6 +636,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.deployment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn get_deployment(
@@ -605,6 +657,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn remove_deployment(
@@ -624,7 +677,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_deployments(
@@ -650,6 +703,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDeploymentsResponse>| r.into_body())
     }
 
     async fn list_deployment_revisions(
@@ -674,6 +728,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDeploymentRevisionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn discard_deployment_changes(
@@ -690,7 +749,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::DiscardDeploymentChangesResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn apply_deployment(
@@ -707,7 +770,10 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn compute_deployment_status(
@@ -730,6 +796,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ComputeDeploymentStatusResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn rollback_deployment(
@@ -746,7 +817,10 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn get_hydrated_deployment(
@@ -766,6 +840,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::HydratedDeployment>| r.into_body())
     }
 
     async fn list_hydrated_deployments(
@@ -790,6 +865,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListHydratedDeploymentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_hydrated_deployment(
@@ -828,6 +908,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.hydrated_deployment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::HydratedDeployment>| r.into_body())
     }
 
     async fn apply_hydrated_deployment(
@@ -844,7 +925,10 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::HydratedDeployment>| r.into_body())
     }
 
     async fn list_locations(
@@ -867,6 +951,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -886,6 +971,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -908,6 +994,11 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -927,6 +1018,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -946,7 +1038,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -966,7 +1058,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

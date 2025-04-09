@@ -62,6 +62,7 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCryptoKeysResponse>| r.into_body())
     }
 }
 
@@ -107,6 +108,9 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ProtectedResourcesSummary>| r.into_body(),
+            )
     }
 
     async fn search_protected_resources(
@@ -136,5 +140,10 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchProtectedResourcesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 }

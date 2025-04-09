@@ -58,7 +58,10 @@ impl super::stub::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("parent", &req.parent)]);
-        self.inner.execute(builder, Some(req.build), options).await
+        self.inner
+            .execute(builder, Some(req.build), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_build(
@@ -82,6 +85,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Build>| r.into_body())
     }
 
     async fn list_builds(
@@ -108,6 +112,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBuildsResponse>| r.into_body())
     }
 
     async fn cancel_build(
@@ -127,7 +132,10 @@ impl super::stub::CloudBuild for CloudBuild {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Build>| r.into_body())
     }
 
     async fn retry_build(
@@ -147,7 +155,10 @@ impl super::stub::CloudBuild for CloudBuild {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn approve_build(
@@ -164,7 +175,10 @@ impl super::stub::CloudBuild for CloudBuild {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_build_trigger(
@@ -188,6 +202,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, Some(req.trigger), options)
             .await
+            .map(|r: gax::response::Response<crate::model::BuildTrigger>| r.into_body())
     }
 
     async fn get_build_trigger(
@@ -214,6 +229,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BuildTrigger>| r.into_body())
     }
 
     async fn list_build_triggers(
@@ -239,6 +255,9 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBuildTriggersResponse>| r.into_body(),
+            )
     }
 
     async fn delete_build_trigger(
@@ -265,7 +284,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_build_trigger(
@@ -301,6 +320,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, Some(req.trigger), options)
             .await
+            .map(|r: gax::response::Response<crate::model::BuildTrigger>| r.into_body())
     }
 
     async fn run_build_trigger(
@@ -324,7 +344,10 @@ impl super::stub::CloudBuild for CloudBuild {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("name", &req.name)]);
-        self.inner.execute(builder, Some(req.source), options).await
+        self.inner
+            .execute(builder, Some(req.source), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn receive_trigger_webhook(
@@ -349,7 +372,14 @@ impl super::stub::CloudBuild for CloudBuild {
             );
         let builder = builder.query(&[("name", &req.name)]);
         let builder = builder.query(&[("secret", &req.secret)]);
-        self.inner.execute(builder, Some(req.body), options).await
+        self.inner
+            .execute(builder, Some(req.body), options)
+            .await
+            .map(
+                |r: gax::response::Response<crate::model::ReceiveTriggerWebhookResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_worker_pool(
@@ -374,6 +404,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, Some(req.worker_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_worker_pool(
@@ -393,6 +424,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::WorkerPool>| r.into_body())
     }
 
     async fn delete_worker_pool(
@@ -415,6 +447,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_worker_pool(
@@ -454,6 +487,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, Some(req.worker_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_worker_pools(
@@ -478,6 +512,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListWorkerPoolsResponse>| r.into_body())
     }
 
     async fn get_operation(
@@ -497,6 +532,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
@@ -516,7 +552,7 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

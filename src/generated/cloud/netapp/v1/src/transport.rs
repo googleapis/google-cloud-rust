@@ -64,6 +64,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListStoragePoolsResponse>| r.into_body())
     }
 
     async fn create_storage_pool(
@@ -87,6 +88,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.storage_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_storage_pool(
@@ -106,6 +108,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::StoragePool>| r.into_body())
     }
 
     async fn update_storage_pool(
@@ -144,6 +147,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.storage_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_storage_pool(
@@ -163,6 +167,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn validate_directory_service(
@@ -182,7 +187,10 @@ impl super::stub::NetApp for NetApp {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn switch_active_replica_zone(
@@ -199,7 +207,10 @@ impl super::stub::NetApp for NetApp {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_volumes(
@@ -223,6 +234,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListVolumesResponse>| r.into_body())
     }
 
     async fn get_volume(
@@ -242,6 +254,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Volume>| r.into_body())
     }
 
     async fn create_volume(
@@ -259,7 +272,10 @@ impl super::stub::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("volumeId", &req.volume_id)]);
-        self.inner.execute(builder, Some(req.volume), options).await
+        self.inner
+            .execute(builder, Some(req.volume), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_volume(
@@ -295,7 +311,10 @@ impl super::stub::NetApp for NetApp {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.volume), options).await
+        self.inner
+            .execute(builder, Some(req.volume), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_volume(
@@ -316,6 +335,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn revert_volume(
@@ -332,7 +352,10 @@ impl super::stub::NetApp for NetApp {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_snapshots(
@@ -359,6 +382,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSnapshotsResponse>| r.into_body())
     }
 
     async fn get_snapshot(
@@ -378,6 +402,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Snapshot>| r.into_body())
     }
 
     async fn create_snapshot(
@@ -401,6 +426,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.snapshot), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_snapshot(
@@ -420,6 +446,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_snapshot(
@@ -458,6 +485,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.snapshot), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_active_directories(
@@ -484,6 +512,11 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListActiveDirectoriesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_active_directory(
@@ -503,6 +536,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ActiveDirectory>| r.into_body())
     }
 
     async fn create_active_directory(
@@ -526,6 +560,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.active_directory), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_active_directory(
@@ -564,6 +599,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.active_directory), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_active_directory(
@@ -583,6 +619,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_kms_configs(
@@ -609,6 +646,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListKmsConfigsResponse>| r.into_body())
     }
 
     async fn create_kms_config(
@@ -632,6 +670,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.kms_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_kms_config(
@@ -651,6 +690,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::KmsConfig>| r.into_body())
     }
 
     async fn update_kms_config(
@@ -689,6 +729,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.kms_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn encrypt_volumes(
@@ -705,7 +746,10 @@ impl super::stub::NetApp for NetApp {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn verify_kms_config(
@@ -722,7 +766,10 @@ impl super::stub::NetApp for NetApp {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::VerifyKmsConfigResponse>| r.into_body())
     }
 
     async fn delete_kms_config(
@@ -742,6 +789,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_replications(
@@ -768,6 +816,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListReplicationsResponse>| r.into_body())
     }
 
     async fn get_replication(
@@ -787,6 +836,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Replication>| r.into_body())
     }
 
     async fn create_replication(
@@ -810,6 +860,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.replication), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_replication(
@@ -829,6 +880,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_replication(
@@ -867,6 +919,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.replication), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn stop_replication(
@@ -883,7 +936,10 @@ impl super::stub::NetApp for NetApp {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn resume_replication(
@@ -900,7 +956,10 @@ impl super::stub::NetApp for NetApp {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn reverse_replication_direction(
@@ -920,7 +979,10 @@ impl super::stub::NetApp for NetApp {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn establish_peering(
@@ -940,7 +1002,10 @@ impl super::stub::NetApp for NetApp {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn sync_replication(
@@ -957,7 +1022,10 @@ impl super::stub::NetApp for NetApp {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_backup_vault(
@@ -981,6 +1049,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.backup_vault), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_backup_vault(
@@ -1000,6 +1069,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BackupVault>| r.into_body())
     }
 
     async fn list_backup_vaults(
@@ -1026,6 +1096,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupVaultsResponse>| r.into_body())
     }
 
     async fn update_backup_vault(
@@ -1064,6 +1135,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.backup_vault), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_backup_vault(
@@ -1083,6 +1155,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_backup(
@@ -1100,7 +1173,10 @@ impl super::stub::NetApp for NetApp {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("backupId", &req.backup_id)]);
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_backup(
@@ -1120,6 +1196,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn list_backups(
@@ -1143,6 +1220,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn delete_backup(
@@ -1162,6 +1240,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_backup(
@@ -1197,7 +1276,10 @@ impl super::stub::NetApp for NetApp {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_backup_policy(
@@ -1221,6 +1303,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.backup_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_backup_policy(
@@ -1240,6 +1323,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BackupPolicy>| r.into_body())
     }
 
     async fn list_backup_policies(
@@ -1266,6 +1350,11 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBackupPoliciesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_backup_policy(
@@ -1304,6 +1393,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.backup_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_backup_policy(
@@ -1323,6 +1413,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_quota_rules(
@@ -1349,6 +1440,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListQuotaRulesResponse>| r.into_body())
     }
 
     async fn get_quota_rule(
@@ -1368,6 +1460,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::QuotaRule>| r.into_body())
     }
 
     async fn create_quota_rule(
@@ -1391,6 +1484,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.quota_rule), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_quota_rule(
@@ -1429,6 +1523,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req.quota_rule), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_quota_rule(
@@ -1448,6 +1543,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -1470,6 +1566,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1489,6 +1586,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -1511,6 +1609,11 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1530,6 +1633,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1549,7 +1653,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1569,7 +1673,7 @@ impl super::stub::NetApp for NetApp {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

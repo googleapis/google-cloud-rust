@@ -57,6 +57,7 @@ impl super::stub::Applications for Applications {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Application>| r.into_body())
     }
 
     async fn create_application(
@@ -76,6 +77,7 @@ impl super::stub::Applications for Applications {
         self.inner
             .execute(builder, Some(req.application), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_application(
@@ -105,6 +107,7 @@ impl super::stub::Applications for Applications {
         self.inner
             .execute(builder, Some(req.application), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn repair_application(
@@ -121,7 +124,10 @@ impl super::stub::Applications for Applications {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -144,6 +150,11 @@ impl super::stub::Applications for Applications {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -163,6 +174,7 @@ impl super::stub::Applications for Applications {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -221,6 +233,7 @@ impl super::stub::Services for Services {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListServicesResponse>| r.into_body())
     }
 
     async fn get_service(
@@ -240,6 +253,7 @@ impl super::stub::Services for Services {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Service>| r.into_body())
     }
 
     async fn update_service(
@@ -270,6 +284,7 @@ impl super::stub::Services for Services {
         self.inner
             .execute(builder, Some(req.service), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_service(
@@ -289,6 +304,7 @@ impl super::stub::Services for Services {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -311,6 +327,11 @@ impl super::stub::Services for Services {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -330,6 +351,7 @@ impl super::stub::Services for Services {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -389,6 +411,7 @@ impl super::stub::Versions for Versions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListVersionsResponse>| r.into_body())
     }
 
     async fn get_version(
@@ -409,6 +432,7 @@ impl super::stub::Versions for Versions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Version>| r.into_body())
     }
 
     async fn create_version(
@@ -431,6 +455,7 @@ impl super::stub::Versions for Versions {
         self.inner
             .execute(builder, Some(req.version), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_version(
@@ -460,6 +485,7 @@ impl super::stub::Versions for Versions {
         self.inner
             .execute(builder, Some(req.version), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_version(
@@ -479,6 +505,7 @@ impl super::stub::Versions for Versions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -501,6 +528,11 @@ impl super::stub::Versions for Versions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -520,6 +552,7 @@ impl super::stub::Versions for Versions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -581,6 +614,7 @@ impl super::stub::Instances for Instances {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInstancesResponse>| r.into_body())
     }
 
     async fn get_instance(
@@ -600,6 +634,7 @@ impl super::stub::Instances for Instances {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn delete_instance(
@@ -619,6 +654,7 @@ impl super::stub::Instances for Instances {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn debug_instance(
@@ -635,7 +671,10 @@ impl super::stub::Instances for Instances {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -658,6 +697,11 @@ impl super::stub::Instances for Instances {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -677,6 +721,7 @@ impl super::stub::Instances for Instances {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -739,6 +784,7 @@ impl super::stub::Firewall for Firewall {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListIngressRulesResponse>| r.into_body())
     }
 
     async fn batch_update_ingress_rules(
@@ -758,7 +804,11 @@ impl super::stub::Firewall for Firewall {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchUpdateIngressRulesResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn create_ingress_rule(
@@ -778,7 +828,10 @@ impl super::stub::Firewall for Firewall {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.rule), options).await
+        self.inner
+            .execute(builder, Some(req.rule), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::FirewallRule>| r.into_body())
     }
 
     async fn get_ingress_rule(
@@ -798,6 +851,7 @@ impl super::stub::Firewall for Firewall {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FirewallRule>| r.into_body())
     }
 
     async fn update_ingress_rule(
@@ -824,7 +878,10 @@ impl super::stub::Firewall for Firewall {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.rule), options).await
+        self.inner
+            .execute(builder, Some(req.rule), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::FirewallRule>| r.into_body())
     }
 
     async fn delete_ingress_rule(
@@ -844,7 +901,7 @@ impl super::stub::Firewall for Firewall {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_operations(
@@ -867,6 +924,11 @@ impl super::stub::Firewall for Firewall {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -886,6 +948,7 @@ impl super::stub::Firewall for Firewall {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -933,6 +996,11 @@ impl super::stub::AuthorizedDomains for AuthorizedDomains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAuthorizedDomainsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -955,6 +1023,11 @@ impl super::stub::AuthorizedDomains for AuthorizedDomains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -974,6 +1047,7 @@ impl super::stub::AuthorizedDomains for AuthorizedDomains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -1022,6 +1096,11 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAuthorizedCertificatesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_authorized_certificate(
@@ -1042,6 +1121,7 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AuthorizedCertificate>| r.into_body())
     }
 
     async fn create_authorized_certificate(
@@ -1064,6 +1144,7 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
         self.inner
             .execute(builder, Some(req.certificate), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AuthorizedCertificate>| r.into_body())
     }
 
     async fn update_authorized_certificate(
@@ -1093,6 +1174,7 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
         self.inner
             .execute(builder, Some(req.certificate), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AuthorizedCertificate>| r.into_body())
     }
 
     async fn delete_authorized_certificate(
@@ -1112,7 +1194,7 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_operations(
@@ -1135,6 +1217,11 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1154,6 +1241,7 @@ impl super::stub::AuthorizedCertificates for AuthorizedCertificates {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -1201,6 +1289,11 @@ impl super::stub::DomainMappings for DomainMappings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDomainMappingsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_domain_mapping(
@@ -1220,6 +1313,7 @@ impl super::stub::DomainMappings for DomainMappings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DomainMapping>| r.into_body())
     }
 
     async fn create_domain_mapping(
@@ -1243,6 +1337,7 @@ impl super::stub::DomainMappings for DomainMappings {
         self.inner
             .execute(builder, Some(req.domain_mapping), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_domain_mapping(
@@ -1272,6 +1367,7 @@ impl super::stub::DomainMappings for DomainMappings {
         self.inner
             .execute(builder, Some(req.domain_mapping), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_domain_mapping(
@@ -1291,6 +1387,7 @@ impl super::stub::DomainMappings for DomainMappings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -1313,6 +1410,11 @@ impl super::stub::DomainMappings for DomainMappings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1332,6 +1434,7 @@ impl super::stub::DomainMappings for DomainMappings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

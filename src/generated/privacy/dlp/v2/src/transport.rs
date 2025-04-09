@@ -57,7 +57,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::InspectContentResponse>| r.into_body())
     }
 
     async fn redact_image(
@@ -77,7 +80,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::RedactImageResponse>| r.into_body())
     }
 
     async fn deidentify_content(
@@ -97,7 +103,9 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::DeidentifyContentResponse>| r.into_body(),
+        )
     }
 
     async fn reidentify_content(
@@ -117,7 +125,9 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::ReidentifyContentResponse>| r.into_body(),
+        )
     }
 
     async fn list_info_types(
@@ -141,6 +151,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInfoTypesResponse>| r.into_body())
     }
 
     async fn create_inspect_template(
@@ -160,7 +171,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::InspectTemplate>| r.into_body())
     }
 
     async fn update_inspect_template(
@@ -177,7 +191,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::InspectTemplate>| r.into_body())
     }
 
     async fn get_inspect_template(
@@ -197,6 +214,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::InspectTemplate>| r.into_body())
     }
 
     async fn list_inspect_templates(
@@ -223,6 +241,11 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListInspectTemplatesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_inspect_template(
@@ -242,7 +265,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_deidentify_template(
@@ -262,7 +285,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::DeidentifyTemplate>| r.into_body())
     }
 
     async fn update_deidentify_template(
@@ -279,7 +305,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::DeidentifyTemplate>| r.into_body())
     }
 
     async fn get_deidentify_template(
@@ -299,6 +328,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DeidentifyTemplate>| r.into_body())
     }
 
     async fn list_deidentify_templates(
@@ -325,6 +355,11 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDeidentifyTemplatesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_deidentify_template(
@@ -344,7 +379,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_job_trigger(
@@ -364,7 +399,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::JobTrigger>| r.into_body())
     }
 
     async fn update_job_trigger(
@@ -381,7 +419,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::JobTrigger>| r.into_body())
     }
 
     async fn hybrid_inspect_job_trigger(
@@ -401,7 +442,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::HybridInspectResponse>| r.into_body())
     }
 
     async fn get_job_trigger(
@@ -421,6 +465,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::JobTrigger>| r.into_body())
     }
 
     async fn list_job_triggers(
@@ -449,6 +494,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListJobTriggersResponse>| r.into_body())
     }
 
     async fn delete_job_trigger(
@@ -468,7 +514,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn activate_job_trigger(
@@ -485,7 +531,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::DlpJob>| r.into_body())
     }
 
     async fn create_discovery_config(
@@ -505,7 +554,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::DiscoveryConfig>| r.into_body())
     }
 
     async fn update_discovery_config(
@@ -522,7 +574,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::DiscoveryConfig>| r.into_body())
     }
 
     async fn get_discovery_config(
@@ -542,6 +597,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DiscoveryConfig>| r.into_body())
     }
 
     async fn list_discovery_configs(
@@ -567,6 +623,11 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDiscoveryConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_discovery_config(
@@ -586,7 +647,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_dlp_job(
@@ -603,7 +664,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::DlpJob>| r.into_body())
     }
 
     async fn list_dlp_jobs(
@@ -629,6 +693,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDlpJobsResponse>| r.into_body())
     }
 
     async fn get_dlp_job(
@@ -648,6 +713,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DlpJob>| r.into_body())
     }
 
     async fn delete_dlp_job(
@@ -667,7 +733,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_dlp_job(
@@ -687,7 +753,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_stored_info_type(
@@ -707,7 +773,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::StoredInfoType>| r.into_body())
     }
 
     async fn update_stored_info_type(
@@ -724,7 +793,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::StoredInfoType>| r.into_body())
     }
 
     async fn get_stored_info_type(
@@ -744,6 +816,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::StoredInfoType>| r.into_body())
     }
 
     async fn list_stored_info_types(
@@ -770,6 +843,11 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListStoredInfoTypesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_stored_info_type(
@@ -789,7 +867,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_project_data_profiles(
@@ -816,6 +894,11 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListProjectDataProfilesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_table_data_profiles(
@@ -842,6 +925,11 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListTableDataProfilesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_column_data_profiles(
@@ -868,6 +956,11 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListColumnDataProfilesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_project_data_profile(
@@ -887,6 +980,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProjectDataProfile>| r.into_body())
     }
 
     async fn list_file_store_data_profiles(
@@ -913,6 +1007,11 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListFileStoreDataProfilesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_file_store_data_profile(
@@ -932,6 +1031,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FileStoreDataProfile>| r.into_body())
     }
 
     async fn delete_file_store_data_profile(
@@ -951,7 +1051,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_table_data_profile(
@@ -971,6 +1071,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TableDataProfile>| r.into_body())
     }
 
     async fn get_column_data_profile(
@@ -990,6 +1091,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ColumnDataProfile>| r.into_body())
     }
 
     async fn delete_table_data_profile(
@@ -1009,7 +1111,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn hybrid_inspect_dlp_job(
@@ -1029,7 +1131,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::HybridInspectResponse>| r.into_body())
     }
 
     async fn finish_dlp_job(
@@ -1049,7 +1154,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_connection(
@@ -1069,7 +1174,10 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Connection>| r.into_body())
     }
 
     async fn get_connection(
@@ -1089,6 +1197,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Connection>| r.into_body())
     }
 
     async fn list_connections(
@@ -1114,6 +1223,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListConnectionsResponse>| r.into_body())
     }
 
     async fn search_connections(
@@ -1139,6 +1249,9 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchConnectionsResponse>| r.into_body(),
+            )
     }
 
     async fn delete_connection(
@@ -1158,7 +1271,7 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_connection(
@@ -1175,6 +1288,9 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Connection>| r.into_body())
     }
 }

@@ -57,7 +57,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn write_log_entries(
@@ -74,7 +74,10 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::WriteLogEntriesResponse>| r.into_body())
     }
 
     async fn list_log_entries(
@@ -91,7 +94,10 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ListLogEntriesResponse>| r.into_body())
     }
 
     async fn list_monitored_resource_descriptors(
@@ -116,6 +122,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListMonitoredResourceDescriptorsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn list_logs(
@@ -141,6 +152,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListLogsResponse>| r.into_body())
     }
 
     async fn list_operations(
@@ -163,6 +175,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -182,6 +199,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
@@ -201,7 +219,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -246,6 +264,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBucketsResponse>| r.into_body())
     }
 
     async fn get_bucket(
@@ -265,6 +284,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LogBucket>| r.into_body())
     }
 
     async fn create_bucket_async(
@@ -285,7 +305,10 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("bucketId", &req.bucket_id)]);
-        self.inner.execute(builder, Some(req.bucket), options).await
+        self.inner
+            .execute(builder, Some(req.bucket), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_bucket_async(
@@ -315,7 +338,10 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.bucket), options).await
+        self.inner
+            .execute(builder, Some(req.bucket), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_bucket(
@@ -333,7 +359,10 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("bucketId", &req.bucket_id)]);
-        self.inner.execute(builder, Some(req.bucket), options).await
+        self.inner
+            .execute(builder, Some(req.bucket), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::LogBucket>| r.into_body())
     }
 
     async fn update_bucket(
@@ -360,7 +389,10 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.bucket), options).await
+        self.inner
+            .execute(builder, Some(req.bucket), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::LogBucket>| r.into_body())
     }
 
     async fn delete_bucket(
@@ -380,7 +412,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn undelete_bucket(
@@ -400,7 +432,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_views(
@@ -422,6 +454,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListViewsResponse>| r.into_body())
     }
 
     async fn get_view(
@@ -441,6 +474,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LogView>| r.into_body())
     }
 
     async fn create_view(
@@ -458,7 +492,10 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("viewId", &req.view_id)]);
-        self.inner.execute(builder, Some(req.view), options).await
+        self.inner
+            .execute(builder, Some(req.view), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::LogView>| r.into_body())
     }
 
     async fn update_view(
@@ -485,7 +522,10 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.view), options).await
+        self.inner
+            .execute(builder, Some(req.view), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::LogView>| r.into_body())
     }
 
     async fn delete_view(
@@ -505,7 +545,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_sinks(
@@ -527,6 +567,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSinksResponse>| r.into_body())
     }
 
     async fn get_sink(
@@ -546,6 +587,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LogSink>| r.into_body())
     }
 
     async fn create_sink(
@@ -563,7 +605,10 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("uniqueWriterIdentity", &req.unique_writer_identity)]);
-        self.inner.execute(builder, Some(req.sink), options).await
+        self.inner
+            .execute(builder, Some(req.sink), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::LogSink>| r.into_body())
     }
 
     async fn update_sink(
@@ -591,7 +636,10 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.sink), options).await
+        self.inner
+            .execute(builder, Some(req.sink), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::LogSink>| r.into_body())
     }
 
     async fn delete_sink(
@@ -611,7 +659,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_link(
@@ -629,7 +677,10 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("linkId", &req.link_id)]);
-        self.inner.execute(builder, Some(req.link), options).await
+        self.inner
+            .execute(builder, Some(req.link), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_link(
@@ -649,6 +700,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_links(
@@ -670,6 +722,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListLinksResponse>| r.into_body())
     }
 
     async fn get_link(
@@ -689,6 +742,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Link>| r.into_body())
     }
 
     async fn list_exclusions(
@@ -713,6 +767,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListExclusionsResponse>| r.into_body())
     }
 
     async fn get_exclusion(
@@ -732,6 +787,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LogExclusion>| r.into_body())
     }
 
     async fn create_exclusion(
@@ -754,6 +810,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, Some(req.exclusion), options)
             .await
+            .map(|r: gax::response::Response<crate::model::LogExclusion>| r.into_body())
     }
 
     async fn update_exclusion(
@@ -783,6 +840,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, Some(req.exclusion), options)
             .await
+            .map(|r: gax::response::Response<crate::model::LogExclusion>| r.into_body())
     }
 
     async fn delete_exclusion(
@@ -802,7 +860,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_cmek_settings(
@@ -825,6 +883,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CmekSettings>| r.into_body())
     }
 
     async fn update_cmek_settings(
@@ -857,6 +916,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, Some(req.cmek_settings), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CmekSettings>| r.into_body())
     }
 
     async fn get_settings(
@@ -876,6 +936,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Settings>| r.into_body())
     }
 
     async fn update_settings(
@@ -905,6 +966,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, Some(req.settings), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Settings>| r.into_body())
     }
 
     async fn copy_log_entries(
@@ -921,7 +983,10 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -944,6 +1009,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -963,6 +1033,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
@@ -982,7 +1053,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -1041,6 +1112,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListLogMetricsResponse>| r.into_body())
     }
 
     async fn get_log_metric(
@@ -1060,6 +1132,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LogMetric>| r.into_body())
     }
 
     async fn create_log_metric(
@@ -1076,7 +1149,10 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.metric), options).await
+        self.inner
+            .execute(builder, Some(req.metric), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::LogMetric>| r.into_body())
     }
 
     async fn update_log_metric(
@@ -1093,7 +1169,10 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.metric), options).await
+        self.inner
+            .execute(builder, Some(req.metric), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::LogMetric>| r.into_body())
     }
 
     async fn delete_log_metric(
@@ -1113,7 +1192,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_operations(
@@ -1136,6 +1215,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1155,6 +1239,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
@@ -1174,6 +1259,6 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }

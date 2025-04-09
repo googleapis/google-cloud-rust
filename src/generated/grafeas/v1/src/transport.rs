@@ -57,6 +57,7 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Occurrence>| r.into_body())
     }
 
     async fn list_occurrences(
@@ -82,6 +83,7 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListOccurrencesResponse>| r.into_body())
     }
 
     async fn delete_occurrence(
@@ -101,7 +103,7 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_occurrence(
@@ -124,6 +126,7 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, Some(req.occurrence), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Occurrence>| r.into_body())
     }
 
     async fn batch_create_occurrences(
@@ -143,7 +146,11 @@ impl super::stub::Grafeas for Grafeas {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchCreateOccurrencesResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn update_occurrence(
@@ -173,6 +180,7 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, Some(req.occurrence), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Occurrence>| r.into_body())
     }
 
     async fn get_occurrence_note(
@@ -192,6 +200,7 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Note>| r.into_body())
     }
 
     async fn get_note(
@@ -211,6 +220,7 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Note>| r.into_body())
     }
 
     async fn list_notes(
@@ -233,6 +243,7 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNotesResponse>| r.into_body())
     }
 
     async fn delete_note(
@@ -252,7 +263,7 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_note(
@@ -270,7 +281,10 @@ impl super::stub::Grafeas for Grafeas {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("noteId", &req.note_id)]);
-        self.inner.execute(builder, Some(req.note), options).await
+        self.inner
+            .execute(builder, Some(req.note), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Note>| r.into_body())
     }
 
     async fn batch_create_notes(
@@ -290,7 +304,10 @@ impl super::stub::Grafeas for Grafeas {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::BatchCreateNotesResponse>| r.into_body())
     }
 
     async fn update_note(
@@ -317,7 +334,10 @@ impl super::stub::Grafeas for Grafeas {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.note), options).await
+        self.inner
+            .execute(builder, Some(req.note), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Note>| r.into_body())
     }
 
     async fn list_note_occurrences(
@@ -343,5 +363,10 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListNoteOccurrencesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 }

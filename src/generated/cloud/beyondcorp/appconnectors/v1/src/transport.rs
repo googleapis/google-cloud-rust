@@ -64,6 +64,9 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAppConnectorsResponse>| r.into_body(),
+            )
     }
 
     async fn get_app_connector(
@@ -83,6 +86,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AppConnector>| r.into_body())
     }
 
     async fn create_app_connector(
@@ -108,6 +112,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, Some(req.app_connector), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_app_connector(
@@ -148,6 +153,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, Some(req.app_connector), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_app_connector(
@@ -169,6 +175,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn report_status(
@@ -188,7 +195,10 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -211,6 +221,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -230,6 +241,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -249,7 +261,10 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -282,6 +297,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -301,7 +317,9 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -324,6 +342,11 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -343,6 +366,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -362,7 +386,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -382,7 +406,7 @@ impl super::stub::AppConnectorsService for AppConnectorsService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

@@ -60,6 +60,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.environment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_environment(
@@ -79,6 +80,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Environment>| r.into_body())
     }
 
     async fn list_environments(
@@ -103,6 +105,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEnvironmentsResponse>| r.into_body())
     }
 
     async fn update_environment(
@@ -132,6 +135,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.environment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_environment(
@@ -151,6 +155,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn execute_airflow_command(
@@ -170,7 +175,9 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::ExecuteAirflowCommandResponse>| r.into_body(),
+        )
     }
 
     async fn stop_airflow_command(
@@ -190,7 +197,9 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::StopAirflowCommandResponse>| r.into_body(),
+        )
     }
 
     async fn poll_airflow_command(
@@ -210,7 +219,9 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::PollAirflowCommandResponse>| r.into_body(),
+        )
     }
 
     async fn list_workloads(
@@ -236,6 +247,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListWorkloadsResponse>| r.into_body())
     }
 
     async fn check_upgrade(
@@ -255,7 +267,10 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_user_workloads_secret(
@@ -278,6 +293,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.user_workloads_secret), options)
             .await
+            .map(|r: gax::response::Response<crate::model::UserWorkloadsSecret>| r.into_body())
     }
 
     async fn get_user_workloads_secret(
@@ -297,6 +313,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::UserWorkloadsSecret>| r.into_body())
     }
 
     async fn list_user_workloads_secrets(
@@ -321,6 +338,11 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListUserWorkloadsSecretsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_user_workloads_secret(
@@ -349,6 +371,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.user_workloads_secret), options)
             .await
+            .map(|r: gax::response::Response<crate::model::UserWorkloadsSecret>| r.into_body())
     }
 
     async fn delete_user_workloads_secret(
@@ -368,7 +391,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_user_workloads_config_map(
@@ -391,6 +414,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.user_workloads_config_map), options)
             .await
+            .map(|r: gax::response::Response<crate::model::UserWorkloadsConfigMap>| r.into_body())
     }
 
     async fn get_user_workloads_config_map(
@@ -410,6 +434,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::UserWorkloadsConfigMap>| r.into_body())
     }
 
     async fn list_user_workloads_config_maps(
@@ -434,6 +459,11 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListUserWorkloadsConfigMapsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_user_workloads_config_map(
@@ -462,6 +492,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.user_workloads_config_map), options)
             .await
+            .map(|r: gax::response::Response<crate::model::UserWorkloadsConfigMap>| r.into_body())
     }
 
     async fn delete_user_workloads_config_map(
@@ -481,7 +512,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn save_snapshot(
@@ -501,7 +532,10 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn load_snapshot(
@@ -521,7 +555,10 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn database_failover(
@@ -541,7 +578,10 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn fetch_database_properties(
@@ -564,6 +604,11 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::FetchDatabasePropertiesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -586,6 +631,11 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -605,6 +655,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -624,7 +675,7 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -687,6 +738,9 @@ impl super::stub::ImageVersions for ImageVersions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListImageVersionsResponse>| r.into_body(),
+            )
     }
 
     async fn list_operations(
@@ -709,6 +763,11 @@ impl super::stub::ImageVersions for ImageVersions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -728,6 +787,7 @@ impl super::stub::ImageVersions for ImageVersions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -747,6 +807,6 @@ impl super::stub::ImageVersions for ImageVersions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }

@@ -62,6 +62,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.recognizer), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_recognizers(
@@ -87,6 +88,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRecognizersResponse>| r.into_body())
     }
 
     async fn get_recognizer(
@@ -106,6 +108,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Recognizer>| r.into_body())
     }
 
     async fn update_recognizer(
@@ -145,6 +148,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.recognizer), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_recognizer(
@@ -167,6 +171,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_recognizer(
@@ -183,7 +188,10 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn recognize(
@@ -203,7 +211,10 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::RecognizeResponse>| r.into_body())
     }
 
     async fn batch_recognize(
@@ -223,7 +234,10 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_config(
@@ -243,6 +257,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Config>| r.into_body())
     }
 
     async fn update_config(
@@ -278,7 +293,10 @@ impl super::stub::Speech for Speech {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.config), options).await
+        self.inner
+            .execute(builder, Some(req.config), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Config>| r.into_body())
     }
 
     async fn create_custom_class(
@@ -303,6 +321,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.custom_class), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_custom_classes(
@@ -328,6 +347,9 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCustomClassesResponse>| r.into_body(),
+            )
     }
 
     async fn get_custom_class(
@@ -347,6 +369,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CustomClass>| r.into_body())
     }
 
     async fn update_custom_class(
@@ -386,6 +409,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.custom_class), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_custom_class(
@@ -408,6 +432,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_custom_class(
@@ -424,7 +449,10 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_phrase_set(
@@ -449,6 +477,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.phrase_set), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_phrase_sets(
@@ -474,6 +503,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListPhraseSetsResponse>| r.into_body())
     }
 
     async fn get_phrase_set(
@@ -493,6 +523,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PhraseSet>| r.into_body())
     }
 
     async fn update_phrase_set(
@@ -532,6 +563,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.phrase_set), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_phrase_set(
@@ -554,6 +586,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_phrase_set(
@@ -570,7 +603,10 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -593,6 +629,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -612,6 +649,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -634,6 +672,11 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -653,6 +696,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -672,7 +716,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -692,7 +736,7 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

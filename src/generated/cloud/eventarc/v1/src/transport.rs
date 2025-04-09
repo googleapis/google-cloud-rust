@@ -57,6 +57,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Trigger>| r.into_body())
     }
 
     async fn list_triggers(
@@ -80,6 +81,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTriggersResponse>| r.into_body())
     }
 
     async fn create_trigger(
@@ -104,6 +106,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.trigger), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_trigger(
@@ -144,6 +147,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.trigger), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_trigger(
@@ -166,6 +170,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_channel(
@@ -185,6 +190,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Channel>| r.into_body())
     }
 
     async fn list_channels(
@@ -207,6 +213,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListChannelsResponse>| r.into_body())
     }
 
     async fn create_channel(
@@ -231,6 +238,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.channel), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_channel(
@@ -270,6 +278,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.channel), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_channel(
@@ -290,6 +299,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_provider(
@@ -309,6 +319,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Provider>| r.into_body())
     }
 
     async fn list_providers(
@@ -335,6 +346,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListProvidersResponse>| r.into_body())
     }
 
     async fn get_channel_connection(
@@ -354,6 +366,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ChannelConnection>| r.into_body())
     }
 
     async fn list_channel_connections(
@@ -378,6 +391,11 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListChannelConnectionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_channel_connection(
@@ -401,6 +419,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.channel_connection), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_channel_connection(
@@ -420,6 +439,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_google_channel_config(
@@ -439,6 +459,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GoogleChannelConfig>| r.into_body())
     }
 
     async fn update_google_channel_config(
@@ -477,6 +498,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.google_channel_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::GoogleChannelConfig>| r.into_body())
     }
 
     async fn get_message_bus(
@@ -496,6 +518,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MessageBus>| r.into_body())
     }
 
     async fn list_message_buses(
@@ -522,6 +545,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListMessageBusesResponse>| r.into_body())
     }
 
     async fn list_message_bus_enrollments(
@@ -546,6 +570,11 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListMessageBusEnrollmentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_message_bus(
@@ -570,6 +599,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.message_bus), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_message_bus(
@@ -610,6 +640,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.message_bus), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_message_bus(
@@ -632,6 +663,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_enrollment(
@@ -651,6 +683,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Enrollment>| r.into_body())
     }
 
     async fn list_enrollments(
@@ -677,6 +710,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEnrollmentsResponse>| r.into_body())
     }
 
     async fn create_enrollment(
@@ -701,6 +735,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.enrollment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_enrollment(
@@ -741,6 +776,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.enrollment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_enrollment(
@@ -763,6 +799,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_pipeline(
@@ -782,6 +819,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Pipeline>| r.into_body())
     }
 
     async fn list_pipelines(
@@ -808,6 +846,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListPipelinesResponse>| r.into_body())
     }
 
     async fn create_pipeline(
@@ -832,6 +871,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.pipeline), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_pipeline(
@@ -872,6 +912,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.pipeline), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_pipeline(
@@ -894,6 +935,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_google_api_source(
@@ -913,6 +955,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GoogleApiSource>| r.into_body())
     }
 
     async fn list_google_api_sources(
@@ -939,6 +982,11 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListGoogleApiSourcesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_google_api_source(
@@ -963,6 +1011,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.google_api_source), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_google_api_source(
@@ -1003,6 +1052,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req.google_api_source), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_google_api_source(
@@ -1025,6 +1075,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -1047,6 +1098,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1066,6 +1118,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1085,7 +1138,10 @@ impl super::stub::Eventarc for Eventarc {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1118,6 +1174,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1137,7 +1194,9 @@ impl super::stub::Eventarc for Eventarc {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1160,6 +1219,11 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1179,6 +1243,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1198,7 +1263,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1218,7 +1283,7 @@ impl super::stub::Eventarc for Eventarc {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

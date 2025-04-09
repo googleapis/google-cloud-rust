@@ -70,6 +70,11 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListManagementServersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_management_server(
@@ -89,6 +94,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ManagementServer>| r.into_body())
     }
 
     async fn create_management_server(
@@ -113,6 +119,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, Some(req.management_server), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_management_server(
@@ -133,6 +140,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_backup_vault(
@@ -158,6 +166,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, Some(req.backup_vault), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_backup_vaults(
@@ -185,6 +194,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupVaultsResponse>| r.into_body())
     }
 
     async fn fetch_usable_backup_vaults(
@@ -211,6 +221,11 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::FetchUsableBackupVaultsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_backup_vault(
@@ -231,6 +246,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BackupVault>| r.into_body())
     }
 
     async fn update_backup_vault(
@@ -272,6 +288,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, Some(req.backup_vault), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_backup_vault(
@@ -300,6 +317,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_data_sources(
@@ -326,6 +344,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDataSourcesResponse>| r.into_body())
     }
 
     async fn get_data_source(
@@ -345,6 +364,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataSource>| r.into_body())
     }
 
     async fn update_data_source(
@@ -385,6 +405,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, Some(req.data_source), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_backups(
@@ -409,6 +430,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn get_backup(
@@ -429,6 +451,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn update_backup(
@@ -465,7 +488,10 @@ impl super::stub::BackupDR for BackupDR {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_backup(
@@ -486,6 +512,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn restore_backup(
@@ -502,7 +529,10 @@ impl super::stub::BackupDR for BackupDR {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_backup_plan(
@@ -527,6 +557,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, Some(req.backup_plan), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_backup_plan(
@@ -546,6 +577,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BackupPlan>| r.into_body())
     }
 
     async fn list_backup_plans(
@@ -572,6 +604,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupPlansResponse>| r.into_body())
     }
 
     async fn delete_backup_plan(
@@ -592,6 +625,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_backup_plan_association(
@@ -617,6 +651,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, Some(req.backup_plan_association), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_backup_plan_association(
@@ -636,6 +671,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BackupPlanAssociation>| r.into_body())
     }
 
     async fn list_backup_plan_associations(
@@ -661,6 +697,11 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBackupPlanAssociationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_backup_plan_association(
@@ -681,6 +722,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn trigger_backup(
@@ -700,7 +742,10 @@ impl super::stub::BackupDR for BackupDR {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn initialize_service(
@@ -720,7 +765,10 @@ impl super::stub::BackupDR for BackupDR {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -743,6 +791,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -762,6 +811,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -781,7 +831,10 @@ impl super::stub::BackupDR for BackupDR {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -814,6 +867,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -833,7 +887,9 @@ impl super::stub::BackupDR for BackupDR {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -856,6 +912,11 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -875,6 +936,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -894,7 +956,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -914,7 +976,7 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

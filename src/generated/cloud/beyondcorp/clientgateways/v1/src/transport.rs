@@ -64,6 +64,11 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListClientGatewaysResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_client_gateway(
@@ -83,6 +88,7 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ClientGateway>| r.into_body())
     }
 
     async fn create_client_gateway(
@@ -108,6 +114,7 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, Some(req.client_gateway), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_client_gateway(
@@ -129,6 +136,7 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -151,6 +159,7 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -170,6 +179,7 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -189,7 +199,10 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -222,6 +235,7 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -241,7 +255,9 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -264,6 +280,11 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -283,6 +304,7 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -302,7 +324,7 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -322,7 +344,7 @@ impl super::stub::ClientGatewaysService for ClientGatewaysService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

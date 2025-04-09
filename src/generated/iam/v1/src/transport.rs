@@ -57,7 +57,10 @@ impl super::stub::IAMPolicy for IAMPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -77,7 +80,10 @@ impl super::stub::IAMPolicy for IAMPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -97,6 +103,8 @@ impl super::stub::IAMPolicy for IAMPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 }

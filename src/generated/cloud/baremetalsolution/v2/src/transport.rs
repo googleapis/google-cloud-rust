@@ -63,6 +63,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInstancesResponse>| r.into_body())
     }
 
     async fn get_instance(
@@ -82,6 +83,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn update_instance(
@@ -120,6 +122,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn rename_instance(
@@ -136,7 +139,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn reset_instance(
@@ -153,7 +159,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn start_instance(
@@ -170,7 +179,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn stop_instance(
@@ -187,7 +199,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn enable_interactive_serial_console(
@@ -207,7 +222,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn disable_interactive_serial_console(
@@ -227,7 +245,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn detach_lun(
@@ -247,7 +268,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_ssh_keys(
@@ -269,6 +293,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSSHKeysResponse>| r.into_body())
     }
 
     async fn create_ssh_key(
@@ -289,6 +314,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.ssh_key), options)
             .await
+            .map(|r: gax::response::Response<crate::model::SSHKey>| r.into_body())
     }
 
     async fn delete_ssh_key(
@@ -308,7 +334,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_volumes(
@@ -331,6 +357,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListVolumesResponse>| r.into_body())
     }
 
     async fn get_volume(
@@ -350,6 +377,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Volume>| r.into_body())
     }
 
     async fn update_volume(
@@ -385,7 +413,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.volume), options).await
+        self.inner
+            .execute(builder, Some(req.volume), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn rename_volume(
@@ -402,7 +433,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Volume>| r.into_body())
     }
 
     async fn evict_volume(
@@ -419,7 +453,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn resize_volume(
@@ -436,7 +473,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_networks(
@@ -459,6 +499,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNetworksResponse>| r.into_body())
     }
 
     async fn list_network_usage(
@@ -481,6 +522,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNetworkUsageResponse>| r.into_body())
     }
 
     async fn get_network(
@@ -500,6 +542,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Network>| r.into_body())
     }
 
     async fn update_network(
@@ -538,6 +581,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.network), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_volume_snapshot(
@@ -560,6 +604,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.volume_snapshot), options)
             .await
+            .map(|r: gax::response::Response<crate::model::VolumeSnapshot>| r.into_body())
     }
 
     async fn restore_volume_snapshot(
@@ -579,7 +624,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_volume_snapshot(
@@ -599,7 +647,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_volume_snapshot(
@@ -619,6 +667,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VolumeSnapshot>| r.into_body())
     }
 
     async fn list_volume_snapshots(
@@ -643,6 +692,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListVolumeSnapshotsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_lun(
@@ -662,6 +716,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Lun>| r.into_body())
     }
 
     async fn list_luns(
@@ -683,6 +738,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListLunsResponse>| r.into_body())
     }
 
     async fn evict_lun(
@@ -699,7 +755,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_nfs_share(
@@ -719,6 +778,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NfsShare>| r.into_body())
     }
 
     async fn list_nfs_shares(
@@ -744,6 +804,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNfsSharesResponse>| r.into_body())
     }
 
     async fn update_nfs_share(
@@ -782,6 +843,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.nfs_share), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_nfs_share(
@@ -804,6 +866,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.nfs_share), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn rename_nfs_share(
@@ -820,7 +883,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::NfsShare>| r.into_body())
     }
 
     async fn delete_nfs_share(
@@ -840,6 +906,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_provisioning_quotas(
@@ -864,6 +931,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListProvisioningQuotasResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn submit_provisioning_config(
@@ -883,7 +955,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::SubmitProvisioningConfigResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn get_provisioning_config(
@@ -903,6 +979,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProvisioningConfig>| r.into_body())
     }
 
     async fn create_provisioning_config(
@@ -926,6 +1003,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.provisioning_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProvisioningConfig>| r.into_body())
     }
 
     async fn update_provisioning_config(
@@ -965,6 +1043,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.provisioning_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProvisioningConfig>| r.into_body())
     }
 
     async fn rename_network(
@@ -981,7 +1060,10 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Network>| r.into_body())
     }
 
     async fn list_os_images(
@@ -1003,6 +1085,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListOSImagesResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -1025,6 +1108,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1044,6 +1128,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn get_operation(
@@ -1063,6 +1148,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

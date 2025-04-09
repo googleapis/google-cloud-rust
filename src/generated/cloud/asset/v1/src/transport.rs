@@ -57,7 +57,10 @@ impl super::stub::AssetService for AssetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_assets(
@@ -97,6 +100,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAssetsResponse>| r.into_body())
     }
 
     async fn batch_get_assets_history(
@@ -137,6 +141,11 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::BatchGetAssetsHistoryResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_feed(
@@ -153,7 +162,10 @@ impl super::stub::AssetService for AssetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Feed>| r.into_body())
     }
 
     async fn get_feed(
@@ -173,6 +185,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Feed>| r.into_body())
     }
 
     async fn list_feeds(
@@ -192,6 +205,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFeedsResponse>| r.into_body())
     }
 
     async fn update_feed(
@@ -217,7 +231,10 @@ impl super::stub::AssetService for AssetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Feed>| r.into_body())
     }
 
     async fn delete_feed(
@@ -237,7 +254,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn search_all_resources(
@@ -278,6 +295,11 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchAllResourcesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn search_all_iam_policies(
@@ -308,6 +330,11 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchAllIamPoliciesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn analyze_iam_policy(
@@ -357,6 +384,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AnalyzeIamPolicyResponse>| r.into_body())
     }
 
     async fn analyze_iam_policy_longrunning(
@@ -382,7 +410,10 @@ impl super::stub::AssetService for AssetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn analyze_move(
@@ -407,6 +438,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AnalyzeMoveResponse>| r.into_body())
     }
 
     async fn query_assets(
@@ -426,7 +458,10 @@ impl super::stub::AssetService for AssetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::QueryAssetsResponse>| r.into_body())
     }
 
     async fn create_saved_query(
@@ -450,6 +485,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, Some(req.saved_query), options)
             .await
+            .map(|r: gax::response::Response<crate::model::SavedQuery>| r.into_body())
     }
 
     async fn get_saved_query(
@@ -469,6 +505,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SavedQuery>| r.into_body())
     }
 
     async fn list_saved_queries(
@@ -494,6 +531,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSavedQueriesResponse>| r.into_body())
     }
 
     async fn update_saved_query(
@@ -532,6 +570,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, Some(req.saved_query), options)
             .await
+            .map(|r: gax::response::Response<crate::model::SavedQuery>| r.into_body())
     }
 
     async fn delete_saved_query(
@@ -551,7 +590,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn batch_get_effective_iam_policies(
@@ -578,6 +617,11 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::BatchGetEffectiveIamPoliciesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn analyze_org_policies(
@@ -607,6 +651,11 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::AnalyzeOrgPoliciesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn analyze_org_policy_governed_containers(
@@ -636,6 +685,11 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::AnalyzeOrgPolicyGovernedContainersResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn analyze_org_policy_governed_assets(
@@ -665,6 +719,11 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::AnalyzeOrgPolicyGovernedAssetsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_operation(
@@ -684,6 +743,7 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

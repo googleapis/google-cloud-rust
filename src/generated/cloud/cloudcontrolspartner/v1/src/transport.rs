@@ -57,6 +57,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Workload>| r.into_body())
     }
 
     async fn list_workloads(
@@ -83,6 +84,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListWorkloadsResponse>| r.into_body())
     }
 
     async fn get_customer(
@@ -102,6 +104,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Customer>| r.into_body())
     }
 
     async fn list_customers(
@@ -128,6 +131,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCustomersResponse>| r.into_body())
     }
 
     async fn get_ekm_connections(
@@ -147,6 +151,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::EkmConnections>| r.into_body())
     }
 
     async fn get_partner_permissions(
@@ -166,6 +171,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PartnerPermissions>| r.into_body())
     }
 
     async fn list_access_approval_requests(
@@ -192,6 +198,11 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_partner(
@@ -211,6 +222,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Partner>| r.into_body())
     }
 }
 
@@ -270,6 +282,7 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListViolationsResponse>| r.into_body())
     }
 
     async fn get_violation(
@@ -289,5 +302,6 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Violation>| r.into_body())
     }
 }

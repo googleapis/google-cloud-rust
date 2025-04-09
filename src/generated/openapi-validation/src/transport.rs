@@ -72,6 +72,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -94,6 +95,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Location>| r.into_body())
     }
 
     async fn list_secrets(
@@ -128,6 +130,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSecretsResponse>| r.into_body())
     }
 
     async fn create_secret(
@@ -151,6 +154,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Secret>| r.into_body())
     }
 
     async fn list_secrets_by_project_and_location(
@@ -188,6 +192,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSecretsResponse>| r.into_body())
     }
 
     async fn create_secret_by_project_and_location(
@@ -214,6 +219,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Secret>| r.into_body())
     }
 
     async fn add_secret_version(
@@ -236,7 +242,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SecretVersion>| r.into_body())
     }
 
     async fn add_secret_version_by_project_and_location_and_secret(
@@ -259,7 +268,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SecretVersion>| r.into_body())
     }
 
     async fn get_secret(
@@ -282,6 +294,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Secret>| r.into_body())
     }
 
     async fn delete_secret(
@@ -308,6 +321,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Empty>| r.into_body())
     }
 
     async fn update_secret(
@@ -336,6 +350,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Secret>| r.into_body())
     }
 
     async fn get_secret_by_project_and_location_and_secret(
@@ -361,6 +376,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Secret>| r.into_body())
     }
 
     async fn delete_secret_by_project_and_location_and_secret(
@@ -390,6 +406,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Empty>| r.into_body())
     }
 
     async fn update_secret_by_project_and_location_and_secret(
@@ -421,6 +438,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, Some(req.request_body), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Secret>| r.into_body())
     }
 
     async fn list_secret_versions(
@@ -458,6 +476,11 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListSecretVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_secret_versions_by_project_and_location_and_secret(
@@ -495,6 +518,11 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListSecretVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_secret_version(
@@ -520,6 +548,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SecretVersion>| r.into_body())
     }
 
     async fn get_secret_version_by_project_and_location_and_secret_and_version(
@@ -545,6 +574,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SecretVersion>| r.into_body())
     }
 
     async fn access_secret_version(
@@ -570,6 +600,11 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::AccessSecretVersionResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn access_secret_version_by_project_and_location_and_secret_and_version(
@@ -595,6 +630,11 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::AccessSecretVersionResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn disable_secret_version(
@@ -617,7 +657,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SecretVersion>| r.into_body())
     }
 
     async fn disable_secret_version_by_project_and_location_and_secret_and_version(
@@ -640,7 +683,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SecretVersion>| r.into_body())
     }
 
     async fn enable_secret_version(
@@ -663,7 +709,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SecretVersion>| r.into_body())
     }
 
     async fn enable_secret_version_by_project_and_location_and_secret_and_version(
@@ -686,7 +735,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SecretVersion>| r.into_body())
     }
 
     async fn destroy_secret_version(
@@ -709,7 +761,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SecretVersion>| r.into_body())
     }
 
     async fn destroy_secret_version_by_project_and_location_and_secret_and_version(
@@ -732,7 +787,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SecretVersion>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -755,7 +813,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy_by_project_and_location_and_secret(
@@ -778,7 +839,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -810,6 +874,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy_by_project_and_location_and_secret(
@@ -841,6 +906,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -863,7 +929,9 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn test_iam_permissions_by_project_and_location_and_secret(
@@ -886,6 +954,8 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 }

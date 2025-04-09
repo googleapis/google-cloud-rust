@@ -57,6 +57,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LicensePool>| r.into_body())
     }
 
     async fn update_license_pool(
@@ -95,6 +96,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         self.inner
             .execute(builder, Some(req.license_pool), options)
             .await
+            .map(|r: gax::response::Response<crate::model::LicensePool>| r.into_body())
     }
 
     async fn assign(
@@ -111,7 +113,10 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AssignResponse>| r.into_body())
     }
 
     async fn unassign(
@@ -131,7 +136,10 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::UnassignResponse>| r.into_body())
     }
 
     async fn enumerate_licensed_users(
@@ -156,6 +164,11 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::EnumerateLicensedUsersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -175,6 +188,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -217,7 +231,10 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_order(
@@ -237,6 +254,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Order>| r.into_body())
     }
 
     async fn list_orders(
@@ -259,6 +277,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListOrdersResponse>| r.into_body())
     }
 
     async fn modify_order(
@@ -275,7 +294,10 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_order(
@@ -292,7 +314,10 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_operation(
@@ -312,6 +337,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

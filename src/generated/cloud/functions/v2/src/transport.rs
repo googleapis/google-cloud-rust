@@ -58,6 +58,7 @@ impl super::stub::FunctionService for FunctionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Function>| r.into_body())
     }
 
     async fn list_functions(
@@ -84,6 +85,7 @@ impl super::stub::FunctionService for FunctionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFunctionsResponse>| r.into_body())
     }
 
     async fn create_function(
@@ -107,6 +109,7 @@ impl super::stub::FunctionService for FunctionService {
         self.inner
             .execute(builder, Some(req.function), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_function(
@@ -145,6 +148,7 @@ impl super::stub::FunctionService for FunctionService {
         self.inner
             .execute(builder, Some(req.function), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_function(
@@ -164,6 +168,7 @@ impl super::stub::FunctionService for FunctionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_upload_url(
@@ -183,7 +188,9 @@ impl super::stub::FunctionService for FunctionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateUploadUrlResponse>| r.into_body(),
+        )
     }
 
     async fn generate_download_url(
@@ -203,7 +210,9 @@ impl super::stub::FunctionService for FunctionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateDownloadUrlResponse>| r.into_body(),
+        )
     }
 
     async fn list_runtimes(
@@ -224,6 +233,7 @@ impl super::stub::FunctionService for FunctionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRuntimesResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -246,6 +256,7 @@ impl super::stub::FunctionService for FunctionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -265,7 +276,10 @@ impl super::stub::FunctionService for FunctionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -298,6 +312,7 @@ impl super::stub::FunctionService for FunctionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -317,7 +332,9 @@ impl super::stub::FunctionService for FunctionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -340,6 +357,11 @@ impl super::stub::FunctionService for FunctionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -359,6 +381,7 @@ impl super::stub::FunctionService for FunctionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

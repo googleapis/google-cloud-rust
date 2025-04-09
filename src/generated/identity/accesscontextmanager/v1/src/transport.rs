@@ -60,6 +60,11 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAccessPoliciesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_access_policy(
@@ -79,6 +84,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AccessPolicy>| r.into_body())
     }
 
     async fn create_access_policy(
@@ -95,7 +101,10 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_access_policy(
@@ -131,7 +140,10 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.policy), options).await
+        self.inner
+            .execute(builder, Some(req.policy), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_access_policy(
@@ -151,6 +163,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_access_levels(
@@ -176,6 +189,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAccessLevelsResponse>| r.into_body())
     }
 
     async fn get_access_level(
@@ -196,6 +210,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AccessLevel>| r.into_body())
     }
 
     async fn create_access_level(
@@ -218,6 +233,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, Some(req.access_level), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_access_level(
@@ -256,6 +272,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, Some(req.access_level), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_access_level(
@@ -275,6 +292,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn replace_access_levels(
@@ -294,7 +312,10 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_service_perimeters(
@@ -319,6 +340,11 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServicePerimetersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_service_perimeter(
@@ -338,6 +364,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServicePerimeter>| r.into_body())
     }
 
     async fn create_service_perimeter(
@@ -360,6 +387,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, Some(req.service_perimeter), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_service_perimeter(
@@ -398,6 +426,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, Some(req.service_perimeter), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_service_perimeter(
@@ -417,6 +446,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn replace_service_perimeters(
@@ -436,7 +466,10 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn commit_service_perimeters(
@@ -456,7 +489,10 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_gcp_user_access_bindings(
@@ -481,6 +517,11 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListGcpUserAccessBindingsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_gcp_user_access_binding(
@@ -500,6 +541,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GcpUserAccessBinding>| r.into_body())
     }
 
     async fn create_gcp_user_access_binding(
@@ -522,6 +564,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, Some(req.gcp_user_access_binding), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_gcp_user_access_binding(
@@ -560,6 +603,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, Some(req.gcp_user_access_binding), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_gcp_user_access_binding(
@@ -579,6 +623,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -598,7 +643,10 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -618,7 +666,10 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -638,7 +689,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -658,6 +711,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

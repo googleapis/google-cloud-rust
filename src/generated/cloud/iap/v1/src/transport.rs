@@ -57,7 +57,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -77,7 +80,10 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -97,7 +103,9 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_iap_settings(
@@ -120,6 +128,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::IapSettings>| r.into_body())
     }
 
     async fn update_iap_settings(
@@ -158,6 +167,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, Some(req.iap_settings), options)
             .await
+            .map(|r: gax::response::Response<crate::model::IapSettings>| r.into_body())
     }
 
     async fn list_tunnel_dest_groups(
@@ -182,6 +192,11 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListTunnelDestGroupsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_tunnel_dest_group(
@@ -205,6 +220,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, Some(req.tunnel_dest_group), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TunnelDestGroup>| r.into_body())
     }
 
     async fn get_tunnel_dest_group(
@@ -224,6 +240,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TunnelDestGroup>| r.into_body())
     }
 
     async fn delete_tunnel_dest_group(
@@ -243,7 +260,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_tunnel_dest_group(
@@ -282,6 +299,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, Some(req.tunnel_dest_group), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TunnelDestGroup>| r.into_body())
     }
 }
 
@@ -324,6 +342,7 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBrandsResponse>| r.into_body())
     }
 
     async fn create_brand(
@@ -340,7 +359,10 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.brand), options).await
+        self.inner
+            .execute(builder, Some(req.brand), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Brand>| r.into_body())
     }
 
     async fn get_brand(
@@ -360,6 +382,7 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Brand>| r.into_body())
     }
 
     async fn create_identity_aware_proxy_client(
@@ -382,6 +405,7 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, Some(req.identity_aware_proxy_client), options)
             .await
+            .map(|r: gax::response::Response<crate::model::IdentityAwareProxyClient>| r.into_body())
     }
 
     async fn list_identity_aware_proxy_clients(
@@ -406,6 +430,11 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListIdentityAwareProxyClientsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_identity_aware_proxy_client(
@@ -425,6 +454,7 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::IdentityAwareProxyClient>| r.into_body())
     }
 
     async fn reset_identity_aware_proxy_client_secret(
@@ -444,7 +474,10 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::IdentityAwareProxyClient>| r.into_body())
     }
 
     async fn delete_identity_aware_proxy_client(
@@ -464,6 +497,6 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }

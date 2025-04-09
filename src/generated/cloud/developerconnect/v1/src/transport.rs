@@ -64,6 +64,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListConnectionsResponse>| r.into_body())
     }
 
     async fn get_connection(
@@ -83,6 +84,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Connection>| r.into_body())
     }
 
     async fn create_connection(
@@ -108,6 +110,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, Some(req.connection), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_connection(
@@ -149,6 +152,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, Some(req.connection), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_connection(
@@ -171,6 +175,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_git_repository_link(
@@ -196,6 +201,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, Some(req.git_repository_link), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_git_repository_link(
@@ -218,6 +224,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_git_repository_links(
@@ -244,6 +251,11 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListGitRepositoryLinksResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_git_repository_link(
@@ -263,6 +275,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GitRepositoryLink>| r.into_body())
     }
 
     async fn fetch_read_write_token(
@@ -282,7 +295,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::FetchReadWriteTokenResponse>| r.into_body(),
+        )
     }
 
     async fn fetch_read_token(
@@ -302,7 +317,10 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::FetchReadTokenResponse>| r.into_body())
     }
 
     async fn fetch_linkable_git_repositories(
@@ -327,6 +345,11 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn fetch_git_hub_installations(
@@ -349,6 +372,11 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::FetchGitHubInstallationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn fetch_git_refs(
@@ -374,6 +402,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FetchGitRefsResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -396,6 +425,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -415,6 +445,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -437,6 +468,11 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -456,6 +492,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -475,7 +512,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -495,7 +532,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

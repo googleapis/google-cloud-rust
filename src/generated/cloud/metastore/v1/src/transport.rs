@@ -61,6 +61,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListServicesResponse>| r.into_body())
     }
 
     async fn get_service(
@@ -80,6 +81,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Service>| r.into_body())
     }
 
     async fn create_service(
@@ -104,6 +106,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, Some(req.service), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_service(
@@ -143,6 +146,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, Some(req.service), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_service(
@@ -163,6 +167,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_metadata_imports(
@@ -189,6 +194,11 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListMetadataImportsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_metadata_import(
@@ -208,6 +218,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MetadataImport>| r.into_body())
     }
 
     async fn create_metadata_import(
@@ -232,6 +243,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, Some(req.metadata_import), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_metadata_import(
@@ -271,6 +283,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, Some(req.metadata_import), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_metadata(
@@ -290,7 +303,10 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn restore_service(
@@ -310,7 +326,10 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_backups(
@@ -334,6 +353,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn get_backup(
@@ -353,6 +373,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn create_backup(
@@ -371,7 +392,10 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
             );
         let builder = builder.query(&[("backupId", &req.backup_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_backup(
@@ -392,6 +416,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn query_metadata(
@@ -411,7 +436,10 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn move_table_to_database(
@@ -431,7 +459,10 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn alter_metadata_resource_location(
@@ -451,7 +482,10 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -474,6 +508,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -493,6 +528,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -512,7 +548,10 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -545,6 +584,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -564,7 +604,9 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -587,6 +629,11 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -606,6 +653,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -625,7 +673,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -645,7 +693,7 @@ impl super::stub::DataprocMetastore for DataprocMetastore {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -709,6 +757,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFederationsResponse>| r.into_body())
     }
 
     async fn get_federation(
@@ -728,6 +777,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Federation>| r.into_body())
     }
 
     async fn create_federation(
@@ -752,6 +802,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, Some(req.federation), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_federation(
@@ -791,6 +842,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, Some(req.federation), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_federation(
@@ -811,6 +863,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -833,6 +886,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -852,6 +906,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -871,7 +926,10 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -904,6 +962,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -923,7 +982,9 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -946,6 +1007,11 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -965,6 +1031,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -984,7 +1051,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1004,7 +1071,7 @@ impl super::stub::DataprocMetastoreFederation for DataprocMetastoreFederation {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

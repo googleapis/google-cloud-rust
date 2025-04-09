@@ -61,6 +61,7 @@ impl super::stub::DashboardsService for DashboardsService {
         self.inner
             .execute(builder, Some(req.dashboard), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dashboard>| r.into_body())
     }
 
     async fn list_dashboards(
@@ -85,6 +86,7 @@ impl super::stub::DashboardsService for DashboardsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDashboardsResponse>| r.into_body())
     }
 
     async fn get_dashboard(
@@ -104,6 +106,7 @@ impl super::stub::DashboardsService for DashboardsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dashboard>| r.into_body())
     }
 
     async fn delete_dashboard(
@@ -123,7 +126,7 @@ impl super::stub::DashboardsService for DashboardsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_dashboard(
@@ -153,5 +156,6 @@ impl super::stub::DashboardsService for DashboardsService {
         self.inner
             .execute(builder, Some(req.dashboard), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dashboard>| r.into_body())
     }
 }

@@ -63,6 +63,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDockerImagesResponse>| r.into_body())
     }
 
     async fn get_docker_image(
@@ -82,6 +83,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DockerImage>| r.into_body())
     }
 
     async fn list_maven_artifacts(
@@ -106,6 +108,11 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListMavenArtifactsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_maven_artifact(
@@ -125,6 +132,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MavenArtifact>| r.into_body())
     }
 
     async fn list_npm_packages(
@@ -149,6 +157,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNpmPackagesResponse>| r.into_body())
     }
 
     async fn get_npm_package(
@@ -168,6 +177,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NpmPackage>| r.into_body())
     }
 
     async fn list_python_packages(
@@ -192,6 +202,11 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPythonPackagesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_python_package(
@@ -211,6 +226,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PythonPackage>| r.into_body())
     }
 
     async fn import_apt_artifacts(
@@ -230,7 +246,10 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_yum_artifacts(
@@ -250,7 +269,10 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_repositories(
@@ -277,6 +299,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRepositoriesResponse>| r.into_body())
     }
 
     async fn get_repository(
@@ -296,6 +319,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Repository>| r.into_body())
     }
 
     async fn create_repository(
@@ -319,6 +343,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, Some(req.repository), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_repository(
@@ -357,6 +382,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, Some(req.repository), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Repository>| r.into_body())
     }
 
     async fn delete_repository(
@@ -376,6 +402,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_packages(
@@ -399,6 +426,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListPackagesResponse>| r.into_body())
     }
 
     async fn get_package(
@@ -418,6 +446,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Package>| r.into_body())
     }
 
     async fn delete_package(
@@ -437,6 +466,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_versions(
@@ -461,6 +491,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListVersionsResponse>| r.into_body())
     }
 
     async fn get_version(
@@ -481,6 +512,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Version>| r.into_body())
     }
 
     async fn delete_version(
@@ -501,6 +533,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn batch_delete_versions(
@@ -520,7 +553,10 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_version(
@@ -559,6 +595,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, Some(req.version), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Version>| r.into_body())
     }
 
     async fn list_files(
@@ -582,6 +619,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFilesResponse>| r.into_body())
     }
 
     async fn get_file(
@@ -601,6 +639,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::File>| r.into_body())
     }
 
     async fn delete_file(
@@ -620,6 +659,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_file(
@@ -655,7 +695,10 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.file), options).await
+        self.inner
+            .execute(builder, Some(req.file), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::File>| r.into_body())
     }
 
     async fn list_tags(
@@ -678,6 +721,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTagsResponse>| r.into_body())
     }
 
     async fn get_tag(
@@ -697,6 +741,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Tag>| r.into_body())
     }
 
     async fn create_tag(
@@ -714,7 +759,10 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("tagId", &req.tag_id)]);
-        self.inner.execute(builder, Some(req.tag), options).await
+        self.inner
+            .execute(builder, Some(req.tag), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Tag>| r.into_body())
     }
 
     async fn update_tag(
@@ -750,7 +798,10 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.tag), options).await
+        self.inner
+            .execute(builder, Some(req.tag), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Tag>| r.into_body())
     }
 
     async fn delete_tag(
@@ -770,7 +821,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_rule(
@@ -788,7 +839,10 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("ruleId", &req.rule_id)]);
-        self.inner.execute(builder, Some(req.rule), options).await
+        self.inner
+            .execute(builder, Some(req.rule), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Rule>| r.into_body())
     }
 
     async fn list_rules(
@@ -810,6 +864,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRulesResponse>| r.into_body())
     }
 
     async fn get_rule(
@@ -829,6 +884,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Rule>| r.into_body())
     }
 
     async fn update_rule(
@@ -864,7 +920,10 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.rule), options).await
+        self.inner
+            .execute(builder, Some(req.rule), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Rule>| r.into_body())
     }
 
     async fn delete_rule(
@@ -884,7 +943,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn set_iam_policy(
@@ -904,7 +963,10 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -937,6 +999,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -956,7 +1019,9 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_project_settings(
@@ -976,6 +1041,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProjectSettings>| r.into_body())
     }
 
     async fn update_project_settings(
@@ -1014,6 +1080,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, Some(req.project_settings), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProjectSettings>| r.into_body())
     }
 
     async fn get_vpcsc_config(
@@ -1033,6 +1100,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VPCSCConfig>| r.into_body())
     }
 
     async fn update_vpcsc_config(
@@ -1071,6 +1139,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, Some(req.vpcsc_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::VPCSCConfig>| r.into_body())
     }
 
     async fn update_package(
@@ -1109,6 +1178,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, Some(req.package), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Package>| r.into_body())
     }
 
     async fn list_attachments(
@@ -1134,6 +1204,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAttachmentsResponse>| r.into_body())
     }
 
     async fn get_attachment(
@@ -1153,6 +1224,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Attachment>| r.into_body())
     }
 
     async fn create_attachment(
@@ -1176,6 +1248,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, Some(req.attachment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_attachment(
@@ -1195,6 +1268,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -1217,6 +1291,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1236,6 +1311,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn get_operation(
@@ -1255,6 +1331,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
