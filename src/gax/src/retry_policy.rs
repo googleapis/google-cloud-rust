@@ -412,7 +412,7 @@ where
 
     fn error_if_expired(&self, loop_start: std::time::Instant) -> Option<Error> {
         let deadline = loop_start + self.maximum_duration;
-        let now = std::time::Instant::now();
+        let now = tokio::time::Instant::now().into_std();
         if now < deadline {
             None
         } else {
@@ -439,7 +439,7 @@ where
             LoopState::Permanent(e) => LoopState::Permanent(e),
             LoopState::Exhausted(e) => LoopState::Exhausted(e),
             LoopState::Continue(e) => {
-                if std::time::Instant::now() >= start + self.maximum_duration {
+                if tokio::time::Instant::now().into_std() >= start + self.maximum_duration {
                     LoopState::Exhausted(e)
                 } else {
                     LoopState::Continue(e)
@@ -460,7 +460,7 @@ where
         attempt_count: u32,
     ) -> Option<std::time::Duration> {
         let deadline = loop_start + self.maximum_duration;
-        let remaining = deadline.saturating_duration_since(std::time::Instant::now());
+        let remaining = deadline.saturating_duration_since(tokio::time::Instant::now().into_std());
         if let Some(inner) = self.inner.remaining_time(loop_start, attempt_count) {
             return Some(std::cmp::min(remaining, inner));
         }
