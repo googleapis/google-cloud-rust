@@ -41,6 +41,12 @@ jobs:
         uses: actions/setup-go@v5
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.7.3
+
+      # Run pub get.
+      - run: dart pub get
+        working-directory: generator/dart
 
       # Regenerate and check the existing clients. If there is any difference
       # between the generated code and the committed code that is an error; all
@@ -64,6 +70,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.7.3
 
       # Run pub get.
       - run: dart pub get
