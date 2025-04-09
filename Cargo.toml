@@ -88,6 +88,7 @@ members = [
   "src/generated/cloud/billing/v1",
   "src/generated/cloud/binaryauthorization/v1",
   "src/generated/cloud/certificatemanager/v1",
+  "src/generated/cloud/chronicle/v1",
   "src/generated/cloud/cloudcontrolspartner/v1",
   "src/generated/cloud/clouddms/v1",
   "src/generated/cloud/commerce/consumer/procurement/v1",

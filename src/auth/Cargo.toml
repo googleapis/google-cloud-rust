@@ -37,7 +37,6 @@ rustls         = { version = "0.23", default-features = false, features = ["logg
 rustls-pemfile = "2"
 tokio          = { version = "1", features = ["fs"] }
 base64         = "0.22"
-derive_builder = "0.20"
 bon            = "3"
 # Local dependencies
 gax = { version = "0.21", path = "../gax", package = "google-cloud-gax" }

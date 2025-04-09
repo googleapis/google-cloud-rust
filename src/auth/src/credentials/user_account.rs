@@ -67,11 +67,12 @@
 //! [Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-identity-federation
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credentials, QUOTA_PROJECT_KEY, Result};
+use crate::credentials::{Credentials, Result};
 use crate::errors::{self, CredentialsError, is_retryable};
+use crate::headers_util::build_bearer_headers;
 use crate::token::{Token, TokenProvider};
 use crate::token_cache::TokenCache;
-use http::header::{AUTHORIZATION, CONTENT_TYPE, HeaderName, HeaderValue};
+use http::header::{CONTENT_TYPE, HeaderName, HeaderValue};
 use reqwest::{Client, Method};
 use serde_json::Value;
 use std::sync::Arc;
@@ -313,17 +314,7 @@ where
 
     async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.token().await?;
-        let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(errors::non_retryable)?;
-        value.set_sensitive(true);
-        let mut headers = vec![(AUTHORIZATION, value)];
-        if let Some(project) = &self.quota_project_id {
-            headers.push((
-                HeaderName::from_static(QUOTA_PROJECT_KEY),
-                HeaderValue::from_str(project).map_err(errors::non_retryable)?,
-            ));
-        }
-        Ok(headers)
+        build_bearer_headers(&token, &self.quota_project_id)
     }
 }
 
@@ -370,10 +361,12 @@ struct Oauth2RefreshResponse {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::test::HV;
     use crate::token::test::MockTokenProvider;
     use axum::extract::Json;
     use http::StatusCode;
+    use http::header::AUTHORIZATION;
     use std::error::Error;
     use std::sync::Mutex;
     use tokio::task::JoinHandle;
