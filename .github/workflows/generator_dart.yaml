@@ -42,7 +42,7 @@ jobs:
       - name: Install Dart
         uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.7.3
+          sdk: 3.7.2
 
       # Run pub get.
       - run: dart pub get
@@ -71,7 +71,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: 3.7.3
+          sdk: 3.7.2
 
       # Run pub get.
       - run: dart pub get
