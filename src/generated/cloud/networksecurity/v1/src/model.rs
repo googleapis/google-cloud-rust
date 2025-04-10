@@ -74,6 +74,9 @@ pub struct AuthorizationPolicy {
     /// action specified in the `action` field will be applied on every request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub rules: std::vec::Vec<crate::model::authorization_policy::Rule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuthorizationPolicy {
@@ -175,6 +178,9 @@ pub mod authorization_policy {
         /// checks for the destination.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub destinations: std::vec::Vec<crate::model::authorization_policy::rule::Destination>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Rule {
@@ -238,6 +244,9 @@ pub mod authorization_policy {
             /// should be considered untrusted.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub ip_blocks: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Source {
@@ -305,6 +314,9 @@ pub mod authorization_policy {
             pub http_header_match: std::option::Option<
                 crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Destination {
@@ -389,6 +401,9 @@ pub mod authorization_policy {
                 pub r#type: std::option::Option<
                     crate::model::authorization_policy::rule::destination::http_header_match::Type,
                 >,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl HttpHeaderMatch {
@@ -550,6 +565,9 @@ pub struct ListAuthorizationPoliciesRequest {
     /// that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAuthorizationPoliciesRequest {
@@ -597,6 +615,9 @@ pub struct ListAuthorizationPoliciesResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAuthorizationPoliciesResponse {
@@ -652,6 +673,9 @@ pub struct GetAuthorizationPolicyRequest {
     /// `projects/{project}/locations/{location}/authorizationPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAuthorizationPolicyRequest {
@@ -693,6 +717,9 @@ pub struct CreateAuthorizationPolicyRequest {
     /// Required. AuthorizationPolicy resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub authorization_policy: std::option::Option<crate::model::AuthorizationPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAuthorizationPolicyRequest {
@@ -750,6 +777,9 @@ pub struct UpdateAuthorizationPolicyRequest {
     /// Required. Updated AuthorizationPolicy resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub authorization_policy: std::option::Option<crate::model::AuthorizationPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAuthorizationPolicyRequest {
@@ -794,6 +824,9 @@ pub struct DeleteAuthorizationPolicyRequest {
     /// `projects/{project}/locations/{location}/authorizationPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAuthorizationPolicyRequest {
@@ -858,6 +891,9 @@ pub struct ClientTlsPolicy {
     /// server certificate.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub server_validation_ca: std::vec::Vec<crate::model::ValidationCA>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ClientTlsPolicy {
@@ -962,6 +998,9 @@ pub struct ListClientTlsPoliciesRequest {
     /// should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClientTlsPoliciesRequest {
@@ -1009,6 +1048,9 @@ pub struct ListClientTlsPoliciesResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClientTlsPoliciesResponse {
@@ -1064,6 +1106,9 @@ pub struct GetClientTlsPolicyRequest {
     /// `projects/*/locations/{location}/clientTlsPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetClientTlsPolicyRequest {
@@ -1104,6 +1149,9 @@ pub struct CreateClientTlsPolicyRequest {
     /// Required. ClientTlsPolicy resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub client_tls_policy: std::option::Option<crate::model::ClientTlsPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateClientTlsPolicyRequest {
@@ -1162,6 +1210,9 @@ pub struct UpdateClientTlsPolicyRequest {
     /// Required. Updated ClientTlsPolicy resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub client_tls_policy: std::option::Option<crate::model::ClientTlsPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateClientTlsPolicyRequest {
@@ -1206,6 +1257,9 @@ pub struct DeleteClientTlsPolicyRequest {
     /// the format `projects/*/locations/{location}/clientTlsPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteClientTlsPolicyRequest {
@@ -1263,6 +1317,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -1378,6 +1435,9 @@ pub struct ServerTlsPolicy {
     /// text and mTLS connections.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub mtls_policy: std::option::Option<crate::model::server_tls_policy::MTLSPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServerTlsPolicy {
@@ -1477,6 +1537,9 @@ pub mod server_tls_policy {
         /// validate the client certificate.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub client_validation_ca: std::vec::Vec<crate::model::ValidationCA>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MTLSPolicy {
@@ -1523,6 +1586,9 @@ pub struct ListServerTlsPoliciesRequest {
     /// should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServerTlsPoliciesRequest {
@@ -1570,6 +1636,9 @@ pub struct ListServerTlsPoliciesResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServerTlsPoliciesResponse {
@@ -1625,6 +1694,9 @@ pub struct GetServerTlsPolicyRequest {
     /// `projects/*/locations/{location}/serverTlsPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServerTlsPolicyRequest {
@@ -1665,6 +1737,9 @@ pub struct CreateServerTlsPolicyRequest {
     /// Required. ServerTlsPolicy resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub server_tls_policy: std::option::Option<crate::model::ServerTlsPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServerTlsPolicyRequest {
@@ -1723,6 +1798,9 @@ pub struct UpdateServerTlsPolicyRequest {
     /// Required. Updated ServerTlsPolicy resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub server_tls_policy: std::option::Option<crate::model::ServerTlsPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateServerTlsPolicyRequest {
@@ -1767,6 +1845,9 @@ pub struct DeleteServerTlsPolicyRequest {
     /// the format `projects/*/locations/{location}/serverTlsPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServerTlsPolicyRequest {
@@ -1797,6 +1878,9 @@ pub struct GrpcEndpoint {
     /// should start with "unix:".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub target_uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GrpcEndpoint {
@@ -1827,6 +1911,9 @@ pub struct ValidationCA {
     /// The type of certificate provider which provides the CA certificate.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub r#type: std::option::Option<crate::model::validation_ca::Type>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ValidationCA {
@@ -1945,6 +2032,9 @@ pub struct CertificateProviderInstance {
     /// Authority Service certificate provider instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub plugin_instance: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateProviderInstance {
@@ -1976,6 +2066,9 @@ pub struct CertificateProvider {
     /// private keys.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub r#type: std::option::Option<crate::model::certificate_provider::Type>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateProvider {

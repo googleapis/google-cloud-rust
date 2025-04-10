@@ -56,6 +56,9 @@ pub struct SetIamPolicyRequest {
     /// `paths: "bindings, etag"`
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SetIamPolicyRequest {
@@ -109,6 +112,9 @@ pub struct GetIamPolicyRequest {
     /// `GetIamPolicy`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::model::GetPolicyOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetIamPolicyRequest {
@@ -157,6 +163,9 @@ pub struct TestIamPermissionsRequest {
     /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub permissions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TestIamPermissionsRequest {
@@ -198,6 +207,9 @@ pub struct TestIamPermissionsResponse {
     /// allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub permissions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TestIamPermissionsResponse {
@@ -248,6 +260,9 @@ pub struct GetPolicyOptions {
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     pub requested_policy_version: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPolicyOptions {
@@ -404,6 +419,9 @@ pub struct Policy {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub etag: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Policy {
@@ -521,6 +539,9 @@ pub struct Binding {
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition: std::option::Option<gtype::model::Expr>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Binding {
@@ -628,6 +649,9 @@ pub struct AuditConfig {
     /// The configuration for logging of each type of permission.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub audit_log_configs: std::vec::Vec<crate::model::AuditLogConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuditConfig {
@@ -696,6 +720,9 @@ pub struct AuditLogConfig {
     /// [google.iam.v1.Binding.members]: crate::model::Binding::members
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub exempted_members: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuditLogConfig {
@@ -812,6 +839,9 @@ pub struct PolicyDelta {
     /// The delta for AuditConfigs between two policies.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub audit_config_deltas: std::vec::Vec<crate::model::AuditConfigDelta>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyDelta {
@@ -874,6 +904,9 @@ pub struct BindingDelta {
     /// The condition that is associated with this binding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition: std::option::Option<gtype::model::Expr>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BindingDelta {
@@ -1010,6 +1043,9 @@ pub struct AuditConfigDelta {
     /// Required
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub log_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuditConfigDelta {
@@ -1140,6 +1176,9 @@ pub struct ResourcePolicyMember {
     /// `principal://parametermanager.googleapis.com/projects/12345/uid/locations/us-central1-a/parameters/a918fed5`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub iam_policy_uid_principal: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResourcePolicyMember {

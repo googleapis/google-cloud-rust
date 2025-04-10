@@ -67,6 +67,9 @@ pub struct OrchestrationCluster {
 
     /// Output only. State of the Orchestration Cluster.
     pub state: crate::model::orchestration_cluster::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OrchestrationCluster {
@@ -258,6 +261,9 @@ pub struct EdgeSlm {
     /// Optional. Type of workload cluster for which an EdgeSLM resource is
     /// created.
     pub workload_cluster_type: crate::model::edge_slm::WorkloadClusterType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EdgeSlm {
@@ -550,6 +556,9 @@ pub struct Blueprint {
     /// Output only. Indicates if the deployment created from this blueprint can be
     /// rolled back.
     pub rollback_support: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Blueprint {
@@ -788,6 +797,9 @@ pub struct PublicBlueprint {
     /// Output only. Indicates if the deployment created from this blueprint can be
     /// rolled back.
     pub rollback_support: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PublicBlueprint {
@@ -917,6 +929,9 @@ pub struct Deployment {
     /// Output only. Indicates if the deployment can be rolled back, exported from
     /// public blueprint.
     pub rollback_support: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Deployment {
@@ -1155,6 +1170,9 @@ pub struct HydratedDeployment {
     /// hydrated deployment will be deployed on.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub workload_cluster: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HydratedDeployment {
@@ -1294,6 +1312,9 @@ pub struct ListOrchestrationClustersRequest {
     /// Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOrchestrationClustersRequest {
@@ -1355,6 +1376,9 @@ pub struct ListOrchestrationClustersResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOrchestrationClustersResponse {
@@ -1420,6 +1444,9 @@ pub struct GetOrchestrationClusterRequest {
     /// Required. Name of the resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetOrchestrationClusterRequest {
@@ -1475,6 +1502,9 @@ pub struct CreateOrchestrationClusterRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateOrchestrationClusterRequest {
@@ -1546,6 +1576,9 @@ pub struct DeleteOrchestrationClusterRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteOrchestrationClusterRequest {
@@ -1597,6 +1630,9 @@ pub struct ListEdgeSlmsRequest {
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEdgeSlmsRequest {
@@ -1658,6 +1694,9 @@ pub struct ListEdgeSlmsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEdgeSlmsResponse {
@@ -1723,6 +1762,9 @@ pub struct GetEdgeSlmRequest {
     /// Required. Name of the resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEdgeSlmRequest {
@@ -1778,6 +1820,9 @@ pub struct CreateEdgeSlmRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateEdgeSlmRequest {
@@ -1844,6 +1889,9 @@ pub struct DeleteEdgeSlmRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteEdgeSlmRequest {
@@ -1889,6 +1937,9 @@ pub struct CreateBlueprintRequest {
     /// Required. The `Blueprint` to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub blueprint: std::option::Option<crate::model::Blueprint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateBlueprintRequest {
@@ -1938,6 +1989,9 @@ pub struct UpdateBlueprintRequest {
     /// the `blueprint` resource by the update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateBlueprintRequest {
@@ -1987,6 +2041,9 @@ pub struct GetBlueprintRequest {
     /// Optional. Defines the type of view of the blueprint.
     /// When field is not present BLUEPRINT_VIEW_BASIC is considered as default.
     pub view: crate::model::BlueprintView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetBlueprintRequest {
@@ -2025,6 +2082,9 @@ pub struct DeleteBlueprintRequest {
     /// argument.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteBlueprintRequest {
@@ -2070,6 +2130,9 @@ pub struct ListBlueprintsRequest {
     /// It can be provided to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBlueprintsRequest {
@@ -2122,6 +2185,9 @@ pub struct ListBlueprintsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBlueprintsResponse {
@@ -2177,6 +2243,9 @@ pub struct ApproveBlueprintRequest {
     /// Proposed state. A new revision is committed on approval.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApproveBlueprintRequest {
@@ -2206,6 +2275,9 @@ pub struct ProposeBlueprintRequest {
     /// Required. The name of the blueprint being proposed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProposeBlueprintRequest {
@@ -2235,6 +2307,9 @@ pub struct RejectBlueprintRequest {
     /// Required. The name of the blueprint being rejected.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RejectBlueprintRequest {
@@ -2272,6 +2347,9 @@ pub struct ListBlueprintRevisionsRequest {
     /// It can be provided to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBlueprintRevisionsRequest {
@@ -2318,6 +2396,9 @@ pub struct ListBlueprintRevisionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBlueprintRevisionsResponse {
@@ -2394,6 +2475,9 @@ pub struct SearchBlueprintRevisionsRequest {
     /// It can be provided to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchBlueprintRevisionsRequest {
@@ -2446,6 +2530,9 @@ pub struct SearchBlueprintRevisionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchBlueprintRevisionsResponse {
@@ -2500,6 +2587,9 @@ pub struct DiscardBlueprintChangesRequest {
     /// Required. The name of the blueprint of which changes are being discarded.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DiscardBlueprintChangesRequest {
@@ -2525,7 +2615,10 @@ impl wkt::message::Message for DiscardBlueprintChangesRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DiscardBlueprintChangesResponse {}
+pub struct DiscardBlueprintChangesResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DiscardBlueprintChangesResponse {
     pub fn new() -> Self {
@@ -2558,6 +2651,9 @@ pub struct ListPublicBlueprintsRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPublicBlueprintsRequest {
@@ -2604,6 +2700,9 @@ pub struct ListPublicBlueprintsResponse {
     /// return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPublicBlueprintsResponse {
@@ -2658,6 +2757,9 @@ pub struct GetPublicBlueprintRequest {
     /// Required. The name of the public blueprint.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPublicBlueprintRequest {
@@ -2697,6 +2799,9 @@ pub struct CreateDeploymentRequest {
     /// Required. The `Deployment` to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub deployment: std::option::Option<crate::model::Deployment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDeploymentRequest {
@@ -2746,6 +2851,9 @@ pub struct UpdateDeploymentRequest {
     /// the `deployment` resource by the update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDeploymentRequest {
@@ -2796,6 +2904,9 @@ pub struct GetDeploymentRequest {
     /// Optional. Defines the type of view of the deployment.
     /// When field is not present VIEW_BASIC is considered as default.
     pub view: crate::model::DeploymentView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDeploymentRequest {
@@ -2831,6 +2942,9 @@ pub struct RemoveDeploymentRequest {
     /// Required. The name of deployment to initiate delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RemoveDeploymentRequest {
@@ -2876,6 +2990,9 @@ pub struct ListDeploymentsRequest {
     /// It can be provided to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDeploymentsRequest {
@@ -2928,6 +3045,9 @@ pub struct ListDeploymentsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDeploymentsResponse {
@@ -2990,6 +3110,9 @@ pub struct ListDeploymentRevisionsRequest {
     /// call Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDeploymentRevisionsRequest {
@@ -3036,6 +3159,9 @@ pub struct ListDeploymentRevisionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDeploymentRevisionsResponse {
@@ -3113,6 +3239,9 @@ pub struct SearchDeploymentRevisionsRequest {
     /// It can be provided to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchDeploymentRevisionsRequest {
@@ -3165,6 +3294,9 @@ pub struct SearchDeploymentRevisionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchDeploymentRevisionsResponse {
@@ -3219,6 +3351,9 @@ pub struct DiscardDeploymentChangesRequest {
     /// Required. The name of the deployment of which changes are being discarded.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DiscardDeploymentChangesRequest {
@@ -3244,7 +3379,10 @@ impl wkt::message::Message for DiscardDeploymentChangesRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DiscardDeploymentChangesResponse {}
+pub struct DiscardDeploymentChangesResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DiscardDeploymentChangesResponse {
     pub fn new() -> Self {
@@ -3269,6 +3407,9 @@ pub struct ApplyDeploymentRequest {
     /// Required. The name of the deployment to apply to orchestration cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApplyDeploymentRequest {
@@ -3298,6 +3439,9 @@ pub struct ComputeDeploymentStatusRequest {
     /// Required. The name of the deployment without revisionID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComputeDeploymentStatusRequest {
@@ -3334,6 +3478,9 @@ pub struct ComputeDeploymentStatusResponse {
     /// Output only. Resource level status details in deployments.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub resource_statuses: std::vec::Vec<crate::model::ResourceStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComputeDeploymentStatusResponse {
@@ -3387,6 +3534,9 @@ pub struct RollbackDeploymentRequest {
     /// Required. The revision id of deployment to roll back to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub revision_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RollbackDeploymentRequest {
@@ -3451,6 +3601,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -3522,6 +3675,9 @@ pub struct GetHydratedDeploymentRequest {
     /// Required. Name of the hydrated deployment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetHydratedDeploymentRequest {
@@ -3562,6 +3718,9 @@ pub struct ListHydratedDeploymentsRequest {
     /// call. Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListHydratedDeploymentsRequest {
@@ -3608,6 +3767,9 @@ pub struct ListHydratedDeploymentsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListHydratedDeploymentsResponse {
@@ -3667,6 +3829,9 @@ pub struct UpdateHydratedDeploymentRequest {
     /// value `*` which fully replaces (equivalent to PUT) the resource provided.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateHydratedDeploymentRequest {
@@ -3710,6 +3875,9 @@ pub struct ApplyHydratedDeploymentRequest {
     /// Required. The name of the hydrated deployment to apply.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApplyHydratedDeploymentRequest {
@@ -3740,6 +3908,9 @@ pub struct ManagementConfig {
     /// and FullManagementConfig
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub oneof_config: std::option::Option<crate::model::management_config::OneofConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ManagementConfig {
@@ -3904,6 +4075,9 @@ pub struct StandardManagementConfig {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub master_authorized_networks_config:
         std::option::Option<crate::model::MasterAuthorizedNetworksConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StandardManagementConfig {
@@ -4041,6 +4215,9 @@ pub struct FullManagementConfig {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub master_authorized_networks_config:
         std::option::Option<crate::model::MasterAuthorizedNetworksConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FullManagementConfig {
@@ -4133,6 +4310,9 @@ pub struct MasterAuthorizedNetworksConfig {
     /// Kubernetes master through HTTPS.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub cidr_blocks: std::vec::Vec<crate::model::master_authorized_networks_config::CidrBlock>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MasterAuthorizedNetworksConfig {
@@ -4180,6 +4360,9 @@ pub mod master_authorized_networks_config {
         /// will be required in the future.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub cidr_block: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CidrBlock {
@@ -4231,6 +4414,9 @@ pub struct File {
     /// Optional. Indicates whether changes are allowed to a file. If the field is
     /// not set, the file cannot be edited.
     pub editable: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl File {
@@ -4304,6 +4490,9 @@ pub struct ResourceStatus {
     /// Output only. Detailed status of NFDeploy.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub nf_deploy_status: std::option::Option<crate::model::NFDeployStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResourceStatus {
@@ -4393,6 +4582,9 @@ pub struct NFDeployStatus {
     /// Output only. Per-Site Status.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub sites: std::vec::Vec<crate::model::NFDeploySiteStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NFDeployStatus {
@@ -4450,6 +4642,9 @@ pub struct NFDeploySiteStatus {
     /// Output only. Workload status.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub workload: std::option::Option<crate::model::WorkloadStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NFDeploySiteStatus {
@@ -4511,6 +4706,9 @@ pub struct HydrationStatus {
     /// Output only. Status.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub status: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HydrationStatus {
@@ -4559,6 +4757,9 @@ pub struct SiteVersion {
     /// Output only. NF version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub nf_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SiteVersion {
@@ -4604,6 +4805,9 @@ pub struct WorkloadStatus {
     /// Output only. Status.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub status: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WorkloadStatus {

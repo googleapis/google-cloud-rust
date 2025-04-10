@@ -80,6 +80,9 @@ pub struct Api {
 
     /// The source syntax of the service.
     pub syntax: crate::Syntax,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Api {
@@ -184,6 +187,9 @@ pub struct Method {
 
     /// The source syntax of this method.
     pub syntax: crate::Syntax,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Method {
@@ -355,6 +361,9 @@ pub struct Mixin {
     /// are rooted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub root: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Mixin {
@@ -390,6 +399,9 @@ impl wkt::message::Message for Mixin {
 pub struct FileDescriptorSet {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub file: std::vec::Vec<crate::FileDescriptorProto>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FileDescriptorSet {
@@ -472,6 +484,9 @@ pub struct FileDescriptorProto {
 
     /// The edition of the proto file.
     pub edition: crate::Edition,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FileDescriptorProto {
@@ -644,6 +659,9 @@ pub struct DescriptorProto {
     /// A given name may only be reserved once.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub reserved_name: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DescriptorProto {
@@ -777,6 +795,9 @@ pub mod descriptor_proto {
 
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub options: std::option::Option<crate::ExtensionRangeOptions>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ExtensionRange {
@@ -825,6 +846,9 @@ pub mod descriptor_proto {
         pub start: i32,
 
         pub end: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ReservedRange {
@@ -875,6 +899,9 @@ pub struct ExtensionRangeOptions {
     /// TODO: flip the default to DECLARATION once all empty ranges
     /// are marked as UNVERIFIED.
     pub verification: crate::extension_range_options::VerificationState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExtensionRangeOptions {
@@ -964,6 +991,9 @@ pub mod extension_range_options {
         /// If true, indicates that the extension must be defined as repeated.
         /// Otherwise the extension must be defined as optional.
         pub repeated: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Declaration {
@@ -1134,6 +1164,9 @@ pub struct FieldDescriptorProto {
     /// Proto2 optional fields do not set this flag, because they already indicate
     /// optional with `LABEL_OPTIONAL`.
     pub proto3_optional: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FieldDescriptorProto {
@@ -1422,6 +1455,9 @@ pub struct OneofDescriptorProto {
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::OneofOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OneofDescriptorProto {
@@ -1476,6 +1512,9 @@ pub struct EnumDescriptorProto {
     /// be reserved once.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub reserved_name: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnumDescriptorProto {
@@ -1557,6 +1596,9 @@ pub mod enum_descriptor_proto {
         pub start: i32,
 
         pub end: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EnumReservedRange {
@@ -1597,6 +1639,9 @@ pub struct EnumValueDescriptorProto {
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::EnumValueOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnumValueDescriptorProto {
@@ -1646,6 +1691,9 @@ pub struct ServiceDescriptorProto {
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::ServiceOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceDescriptorProto {
@@ -1711,6 +1759,9 @@ pub struct MethodDescriptorProto {
 
     /// Identifies if server streams multiple server messages
     pub server_streaming: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MethodDescriptorProto {
@@ -1891,6 +1942,9 @@ pub struct FileOptions {
     /// See the documentation for the "Options" section above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FileOptions {
@@ -2196,6 +2250,9 @@ pub struct MessageOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MessageOptions {
@@ -2362,6 +2419,9 @@ pub struct FieldOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FieldOptions {
@@ -2500,6 +2560,9 @@ pub mod field_options {
 
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub value: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EditionDefault {
@@ -2550,6 +2613,9 @@ pub mod field_options {
         /// this one, the last default assigned will be used, and proto files will
         /// not be able to override it.
         pub edition_removed: crate::Edition,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl FeatureSupport {
@@ -2866,6 +2932,9 @@ pub struct OneofOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OneofOptions {
@@ -2930,6 +2999,9 @@ pub struct EnumOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnumOptions {
@@ -3012,6 +3084,9 @@ pub struct EnumValueOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnumValueOptions {
@@ -3087,6 +3162,9 @@ pub struct ServiceOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceOptions {
@@ -3147,6 +3225,9 @@ pub struct MethodOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MethodOptions {
@@ -3291,6 +3372,9 @@ pub struct UninterpretedOption {
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub aggregate_value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UninterpretedOption {
@@ -3374,6 +3458,9 @@ pub mod uninterpreted_option {
         pub name_part: std::string::String,
 
         pub is_extension: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NamePart {
@@ -3423,6 +3510,9 @@ pub struct FeatureSet {
     pub message_encoding: crate::feature_set::MessageEncoding,
 
     pub json_format: crate::feature_set::JsonFormat,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FeatureSet {
@@ -3847,6 +3937,9 @@ pub struct FeatureSetDefaults {
     /// The maximum known edition (inclusive) when this was constructed. Editions
     /// after this will not have reliable defaults.
     pub maximum_edition: crate::Edition,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FeatureSetDefaults {
@@ -3907,6 +4000,9 @@ pub mod feature_set_defaults {
         /// Defaults of features that can't be overridden in this edition.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub fixed_features: std::option::Option<crate::FeatureSet>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl FeatureSetEditionDefault {
@@ -4001,6 +4097,9 @@ pub struct SourceCodeInfo {
     ///   be recorded in the future.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub location: std::vec::Vec<crate::source_code_info::Location>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SourceCodeInfo {
@@ -4126,6 +4225,9 @@ pub mod source_code_info {
 
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub leading_detached_comments: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Location {
@@ -4204,6 +4306,9 @@ pub struct GeneratedCodeInfo {
     /// of its generating .proto file.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub annotation: std::vec::Vec<crate::generated_code_info::Annotation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GeneratedCodeInfo {
@@ -4258,6 +4363,9 @@ pub mod generated_code_info {
         pub end: i32,
 
         pub semantic: crate::generated_code_info::annotation::Semantic,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Annotation {
@@ -4388,6 +4496,9 @@ pub struct SourceContext {
     /// protobuf element.  For example: `"google/protobuf/source_context.proto"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub file_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SourceContext {
@@ -4440,6 +4551,9 @@ pub struct Type {
     /// The source edition string, only valid when syntax is SYNTAX_EDITIONS.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub edition: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Type {
@@ -4556,6 +4670,9 @@ pub struct Field {
     /// The string value of the default value of this field. Proto2 syntax only.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub default_value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Field {
@@ -4871,6 +4988,9 @@ pub struct Enum {
     /// The source edition string, only valid when syntax is SYNTAX_EDITIONS.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub edition: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Enum {
@@ -4950,6 +5070,9 @@ pub struct EnumValue {
     /// Protocol buffer options.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub options: std::vec::Vec<crate::Option>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnumValue {
@@ -5007,6 +5130,9 @@ pub struct Option {
     /// value using the google.protobuf.Int32Value type.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub value: std::option::Option<crate::Any>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Option {

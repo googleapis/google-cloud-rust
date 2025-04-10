@@ -57,6 +57,9 @@ pub struct PolicyRule {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub kind: std::option::Option<crate::model::policy_rule::Kind>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyRule {
@@ -214,6 +217,9 @@ pub mod policy_rule {
         /// List of values denied at this resource.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub denied_values: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StringValues {
@@ -331,6 +337,9 @@ pub struct CustomConstraint {
     /// `UpdateCustomConstraint` RPC was called
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomConstraint {
@@ -558,6 +567,9 @@ pub struct OrgPolicyConstraint {
     /// Required. Org PolicySpec rules.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub policy_rules: std::vec::Vec<crate::model::PolicyRule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OrgPolicyConstraint {
@@ -605,6 +617,9 @@ pub struct OrgPolicyConstraintCustom {
     /// Required. Org Policyspec rules.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub policy_rules: std::vec::Vec<crate::model::PolicyRule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OrgPolicyConstraintCustom {
@@ -685,6 +700,9 @@ pub struct OperationMetadata {
     /// or CREATE_FAILED or DELETE_FAILED.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub error_message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -812,6 +830,9 @@ pub struct Posture {
     /// Output only. Whether or not this Posture is in the process of being
     /// updated.
     pub reconciling: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Posture {
@@ -988,6 +1009,9 @@ pub struct PolicySet {
     /// Required. List of policies.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub policies: std::vec::Vec<crate::model::Policy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicySet {
@@ -1047,6 +1071,9 @@ pub struct Policy {
     /// Optional. Description of the Policy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Policy {
@@ -1111,6 +1138,9 @@ pub mod policy {
         /// Optional. Control mapping provided by user for this Policy. e.g.: 1.5.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub control: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ComplianceStandard {
@@ -1146,6 +1176,9 @@ pub mod policy {
 pub struct Constraint {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub implementation: std::option::Option<crate::model::constraint::Implementation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Constraint {
@@ -1339,6 +1372,9 @@ pub struct ListPosturesRequest {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPosturesRequest {
@@ -1388,6 +1424,9 @@ pub struct ListPosturesResponse {
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPosturesResponse {
@@ -1461,6 +1500,9 @@ pub struct ListPostureRevisionsRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPostureRevisionsRequest {
@@ -1506,6 +1548,9 @@ pub struct ListPostureRevisionsResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPostureRevisionsResponse {
@@ -1564,6 +1609,9 @@ pub struct GetPostureRequest {
     /// Optional. Posture revision which needs to be retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub revision_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPostureRequest {
@@ -1608,6 +1656,9 @@ pub struct CreatePostureRequest {
     /// Required. The resource being created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub posture: std::option::Option<crate::model::Posture>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePostureRequest {
@@ -1664,6 +1715,9 @@ pub struct UpdatePostureRequest {
     /// Required. Posture revision which needs to be updated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub revision_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePostureRequest {
@@ -1715,6 +1769,9 @@ pub struct DeletePostureRequest {
     /// Optional. Etag value of the Posture to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePostureRequest {
@@ -1766,6 +1823,9 @@ pub struct ExtractPostureRequest {
     /// - `organization/organizationNumber`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub workload: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExtractPostureRequest {
@@ -1883,6 +1943,9 @@ pub struct PostureDeployment {
     /// CREATE_FAILED or DELETE_FAILED.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub failure_message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostureDeployment {
@@ -2115,6 +2178,9 @@ pub struct ListPostureDeploymentsRequest {
     /// <https://google.aip.dev/assets/misc/ebnf-filtering.txt>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPostureDeploymentsRequest {
@@ -2170,6 +2236,9 @@ pub struct ListPostureDeploymentsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPostureDeploymentsResponse {
@@ -2235,6 +2304,9 @@ pub struct GetPostureDeploymentRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPostureDeploymentRequest {
@@ -2274,6 +2346,9 @@ pub struct CreatePostureDeploymentRequest {
     /// Required. The resource being created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub posture_deployment: std::option::Option<crate::model::PostureDeployment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePostureDeploymentRequest {
@@ -2331,6 +2406,9 @@ pub struct UpdatePostureDeploymentRequest {
     /// Required. The resource being updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub posture_deployment: std::option::Option<crate::model::PostureDeployment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePostureDeploymentRequest {
@@ -2378,6 +2456,9 @@ pub struct DeletePostureDeploymentRequest {
     /// Optional. Etag value of the PostureDeployment to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePostureDeploymentRequest {
@@ -2431,6 +2512,9 @@ pub struct PostureTemplate {
     /// Output only. Policy_sets to be used by the user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub policy_sets: std::vec::Vec<crate::model::PolicySet>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostureTemplate {
@@ -2569,6 +2653,9 @@ pub struct ListPostureTemplatesRequest {
     /// <https://google.aip.dev/assets/misc/ebnf-filtering.txt>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPostureTemplatesRequest {
@@ -2620,6 +2707,9 @@ pub struct ListPostureTemplatesResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPostureTemplatesResponse {
@@ -2679,6 +2769,9 @@ pub struct GetPostureTemplateRequest {
     /// PostureTemplate revision_id which needs to be retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub revision_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPostureTemplateRequest {
@@ -2718,6 +2811,9 @@ pub struct SecurityHealthAnalyticsModule {
     /// The state of enablement for the module at its level of the resource
     /// hierarchy.
     pub module_enablement_state: crate::model::EnablementState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecurityHealthAnalyticsModule {
@@ -2774,6 +2870,9 @@ pub struct SecurityHealthAnalyticsCustomModule {
     /// The state of enablement for the module at its level of the resource
     /// hierarchy.
     pub module_enablement_state: crate::model::EnablementState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecurityHealthAnalyticsCustomModule {
@@ -2856,6 +2955,9 @@ pub struct CustomConfig {
     /// JSON.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub recommendation: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomConfig {
@@ -2939,6 +3041,9 @@ pub mod custom_config {
         /// Optional. A list of custom output properties to add to the finding.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub properties: std::vec::Vec<crate::model::custom_config::custom_output_spec::Property>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CustomOutputSpec {
@@ -2984,6 +3089,9 @@ pub mod custom_config {
             /// enclosed in quotation marks.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub value_expression: std::option::Option<gtype::model::Expr>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Property {
@@ -3025,6 +3133,9 @@ pub mod custom_config {
         /// Required. The resource types to run the detector on.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub resource_types: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ResourceSelector {

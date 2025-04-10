@@ -89,6 +89,9 @@ pub struct BillingAccount {
     /// currency of an existing billing account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub currency_code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BillingAccount {
@@ -173,6 +176,9 @@ pub struct ProjectBillingInfo {
     /// associated with a closed billing account, or no billing account at all, and
     /// therefore cannot use paid services.
     pub billing_enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProjectBillingInfo {
@@ -224,6 +230,9 @@ pub struct GetBillingAccountRequest {
     /// example, `billingAccounts/012345-567890-ABCDEF`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetBillingAccountRequest {
@@ -279,6 +288,9 @@ pub struct ListBillingAccountsRequest {
     ///   `billingAccounts/012345-567890-ABCDEF`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBillingAccountsRequest {
@@ -332,6 +344,9 @@ pub struct ListBillingAccountsResponse {
     /// value. This field is empty if there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBillingAccountsResponse {
@@ -397,6 +412,9 @@ pub struct CreateBillingAccountRequest {
     ///   `billingAccounts/012345-567890-ABCDEF`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateBillingAccountRequest {
@@ -447,6 +465,9 @@ pub struct UpdateBillingAccountRequest {
     /// Only "display_name" is currently supported.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateBillingAccountRequest {
@@ -506,6 +527,9 @@ pub struct ListProjectBillingInfoRequest {
     /// call. If unspecified, the first page of results is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProjectBillingInfoRequest {
@@ -554,6 +578,9 @@ pub struct ListProjectBillingInfoResponse {
     /// value. This field is empty if there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProjectBillingInfoResponse {
@@ -609,6 +636,9 @@ pub struct GetProjectBillingInfoRequest {
     /// retrieved. For example, `projects/tokyo-rain-123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetProjectBillingInfoRequest {
@@ -646,6 +676,9 @@ pub struct UpdateProjectBillingInfoRequest {
     /// `billing_account_name`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub project_billing_info: std::option::Option<crate::model::ProjectBillingInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateProjectBillingInfoRequest {
@@ -695,6 +728,9 @@ pub struct MoveBillingAccountRequest {
     /// Must be of the form `organizations/{organization_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MoveBillingAccountRequest {
@@ -748,6 +784,9 @@ pub struct Service {
     /// Ex. "businessEntities/GCP", "businessEntities/Maps"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub business_entity_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Service {
@@ -832,6 +871,9 @@ pub struct Sku {
     /// The geographic taxonomy for this sku.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub geo_taxonomy: std::option::Option<crate::model::GeoTaxonomy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Sku {
@@ -939,6 +981,9 @@ pub struct Category {
     /// Example: "OnDemand", "Preemptible", "Commit1Mo", "Commit1Yr" etc.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub usage_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Category {
@@ -1015,6 +1060,9 @@ pub struct PricingInfo {
     /// defaults to 1.0.
     /// Example: USD * currency_conversion_rate = JPY
     pub currency_conversion_rate: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PricingInfo {
@@ -1129,6 +1177,9 @@ pub struct PricingExpression {
     /// start_usage_amount * base_unit_conversion_factor = start_usage_amount in
     /// base_unit.
     pub base_unit_conversion_factor: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PricingExpression {
@@ -1216,6 +1267,9 @@ pub mod pricing_expression {
         /// Example: unit_price of amount $10 indicates that each unit will cost $10.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub unit_price: std::option::Option<gtype::model::Money>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TierRate {
@@ -1260,6 +1314,9 @@ pub struct AggregationInfo {
     /// Example: If aggregation_level is "DAILY" and aggregation_count is 14,
     /// aggregation will be over 14 days.
     pub aggregation_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AggregationInfo {
@@ -1439,6 +1496,9 @@ pub struct GeoTaxonomy {
     /// associated with all Google Cloud regions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub regions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GeoTaxonomy {
@@ -1557,6 +1617,9 @@ pub struct ListServicesRequest {
     /// call. If unspecified, the first page of results is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicesRequest {
@@ -1598,6 +1661,9 @@ pub struct ListServicesResponse {
     /// value. This field is empty if there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicesResponse {
@@ -1686,6 +1752,9 @@ pub struct ListSkusRequest {
     /// call. If unspecified, the first page of results is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSkusRequest {
@@ -1757,6 +1826,9 @@ pub struct ListSkusResponse {
     /// value. This field is empty if there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSkusResponse {

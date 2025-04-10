@@ -52,6 +52,9 @@ pub struct CreateConnectionRequest {
     /// Required. Connection to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub connection: std::option::Option<crate::model::Connection>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateConnectionRequest {
@@ -100,6 +103,9 @@ pub struct GetConnectionRequest {
     /// `projects/{project_id}/locations/{location_id}/connections/{connection_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConnectionRequest {
@@ -140,6 +146,9 @@ pub struct ListConnectionsRequest {
     /// Page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectionsRequest {
@@ -188,6 +197,9 @@ pub struct ListConnectionsResponse {
     /// List of connections.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub connections: std::vec::Vec<crate::model::Connection>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectionsResponse {
@@ -254,6 +266,9 @@ pub struct UpdateConnectionRequest {
     /// Required. Update mask for the connection fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateConnectionRequest {
@@ -302,6 +317,9 @@ pub struct DeleteConnectionRequest {
     /// `projects/{project_id}/locations/{location_id}/connections/{connection_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteConnectionRequest {
@@ -356,6 +374,9 @@ pub struct Connection {
     /// Properties specific to the underlying data source.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub properties: std::option::Option<crate::model::connection::Properties>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Connection {
@@ -675,6 +696,9 @@ pub struct CloudSqlProperties {
     /// connecting to the CloudSQL instance specified in this connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_account_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudSqlProperties {
@@ -808,6 +832,9 @@ pub struct CloudSqlCredential {
     /// The password for the credential.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub password: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudSqlCredential {
@@ -882,6 +909,9 @@ pub struct CloudSpannerProperties {
     /// contain letters, numbers, and underscores.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub database_role: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudSpannerProperties {
@@ -942,6 +972,9 @@ pub struct AwsProperties {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub authentication_method:
         std::option::Option<crate::model::aws_properties::AuthenticationMethod>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsProperties {
@@ -1071,6 +1104,9 @@ pub struct AwsCrossAccountRole {
     /// <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub external_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsCrossAccountRole {
@@ -1119,6 +1155,9 @@ pub struct AwsAccessRole {
     /// This identity will be used to access the user's AWS IAM Role.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub identity: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsAccessRole {
@@ -1182,6 +1221,9 @@ pub struct AzureProperties {
     /// Directory Application.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub identity: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureProperties {
@@ -1264,6 +1306,9 @@ pub struct CloudResourceProperties {
     /// \<service-1234\>@gcp-sa-bigquery-cloudresource.iam.gserviceaccount.com
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_account_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudResourceProperties {
@@ -1300,6 +1345,9 @@ pub struct MetastoreServiceConfig {
     /// * `projects/[project_id]/locations/[region]/services/[service_id]`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub metastore_service: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MetastoreServiceConfig {
@@ -1337,6 +1385,9 @@ pub struct SparkHistoryServerConfig {
     /// * `projects/[project_id]/regions/[region]/clusters/[cluster_name]`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub dataproc_cluster: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SparkHistoryServerConfig {
@@ -1388,6 +1439,9 @@ pub struct SparkProperties {
     /// Optional. Spark History Server configuration for the connection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub spark_history_server_config: std::option::Option<crate::model::SparkHistoryServerConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SparkProperties {
@@ -1452,6 +1506,9 @@ pub struct SalesforceDataCloudProperties {
     /// The ID of the user's Salesforce tenant.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub tenant_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SalesforceDataCloudProperties {

@@ -175,6 +175,9 @@ pub struct Workflow {
     /// revision.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source_code: std::option::Option<crate::model::workflow::SourceCode>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Workflow {
@@ -401,6 +404,9 @@ pub mod workflow {
         /// The type of this state error.
         #[serde(rename = "type")]
         pub r#type: crate::model::workflow::state_error::Type,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StateError {
@@ -672,6 +678,9 @@ pub struct ListWorkflowsRequest {
     /// If not specified, the results are returned in an unspecified order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkflowsRequest {
@@ -738,6 +747,9 @@ pub struct ListWorkflowsResponse {
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkflowsResponse {
@@ -815,6 +827,9 @@ pub struct GetWorkflowRequest {
     /// three hexadecimal characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub revision_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetWorkflowRequest {
@@ -870,6 +885,9 @@ pub struct CreateWorkflowRequest {
     /// * Must be unique within the customer project and location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub workflow_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateWorkflowRequest {
@@ -919,6 +937,9 @@ pub struct DeleteWorkflowRequest {
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteWorkflowRequest {
@@ -957,6 +978,9 @@ pub struct UpdateWorkflowRequest {
     /// will be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateWorkflowRequest {
@@ -1014,6 +1038,9 @@ pub struct OperationMetadata {
     /// API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -1088,6 +1115,9 @@ pub struct ListWorkflowRevisionsRequest {
     /// Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkflowRevisionsRequest {
@@ -1138,6 +1168,9 @@ pub struct ListWorkflowRevisionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkflowRevisionsResponse {

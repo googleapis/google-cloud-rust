@@ -19,6 +19,7 @@
 #![no_implicit_prelude]
 extern crate bytes;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -55,6 +56,9 @@ pub struct MembershipState {
     /// Hierarchy Controller status
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub hierarchy_controller_state: std::option::Option<crate::model::HierarchyControllerState>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MembershipState {
@@ -165,6 +169,9 @@ pub struct MembershipSpec {
 
     /// Enables automatic Feature management.
     pub management: crate::model::membership_spec::Management,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MembershipSpec {
@@ -336,6 +343,9 @@ pub struct ConfigSync {
     /// `config-management-monitoring` should be bound to the GSA.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub metrics_gcp_service_account_email: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigSync {
@@ -436,6 +446,9 @@ pub struct GitConfig {
     /// gcpServiceAccount.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub gcp_service_account_email: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitConfig {
@@ -529,6 +542,9 @@ pub struct OciConfig {
     /// gcpServiceAccount.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub gcp_service_account_email: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OciConfig {
@@ -608,6 +624,9 @@ pub struct PolicyController {
 
     /// Logs all denies and dry run failures.
     pub log_denies_enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyController {
@@ -683,6 +702,9 @@ pub struct HierarchyControllerConfig {
 
     /// Whether hierarchical resource quota is enabled in this cluster.
     pub enable_hierarchical_resource_quota: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HierarchyControllerConfig {
@@ -729,6 +751,9 @@ pub struct HierarchyControllerDeploymentState {
 
     /// The deployment state for Hierarchy Controller extension (e.g. v0.7.0-hc.1)
     pub extension: crate::model::DeploymentState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HierarchyControllerDeploymentState {
@@ -771,6 +796,9 @@ pub struct HierarchyControllerVersion {
     /// Version for Hierarchy Controller extension
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub extension: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HierarchyControllerVersion {
@@ -810,6 +838,9 @@ pub struct HierarchyControllerState {
     /// The deployment state for Hierarchy Controller
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub state: std::option::Option<crate::model::HierarchyControllerDeploymentState>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HierarchyControllerState {
@@ -862,6 +893,9 @@ pub struct OperatorState {
     /// Install errors.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub errors: std::vec::Vec<crate::model::InstallError>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperatorState {
@@ -911,6 +945,9 @@ pub struct InstallError {
     /// A string representing the user facing error message
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub error_message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InstallError {
@@ -963,6 +1000,9 @@ pub struct ConfigSyncState {
     /// The state of CS
     /// This field summarizes the other fields in this message.
     pub state: crate::model::config_sync_state::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigSyncState {
@@ -1196,6 +1236,9 @@ pub struct ConfigSyncError {
     /// A string representing the user facing error message
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub error_message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigSyncError {
@@ -1249,6 +1292,9 @@ pub struct ConfigSyncVersion {
     /// Version of the deployed admission_webhook pod
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub admission_webhook: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigSyncVersion {
@@ -1337,6 +1383,9 @@ pub struct ConfigSyncDeploymentState {
 
     /// Deployment state of admission-webhook
     pub admission_webhook: crate::model::DeploymentState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigSyncDeploymentState {
@@ -1450,6 +1499,9 @@ pub struct SyncState {
     /// unlikely for that many errors to simultaneously exist.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub errors: std::vec::Vec<crate::model::SyncError>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SyncState {
@@ -1622,6 +1674,9 @@ pub struct SyncError {
     /// A list of config(s) associated with the error, if any
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub error_resources: std::vec::Vec<crate::model::ErrorResource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SyncError {
@@ -1680,6 +1735,9 @@ pub struct ErrorResource {
     /// Group/version/kind of the resource that is causing an error
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub resource_gvk: std::option::Option<crate::model::GroupVersionKind>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ErrorResource {
@@ -1743,6 +1801,9 @@ pub struct GroupVersionKind {
     /// Kubernetes Kind
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kind: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GroupVersionKind {
@@ -1788,6 +1849,9 @@ pub struct PolicyControllerState {
     /// The state about the policy controller installation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub deployment_state: std::option::Option<crate::model::GatekeeperDeploymentState>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyControllerState {
@@ -1834,6 +1898,9 @@ pub struct PolicyControllerVersion {
     /// number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyControllerVersion {
@@ -1865,6 +1932,9 @@ pub struct GatekeeperDeploymentState {
 
     /// Status of gatekeeper-audit deployment.
     pub gatekeeper_audit: crate::model::DeploymentState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GatekeeperDeploymentState {

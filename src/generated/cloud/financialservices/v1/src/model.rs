@@ -92,6 +92,9 @@ pub struct BacktestResult {
     /// Output only. The line of business (Retail/Commercial) this backtest is for.
     /// Determined by Model, cannot be set by user.
     pub line_of_business: crate::model::LineOfBusiness,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BacktestResult {
@@ -218,6 +221,9 @@ pub mod backtest_result {
         /// automated alerting system.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub party_investigations_per_period_hint: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PerformanceTarget {
@@ -340,6 +346,9 @@ pub struct ListBacktestResultsRequest {
     /// Specify a field to use for ordering.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBacktestResultsRequest {
@@ -403,6 +412,9 @@ pub struct ListBacktestResultsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBacktestResultsResponse {
@@ -468,6 +480,9 @@ pub struct GetBacktestResultRequest {
     /// Required. The resource name of the BacktestResult
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetBacktestResultRequest {
@@ -521,6 +536,9 @@ pub struct CreateBacktestResultRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateBacktestResultRequest {
@@ -601,6 +619,9 @@ pub struct UpdateBacktestResultRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateBacktestResultRequest {
@@ -666,6 +687,9 @@ pub struct DeleteBacktestResultRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteBacktestResultRequest {
@@ -705,6 +729,9 @@ pub struct ExportBacktestResultMetadataRequest {
     /// Required. BigQuery output where the metadata will be written.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub structured_metadata_destination: std::option::Option<crate::model::BigQueryDestination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportBacktestResultMetadataRequest {
@@ -741,7 +768,10 @@ impl wkt::message::Message for ExportBacktestResultMetadataRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ExportBacktestResultMetadataResponse {}
+pub struct ExportBacktestResultMetadataResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ExportBacktestResultMetadataResponse {
     pub fn new() -> Self {
@@ -772,6 +802,9 @@ pub struct BigQueryDestination {
     /// table won't be overwritten and an error will be returned if the table
     /// exists and contains data.
     pub write_disposition: crate::model::big_query_destination::WriteDisposition,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BigQueryDestination {
@@ -917,6 +950,9 @@ pub struct Dataset {
     /// The timezone of the data, default will act as UTC.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_zone: std::option::Option<gtype::model::TimeZone>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Dataset {
@@ -1106,6 +1142,9 @@ pub struct ListDatasetsRequest {
     /// Specify a field to use for ordering.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDatasetsRequest {
@@ -1168,6 +1207,9 @@ pub struct ListDatasetsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDatasetsResponse {
@@ -1233,6 +1275,9 @@ pub struct GetDatasetRequest {
     /// Required. The resource name of the Dataset
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDatasetRequest {
@@ -1286,6 +1331,9 @@ pub struct CreateDatasetRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDatasetRequest {
@@ -1361,6 +1409,9 @@ pub struct UpdateDatasetRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDatasetRequest {
@@ -1424,6 +1475,9 @@ pub struct DeleteDatasetRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDatasetRequest {
@@ -1509,6 +1563,9 @@ pub struct EngineConfig {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub hyperparameter_source:
         std::option::Option<crate::model::engine_config::HyperparameterSource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EngineConfig {
@@ -1651,6 +1708,9 @@ pub mod engine_config {
         /// should be no later than the end of the date_range of the dataset.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub end_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Tuning {
@@ -1698,6 +1758,9 @@ pub mod engine_config {
         /// automated alerting system.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub party_investigations_per_period_hint: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PerformanceTarget {
@@ -1739,6 +1802,9 @@ pub mod engine_config {
         /// "/projects/{project_num}/locations/{location}/instances/{instance}/engineVersions/{engine_version}"
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub source_engine_version: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl HyperparameterSource {
@@ -1931,6 +1997,9 @@ pub struct ListEngineConfigsRequest {
     /// Specify a field to use for ordering.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEngineConfigsRequest {
@@ -1993,6 +2062,9 @@ pub struct ListEngineConfigsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEngineConfigsResponse {
@@ -2058,6 +2130,9 @@ pub struct GetEngineConfigRequest {
     /// Required. The resource name of the EngineConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEngineConfigRequest {
@@ -2111,6 +2186,9 @@ pub struct CreateEngineConfigRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateEngineConfigRequest {
@@ -2191,6 +2269,9 @@ pub struct UpdateEngineConfigRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateEngineConfigRequest {
@@ -2256,6 +2337,9 @@ pub struct DeleteEngineConfigRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteEngineConfigRequest {
@@ -2295,6 +2379,9 @@ pub struct ExportEngineConfigMetadataRequest {
     /// Required. BigQuery output where the metadata will be written.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub structured_metadata_destination: std::option::Option<crate::model::BigQueryDestination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportEngineConfigMetadataRequest {
@@ -2331,7 +2418,10 @@ impl wkt::message::Message for ExportEngineConfigMetadataRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ExportEngineConfigMetadataResponse {}
+pub struct ExportEngineConfigMetadataResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ExportEngineConfigMetadataResponse {
     pub fn new() -> Self {
@@ -2375,6 +2465,9 @@ pub struct EngineVersion {
     /// Output only. The line of business (Retail/Commercial) this engine version
     /// is used for.
     pub line_of_business: crate::model::LineOfBusiness,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EngineVersion {
@@ -2538,6 +2631,9 @@ pub struct ListEngineVersionsRequest {
     /// Optional. Specify a field to use for ordering.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEngineVersionsRequest {
@@ -2600,6 +2696,9 @@ pub struct ListEngineVersionsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEngineVersionsResponse {
@@ -2665,6 +2764,9 @@ pub struct GetEngineVersionRequest {
     /// Required. The resource name of the EngineVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEngineVersionRequest {
@@ -2724,6 +2826,9 @@ pub struct Instance {
     /// VPC-SC restrictions apply.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Instance {
@@ -2890,6 +2995,9 @@ pub struct ListInstancesRequest {
     /// Specify a field to use for ordering.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesRequest {
@@ -2952,6 +3060,9 @@ pub struct ListInstancesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesResponse {
@@ -3017,6 +3128,9 @@ pub struct GetInstanceRequest {
     /// Required. The resource name of the Instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceRequest {
@@ -3071,6 +3185,9 @@ pub struct CreateInstanceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceRequest {
@@ -3146,6 +3263,9 @@ pub struct UpdateInstanceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstanceRequest {
@@ -3209,6 +3329,9 @@ pub struct DeleteInstanceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteInstanceRequest {
@@ -3265,6 +3388,9 @@ pub struct ImportRegisteredPartiesRequest {
 
     /// Required. LineOfBusiness for the specified registered parties.
     pub line_of_business: crate::model::LineOfBusiness,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportRegisteredPartiesRequest {
@@ -3420,6 +3546,9 @@ pub struct ImportRegisteredPartiesResponse {
     /// Number of parties that failed to be downtiered
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub parties_failed_to_downtier: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportRegisteredPartiesResponse {
@@ -3493,6 +3622,9 @@ pub struct ExportRegisteredPartiesRequest {
 
     /// Required. LineOfBusiness to get RegisteredParties from.
     pub line_of_business: crate::model::LineOfBusiness,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportRegisteredPartiesRequest {
@@ -3538,7 +3670,10 @@ impl wkt::message::Message for ExportRegisteredPartiesRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ExportRegisteredPartiesResponse {}
+pub struct ExportRegisteredPartiesResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ExportRegisteredPartiesResponse {
     pub fn new() -> Self {
@@ -3606,6 +3741,9 @@ pub struct Model {
     /// Output only. The line of business (Retail/Commercial) this model is used
     /// for. Determined by EngineConfig, cannot be set by user.
     pub line_of_business: crate::model::LineOfBusiness,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Model {
@@ -3801,6 +3939,9 @@ pub struct ListModelsRequest {
     /// Specify a field to use for ordering.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListModelsRequest {
@@ -3863,6 +4004,9 @@ pub struct ListModelsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListModelsResponse {
@@ -3928,6 +4072,9 @@ pub struct GetModelRequest {
     /// Required. The resource name of the Model
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetModelRequest {
@@ -3981,6 +4128,9 @@ pub struct CreateModelRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateModelRequest {
@@ -4056,6 +4206,9 @@ pub struct UpdateModelRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateModelRequest {
@@ -4119,6 +4272,9 @@ pub struct DeleteModelRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteModelRequest {
@@ -4158,6 +4314,9 @@ pub struct ExportModelMetadataRequest {
     /// Required. BigQuery output where the metadata will be written.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub structured_metadata_destination: std::option::Option<crate::model::BigQueryDestination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportModelMetadataRequest {
@@ -4194,7 +4353,10 @@ impl wkt::message::Message for ExportModelMetadataRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ExportModelMetadataResponse {}
+pub struct ExportModelMetadataResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ExportModelMetadataResponse {
     pub fn new() -> Self {
@@ -4272,6 +4434,9 @@ pub struct PredictionResult {
     /// Output only. The line of business (Retail/Commercial) this prediction is
     /// for. Determined by Model, cannot be set by user.
     pub line_of_business: crate::model::LineOfBusiness,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PredictionResult {
@@ -4397,6 +4562,9 @@ pub mod prediction_result {
         /// no explainability data will be output.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub explainability_destination: std::option::Option<crate::model::BigQueryDestination>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Outputs {
@@ -4532,6 +4700,9 @@ pub struct ListPredictionResultsRequest {
     /// Specify a field to use for ordering.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPredictionResultsRequest {
@@ -4595,6 +4766,9 @@ pub struct ListPredictionResultsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPredictionResultsResponse {
@@ -4660,6 +4834,9 @@ pub struct GetPredictionResultRequest {
     /// Required. The resource name of the PredictionResult
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPredictionResultRequest {
@@ -4713,6 +4890,9 @@ pub struct CreatePredictionResultRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePredictionResultRequest {
@@ -4793,6 +4973,9 @@ pub struct UpdatePredictionResultRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePredictionResultRequest {
@@ -4858,6 +5041,9 @@ pub struct DeletePredictionResultRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePredictionResultRequest {
@@ -4897,6 +5083,9 @@ pub struct ExportPredictionResultMetadataRequest {
     /// Required. BigQuery output where the metadata will be written.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub structured_metadata_destination: std::option::Option<crate::model::BigQueryDestination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportPredictionResultMetadataRequest {
@@ -4936,7 +5125,10 @@ impl wkt::message::Message for ExportPredictionResultMetadataRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ExportPredictionResultMetadataResponse {}
+pub struct ExportPredictionResultMetadataResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ExportPredictionResultMetadataResponse {
     pub fn new() -> Self {
@@ -4993,6 +5185,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {

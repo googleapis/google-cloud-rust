@@ -59,6 +59,9 @@ pub struct AppConnectorInstanceConfig {
     /// plane.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub image_config: std::option::Option<crate::model::ImageConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppConnectorInstanceConfig {
@@ -118,6 +121,9 @@ impl wkt::message::Message for AppConnectorInstanceConfig {
 pub struct NotificationConfig {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub config: std::option::Option<crate::model::notification_config::Config>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NotificationConfig {
@@ -193,6 +199,9 @@ pub mod notification_config {
         /// The Pub/Sub subscription the AppConnector uses to receive notifications.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub pubsub_subscription: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CloudPubSubNotificationConfig {
@@ -242,6 +251,9 @@ pub struct ImageConfig {
     /// fails.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub stable_image: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImageConfig {
@@ -302,6 +314,9 @@ pub struct ListAppConnectorsRequest {
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAppConnectorsRequest {
@@ -364,6 +379,9 @@ pub struct ListAppConnectorsResponse {
     /// A list of locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAppConnectorsResponse {
@@ -430,6 +448,9 @@ pub struct GetAppConnectorRequest {
     /// `projects/{project_id}/locations/{location_id}/appConnectors/{app_connector_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAppConnectorRequest {
@@ -492,6 +513,9 @@ pub struct CreateAppConnectorRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAppConnectorRequest {
@@ -583,6 +607,9 @@ pub struct UpdateAppConnectorRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAppConnectorRequest {
@@ -659,6 +686,9 @@ pub struct DeleteAppConnectorRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAppConnectorRequest {
@@ -725,6 +755,9 @@ pub struct ReportStatusRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReportStatusRequest {
@@ -815,6 +848,9 @@ pub struct AppConnector {
     /// Optional. Resource info of the connector.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub resource_info: std::option::Option<crate::model::ResourceInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppConnector {
@@ -921,6 +957,9 @@ pub mod app_connector {
     pub struct PrincipalInfo {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub r#type: std::option::Option<crate::model::app_connector::principal_info::Type>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PrincipalInfo {
@@ -998,6 +1037,9 @@ pub mod app_connector {
             /// Email address of the service account.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub email: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl ServiceAccount {
@@ -1141,6 +1183,9 @@ pub struct AppConnectorOperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppConnectorOperationMetadata {
@@ -1239,6 +1284,9 @@ pub struct ResourceInfo {
     /// List of Info for the sub level resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub sub: std::vec::Vec<crate::model::ResourceInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResourceInfo {

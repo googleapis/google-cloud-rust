@@ -50,6 +50,9 @@ pub struct AuthConfig {
     /// Supported auth types.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub r#type: std::option::Option<crate::model::auth_config::Type>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuthConfig {
@@ -228,6 +231,9 @@ pub mod auth_config {
         /// Secret version reference containing the password.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub password: std::option::Option<crate::model::Secret>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl UserPassword {
@@ -276,6 +282,9 @@ pub mod auth_config {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub jwt_claims:
             std::option::Option<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Oauth2JwtBearer {
@@ -334,6 +343,9 @@ pub mod auth_config {
             /// Value for the "aud" claim.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub audience: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl JwtClaims {
@@ -384,6 +396,9 @@ pub mod auth_config {
         /// Secret version reference containing the client secret.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub client_secret: std::option::Option<crate::model::Secret>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Oauth2ClientCredentials {
@@ -436,6 +451,9 @@ pub mod auth_config {
         /// Password (passphrase) for ssh client certificate if it has one.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub ssh_client_cert_pass: std::option::Option<crate::model::Secret>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SshPublicKey {
@@ -522,6 +540,9 @@ pub struct AuthConfigTemplate {
     /// Connector specific description for an authentication template.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuthConfigTemplate {
@@ -603,6 +624,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -715,6 +739,9 @@ pub struct ConfigVariableTemplate {
 
     /// Indicates if current template is part of advanced settings
     pub is_advanced: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigVariableTemplate {
@@ -969,6 +996,9 @@ pub struct Secret {
     /// format as: `projects/*/secrets/*/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secret_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Secret {
@@ -1002,6 +1032,9 @@ pub struct EnumOption {
     /// Display name of the option.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnumOption {
@@ -1042,6 +1075,9 @@ pub struct ConfigVariable {
     /// Value type of the config variable.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub value: std::option::Option<crate::model::config_variable::Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigVariable {
@@ -1209,6 +1245,9 @@ pub struct RoleGrant {
     /// Template that UI can use to provide helper text to customers.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub helper_text_template: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RoleGrant {
@@ -1283,6 +1322,9 @@ pub mod role_grant {
         /// the config variable template.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub path_template: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Resource {
@@ -1471,6 +1513,9 @@ pub struct AuthorizationCodeLink {
 
     /// Whether to enable PKCE for the auth code flow.
     pub enable_pkce: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuthorizationCodeLink {
@@ -1605,6 +1650,9 @@ pub struct Connection {
     /// Optional. Ssl config of a connection
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ssl_config: std::option::Option<crate::model::SslConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Connection {
@@ -1786,6 +1834,9 @@ pub struct NodeConfig {
 
     /// Maximum number of nodes in the runtime nodes.
     pub max_node_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NodeConfig {
@@ -1845,6 +1896,9 @@ pub struct ConnectionSchemaMetadata {
 
     /// Output only. The current state of runtime schema.
     pub state: crate::model::connection_schema_metadata::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConnectionSchemaMetadata {
@@ -1990,6 +2044,9 @@ pub struct RuntimeEntitySchema {
     /// Output only. List of fields in the entity.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub fields: std::vec::Vec<crate::model::runtime_entity_schema::Field>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RuntimeEntitySchema {
@@ -2063,6 +2120,9 @@ pub mod runtime_entity_schema {
         /// fields.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub additional_details: std::option::Option<wkt::Struct>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Field {
@@ -2152,6 +2212,9 @@ pub struct RuntimeActionSchema {
     /// Output only. List of result field metadata.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub result_metadata: std::vec::Vec<crate::model::runtime_action_schema::ResultMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RuntimeActionSchema {
@@ -2223,6 +2286,9 @@ pub mod runtime_action_schema {
         /// provided by the external system if a value is not provided.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub default_value: std::option::Option<wkt::Value>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InputParameter {
@@ -2289,6 +2355,9 @@ pub mod runtime_action_schema {
 
         /// The data type of the field.
         pub data_type: crate::model::DataType,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ResultMetadata {
@@ -2338,6 +2407,9 @@ pub struct LockConfig {
     /// Describes why a connection is locked.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub reason: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LockConfig {
@@ -2393,6 +2465,9 @@ pub struct ListConnectionsRequest {
     /// Specifies which fields of the Connection are returned in the response.
     /// Defaults to `BASIC` view.
     pub view: crate::model::ConnectionView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectionsRequest {
@@ -2460,6 +2535,9 @@ pub struct ListConnectionsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectionsResponse {
@@ -2530,6 +2608,9 @@ pub struct GetConnectionRequest {
     /// Specifies which fields of the Connection are returned in the response.
     /// Defaults to `BASIC` view.
     pub view: crate::model::ConnectionView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConnectionRequest {
@@ -2575,6 +2656,9 @@ pub struct CreateConnectionRequest {
     /// Required. Connection resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub connection: std::option::Option<crate::model::Connection>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateConnectionRequest {
@@ -2641,6 +2725,9 @@ pub struct UpdateConnectionRequest {
     /// * `node_config`
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateConnectionRequest {
@@ -2683,6 +2770,9 @@ pub struct DeleteConnectionRequest {
     /// `projects/*/locations/*/connections/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteConnectionRequest {
@@ -2714,6 +2804,9 @@ pub struct GetConnectionSchemaMetadataRequest {
     /// projects/{project}/locations/{location}/connections/{connection}/connectionSchemaMetadata
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConnectionSchemaMetadataRequest {
@@ -2745,6 +2838,9 @@ pub struct RefreshConnectionSchemaMetadataRequest {
     /// projects/{project}/locations/{location}/connections/{connection}/connectionSchemaMetadata
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RefreshConnectionSchemaMetadataRequest {
@@ -2795,6 +2891,9 @@ pub struct ListRuntimeEntitySchemasRequest {
     /// Wildcards are not supported in the filter currently.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRuntimeEntitySchemasRequest {
@@ -2846,6 +2945,9 @@ pub struct ListRuntimeEntitySchemasResponse {
     /// Next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRuntimeEntitySchemasResponse {
@@ -2921,6 +3023,9 @@ pub struct ListRuntimeActionSchemasRequest {
     /// Wildcards are not supported in the filter currently.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRuntimeActionSchemasRequest {
@@ -2972,6 +3077,9 @@ pub struct ListRuntimeActionSchemasResponse {
     /// Next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRuntimeActionSchemasResponse {
@@ -3033,6 +3141,9 @@ pub struct ConnectionStatus {
     /// Status provides detailed information for the state.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub status: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConnectionStatus {
@@ -3206,6 +3317,9 @@ pub struct Connector {
 
     /// Output only. Flag to mark the version indicating the launch stage.
     pub launch_stage: crate::model::LaunchStage,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Connector {
@@ -3312,6 +3426,9 @@ pub struct GetConnectorRequest {
     /// Only global location is supported for Connector resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConnectorRequest {
@@ -3350,6 +3467,9 @@ pub struct ListConnectorsRequest {
     /// Page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectorsRequest {
@@ -3399,6 +3519,9 @@ pub struct ListConnectorsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectorsResponse {
@@ -3522,6 +3645,9 @@ pub struct ConnectorVersion {
     /// Output only. Ssl configuration supported by the Connector.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ssl_config_template: std::option::Option<crate::model::SslConfigTemplate>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConnectorVersion {
@@ -3683,6 +3809,9 @@ pub struct GetConnectorVersionRequest {
     /// Specifies which fields of the ConnectorVersion are returned in the
     /// response. Defaults to `CUSTOMER` view.
     pub view: crate::model::ConnectorVersionView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConnectorVersionRequest {
@@ -3734,6 +3863,9 @@ pub struct ListConnectorVersionsRequest {
     /// Specifies which fields of the ConnectorVersion are returned in the
     /// response. Defaults to `BASIC` view.
     pub view: crate::model::ConnectorVersionView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectorVersionsRequest {
@@ -3792,6 +3924,9 @@ pub struct ListConnectorVersionsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectorVersionsResponse {
@@ -3865,6 +4000,9 @@ pub struct SupportedRuntimeFeatures {
 
     /// Specifies if the connector supports 'ExecuteSqlQuery' operation.
     pub sql_query: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SupportedRuntimeFeatures {
@@ -3909,6 +4047,9 @@ impl wkt::message::Message for SupportedRuntimeFeatures {
 pub struct EgressControlConfig {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub oneof_backends: std::option::Option<crate::model::egress_control_config::OneofBackends>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EgressControlConfig {
@@ -4020,6 +4161,9 @@ pub struct ExtractionRules {
     /// Collection of Extraction Rule.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub extraction_rule: std::vec::Vec<crate::model::ExtractionRule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExtractionRules {
@@ -4059,6 +4203,9 @@ pub struct ExtractionRule {
     /// value will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub extraction_regex: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExtractionRule {
@@ -4110,6 +4257,9 @@ pub mod extraction_rule {
         /// Field identifier. For example config vaiable name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub field_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Source {
@@ -4207,6 +4357,9 @@ pub struct DestinationConfig {
     /// The destinations for the key.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub destinations: std::vec::Vec<crate::model::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DestinationConfig {
@@ -4248,6 +4401,9 @@ pub struct Destination {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::destination::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Destination {
@@ -4394,6 +4550,9 @@ pub struct Provider {
 
     /// Output only. Flag to mark the version indicating the launch stage.
     pub launch_stage: crate::model::LaunchStage,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Provider {
@@ -4500,6 +4659,9 @@ pub struct GetProviderRequest {
     /// Only global location is supported for Provider resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetProviderRequest {
@@ -4538,6 +4700,9 @@ pub struct ListProvidersRequest {
     /// Page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProvidersRequest {
@@ -4587,6 +4752,9 @@ pub struct ListProvidersResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProvidersResponse {
@@ -4653,6 +4821,9 @@ pub struct GetRuntimeConfigRequest {
     /// `projects/*/locations/*/runtimeConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRuntimeConfigRequest {
@@ -4727,6 +4898,9 @@ pub struct RuntimeConfig {
     /// Format: projects/{project}/locations/{location}/runtimeConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RuntimeConfig {
@@ -4914,6 +5088,9 @@ pub struct GetGlobalSettingsRequest {
     /// Required. The resource name of the Settings.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetGlobalSettingsRequest {
@@ -4950,6 +5127,9 @@ pub struct Settings {
 
     /// Output only. Flag indicates if user is in PayG model
     pub payg: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Settings {
@@ -5005,6 +5185,9 @@ pub struct SslConfigTemplate {
     /// Any additional fields that need to be rendered
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub additional_variables: std::vec::Vec<crate::model::ConfigVariableTemplate>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SslConfigTemplate {
@@ -5106,6 +5289,9 @@ pub struct SslConfig {
     /// Additional SSL related field values
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub additional_variables: std::vec::Vec<crate::model::ConfigVariable>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SslConfig {

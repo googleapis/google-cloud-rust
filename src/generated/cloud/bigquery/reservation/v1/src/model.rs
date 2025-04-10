@@ -135,6 +135,9 @@ pub struct Reservation {
     /// succeeded.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub replication_status: std::option::Option<crate::model::reservation::ReplicationStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Reservation {
@@ -274,6 +277,9 @@ pub mod reservation {
         /// Number of slots to be scaled when needed.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub max_slots: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Autoscale {
@@ -322,6 +328,9 @@ pub mod reservation {
         /// that was successfully replicated to the secondary.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub last_replication_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ReplicationStatus {
@@ -440,6 +449,9 @@ pub struct CapacityCommitment {
     /// Output only. If true, the commitment is a flat-rate commitment, otherwise,
     /// it's an edition commitment.
     pub is_flat_rate: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CapacityCommitment {
@@ -749,6 +761,9 @@ pub struct CreateReservationRequest {
     /// Definition of the new reservation to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub reservation: std::option::Option<crate::model::Reservation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateReservationRequest {
@@ -806,6 +821,9 @@ pub struct ListReservationsRequest {
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReservationsRequest {
@@ -855,6 +873,9 @@ pub struct ListReservationsResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReservationsResponse {
@@ -913,6 +934,9 @@ pub struct GetReservationRequest {
     /// `projects/myproject/locations/US/reservations/team1-prod`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetReservationRequest {
@@ -946,6 +970,9 @@ pub struct DeleteReservationRequest {
     /// `projects/myproject/locations/US/reservations/team1-prod`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteReservationRequest {
@@ -982,6 +1009,9 @@ pub struct UpdateReservationRequest {
     /// Standard field mask for the set of fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateReservationRequest {
@@ -1026,6 +1056,9 @@ pub struct FailoverReservationRequest {
     /// `projects/myproject/locations/US/reservations/team1-prod`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FailoverReservationRequest {
@@ -1075,6 +1108,9 @@ pub struct CreateCapacityCommitmentRequest {
     /// NOTE: this ID won't be kept if the capacity commitment is split or merged.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub capacity_commitment_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCapacityCommitmentRequest {
@@ -1144,6 +1180,9 @@ pub struct ListCapacityCommitmentsRequest {
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCapacityCommitmentsRequest {
@@ -1193,6 +1232,9 @@ pub struct ListCapacityCommitmentsResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCapacityCommitmentsResponse {
@@ -1251,6 +1293,9 @@ pub struct GetCapacityCommitmentRequest {
     /// `projects/myproject/locations/US/capacityCommitments/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCapacityCommitmentRequest {
@@ -1289,6 +1334,9 @@ pub struct DeleteCapacityCommitmentRequest {
     /// commitments with assignments may cause queries to fail if they no longer
     /// have access to slots.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCapacityCommitmentRequest {
@@ -1331,6 +1379,9 @@ pub struct UpdateCapacityCommitmentRequest {
     /// Standard field mask for the set of fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCapacityCommitmentRequest {
@@ -1382,6 +1433,9 @@ pub struct SplitCapacityCommitmentRequest {
     /// Number of slots in the capacity commitment after the split.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub slot_count: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SplitCapacityCommitmentRequest {
@@ -1424,6 +1478,9 @@ pub struct SplitCapacityCommitmentResponse {
     /// Second capacity commitment, result of a split.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub second: std::option::Option<crate::model::CapacityCommitment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SplitCapacityCommitmentResponse {
@@ -1481,6 +1538,9 @@ pub struct MergeCapacityCommitmentsRequest {
     /// projects/myproject/locations/US/capacityCommitments/abc
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub capacity_commitment_ids: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MergeCapacityCommitmentsRequest {
@@ -1546,6 +1606,9 @@ pub struct Assignment {
     /// give the grantee project/organization access to "Gemini in BigQuery"
     /// features.
     pub enable_gemini_in_bigquery: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Assignment {
@@ -1763,6 +1826,9 @@ pub struct CreateAssignmentRequest {
     /// Max length is 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub assignment_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAssignmentRequest {
@@ -1823,6 +1889,9 @@ pub struct ListAssignmentsRequest {
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAssignmentsRequest {
@@ -1872,6 +1941,9 @@ pub struct ListAssignmentsResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAssignmentsResponse {
@@ -1932,6 +2004,9 @@ pub struct DeleteAssignmentRequest {
     /// `projects/myproject/locations/US/reservations/team1-prod/assignments/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAssignmentRequest {
@@ -1985,6 +2060,9 @@ pub struct SearchAssignmentsRequest {
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchAssignmentsRequest {
@@ -2056,6 +2134,9 @@ pub struct SearchAllAssignmentsRequest {
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchAllAssignmentsRequest {
@@ -2111,6 +2192,9 @@ pub struct SearchAssignmentsResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchAssignmentsResponse {
@@ -2173,6 +2257,9 @@ pub struct SearchAllAssignmentsResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchAllAssignmentsResponse {
@@ -2252,6 +2339,9 @@ pub struct MoveAssignmentRequest {
     /// Max length is 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub assignment_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MoveAssignmentRequest {
@@ -2300,6 +2390,9 @@ pub struct UpdateAssignmentRequest {
     /// Standard field mask for the set of fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAssignmentRequest {
@@ -2350,6 +2443,9 @@ pub struct TableReference {
     /// The ID of the table in the above dataset.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub table_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TableReference {
@@ -2405,6 +2501,9 @@ pub struct BiReservation {
     /// Preferred tables to use BI capacity for.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub preferred_tables: std::vec::Vec<crate::model::TableReference>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BiReservation {
@@ -2461,6 +2560,9 @@ pub struct GetBiReservationRequest {
     /// `projects/{project_id}/locations/{location_id}/biReservation`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetBiReservationRequest {
@@ -2494,6 +2596,9 @@ pub struct UpdateBiReservationRequest {
     /// A list of fields to be updated in this request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateBiReservationRequest {

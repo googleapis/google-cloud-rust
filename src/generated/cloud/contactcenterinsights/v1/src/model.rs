@@ -48,6 +48,9 @@ pub struct CalculateStatsRequest {
     /// getting statistics about conversations with specific properties.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CalculateStatsRequest {
@@ -122,6 +125,9 @@ pub struct CalculateStatsResponse {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub conversation_count_time_series:
         std::option::Option<crate::model::calculate_stats_response::TimeSeries>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CalculateStatsResponse {
@@ -237,6 +243,9 @@ pub mod calculate_stats_response {
         /// window.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub points: std::vec::Vec<crate::model::calculate_stats_response::time_series::Interval>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TimeSeries {
@@ -288,6 +297,9 @@ pub mod calculate_stats_response {
 
             /// The number of conversations created in this interval.
             pub conversation_count: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Interval {
@@ -340,6 +352,9 @@ pub struct CreateAnalysisOperationMetadata {
     /// Output only. The annotator selector used for the analysis (if any).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub annotator_selector: std::option::Option<crate::model::AnnotatorSelector>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAnalysisOperationMetadata {
@@ -411,6 +426,9 @@ pub struct CreateConversationRequest {
     /// expression `^[a-z0-9-]{4,64}$`. Valid characters are `[a-z][0-9]-`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub conversation_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateConversationRequest {
@@ -480,6 +498,9 @@ pub struct UploadConversationRequest {
     /// specified in Settings.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub speech_config: std::option::Option<crate::model::SpeechConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UploadConversationRequest {
@@ -565,6 +586,9 @@ pub struct UploadConversationMetadata {
     /// Output only. The redaction config applied to the uploaded conversation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub applied_redaction_config: std::option::Option<crate::model::RedactionConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UploadConversationMetadata {
@@ -675,6 +699,9 @@ pub struct ListConversationsRequest {
 
     /// The level of details of the conversation. Default is `BASIC`.
     pub view: crate::model::ConversationView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConversationsRequest {
@@ -740,6 +767,9 @@ pub struct ListConversationsResponse {
     /// set, it means no other pages are available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConversationsResponse {
@@ -797,6 +827,9 @@ pub struct GetConversationRequest {
 
     /// The level of details of the conversation. Default is `FULL`.
     pub view: crate::model::ConversationView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConversationRequest {
@@ -849,6 +882,9 @@ pub struct UpdateConversationRequest {
     ///   `data_source.dialogflow_source.audio_uri`
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateConversationRequest {
@@ -897,6 +933,9 @@ pub struct DeleteConversationRequest {
     /// Otherwise, the request will only succeed if the conversation has no
     /// analyses.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteConversationRequest {
@@ -964,6 +1003,9 @@ pub struct IngestConversationsRequest {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub object_config:
         std::option::Option<crate::model::ingest_conversations_request::ObjectConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IngestConversationsRequest {
@@ -1158,6 +1200,9 @@ pub mod ingest_conversations_request {
         /// ignored. Note that there is a limit of 100 labels per conversation.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub custom_metadata_keys: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GcsSource {
@@ -1285,6 +1330,9 @@ pub mod ingest_conversations_request {
     pub struct TranscriptObjectConfig {
         /// Required. The medium transcript objects represent.
         pub medium: crate::model::conversation::Medium,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TranscriptObjectConfig {
@@ -1330,6 +1378,9 @@ pub mod ingest_conversations_request {
         /// Note that this must be set for conversations to be properly displayed and
         /// analyzed.
         pub customer_channel: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ConversationConfig {
@@ -1412,6 +1463,9 @@ pub struct IngestConversationsMetadata {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ingest_conversations_stats:
         std::option::Option<crate::model::ingest_conversations_metadata::IngestConversationsStats>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IngestConversationsMetadata {
@@ -1506,6 +1560,9 @@ pub mod ingest_conversations_metadata {
         /// Output only. The number of objects which were unable to be ingested due
         /// to errors. The errors are populated in the partial_errors field.
         pub failed_ingest_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IngestConversationsStats {
@@ -1550,7 +1607,10 @@ pub mod ingest_conversations_metadata {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct IngestConversationsResponse {}
+pub struct IngestConversationsResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl IngestConversationsResponse {
     pub fn new() -> Self {
@@ -1577,6 +1637,9 @@ pub struct CreateAnalysisRequest {
     /// Required. The analysis to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub analysis: std::option::Option<crate::model::Analysis>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAnalysisRequest {
@@ -1632,6 +1695,9 @@ pub struct ListAnalysesRequest {
     /// conversations with specific properties.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAnalysesRequest {
@@ -1684,6 +1750,9 @@ pub struct ListAnalysesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAnalysesResponse {
@@ -1738,6 +1807,9 @@ pub struct GetAnalysisRequest {
     /// Required. The name of the analysis to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAnalysisRequest {
@@ -1767,6 +1839,9 @@ pub struct DeleteAnalysisRequest {
     /// Required. The name of the analysis to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAnalysisRequest {
@@ -1809,6 +1884,9 @@ pub struct BulkAnalyzeConversationsRequest {
     /// (if any). If not specified, all annotators will be run.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub annotator_selector: std::option::Option<crate::model::AnnotatorSelector>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BulkAnalyzeConversationsRequest {
@@ -1884,6 +1962,9 @@ pub struct BulkAnalyzeConversationsMetadata {
     /// the operation output to be incomplete.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub partial_errors: std::vec::Vec<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BulkAnalyzeConversationsMetadata {
@@ -1967,6 +2048,9 @@ pub struct BulkAnalyzeConversationsResponse {
 
     /// Count of failed analyses.
     pub failed_analysis_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BulkAnalyzeConversationsResponse {
@@ -2016,6 +2100,9 @@ pub struct BulkDeleteConversationsRequest {
     /// Otherwise, the request will only succeed if the conversation has no
     /// analyses.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BulkDeleteConversationsRequest {
@@ -2076,6 +2163,9 @@ pub struct BulkDeleteConversationsMetadata {
     /// the operation output to be incomplete.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub partial_errors: std::vec::Vec<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BulkDeleteConversationsMetadata {
@@ -2135,7 +2225,10 @@ impl wkt::message::Message for BulkDeleteConversationsMetadata {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct BulkDeleteConversationsResponse {}
+pub struct BulkDeleteConversationsResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl BulkDeleteConversationsResponse {
     pub fn new() -> Self {
@@ -2176,6 +2269,9 @@ pub struct ExportInsightsDataRequest {
     /// Exporter destination.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::export_insights_data_request::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportInsightsDataRequest {
@@ -2296,6 +2392,9 @@ pub mod export_insights_data_request {
         /// error.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub table: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BigQueryDestination {
@@ -2422,6 +2521,9 @@ pub struct ExportInsightsDataMetadata {
     /// output to be incomplete.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub partial_errors: std::vec::Vec<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportInsightsDataMetadata {
@@ -2481,7 +2583,10 @@ impl wkt::message::Message for ExportInsightsDataMetadata {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ExportInsightsDataResponse {}
+pub struct ExportInsightsDataResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ExportInsightsDataResponse {
     pub fn new() -> Self {
@@ -2508,6 +2613,9 @@ pub struct CreateIssueModelRequest {
     /// Required. The issue model to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub issue_model: std::option::Option<crate::model::IssueModel>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateIssueModelRequest {
@@ -2554,6 +2662,9 @@ pub struct CreateIssueModelMetadata {
     /// The original request for creation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub request: std::option::Option<crate::model::CreateIssueModelRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateIssueModelMetadata {
@@ -2610,6 +2721,9 @@ pub struct UpdateIssueModelRequest {
     /// The list of fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateIssueModelRequest {
@@ -2651,6 +2765,9 @@ pub struct ListIssueModelsRequest {
     /// Required. The parent resource of the issue model.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListIssueModelsRequest {
@@ -2680,6 +2797,9 @@ pub struct ListIssueModelsResponse {
     /// The issue models that match the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub issue_models: std::vec::Vec<crate::model::IssueModel>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListIssueModelsResponse {
@@ -2714,6 +2834,9 @@ pub struct GetIssueModelRequest {
     /// Required. The name of the issue model to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetIssueModelRequest {
@@ -2743,6 +2866,9 @@ pub struct DeleteIssueModelRequest {
     /// Required. The name of the issue model to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteIssueModelRequest {
@@ -2780,6 +2906,9 @@ pub struct DeleteIssueModelMetadata {
     /// The original request for deletion.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub request: std::option::Option<crate::model::DeleteIssueModelRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteIssueModelMetadata {
@@ -2832,6 +2961,9 @@ pub struct DeployIssueModelRequest {
     /// Required. The issue model to deploy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployIssueModelRequest {
@@ -2857,7 +2989,10 @@ impl wkt::message::Message for DeployIssueModelRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeployIssueModelResponse {}
+pub struct DeployIssueModelResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeployIssueModelResponse {
     pub fn new() -> Self {
@@ -2888,6 +3023,9 @@ pub struct DeployIssueModelMetadata {
     /// The original request for deployment.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub request: std::option::Option<crate::model::DeployIssueModelRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployIssueModelMetadata {
@@ -2940,6 +3078,9 @@ pub struct UndeployIssueModelRequest {
     /// Required. The issue model to undeploy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeployIssueModelRequest {
@@ -2965,7 +3106,10 @@ impl wkt::message::Message for UndeployIssueModelRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UndeployIssueModelResponse {}
+pub struct UndeployIssueModelResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UndeployIssueModelResponse {
     pub fn new() -> Self {
@@ -2996,6 +3140,9 @@ pub struct UndeployIssueModelMetadata {
     /// The original request for undeployment.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub request: std::option::Option<crate::model::UndeployIssueModelRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeployIssueModelMetadata {
@@ -3051,6 +3198,9 @@ pub struct ExportIssueModelRequest {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::export_issue_model_request::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportIssueModelRequest {
@@ -3134,6 +3284,9 @@ pub mod export_issue_model_request {
         /// Required. Format: `gs://<bucket-name>/<object-name>`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub object_uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GcsDestination {
@@ -3168,7 +3321,10 @@ pub mod export_issue_model_request {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ExportIssueModelResponse {}
+pub struct ExportIssueModelResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ExportIssueModelResponse {
     pub fn new() -> Self {
@@ -3199,6 +3355,9 @@ pub struct ExportIssueModelMetadata {
     /// The original export request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub request: std::option::Option<crate::model::ExportIssueModelRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportIssueModelMetadata {
@@ -3259,6 +3418,9 @@ pub struct ImportIssueModelRequest {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::import_issue_model_request::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportIssueModelRequest {
@@ -3343,6 +3505,9 @@ pub mod import_issue_model_request {
         /// Required. Format: `gs://<bucket-name>/<object-name>`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub object_uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GcsSource {
@@ -3377,7 +3542,10 @@ pub mod import_issue_model_request {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ImportIssueModelResponse {}
+pub struct ImportIssueModelResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ImportIssueModelResponse {
     pub fn new() -> Self {
@@ -3408,6 +3576,9 @@ pub struct ImportIssueModelMetadata {
     /// The original import request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub request: std::option::Option<crate::model::ImportIssueModelRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportIssueModelMetadata {
@@ -3460,6 +3631,9 @@ pub struct GetIssueRequest {
     /// Required. The name of the issue to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetIssueRequest {
@@ -3489,6 +3663,9 @@ pub struct ListIssuesRequest {
     /// Required. The parent resource of the issue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListIssuesRequest {
@@ -3518,6 +3695,9 @@ pub struct ListIssuesResponse {
     /// The issues that match the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub issues: std::vec::Vec<crate::model::Issue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListIssuesResponse {
@@ -3556,6 +3736,9 @@ pub struct UpdateIssueRequest {
     /// The list of fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateIssueRequest {
@@ -3597,6 +3780,9 @@ pub struct DeleteIssueRequest {
     /// Required. The name of the issue to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteIssueRequest {
@@ -3626,6 +3812,9 @@ pub struct CalculateIssueModelStatsRequest {
     /// Required. The resource name of the issue model to query against.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub issue_model: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CalculateIssueModelStatsRequest {
@@ -3656,6 +3845,9 @@ pub struct CalculateIssueModelStatsResponse {
     /// on both training data and data labeled after deployment.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub current_stats: std::option::Option<crate::model::IssueModelLabelStats>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CalculateIssueModelStatsResponse {
@@ -3697,6 +3889,9 @@ pub struct CreatePhraseMatcherRequest {
     /// Required. The phrase matcher resource to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub phrase_matcher: std::option::Option<crate::model::PhraseMatcher>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePhraseMatcherRequest {
@@ -3754,6 +3949,9 @@ pub struct ListPhraseMatchersRequest {
     /// phrase matchers with specific properties.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPhraseMatchersRequest {
@@ -3806,6 +4004,9 @@ pub struct ListPhraseMatchersResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPhraseMatchersResponse {
@@ -3860,6 +4061,9 @@ pub struct GetPhraseMatcherRequest {
     /// Required. The name of the phrase matcher to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPhraseMatcherRequest {
@@ -3889,6 +4093,9 @@ pub struct DeletePhraseMatcherRequest {
     /// Required. The name of the phrase matcher to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePhraseMatcherRequest {
@@ -3922,6 +4129,9 @@ pub struct UpdatePhraseMatcherRequest {
     /// The list of fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePhraseMatcherRequest {
@@ -3965,6 +4175,9 @@ pub struct GetSettingsRequest {
     /// Required. The name of the settings resource to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSettingsRequest {
@@ -3998,6 +4211,9 @@ pub struct UpdateSettingsRequest {
     /// Required. The list of fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSettingsRequest {
@@ -4047,6 +4263,9 @@ pub struct CreateAnalysisRuleRequest {
     /// Required. The analysis rule resource to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub analysis_rule: std::option::Option<crate::model::AnalysisRule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAnalysisRuleRequest {
@@ -4087,6 +4306,9 @@ pub struct GetAnalysisRuleRequest {
     /// Required. The name of the AnalysisRule to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAnalysisRuleRequest {
@@ -4122,6 +4344,9 @@ pub struct UpdateAnalysisRuleRequest {
     /// fields.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAnalysisRuleRequest {
@@ -4165,6 +4390,9 @@ pub struct DeleteAnalysisRuleRequest {
     /// Required. The name of the analysis rule to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAnalysisRuleRequest {
@@ -4206,6 +4434,9 @@ pub struct ListAnalysisRulesRequest {
     /// and the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAnalysisRulesRequest {
@@ -4252,6 +4483,9 @@ pub struct ListAnalysisRulesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAnalysisRulesResponse {
@@ -4306,6 +4540,9 @@ pub struct GetEncryptionSpecRequest {
     /// Required. The name of the encryption spec resource to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEncryptionSpecRequest {
@@ -4338,6 +4575,9 @@ pub struct InitializeEncryptionSpecRequest {
     /// `kms_key_name` field is left empty, no encryption will be enforced.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub encryption_spec: std::option::Option<crate::model::EncryptionSpec>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InitializeEncryptionSpecRequest {
@@ -4368,7 +4608,10 @@ impl wkt::message::Message for InitializeEncryptionSpecRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct InitializeEncryptionSpecResponse {}
+pub struct InitializeEncryptionSpecResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl InitializeEncryptionSpecResponse {
     pub fn new() -> Self {
@@ -4404,6 +4647,9 @@ pub struct InitializeEncryptionSpecMetadata {
     /// output to be incomplete.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub partial_errors: std::vec::Vec<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InitializeEncryptionSpecMetadata {
@@ -4474,6 +4720,9 @@ pub struct CreateViewRequest {
     /// Required. The view resource to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub view: std::option::Option<crate::model::View>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateViewRequest {
@@ -4512,6 +4761,9 @@ pub struct GetViewRequest {
     /// Required. The name of the view to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetViewRequest {
@@ -4553,6 +4805,9 @@ pub struct ListViewsRequest {
     /// the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListViewsRequest {
@@ -4599,6 +4854,9 @@ pub struct ListViewsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListViewsResponse {
@@ -4657,6 +4915,9 @@ pub struct UpdateViewRequest {
     /// The list of fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateViewRequest {
@@ -4698,6 +4959,9 @@ pub struct DeleteViewRequest {
     /// Required. The name of the view to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteViewRequest {
@@ -4731,6 +4995,9 @@ pub struct Dimension {
     /// Output-only metadata about the dimension.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub dimension_metadata: std::option::Option<crate::model::dimension::DimensionMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Dimension {
@@ -4922,6 +5189,9 @@ pub mod dimension {
         /// The parent issue model ID.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub issue_model_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IssueDimensionMetadata {
@@ -4977,6 +5247,9 @@ pub mod dimension {
         /// Optional. A user-specified string representing the agent's team.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub agent_team: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AgentDimensionMetadata {
@@ -5029,6 +5302,9 @@ pub mod dimension {
         /// Optional. The full body of the question.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub question_body: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QaQuestionDimensionMetadata {
@@ -5093,6 +5369,9 @@ pub mod dimension {
         /// Optional. The full body of the question.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub answer_value: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QaQuestionAnswerDimensionMetadata {
@@ -5292,6 +5571,9 @@ pub struct QueryMetricsRequest {
     /// "conversation_measure.count".
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub measure_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryMetricsRequest {
@@ -5469,6 +5751,9 @@ pub struct QueryMetricsResponse {
     /// This field is only populated if the request specifies a Dimension.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub macro_average_slice: std::option::Option<crate::model::query_metrics_response::Slice>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryMetricsResponse {
@@ -5554,6 +5839,9 @@ pub mod query_metrics_response {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub time_series:
             std::option::Option<crate::model::query_metrics_response::slice::TimeSeries>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Slice {
@@ -5630,6 +5918,9 @@ pub mod query_metrics_response {
             pub measure: std::option::Option<
                 crate::model::query_metrics_response::slice::data_point::Measure,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl DataPoint {
@@ -5756,6 +6047,9 @@ pub mod query_metrics_response {
                 /// QA_QUESTION_ID.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub average_qa_question_normalized_score: std::option::Option<f64>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl ConversationMeasure {
@@ -5895,6 +6189,9 @@ pub mod query_metrics_response {
 
                     /// Average tag normalized score per tag.
                     pub average_tag_normalized_score: f64,
+
+                    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                 }
 
                 impl QaTagScore {
@@ -5947,6 +6244,9 @@ pub mod query_metrics_response {
             /// The data points that make up the time series .
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub data_points: std::vec::Vec<crate::model::query_metrics_response::slice::DataPoint>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl TimeSeries {
@@ -5979,7 +6279,10 @@ pub mod query_metrics_response {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct QueryMetricsMetadata {}
+pub struct QueryMetricsMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl QueryMetricsMetadata {
     pub fn new() -> Self {
@@ -6015,6 +6318,9 @@ pub struct CreateQaQuestionRequest {
     /// expression `^[a-z0-9-]{4,64}$`. Valid characters are `[a-z][0-9]-`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub qa_question_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateQaQuestionRequest {
@@ -6059,6 +6365,9 @@ pub struct GetQaQuestionRequest {
     /// Required. The name of the QaQuestion to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetQaQuestionRequest {
@@ -6100,6 +6409,9 @@ pub struct ListQaQuestionsRequest {
     /// call and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListQaQuestionsRequest {
@@ -6146,6 +6458,9 @@ pub struct ListQaQuestionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListQaQuestionsResponse {
@@ -6213,6 +6528,9 @@ pub struct UpdateQaQuestionRequest {
     /// * `tags`
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateQaQuestionRequest {
@@ -6254,6 +6572,9 @@ pub struct DeleteQaQuestionRequest {
     /// Required. The name of the QaQuestion to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteQaQuestionRequest {
@@ -6296,6 +6617,9 @@ pub struct CreateQaScorecardRequest {
     /// expression `^[a-z0-9-]{4,64}$`. Valid characters are `[a-z][0-9]-`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub qa_scorecard_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateQaScorecardRequest {
@@ -6342,6 +6666,9 @@ pub struct GetQaScorecardRequest {
     /// Required. The name of the QaScorecard to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetQaScorecardRequest {
@@ -6380,6 +6707,9 @@ pub struct UpdateQaScorecardRequest {
     /// * `display_name`
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateQaScorecardRequest {
@@ -6427,6 +6757,9 @@ pub struct DeleteQaScorecardRequest {
     /// Optional. If set to true, all of this QaScorecard's child resources will
     /// also be deleted. Otherwise, the request will only succeed if it has none.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteQaScorecardRequest {
@@ -6475,6 +6808,9 @@ pub struct CreateQaScorecardRevisionRequest {
     /// expression `^[a-z0-9-]{4,64}$`. Valid characters are `[a-z][0-9]-`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub qa_scorecard_revision_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateQaScorecardRevisionRequest {
@@ -6524,6 +6860,9 @@ pub struct GetQaScorecardRevisionRequest {
     /// Required. The name of the QaScorecardRevision to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetQaScorecardRevisionRequest {
@@ -6567,6 +6906,9 @@ pub struct TuneQaScorecardRevisionRequest {
     /// once the validations complete we will proceed with the fine tune, if
     /// applicable.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TuneQaScorecardRevisionRequest {
@@ -6604,7 +6946,10 @@ impl wkt::message::Message for TuneQaScorecardRevisionRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct TuneQaScorecardRevisionResponse {}
+pub struct TuneQaScorecardRevisionResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl TuneQaScorecardRevisionResponse {
     pub fn new() -> Self {
@@ -6653,6 +6998,9 @@ pub struct TuneQaScorecardRevisionMetadata {
     /// between 0 and 1 where 0 indicates the job has not started i.e. 0% and 1
     /// indicates the job has completed i.e. 100%.
     pub tuning_completion_ratio: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TuneQaScorecardRevisionMetadata {
@@ -6749,6 +7097,9 @@ pub mod tune_qa_scorecard_revision_metadata {
 
         /// The number of valid feedback labels in the question's dataset.
         pub valid_feedback_labels_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QaQuestionDatasetValidationResult {
@@ -6802,6 +7153,9 @@ pub mod tune_qa_scorecard_revision_metadata {
         /// Output only. The metrics for the question's dataset.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub metrics: std::option::Option<crate::model::tune_qa_scorecard_revision_metadata::qa_question_dataset_tuning_metrics::Metrics>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QaQuestionDatasetTuningMetrics {
@@ -6842,6 +7196,9 @@ pub mod tune_qa_scorecard_revision_metadata {
         pub struct Metrics {
             /// Accuracy of the question's dataset.
             pub accuracy: f64,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Metrics {
@@ -6873,6 +7230,9 @@ pub struct DeployQaScorecardRevisionRequest {
     /// Required. The name of the QaScorecardRevision to deploy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployQaScorecardRevisionRequest {
@@ -6902,6 +7262,9 @@ pub struct UndeployQaScorecardRevisionRequest {
     /// Required. The name of the QaScorecardRevision to undeploy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeployQaScorecardRevisionRequest {
@@ -6936,6 +7299,9 @@ pub struct DeleteQaScorecardRevisionRequest {
     /// will also be deleted. Otherwise, the request will only succeed if it has
     /// none.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteQaScorecardRevisionRequest {
@@ -6983,6 +7349,9 @@ pub struct ListQaScorecardsRequest {
     /// call and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListQaScorecardsRequest {
@@ -7029,6 +7398,9 @@ pub struct ListQaScorecardsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListQaScorecardsResponse {
@@ -7103,6 +7475,9 @@ pub struct ListQaScorecardRevisionsRequest {
     /// querying scorecard revisions with specific properties.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListQaScorecardRevisionsRequest {
@@ -7155,6 +7530,9 @@ pub struct ListQaScorecardRevisionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListQaScorecardRevisionsResponse {
@@ -7218,6 +7596,9 @@ pub struct CreateFeedbackLabelRequest {
     /// Required. The feedback label to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub feedback_label: std::option::Option<crate::model::FeedbackLabel>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateFeedbackLabelRequest {
@@ -7297,6 +7678,9 @@ pub struct ListFeedbackLabelsRequest {
     /// call and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFeedbackLabelsRequest {
@@ -7348,6 +7732,9 @@ pub struct ListFeedbackLabelsResponse {
     /// The next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFeedbackLabelsResponse {
@@ -7402,6 +7789,9 @@ pub struct GetFeedbackLabelRequest {
     /// Required. The name of the feedback label to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetFeedbackLabelRequest {
@@ -7435,6 +7825,9 @@ pub struct UpdateFeedbackLabelRequest {
     /// Required. The list of fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateFeedbackLabelRequest {
@@ -7478,6 +7871,9 @@ pub struct DeleteFeedbackLabelRequest {
     /// Required. The name of the feedback label to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteFeedbackLabelRequest {
@@ -7535,6 +7931,9 @@ pub struct ListAllFeedbackLabelsRequest {
     /// * `feedback_label_type`: QUALITY_AI, TOPIC_MODELING
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAllFeedbackLabelsRequest {
@@ -7587,6 +7986,9 @@ pub struct ListAllFeedbackLabelsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAllFeedbackLabelsResponse {
@@ -7651,6 +8053,9 @@ pub struct BulkUploadFeedbackLabelsRequest {
     /// be converted to FeedbackLabels.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::bulk_upload_feedback_labels_request::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BulkUploadFeedbackLabelsRequest {
@@ -7744,6 +8149,9 @@ pub mod bulk_upload_feedback_labels_request {
         /// Format: `gs://bucket_name/object_name`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub object_uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GcsSource {
@@ -7856,7 +8264,10 @@ pub mod bulk_upload_feedback_labels_request {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct BulkUploadFeedbackLabelsResponse {}
+pub struct BulkUploadFeedbackLabelsResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl BulkUploadFeedbackLabelsResponse {
     pub fn new() -> Self {
@@ -7897,6 +8308,9 @@ pub struct BulkUploadFeedbackLabelsMetadata {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub upload_stats:
         std::option::Option<crate::model::bulk_upload_feedback_labels_metadata::UploadStats>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BulkUploadFeedbackLabelsMetadata {
@@ -7985,6 +8399,9 @@ pub mod bulk_upload_feedback_labels_metadata {
 
         /// The number of new feedback labels added during this ingest operation.
         pub successful_upload_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl UploadStats {
@@ -8070,6 +8487,9 @@ pub struct BulkDownloadFeedbackLabelsRequest {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination:
         std::option::Option<crate::model::bulk_download_feedback_labels_request::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BulkDownloadFeedbackLabelsRequest {
@@ -8223,6 +8643,9 @@ pub mod bulk_download_feedback_labels_request {
         /// Optional. The number of records per file. Applicable for either format.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub records_per_file_count: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GcsDestination {
@@ -8419,7 +8842,10 @@ pub mod bulk_download_feedback_labels_request {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct BulkDownloadFeedbackLabelsResponse {}
+pub struct BulkDownloadFeedbackLabelsResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl BulkDownloadFeedbackLabelsResponse {
     pub fn new() -> Self {
@@ -8460,6 +8886,9 @@ pub struct BulkDownloadFeedbackLabelsMetadata {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub download_stats:
         std::option::Option<crate::model::bulk_download_feedback_labels_metadata::DownloadStats>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BulkDownloadFeedbackLabelsMetadata {
@@ -8554,6 +8983,9 @@ pub mod bulk_download_feedback_labels_metadata {
         /// Output only. Full name of the files written to Cloud storage.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub file_names: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DownloadStats {
@@ -8699,6 +9131,9 @@ pub struct Conversation {
     /// the specified time.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub expiration: std::option::Option<crate::model::conversation::Expiration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Conversation {
@@ -9003,6 +9438,9 @@ pub mod conversation {
 
         /// The audio channel that contains the agent.
         pub agent_channel: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CallMetadata {
@@ -9049,6 +9487,9 @@ pub mod conversation {
         /// Information about agents involved in the call.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub agent_info: std::vec::Vec<crate::model::conversation::quality_metadata::AgentInfo>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QualityMetadata {
@@ -9128,6 +9569,9 @@ pub mod conversation {
 
             /// The agent type, e.g. HUMAN_AGENT.
             pub agent_type: crate::model::conversation_participant::Role,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl AgentInfo {
@@ -9197,6 +9641,9 @@ pub mod conversation {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub transcript_segments:
             std::vec::Vec<crate::model::conversation::transcript::TranscriptSegment>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Transcript {
@@ -9273,6 +9720,9 @@ pub mod conversation {
             /// The sentiment for this transcript segment.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub sentiment: std::option::Option<crate::model::SentimentData>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl TranscriptSegment {
@@ -9392,6 +9842,9 @@ pub mod conversation {
                 /// A confidence estimate between 0.0 and 1.0 of the fidelity of this
                 /// word. A default value of 0.0 indicates that the value is unset.
                 pub confidence: f32,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl WordInfo {
@@ -9450,6 +9903,9 @@ pub mod conversation {
                 /// Whether the transcript segment was covered under the configured smart
                 /// reply allowlist in Agent Assist.
                 pub smart_reply_allowlist_covered: bool,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl DialogflowSegmentMetadata {
@@ -9588,6 +10044,9 @@ pub struct Analysis {
     /// (if any). If not specified, all annotators will be run.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub annotator_selector: std::option::Option<crate::model::AnnotatorSelector>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Analysis {
@@ -9657,6 +10116,9 @@ pub struct ConversationDataSource {
     /// The source of the conversation.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::conversation_data_source::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConversationDataSource {
@@ -9774,6 +10236,9 @@ pub struct GcsSource {
     /// conversation transcript.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub transcript_uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsSource {
@@ -9816,6 +10281,9 @@ pub struct DialogflowSource {
     /// audio.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub audio_uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DialogflowSource {
@@ -9858,6 +10326,9 @@ pub struct AnalysisResult {
     /// Metadata discovered during analysis.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<crate::model::analysis_result::Metadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalysisResult {
@@ -9968,6 +10439,9 @@ pub mod analysis_result {
         /// Results of scoring QaScorecards.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub qa_scorecard_results: std::vec::Vec<crate::model::QaScorecardResult>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CallAnalysisMetadata {
@@ -10097,6 +10571,9 @@ pub struct IssueModelResult {
     /// All the matched issues.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub issues: std::vec::Vec<crate::model::IssueAssignment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IssueModelResult {
@@ -10155,6 +10632,9 @@ pub struct FeedbackLabel {
     /// Label type.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub label_type: std::option::Option<crate::model::feedback_label::LabelType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FeedbackLabel {
@@ -10296,6 +10776,9 @@ pub struct ConversationLevelSentiment {
     /// Data specifying sentiment.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sentiment_data: std::option::Option<crate::model::SentimentData>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConversationLevelSentiment {
@@ -10339,6 +10822,9 @@ pub struct ConversationLevelSilence {
 
     /// Percentage of the total conversation spent in silence.
     pub silence_percentage: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConversationLevelSilence {
@@ -10386,6 +10872,9 @@ pub struct IssueAssignment {
     /// analyis and immutable since then.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IssueAssignment {
@@ -10439,6 +10928,9 @@ pub struct CallAnnotation {
     /// The data in the annotation.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub data: std::option::Option<crate::model::call_annotation::Data>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CallAnnotation {
@@ -10769,6 +11261,9 @@ pub struct AnnotationBoundary {
     /// A detailed boundary, which describes a more specific point.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub detailed_boundary: std::option::Option<crate::model::annotation_boundary::DetailedBoundary>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotationBoundary {
@@ -10878,6 +11373,9 @@ pub struct Entity {
     /// The aggregate sentiment expressed for this entity in the conversation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sentiment: std::option::Option<crate::model::SentimentData>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Entity {
@@ -11097,6 +11595,9 @@ pub struct Intent {
     /// The human-readable name of the intent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Intent {
@@ -11137,6 +11638,9 @@ pub struct PhraseMatchData {
     /// The human-readable name of the phrase matcher.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PhraseMatchData {
@@ -11173,6 +11677,9 @@ pub struct DialogflowIntent {
     /// The human-readable name of the intent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DialogflowIntent {
@@ -11198,7 +11705,10 @@ impl wkt::message::Message for DialogflowIntent {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct InterruptionData {}
+pub struct InterruptionData {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl InterruptionData {
     pub fn new() -> Self {
@@ -11217,7 +11727,10 @@ impl wkt::message::Message for InterruptionData {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct SilenceData {}
+pub struct SilenceData {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl SilenceData {
     pub fn new() -> Self {
@@ -11236,7 +11749,10 @@ impl wkt::message::Message for SilenceData {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct HoldData {}
+pub struct HoldData {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl HoldData {
     pub fn new() -> Self {
@@ -11269,6 +11785,9 @@ pub struct EntityMentionData {
     /// Sentiment expressed for this mention of the entity.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sentiment: std::option::Option<crate::model::SentimentData>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EntityMentionData {
@@ -11390,6 +11909,9 @@ pub struct IntentMatchData {
     /// Can be used to retrieve the corresponding intent information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub intent_unique_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IntentMatchData {
@@ -11425,6 +11947,9 @@ pub struct SentimentData {
 
     /// The sentiment score between -1.0 (negative) and 1.0 (positive).
     pub score: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SentimentData {
@@ -11460,6 +11985,9 @@ pub struct IssueMatchData {
     /// Information about the issue's assignment.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub issue_assignment: std::option::Option<crate::model::IssueAssignment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IssueMatchData {
@@ -11531,6 +12059,9 @@ pub struct IssueModel {
     /// Language of the model.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub language_code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IssueModel {
@@ -11651,6 +12182,9 @@ pub mod issue_model {
         /// specific subset.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub filter: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InputDataConfig {
@@ -11852,6 +12386,9 @@ pub struct Issue {
     /// Representative description of the issue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_description: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Issue {
@@ -11937,6 +12474,9 @@ pub struct IssueModelLabelStats {
         std::string::String,
         crate::model::issue_model_label_stats::IssueStats,
     >,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IssueModelLabelStats {
@@ -12002,6 +12542,9 @@ pub mod issue_model_label_stats {
         /// Display name of the issue.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub display_name: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IssueStats {
@@ -12095,6 +12638,9 @@ pub struct PhraseMatcher {
     /// Output only. The most recent time at which the phrase matcher was updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PhraseMatcher {
@@ -12276,6 +12822,9 @@ pub struct PhraseMatchRuleGroup {
     /// A list of phrase match rules that are included in this group.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub phrase_match_rules: std::vec::Vec<crate::model::PhraseMatchRule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PhraseMatchRuleGroup {
@@ -12397,6 +12946,9 @@ pub struct PhraseMatchRule {
     /// the rule.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub config: std::option::Option<crate::model::PhraseMatchRuleConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PhraseMatchRule {
@@ -12443,6 +12995,9 @@ pub struct PhraseMatchRuleConfig {
     /// The configuration of the phrase match rule.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub config: std::option::Option<crate::model::phrase_match_rule_config::Config>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PhraseMatchRuleConfig {
@@ -12523,6 +13078,9 @@ pub mod phrase_match_rule_config {
 pub struct ExactMatchConfig {
     /// Whether to consider case sensitivity when performing an exact match.
     pub case_sensitive: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExactMatchConfig {
@@ -12621,6 +13179,9 @@ pub struct Settings {
     /// Platform.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub speech_config: std::option::Option<crate::model::SpeechConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Settings {
@@ -12743,6 +13304,9 @@ pub mod settings {
         /// (if any). If not specified, all annotators will be run.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub annotator_selector: std::option::Option<crate::model::AnnotatorSelector>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnalysisConfig {
@@ -12836,6 +13400,9 @@ pub struct AnalysisRule {
     /// If true, apply this rule to conversations. Otherwise, this rule is
     /// inactive and saved as a draft.
     pub active: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalysisRule {
@@ -12935,6 +13502,9 @@ pub struct EncryptionSpec {
     /// `projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{key}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EncryptionSpec {
@@ -12984,6 +13554,9 @@ pub struct RedactionConfig {
     /// `projects/{project}/locations/{location}/inspectTemplates/{template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub inspect_template: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RedactionConfig {
@@ -13031,6 +13604,9 @@ pub struct SpeechConfig {
     /// `projects/{project_id}/locations/{location}/recognizer/{recognizer}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub speech_recognizer: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SpeechConfig {
@@ -13089,6 +13665,9 @@ pub struct RuntimeAnnotation {
     /// The data in the annotation.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub data: std::option::Option<crate::model::runtime_annotation::Data>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RuntimeAnnotation {
@@ -13379,6 +13958,9 @@ pub mod runtime_annotation {
 
         /// Query source for the answer.
         pub query_source: crate::model::runtime_annotation::user_input::QuerySource,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl UserInput {
@@ -13523,6 +14105,9 @@ pub struct AnswerFeedback {
     /// Indicates whether an answer or item was displayed to the human agent in the
     /// agent desktop UI.
     pub displayed: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnswerFeedback {
@@ -13665,6 +14250,9 @@ pub struct ArticleSuggestionData {
     /// projects/{project}/knowledgeBases/{knowledge_base}/documents/{document}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub source: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ArticleSuggestionData {
@@ -13756,6 +14344,9 @@ pub struct FaqAnswerData {
     /// projects/{project}/knowledgeBases/{knowledge_base}/documents/{document}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub source: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FaqAnswerData {
@@ -13837,6 +14428,9 @@ pub struct SmartReplyData {
     /// projects/{project}/locations/{location}/answerRecords/{answer_record}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub query_record: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SmartReplyData {
@@ -13906,6 +14500,9 @@ pub struct SmartComposeSuggestionData {
     /// projects/{project}/locations/{location}/answerRecords/{answer_record}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub query_record: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SmartComposeSuggestionData {
@@ -13964,6 +14561,9 @@ pub struct DialogflowInteractionData {
     /// The confidence of the match ranging from 0.0 (completely uncertain) to 1.0
     /// (completely certain).
     pub confidence: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DialogflowInteractionData {
@@ -14028,6 +14628,9 @@ pub struct ConversationSummarizationSuggestionData {
     /// projects/{project}/locations/{location}/conversationModels/{conversation_model}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub conversation_model: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConversationSummarizationSuggestionData {
@@ -14114,6 +14717,9 @@ pub struct ConversationParticipant {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub participant: std::option::Option<crate::model::conversation_participant::Participant>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConversationParticipant {
@@ -14334,6 +14940,9 @@ pub struct View {
     /// String with specific view properties, must be non-empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl View {
@@ -14442,6 +15051,9 @@ pub struct AnnotatorSelector {
     /// Configuration for the QA annotator.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub qa_config: std::option::Option<crate::model::annotator_selector::QaConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotatorSelector {
@@ -14573,6 +15185,9 @@ pub mod annotator_selector {
         pub model_source: std::option::Option<
             crate::model::annotator_selector::summarization_config::ModelSource,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SummarizationConfig {
@@ -14758,6 +15373,9 @@ pub mod annotator_selector {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub scorecard_source:
             std::option::Option<crate::model::annotator_selector::qa_config::ScorecardSource>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QaConfig {
@@ -14839,6 +15457,9 @@ pub mod annotator_selector {
             /// List of QaScorecardRevisions.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub qa_scorecard_revisions: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl ScorecardList {
@@ -14934,6 +15555,9 @@ pub struct QaQuestion {
     /// that has been tuned.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub tuning_metadata: std::option::Option<crate::model::qa_question::TuningMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QaQuestion {
@@ -15066,6 +15690,9 @@ pub mod qa_question {
         /// The answer value may be one of a few different types.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub value: std::option::Option<crate::model::qa_question::answer_choice::Value>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnswerChoice {
@@ -15238,6 +15865,9 @@ pub mod qa_question {
         /// Output only. Accuracy of the model. Measures the percentage of correct
         /// answers the model gave on the test set.
         pub accuracy: f64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Metrics {
@@ -15279,6 +15909,9 @@ pub mod qa_question {
         /// if the tuning operation failed.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub tuning_error: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TuningMetadata {
@@ -15348,6 +15981,9 @@ pub struct QaScorecard {
     /// Output only. The most recent time at which the scorecard was updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QaScorecard {
@@ -15431,6 +16067,9 @@ pub struct QaScorecardRevision {
     /// Output only. State of the scorecard revision, indicating whether it's ready
     /// to be used in analysis.
     pub state: crate::model::qa_scorecard_revision::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QaScorecardRevision {
@@ -15603,6 +16242,9 @@ pub struct QaAnswer {
     /// List of all individual answers given to the question.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub answer_sources: std::vec::Vec<crate::model::qa_answer::AnswerSource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QaAnswer {
@@ -15706,6 +16348,9 @@ pub mod qa_answer {
         /// The answer value may be one of a few different types.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub value: std::option::Option<crate::model::qa_answer::answer_value::Value>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnswerValue {
@@ -15896,6 +16541,9 @@ pub mod qa_answer {
         /// The answer value from this source.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub answer_value: std::option::Option<crate::model::qa_answer::AnswerValue>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnswerSource {
@@ -16053,6 +16701,9 @@ pub struct QaScorecardResult {
     /// List of all individual score sets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub score_sources: std::vec::Vec<crate::model::qa_scorecard_result::ScoreSource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QaScorecardResult {
@@ -16186,6 +16837,9 @@ pub mod qa_scorecard_result {
         /// The normalized score the tag applies to.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub normalized_score: std::option::Option<f64>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QaTagResult {
@@ -16257,6 +16911,9 @@ pub mod qa_scorecard_result {
         /// Collection of tags and their scores.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub qa_tag_results: std::vec::Vec<crate::model::qa_scorecard_result::QaTagResult>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ScoreSource {

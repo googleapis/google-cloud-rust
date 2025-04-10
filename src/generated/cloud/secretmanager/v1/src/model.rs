@@ -174,6 +174,9 @@ pub struct Secret {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub expiration: std::option::Option<crate::model::secret::Expiration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Secret {
@@ -479,6 +482,9 @@ pub struct SecretVersion {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub customer_managed_encryption:
         std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecretVersion {
@@ -669,6 +675,9 @@ pub struct Replication {
     /// The replication policy for this secret.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub replication: std::option::Option<crate::model::replication::Replication>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Replication {
@@ -783,6 +792,9 @@ pub mod replication {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub customer_managed_encryption:
             std::option::Option<crate::model::CustomerManagedEncryption>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Automatic {
@@ -828,6 +840,9 @@ pub mod replication {
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub replicas: std::vec::Vec<crate::model::replication::user_managed::Replica>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl UserManaged {
@@ -888,6 +903,9 @@ pub mod replication {
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub customer_managed_encryption:
                 std::option::Option<crate::model::CustomerManagedEncryption>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Replica {
@@ -966,6 +984,9 @@ pub struct CustomerManagedEncryption {
     /// [google.cloud.secretmanager.v1.Replication.UserManaged]: crate::model::replication::UserManaged
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomerManagedEncryption {
@@ -1002,6 +1023,9 @@ pub struct ReplicationStatus {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub replication_status:
         std::option::Option<crate::model::replication_status::ReplicationStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicationStatus {
@@ -1122,6 +1146,9 @@ pub mod replication_status {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub customer_managed_encryption:
             std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AutomaticStatus {
@@ -1168,6 +1195,9 @@ pub mod replication_status {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub replicas:
             std::vec::Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl UserManagedStatus {
@@ -1222,6 +1252,9 @@ pub mod replication_status {
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub customer_managed_encryption:
                 std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl ReplicaStatus {
@@ -1303,6 +1336,9 @@ pub struct CustomerManagedEncryptionStatus {
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key_version_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomerManagedEncryptionStatus {
@@ -1340,6 +1376,9 @@ pub struct Topic {
     /// (`roles/pubsub.publisher`) includes this permission.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Topic {
@@ -1405,6 +1444,9 @@ pub struct Rotation {
     /// [google.cloud.secretmanager.v1.Rotation.rotation_period]: crate::model::Rotation::rotation_period
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rotation_period: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Rotation {
@@ -1477,6 +1519,9 @@ pub struct SecretPayload {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub data_crc32c: std::option::Option<i64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecretPayload {
@@ -1542,6 +1587,9 @@ pub struct ListSecretsRequest {
     /// listed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretsRequest {
@@ -1612,6 +1660,9 @@ pub struct ListSecretsResponse {
     /// [google.cloud.secretmanager.v1.ListSecretsRequest.filter]: crate::model::ListSecretsRequest::filter
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     pub total_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretsResponse {
@@ -1694,6 +1745,9 @@ pub struct CreateSecretRequest {
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub secret: std::option::Option<crate::model::Secret>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSecretRequest {
@@ -1754,6 +1808,9 @@ pub struct AddSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub payload: std::option::Option<crate::model::SecretPayload>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AddSecretVersionRequest {
@@ -1799,6 +1856,9 @@ pub struct GetSecretRequest {
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSecretRequest {
@@ -1855,6 +1915,9 @@ pub struct ListSecretVersionsRequest {
     /// versions are listed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretVersionsRequest {
@@ -1926,6 +1989,9 @@ pub struct ListSecretVersionsResponse {
     /// [google.cloud.secretmanager.v1.ListSecretsRequest.filter]: crate::model::ListSecretsRequest::filter
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub total_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretVersionsResponse {
@@ -1999,6 +2065,9 @@ pub struct GetSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSecretVersionRequest {
@@ -2038,6 +2107,9 @@ pub struct UpdateSecretRequest {
     /// Required. Specifies the fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSecretRequest {
@@ -2092,6 +2164,9 @@ pub struct AccessSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessSecretVersionRequest {
@@ -2133,6 +2208,9 @@ pub struct AccessSecretVersionResponse {
     /// Secret payload
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub payload: std::option::Option<crate::model::SecretPayload>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessSecretVersionResponse {
@@ -2186,6 +2264,9 @@ pub struct DeleteSecretRequest {
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSecretRequest {
@@ -2238,6 +2319,9 @@ pub struct DisableSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DisableSecretVersionRequest {
@@ -2290,6 +2374,9 @@ pub struct EnableSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnableSecretVersionRequest {
@@ -2342,6 +2429,9 @@ pub struct DestroySecretVersionRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DestroySecretVersionRequest {

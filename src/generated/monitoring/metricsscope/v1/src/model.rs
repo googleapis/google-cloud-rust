@@ -61,6 +61,9 @@ pub struct MetricsScope {
     /// Output only. The list of projects monitored by this `Metrics Scope`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub monitored_projects: std::vec::Vec<crate::model::MonitoredProject>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MetricsScope {
@@ -129,6 +132,9 @@ pub struct MonitoredProject {
     /// Output only. The time when this `MonitoredProject` was created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MonitoredProject {
@@ -169,6 +175,9 @@ pub struct GetMetricsScopeRequest {
     /// `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetMetricsScopeRequest {
@@ -200,6 +209,9 @@ pub struct ListMetricsScopesByMonitoredProjectRequest {
     /// `projects/{MONITORED_PROJECT_ID_OR_NUMBER}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub monitored_resource_container: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMetricsScopesByMonitoredProjectRequest {
@@ -233,6 +245,9 @@ pub struct ListMetricsScopesByMonitoredProjectResponse {
     /// added to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub metrics_scopes: std::vec::Vec<crate::model::MetricsScope>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMetricsScopesByMonitoredProjectResponse {
@@ -277,6 +292,9 @@ pub struct CreateMonitoredProjectRequest {
     /// `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}/projects/{MONITORED_PROJECT_ID_OR_NUMBER}`
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub monitored_project: std::option::Option<crate::model::MonitoredProject>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateMonitoredProjectRequest {
@@ -323,6 +341,9 @@ pub struct DeleteMonitoredProjectRequest {
     /// and on the `MonitoredProject`: `monitoring.metricsScopes.link`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteMonitoredProjectRequest {
@@ -360,6 +381,9 @@ pub struct OperationMetadata {
     /// The time when the operation result was last updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {

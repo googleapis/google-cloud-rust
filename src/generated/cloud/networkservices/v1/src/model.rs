@@ -72,6 +72,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -146,6 +149,9 @@ pub struct TrafficPortSelector {
     /// list is empty, all ports are selected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub ports: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TrafficPortSelector {
@@ -181,6 +187,9 @@ pub struct EndpointMatcher {
     /// Specifies type of the matcher used for this endpoint matcher.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub matcher_type: std::option::Option<crate::model::endpoint_matcher::MatcherType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EndpointMatcher {
@@ -287,6 +296,9 @@ pub mod endpoint_matcher {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub metadata_labels:
             std::vec::Vec<crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabels>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MetadataLabelMatcher {
@@ -339,6 +351,9 @@ pub mod endpoint_matcher {
             /// key, in xDS Node Metadata.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub label_value: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl MetadataLabels {
@@ -471,6 +486,9 @@ pub struct ExtensionChain {
     /// `LbRouteExtension` chains are limited to 1 extension per extension chain.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub extensions: std::vec::Vec<crate::model::extension_chain::Extension>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExtensionChain {
@@ -531,6 +549,9 @@ pub mod extension_chain {
         /// reference](https://cloud.google.com/service-extensions/docs/cel-matcher-language-reference).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub cel_expression: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MatchCondition {
@@ -625,6 +646,9 @@ pub mod extension_chain {
         /// Each element is a string indicating the header name.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub forward_headers: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Extension {
@@ -762,6 +786,9 @@ pub struct LbTrafficExtension {
     /// qualified resource name.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LbTrafficExtension {
@@ -885,6 +912,9 @@ pub struct ListLbTrafficExtensionsRequest {
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLbTrafficExtensionsRequest {
@@ -946,6 +976,9 @@ pub struct ListLbTrafficExtensionsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLbTrafficExtensionsResponse {
@@ -1013,6 +1046,9 @@ pub struct GetLbTrafficExtensionRequest {
     /// `projects/{project}/locations/{location}/lbTrafficExtensions/{lb_traffic_extension}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLbTrafficExtensionRequest {
@@ -1068,6 +1104,9 @@ pub struct CreateLbTrafficExtensionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateLbTrafficExtensionRequest {
@@ -1147,6 +1186,9 @@ pub struct UpdateLbTrafficExtensionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateLbTrafficExtensionRequest {
@@ -1214,6 +1256,9 @@ pub struct DeleteLbTrafficExtensionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteLbTrafficExtensionRequest {
@@ -1306,6 +1351,9 @@ pub struct LbRouteExtension {
     /// qualified resource name.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LbRouteExtension {
@@ -1429,6 +1477,9 @@ pub struct ListLbRouteExtensionsRequest {
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLbRouteExtensionsRequest {
@@ -1490,6 +1541,9 @@ pub struct ListLbRouteExtensionsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLbRouteExtensionsResponse {
@@ -1557,6 +1611,9 @@ pub struct GetLbRouteExtensionRequest {
     /// `projects/{project}/locations/{location}/lbRouteExtensions/{lb_route_extension}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLbRouteExtensionRequest {
@@ -1612,6 +1669,9 @@ pub struct CreateLbRouteExtensionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateLbRouteExtensionRequest {
@@ -1691,6 +1751,9 @@ pub struct UpdateLbRouteExtensionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateLbRouteExtensionRequest {
@@ -1758,6 +1821,9 @@ pub struct DeleteLbRouteExtensionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteLbRouteExtensionRequest {
@@ -1855,6 +1921,9 @@ pub struct EndpointPolicy {
     /// when EndpointPolicyType is SIDECAR_PROXY.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub client_tls_policy: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EndpointPolicy {
@@ -2054,6 +2123,9 @@ pub struct ListEndpointPoliciesRequest {
     /// next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEndpointPoliciesRequest {
@@ -2101,6 +2173,9 @@ pub struct ListEndpointPoliciesResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEndpointPoliciesResponse {
@@ -2156,6 +2231,9 @@ pub struct GetEndpointPolicyRequest {
     /// `projects/*/locations/global/endpointPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEndpointPolicyRequest {
@@ -2195,6 +2273,9 @@ pub struct CreateEndpointPolicyRequest {
     /// Required. EndpointPolicy resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub endpoint_policy: std::option::Option<crate::model::EndpointPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateEndpointPolicyRequest {
@@ -2252,6 +2333,9 @@ pub struct UpdateEndpointPolicyRequest {
     /// Required. Updated EndpointPolicy resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub endpoint_policy: std::option::Option<crate::model::EndpointPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateEndpointPolicyRequest {
@@ -2296,6 +2380,9 @@ pub struct DeleteEndpointPolicyRequest {
     /// `projects/*/locations/global/endpointPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteEndpointPolicyRequest {
@@ -2377,6 +2464,9 @@ pub struct Gateway {
     /// TLS traffic is terminated. If empty, TLS termination is disabled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub server_tls_policy: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Gateway {
@@ -2558,6 +2648,9 @@ pub struct ListGatewaysRequest {
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGatewaysRequest {
@@ -2605,6 +2698,9 @@ pub struct ListGatewaysResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGatewaysResponse {
@@ -2660,6 +2756,9 @@ pub struct GetGatewayRequest {
     /// `projects/*/locations/*/gateways/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetGatewayRequest {
@@ -2698,6 +2797,9 @@ pub struct CreateGatewayRequest {
     /// Required. Gateway resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gateway: std::option::Option<crate::model::Gateway>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateGatewayRequest {
@@ -2750,6 +2852,9 @@ pub struct UpdateGatewayRequest {
     /// Required. Updated Gateway resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gateway: std::option::Option<crate::model::Gateway>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateGatewayRequest {
@@ -2792,6 +2897,9 @@ pub struct DeleteGatewayRequest {
     /// `projects/*/locations/*/gateways/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteGatewayRequest {
@@ -2904,6 +3012,9 @@ pub struct GrpcRoute {
     /// must be supplied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub rules: std::vec::Vec<crate::model::grpc_route::RouteRule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GrpcRoute {
@@ -3041,6 +3152,9 @@ pub mod grpc_route {
         /// REGULAR_EXPRESSION.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub case_sensitive: std::option::Option<bool>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MethodMatch {
@@ -3170,6 +3284,9 @@ pub mod grpc_route {
         /// Required. The value of the header.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub value: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl HeaderMatch {
@@ -3284,6 +3401,9 @@ pub mod grpc_route {
         /// Optional. Specifies a collection of headers to match.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub headers: std::vec::Vec<crate::model::grpc_route::HeaderMatch>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteMatch {
@@ -3348,6 +3468,9 @@ pub mod grpc_route {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub destination_type:
             std::option::Option<crate::model::grpc_route::destination::DestinationType>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Destination {
@@ -3443,6 +3566,9 @@ pub mod grpc_route {
         /// The specification for aborting to client requests.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub abort: std::option::Option<crate::model::grpc_route::fault_injection_policy::Abort>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl FaultInjectionPolicy {
@@ -3504,6 +3630,9 @@ pub mod grpc_route {
             /// The value must be between [0, 100]
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub percentage: std::option::Option<i32>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Delay {
@@ -3554,6 +3683,9 @@ pub mod grpc_route {
             /// The value must be between [0, 100]
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub percentage: std::option::Option<i32>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Abort {
@@ -3615,6 +3747,9 @@ pub mod grpc_route {
         /// Specifies the allowed number of retries. This number must be > 0. If not
         /// specified, default to 1.
         pub num_retries: u32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RetryPolicy {
@@ -3681,6 +3816,9 @@ pub mod grpc_route {
         /// Optional. Specifies the retry policy associated with this route.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub retry_policy: std::option::Option<crate::model::grpc_route::RetryPolicy>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteAction {
@@ -3754,6 +3892,9 @@ pub mod grpc_route {
         /// required.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub action: std::option::Option<crate::model::grpc_route::RouteAction>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteRule {
@@ -3810,6 +3951,9 @@ pub struct ListGrpcRoutesRequest {
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGrpcRoutesRequest {
@@ -3857,6 +4001,9 @@ pub struct ListGrpcRoutesResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGrpcRoutesResponse {
@@ -3912,6 +4059,9 @@ pub struct GetGrpcRouteRequest {
     /// `projects/*/locations/global/grpcRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetGrpcRouteRequest {
@@ -3950,6 +4100,9 @@ pub struct CreateGrpcRouteRequest {
     /// Required. GrpcRoute resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub grpc_route: std::option::Option<crate::model::GrpcRoute>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateGrpcRouteRequest {
@@ -4002,6 +4155,9 @@ pub struct UpdateGrpcRouteRequest {
     /// Required. Updated GrpcRoute resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub grpc_route: std::option::Option<crate::model::GrpcRoute>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateGrpcRouteRequest {
@@ -4044,6 +4200,9 @@ pub struct DeleteGrpcRouteRequest {
     /// `projects/*/locations/global/grpcRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteGrpcRouteRequest {
@@ -4149,6 +4308,9 @@ pub struct HttpRoute {
     /// the rule.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub rules: std::vec::Vec<crate::model::http_route::RouteRule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HttpRoute {
@@ -4276,6 +4438,9 @@ pub mod http_route {
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub match_type: std::option::Option<crate::model::http_route::header_match::MatchType>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl HeaderMatch {
@@ -4498,6 +4663,9 @@ pub mod http_route {
 
             /// End of the range (exclusive)
             pub end: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl IntegerRange {
@@ -4561,6 +4729,9 @@ pub mod http_route {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub match_type:
             std::option::Option<crate::model::http_route::query_parameter_match::MatchType>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QueryParameterMatch {
@@ -4725,6 +4896,9 @@ pub mod http_route {
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub path_match: std::option::Option<crate::model::http_route::route_match::PathMatch>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteMatch {
@@ -4918,6 +5092,9 @@ pub mod http_route {
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
         pub weight: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Destination {
@@ -4992,6 +5169,9 @@ pub mod http_route {
         /// The port that will be used in the redirected request instead of the one
         /// that was supplied in the request.
         pub port_redirect: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Redirect {
@@ -5162,6 +5342,9 @@ pub mod http_route {
         /// The specification for aborting to client requests.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub abort: std::option::Option<crate::model::http_route::fault_injection_policy::Abort>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl FaultInjectionPolicy {
@@ -5222,6 +5405,9 @@ pub mod http_route {
             ///
             /// The value must be between [0, 100]
             pub percentage: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Delay {
@@ -5267,6 +5453,9 @@ pub mod http_route {
             ///
             /// The value must be between [0, 100]
             pub percentage: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Abort {
@@ -5314,6 +5503,9 @@ pub mod http_route {
         /// Remove headers (matching by header names) specified in the list.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub remove: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl HeaderModifier {
@@ -5379,6 +5571,9 @@ pub mod http_route {
         /// host header is replaced by this value.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub host_rewrite: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl URLRewrite {
@@ -5449,6 +5644,9 @@ pub mod http_route {
         /// Specifies a non-zero timeout per retry attempt.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub per_try_timeout: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RetryPolicy {
@@ -5502,6 +5700,9 @@ pub mod http_route {
         /// destination will be ignored.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub destination: std::option::Option<crate::model::http_route::Destination>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RequestMirrorPolicy {
@@ -5572,6 +5773,9 @@ pub mod http_route {
         /// If true, the CORS policy is disabled. The default value is false, which
         /// indicates that the CORS policy is in effect.
         pub disabled: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CorsPolicy {
@@ -5727,6 +5931,9 @@ pub mod http_route {
         /// The specification for allowing client side cross-origin requests.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub cors_policy: std::option::Option<crate::model::http_route::CorsPolicy>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteAction {
@@ -5871,6 +6078,9 @@ pub mod http_route {
         /// The detailed rule defining how to route matched traffic.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub action: std::option::Option<crate::model::http_route::RouteAction>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteRule {
@@ -5927,6 +6137,9 @@ pub struct ListHttpRoutesRequest {
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListHttpRoutesRequest {
@@ -5974,6 +6187,9 @@ pub struct ListHttpRoutesResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListHttpRoutesResponse {
@@ -6029,6 +6245,9 @@ pub struct GetHttpRouteRequest {
     /// `projects/*/locations/global/httpRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetHttpRouteRequest {
@@ -6067,6 +6286,9 @@ pub struct CreateHttpRouteRequest {
     /// Required. HttpRoute resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub http_route: std::option::Option<crate::model::HttpRoute>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateHttpRouteRequest {
@@ -6119,6 +6341,9 @@ pub struct UpdateHttpRouteRequest {
     /// Required. Updated HttpRoute resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub http_route: std::option::Option<crate::model::HttpRoute>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateHttpRouteRequest {
@@ -6161,6 +6386,9 @@ pub struct DeleteHttpRouteRequest {
     /// `projects/*/locations/global/httpRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteHttpRouteRequest {
@@ -6222,6 +6450,9 @@ pub struct Mesh {
     /// used as the interception port. This is applicable only for sidecar proxy
     /// deployments.
     pub interception_port: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Mesh {
@@ -6309,6 +6540,9 @@ pub struct ListMeshesRequest {
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMeshesRequest {
@@ -6356,6 +6590,9 @@ pub struct ListMeshesResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMeshesResponse {
@@ -6411,6 +6648,9 @@ pub struct GetMeshRequest {
     /// `projects/*/locations/global/meshes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetMeshRequest {
@@ -6449,6 +6689,9 @@ pub struct CreateMeshRequest {
     /// Required. Mesh resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub mesh: std::option::Option<crate::model::Mesh>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateMeshRequest {
@@ -6501,6 +6744,9 @@ pub struct UpdateMeshRequest {
     /// Required. Updated Mesh resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub mesh: std::option::Option<crate::model::Mesh>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateMeshRequest {
@@ -6543,6 +6789,9 @@ pub struct DeleteMeshRequest {
     /// `projects/*/locations/global/meshes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteMeshRequest {
@@ -6596,6 +6845,9 @@ pub struct ServiceBinding {
     /// Optional. Set of label tags associated with the ServiceBinding resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceBinding {
@@ -6677,6 +6929,9 @@ pub struct ListServiceBindingsRequest {
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceBindingsRequest {
@@ -6724,6 +6979,9 @@ pub struct ListServiceBindingsResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceBindingsResponse {
@@ -6779,6 +7037,9 @@ pub struct GetServiceBindingRequest {
     /// `projects/*/locations/global/serviceBindings/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceBindingRequest {
@@ -6817,6 +7078,9 @@ pub struct CreateServiceBindingRequest {
     /// Required. ServiceBinding resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service_binding: std::option::Option<crate::model::ServiceBinding>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServiceBindingRequest {
@@ -6867,6 +7131,9 @@ pub struct DeleteServiceBindingRequest {
     /// `projects/*/locations/global/serviceBindings/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServiceBindingRequest {
@@ -6943,6 +7210,9 @@ pub struct TcpRoute {
     /// Optional. Set of label tags associated with the TcpRoute resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TcpRoute {
@@ -7060,6 +7330,9 @@ pub mod tcp_route {
         /// Required. The detailed rule defining how to route matched traffic.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub action: std::option::Option<crate::model::tcp_route::RouteAction>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteRule {
@@ -7120,6 +7393,9 @@ pub mod tcp_route {
         /// Required. Specifies the destination port to match against.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub port: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteMatch {
@@ -7162,6 +7438,9 @@ pub mod tcp_route {
         /// original connection as the destination of the request. Default is false.
         /// Only one of route destinations or original destination can be set.
         pub original_destination: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteAction {
@@ -7219,6 +7498,9 @@ pub mod tcp_route {
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
         pub weight: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteDestination {
@@ -7268,6 +7550,9 @@ pub struct ListTcpRoutesRequest {
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTcpRoutesRequest {
@@ -7315,6 +7600,9 @@ pub struct ListTcpRoutesResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTcpRoutesResponse {
@@ -7370,6 +7658,9 @@ pub struct GetTcpRouteRequest {
     /// `projects/*/locations/global/tcpRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTcpRouteRequest {
@@ -7408,6 +7699,9 @@ pub struct CreateTcpRouteRequest {
     /// Required. TcpRoute resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub tcp_route: std::option::Option<crate::model::TcpRoute>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTcpRouteRequest {
@@ -7460,6 +7754,9 @@ pub struct UpdateTcpRouteRequest {
     /// Required. Updated TcpRoute resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub tcp_route: std::option::Option<crate::model::TcpRoute>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTcpRouteRequest {
@@ -7502,6 +7799,9 @@ pub struct DeleteTcpRouteRequest {
     /// `projects/*/locations/global/tcpRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTcpRouteRequest {
@@ -7574,6 +7874,9 @@ pub struct TlsRoute {
     /// `projects/*/locations/global/gateways/<gateway_name>`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub gateways: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TlsRoute {
@@ -7677,6 +7980,9 @@ pub mod tls_route {
         /// Required. The detailed rule defining how to route matched traffic.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub action: std::option::Option<crate::model::tls_route::RouteAction>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteRule {
@@ -7739,6 +8045,9 @@ pub mod tls_route {
         /// Up to 5 alpns across all matches can be set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub alpn: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteMatch {
@@ -7785,6 +8094,9 @@ pub mod tls_route {
         /// At least one destination service is required.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub destinations: std::vec::Vec<crate::model::tls_route::RouteDestination>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteAction {
@@ -7826,6 +8138,9 @@ pub mod tls_route {
         /// - weight/Sum(weights in destinations)
         ///   Weights in all destinations does not need to sum up to 100.
         pub weight: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RouteDestination {
@@ -7875,6 +8190,9 @@ pub struct ListTlsRoutesRequest {
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTlsRoutesRequest {
@@ -7922,6 +8240,9 @@ pub struct ListTlsRoutesResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTlsRoutesResponse {
@@ -7977,6 +8298,9 @@ pub struct GetTlsRouteRequest {
     /// `projects/*/locations/global/tlsRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTlsRouteRequest {
@@ -8015,6 +8339,9 @@ pub struct CreateTlsRouteRequest {
     /// Required. TlsRoute resource to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub tls_route: std::option::Option<crate::model::TlsRoute>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTlsRouteRequest {
@@ -8067,6 +8394,9 @@ pub struct UpdateTlsRouteRequest {
     /// Required. Updated TlsRoute resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub tls_route: std::option::Option<crate::model::TlsRoute>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTlsRouteRequest {
@@ -8109,6 +8439,9 @@ pub struct DeleteTlsRouteRequest {
     /// `projects/*/locations/global/tlsRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTlsRouteRequest {

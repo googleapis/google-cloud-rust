@@ -47,6 +47,9 @@ pub struct TroubleshootIamPolicyRequest {
     /// for a resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub access_tuple: std::option::Option<crate::model::AccessTuple>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TroubleshootIamPolicyRequest {
@@ -100,6 +103,9 @@ pub struct TroubleshootIamPolicyResponse {
     /// access state.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub deny_policy_explanation: std::option::Option<crate::model::DenyPolicyExplanation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TroubleshootIamPolicyResponse {
@@ -283,6 +289,9 @@ pub struct AccessTuple {
     /// conditional role bindings and deny rules.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition_context: std::option::Option<crate::model::ConditionContext>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessTuple {
@@ -362,6 +371,9 @@ pub struct ConditionContext {
     /// fetched during troubleshooting.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub effective_tags: std::vec::Vec<crate::model::condition_context::EffectiveTag>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConditionContext {
@@ -459,6 +471,9 @@ pub mod condition_context {
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub r#type: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Resource {
@@ -507,6 +522,9 @@ pub mod condition_context {
         /// The network port of the peer.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub port: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Peer {
@@ -545,6 +563,9 @@ pub mod condition_context {
         /// byte of the request.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub receive_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Request {
@@ -612,6 +633,9 @@ pub mod condition_context {
         /// the resource's ancestors, inherited will be true. If false, then the tag
         /// value is directly attached to the resource, inherited will be false.
         pub inherited: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EffectiveTag {
@@ -698,6 +722,9 @@ pub struct AllowPolicyExplanation {
 
     /// The relevance of the allow policy type to the overall access state.
     pub relevance: crate::model::HeuristicRelevance,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AllowPolicyExplanation {
@@ -795,6 +822,9 @@ pub struct ExplainedAllowPolicy {
     /// is empty.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub policy: std::option::Option<iam_v1::model::Policy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExplainedAllowPolicy {
@@ -937,6 +967,9 @@ pub struct AllowBindingExplanation {
     /// Condition evaluation state for this role binding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition_explanation: std::option::Option<crate::model::ConditionExplanation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AllowBindingExplanation {
@@ -1061,6 +1094,9 @@ pub mod allow_binding_explanation {
         /// The relevance of the principal's status to the overall determination for
         /// the role binding.
         pub relevance: crate::model::HeuristicRelevance,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnnotatedAllowMembership {
@@ -1127,6 +1163,9 @@ pub struct DenyPolicyExplanation {
     /// Indicates whether the permission to troubleshoot is supported in deny
     /// policies.
     pub permission_deniable: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DenyPolicyExplanation {
@@ -1221,6 +1260,9 @@ pub struct ExplainedDenyResource {
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
     pub relevance: crate::model::HeuristicRelevance,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExplainedDenyResource {
@@ -1318,6 +1360,9 @@ pub struct ExplainedDenyPolicy {
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
     pub relevance: crate::model::HeuristicRelevance,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExplainedDenyPolicy {
@@ -1478,6 +1523,9 @@ pub struct DenyRuleExplanation {
     /// Condition evaluation state for this role binding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition_explanation: std::option::Option<crate::model::ConditionExplanation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DenyRuleExplanation {
@@ -1657,6 +1705,9 @@ pub mod deny_rule_explanation {
         /// The relevance of the permission status to the overall determination for
         /// the rule.
         pub relevance: crate::model::HeuristicRelevance,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnnotatedPermissionMatching {
@@ -1706,6 +1757,9 @@ pub mod deny_rule_explanation {
         /// The relevance of the principal's status to the overall determination for
         /// the role binding.
         pub relevance: crate::model::HeuristicRelevance,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnnotatedDenyPrincipalMatching {
@@ -1758,6 +1812,9 @@ pub struct ConditionExplanation {
     /// evaluated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub evaluation_states: std::vec::Vec<crate::model::condition_explanation::EvaluationState>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConditionExplanation {
@@ -1830,6 +1887,9 @@ pub mod condition_explanation {
         /// expression.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub errors: std::vec::Vec<rpc::model::Status>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EvaluationState {

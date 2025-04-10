@@ -87,6 +87,9 @@ pub struct AutonomousDatabase {
     /// Output only. The date and time that the Autonomous Database was created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutonomousDatabase {
@@ -415,6 +418,9 @@ pub struct AutonomousDatabaseProperties {
     /// Output only. The date and time when maintenance will end.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub maintenance_end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutonomousDatabaseProperties {
@@ -1654,6 +1660,9 @@ pub struct AutonomousDatabaseApex {
     /// Output only. The Oracle REST Data Services (ORDS) version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub ords_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutonomousDatabaseApex {
@@ -1717,6 +1726,9 @@ pub struct AutonomousDatabaseConnectionStrings {
     /// group, filter, and select values based on the structured metadata.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub profiles: std::vec::Vec<crate::model::DatabaseConnectionStringProfile>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutonomousDatabaseConnectionStrings {
@@ -1815,6 +1827,9 @@ pub struct DatabaseConnectionStringProfile {
     /// Output only. The value of the connection string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DatabaseConnectionStringProfile {
@@ -2312,6 +2327,9 @@ pub struct AllConnectionStrings {
     /// each SQL statement.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub medium: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AllConnectionStrings {
@@ -2388,6 +2406,9 @@ pub struct AutonomousDatabaseConnectionUrls {
     /// Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub sql_dev_web_uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutonomousDatabaseConnectionUrls {
@@ -2491,6 +2512,9 @@ pub struct AutonomousDatabaseStandbySummary {
     /// the standby Autonomous Database.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub disaster_recovery_role_changed_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutonomousDatabaseStandbySummary {
@@ -2568,6 +2592,9 @@ pub struct ScheduledOperationDetails {
     /// Output only. Auto stop time.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub stop_time: std::option::Option<gtype::model::TimeOfDay>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScheduledOperationDetails {
@@ -2626,6 +2653,9 @@ pub struct AutonomousDatabaseCharacterSet {
     /// the ID in the resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub character_set: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutonomousDatabaseCharacterSet {
@@ -2759,6 +2789,9 @@ pub struct AutonomousDatabaseBackup {
     /// Optional. labels or tags associated with the resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutonomousDatabaseBackup {
@@ -2903,6 +2936,9 @@ pub struct AutonomousDatabaseBackupProperties {
     /// Optional. The OCID of the vault.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub vault_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutonomousDatabaseBackupProperties {
@@ -3234,6 +3270,9 @@ pub struct AutonomousDbVersion {
     /// Database version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub workload_uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutonomousDbVersion {
@@ -3286,6 +3325,9 @@ pub struct CustomerContact {
     /// databases and infrastructure.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub email: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomerContact {
@@ -3321,6 +3363,9 @@ pub struct DbNode {
     /// Optional. Various properties of the database node.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub properties: std::option::Option<crate::model::DbNodeProperties>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DbNode {
@@ -3384,6 +3429,9 @@ pub struct DbNodeProperties {
 
     /// Total CPU core count of the database node.
     pub total_cpu_core_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DbNodeProperties {
@@ -3566,6 +3614,9 @@ pub struct DbServer {
     /// Optional. Various properties of the database server.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub properties: std::option::Option<crate::model::DbServerProperties>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DbServer {
@@ -3640,6 +3691,9 @@ pub struct DbServerProperties {
     /// Output only. OCID of database nodes associated with the database server.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub db_node_ids: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DbServerProperties {
@@ -3845,6 +3899,9 @@ pub struct DbSystemShape {
 
     /// Optional. Minimum node storage per database server in gigabytes.
     pub min_db_node_storage_per_node_gb: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DbSystemShape {
@@ -3952,6 +4009,9 @@ pub struct Entitlement {
 
     /// Output only. Entitlement State.
     pub state: crate::model::entitlement::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Entitlement {
@@ -4099,6 +4159,9 @@ pub struct CloudAccountDetails {
     /// Output only. URL to create a new account and link.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub account_creation_uri: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudAccountDetails {
@@ -4187,6 +4250,9 @@ pub struct CloudExadataInfrastructure {
     /// Output only. The date and time that the Exadata Infrastructure was created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudExadataInfrastructure {
@@ -4366,6 +4432,9 @@ pub struct CloudExadataInfrastructureProperties {
     /// in the Exadata Infrastructure. Example: 20.1.15
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub monthly_db_server_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudExadataInfrastructureProperties {
@@ -4724,6 +4793,9 @@ pub struct MaintenanceWindow {
     /// Optional. If true, enables the configuration of a custom action timeout
     /// (waiting period) between database server patching operations.
     pub is_custom_action_timeout_enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MaintenanceWindow {
@@ -4968,6 +5040,9 @@ pub struct GiVersion {
     /// Optional. version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GiVersion {
@@ -5005,6 +5080,9 @@ pub struct LocationMetadata {
     /// Output only. Google Cloud Platform Oracle zones in a location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub gcp_oracle_zones: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocationMetadata {
@@ -5049,6 +5127,9 @@ pub struct ListCloudExadataInfrastructuresRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCloudExadataInfrastructuresRequest {
@@ -5094,6 +5175,9 @@ pub struct ListCloudExadataInfrastructuresResponse {
     /// A token for fetching next page of response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCloudExadataInfrastructuresResponse {
@@ -5150,6 +5234,9 @@ pub struct GetCloudExadataInfrastructureRequest {
     /// projects/{project}/locations/{location}/cloudExadataInfrastructures/{cloud_exadata_infrastructure}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCloudExadataInfrastructureRequest {
@@ -5202,6 +5289,9 @@ pub struct CreateCloudExadataInfrastructureRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCloudExadataInfrastructureRequest {
@@ -5275,6 +5365,9 @@ pub struct DeleteCloudExadataInfrastructureRequest {
     /// will be deleted. An Exadata Infrastructure can only be deleted once all its
     /// VM clusters have been deleted.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCloudExadataInfrastructureRequest {
@@ -5330,6 +5423,9 @@ pub struct ListCloudVmClustersRequest {
     /// Optional. An expression for filtering the results of the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCloudVmClustersRequest {
@@ -5381,6 +5477,9 @@ pub struct ListCloudVmClustersResponse {
     /// A token to fetch the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCloudVmClustersResponse {
@@ -5436,6 +5535,9 @@ pub struct GetCloudVmClusterRequest {
     /// projects/{project}/locations/{location}/cloudVmClusters/{cloud_vm_cluster}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCloudVmClusterRequest {
@@ -5488,6 +5590,9 @@ pub struct CreateCloudVmClusterRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCloudVmClusterRequest {
@@ -5560,6 +5665,9 @@ pub struct DeleteCloudVmClusterRequest {
     /// deleted. A VM Cluster can only be deleted once all its child resources have
     /// been deleted.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCloudVmClusterRequest {
@@ -5611,6 +5719,9 @@ pub struct ListEntitlementsRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEntitlementsRequest {
@@ -5656,6 +5767,9 @@ pub struct ListEntitlementsResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEntitlementsResponse {
@@ -5720,6 +5834,9 @@ pub struct ListDbServersRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDbServersRequest {
@@ -5765,6 +5882,9 @@ pub struct ListDbServersResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDbServersResponse {
@@ -5829,6 +5949,9 @@ pub struct ListDbNodesRequest {
     /// Optional. A token identifying a page of results the node should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDbNodesRequest {
@@ -5874,6 +5997,9 @@ pub struct ListDbNodesResponse {
     /// A token identifying a page of results the node should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDbNodesResponse {
@@ -5939,6 +6065,9 @@ pub struct ListGiVersionsRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGiVersionsRequest {
@@ -5984,6 +6113,9 @@ pub struct ListGiVersionsResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGiVersionsResponse {
@@ -6048,6 +6180,9 @@ pub struct ListDbSystemShapesRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDbSystemShapesRequest {
@@ -6093,6 +6228,9 @@ pub struct ListDbSystemShapesResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDbSystemShapesResponse {
@@ -6180,6 +6318,9 @@ pub struct OperationMetadata {
     /// Output only. An estimated percentage of the operation that has been
     /// completed at a given moment of time, between 0 and 100.
     pub percent_complete: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -6275,6 +6416,9 @@ pub struct ListAutonomousDatabasesRequest {
     /// Optional. An expression for ordering the results of the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutonomousDatabasesRequest {
@@ -6332,6 +6476,9 @@ pub struct ListAutonomousDatabasesResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutonomousDatabasesResponse {
@@ -6387,6 +6534,9 @@ pub struct GetAutonomousDatabaseRequest {
     /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAutonomousDatabaseRequest {
@@ -6439,6 +6589,9 @@ pub struct CreateAutonomousDatabaseRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAutonomousDatabaseRequest {
@@ -6506,6 +6659,9 @@ pub struct DeleteAutonomousDatabaseRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAutonomousDatabaseRequest {
@@ -6546,6 +6702,9 @@ pub struct RestoreAutonomousDatabaseRequest {
     /// Required. The time and date to restore the database to.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub restore_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RestoreAutonomousDatabaseRequest {
@@ -6599,6 +6758,9 @@ pub struct GenerateAutonomousDatabaseWalletRequest {
     /// password must be a minimum of 8 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub password: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAutonomousDatabaseWalletRequest {
@@ -6647,6 +6809,9 @@ pub struct GenerateAutonomousDatabaseWalletResponse {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub archive_content: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAutonomousDatabaseWalletResponse {
@@ -6686,6 +6851,9 @@ pub struct ListAutonomousDbVersionsRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutonomousDbVersionsRequest {
@@ -6731,6 +6899,9 @@ pub struct ListAutonomousDbVersionsResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutonomousDbVersionsResponse {
@@ -6802,6 +6973,9 @@ pub struct ListAutonomousDatabaseCharacterSetsRequest {
     /// `DATABASE` and `NATIONAL`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutonomousDatabaseCharacterSetsRequest {
@@ -6854,6 +7028,9 @@ pub struct ListAutonomousDatabaseCharacterSetsResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutonomousDatabaseCharacterSetsResponse {
@@ -6928,6 +7105,9 @@ pub struct ListAutonomousDatabaseBackupsRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutonomousDatabaseBackupsRequest {
@@ -6979,6 +7159,9 @@ pub struct ListAutonomousDatabaseBackupsResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutonomousDatabaseBackupsResponse {
@@ -7075,6 +7258,9 @@ pub struct CloudVmCluster {
     /// Format: projects/{project}/global/networks/{network}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub network: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudVmCluster {
@@ -7293,6 +7479,9 @@ pub struct CloudVmClusterProperties {
     /// Optional. OCI Cluster name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub cluster_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudVmClusterProperties {
@@ -7762,6 +7951,9 @@ pub struct DataCollectionOptions {
     /// Optional. Indicates whether incident logs and trace collection are enabled
     /// for the VM cluster
     pub incident_logs_enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataCollectionOptions {

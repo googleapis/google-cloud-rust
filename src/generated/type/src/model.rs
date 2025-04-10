@@ -19,6 +19,7 @@
 #![no_implicit_prelude]
 extern crate bytes;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -180,6 +181,9 @@ pub struct Color {
     /// (as if the alpha value had been explicitly given a value of 1.0).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub alpha: std::option::Option<wkt::FloatValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Color {
@@ -253,6 +257,9 @@ pub struct Date {
     /// to specify a year by itself or a year and month where the day isn't
     /// significant.
     pub day: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Date {
@@ -348,6 +355,9 @@ pub struct DateTime {
     /// If omitted, the DateTime is considered to be in local time.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<crate::model::date_time::TimeOffset>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DateTime {
@@ -502,6 +512,9 @@ pub struct TimeZone {
     /// Optional. IANA Time Zone Database version number, e.g. "2019a".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeZone {
@@ -605,6 +618,9 @@ pub struct Decimal {
     /// gRPC) if the service receives a value outside of the supported range.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Decimal {
@@ -689,6 +705,9 @@ pub struct Expr {
     /// reporting, e.g. a file name and a position in the file.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Expr {
@@ -741,6 +760,9 @@ pub struct Fraction {
     /// positive.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub denominator: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Fraction {
@@ -791,6 +813,9 @@ pub struct Interval {
     /// end.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Interval {
@@ -838,6 +863,9 @@ pub struct LatLng {
 
     /// The longitude in degrees. It must be in the range [-180.0, +180.0].
     pub longitude: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LatLng {
@@ -880,6 +908,9 @@ pub struct LocalizedText {
     /// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub language_code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocalizedText {
@@ -928,6 +959,9 @@ pub struct Money {
     /// If `units` is negative, `nanos` must be negative or zero.
     /// For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
     pub nanos: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Money {
@@ -1011,6 +1045,9 @@ pub struct PhoneNumber {
     /// numbers for which none of the fields they coded against are set.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub kind: std::option::Option<crate::model::phone_number::Kind>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PhoneNumber {
@@ -1125,6 +1162,9 @@ pub mod phone_number {
         /// calling code, e.g. "611".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub number: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ShortCode {
@@ -1308,6 +1348,9 @@ pub struct PostalAddress {
     /// Optional. The name of the organization at the address.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub organization: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostalAddress {
@@ -1476,6 +1519,9 @@ pub struct Quaternion {
 
     /// The scalar component.
     pub w: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Quaternion {
@@ -1538,6 +1584,9 @@ pub struct TimeOfDay {
 
     /// Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
     pub nanos: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeOfDay {

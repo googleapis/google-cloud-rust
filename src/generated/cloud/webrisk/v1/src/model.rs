@@ -56,6 +56,9 @@ pub struct ComputeThreatListDiffRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub constraints:
         std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComputeThreatListDiffRequest {
@@ -122,6 +125,9 @@ pub mod compute_threat_list_diff_request {
         /// The compression types supported by the client.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub supported_compressions: std::vec::Vec<crate::model::CompressionType>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Constraints {
@@ -198,6 +204,9 @@ pub struct ComputeThreatListDiffResponse {
     /// If this field is not set clients may update as soon as they want.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub recommended_next_diff: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComputeThreatListDiffResponse {
@@ -289,6 +298,9 @@ pub mod compute_threat_list_diff_response {
         #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
         pub sha256: ::bytes::Bytes,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Checksum {
@@ -385,6 +397,9 @@ pub struct SearchUrisRequest {
     /// specified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub threat_types: std::vec::Vec<crate::model::ThreatType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchUrisRequest {
@@ -424,6 +439,9 @@ pub struct SearchUrisResponse {
     /// The threat list matches. This might be empty if the URI is on no list.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub threat: std::option::Option<crate::model::search_uris_response::ThreatUri>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchUrisResponse {
@@ -468,6 +486,9 @@ pub mod search_uris_response {
         /// response past this timestamp to avoid false positives.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub expire_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ThreatUri {
@@ -521,6 +542,9 @@ pub struct SearchHashesRequest {
     /// specified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub threat_types: std::vec::Vec<crate::model::ThreatType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchHashesRequest {
@@ -566,6 +590,9 @@ pub struct SearchHashesResponse {
     /// cache the response until.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub negative_expire_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchHashesResponse {
@@ -626,6 +653,9 @@ pub mod search_hashes_response {
         /// response past this timestamp to avoid false positives.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub expire_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ThreatHash {
@@ -684,6 +714,9 @@ pub struct ThreatEntryAdditions {
     /// ascending order, then delta encoded and stored as encoded_data.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rice_hashes: std::option::Option<crate::model::RiceDeltaEncoding>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ThreatEntryAdditions {
@@ -736,6 +769,9 @@ pub struct ThreatEntryRemovals {
     /// and stored as encoded_data.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rice_indices: std::option::Option<crate::model::RiceDeltaEncoding>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ThreatEntryRemovals {
@@ -779,6 +815,9 @@ pub struct RawIndices {
     /// The indices to remove from a lexicographically-sorted local list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub indices: std::vec::Vec<i32>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RawIndices {
@@ -828,6 +867,9 @@ pub struct RawHashes {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub raw_hashes: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RawHashes {
@@ -880,6 +922,9 @@ pub struct RiceDeltaEncoding {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub encoded_data: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RiceDeltaEncoding {
@@ -934,6 +979,9 @@ pub struct Submission {
     /// list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub threat_types: std::vec::Vec<crate::model::ThreatType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Submission {
@@ -982,6 +1030,9 @@ pub struct ThreatInfo {
     /// Context about why the URI is unsafe.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub threat_justification: std::option::Option<crate::model::threat_info::ThreatJustification>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ThreatInfo {
@@ -1040,6 +1091,9 @@ pub mod threat_info {
     pub struct Confidence {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub value: std::option::Option<crate::model::threat_info::confidence::Value>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Confidence {
@@ -1218,6 +1272,9 @@ pub mod threat_info {
         /// Free-form context on why this URI is unsafe.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub comments: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ThreatJustification {
@@ -1403,6 +1460,9 @@ pub struct ThreatDiscovery {
     /// from most impact to least impact. Example: "US" for United States.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub region_codes: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ThreatDiscovery {
@@ -1524,6 +1584,9 @@ pub struct CreateSubmissionRequest {
     /// Required. The submission that contains the content of the phishing report.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub submission: std::option::Option<crate::model::Submission>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSubmissionRequest {
@@ -1575,6 +1638,9 @@ pub struct SubmitUriRequest {
     /// Provides additional information about how the submission was discovered.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub threat_discovery: std::option::Option<crate::model::ThreatDiscovery>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SubmitUriRequest {
@@ -1640,6 +1706,9 @@ pub struct SubmitUriMetadata {
     /// Latest update time of the operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SubmitUriMetadata {

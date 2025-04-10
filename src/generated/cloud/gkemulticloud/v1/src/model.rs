@@ -174,6 +174,9 @@ pub struct AttachedCluster {
     /// for more details on Google Cloud Platform tags.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachedCluster {
@@ -517,6 +520,9 @@ pub struct AttachedClustersAuthorization {
     /// <https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub admin_groups: std::vec::Vec<crate::model::AttachedClusterGroup>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachedClustersAuthorization {
@@ -562,6 +568,9 @@ pub struct AttachedClusterUser {
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub username: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachedClusterUser {
@@ -591,6 +600,9 @@ pub struct AttachedClusterGroup {
     /// Required. The name of the group, e.g. `my-group@domain.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub group: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachedClusterGroup {
@@ -641,6 +653,9 @@ pub struct AttachedOidcConfig {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub jwks: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachedOidcConfig {
@@ -681,6 +696,9 @@ pub struct AttachedServerConfig {
     /// List of valid platform versions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub valid_versions: std::vec::Vec<crate::model::AttachedPlatformVersionInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachedServerConfig {
@@ -721,6 +739,9 @@ pub struct AttachedPlatformVersionInfo {
     /// Platform version name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachedPlatformVersionInfo {
@@ -750,6 +771,9 @@ pub struct AttachedClusterError {
     /// Human-friendly description of the error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachedClusterError {
@@ -785,6 +809,9 @@ pub struct AttachedProxyConfig {
     /// for AKS clusters.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub kubernetes_secret: std::option::Option<crate::model::KubernetesSecret>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachedProxyConfig {
@@ -823,6 +850,9 @@ pub struct KubernetesSecret {
     /// Namespace in which the kubernetes secret is stored.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub namespace: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl KubernetesSecret {
@@ -902,6 +932,9 @@ pub struct GenerateAttachedClusterInstallManifestRequest {
     /// Optional. Proxy configuration for outbound HTTP(S) traffic.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub proxy_config: std::option::Option<crate::model::AttachedProxyConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAttachedClusterInstallManifestRequest {
@@ -962,6 +995,9 @@ pub struct GenerateAttachedClusterInstallManifestResponse {
     /// to the cluster to be attached.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub manifest: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAttachedClusterInstallManifestResponse {
@@ -1024,6 +1060,9 @@ pub struct CreateAttachedClusterRequest {
 
     /// If set, only validate the request, but do not actually create the cluster.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAttachedClusterRequest {
@@ -1115,6 +1154,9 @@ pub struct ImportAttachedClusterRequest {
     /// Optional. Proxy configuration for outbound HTTP(S) traffic.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub proxy_config: std::option::Option<crate::model::AttachedProxyConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportAttachedClusterRequest {
@@ -1214,6 +1256,9 @@ pub struct UpdateAttachedClusterRequest {
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAttachedClusterRequest {
@@ -1273,6 +1318,9 @@ pub struct GetAttachedClusterRequest {
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAttachedClusterRequest {
@@ -1329,6 +1377,9 @@ pub struct ListAttachedClustersRequest {
     /// [google.cloud.gkemulticloud.v1.AttachedClusters.ListAttachedClusters]: crate::client::AttachedClusters::list_attached_clusters
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAttachedClustersRequest {
@@ -1378,6 +1429,9 @@ pub struct ListAttachedClustersResponse {
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAttachedClustersResponse {
@@ -1476,6 +1530,9 @@ pub struct DeleteAttachedClusterRequest {
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAttachedClusterRequest {
@@ -1540,6 +1597,9 @@ pub struct GetAttachedServerConfigRequest {
     /// [google.cloud.gkemulticloud.v1.AttachedServerConfig]: crate::model::AttachedServerConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAttachedServerConfigRequest {
@@ -1600,6 +1660,9 @@ pub struct GenerateAttachedClusterAgentTokenRequest {
     /// Optional.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub options: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAttachedClusterAgentTokenRequest {
@@ -1689,6 +1752,9 @@ pub struct GenerateAttachedClusterAgentTokenResponse {
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub token_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAttachedClusterAgentTokenResponse {
@@ -1834,6 +1900,9 @@ pub struct AwsCluster {
     /// Optional. Binary Authorization configuration for this cluster.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub binary_authorization: std::option::Option<crate::model::BinaryAuthorization>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsCluster {
@@ -2218,6 +2287,9 @@ pub struct AwsControlPlane {
     /// When unspecified, the VPC's default tenancy will be used.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance_placement: std::option::Option<crate::model::AwsInstancePlacement>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsControlPlane {
@@ -2391,6 +2463,9 @@ pub struct AwsServicesAuthentication {
     /// When unspecified, it defaults to `multicloud-service-agent`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub role_session_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsServicesAuthentication {
@@ -2443,6 +2518,9 @@ pub struct AwsAuthorization {
     /// <https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub admin_groups: std::vec::Vec<crate::model::AwsClusterGroup>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsAuthorization {
@@ -2488,6 +2566,9 @@ pub struct AwsClusterUser {
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub username: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsClusterUser {
@@ -2517,6 +2598,9 @@ pub struct AwsClusterGroup {
     /// Required. The name of the group, e.g. `my-group@domain.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub group: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsClusterGroup {
@@ -2546,6 +2630,9 @@ pub struct AwsDatabaseEncryption {
     /// Required. The ARN of the AWS KMS key used to encrypt cluster secrets.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key_arn: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsDatabaseEncryption {
@@ -2600,6 +2687,9 @@ pub struct AwsVolumeTemplate {
     /// the AWS region where this cluster runs will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key_arn: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsVolumeTemplate {
@@ -2749,6 +2839,9 @@ pub struct AwsClusterNetworking {
     /// the control plane on TCP/443 and TCP/8132. Failure to do so may result in
     /// unavailable node pools.
     pub per_node_pool_sg_rules_disabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsClusterNetworking {
@@ -2898,6 +2991,9 @@ pub struct AwsNodePool {
     /// Optional. Update settings control the speed and disruption of the update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_settings: std::option::Option<crate::model::UpdateSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsNodePool {
@@ -3180,6 +3276,9 @@ pub struct UpdateSettings {
     /// Optional. Settings for surge update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub surge_settings: std::option::Option<crate::model::SurgeSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSettings {
@@ -3219,6 +3318,9 @@ pub struct SurgeSettings {
     /// unavailable during the update process. A node is considered unavailable if
     /// its status is not Ready.
     pub max_unavailable: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SurgeSettings {
@@ -3257,6 +3359,9 @@ pub struct AwsNodeManagement {
     /// health checks consistently over a period of time, an automatic repair
     /// action will be triggered to replace them with new nodes.
     pub auto_repair: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsNodeManagement {
@@ -3365,6 +3470,9 @@ pub struct AwsNodeConfig {
     /// This field is mutually exclusive with `instance_type`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub spot_config: std::option::Option<crate::model::SpotConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsNodeConfig {
@@ -3535,6 +3643,9 @@ pub struct AwsNodePoolAutoscaling {
     /// Required. Maximum number of nodes in the node pool. Must be greater than or
     /// equal to min_node_count and less than or equal to 50.
     pub max_node_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsNodePoolAutoscaling {
@@ -3595,6 +3706,9 @@ pub struct AwsOpenIdConfig {
     /// Supported grant types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub grant_types: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsOpenIdConfig {
@@ -3686,6 +3800,9 @@ pub struct AwsJsonWebKeys {
     /// requests.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub keys: std::vec::Vec<crate::model::Jwk>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsJsonWebKeys {
@@ -3731,6 +3848,9 @@ pub struct AwsServerConfig {
     /// The list of supported AWS regions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub supported_aws_regions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsServerConfig {
@@ -3804,6 +3924,9 @@ pub struct AwsK8sVersionInfo {
     /// Optional. The date (in Pacific Time) when the cluster version was released.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub release_date: std::option::Option<gtype::model::Date>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsK8sVersionInfo {
@@ -3863,6 +3986,9 @@ pub struct AwsSshConfig {
     /// Required. The name of the EC2 key pair used to login into cluster machines.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub ec2_key_pair: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsSshConfig {
@@ -3902,6 +4028,9 @@ pub struct AwsProxyConfig {
     /// HTTP(S) proxy configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secret_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsProxyConfig {
@@ -3937,6 +4066,9 @@ pub struct AwsConfigEncryption {
     /// Required. The ARN of the AWS KMS key used to encrypt user data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key_arn: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsConfigEncryption {
@@ -3969,6 +4101,9 @@ impl wkt::message::Message for AwsConfigEncryption {
 pub struct AwsInstancePlacement {
     /// Required. The tenancy for instance.
     pub tenancy: crate::model::aws_instance_placement::Tenancy,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsInstancePlacement {
@@ -4078,6 +4213,9 @@ pub struct AwsAutoscalingGroupMetricsCollection {
     /// enabled.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub metrics: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsAutoscalingGroupMetricsCollection {
@@ -4118,6 +4256,9 @@ pub struct SpotConfig {
     /// Required. A list of instance types for creating spot node pool.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub instance_types: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SpotConfig {
@@ -4152,6 +4293,9 @@ pub struct AwsClusterError {
     /// Human-friendly description of the error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsClusterError {
@@ -4181,6 +4325,9 @@ pub struct AwsNodePoolError {
     /// Human-friendly description of the error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsNodePoolError {
@@ -4243,6 +4390,9 @@ pub struct CreateAwsClusterRequest {
 
     /// If set, only validate the request, but do not actually create the cluster.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAwsClusterRequest {
@@ -4335,6 +4485,9 @@ pub struct UpdateAwsClusterRequest {
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAwsClusterRequest {
@@ -4392,6 +4545,9 @@ pub struct GetAwsClusterRequest {
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAwsClusterRequest {
@@ -4448,6 +4604,9 @@ pub struct ListAwsClustersRequest {
     /// [google.cloud.gkemulticloud.v1.AwsClusters.ListAwsClusters]: crate::client::AwsClusters::list_aws_clusters
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAwsClustersRequest {
@@ -4497,6 +4656,9 @@ pub struct ListAwsClustersResponse {
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAwsClustersResponse {
@@ -4594,6 +4756,9 @@ pub struct DeleteAwsClusterRequest {
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAwsClusterRequest {
@@ -4681,6 +4846,9 @@ pub struct CreateAwsNodePoolRequest {
     /// If set, only validate the request, but do not actually create the node
     /// pool.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAwsNodePoolRequest {
@@ -4781,6 +4949,9 @@ pub struct UpdateAwsNodePoolRequest {
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAwsNodePoolRequest {
@@ -4844,6 +5015,9 @@ pub struct RollbackAwsNodePoolUpdateRequest {
     /// Optional. Option for rollback to ignore the PodDisruptionBudget when
     /// draining the node pool nodes. Default value is false.
     pub respect_pdb: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RollbackAwsNodePoolUpdateRequest {
@@ -4889,6 +5063,9 @@ pub struct GetAwsNodePoolRequest {
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAwsNodePoolRequest {
@@ -4946,6 +5123,9 @@ pub struct ListAwsNodePoolsRequest {
     /// [google.cloud.gkemulticloud.v1.AwsClusters.ListAwsNodePools]: crate::client::AwsClusters::list_aws_node_pools
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAwsNodePoolsRequest {
@@ -4995,6 +5175,9 @@ pub struct ListAwsNodePoolsResponse {
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAwsNodePoolsResponse {
@@ -5093,6 +5276,9 @@ pub struct DeleteAwsNodePoolRequest {
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAwsNodePoolRequest {
@@ -5149,6 +5335,9 @@ pub struct GetAwsOpenIdConfigRequest {
     /// projects/{project}/locations/{location}/awsClusters/{cluster}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub aws_cluster: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAwsOpenIdConfigRequest {
@@ -5183,6 +5372,9 @@ pub struct GetAwsJsonWebKeysRequest {
     /// projects/{project}/locations/{location}/awsClusters/{cluster}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub aws_cluster: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAwsJsonWebKeysRequest {
@@ -5222,6 +5414,9 @@ pub struct GetAwsServerConfigRequest {
     /// [google.cloud.gkemulticloud.v1.AwsServerConfig]: crate::model::AwsServerConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAwsServerConfigRequest {
@@ -5261,6 +5456,9 @@ pub struct GenerateAwsAccessTokenRequest {
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub aws_cluster: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAwsAccessTokenRequest {
@@ -5294,6 +5492,9 @@ pub struct GenerateAwsAccessTokenResponse {
     /// Output only. Timestamp at which the token will expire.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expiration_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAwsAccessTokenResponse {
@@ -5367,6 +5568,9 @@ pub struct GenerateAwsClusterAgentTokenRequest {
     /// Optional.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub options: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAwsClusterAgentTokenRequest {
@@ -5459,6 +5663,9 @@ pub struct GenerateAwsClusterAgentTokenResponse {
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub token_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAwsClusterAgentTokenResponse {
@@ -5637,6 +5844,9 @@ pub struct AzureCluster {
     /// Optional. Monitoring configuration for this cluster.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub monitoring_config: std::option::Option<crate::model::MonitoringConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureCluster {
@@ -5998,6 +6208,9 @@ pub struct AzureClusterNetworking {
     /// "/subscriptions/d00494d6-6f3c-4280-bbb2-899e163d1d30/resourceGroups/anthos_cluster_gkeust4/providers/Microsoft.Network/virtualNetworks/gke-vnet-gkeust4/subnets/subnetid456"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_load_balancer_subnet_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureClusterNetworking {
@@ -6143,6 +6356,9 @@ pub struct AzureControlPlane {
     /// "/subscriptions/d00494d6-6f3c-4280-bbb2-899e163d1d30/resourceGroups/anthos_cluster_gkeust4/providers/Microsoft.Network/virtualNetworks/gke-vnet-gkeust4/subnets/subnetid123"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub endpoint_subnet_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureControlPlane {
@@ -6289,6 +6505,9 @@ pub struct ReplicaPlacement {
     /// provision the control plane VM and the ETCD disk.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub azure_availability_zone: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicaPlacement {
@@ -6341,6 +6560,9 @@ pub struct AzureProxyConfig {
     /// `https://<key-vault-name>.vault.azure.net/secrets/<secret-name>/<secret-version>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secret_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureProxyConfig {
@@ -6387,6 +6609,9 @@ pub struct AzureDatabaseEncryption {
     /// specific version is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureDatabaseEncryption {
@@ -6432,6 +6657,9 @@ pub struct AzureConfigEncryption {
     /// type "PUBLIC KEY".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub public_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureConfigEncryption {
@@ -6469,6 +6697,9 @@ pub struct AzureDiskTemplate {
     /// When unspecified, a default value is provided. See the specific reference
     /// in the parent resource.
     pub size_gib: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureDiskTemplate {
@@ -6556,6 +6787,9 @@ pub struct AzureClient {
     /// Output only. The time at which this client was last updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureClient {
@@ -6659,6 +6893,9 @@ pub struct AzureAuthorization {
     /// <https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub admin_groups: std::vec::Vec<crate::model::AzureClusterGroup>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureAuthorization {
@@ -6708,6 +6945,9 @@ pub struct AzureServicesAuthentication {
     /// Required. The Azure Active Directory Application ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub application_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureServicesAuthentication {
@@ -6743,6 +6983,9 @@ pub struct AzureClusterUser {
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub username: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureClusterUser {
@@ -6772,6 +7015,9 @@ pub struct AzureClusterGroup {
     /// Required. The name of the group, e.g. `my-group@domain.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub group: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureClusterGroup {
@@ -6883,6 +7129,9 @@ pub struct AzureNodePool {
     /// Optional. The Management configuration for this node pool.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub management: std::option::Option<crate::model::AzureNodeManagement>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureNodePool {
@@ -7132,6 +7381,9 @@ pub struct AzureNodeManagement {
     /// health checks consistently over a period of time, an automatic repair
     /// action will be triggered to replace them with new nodes.
     pub auto_repair: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureNodeManagement {
@@ -7212,6 +7464,9 @@ pub struct AzureNodeConfig {
     /// "mass": "1.3kg", "count": "3" }.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureNodeConfig {
@@ -7333,6 +7588,9 @@ pub struct AzureNodePoolAutoscaling {
     /// Required. Maximum number of nodes in the node pool. Must be greater than or
     /// equal to min_node_count and less than or equal to 50.
     pub max_node_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureNodePoolAutoscaling {
@@ -7393,6 +7651,9 @@ pub struct AzureOpenIdConfig {
     /// Supported grant types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub grant_types: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureOpenIdConfig {
@@ -7484,6 +7745,9 @@ pub struct AzureJsonWebKeys {
     /// requests.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub keys: std::vec::Vec<crate::model::Jwk>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureJsonWebKeys {
@@ -7536,6 +7800,9 @@ pub struct AzureServerConfig {
     /// The list of supported Azure regions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub supported_azure_regions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureServerConfig {
@@ -7609,6 +7876,9 @@ pub struct AzureK8sVersionInfo {
     /// Optional. The date (in Pacific Time) when the cluster version was released.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub release_date: std::option::Option<gtype::model::Date>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureK8sVersionInfo {
@@ -7670,6 +7940,9 @@ pub struct AzureSshConfig {
     /// manual page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub authorized_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureSshConfig {
@@ -7705,6 +7978,9 @@ pub struct AzureClusterResources {
     /// Output only. The ARM ID of the control plane application security group.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub control_plane_application_security_group_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureClusterResources {
@@ -7748,6 +8024,9 @@ pub struct AzureClusterError {
     /// Human-friendly description of the error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureClusterError {
@@ -7777,6 +8056,9 @@ pub struct AzureNodePoolError {
     /// Human-friendly description of the error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureNodePoolError {
@@ -7839,6 +8121,9 @@ pub struct CreateAzureClusterRequest {
 
     /// If set, only validate the request, but do not actually create the cluster.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAzureClusterRequest {
@@ -7926,6 +8211,9 @@ pub struct UpdateAzureClusterRequest {
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAzureClusterRequest {
@@ -7985,6 +8273,9 @@ pub struct GetAzureClusterRequest {
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAzureClusterRequest {
@@ -8041,6 +8332,9 @@ pub struct ListAzureClustersRequest {
     /// [google.cloud.gkemulticloud.v1.AzureClusters.ListAzureClusters]: crate::client::AzureClusters::list_azure_clusters
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAzureClustersRequest {
@@ -8090,6 +8384,9 @@ pub struct ListAzureClustersResponse {
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAzureClustersResponse {
@@ -8187,6 +8484,9 @@ pub struct DeleteAzureClusterRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
     pub ignore_errors: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAzureClusterRequest {
@@ -8274,6 +8574,9 @@ pub struct CreateAzureNodePoolRequest {
     /// If set, only validate the request, but do not actually create the node
     /// pool.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAzureNodePoolRequest {
@@ -8352,6 +8655,9 @@ pub struct UpdateAzureNodePoolRequest {
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAzureNodePoolRequest {
@@ -8411,6 +8717,9 @@ pub struct GetAzureNodePoolRequest {
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAzureNodePoolRequest {
@@ -8468,6 +8777,9 @@ pub struct ListAzureNodePoolsRequest {
     /// [google.cloud.gkemulticloud.v1.AzureClusters.ListAzureNodePools]: crate::client::AzureClusters::list_azure_node_pools
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAzureNodePoolsRequest {
@@ -8517,6 +8829,9 @@ pub struct ListAzureNodePoolsResponse {
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAzureNodePoolsResponse {
@@ -8616,6 +8931,9 @@ pub struct DeleteAzureNodePoolRequest {
     ///
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
     pub ignore_errors: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAzureNodePoolRequest {
@@ -8672,6 +8990,9 @@ pub struct GetAzureOpenIdConfigRequest {
     /// projects/\<project-id\>/locations/\<region\>/azureClusters/\<cluster-id\>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub azure_cluster: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAzureOpenIdConfigRequest {
@@ -8706,6 +9027,9 @@ pub struct GetAzureJsonWebKeysRequest {
     /// `projects/<project-id>/locations/<region>/azureClusters/<cluster-id>`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub azure_cluster: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAzureJsonWebKeysRequest {
@@ -8745,6 +9069,9 @@ pub struct GetAzureServerConfigRequest {
     /// [google.cloud.gkemulticloud.v1.AzureServerConfig]: crate::model::AzureServerConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAzureServerConfigRequest {
@@ -8807,6 +9134,9 @@ pub struct CreateAzureClientRequest {
 
     /// If set, only validate the request, but do not actually create the client.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAzureClientRequest {
@@ -8870,6 +9200,9 @@ pub struct GetAzureClientRequest {
     /// [google.cloud.gkemulticloud.v1.AzureClient]: crate::model::AzureClient
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAzureClientRequest {
@@ -8926,6 +9259,9 @@ pub struct ListAzureClientsRequest {
     /// [google.cloud.gkemulticloud.v1.AzureClusters.ListAzureClients]: crate::client::AzureClusters::list_azure_clients
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAzureClientsRequest {
@@ -8975,6 +9311,9 @@ pub struct ListAzureClientsResponse {
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAzureClientsResponse {
@@ -9053,6 +9392,9 @@ pub struct DeleteAzureClientRequest {
 
     /// If set, only validate the request, but do not actually delete the resource.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAzureClientRequest {
@@ -9104,6 +9446,9 @@ pub struct GenerateAzureAccessTokenRequest {
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub azure_cluster: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAzureAccessTokenRequest {
@@ -9137,6 +9482,9 @@ pub struct GenerateAzureAccessTokenResponse {
     /// Output only. Timestamp at which the token will expire.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expiration_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAzureAccessTokenResponse {
@@ -9210,6 +9558,9 @@ pub struct GenerateAzureClusterAgentTokenRequest {
     /// Optional.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub options: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAzureClusterAgentTokenRequest {
@@ -9302,6 +9653,9 @@ pub struct GenerateAzureClusterAgentTokenResponse {
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub token_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAzureClusterAgentTokenResponse {
@@ -9376,6 +9730,9 @@ pub struct Jwk {
     /// Used for ECDSA keys.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub crv: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Jwk {
@@ -9462,6 +9819,9 @@ pub struct WorkloadIdentityConfig {
     /// Identity Pool.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub identity_provider: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WorkloadIdentityConfig {
@@ -9506,6 +9866,9 @@ pub struct MaxPodsConstraint {
     /// Required. The maximum number of pods to schedule on a single node.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub max_pods_per_node: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MaxPodsConstraint {
@@ -9568,6 +9931,9 @@ pub struct OperationMetadata {
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub requested_cancellation: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -9646,6 +10012,9 @@ pub struct NodeTaint {
 
     /// Required. The taint effect.
     pub effect: crate::model::node_taint::Effect,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NodeTaint {
@@ -9811,6 +10180,9 @@ pub struct NodeKubeletConfig {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub pod_pids_limit: std::option::Option<i64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NodeKubeletConfig {
@@ -9903,6 +10275,9 @@ pub struct Fleet {
     /// `projects/<project-number>/locations/global/membership/<cluster-id>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub membership: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Fleet {
@@ -9938,6 +10313,9 @@ pub struct LoggingConfig {
     /// The configuration of the logging components;
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub component_config: std::option::Option<crate::model::LoggingComponentConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LoggingConfig {
@@ -9972,6 +10350,9 @@ pub struct LoggingComponentConfig {
     /// The components to be enabled.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub enable_components: std::vec::Vec<crate::model::logging_component_config::Component>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LoggingComponentConfig {
@@ -10074,6 +10455,9 @@ pub struct MonitoringConfig {
     /// Only for Attached Clusters.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cloud_monitoring_config: std::option::Option<crate::model::CloudMonitoringConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MonitoringConfig {
@@ -10119,6 +10503,9 @@ impl wkt::message::Message for MonitoringConfig {
 pub struct ManagedPrometheusConfig {
     /// Enable Managed Collection.
     pub enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ManagedPrometheusConfig {
@@ -10151,6 +10538,9 @@ pub struct CloudMonitoringConfig {
     /// Only for Attached Clusters.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub enabled: std::option::Option<bool>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudMonitoringConfig {
@@ -10180,6 +10570,9 @@ pub struct BinaryAuthorization {
     /// Mode of operation for binauthz policy evaluation. If unspecified, defaults
     /// to DISABLED.
     pub evaluation_mode: crate::model::binary_authorization::EvaluationMode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BinaryAuthorization {
@@ -10282,6 +10675,9 @@ pub mod binary_authorization {
 pub struct SecurityPostureConfig {
     /// Sets which mode to use for vulnerability scanning.
     pub vulnerability_mode: crate::model::security_posture_config::VulnerabilityMode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecurityPostureConfig {

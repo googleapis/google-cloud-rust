@@ -40,6 +40,9 @@ pub struct {{Codec.Name}} {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub {{Codec.FieldName}}: std::option::Option<{{{Codec.FieldType}}}>,
     {{/OneOfs}}
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl {{Codec.Name}} {

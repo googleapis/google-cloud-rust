@@ -58,6 +58,9 @@ pub struct AutomationEvent {
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     pub r#type: crate::model::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutomationEvent {
@@ -131,6 +134,9 @@ pub struct AutomationRunEvent {
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     pub r#type: crate::model::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutomationRunEvent {
@@ -259,6 +265,9 @@ pub struct DeliveryPipeline {
     /// The ordering configuration of the `DeliveryPipeline`.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub pipeline: std::option::Option<crate::model::delivery_pipeline::Pipeline>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeliveryPipeline {
@@ -425,6 +434,9 @@ pub struct SerialPipeline {
     /// of this list defines the promotion flow.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub stages: std::vec::Vec<crate::model::Stage>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SerialPipeline {
@@ -477,6 +489,9 @@ pub struct Stage {
     /// Optional. The deploy parameters to use for the target in this stage.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub deploy_parameters: std::vec::Vec<crate::model::DeployParameters>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Stage {
@@ -543,6 +558,9 @@ pub struct DeployParameters {
     /// child targets of a multi-target).
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub match_target_labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployParameters {
@@ -590,6 +608,9 @@ pub struct Strategy {
     /// Deployment strategy details.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub deployment_strategy: std::option::Option<crate::model::strategy::DeploymentStrategy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Strategy {
@@ -695,6 +716,9 @@ pub struct Predeploy {
     /// of the predeploy job.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub actions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Predeploy {
@@ -730,6 +754,9 @@ pub struct Postdeploy {
     /// of the postdeploy job.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub actions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Postdeploy {
@@ -773,6 +800,9 @@ pub struct Standard {
     /// postdeploy job will not be present.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub postdeploy: std::option::Option<crate::model::Postdeploy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Standard {
@@ -826,6 +856,9 @@ pub struct Canary {
     /// The mode to use for the canary deployment strategy.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub mode: std::option::Option<crate::model::canary::Mode>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Canary {
@@ -963,6 +996,9 @@ pub struct CanaryDeployment {
     /// is not configured, there will be no postdeploy job for this phase.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub postdeploy: std::option::Option<crate::model::Postdeploy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CanaryDeployment {
@@ -1023,6 +1059,9 @@ pub struct CustomCanaryDeployment {
     /// order executed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub phase_configs: std::vec::Vec<crate::model::custom_canary_deployment::PhaseConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomCanaryDeployment {
@@ -1089,6 +1128,9 @@ pub mod custom_canary_deployment {
         /// not configured, there will be no postdeploy job for this phase.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub postdeploy: std::option::Option<crate::model::Postdeploy>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PhaseConfig {
@@ -1164,6 +1206,9 @@ pub struct KubernetesConfig {
     /// The service definition configuration.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub service_definition: std::option::Option<crate::model::kubernetes_config::ServiceDefinition>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl KubernetesConfig {
@@ -1306,6 +1351,9 @@ pub mod kubernetes_config {
         pub route_destinations: std::option::Option<
             crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GatewayServiceMesh {
@@ -1408,6 +1456,9 @@ pub mod kubernetes_config {
             /// facilitate successful DNS lookup in the route destination clusters. Can
             /// only be set to true if destinations are specified.
             pub propagate_service: bool,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl RouteDestinations {
@@ -1465,6 +1516,9 @@ pub mod kubernetes_config {
         /// resource. This label must already be present in the Deployment.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub pod_selector_label: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ServiceNetworking {
@@ -1547,6 +1601,9 @@ pub struct CloudRunConfig {
     /// the stable phase is applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub stable_revision_tags: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudRunConfig {
@@ -1610,6 +1667,9 @@ pub struct RuntimeConfig {
     /// The runtime configuration details.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub runtime_config: std::option::Option<crate::model::runtime_config::RuntimeConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RuntimeConfig {
@@ -1730,6 +1790,9 @@ pub struct PipelineReadyCondition {
     /// Last time the condition was updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PipelineReadyCondition {
@@ -1777,6 +1840,9 @@ pub struct TargetsPresentCondition {
     /// Last time the condition was updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TargetsPresentCondition {
@@ -1832,6 +1898,9 @@ pub struct TargetsTypeCondition {
     /// Human readable error message.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub error_details: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TargetsTypeCondition {
@@ -1876,6 +1945,9 @@ pub struct PipelineCondition {
     /// same type.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub targets_type_condition: std::option::Option<crate::model::TargetsTypeCondition>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PipelineCondition {
@@ -1956,6 +2028,9 @@ pub struct ListDeliveryPipelinesRequest {
     /// Field to sort by. See <https://google.aip.dev/132#ordering> for more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDeliveryPipelinesRequest {
@@ -2018,6 +2093,9 @@ pub struct ListDeliveryPipelinesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDeliveryPipelinesResponse {
@@ -2084,6 +2162,9 @@ pub struct GetDeliveryPipelineRequest {
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDeliveryPipelineRequest {
@@ -2142,6 +2223,9 @@ pub struct CreateDeliveryPipelineRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDeliveryPipelineRequest {
@@ -2235,6 +2319,9 @@ pub struct UpdateDeliveryPipelineRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDeliveryPipelineRequest {
@@ -2332,6 +2419,9 @@ pub struct DeleteDeliveryPipelineRequest {
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDeliveryPipelineRequest {
@@ -2396,6 +2486,9 @@ pub struct RollbackTargetConfig {
     /// `Rollout` will start in the stable phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub starting_phase_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RollbackTargetConfig {
@@ -2471,6 +2564,9 @@ pub struct RollbackTargetRequest {
     /// `projects/{project}/locations/{location}/deployPolicies/{deploy_policy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RollbackTargetRequest {
@@ -2555,6 +2651,9 @@ pub struct RollbackTargetResponse {
     /// The config of the rollback `Rollout` created or will be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rollback_config: std::option::Option<crate::model::RollbackTargetConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RollbackTargetResponse {
@@ -2675,6 +2774,9 @@ pub struct Target {
     /// rollout.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub deployment_target: std::option::Option<crate::model::target::DeploymentTarget>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Target {
@@ -3019,6 +3121,9 @@ pub struct ExecutionConfig {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub execution_environment:
         std::option::Option<crate::model::execution_config::ExecutionEnvironment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExecutionConfig {
@@ -3263,6 +3368,9 @@ pub struct DefaultPool {
     /// If unspecified, a default bucket located in the same region will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub artifact_storage: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DefaultPool {
@@ -3315,6 +3423,9 @@ pub struct PrivatePool {
     /// If unspecified, a default bucket located in the same region will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub artifact_storage: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrivatePool {
@@ -3381,6 +3492,9 @@ pub struct GkeCluster {
     /// Optional. If set, the cluster will be accessed using the DNS endpoint. Note
     /// that both `dns_endpoint` and `internal_ip` cannot be set to true.
     pub dns_endpoint: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GkeCluster {
@@ -3430,6 +3544,9 @@ pub struct AnthosCluster {
     /// `projects/{project}/locations/{location}/memberships/{membership_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub membership: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnthosCluster {
@@ -3460,6 +3577,9 @@ pub struct CloudRunLocation {
     /// `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudRunLocation {
@@ -3489,6 +3609,9 @@ pub struct MultiTarget {
     /// Required. The target_ids of this multiTarget.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub target_ids: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MultiTarget {
@@ -3524,6 +3647,9 @@ pub struct CustomTarget {
     /// `projects/{project}/locations/{location}/customTargetTypes/{custom_target_type}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub custom_target_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomTarget {
@@ -3560,6 +3686,9 @@ pub struct AssociatedEntities {
     /// Optional. Information specifying Anthos clusters as associated entities.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub anthos_clusters: std::vec::Vec<crate::model::AnthosCluster>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AssociatedEntities {
@@ -3630,6 +3759,9 @@ pub struct ListTargetsRequest {
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTargetsRequest {
@@ -3692,6 +3824,9 @@ pub struct ListTargetsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTargetsResponse {
@@ -3758,6 +3893,9 @@ pub struct GetTargetRequest {
     /// `projects/{project_id}/locations/{location_name}/targets/{target_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTargetRequest {
@@ -3817,6 +3955,9 @@ pub struct CreateTargetRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTargetRequest {
@@ -3905,6 +4046,9 @@ pub struct UpdateTargetRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTargetRequest {
@@ -3995,6 +4139,9 @@ pub struct DeleteTargetRequest {
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTargetRequest {
@@ -4107,6 +4254,9 @@ pub struct CustomTargetType {
     /// Defines the `CustomTargetType` renderer and deployer.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub definition: std::option::Option<crate::model::custom_target_type::Definition>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomTargetType {
@@ -4276,6 +4426,9 @@ pub struct CustomTargetSkaffoldActions {
     /// Skaffold Config as required before performing diagnose.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub include_skaffold_modules: std::vec::Vec<crate::model::SkaffoldModules>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomTargetSkaffoldActions {
@@ -4326,6 +4479,9 @@ pub struct SkaffoldModules {
     /// The source that contains the Skaffold Config modules.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::skaffold_modules::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SkaffoldModules {
@@ -4481,6 +4637,9 @@ pub mod skaffold_modules {
         #[serde(rename = "ref")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub r#ref: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SkaffoldGitSource {
@@ -4528,6 +4687,9 @@ pub mod skaffold_modules {
         /// Optional. Relative path from the source to the Skaffold file.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub path: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SkaffoldGCSSource {
@@ -4575,6 +4737,9 @@ pub mod skaffold_modules {
         #[serde(rename = "ref")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub r#ref: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SkaffoldGCBRepoSource {
@@ -4658,6 +4823,9 @@ pub struct ListCustomTargetTypesRequest {
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCustomTargetTypesRequest {
@@ -4720,6 +4888,9 @@ pub struct ListCustomTargetTypesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCustomTargetTypesResponse {
@@ -4786,6 +4957,9 @@ pub struct GetCustomTargetTypeRequest {
     /// `projects/{project_id}/locations/{location_name}/customTargetTypes/{custom_target_type}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCustomTargetTypeRequest {
@@ -4844,6 +5018,9 @@ pub struct CreateCustomTargetTypeRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCustomTargetTypeRequest {
@@ -4937,6 +5114,9 @@ pub struct UpdateCustomTargetTypeRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCustomTargetTypeRequest {
@@ -5029,6 +5209,9 @@ pub struct DeleteCustomTargetTypeRequest {
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCustomTargetTypeRequest {
@@ -5159,6 +5342,9 @@ pub struct DeployPolicy {
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployPolicy {
@@ -5349,6 +5535,9 @@ pub struct DeployPolicyResourceSelector {
     /// Optional. Contains attributes about a target.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub target: std::option::Option<crate::model::TargetAttribute>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployPolicyResourceSelector {
@@ -5400,6 +5589,9 @@ pub struct DeliveryPipelineAttribute {
     /// DeliveryPipeline labels.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeliveryPipelineAttribute {
@@ -5450,6 +5642,9 @@ pub struct TargetAttribute {
     /// Target labels.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TargetAttribute {
@@ -5490,6 +5685,9 @@ impl wkt::message::Message for TargetAttribute {
 pub struct PolicyRule {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub rule: std::option::Option<crate::model::policy_rule::Rule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyRule {
@@ -5581,6 +5779,9 @@ pub struct RolloutRestriction {
     /// Required. Time window within which actions are restricted.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_windows: std::option::Option<crate::model::TimeWindows>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RolloutRestriction {
@@ -5749,6 +5950,9 @@ pub struct TimeWindows {
     /// Optional. Recurring weekly windows within which actions are restricted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub weekly_windows: std::vec::Vec<crate::model::WeeklyWindow>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeWindows {
@@ -5813,6 +6017,9 @@ pub struct OneTimeWindow {
     /// Required. End time (exclusive). You may use 24:00 for the end of the day.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<gtype::model::TimeOfDay>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OneTimeWindow {
@@ -5886,6 +6093,9 @@ pub struct WeeklyWindow {
     /// block for the entire day for the days specified in days_of_week.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<gtype::model::TimeOfDay>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WeeklyWindow {
@@ -5940,6 +6150,9 @@ pub struct PolicyViolation {
     /// Policy violation details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub policy_violation_details: std::vec::Vec<crate::model::PolicyViolationDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyViolation {
@@ -5985,6 +6198,9 @@ pub struct PolicyViolationDetails {
     /// intended for machine parsing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub failure_message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyViolationDetails {
@@ -6139,6 +6355,9 @@ pub struct Release {
     /// Optional. The deploy parameters to use for all targets in this release.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub deploy_parameters: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Release {
@@ -6393,6 +6612,9 @@ pub mod release {
         /// available.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub failure_message: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TargetRender {
@@ -6647,6 +6869,9 @@ pub mod release {
         /// conditions and see which condition(s) has status = false to find out what
         /// is wrong with the Release.
         pub status: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ReleaseReadyCondition {
@@ -6689,6 +6914,9 @@ pub mod release {
         /// supported.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub support_expiration_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SkaffoldSupportedCondition {
@@ -6758,6 +6986,9 @@ pub mod release {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub skaffold_supported_condition:
             std::option::Option<crate::model::release::SkaffoldSupportedCondition>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ReleaseCondition {
@@ -6899,6 +7130,9 @@ pub struct CreateDeployPolicyRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDeployPolicyRequest {
@@ -6992,6 +7226,9 @@ pub struct UpdateDeployPolicyRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDeployPolicyRequest {
@@ -7084,6 +7321,9 @@ pub struct DeleteDeployPolicyRequest {
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDeployPolicyRequest {
@@ -7161,6 +7401,9 @@ pub struct ListDeployPoliciesRequest {
     /// Field to sort by. See <https://google.aip.dev/132#ordering> for more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDeployPoliciesRequest {
@@ -7223,6 +7466,9 @@ pub struct ListDeployPoliciesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDeployPoliciesResponse {
@@ -7289,6 +7535,9 @@ pub struct GetDeployPolicyRequest {
     /// `projects/{project_id}/locations/{location_name}/deployPolicies/{deploy_policy_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDeployPolicyRequest {
@@ -7324,6 +7573,9 @@ pub struct BuildArtifact {
     /// "gcr.io/my-project/busybox@sha256:abc123".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub tag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BuildArtifact {
@@ -7375,6 +7627,9 @@ pub struct TargetArtifact {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub uri: std::option::Option<crate::model::target_artifact::Uri>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TargetArtifact {
@@ -7473,6 +7728,9 @@ pub mod target_artifact {
         /// relative to the URI. This is only set if it is applicable.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub job_manifests_path: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PhaseArtifact {
@@ -7540,6 +7798,9 @@ pub struct DeployArtifact {
     /// operation relative to the URI.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub manifest_paths: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployArtifact {
@@ -7582,6 +7843,9 @@ pub struct CloudRunRenderMetadata {
     /// Format is `projects/{project}/locations/{location}/services/{service}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudRunRenderMetadata {
@@ -7615,6 +7879,9 @@ pub struct RenderMetadata {
     /// Output only. Custom metadata provided by user-defined render operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom: std::option::Option<crate::model::CustomMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RenderMetadata {
@@ -7683,6 +7950,9 @@ pub struct ListReleasesRequest {
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReleasesRequest {
@@ -7745,6 +8015,9 @@ pub struct ListReleasesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReleasesResponse {
@@ -7811,6 +8084,9 @@ pub struct GetReleaseRequest {
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetReleaseRequest {
@@ -7875,6 +8151,9 @@ pub struct CreateReleaseRequest {
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateReleaseRequest {
@@ -8053,6 +8332,9 @@ pub struct Rollout {
     /// Output only. The AutomationRun actively repairing the rollout.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub active_repair_automation_run: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Rollout {
@@ -8553,6 +8835,9 @@ pub struct Metadata {
     /// Output only. Custom metadata provided by user-defined `Rollout` operations.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom: std::option::Option<crate::model::CustomMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Metadata {
@@ -8617,6 +8902,9 @@ pub struct DeployJobRunMetadata {
     /// Output only. Custom metadata provided by user-defined deploy operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom: std::option::Option<crate::model::CustomMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployJobRunMetadata {
@@ -8688,6 +8976,9 @@ pub struct CloudRunMetadata {
     /// `projects/{project}/locations/{location}/jobs/{job_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub job: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudRunMetadata {
@@ -8742,6 +9033,9 @@ pub struct CustomTargetDeployMetadata {
     /// operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub skip_message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomTargetDeployMetadata {
@@ -8783,6 +9077,9 @@ pub struct AutomationRolloutMetadata {
     /// rule.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub repair_automation_runs: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutomationRolloutMetadata {
@@ -8837,6 +9134,9 @@ pub struct CustomMetadata {
     /// Output only. Key-value pairs provided by the user-defined operation.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub values: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomMetadata {
@@ -8885,6 +9185,9 @@ pub struct Phase {
     /// The job composition of this Phase.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub jobs: std::option::Option<crate::model::phase::Jobs>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Phase {
@@ -9098,6 +9401,9 @@ pub struct DeploymentJobs {
     /// Output only. The postdeploy Job, which is the last job on the phase.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub postdeploy_job: std::option::Option<crate::model::Job>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeploymentJobs {
@@ -9161,6 +9467,9 @@ pub struct ChildRolloutJobs {
     /// Output only. List of AdvanceChildRolloutJobs
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub advance_rollout_jobs: std::vec::Vec<crate::model::Job>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ChildRolloutJobs {
@@ -9223,6 +9532,9 @@ pub struct Job {
     /// The type of Job.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub job_type: std::option::Option<crate::model::job::JobType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Job {
@@ -9549,7 +9861,10 @@ pub mod job {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeployJob {}
+pub struct DeployJob {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeployJob {
     pub fn new() -> Self {
@@ -9568,7 +9883,10 @@ impl wkt::message::Message for DeployJob {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct VerifyJob {}
+pub struct VerifyJob {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl VerifyJob {
     pub fn new() -> Self {
@@ -9591,6 +9909,9 @@ pub struct PredeployJob {
     /// Output only. The custom actions that the predeploy Job executes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub actions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PredeployJob {
@@ -9625,6 +9946,9 @@ pub struct PostdeployJob {
     /// Output only. The custom actions that the postdeploy Job executes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub actions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostdeployJob {
@@ -9655,7 +9979,10 @@ impl wkt::message::Message for PostdeployJob {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CreateChildRolloutJob {}
+pub struct CreateChildRolloutJob {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CreateChildRolloutJob {
     pub fn new() -> Self {
@@ -9674,7 +10001,10 @@ impl wkt::message::Message for CreateChildRolloutJob {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AdvanceChildRolloutJob {}
+pub struct AdvanceChildRolloutJob {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AdvanceChildRolloutJob {
     pub fn new() -> Self {
@@ -9721,6 +10051,9 @@ pub struct ListRolloutsRequest {
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRolloutsRequest {
@@ -9783,6 +10116,9 @@ pub struct ListRolloutsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRolloutsResponse {
@@ -9849,6 +10185,9 @@ pub struct GetRolloutRequest {
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}/rollouts/{rollout_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRolloutRequest {
@@ -9918,6 +10257,9 @@ pub struct CreateRolloutRequest {
     /// will start at the first phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub starting_phase_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateRolloutRequest {
@@ -10025,6 +10367,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -10105,6 +10450,9 @@ pub struct ApproveRolloutRequest {
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApproveRolloutRequest {
@@ -10147,7 +10495,10 @@ impl wkt::message::Message for ApproveRolloutRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ApproveRolloutResponse {}
+pub struct ApproveRolloutResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ApproveRolloutResponse {
     pub fn new() -> Self {
@@ -10180,6 +10531,9 @@ pub struct AdvanceRolloutRequest {
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdvanceRolloutRequest {
@@ -10222,7 +10576,10 @@ impl wkt::message::Message for AdvanceRolloutRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AdvanceRolloutResponse {}
+pub struct AdvanceRolloutResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AdvanceRolloutResponse {
     pub fn new() -> Self {
@@ -10251,6 +10608,9 @@ pub struct CancelRolloutRequest {
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CancelRolloutRequest {
@@ -10287,7 +10647,10 @@ impl wkt::message::Message for CancelRolloutRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CancelRolloutResponse {}
+pub struct CancelRolloutResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CancelRolloutResponse {
     pub fn new() -> Self {
@@ -10324,6 +10687,9 @@ pub struct IgnoreJobRequest {
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IgnoreJobRequest {
@@ -10372,7 +10738,10 @@ impl wkt::message::Message for IgnoreJobRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct IgnoreJobResponse {}
+pub struct IgnoreJobResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl IgnoreJobResponse {
     pub fn new() -> Self {
@@ -10409,6 +10778,9 @@ pub struct RetryJobRequest {
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetryJobRequest {
@@ -10457,7 +10829,10 @@ impl wkt::message::Message for RetryJobRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct RetryJobResponse {}
+pub struct RetryJobResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl RetryJobResponse {
     pub fn new() -> Self {
@@ -10481,6 +10856,9 @@ pub struct AbandonReleaseRequest {
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AbandonReleaseRequest {
@@ -10506,7 +10884,10 @@ impl wkt::message::Message for AbandonReleaseRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AbandonReleaseResponse {}
+pub struct AbandonReleaseResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AbandonReleaseResponse {
     pub fn new() -> Self {
@@ -10569,6 +10950,9 @@ pub struct JobRun {
     /// The `JobRun` type and the information for that type.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub job_run: std::option::Option<crate::model::job_run::JobRun>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl JobRun {
@@ -10961,6 +11345,9 @@ pub struct DeployJobRun {
     /// Output only. The artifact of a deploy job run, if available.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub artifact: std::option::Option<crate::model::DeployArtifact>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployJobRun {
@@ -11145,6 +11532,9 @@ pub struct VerifyJobRun {
     /// Output only. Additional information about the verify failure, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub failure_message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VerifyJobRun {
@@ -11302,6 +11692,9 @@ pub struct PredeployJobRun {
     /// available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub failure_message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PredeployJobRun {
@@ -11442,6 +11835,9 @@ pub struct PostdeployJobRun {
     /// available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub failure_message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostdeployJobRun {
@@ -11577,6 +11973,9 @@ pub struct CreateChildRolloutJobRun {
     /// Output only. The ID of the childRollout Phase initiated by this JobRun.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub rollout_phase_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateChildRolloutJobRun {
@@ -11621,6 +12020,9 @@ pub struct AdvanceChildRolloutJobRun {
     /// Output only. the ID of the ChildRollout's Phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub rollout_phase_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdvanceChildRolloutJobRun {
@@ -11683,6 +12085,9 @@ pub struct ListJobRunsRequest {
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListJobRunsRequest {
@@ -11745,6 +12150,9 @@ pub struct ListJobRunsResponse {
     /// Locations that could not be reached
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListJobRunsResponse {
@@ -11811,6 +12219,9 @@ pub struct GetJobRunRequest {
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}/rollouts/{rollout_name}/jobRuns/{job_run_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetJobRunRequest {
@@ -11846,6 +12257,9 @@ pub struct TerminateJobRunRequest {
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TerminateJobRunRequest {
@@ -11882,7 +12296,10 @@ impl wkt::message::Message for TerminateJobRunRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct TerminateJobRunResponse {}
+pub struct TerminateJobRunResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl TerminateJobRunResponse {
     pub fn new() -> Self {
@@ -11914,6 +12331,9 @@ pub struct Config {
     /// specifying a Skaffold version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub default_skaffold_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Config {
@@ -11975,6 +12395,9 @@ pub struct SkaffoldVersion {
     /// Date when this version is expected to no longer be supported.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub support_end_date: std::option::Option<gtype::model::Date>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SkaffoldVersion {
@@ -12033,6 +12456,9 @@ pub struct GetConfigRequest {
     /// Required. Name of requested configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConfigRequest {
@@ -12145,6 +12571,9 @@ pub struct Automation {
     /// execution.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub rules: std::vec::Vec<crate::model::AutomationRule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Automation {
@@ -12269,6 +12698,9 @@ pub struct AutomationResourceSelector {
     /// Optional. Contains attributes about a target.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub targets: std::vec::Vec<crate::model::TargetAttribute>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutomationResourceSelector {
@@ -12303,6 +12735,9 @@ pub struct AutomationRule {
     /// The configuration of the Automation rule.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub rule: std::option::Option<crate::model::automation_rule::Rule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutomationRule {
@@ -12522,6 +12957,9 @@ pub struct TimedPromoteReleaseRule {
     /// to the first phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_phase: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimedPromoteReleaseRule {
@@ -12618,6 +13056,9 @@ pub struct PromoteReleaseRule {
     /// Default to the first phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_phase: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PromoteReleaseRule {
@@ -12704,6 +13145,9 @@ pub struct AdvanceRolloutRule {
     /// Output only. Information around the state of the Automation rule.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition: std::option::Option<crate::model::AutomationRuleCondition>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdvanceRolloutRule {
@@ -12794,6 +13238,9 @@ pub struct RepairRolloutRule {
     /// Required. Defines the types of automatic repair phases for failed jobs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub repair_phases: std::vec::Vec<crate::model::RepairPhaseConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RepairRolloutRule {
@@ -12867,6 +13314,9 @@ pub struct RepairPhaseConfig {
     /// The repair phase to perform.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub repair_phase: std::option::Option<crate::model::repair_phase_config::RepairPhase>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RepairPhaseConfig {
@@ -12984,6 +13434,9 @@ pub struct Retry {
     /// Optional. The pattern of how wait time will be increased. Default is
     /// linear. Backoff mode will be ignored if `wait` is 0.
     pub backoff_mode: crate::model::BackoffMode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Retry {
@@ -13036,6 +13489,9 @@ pub struct Rollback {
     /// Optional. If pending rollout exists on the target, the rollback operation
     /// will be aborted.
     pub disable_rollback_if_rollout_pending: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Rollback {
@@ -13083,6 +13539,9 @@ pub struct AutomationRuleCondition {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub rule_type_condition:
         std::option::Option<crate::model::automation_rule_condition::RuleTypeCondition>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutomationRuleCondition {
@@ -13183,6 +13642,9 @@ pub struct TimedPromoteReleaseCondition {
     /// Output only. A list of targets involved in the upcoming timed promotion(s).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub targets_list: std::vec::Vec<crate::model::timed_promote_release_condition::Targets>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimedPromoteReleaseCondition {
@@ -13235,6 +13697,9 @@ pub mod timed_promote_release_condition {
         /// Optional. The destination target ID.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub destination_target_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Targets {
@@ -13307,6 +13772,9 @@ pub struct CreateAutomationRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAutomationRequest {
@@ -13395,6 +13863,9 @@ pub struct UpdateAutomationRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAutomationRequest {
@@ -13486,6 +13957,9 @@ pub struct DeleteAutomationRequest {
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAutomationRequest {
@@ -13564,6 +14038,9 @@ pub struct ListAutomationsRequest {
     /// Field to sort by.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutomationsRequest {
@@ -13626,6 +14103,9 @@ pub struct ListAutomationsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutomationsResponse {
@@ -13692,6 +14172,9 @@ pub struct GetAutomationRequest {
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/automations/{automation_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAutomationRequest {
@@ -13791,6 +14274,9 @@ pub struct AutomationRun {
     /// The operation that the `AutomationRun` will perform.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub operation: std::option::Option<crate::model::automation_run::Operation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutomationRun {
@@ -14178,6 +14664,9 @@ pub struct PromoteReleaseOperation {
     /// Output only. The starting phase of the rollout created by this operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub phase: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PromoteReleaseOperation {
@@ -14240,6 +14729,9 @@ pub struct AdvanceRolloutOperation {
     /// Output only. The phase the rollout will be advanced to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_phase: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdvanceRolloutOperation {
@@ -14311,6 +14803,9 @@ pub struct RepairRolloutOperation {
     /// Output only. The job ID for the Job to repair.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub job_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RepairRolloutOperation {
@@ -14379,6 +14874,9 @@ pub struct TimedPromoteReleaseOperation {
     /// Output only. The starting phase of the rollout created by this operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub phase: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimedPromoteReleaseOperation {
@@ -14421,6 +14919,9 @@ pub struct RepairPhase {
     /// The `RepairPhase` type and the information for that type.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub repair_phase: std::option::Option<crate::model::repair_phase::RepairPhase>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RepairPhase {
@@ -14533,6 +15034,9 @@ pub struct RetryPhase {
     /// Output only. Detail of a retry action.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub attempts: std::vec::Vec<crate::model::RetryAttempt>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetryPhase {
@@ -14593,6 +15097,9 @@ pub struct RetryAttempt {
     /// Output only. Description of the state of the Retry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub state_desc: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetryAttempt {
@@ -14657,6 +15164,9 @@ pub struct RollbackAttempt {
 
     /// Output only. If active rollout exists on the target, abort this rollback.
     pub disable_rollback_if_rollout_pending: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RollbackAttempt {
@@ -14741,6 +15251,9 @@ pub struct ListAutomationRunsRequest {
     /// Field to sort by.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutomationRunsRequest {
@@ -14803,6 +15316,9 @@ pub struct ListAutomationRunsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAutomationRunsResponse {
@@ -14869,6 +15385,9 @@ pub struct GetAutomationRunRequest {
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}/automationRuns/{automation_run}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAutomationRunRequest {
@@ -14899,6 +15418,9 @@ pub struct CancelAutomationRunRequest {
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}/automationRuns/{automation_run}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CancelAutomationRunRequest {
@@ -14924,7 +15446,10 @@ impl wkt::message::Message for CancelAutomationRunRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CancelAutomationRunResponse {}
+pub struct CancelAutomationRunResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CancelAutomationRunResponse {
     pub fn new() -> Self {
@@ -14961,6 +15486,9 @@ pub struct CustomTargetTypeNotificationEvent {
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     pub r#type: crate::model::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomTargetTypeNotificationEvent {
@@ -15028,6 +15556,9 @@ pub struct DeliveryPipelineNotificationEvent {
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     pub r#type: crate::model::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeliveryPipelineNotificationEvent {
@@ -15132,6 +15663,9 @@ pub struct DeployPolicyEvaluationEvent {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub overrides:
         std::vec::Vec<crate::model::deploy_policy_evaluation_event::PolicyVerdictOverride>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployPolicyEvaluationEvent {
@@ -15395,6 +15929,9 @@ pub struct DeployPolicyNotificationEvent {
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     pub r#type: crate::model::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployPolicyNotificationEvent {
@@ -15479,6 +16016,9 @@ pub struct JobRunNotificationEvent {
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     pub r#type: crate::model::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl JobRunNotificationEvent {
@@ -15574,6 +16114,9 @@ pub struct ReleaseNotificationEvent {
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     pub r#type: crate::model::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReleaseNotificationEvent {
@@ -15646,6 +16189,9 @@ pub struct ReleaseRenderEvent {
 
     /// The state of the release render.
     pub release_render_state: crate::model::release::RenderState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReleaseRenderEvent {
@@ -15732,6 +16278,9 @@ pub struct RolloutNotificationEvent {
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     pub r#type: crate::model::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RolloutNotificationEvent {
@@ -15833,6 +16382,9 @@ pub struct RolloutUpdateEvent {
 
     /// The type of the rollout update.
     pub rollout_update_type: crate::model::rollout_update_event::RolloutUpdateType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RolloutUpdateEvent {
@@ -16039,6 +16591,9 @@ pub struct TargetNotificationEvent {
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     pub r#type: crate::model::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TargetNotificationEvent {

@@ -73,6 +73,9 @@ pub struct DiagnosticConfig {
 
     /// Optional. Enables flag to copy all `/home/jupyter` folder contents
     pub enable_copy_home_files_flag: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DiagnosticConfig {
@@ -134,6 +137,9 @@ pub struct Event {
     /// Optional. Event details. This field is used to pass event information.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub details: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Event {
@@ -282,6 +288,9 @@ pub struct NetworkInterface {
     /// Optional. The type of vNIC to be used on this interface. This may be gVNIC
     /// or VirtioNet.
     pub nic_type: crate::model::network_interface::NicType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NetworkInterface {
@@ -396,6 +405,9 @@ pub struct VmImage {
     /// The reference to an external Compute Engine VM image.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub image: std::option::Option<crate::model::vm_image::Image>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VmImage {
@@ -501,6 +513,9 @@ pub struct ContainerImage {
     /// to the latest tag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub tag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ContainerImage {
@@ -545,6 +560,9 @@ pub struct AcceleratorConfig {
     /// Optional. Count of cores of this accelerator.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub core_count: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AcceleratorConfig {
@@ -707,6 +725,9 @@ pub struct ShieldedInstanceConfig {
     /// baseline. This baseline is initially derived from the implicitly trusted
     /// boot image when the VM instance is created. Enabled by default.
     pub enable_integrity_monitoring: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ShieldedInstanceConfig {
@@ -755,6 +776,9 @@ pub struct GPUDriverConfig {
     /// drivers.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub custom_gpu_driver_path: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GPUDriverConfig {
@@ -809,6 +833,9 @@ pub struct DataDisk {
     /// Learn more about using your own encryption keys.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataDisk {
@@ -876,6 +903,9 @@ pub struct BootDisk {
     /// Learn more about using your own encryption keys.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BootDisk {
@@ -931,6 +961,9 @@ pub struct ServiceAccount {
     /// account. Set by the CLH to <https://www.googleapis.com/auth/cloud-platform>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub scopes: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceAccount {
@@ -1030,6 +1063,9 @@ pub struct GceSetup {
     /// Type of the image; can be one of VM image, or container image.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub image: std::option::Option<crate::model::gce_setup::Image>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GceSetup {
@@ -1279,6 +1315,9 @@ pub struct UpgradeHistoryEntry {
     /// Optional. Target VM Version, like m63.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub target_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpgradeHistoryEntry {
@@ -1559,6 +1598,9 @@ pub struct Instance {
     /// Setup for the Notebook instance.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub infrastructure: std::option::Option<crate::model::instance::Infrastructure>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Instance {
@@ -1776,6 +1818,9 @@ pub struct OperationMetadata {
     /// API endpoint name of this operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub endpoint: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -1871,6 +1916,9 @@ pub struct ListInstancesRequest {
     /// Optional. List filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesRequest {
@@ -1935,6 +1983,9 @@ pub struct ListInstancesResponse {
     /// A ListInstancesResponse will only contain either instances or unreachables,
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesResponse {
@@ -2001,6 +2052,9 @@ pub struct GetInstanceRequest {
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceRequest {
@@ -2043,6 +2097,9 @@ pub struct CreateInstanceRequest {
     /// Optional. Idempotent request UUID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceRequest {
@@ -2101,6 +2158,9 @@ pub struct UpdateInstanceRequest {
     /// Optional. Idempotent request UUID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstanceRequest {
@@ -2153,6 +2213,9 @@ pub struct DeleteInstanceRequest {
     /// Optional. Idempotent request UUID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteInstanceRequest {
@@ -2189,6 +2252,9 @@ pub struct StartInstanceRequest {
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartInstanceRequest {
@@ -2219,6 +2285,9 @@ pub struct StopInstanceRequest {
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StopInstanceRequest {
@@ -2249,6 +2318,9 @@ pub struct ResetInstanceRequest {
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResetInstanceRequest {
@@ -2279,6 +2351,9 @@ pub struct CheckInstanceUpgradabilityRequest {
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub notebook_instance: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CheckInstanceUpgradabilityRequest {
@@ -2325,6 +2400,9 @@ pub struct CheckInstanceUpgradabilityResponse {
     /// is true.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub upgrade_image: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CheckInstanceUpgradabilityResponse {
@@ -2373,6 +2451,9 @@ pub struct UpgradeInstanceRequest {
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpgradeInstanceRequest {
@@ -2412,6 +2493,9 @@ pub struct RollbackInstanceRequest {
     /// Required. Output only. Revision Id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub revision_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RollbackInstanceRequest {
@@ -2461,6 +2545,9 @@ pub struct DiagnoseInstanceRequest {
 
     /// Optional. Maxmium amount of time in minutes before the operation times out.
     pub timeout_minutes: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DiagnoseInstanceRequest {

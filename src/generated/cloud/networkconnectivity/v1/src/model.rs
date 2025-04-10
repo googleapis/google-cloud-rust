@@ -75,6 +75,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -206,6 +209,9 @@ pub struct ServiceConnectionMap {
     /// proceeding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub etag: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceConnectionMap {
@@ -350,6 +356,9 @@ pub mod service_connection_map {
         /// projects/{projectNumOrId}/regions/{region}/serviceAttachments/{resourceId}.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub service_attachment_uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ProducerPscConfig {
@@ -428,6 +437,9 @@ pub mod service_connection_map {
         /// The requested IP version for the PSC connection.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub ip_version: std::option::Option<crate::model::IPVersion>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ConsumerPscConfig {
@@ -686,6 +698,9 @@ pub mod service_connection_map {
         /// The requested IP version for the PSC connection.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub ip_version: std::option::Option<crate::model::IPVersion>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ConsumerPscConnection {
@@ -950,6 +965,9 @@ pub struct ListServiceConnectionMapsRequest {
     /// Sort the results by a certain order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceConnectionMapsRequest {
@@ -1012,6 +1030,9 @@ pub struct ListServiceConnectionMapsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceConnectionMapsResponse {
@@ -1077,6 +1098,9 @@ pub struct GetServiceConnectionMapRequest {
     /// Required. Name of the ServiceConnectionMap to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceConnectionMapRequest {
@@ -1135,6 +1159,9 @@ pub struct CreateServiceConnectionMapRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServiceConnectionMapRequest {
@@ -1214,6 +1241,9 @@ pub struct UpdateServiceConnectionMapRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateServiceConnectionMapRequest {
@@ -1285,6 +1315,9 @@ pub struct DeleteServiceConnectionMapRequest {
     /// proceeding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub etag: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServiceConnectionMapRequest {
@@ -1384,6 +1417,9 @@ pub struct ServiceConnectionPolicy {
     /// proceeding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub etag: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceConnectionPolicy {
@@ -1538,6 +1574,9 @@ pub mod service_connection_policy {
         /// organizations/123]
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub allowed_google_producers_resource_hierarchy_level: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PscConfig {
@@ -1733,6 +1772,9 @@ pub mod service_connection_policy {
         /// The requested IP version for the PSC connection.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub ip_version: std::option::Option<crate::model::IPVersion>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PscConnection {
@@ -1987,6 +2029,9 @@ pub struct ListServiceConnectionPoliciesRequest {
     /// Sort the results by a certain order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceConnectionPoliciesRequest {
@@ -2049,6 +2094,9 @@ pub struct ListServiceConnectionPoliciesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceConnectionPoliciesResponse {
@@ -2114,6 +2162,9 @@ pub struct GetServiceConnectionPolicyRequest {
     /// Required. Name of the ServiceConnectionPolicy to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceConnectionPolicyRequest {
@@ -2171,6 +2222,9 @@ pub struct CreateServiceConnectionPolicyRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServiceConnectionPolicyRequest {
@@ -2250,6 +2304,9 @@ pub struct UpdateServiceConnectionPolicyRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateServiceConnectionPolicyRequest {
@@ -2321,6 +2378,9 @@ pub struct DeleteServiceConnectionPolicyRequest {
     /// proceeding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub etag: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServiceConnectionPolicyRequest {
@@ -2396,6 +2456,9 @@ pub struct ServiceClass {
     /// proceeding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub etag: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceClass {
@@ -2491,6 +2554,9 @@ pub struct ListServiceClassesRequest {
     /// Sort the results by a certain order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceClassesRequest {
@@ -2553,6 +2619,9 @@ pub struct ListServiceClassesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceClassesResponse {
@@ -2618,6 +2687,9 @@ pub struct GetServiceClassRequest {
     /// Required. Name of the ServiceClass to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceClassRequest {
@@ -2671,6 +2743,9 @@ pub struct UpdateServiceClassRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateServiceClassRequest {
@@ -2742,6 +2817,9 @@ pub struct DeleteServiceClassRequest {
     /// proceeding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub etag: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServiceClassRequest {
@@ -2825,6 +2903,9 @@ pub struct ServiceConnectionToken {
     /// proceeding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub etag: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceConnectionToken {
@@ -2935,6 +3016,9 @@ pub struct ListServiceConnectionTokensRequest {
     /// Sort the results by a certain order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceConnectionTokensRequest {
@@ -2997,6 +3081,9 @@ pub struct ListServiceConnectionTokensResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceConnectionTokensResponse {
@@ -3062,6 +3149,9 @@ pub struct GetServiceConnectionTokenRequest {
     /// Required. Name of the ServiceConnectionToken to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceConnectionTokenRequest {
@@ -3120,6 +3210,9 @@ pub struct CreateServiceConnectionTokenRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServiceConnectionTokenRequest {
@@ -3197,6 +3290,9 @@ pub struct DeleteServiceConnectionTokenRequest {
     /// proceeding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub etag: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServiceConnectionTokenRequest {
@@ -3318,6 +3414,9 @@ pub struct Hub {
     /// hub. The default value is false.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub export_psc: std::option::Option<bool>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Hub {
@@ -3463,6 +3562,9 @@ pub struct RoutingVPC {
     /// that use data transfer, they must be associated with this VPC network. At
     /// most, one VPC network will have this field set to true.
     pub required_for_new_site_to_site_data_transfer_spokes: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RoutingVPC {
@@ -3586,6 +3688,9 @@ pub struct Spoke {
     /// Optional. The list of fields waiting for hub administration's approval.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub field_paths_pending_update: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Spoke {
@@ -3776,6 +3881,9 @@ pub mod spoke {
         /// Additional information provided by the user in the RejectSpoke call.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub user_details: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StateReason {
@@ -3945,6 +4053,9 @@ pub struct RouteTable {
 
     /// Output only. The current lifecycle state of this route table.
     pub state: crate::model::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RouteTable {
@@ -4098,6 +4209,9 @@ pub struct Route {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub next_hop_interconnect_attachment:
         std::option::Option<crate::model::NextHopInterconnectAttachment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Route {
@@ -4289,6 +4403,9 @@ pub struct Group {
     /// `projects/{project_number}/locations/global/hubs/{hub_id}/routeTables/{route_table_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub route_table: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Group {
@@ -4389,6 +4506,9 @@ pub struct AutoAccept {
     /// spokes being created or updated in these projects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub auto_accept_projects: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutoAccept {
@@ -4442,6 +4562,9 @@ pub struct ListHubsRequest {
     /// Sort the results by a certain order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListHubsRequest {
@@ -4509,6 +4632,9 @@ pub struct ListHubsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListHubsResponse {
@@ -4578,6 +4704,9 @@ pub struct GetHubRequest {
     /// Required. The name of the hub resource to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetHubRequest {
@@ -4636,6 +4765,9 @@ pub struct CreateHubRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateHubRequest {
@@ -4715,6 +4847,9 @@ pub struct UpdateHubRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateHubRequest {
@@ -4782,6 +4917,9 @@ pub struct DeleteHubRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteHubRequest {
@@ -4851,6 +4989,9 @@ pub struct ListHubSpokesRequest {
     /// The view that you use determines which spoke fields are included in the
     /// response.
     pub view: crate::model::list_hub_spokes_request::SpokeView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListHubSpokesRequest {
@@ -5006,6 +5147,9 @@ pub struct ListHubSpokesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListHubSpokesResponse {
@@ -5120,6 +5264,9 @@ pub struct QueryHubStatusRequest {
     /// * `psc_propagation_status.code`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub group_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryHubStatusRequest {
@@ -5188,6 +5335,9 @@ pub struct QueryHubStatusResponse {
     /// is empty, there are no more results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryHubStatusResponse {
@@ -5253,6 +5403,9 @@ pub struct HubStatusEntry {
     /// The Private Service Connect propagation status.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub psc_propagation_status: std::option::Option<crate::model::PscPropagationStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HubStatusEntry {
@@ -5324,6 +5477,9 @@ pub struct PscPropagationStatus {
     /// propagation status.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PscPropagationStatus {
@@ -5517,6 +5673,9 @@ pub struct ListSpokesRequest {
     /// Sort the results by a certain order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSpokesRequest {
@@ -5583,6 +5742,9 @@ pub struct ListSpokesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSpokesResponse {
@@ -5651,6 +5813,9 @@ pub struct GetSpokeRequest {
     /// Required. The name of the spoke resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSpokeRequest {
@@ -5708,6 +5873,9 @@ pub struct CreateSpokeRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSpokeRequest {
@@ -5787,6 +5955,9 @@ pub struct UpdateSpokeRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSpokeRequest {
@@ -5854,6 +6025,9 @@ pub struct DeleteSpokeRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSpokeRequest {
@@ -5913,6 +6087,9 @@ pub struct AcceptHubSpokeRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AcceptHubSpokeRequest {
@@ -5957,6 +6134,9 @@ pub struct AcceptHubSpokeResponse {
     /// The spoke that was operated on.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub spoke: std::option::Option<crate::model::Spoke>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AcceptHubSpokeResponse {
@@ -6017,6 +6197,9 @@ pub struct RejectHubSpokeRequest {
     /// Optional. Additional information provided by the hub administrator.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub details: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RejectHubSpokeRequest {
@@ -6067,6 +6250,9 @@ pub struct RejectHubSpokeResponse {
     /// The spoke that was operated on.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub spoke: std::option::Option<crate::model::Spoke>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RejectHubSpokeResponse {
@@ -6127,6 +6313,9 @@ pub struct AcceptSpokeUpdateRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AcceptSpokeUpdateRequest {
@@ -6177,6 +6366,9 @@ pub struct AcceptSpokeUpdateResponse {
     /// The spoke that was operated on.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub spoke: std::option::Option<crate::model::Spoke>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AcceptSpokeUpdateResponse {
@@ -6241,6 +6433,9 @@ pub struct RejectSpokeUpdateRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RejectSpokeUpdateRequest {
@@ -6297,6 +6492,9 @@ pub struct RejectSpokeUpdateResponse {
     /// The spoke that was operated on.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub spoke: std::option::Option<crate::model::Spoke>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RejectSpokeUpdateResponse {
@@ -6332,6 +6530,9 @@ pub struct GetRouteTableRequest {
     /// Required. The name of the route table resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRouteTableRequest {
@@ -6364,6 +6565,9 @@ pub struct GetRouteRequest {
     /// Required. The name of the route resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRouteRequest {
@@ -6412,6 +6616,9 @@ pub struct ListRoutesRequest {
     /// Sort the results by a certain order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRoutesRequest {
@@ -6479,6 +6686,9 @@ pub struct ListRoutesResponse {
     /// RouteTables that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRoutesResponse {
@@ -6563,6 +6773,9 @@ pub struct ListRouteTablesRequest {
     /// Sort the results by a certain order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRouteTablesRequest {
@@ -6630,6 +6843,9 @@ pub struct ListRouteTablesResponse {
     /// Hubs that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRouteTablesResponse {
@@ -6714,6 +6930,9 @@ pub struct ListGroupsRequest {
     /// Sort the results by a certain order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGroupsRequest {
@@ -6781,6 +7000,9 @@ pub struct ListGroupsResponse {
     /// Hubs that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGroupsResponse {
@@ -6864,6 +7086,9 @@ pub struct LinkedVpnTunnels {
     /// "ALL_IPV4_RANGES".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub include_import_ranges: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LinkedVpnTunnels {
@@ -6939,6 +7164,9 @@ pub struct LinkedInterconnectAttachments {
     /// "ALL_IPV4_RANGES".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub include_import_ranges: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LinkedInterconnectAttachments {
@@ -7015,6 +7243,9 @@ pub struct LinkedRouterApplianceInstances {
     /// "ALL_IPV4_RANGES".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub include_import_ranges: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LinkedRouterApplianceInstances {
@@ -7100,6 +7331,9 @@ pub struct LinkedVpcNetwork {
     /// connected to the NCC Hub.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub producer_vpc_spokes: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LinkedVpcNetwork {
@@ -7216,6 +7450,9 @@ pub struct LinkedProducerVpcNetwork {
     /// administration's approval.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub proposed_exclude_export_ranges: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LinkedProducerVpcNetwork {
@@ -7320,6 +7557,9 @@ pub struct RouterApplianceInstance {
     /// The IP address on the VM to use for peering.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub ip_address: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RouterApplianceInstance {
@@ -7355,6 +7595,9 @@ pub struct LocationMetadata {
     /// List of supported features
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub location_features: std::vec::Vec<crate::model::LocationFeature>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocationMetadata {
@@ -7388,6 +7631,9 @@ pub struct NextHopVpcNetwork {
     /// The URI of the VPC network resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NextHopVpcNetwork {
@@ -7426,6 +7672,9 @@ pub struct NextHopVPNTunnel {
     /// resource. Data transfer is available only in [supported
     /// locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
     pub site_to_site_data_transfer: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NextHopVPNTunnel {
@@ -7476,6 +7725,9 @@ pub struct NextHopRouterApplianceInstance {
     /// appliance instance resource. Data transfer is available only in [supported
     /// locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
     pub site_to_site_data_transfer: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NextHopRouterApplianceInstance {
@@ -7527,6 +7779,9 @@ pub struct NextHopInterconnectAttachment {
     /// [supported
     /// locations](https://cloud.google.com/network-connectivity/docs/network-connectivity-center/concepts/locations).
     pub site_to_site_data_transfer: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NextHopInterconnectAttachment {
@@ -7584,6 +7839,9 @@ pub struct SpokeSummary {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub spoke_state_reason_counts:
         std::vec::Vec<crate::model::spoke_summary::SpokeStateReasonCount>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SpokeSummary {
@@ -7651,6 +7909,9 @@ pub mod spoke_summary {
         /// associated with the hub.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub count: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SpokeTypeCount {
@@ -7694,6 +7955,9 @@ pub mod spoke_summary {
         /// and associated with a given hub.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub count: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SpokeStateCount {
@@ -7733,6 +7997,9 @@ pub mod spoke_summary {
         /// particular reason and associated with a given hub.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub count: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SpokeStateReasonCount {
@@ -7777,6 +8044,9 @@ pub struct GetGroupRequest {
     /// Required. The name of the route table resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetGroupRequest {
@@ -7835,6 +8105,9 @@ pub struct UpdateGroupRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateGroupRequest {
@@ -7942,6 +8215,9 @@ pub struct PolicyBasedRoute {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub next_hop: std::option::Option<crate::model::policy_based_route::NextHop>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyBasedRoute {
@@ -8207,6 +8483,9 @@ pub mod policy_based_route {
         /// to. VM instances that have ANY of tags specified here installs this PBR.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub tags: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl VirtualMachine {
@@ -8242,6 +8521,9 @@ pub mod policy_based_route {
         /// attachment. Use `all` to install it on all interconnect attachments.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub region: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InterconnectAttachment {
@@ -8287,6 +8569,9 @@ pub mod policy_based_route {
         /// Required. Internet protocol versions this policy-based route applies to.
         /// For this version, only IPV4 is supported. IPV6 is supported in preview.
         pub protocol_version: crate::model::policy_based_route::filter::ProtocolVersion,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Filter {
@@ -8411,6 +8696,9 @@ pub mod policy_based_route {
         /// Output only. A human-readable description of the warning code.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub warning_message: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Warnings {
@@ -8639,6 +8927,9 @@ pub struct ListPolicyBasedRoutesRequest {
     /// Sort the results by a certain order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPolicyBasedRoutesRequest {
@@ -8705,6 +8996,9 @@ pub struct ListPolicyBasedRoutesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPolicyBasedRoutesResponse {
@@ -8774,6 +9068,9 @@ pub struct GetPolicyBasedRouteRequest {
     /// Required. Name of the PolicyBasedRoute resource to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPolicyBasedRouteRequest {
@@ -8838,6 +9135,9 @@ pub struct CreatePolicyBasedRouteRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePolicyBasedRouteRequest {
@@ -8913,6 +9213,9 @@ pub struct DeletePolicyBasedRouteRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePolicyBasedRouteRequest {

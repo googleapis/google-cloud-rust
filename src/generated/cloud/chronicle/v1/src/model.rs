@@ -54,6 +54,9 @@ pub struct CreateDataAccessLabelRequest {
     /// <https://google.aip.dev/122#resource-id-segments>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub data_access_label_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDataAccessLabelRequest {
@@ -105,6 +108,9 @@ pub struct GetDataAccessLabelRequest {
     /// `projects/{project}/locations/{location}/instances/{instance}/dataAccessLabels/{data_access_label}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDataAccessLabelRequest {
@@ -154,6 +160,9 @@ pub struct ListDataAccessLabelsRequest {
     /// display_name:\"-21-1\"".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataAccessLabelsRequest {
@@ -206,6 +215,9 @@ pub struct ListDataAccessLabelsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataAccessLabelsResponse {
@@ -271,6 +283,9 @@ pub struct UpdateDataAccessLabelRequest {
     /// other fields will return INVALID_ARGUMENT.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDataAccessLabelRequest {
@@ -316,6 +331,9 @@ pub struct DeleteDataAccessLabelRequest {
     /// `projects/{project}/locations/{location}/instances/{instance}/dataAccessLabels/{data_access_label}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDataAccessLabelRequest {
@@ -356,6 +374,9 @@ pub struct CreateDataAccessScopeRequest {
     /// <https://google.aip.dev/122>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub data_access_scope_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDataAccessScopeRequest {
@@ -407,6 +428,9 @@ pub struct GetDataAccessScopeRequest {
     /// `projects/{project}/locations/{location}/instances/{instance}/dataAccessScopes/{data_access_scope}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDataAccessScopeRequest {
@@ -456,6 +480,9 @@ pub struct ListDataAccessScopesRequest {
     /// display_name:\"-21-1\"".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataAccessScopesRequest {
@@ -512,6 +539,9 @@ pub struct ListDataAccessScopesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataAccessScopesResponse {
@@ -589,6 +619,9 @@ pub struct UpdateDataAccessScopeRequest {
     /// other fields will return INVALID_ARGUMENT.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDataAccessScopeRequest {
@@ -634,6 +667,9 @@ pub struct DeleteDataAccessScopeRequest {
     /// `projects/{project}/locations/{location}/instances/{instance}/dataAccessScopes/{data_access_scope}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDataAccessScopeRequest {
@@ -694,6 +730,9 @@ pub struct DataAccessLabel {
     /// data gets tagged with this label.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub definition: std::option::Option<crate::model::data_access_label::Definition>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataAccessLabel {
@@ -873,6 +912,9 @@ pub struct DataAccessScope {
     /// to see all data except data labeled with A and data labeled with B and data
     /// with labels A and B.
     pub allow_all: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataAccessScope {
@@ -980,6 +1022,9 @@ pub struct DataAccessLabelReference {
     /// The unique identifier for the label.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub label: std::option::Option<crate::model::data_access_label_reference::Label>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataAccessLabelReference {
@@ -1158,6 +1203,9 @@ pub struct IngestionLabel {
     /// against the given key and ANY value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub ingestion_label_value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IngestionLabel {
@@ -1238,6 +1286,9 @@ pub struct Watchlist {
     /// Optional. User preferences for watchlist configuration.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub watchlist_user_preferences: std::option::Option<crate::model::WatchlistUserPreferences>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Watchlist {
@@ -1343,6 +1394,9 @@ pub mod watchlist {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub mechanism:
             std::option::Option<crate::model::watchlist::entity_population_mechanism::Mechanism>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EntityPopulationMechanism {
@@ -1418,7 +1472,10 @@ pub mod watchlist {
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
-        pub struct Manual {}
+        pub struct Manual {
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
 
         impl Manual {
             pub fn new() -> Self {
@@ -1454,6 +1511,9 @@ pub mod watchlist {
 
         /// Output only. Count of asset type entities in the watchlist.
         pub asset: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EntityCount {
@@ -1489,6 +1549,9 @@ pub mod watchlist {
 pub struct WatchlistUserPreferences {
     /// Optional. Whether the watchlist is pinned on the dashboard.
     pub pinned: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WatchlistUserPreferences {
@@ -1521,6 +1584,9 @@ pub struct GetWatchlistRequest {
     /// `projects/{project}/locations/{location}/instances/{instance}/watchlists/{watchlist}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetWatchlistRequest {
@@ -1575,6 +1641,9 @@ pub struct ListWatchlistsRequest {
     /// - `has_entity([ENTITY_INDICATOR],[ENTITY_TYPE],[NAMESPACE])`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWatchlistsRequest {
@@ -1627,6 +1696,9 @@ pub struct ListWatchlistsResponse {
     /// page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWatchlistsResponse {
@@ -1694,6 +1766,9 @@ pub struct CreateWatchlistRequest {
     /// Required. The watchlist to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub watchlist: std::option::Option<crate::model::Watchlist>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateWatchlistRequest {
@@ -1746,6 +1821,9 @@ pub struct UpdateWatchlistRequest {
     /// Optional. The list of fields to update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateWatchlistRequest {
@@ -1794,6 +1872,9 @@ pub struct DeleteWatchlistRequest {
     /// deleted. (Otherwise, the request will only work if the watchlist has no
     /// entities.)
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteWatchlistRequest {
@@ -1830,6 +1911,9 @@ pub struct Instance {
     /// Format: `projects/{project}/locations/{location}/instances/{instance}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Instance {
@@ -1861,6 +1945,9 @@ pub struct GetInstanceRequest {
     /// `projects/{project_id}/locations/{location}/instances/{instance}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceRequest {
@@ -1891,6 +1978,9 @@ pub struct ScopeInfo {
     /// empty the reference list is treated as unscoped.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub reference_list_scope: std::option::Option<crate::model::ReferenceListScope>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScopeInfo {
@@ -1927,6 +2017,9 @@ pub struct ReferenceListScope {
     /// `projects/{project}/locations/{location}/instances/{instance}/dataAccessScopes/{scope_name}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub scope_names: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReferenceListScope {
@@ -1967,6 +2060,9 @@ pub struct GetReferenceListRequest {
     /// How much of the ReferenceList to view. Defaults to
     /// REFERENCE_LIST_VIEW_FULL.
     pub view: crate::model::ReferenceListView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetReferenceListRequest {
@@ -2024,6 +2120,9 @@ pub struct ListReferenceListsRequest {
     /// How much of each ReferenceList to view. Defaults to
     /// REFERENCE_LIST_VIEW_BASIC.
     pub view: crate::model::ReferenceListView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReferenceListsRequest {
@@ -2080,6 +2179,9 @@ pub struct ListReferenceListsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReferenceListsResponse {
@@ -2149,6 +2251,9 @@ pub struct CreateReferenceListRequest {
     /// - Must be unique.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub reference_list_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateReferenceListRequest {
@@ -2209,6 +2314,9 @@ pub struct UpdateReferenceListRequest {
     /// A field mask of "*" will update all fields, whether empty or not.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateReferenceListRequest {
@@ -2296,6 +2404,9 @@ pub struct ReferenceList {
     /// update, if scope_info is requested to be updated, this field must be set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub scope_info: std::option::Option<crate::model::ScopeInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReferenceList {
@@ -2392,6 +2503,9 @@ pub struct ReferenceListEntry {
     /// Required. The value of the entry. Maximum length is 512 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReferenceListEntry {
@@ -2519,6 +2633,9 @@ pub struct Rule {
     /// uses $e.principal.hostname, then the uses_udm field will be true.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub inputs_used: std::option::Option<crate::model::InputsUsed>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Rule {
@@ -2808,6 +2925,9 @@ pub struct RuleDeployment {
     /// the alert status was changed to false.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub last_alert_status_change_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RuleDeployment {
@@ -3009,6 +3129,9 @@ pub struct Retrohunt {
     /// Output only. Percent progress of the retrohunt towards completion, from
     /// 0.00 to 100.00.
     pub progress_percentage: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Retrohunt {
@@ -3153,6 +3276,9 @@ pub struct CreateRuleRequest {
     /// Required. The rule to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rule: std::option::Option<crate::model::Rule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateRuleRequest {
@@ -3197,6 +3323,9 @@ pub struct GetRuleRequest {
     /// The view field indicates the scope of fields to populate for the Rule being
     /// returned. If unspecified, defaults to FULL.
     pub view: crate::model::RuleView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRuleRequest {
@@ -3258,6 +3387,9 @@ pub struct ListRulesRequest {
     /// "display_name:{display_name}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRulesRequest {
@@ -3316,6 +3448,9 @@ pub struct ListRulesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRulesResponse {
@@ -3379,6 +3514,9 @@ pub struct UpdateRuleRequest {
     /// value will be overwritten.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateRuleRequest {
@@ -3431,6 +3569,9 @@ pub struct DeleteRuleRequest {
     /// and no associated detections. Regardless of this field's value, the rule
     /// deployment associated with this rule will also be deleted.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteRuleRequest {
@@ -3486,6 +3627,9 @@ pub struct ListRuleRevisionsRequest {
     /// The view field indicates the scope of fields to populate for the revision
     /// being returned. If unspecified, defaults to BASIC.
     pub view: crate::model::RuleView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRuleRevisionsRequest {
@@ -3538,6 +3682,9 @@ pub struct ListRuleRevisionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRuleRevisionsResponse {
@@ -3598,6 +3745,9 @@ pub struct CreateRetrohuntRequest {
     /// Required. The retrohunt to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub retrohunt: std::option::Option<crate::model::Retrohunt>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateRetrohuntRequest {
@@ -3638,6 +3788,9 @@ pub struct GetRetrohuntRequest {
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}/retrohunts/{retrohunt}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRetrohuntRequest {
@@ -3689,6 +3842,9 @@ pub struct ListRetrohuntsRequest {
     /// state
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRetrohuntsRequest {
@@ -3741,6 +3897,9 @@ pub struct ListRetrohuntsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRetrohuntsResponse {
@@ -3797,6 +3956,9 @@ pub struct GetRuleDeploymentRequest {
     /// `projects/{project}/locations/{location}/instances/{instance}/rules/{rule}/deployment`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRuleDeploymentRequest {
@@ -3849,6 +4011,9 @@ pub struct ListRuleDeploymentsRequest {
     /// archived, name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRuleDeploymentsRequest {
@@ -3901,6 +4066,9 @@ pub struct ListRuleDeploymentsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRuleDeploymentsResponse {
@@ -3963,6 +4131,9 @@ pub struct UpdateRuleDeploymentRequest {
     /// Required. The list of fields to update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateRuleDeploymentRequest {
@@ -4015,6 +4186,9 @@ pub struct CompilationPosition {
 
     /// Output only. End column number, beginning at 1.
     pub end_column: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CompilationPosition {
@@ -4078,6 +4252,9 @@ pub struct CompilationDiagnostic {
     /// detail.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CompilationDiagnostic {
@@ -4197,6 +4374,9 @@ pub struct Severity {
     /// the rule text.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Severity {
@@ -4236,6 +4416,9 @@ pub struct RetrohuntMetadata {
 
     /// Percent progress of the retrohunt towards completion, from 0.00 to 100.00.
     pub progress_percentage: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetrohuntMetadata {
@@ -4289,6 +4472,9 @@ pub struct InputsUsed {
 
     /// Optional. Whether the rule queries detections.
     pub uses_detection: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InputsUsed {

@@ -58,6 +58,9 @@ pub struct ListTunnelDestGroupsRequest {
     /// token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTunnelDestGroupsRequest {
@@ -104,6 +107,9 @@ pub struct ListTunnelDestGroupsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTunnelDestGroupsResponse {
@@ -172,6 +178,9 @@ pub struct CreateTunnelDestGroupRequest {
     /// are `[a-z]-`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub tunnel_dest_group_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTunnelDestGroupRequest {
@@ -223,6 +232,9 @@ pub struct GetTunnelDestGroupRequest {
     /// `projects/{project_number/id}/iap_tunnel/locations/{location}/destGroups/{dest_group}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTunnelDestGroupRequest {
@@ -254,6 +266,9 @@ pub struct DeleteTunnelDestGroupRequest {
     /// `projects/{project_number/id}/iap_tunnel/locations/{location}/destGroups/{dest_group}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTunnelDestGroupRequest {
@@ -289,6 +304,9 @@ pub struct UpdateTunnelDestGroupRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTunnelDestGroupRequest {
@@ -342,6 +360,9 @@ pub struct TunnelDestGroup {
     /// Unordered list. List of FQDNs that this group applies to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub fqdns: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TunnelDestGroup {
@@ -395,6 +416,9 @@ pub struct GetIapSettingsRequest {
     /// resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetIapSettingsRequest {
@@ -435,6 +459,9 @@ pub struct UpdateIapSettingsRequest {
     /// field mask: `iapSettings.accessSettings.reauthSettings`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateIapSettingsRequest {
@@ -486,6 +513,9 @@ pub struct IapSettings {
     /// Top level wrapper for all application related settings in IAP
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub application_settings: std::option::Option<crate::model::ApplicationSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IapSettings {
@@ -553,6 +583,9 @@ pub struct AccessSettings {
     /// Settings to configure and enable allowed domains.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub allowed_domains_settings: std::option::Option<crate::model::AllowedDomainsSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessSettings {
@@ -642,6 +675,9 @@ pub struct GcipSettings {
     /// though it could be overridden at the sub resource level.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub login_page_uri: std::option::Option<wkt::StringValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcipSettings {
@@ -687,6 +723,9 @@ pub struct CorsSettings {
     /// undefined, IAP will not apply any special logic to OPTIONS requests.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub allow_http_options: std::option::Option<wkt::BoolValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CorsSettings {
@@ -728,6 +767,9 @@ pub struct OAuthSettings {
     /// List of OAuth client IDs allowed to programmatically authenticate with IAP.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub programmatic_clients: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OAuthSettings {
@@ -779,6 +821,9 @@ pub struct ReauthSettings {
     /// How IAP determines the effective policy in cases of hierarchial policies.
     /// Policies are merged from higher in the hierarchy to lower in the hierarchy.
     pub policy_type: crate::model::reauth_settings::PolicyType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReauthSettings {
@@ -968,6 +1013,9 @@ pub struct AllowedDomainsSettings {
     /// List of trusted domains.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub domains: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AllowedDomainsSettings {
@@ -1022,6 +1070,9 @@ pub struct ApplicationSettings {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub attribute_propagation_settings:
         std::option::Option<crate::model::AttributePropagationSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApplicationSettings {
@@ -1091,6 +1142,9 @@ pub struct CsmSettings {
     /// IAP.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rctoken_aud: std::option::Option<wkt::StringValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CsmSettings {
@@ -1136,6 +1190,9 @@ pub struct AccessDeniedPageSettings {
     /// application.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub remediation_token_generation_enabled: std::option::Option<wkt::BoolValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessDeniedPageSettings {
@@ -1234,6 +1291,9 @@ pub struct AttributePropagationSettings {
     /// be propagated in the set output credentials.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub enable: std::option::Option<bool>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttributePropagationSettings {
@@ -1358,6 +1418,9 @@ pub struct ListBrandsRequest {
     /// In the following format: projects/{project_number/id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBrandsRequest {
@@ -1387,6 +1450,9 @@ pub struct ListBrandsResponse {
     /// Brands existing in the project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub brands: std::vec::Vec<crate::model::Brand>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBrandsResponse {
@@ -1426,6 +1492,9 @@ pub struct CreateBrandRequest {
     /// Required. The brand to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub brand: std::option::Option<crate::model::Brand>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateBrandRequest {
@@ -1465,6 +1534,9 @@ pub struct GetBrandRequest {
     /// In the following format: projects/{project_number/id}/brands/{brand}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetBrandRequest {
@@ -1510,6 +1582,9 @@ pub struct ListIdentityAwareProxyClientsRequest {
     /// token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListIdentityAwareProxyClientsRequest {
@@ -1556,6 +1631,9 @@ pub struct ListIdentityAwareProxyClientsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListIdentityAwareProxyClientsResponse {
@@ -1617,6 +1695,9 @@ pub struct CreateIdentityAwareProxyClientRequest {
     /// Required. Identity Aware Proxy Client to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub identity_aware_proxy_client: std::option::Option<crate::model::IdentityAwareProxyClient>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateIdentityAwareProxyClientRequest {
@@ -1659,6 +1740,9 @@ pub struct GetIdentityAwareProxyClientRequest {
     /// projects/{project_number/id}/brands/{brand}/identityAwareProxyClients/{client_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetIdentityAwareProxyClientRequest {
@@ -1690,6 +1774,9 @@ pub struct ResetIdentityAwareProxyClientSecretRequest {
     /// projects/{project_number/id}/brands/{brand}/identityAwareProxyClients/{client_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResetIdentityAwareProxyClientSecretRequest {
@@ -1721,6 +1808,9 @@ pub struct DeleteIdentityAwareProxyClientRequest {
     /// projects/{project_number/id}/brands/{brand}/identityAwareProxyClients/{client_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteIdentityAwareProxyClientRequest {
@@ -1765,6 +1855,9 @@ pub struct Brand {
     /// Output only. Whether the brand is only intended for usage inside the
     /// G Suite organization only.
     pub org_internal_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Brand {
@@ -1823,6 +1916,9 @@ pub struct IdentityAwareProxyClient {
     /// Human-friendly name given to the OAuth client.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IdentityAwareProxyClient {

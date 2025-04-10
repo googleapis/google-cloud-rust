@@ -64,6 +64,9 @@ pub struct GenerateCredentialsRequest {
 
     /// Optional. The operating system where the kubeconfig will be used.
     pub operating_system: crate::model::generate_credentials_request::OperatingSystem,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateCredentialsRequest {
@@ -195,6 +198,9 @@ pub struct GenerateCredentialsResponse {
     /// API.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub endpoint: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateCredentialsResponse {

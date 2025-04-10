@@ -56,6 +56,9 @@ pub struct BigqueryMapping {
     /// primitive types (STRING, INT64, FLOAT64 or NUMERIC).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub dimension_column: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BigqueryMapping {
@@ -118,6 +121,9 @@ pub struct DataSource {
     /// (including time and group ID).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub bq_mapping: std::option::Option<crate::model::BigqueryMapping>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataSource {
@@ -187,6 +193,9 @@ pub struct DataSet {
     /// [google.cloud.timeseriesinsights.v1.Event]: crate::model::Event
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ttl: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataSet {
@@ -362,6 +371,9 @@ pub struct EventDimension {
     /// type.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub value: std::option::Option<crate::model::event_dimension::Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EventDimension {
@@ -550,6 +562,9 @@ pub struct Event {
     /// Event timestamp.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub event_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Event {
@@ -623,6 +638,9 @@ pub struct AppendEventsRequest {
     /// "projects/{project}/datasets/{dataset}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub dataset: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppendEventsRequest {
@@ -663,6 +681,9 @@ pub struct AppendEventsResponse {
     /// Dropped events; empty if all events are successfully added.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub dropped_events: std::vec::Vec<crate::model::Event>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppendEventsResponse {
@@ -702,6 +723,9 @@ pub struct CreateDataSetRequest {
     /// Required. Dataset to be loaded.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub dataset: std::option::Option<crate::model::DataSet>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDataSetRequest {
@@ -740,6 +764,9 @@ pub struct DeleteDataSetRequest {
     /// Required. Dataset name in the format of "projects/{project}/datasets/{dataset}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDataSetRequest {
@@ -776,6 +803,9 @@ pub struct ListDataSetsRequest {
     /// Token to provide to skip to a particular spot in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataSetsRequest {
@@ -821,6 +851,9 @@ pub struct ListDataSetsResponse {
     /// Token to receive the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataSetsResponse {
@@ -882,6 +915,9 @@ pub struct PinnedDimension {
     /// `dimension` as name.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub value: std::option::Option<crate::model::pinned_dimension::Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PinnedDimension {
@@ -1043,6 +1079,9 @@ pub struct ForecastParams {
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.granularity]: crate::model::TimeseriesParams::granularity
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub horizon_duration: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ForecastParams {
@@ -1183,6 +1222,9 @@ pub struct TimeseriesPoint {
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub value: std::option::Option<f64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeseriesPoint {
@@ -1221,6 +1263,9 @@ pub struct Timeseries {
     /// The points in this time series, ordered by their timestamp.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub point: std::vec::Vec<crate::model::TimeseriesPoint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Timeseries {
@@ -1368,6 +1413,9 @@ pub struct EvaluatedSlice {
     /// - **"Internal server error"**: Internal unexpected error.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub status: std::option::Option<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EvaluatedSlice {
@@ -1518,6 +1566,9 @@ pub struct SlicingParams {
     /// [google.cloud.timeseriesinsights.v1.SlicingParams.pinned_dimensions]: crate::model::SlicingParams::pinned_dimensions
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub pinned_dimensions: std::vec::Vec<crate::model::PinnedDimension>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SlicingParams {
@@ -1690,6 +1741,9 @@ pub struct TimeseriesParams {
     ///
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
     pub metric_aggregation_method: crate::model::timeseries_params::AggregationMethod,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeseriesParams {
@@ -1887,6 +1941,9 @@ pub struct QueryDataSetRequest {
     /// [google.cloud.timeseriesinsights.v1.EvaluatedSlice.forecast]: crate::model::EvaluatedSlice::forecast
     /// [google.cloud.timeseriesinsights.v1.EvaluatedSlice.history]: crate::model::EvaluatedSlice::history
     pub return_timeseries: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryDataSetRequest {
@@ -1984,6 +2041,9 @@ pub struct QueryDataSetResponse {
     /// [google.cloud.timeseriesinsights.v1.QueryDataSetRequest.num_returned_slices]: crate::model::QueryDataSetRequest::num_returned_slices
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub slices: std::vec::Vec<crate::model::EvaluatedSlice>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryDataSetResponse {
@@ -2051,6 +2111,9 @@ pub struct EvaluateSliceRequest {
     /// sensitivity of the anomaly detection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub forecast_params: std::option::Option<crate::model::ForecastParams>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EvaluateSliceRequest {
@@ -2155,6 +2218,9 @@ pub struct EvaluateTimeseriesRequest {
     /// The forecast parameters.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub forecast_params: std::option::Option<crate::model::ForecastParams>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EvaluateTimeseriesRequest {

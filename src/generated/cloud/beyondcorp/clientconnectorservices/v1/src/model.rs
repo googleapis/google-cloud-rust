@@ -71,6 +71,9 @@ pub struct ClientConnectorService {
 
     /// Output only. The operational state of the ClientConnectorService.
     pub state: crate::model::client_connector_service::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ClientConnectorService {
@@ -161,6 +164,9 @@ pub mod client_connector_service {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub ingress_config:
             std::option::Option<crate::model::client_connector_service::ingress::IngressConfig>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Ingress {
@@ -247,6 +253,9 @@ pub mod client_connector_service {
             pub destination_routes: std::vec::Vec<
                 crate::model::client_connector_service::ingress::config::DestinationRoute,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Config {
@@ -309,6 +318,9 @@ pub mod client_connector_service {
                 /// for which the packet is routed to the ClientGateway.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub netmask: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl DestinationRoute {
@@ -415,6 +427,9 @@ pub mod client_connector_service {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub destination_type:
             std::option::Option<crate::model::client_connector_service::egress::DestinationType>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Egress {
@@ -496,6 +511,9 @@ pub mod client_connector_service {
             /// Required. The name of the peered VPC owned by the consumer project.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub network_vpc: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl PeeredVpc {
@@ -633,6 +651,9 @@ pub struct ListClientConnectorServicesRequest {
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClientConnectorServicesRequest {
@@ -694,6 +715,9 @@ pub struct ListClientConnectorServicesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClientConnectorServicesResponse {
@@ -759,6 +783,9 @@ pub struct GetClientConnectorServiceRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetClientConnectorServiceRequest {
@@ -823,6 +850,9 @@ pub struct CreateClientConnectorServiceRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateClientConnectorServiceRequest {
@@ -917,6 +947,9 @@ pub struct UpdateClientConnectorServiceRequest {
 
     /// Optional. If set as true, will create the resource if it is not found.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateClientConnectorServiceRequest {
@@ -998,6 +1031,9 @@ pub struct DeleteClientConnectorServiceRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteClientConnectorServiceRequest {
@@ -1068,6 +1104,9 @@ pub struct ClientConnectorServiceOperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ClientConnectorServiceOperationMetadata {

@@ -89,6 +89,9 @@ pub struct Folder {
     /// ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Folder {
@@ -233,6 +236,9 @@ pub struct GetFolderRequest {
     /// Must be of the form `folders/{folder_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetFolderRequest {
@@ -287,6 +293,9 @@ pub struct ListFoldersRequest {
     ///
     /// [google.cloud.resourcemanager.v3.Folder.State.DELETE_REQUESTED]: crate::model::folder::state::DELETE_REQUESTED
     pub show_deleted: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFoldersRequest {
@@ -340,6 +349,9 @@ pub struct ListFoldersResponse {
     /// that indicates from where listing should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFoldersResponse {
@@ -434,6 +446,9 @@ pub struct SearchFoldersRequest {
     ///   display names that include both "Test" and "String".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub query: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchFoldersRequest {
@@ -481,6 +496,9 @@ pub struct SearchFoldersResponse {
     /// that indicates from where searching should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchFoldersResponse {
@@ -536,6 +554,9 @@ pub struct CreateFolderRequest {
     /// be consulted. All other fields will be ignored.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub folder: std::option::Option<crate::model::Folder>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateFolderRequest {
@@ -573,6 +594,9 @@ pub struct CreateFolderMetadata {
     /// under.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateFolderMetadata {
@@ -623,6 +647,9 @@ pub struct UpdateFolderRequest {
     /// Only the `display_name` can be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateFolderRequest {
@@ -661,7 +688,10 @@ impl wkt::message::Message for UpdateFolderRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UpdateFolderMetadata {}
+pub struct UpdateFolderMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UpdateFolderMetadata {
     pub fn new() -> Self {
@@ -691,6 +721,9 @@ pub struct MoveFolderRequest {
     /// `organizations/{org_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MoveFolderRequest {
@@ -737,6 +770,9 @@ pub struct MoveFolderMetadata {
     /// The resource name of the folder or organization to move the folder to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MoveFolderMetadata {
@@ -782,6 +818,9 @@ pub struct DeleteFolderRequest {
     /// Must be of the form `folders/{folder_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteFolderRequest {
@@ -808,7 +847,10 @@ impl wkt::message::Message for DeleteFolderRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeleteFolderMetadata {}
+pub struct DeleteFolderMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeleteFolderMetadata {
     pub fn new() -> Self {
@@ -832,6 +874,9 @@ pub struct UndeleteFolderRequest {
     /// Must be of the form `folders/{folder_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeleteFolderRequest {
@@ -858,7 +903,10 @@ impl wkt::message::Message for UndeleteFolderRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UndeleteFolderMetadata {}
+pub struct UndeleteFolderMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UndeleteFolderMetadata {
     pub fn new() -> Self {
@@ -921,6 +969,9 @@ pub struct Organization {
     /// descendants will be deleted.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub owner: std::option::Option<crate::model::organization::Owner>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Organization {
@@ -1117,6 +1168,9 @@ pub struct GetOrganizationRequest {
     /// "organizations/[organizationId]". For example, "organizations/1234".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetOrganizationRequest {
@@ -1173,6 +1227,9 @@ pub struct SearchOrganizationsRequest {
     ///   to the domain `google.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub query: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchOrganizationsRequest {
@@ -1223,6 +1280,9 @@ pub struct SearchOrganizationsResponse {
     /// contains the last page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchOrganizationsResponse {
@@ -1274,7 +1334,10 @@ impl gax::paginator::internal::PageableResponse for SearchOrganizationsResponse 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeleteOrganizationMetadata {}
+pub struct DeleteOrganizationMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeleteOrganizationMetadata {
     pub fn new() -> Self {
@@ -1294,7 +1357,10 @@ impl wkt::message::Message for DeleteOrganizationMetadata {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UndeleteOrganizationMetadata {}
+pub struct UndeleteOrganizationMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UndeleteOrganizationMetadata {
     pub fn new() -> Self {
@@ -1383,6 +1449,9 @@ pub struct Project {
     /// Example: `"myBusinessDimension" : "businessValue"`
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Project {
@@ -1556,6 +1625,9 @@ pub struct GetProjectRequest {
     /// Required. The name of the project (for example, `projects/415104041262`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetProjectRequest {
@@ -1609,6 +1681,9 @@ pub struct ListProjectsRequest {
     /// Optional. Indicate that projects in the `DELETE_REQUESTED` state should
     /// also be returned. Normally only `ACTIVE` projects are returned.
     pub show_deleted: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProjectsRequest {
@@ -1681,6 +1756,9 @@ pub struct ListProjectsResponse {
     /// Pagination tokens have a limited lifetime.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProjectsResponse {
@@ -1781,6 +1859,9 @@ pub struct SearchProjectsRequest {
     /// The server can return fewer projects than requested.
     /// If unspecified, server picks an appropriate default.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchProjectsRequest {
@@ -1845,6 +1926,9 @@ pub struct SearchProjectsResponse {
     /// Pagination tokens have a limited lifetime.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchProjectsResponse {
@@ -1911,6 +1995,9 @@ pub struct CreateProjectRequest {
     /// will be set to that Organization.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub project: std::option::Option<crate::model::Project>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateProjectRequest {
@@ -1953,6 +2040,9 @@ pub struct CreateProjectMetadata {
 
     /// True if the project creation process is complete.
     pub ready: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateProjectMetadata {
@@ -2010,6 +2100,9 @@ pub struct UpdateProjectRequest {
     /// Optional. An update mask to selectively update fields.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateProjectRequest {
@@ -2048,7 +2141,10 @@ impl wkt::message::Message for UpdateProjectRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UpdateProjectMetadata {}
+pub struct UpdateProjectMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UpdateProjectMetadata {
     pub fn new() -> Self {
@@ -2079,6 +2175,9 @@ pub struct MoveProjectRequest {
     /// Required. The new parent to move the Project under.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MoveProjectRequest {
@@ -2114,7 +2213,10 @@ impl wkt::message::Message for MoveProjectRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct MoveProjectMetadata {}
+pub struct MoveProjectMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl MoveProjectMetadata {
     pub fn new() -> Self {
@@ -2140,6 +2242,9 @@ pub struct DeleteProjectRequest {
     /// Required. The name of the Project (for example, `projects/415104041262`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteProjectRequest {
@@ -2166,7 +2271,10 @@ impl wkt::message::Message for DeleteProjectRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeleteProjectMetadata {}
+pub struct DeleteProjectMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeleteProjectMetadata {
     pub fn new() -> Self {
@@ -2193,6 +2301,9 @@ pub struct UndeleteProjectRequest {
     /// Required.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeleteProjectRequest {
@@ -2219,7 +2330,10 @@ impl wkt::message::Message for UndeleteProjectRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UndeleteProjectMetadata {}
+pub struct UndeleteProjectMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UndeleteProjectMetadata {
     pub fn new() -> Self {
@@ -2266,6 +2380,9 @@ pub struct TagBinding {
     /// fields will be rejected.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub tag_value_namespaced_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TagBinding {
@@ -2312,7 +2429,10 @@ impl wkt::message::Message for TagBinding {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CreateTagBindingMetadata {}
+pub struct CreateTagBindingMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CreateTagBindingMetadata {
     pub fn new() -> Self {
@@ -2339,6 +2459,9 @@ pub struct CreateTagBindingRequest {
     /// Optional. Set to true to perform the validations necessary for creating the
     /// resource, but not actually perform the action.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTagBindingRequest {
@@ -2373,7 +2496,10 @@ impl wkt::message::Message for CreateTagBindingRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeleteTagBindingMetadata {}
+pub struct DeleteTagBindingMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeleteTagBindingMetadata {
     pub fn new() -> Self {
@@ -2398,6 +2524,9 @@ pub struct DeleteTagBindingRequest {
     /// `tagBindings/%2F%2Fcloudresourcemanager.googleapis.com%2Fprojects%2F123/tagValues/456`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTagBindingRequest {
@@ -2439,6 +2568,9 @@ pub struct ListTagBindingsRequest {
     /// `ListTagBindings` that indicates where this listing should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTagBindingsRequest {
@@ -2494,6 +2626,9 @@ pub struct ListTagBindingsResponse {
     /// Pagination tokens have a limited lifetime.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTagBindingsResponse {
@@ -2560,6 +2695,9 @@ pub struct ListEffectiveTagsRequest {
     /// `ListEffectiveTags` that indicates from where this listing should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEffectiveTagsRequest {
@@ -2615,6 +2753,9 @@ pub struct ListEffectiveTagsResponse {
     /// Pagination tokens have a limited lifetime.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEffectiveTagsResponse {
@@ -2704,6 +2845,9 @@ pub struct EffectiveTag {
     /// the resource's ancestors, inherited will be true. If false, then the tag
     /// value is directly attached to the resource, inherited will be false.
     pub inherited: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EffectiveTag {
@@ -2801,6 +2945,9 @@ pub struct TagHold {
     /// Output only. The time this TagHold was created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TagHold {
@@ -2866,6 +3013,9 @@ pub struct CreateTagHoldRequest {
     /// Optional. Set to true to perform the validations necessary for creating the
     /// resource, but not actually perform the action.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTagHoldRequest {
@@ -2908,7 +3058,10 @@ impl wkt::message::Message for CreateTagHoldRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CreateTagHoldMetadata {}
+pub struct CreateTagHoldMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CreateTagHoldMetadata {
     pub fn new() -> Self {
@@ -2936,6 +3089,9 @@ pub struct DeleteTagHoldRequest {
     /// Optional. Set to true to perform the validations necessary for deleting the
     /// resource, but not actually perform the action.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTagHoldRequest {
@@ -2969,7 +3125,10 @@ impl wkt::message::Message for DeleteTagHoldRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeleteTagHoldMetadata {}
+pub struct DeleteTagHoldMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeleteTagHoldMetadata {
     pub fn new() -> Self {
@@ -3017,6 +3176,9 @@ pub struct ListTagHoldsRequest {
     ///   AND origin = 35678234`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTagHoldsRequest {
@@ -3078,6 +3240,9 @@ pub struct ListTagHoldsResponse {
     /// Pagination tokens have a limited lifetime.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTagHoldsResponse {
@@ -3192,6 +3357,9 @@ pub struct TagKey {
     /// Purpose data cannot be changed once set.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub purpose_data: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TagKey {
@@ -3299,6 +3467,9 @@ pub struct ListTagKeysRequest {
     /// that indicates where this listing should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTagKeysRequest {
@@ -3345,6 +3516,9 @@ pub struct ListTagKeysResponse {
     /// that indicates from where listing should continue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTagKeysResponse {
@@ -3400,6 +3574,9 @@ pub struct GetTagKeyRequest {
     /// `tagKeys/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTagKeyRequest {
@@ -3432,6 +3609,9 @@ pub struct GetNamespacedTagKeyRequest {
     /// name "bar" under the project `r2-d2`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetNamespacedTagKeyRequest {
@@ -3466,6 +3646,9 @@ pub struct CreateTagKeyRequest {
     /// Optional. Set to true to perform validations necessary for creating the
     /// resource, but not actually perform the action.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTagKeyRequest {
@@ -3500,7 +3683,10 @@ impl wkt::message::Message for CreateTagKeyRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CreateTagKeyMetadata {}
+pub struct CreateTagKeyMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CreateTagKeyMetadata {
     pub fn new() -> Self {
@@ -3536,6 +3722,9 @@ pub struct UpdateTagKeyRequest {
     /// Set as true to perform validations necessary for updating the resource, but
     /// not actually perform the action.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTagKeyRequest {
@@ -3579,7 +3768,10 @@ impl wkt::message::Message for UpdateTagKeyRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UpdateTagKeyMetadata {}
+pub struct UpdateTagKeyMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UpdateTagKeyMetadata {
     pub fn new() -> Self {
@@ -3613,6 +3805,9 @@ pub struct DeleteTagKeyRequest {
     /// TagKey. This is to be used for optimistic concurrency.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTagKeyRequest {
@@ -3650,7 +3845,10 @@ impl wkt::message::Message for DeleteTagKeyRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeleteTagKeyMetadata {}
+pub struct DeleteTagKeyMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeleteTagKeyMetadata {
     pub fn new() -> Self {
@@ -3716,6 +3914,9 @@ pub struct TagValue {
     /// details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TagValue {
@@ -3805,6 +4006,9 @@ pub struct ListTagValuesRequest {
     /// `ListTagValues` that indicates where this listing should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTagValuesRequest {
@@ -3853,6 +4057,9 @@ pub struct ListTagValuesResponse {
     /// used, but the server may at any point start supplying a valid token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTagValuesResponse {
@@ -3908,6 +4115,9 @@ pub struct GetTagValueRequest {
     /// `tagValues/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTagValueRequest {
@@ -3946,6 +4156,9 @@ pub struct GetNamespacedTagValueRequest {
     ///   short name "bar" under the project with ID "r2-d2"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetNamespacedTagValueRequest {
@@ -3980,6 +4193,9 @@ pub struct CreateTagValueRequest {
     /// Optional. Set as true to perform the validations necessary for creating the
     /// resource, but not actually perform the action.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTagValueRequest {
@@ -4014,7 +4230,10 @@ impl wkt::message::Message for CreateTagValueRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CreateTagValueMetadata {}
+pub struct CreateTagValueMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CreateTagValueMetadata {
     pub fn new() -> Self {
@@ -4048,6 +4267,9 @@ pub struct UpdateTagValueRequest {
     /// Optional. True to perform validations necessary for updating the resource,
     /// but not actually perform the action.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTagValueRequest {
@@ -4091,7 +4313,10 @@ impl wkt::message::Message for UpdateTagValueRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UpdateTagValueMetadata {}
+pub struct UpdateTagValueMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UpdateTagValueMetadata {
     pub fn new() -> Self {
@@ -4124,6 +4349,9 @@ pub struct DeleteTagValueRequest {
     /// TagValue. This is to be used for optimistic concurrency.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTagValueRequest {
@@ -4161,7 +4389,10 @@ impl wkt::message::Message for DeleteTagValueRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeleteTagValueMetadata {}
+pub struct DeleteTagValueMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeleteTagValueMetadata {
     pub fn new() -> Self {

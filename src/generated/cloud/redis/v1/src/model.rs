@@ -47,6 +47,9 @@ pub struct NodeInfo {
     /// Output only. Location of the node.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub zone: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NodeInfo {
@@ -295,6 +298,9 @@ pub struct Instance {
     /// to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub available_maintenance_versions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Instance {
@@ -1024,6 +1030,9 @@ pub struct PersistenceConfig {
     /// time will be used.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rdb_snapshot_start_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PersistenceConfig {
@@ -1241,6 +1250,9 @@ pub struct RescheduleMaintenanceRequest {
     /// example `2012-11-15T16:19:00.094Z`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub schedule_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RescheduleMaintenanceRequest {
@@ -1376,6 +1388,9 @@ pub struct MaintenancePolicy {
     /// weekly_window is expected to be one.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub weekly_maintenance_window: std::vec::Vec<crate::model::WeeklyMaintenanceWindow>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MaintenancePolicy {
@@ -1443,6 +1458,9 @@ pub struct WeeklyMaintenanceWindow {
     /// fixed at 1 hour.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub duration: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WeeklyMaintenanceWindow {
@@ -1505,6 +1523,9 @@ pub struct MaintenanceSchedule {
     /// go beyond, including reschedule.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub schedule_deadline_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MaintenanceSchedule {
@@ -1586,6 +1607,9 @@ pub struct ListInstancesRequest {
     /// [google.cloud.redis.v1.CloudRedis.ListInstances]: crate::client::CloudRedis::list_instances
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesRequest {
@@ -1648,6 +1672,9 @@ pub struct ListInstancesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesResponse {
@@ -1717,6 +1744,9 @@ pub struct GetInstanceRequest {
     /// where `location_id` refers to a GCP region.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceRequest {
@@ -1751,6 +1781,9 @@ pub struct GetInstanceAuthStringRequest {
     /// where `location_id` refers to a GCP region.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceAuthStringRequest {
@@ -1780,6 +1813,9 @@ pub struct InstanceAuthString {
     /// AUTH string set on the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub auth_string: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InstanceAuthString {
@@ -1829,6 +1865,9 @@ pub struct CreateInstanceRequest {
     /// Required. A Redis [Instance] resource
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance: std::option::Option<crate::model::Instance>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceRequest {
@@ -1891,6 +1930,9 @@ pub struct UpdateInstanceRequest {
     /// Only fields specified in update_mask are updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance: std::option::Option<crate::model::Instance>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstanceRequest {
@@ -1941,6 +1983,9 @@ pub struct UpgradeInstanceRequest {
     /// Required. Specifies the target version of Redis software to upgrade to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub redis_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpgradeInstanceRequest {
@@ -1981,6 +2026,9 @@ pub struct DeleteInstanceRequest {
     /// where `location_id` refers to a GCP region.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteInstanceRequest {
@@ -2010,6 +2058,9 @@ pub struct GcsSource {
     /// Required. Source data URI. (e.g. 'gs://my_bucket/my_object').
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsSource {
@@ -2039,6 +2090,9 @@ pub struct InputConfig {
     /// Required. Specify source location of input data
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::input_config::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InputConfig {
@@ -2121,6 +2175,9 @@ pub struct ImportInstanceRequest {
     /// Required. Specify data to be imported.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub input_config: std::option::Option<crate::model::InputConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportInstanceRequest {
@@ -2162,6 +2219,9 @@ pub struct GcsDestination {
     /// 'gs://my_bucket/my_object'). Existing files will be overwritten.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsDestination {
@@ -2191,6 +2251,9 @@ pub struct OutputConfig {
     /// Required. Specify destination location of output data
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::output_config::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OutputConfig {
@@ -2280,6 +2343,9 @@ pub struct ExportInstanceRequest {
     /// Required. Specify data to be exported.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub output_config: std::option::Option<crate::model::OutputConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportInstanceRequest {
@@ -2328,6 +2394,9 @@ pub struct FailoverInstanceRequest {
     /// Optional. Available data protection modes that the user can choose. If it's
     /// unspecified, data protection mode will be LIMITED_DATA_LOSS by default.
     pub data_protection_mode: crate::model::failover_instance_request::DataProtectionMode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FailoverInstanceRequest {
@@ -2460,6 +2529,9 @@ pub struct OperationMetadata {
     /// API version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -2537,6 +2609,9 @@ pub struct LocationMetadata {
     /// creating a Redis instance.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub available_zones: std::collections::HashMap<std::string::String, crate::model::ZoneMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocationMetadata {
@@ -2569,7 +2644,10 @@ impl wkt::message::Message for LocationMetadata {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ZoneMetadata {}
+pub struct ZoneMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ZoneMetadata {
     pub fn new() -> Self {
@@ -2612,6 +2690,9 @@ pub struct TlsCertificate {
     /// Sha1 Fingerprint of the certificate.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub sha1_fingerprint: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TlsCertificate {
