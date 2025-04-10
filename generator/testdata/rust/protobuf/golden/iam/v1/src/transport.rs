@@ -62,6 +62,7 @@ impl super::stub::IAMPolicy for IAMPolicy {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -86,6 +87,7 @@ impl super::stub::IAMPolicy for IAMPolicy {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -110,6 +112,7 @@ impl super::stub::IAMPolicy for IAMPolicy {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::TestIamPermissionsResponse>| r.into_body())
     }
 
 }
