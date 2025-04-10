@@ -14,6 +14,7 @@
 
 #[cfg(all(test, feature = "_internal_grpc_client"))]
 mod test {
+    use anyhow::Result;
     use auth::credentials::testing::test_credentials;
     use gax::options::*;
     use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
@@ -22,8 +23,6 @@ mod test {
     use grpc_server::{builder, google, start_echo_server};
     use std::sync::{Arc, Mutex};
     use std::time::Duration;
-
-    type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
     #[tokio::test(start_paused = true)]
     async fn test_no_timeout() -> Result<()> {
