@@ -72,6 +72,11 @@ impl super::stub::WebRiskService for WebRiskService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ComputeThreatListDiffResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn search_uris(
@@ -95,6 +100,7 @@ impl super::stub::WebRiskService for WebRiskService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SearchUrisResponse>| r.into_body())
     }
 
     async fn search_hashes(
@@ -118,6 +124,7 @@ impl super::stub::WebRiskService for WebRiskService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SearchHashesResponse>| r.into_body())
     }
 
     async fn create_submission(
@@ -140,6 +147,7 @@ impl super::stub::WebRiskService for WebRiskService {
         self.inner
             .execute(builder, Some(req.submission), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Submission>| r.into_body())
     }
 
     async fn submit_uri(
@@ -159,7 +167,10 @@ impl super::stub::WebRiskService for WebRiskService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -182,6 +193,11 @@ impl super::stub::WebRiskService for WebRiskService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -201,6 +217,7 @@ impl super::stub::WebRiskService for WebRiskService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -220,7 +237,7 @@ impl super::stub::WebRiskService for WebRiskService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -240,7 +257,7 @@ impl super::stub::WebRiskService for WebRiskService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

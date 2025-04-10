@@ -59,6 +59,7 @@ impl super::stub::Policies for Policies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListPoliciesResponse>| r.into_body())
     }
 
     async fn get_policy(
@@ -78,6 +79,7 @@ impl super::stub::Policies for Policies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn create_policy(
@@ -95,7 +97,10 @@ impl super::stub::Policies for Policies {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("policyId", &req.policy_id)]);
-        self.inner.execute(builder, Some(req.policy), options).await
+        self.inner
+            .execute(builder, Some(req.policy), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_policy(
@@ -121,7 +126,10 @@ impl super::stub::Policies for Policies {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.policy), options).await
+        self.inner
+            .execute(builder, Some(req.policy), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_policy(
@@ -142,6 +150,7 @@ impl super::stub::Policies for Policies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_operation(
@@ -161,6 +170,7 @@ impl super::stub::Policies for Policies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

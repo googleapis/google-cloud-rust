@@ -60,6 +60,7 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         self.inner
             .execute(builder, Some(req.challenge), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Challenge>| r.into_body())
     }
 
     async fn verify_attestation(
@@ -79,7 +80,9 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::VerifyAttestationResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -102,6 +105,7 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -121,5 +125,6 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 }

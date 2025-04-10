@@ -57,7 +57,10 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.policy), options).await
+        self.inner
+            .execute(builder, Some(req.policy), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AutoscalingPolicy>| r.into_body())
     }
 
     async fn update_autoscaling_policy(
@@ -83,7 +86,10 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.policy), options).await
+        self.inner
+            .execute(builder, Some(req.policy), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AutoscalingPolicy>| r.into_body())
     }
 
     async fn get_autoscaling_policy(
@@ -103,6 +109,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AutoscalingPolicy>| r.into_body())
     }
 
     async fn list_autoscaling_policies(
@@ -127,6 +134,11 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAutoscalingPoliciesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_autoscaling_policy(
@@ -146,7 +158,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn set_iam_policy(
@@ -166,7 +178,10 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -186,7 +201,10 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -206,7 +224,9 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -229,6 +249,11 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -248,6 +273,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -267,7 +293,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -287,7 +313,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -329,7 +355,10 @@ impl super::stub::BatchController for BatchController {
             );
         let builder = builder.query(&[("batchId", &req.batch_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.batch), options).await
+        self.inner
+            .execute(builder, Some(req.batch), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_batch(
@@ -349,6 +378,7 @@ impl super::stub::BatchController for BatchController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Batch>| r.into_body())
     }
 
     async fn list_batches(
@@ -372,6 +402,7 @@ impl super::stub::BatchController for BatchController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBatchesResponse>| r.into_body())
     }
 
     async fn delete_batch(
@@ -391,7 +422,7 @@ impl super::stub::BatchController for BatchController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn set_iam_policy(
@@ -411,7 +442,10 @@ impl super::stub::BatchController for BatchController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -431,7 +465,10 @@ impl super::stub::BatchController for BatchController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -451,7 +488,9 @@ impl super::stub::BatchController for BatchController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -474,6 +513,11 @@ impl super::stub::BatchController for BatchController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -493,6 +537,7 @@ impl super::stub::BatchController for BatchController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -512,7 +557,7 @@ impl super::stub::BatchController for BatchController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -532,7 +577,7 @@ impl super::stub::BatchController for BatchController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -600,6 +645,7 @@ impl super::stub::ClusterController for ClusterController {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_cluster(
@@ -646,6 +692,7 @@ impl super::stub::ClusterController for ClusterController {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn stop_cluster(
@@ -668,7 +715,10 @@ impl super::stub::ClusterController for ClusterController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn start_cluster(
@@ -691,7 +741,10 @@ impl super::stub::ClusterController for ClusterController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_cluster(
@@ -719,6 +772,7 @@ impl super::stub::ClusterController for ClusterController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_cluster(
@@ -744,6 +798,7 @@ impl super::stub::ClusterController for ClusterController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Cluster>| r.into_body())
     }
 
     async fn list_clusters(
@@ -772,6 +827,7 @@ impl super::stub::ClusterController for ClusterController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListClustersResponse>| r.into_body())
     }
 
     async fn diagnose_cluster(
@@ -794,7 +850,10 @@ impl super::stub::ClusterController for ClusterController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -814,7 +873,10 @@ impl super::stub::ClusterController for ClusterController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -834,7 +896,10 @@ impl super::stub::ClusterController for ClusterController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -854,7 +919,9 @@ impl super::stub::ClusterController for ClusterController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -877,6 +944,11 @@ impl super::stub::ClusterController for ClusterController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -896,6 +968,7 @@ impl super::stub::ClusterController for ClusterController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -915,7 +988,7 @@ impl super::stub::ClusterController for ClusterController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -935,7 +1008,7 @@ impl super::stub::ClusterController for ClusterController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -995,7 +1068,10 @@ impl super::stub::JobController for JobController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn submit_job_as_operation(
@@ -1018,7 +1094,10 @@ impl super::stub::JobController for JobController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_job(
@@ -1044,6 +1123,7 @@ impl super::stub::JobController for JobController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn list_jobs(
@@ -1074,6 +1154,7 @@ impl super::stub::JobController for JobController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListJobsResponse>| r.into_body())
     }
 
     async fn update_job(
@@ -1106,7 +1187,10 @@ impl super::stub::JobController for JobController {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.job), options).await
+        self.inner
+            .execute(builder, Some(req.job), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn cancel_job(
@@ -1129,7 +1213,10 @@ impl super::stub::JobController for JobController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn delete_job(
@@ -1155,7 +1242,7 @@ impl super::stub::JobController for JobController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn set_iam_policy(
@@ -1175,7 +1262,10 @@ impl super::stub::JobController for JobController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1195,7 +1285,10 @@ impl super::stub::JobController for JobController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1215,7 +1308,9 @@ impl super::stub::JobController for JobController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1238,6 +1333,11 @@ impl super::stub::JobController for JobController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1257,6 +1357,7 @@ impl super::stub::JobController for JobController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1276,7 +1377,7 @@ impl super::stub::JobController for JobController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1296,7 +1397,7 @@ impl super::stub::JobController for JobController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -1358,6 +1459,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         self.inner
             .execute(builder, Some(req.node_group), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn resize_node_group(
@@ -1374,7 +1476,10 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_node_group(
@@ -1394,6 +1499,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NodeGroup>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1413,7 +1519,10 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1433,7 +1542,10 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1453,7 +1565,9 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1476,6 +1590,11 @@ impl super::stub::NodeGroupController for NodeGroupController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1495,6 +1614,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1514,7 +1634,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1534,7 +1654,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -1594,6 +1714,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         self.inner
             .execute(builder, Some(req.session_template), options)
             .await
+            .map(|r: gax::response::Response<crate::model::SessionTemplate>| r.into_body())
     }
 
     async fn update_session_template(
@@ -1622,6 +1743,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         self.inner
             .execute(builder, Some(req.session_template), options)
             .await
+            .map(|r: gax::response::Response<crate::model::SessionTemplate>| r.into_body())
     }
 
     async fn get_session_template(
@@ -1641,6 +1763,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SessionTemplate>| r.into_body())
     }
 
     async fn list_session_templates(
@@ -1666,6 +1789,11 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListSessionTemplatesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_session_template(
@@ -1685,7 +1813,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn set_iam_policy(
@@ -1705,7 +1833,10 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1725,7 +1856,10 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1745,7 +1879,9 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1768,6 +1904,11 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1787,6 +1928,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1806,7 +1948,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1826,7 +1968,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -1874,6 +2016,7 @@ impl super::stub::SessionController for SessionController {
         self.inner
             .execute(builder, Some(req.session), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_session(
@@ -1893,6 +2036,7 @@ impl super::stub::SessionController for SessionController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Session>| r.into_body())
     }
 
     async fn list_sessions(
@@ -1915,6 +2059,7 @@ impl super::stub::SessionController for SessionController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSessionsResponse>| r.into_body())
     }
 
     async fn terminate_session(
@@ -1931,7 +2076,10 @@ impl super::stub::SessionController for SessionController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_session(
@@ -1952,6 +2100,7 @@ impl super::stub::SessionController for SessionController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1971,7 +2120,10 @@ impl super::stub::SessionController for SessionController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1991,7 +2143,10 @@ impl super::stub::SessionController for SessionController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -2011,7 +2166,9 @@ impl super::stub::SessionController for SessionController {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -2034,6 +2191,11 @@ impl super::stub::SessionController for SessionController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -2053,6 +2215,7 @@ impl super::stub::SessionController for SessionController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -2072,7 +2235,7 @@ impl super::stub::SessionController for SessionController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -2092,7 +2255,7 @@ impl super::stub::SessionController for SessionController {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -2152,6 +2315,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         self.inner
             .execute(builder, Some(req.template), options)
             .await
+            .map(|r: gax::response::Response<crate::model::WorkflowTemplate>| r.into_body())
     }
 
     async fn get_workflow_template(
@@ -2172,6 +2336,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::WorkflowTemplate>| r.into_body())
     }
 
     async fn instantiate_workflow_template(
@@ -2191,7 +2356,10 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn instantiate_inline_workflow_template(
@@ -2215,6 +2383,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         self.inner
             .execute(builder, Some(req.template), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_workflow_template(
@@ -2243,6 +2412,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         self.inner
             .execute(builder, Some(req.template), options)
             .await
+            .map(|r: gax::response::Response<crate::model::WorkflowTemplate>| r.into_body())
     }
 
     async fn list_workflow_templates(
@@ -2267,6 +2437,11 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListWorkflowTemplatesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_workflow_template(
@@ -2287,7 +2462,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn set_iam_policy(
@@ -2307,7 +2482,10 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -2327,7 +2505,10 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -2347,7 +2528,9 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -2370,6 +2553,11 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -2389,6 +2577,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -2408,7 +2597,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -2428,7 +2617,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

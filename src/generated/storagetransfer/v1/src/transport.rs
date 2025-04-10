@@ -60,6 +60,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GoogleServiceAccount>| r.into_body())
     }
 
     async fn create_transfer_job(
@@ -79,6 +80,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, Some(req.transfer_job), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TransferJob>| r.into_body())
     }
 
     async fn update_transfer_job(
@@ -95,7 +97,10 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::TransferJob>| r.into_body())
     }
 
     async fn get_transfer_job(
@@ -116,6 +121,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TransferJob>| r.into_body())
     }
 
     async fn list_transfer_jobs(
@@ -138,6 +144,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTransferJobsResponse>| r.into_body())
     }
 
     async fn pause_transfer_operation(
@@ -157,7 +164,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn resume_transfer_operation(
@@ -177,7 +184,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn run_transfer_job(
@@ -194,7 +201,10 @@ impl super::stub::StorageTransferService for StorageTransferService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_transfer_job(
@@ -215,7 +225,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_agent_pool(
@@ -239,6 +249,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, Some(req.agent_pool), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AgentPool>| r.into_body())
     }
 
     async fn update_agent_pool(
@@ -277,6 +288,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, Some(req.agent_pool), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AgentPool>| r.into_body())
     }
 
     async fn get_agent_pool(
@@ -296,6 +308,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AgentPool>| r.into_body())
     }
 
     async fn list_agent_pools(
@@ -321,6 +334,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAgentPoolsResponse>| r.into_body())
     }
 
     async fn delete_agent_pool(
@@ -340,7 +354,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_operations(
@@ -363,6 +377,11 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -382,6 +401,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
@@ -401,7 +421,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

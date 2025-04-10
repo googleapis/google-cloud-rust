@@ -65,6 +65,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListConnectionsResponse>| r.into_body())
     }
 
     async fn get_connection(
@@ -85,6 +86,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Connection>| r.into_body())
     }
 
     async fn create_connection(
@@ -108,6 +110,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, Some(req.connection), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_connection(
@@ -146,6 +149,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, Some(req.connection), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_connection(
@@ -165,6 +169,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_providers(
@@ -189,6 +194,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListProvidersResponse>| r.into_body())
     }
 
     async fn get_provider(
@@ -208,6 +214,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Provider>| r.into_body())
     }
 
     async fn list_connectors(
@@ -232,6 +239,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListConnectorsResponse>| r.into_body())
     }
 
     async fn get_connector(
@@ -251,6 +259,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Connector>| r.into_body())
     }
 
     async fn list_connector_versions(
@@ -273,6 +282,11 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListConnectorVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_connector_version(
@@ -293,6 +307,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ConnectorVersion>| r.into_body())
     }
 
     async fn get_connection_schema_metadata(
@@ -312,6 +327,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ConnectionSchemaMetadata>| r.into_body())
     }
 
     async fn refresh_connection_schema_metadata(
@@ -328,7 +344,10 @@ impl super::stub::Connectors for Connectors {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_runtime_entity_schemas(
@@ -354,6 +373,11 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListRuntimeEntitySchemasResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_runtime_action_schemas(
@@ -379,6 +403,11 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListRuntimeActionSchemasResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_runtime_config(
@@ -398,6 +427,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::RuntimeConfig>| r.into_body())
     }
 
     async fn get_global_settings(
@@ -417,6 +447,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Settings>| r.into_body())
     }
 
     async fn list_locations(
@@ -439,6 +470,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -458,6 +490,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -477,7 +510,10 @@ impl super::stub::Connectors for Connectors {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -510,6 +546,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -529,7 +566,9 @@ impl super::stub::Connectors for Connectors {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -552,6 +591,11 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -571,6 +615,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -590,7 +635,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -610,7 +655,7 @@ impl super::stub::Connectors for Connectors {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

@@ -61,6 +61,11 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, Some(req.open_lineage), options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ProcessOpenLineageRunEventResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_process(
@@ -84,6 +89,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, Some(req.process), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Process>| r.into_body())
     }
 
     async fn update_process(
@@ -123,6 +129,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, Some(req.process), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Process>| r.into_body())
     }
 
     async fn get_process(
@@ -142,6 +149,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Process>| r.into_body())
     }
 
     async fn list_processes(
@@ -166,6 +174,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListProcessesResponse>| r.into_body())
     }
 
     async fn delete_process(
@@ -186,6 +195,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_run(
@@ -203,7 +213,10 @@ impl super::stub::Lineage for Lineage {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.run), options).await
+        self.inner
+            .execute(builder, Some(req.run), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Run>| r.into_body())
     }
 
     async fn update_run(
@@ -240,7 +253,10 @@ impl super::stub::Lineage for Lineage {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-        self.inner.execute(builder, Some(req.run), options).await
+        self.inner
+            .execute(builder, Some(req.run), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Run>| r.into_body())
     }
 
     async fn get_run(
@@ -260,6 +276,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Run>| r.into_body())
     }
 
     async fn list_runs(
@@ -281,6 +298,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRunsResponse>| r.into_body())
     }
 
     async fn delete_run(
@@ -301,6 +319,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_lineage_event(
@@ -324,6 +343,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, Some(req.lineage_event), options)
             .await
+            .map(|r: gax::response::Response<crate::model::LineageEvent>| r.into_body())
     }
 
     async fn get_lineage_event(
@@ -343,6 +363,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LineageEvent>| r.into_body())
     }
 
     async fn list_lineage_events(
@@ -367,6 +388,9 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListLineageEventsResponse>| r.into_body(),
+            )
     }
 
     async fn delete_lineage_event(
@@ -387,7 +411,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn search_links(
@@ -407,7 +431,10 @@ impl super::stub::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SearchLinksResponse>| r.into_body())
     }
 
     async fn batch_search_link_processes(
@@ -427,7 +454,11 @@ impl super::stub::Lineage for Lineage {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchSearchLinkProcessesResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn list_operations(
@@ -450,6 +481,11 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -469,6 +505,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -488,7 +525,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -508,7 +545,7 @@ impl super::stub::Lineage for Lineage {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

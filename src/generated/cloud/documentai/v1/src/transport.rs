@@ -54,7 +54,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ProcessResponse>| r.into_body())
     }
 
     async fn batch_process_documents(
@@ -74,7 +77,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn fetch_processor_types(
@@ -97,6 +103,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::FetchProcessorTypesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_processor_types(
@@ -121,6 +132,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListProcessorTypesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_processor_type(
@@ -140,6 +156,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProcessorType>| r.into_body())
     }
 
     async fn list_processors(
@@ -164,6 +181,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListProcessorsResponse>| r.into_body())
     }
 
     async fn get_processor(
@@ -183,6 +201,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Processor>| r.into_body())
     }
 
     async fn train_processor_version(
@@ -202,7 +221,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_processor_version(
@@ -222,6 +244,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProcessorVersion>| r.into_body())
     }
 
     async fn list_processor_versions(
@@ -246,6 +269,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListProcessorVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_processor_version(
@@ -265,6 +293,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn deploy_processor_version(
@@ -281,7 +310,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undeploy_processor_version(
@@ -298,7 +330,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_processor(
@@ -321,6 +356,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, Some(req.processor), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Processor>| r.into_body())
     }
 
     async fn delete_processor(
@@ -340,6 +376,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn enable_processor(
@@ -356,7 +393,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn disable_processor(
@@ -373,7 +413,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn set_default_processor_version(
@@ -393,7 +436,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn review_document(
@@ -413,7 +459,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn evaluate_processor_version(
@@ -433,7 +482,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_evaluation(
@@ -453,6 +505,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Evaluation>| r.into_body())
     }
 
     async fn list_evaluations(
@@ -477,6 +530,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEvaluationsResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -499,6 +553,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -518,6 +573,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -540,6 +596,11 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -559,6 +620,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
@@ -578,7 +640,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

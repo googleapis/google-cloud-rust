@@ -62,6 +62,7 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAttachmentsResponse>| r.into_body())
     }
 }
 
@@ -104,6 +105,7 @@ impl super::stub::CaseService for CaseService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Case>| r.into_body())
     }
 
     async fn list_cases(
@@ -126,6 +128,7 @@ impl super::stub::CaseService for CaseService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCasesResponse>| r.into_body())
     }
 
     async fn search_cases(
@@ -151,6 +154,7 @@ impl super::stub::CaseService for CaseService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SearchCasesResponse>| r.into_body())
     }
 
     async fn create_case(
@@ -167,7 +171,10 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.case), options).await
+        self.inner
+            .execute(builder, Some(req.case), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Case>| r.into_body())
     }
 
     async fn update_case(
@@ -203,7 +210,10 @@ impl super::stub::CaseService for CaseService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.case), options).await
+        self.inner
+            .execute(builder, Some(req.case), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Case>| r.into_body())
     }
 
     async fn escalate_case(
@@ -220,7 +230,10 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Case>| r.into_body())
     }
 
     async fn close_case(
@@ -237,7 +250,10 @@ impl super::stub::CaseService for CaseService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Case>| r.into_body())
     }
 
     async fn search_case_classifications(
@@ -263,6 +279,11 @@ impl super::stub::CaseService for CaseService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchCaseClassificationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 }
 
@@ -307,6 +328,7 @@ impl super::stub::CommentService for CommentService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCommentsResponse>| r.into_body())
     }
 
     async fn create_comment(
@@ -329,5 +351,6 @@ impl super::stub::CommentService for CommentService {
         self.inner
             .execute(builder, Some(req.comment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Comment>| r.into_body())
     }
 }

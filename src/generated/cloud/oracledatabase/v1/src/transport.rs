@@ -62,6 +62,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListCloudExadataInfrastructuresResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_cloud_exadata_infrastructure(
@@ -81,6 +86,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::CloudExadataInfrastructure>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_cloud_exadata_infrastructure(
@@ -108,6 +118,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, Some(req.cloud_exadata_infrastructure), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_cloud_exadata_infrastructure(
@@ -129,6 +140,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_cloud_vm_clusters(
@@ -154,6 +166,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCloudVmClustersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_cloud_vm_cluster(
@@ -173,6 +190,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CloudVmCluster>| r.into_body())
     }
 
     async fn create_cloud_vm_cluster(
@@ -197,6 +215,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, Some(req.cloud_vm_cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_cloud_vm_cluster(
@@ -218,6 +237,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_entitlements(
@@ -242,6 +262,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEntitlementsResponse>| r.into_body())
     }
 
     async fn list_db_servers(
@@ -266,6 +287,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDbServersResponse>| r.into_body())
     }
 
     async fn list_db_nodes(
@@ -287,6 +309,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDbNodesResponse>| r.into_body())
     }
 
     async fn list_gi_versions(
@@ -311,6 +334,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListGiVersionsResponse>| r.into_body())
     }
 
     async fn list_db_system_shapes(
@@ -335,6 +359,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDbSystemShapesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_autonomous_databases(
@@ -361,6 +390,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAutonomousDatabasesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_autonomous_database(
@@ -380,6 +414,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AutonomousDatabase>| r.into_body())
     }
 
     async fn create_autonomous_database(
@@ -404,6 +439,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, Some(req.autonomous_database), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_autonomous_database(
@@ -424,6 +460,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn restore_autonomous_database(
@@ -440,7 +477,10 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_autonomous_database_wallet(
@@ -460,7 +500,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn list_autonomous_db_versions(
@@ -485,6 +529,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAutonomousDbVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_autonomous_database_character_sets(
@@ -510,6 +559,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListAutonomousDatabaseCharacterSetsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn list_autonomous_database_backups(
@@ -535,6 +589,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListAutonomousDatabaseBackupsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn list_locations(
@@ -557,6 +616,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -576,6 +636,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -598,6 +659,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -617,6 +683,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -636,7 +703,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -656,7 +723,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

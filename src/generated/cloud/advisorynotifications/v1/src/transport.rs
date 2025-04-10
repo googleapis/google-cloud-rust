@@ -64,6 +64,9 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListNotificationsResponse>| r.into_body(),
+            )
     }
 
     async fn get_notification(
@@ -84,6 +87,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Notification>| r.into_body())
     }
 
     async fn get_settings(
@@ -103,6 +107,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Settings>| r.into_body())
     }
 
     async fn update_settings(
@@ -131,5 +136,6 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         self.inner
             .execute(builder, Some(req.settings), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Settings>| r.into_body())
     }
 }

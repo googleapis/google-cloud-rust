@@ -60,6 +60,7 @@ impl super::stub::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, Some(req.ssh_public_key), options)
             .await
+            .map(|r: gax::response::Response<oslogin_common::model::SshPublicKey>| r.into_body())
     }
 
     async fn delete_posix_account(
@@ -79,7 +80,7 @@ impl super::stub::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn delete_ssh_public_key(
@@ -99,7 +100,7 @@ impl super::stub::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_login_profile(
@@ -124,6 +125,7 @@ impl super::stub::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LoginProfile>| r.into_body())
     }
 
     async fn get_ssh_public_key(
@@ -143,6 +145,7 @@ impl super::stub::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<oslogin_common::model::SshPublicKey>| r.into_body())
     }
 
     async fn import_ssh_public_key(
@@ -170,6 +173,11 @@ impl super::stub::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, Some(req.ssh_public_key), options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ImportSshPublicKeyResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_ssh_public_key(
@@ -199,5 +207,6 @@ impl super::stub::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, Some(req.ssh_public_key), options)
             .await
+            .map(|r: gax::response::Response<oslogin_common::model::SshPublicKey>| r.into_body())
     }
 }

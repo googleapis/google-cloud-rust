@@ -61,6 +61,7 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListServicesResponse>| r.into_body())
     }
 
     async fn get_service(
@@ -83,6 +84,7 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ManagedService>| r.into_body())
     }
 
     async fn create_service(
@@ -102,6 +104,7 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, Some(req.service), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_service(
@@ -124,6 +127,7 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_service(
@@ -146,6 +150,7 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_service_configs(
@@ -170,6 +175,11 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServiceConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_service_config(
@@ -196,6 +206,7 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<api::model::Service>| r.into_body())
     }
 
     async fn create_service_config(
@@ -218,6 +229,7 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, Some(req.service_config), options)
             .await
+            .map(|r: gax::response::Response<api::model::Service>| r.into_body())
     }
 
     async fn submit_config_source(
@@ -237,7 +249,10 @@ impl super::stub::ServiceManager for ServiceManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_service_rollouts(
@@ -263,6 +278,11 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServiceRolloutsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_service_rollout(
@@ -288,6 +308,7 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Rollout>| r.into_body())
     }
 
     async fn create_service_rollout(
@@ -310,6 +331,7 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, Some(req.rollout), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_config_report(
@@ -329,7 +351,9 @@ impl super::stub::ServiceManager for ServiceManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateConfigReportResponse>| r.into_body(),
+        )
     }
 
     async fn set_iam_policy(
@@ -349,7 +373,10 @@ impl super::stub::ServiceManager for ServiceManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -369,7 +396,10 @@ impl super::stub::ServiceManager for ServiceManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -389,7 +419,9 @@ impl super::stub::ServiceManager for ServiceManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -413,6 +445,11 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -432,6 +469,7 @@ impl super::stub::ServiceManager for ServiceManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

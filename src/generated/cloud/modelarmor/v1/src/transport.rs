@@ -64,6 +64,7 @@ impl super::stub::ModelArmor for ModelArmor {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTemplatesResponse>| r.into_body())
     }
 
     async fn get_template(
@@ -83,6 +84,7 @@ impl super::stub::ModelArmor for ModelArmor {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Template>| r.into_body())
     }
 
     async fn create_template(
@@ -107,6 +109,7 @@ impl super::stub::ModelArmor for ModelArmor {
         self.inner
             .execute(builder, Some(req.template), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Template>| r.into_body())
     }
 
     async fn update_template(
@@ -146,6 +149,7 @@ impl super::stub::ModelArmor for ModelArmor {
         self.inner
             .execute(builder, Some(req.template), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Template>| r.into_body())
     }
 
     async fn delete_template(
@@ -166,7 +170,7 @@ impl super::stub::ModelArmor for ModelArmor {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_floor_setting(
@@ -186,6 +190,7 @@ impl super::stub::ModelArmor for ModelArmor {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FloorSetting>| r.into_body())
     }
 
     async fn update_floor_setting(
@@ -224,6 +229,7 @@ impl super::stub::ModelArmor for ModelArmor {
         self.inner
             .execute(builder, Some(req.floor_setting), options)
             .await
+            .map(|r: gax::response::Response<crate::model::FloorSetting>| r.into_body())
     }
 
     async fn sanitize_user_prompt(
@@ -243,7 +249,9 @@ impl super::stub::ModelArmor for ModelArmor {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::SanitizeUserPromptResponse>| r.into_body(),
+        )
     }
 
     async fn sanitize_model_response(
@@ -263,7 +271,9 @@ impl super::stub::ModelArmor for ModelArmor {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::SanitizeModelResponseResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -286,6 +296,7 @@ impl super::stub::ModelArmor for ModelArmor {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -305,5 +316,6 @@ impl super::stub::ModelArmor for ModelArmor {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 }

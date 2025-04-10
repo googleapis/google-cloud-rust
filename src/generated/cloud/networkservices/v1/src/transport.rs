@@ -64,6 +64,11 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListLbTrafficExtensionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_lb_traffic_extension(
@@ -83,6 +88,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LbTrafficExtension>| r.into_body())
     }
 
     async fn create_lb_traffic_extension(
@@ -107,6 +113,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, Some(req.lb_traffic_extension), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_lb_traffic_extension(
@@ -146,6 +153,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, Some(req.lb_traffic_extension), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_lb_traffic_extension(
@@ -166,6 +174,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_lb_route_extensions(
@@ -192,6 +201,11 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListLbRouteExtensionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_lb_route_extension(
@@ -211,6 +225,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LbRouteExtension>| r.into_body())
     }
 
     async fn create_lb_route_extension(
@@ -235,6 +250,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, Some(req.lb_route_extension), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_lb_route_extension(
@@ -274,6 +290,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, Some(req.lb_route_extension), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_lb_route_extension(
@@ -294,6 +311,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -316,6 +334,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -335,6 +354,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -354,7 +374,10 @@ impl super::stub::DepService for DepService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -387,6 +410,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -406,7 +430,9 @@ impl super::stub::DepService for DepService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -429,6 +455,11 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -448,6 +479,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -467,7 +499,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -487,7 +519,7 @@ impl super::stub::DepService for DepService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -549,6 +581,11 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListEndpointPoliciesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_endpoint_policy(
@@ -568,6 +605,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::EndpointPolicy>| r.into_body())
     }
 
     async fn create_endpoint_policy(
@@ -591,6 +629,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.endpoint_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_endpoint_policy(
@@ -629,6 +668,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.endpoint_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_endpoint_policy(
@@ -648,6 +688,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_gateways(
@@ -669,6 +710,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListGatewaysResponse>| r.into_body())
     }
 
     async fn get_gateway(
@@ -688,6 +730,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Gateway>| r.into_body())
     }
 
     async fn create_gateway(
@@ -711,6 +754,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.gateway), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_gateway(
@@ -749,6 +793,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.gateway), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_gateway(
@@ -768,6 +813,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_grpc_routes(
@@ -792,6 +838,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListGrpcRoutesResponse>| r.into_body())
     }
 
     async fn get_grpc_route(
@@ -811,6 +858,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GrpcRoute>| r.into_body())
     }
 
     async fn create_grpc_route(
@@ -834,6 +882,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.grpc_route), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_grpc_route(
@@ -872,6 +921,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.grpc_route), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_grpc_route(
@@ -891,6 +941,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_http_routes(
@@ -915,6 +966,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListHttpRoutesResponse>| r.into_body())
     }
 
     async fn get_http_route(
@@ -934,6 +986,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::HttpRoute>| r.into_body())
     }
 
     async fn create_http_route(
@@ -957,6 +1010,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.http_route), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_http_route(
@@ -995,6 +1049,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.http_route), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_http_route(
@@ -1014,6 +1069,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_tcp_routes(
@@ -1038,6 +1094,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTcpRoutesResponse>| r.into_body())
     }
 
     async fn get_tcp_route(
@@ -1057,6 +1114,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TcpRoute>| r.into_body())
     }
 
     async fn create_tcp_route(
@@ -1080,6 +1138,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.tcp_route), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_tcp_route(
@@ -1118,6 +1177,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.tcp_route), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_tcp_route(
@@ -1137,6 +1197,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_tls_routes(
@@ -1161,6 +1222,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTlsRoutesResponse>| r.into_body())
     }
 
     async fn get_tls_route(
@@ -1180,6 +1242,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TlsRoute>| r.into_body())
     }
 
     async fn create_tls_route(
@@ -1203,6 +1266,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.tls_route), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_tls_route(
@@ -1241,6 +1305,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.tls_route), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_tls_route(
@@ -1260,6 +1325,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_service_bindings(
@@ -1284,6 +1350,11 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServiceBindingsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_service_binding(
@@ -1303,6 +1374,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceBinding>| r.into_body())
     }
 
     async fn create_service_binding(
@@ -1326,6 +1398,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req.service_binding), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_service_binding(
@@ -1345,6 +1418,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_meshes(
@@ -1366,6 +1440,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListMeshesResponse>| r.into_body())
     }
 
     async fn get_mesh(
@@ -1385,6 +1460,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Mesh>| r.into_body())
     }
 
     async fn create_mesh(
@@ -1402,7 +1478,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("meshId", &req.mesh_id)]);
-        self.inner.execute(builder, Some(req.mesh), options).await
+        self.inner
+            .execute(builder, Some(req.mesh), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_mesh(
@@ -1438,7 +1517,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.mesh), options).await
+        self.inner
+            .execute(builder, Some(req.mesh), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_mesh(
@@ -1458,6 +1540,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -1480,6 +1563,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1499,6 +1583,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1518,7 +1603,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1551,6 +1639,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1570,7 +1659,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1593,6 +1684,11 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1612,6 +1708,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1631,7 +1728,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1651,7 +1748,7 @@ impl super::stub::NetworkServices for NetworkServices {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

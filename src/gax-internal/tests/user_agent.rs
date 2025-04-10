@@ -31,7 +31,8 @@ mod test {
         let body = json!({});
         let response: serde_json::Value = client
             .execute(builder, Some(body), RequestOptions::default())
-            .await?;
+            .await?
+            .into_body();
         let got = get_header_value(&response, "user-agent");
         assert_eq!(got, None);
         Ok(())
@@ -53,7 +54,10 @@ mod test {
             o.set_user_agent(prefix);
             o
         };
-        let response: serde_json::Value = client.execute(builder, Some(body), options).await?;
+        let response: serde_json::Value = client
+            .execute(builder, Some(body), options)
+            .await?
+            .into_body();
         let got = get_header_value(&response, "user-agent");
         assert_eq!(got.as_deref(), Some(prefix));
         Ok(())

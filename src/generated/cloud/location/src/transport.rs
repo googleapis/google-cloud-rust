@@ -60,6 +60,7 @@ impl super::stub::Locations for Locations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -79,5 +80,6 @@ impl super::stub::Locations for Locations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Location>| r.into_body())
     }
 }

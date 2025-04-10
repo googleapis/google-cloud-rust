@@ -64,5 +64,10 @@ impl super::stub::GatewayControl for GatewayControl {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::GenerateCredentialsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 }

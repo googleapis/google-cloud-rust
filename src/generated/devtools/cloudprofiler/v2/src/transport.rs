@@ -57,7 +57,10 @@ impl super::stub::ProfilerService for ProfilerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Profile>| r.into_body())
     }
 
     async fn create_offline_profile(
@@ -80,6 +83,7 @@ impl super::stub::ProfilerService for ProfilerService {
         self.inner
             .execute(builder, Some(req.profile), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Profile>| r.into_body())
     }
 
     async fn update_profile(
@@ -118,6 +122,7 @@ impl super::stub::ProfilerService for ProfilerService {
         self.inner
             .execute(builder, Some(req.profile), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Profile>| r.into_body())
     }
 }
 
@@ -162,5 +167,6 @@ impl super::stub::ExportService for ExportService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListProfilesResponse>| r.into_body())
     }
 }

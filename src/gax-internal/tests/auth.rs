@@ -66,7 +66,8 @@ mod test {
         let body = json!({});
         let response: serde_json::Value = client
             .execute(builder, Some(body), RequestOptions::default())
-            .await?;
+            .await?
+            .into_body();
         assert_eq!(
             get_header_value(&response, "auth-key-1"),
             Some("auth-value-1".to_string())
@@ -97,8 +98,9 @@ mod test {
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
         let body = json!({});
         let options = RequestOptions::default();
-        let result: std::result::Result<serde_json::Value, gax::error::Error> =
-            client.execute(builder, Some(body), options).await;
+        let result = client
+            .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
+            .await;
 
         assert!(result.is_err());
 
@@ -135,8 +137,12 @@ mod test {
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
         let body = serde_json::json!({});
 
-        let result: std::result::Result<serde_json::Value, gax::error::Error> = client
-            .execute(builder, Some(body), RequestOptions::default())
+        let result = client
+            .execute::<serde_json::Value, serde_json::Value>(
+                builder,
+                Some(body),
+                RequestOptions::default(),
+            )
             .await;
 
         assert!(result.is_err());

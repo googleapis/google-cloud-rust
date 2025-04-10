@@ -60,6 +60,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, Some(req.scan_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ScanConfig>| r.into_body())
     }
 
     async fn delete_scan_config(
@@ -79,7 +80,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_scan_config(
@@ -99,6 +100,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ScanConfig>| r.into_body())
     }
 
     async fn list_scan_configs(
@@ -123,6 +125,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListScanConfigsResponse>| r.into_body())
     }
 
     async fn update_scan_config(
@@ -161,6 +164,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, Some(req.scan_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ScanConfig>| r.into_body())
     }
 
     async fn start_scan_run(
@@ -177,7 +181,10 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ScanRun>| r.into_body())
     }
 
     async fn get_scan_run(
@@ -197,6 +204,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ScanRun>| r.into_body())
     }
 
     async fn list_scan_runs(
@@ -218,6 +226,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListScanRunsResponse>| r.into_body())
     }
 
     async fn stop_scan_run(
@@ -234,7 +243,10 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ScanRun>| r.into_body())
     }
 
     async fn list_crawled_urls(
@@ -259,6 +271,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCrawledUrlsResponse>| r.into_body())
     }
 
     async fn get_finding(
@@ -278,6 +291,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Finding>| r.into_body())
     }
 
     async fn list_findings(
@@ -300,6 +314,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFindingsResponse>| r.into_body())
     }
 
     async fn list_finding_type_stats(
@@ -322,5 +337,10 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListFindingTypeStatsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 }

@@ -84,8 +84,11 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             {{^PathInfo.Codec.HasBody}}None::<gaxi::http::NoBody>{{/PathInfo.Codec.HasBody}},
             options,
         ).await
+        {{^ReturnsEmpty}}
+        .map(|r: gax::response::Response<{{OutputType.Codec.QualifiedName}}>| r.into_body())
+        {{/ReturnsEmpty}}
         {{#ReturnsEmpty}}
-        .map(|_: {{OutputType.Codec.QualifiedName}}| ())
+        .map(|_: gax::response::Response<{{OutputType.Codec.QualifiedName}}>| ())
         {{/ReturnsEmpty}}
     }
 

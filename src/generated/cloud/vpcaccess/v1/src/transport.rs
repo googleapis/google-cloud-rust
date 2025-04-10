@@ -61,6 +61,7 @@ impl super::stub::VpcAccessService for VpcAccessService {
         self.inner
             .execute(builder, Some(req.connector), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_connector(
@@ -80,6 +81,7 @@ impl super::stub::VpcAccessService for VpcAccessService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Connector>| r.into_body())
     }
 
     async fn list_connectors(
@@ -104,6 +106,7 @@ impl super::stub::VpcAccessService for VpcAccessService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListConnectorsResponse>| r.into_body())
     }
 
     async fn delete_connector(
@@ -123,6 +126,7 @@ impl super::stub::VpcAccessService for VpcAccessService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -145,6 +149,7 @@ impl super::stub::VpcAccessService for VpcAccessService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn list_operations(
@@ -167,6 +172,11 @@ impl super::stub::VpcAccessService for VpcAccessService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -186,6 +196,7 @@ impl super::stub::VpcAccessService for VpcAccessService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

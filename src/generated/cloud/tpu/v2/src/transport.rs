@@ -57,6 +57,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNodesResponse>| r.into_body())
     }
 
     async fn get_node(
@@ -76,6 +77,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Node>| r.into_body())
     }
 
     async fn create_node(
@@ -93,7 +95,10 @@ impl super::stub::Tpu for Tpu {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("nodeId", &req.node_id)]);
-        self.inner.execute(builder, Some(req.node), options).await
+        self.inner
+            .execute(builder, Some(req.node), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_node(
@@ -113,6 +118,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn stop_node(
@@ -129,7 +135,10 @@ impl super::stub::Tpu for Tpu {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn start_node(
@@ -146,7 +155,10 @@ impl super::stub::Tpu for Tpu {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_node(
@@ -182,7 +194,10 @@ impl super::stub::Tpu for Tpu {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.node), options).await
+        self.inner
+            .execute(builder, Some(req.node), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_queued_resources(
@@ -207,6 +222,11 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListQueuedResourcesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_queued_resource(
@@ -226,6 +246,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::QueuedResource>| r.into_body())
     }
 
     async fn create_queued_resource(
@@ -250,6 +271,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, Some(req.queued_resource), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_queued_resource(
@@ -271,6 +293,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn reset_queued_resource(
@@ -287,7 +310,10 @@ impl super::stub::Tpu for Tpu {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_service_identity(
@@ -307,7 +333,11 @@ impl super::stub::Tpu for Tpu {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateServiceIdentityResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn list_accelerator_types(
@@ -334,6 +364,11 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAcceleratorTypesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_accelerator_type(
@@ -353,6 +388,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AcceleratorType>| r.into_body())
     }
 
     async fn list_runtime_versions(
@@ -379,6 +415,11 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListRuntimeVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_runtime_version(
@@ -398,6 +439,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::RuntimeVersion>| r.into_body())
     }
 
     async fn get_guest_attributes(
@@ -417,7 +459,9 @@ impl super::stub::Tpu for Tpu {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GetGuestAttributesResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -440,6 +484,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -459,6 +504,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -481,6 +527,11 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -500,6 +551,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -519,7 +571,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -539,7 +591,7 @@ impl super::stub::Tpu for Tpu {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

@@ -61,6 +61,7 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SearchDomainsResponse>| r.into_body())
     }
 
     async fn retrieve_register_parameters(
@@ -87,6 +88,11 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::RetrieveRegisterParametersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn register_domain(
@@ -106,7 +112,10 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn retrieve_transfer_parameters(
@@ -133,6 +142,11 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::RetrieveTransferParametersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn transfer_domain(
@@ -152,7 +166,10 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_registrations(
@@ -178,6 +195,9 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListRegistrationsResponse>| r.into_body(),
+            )
     }
 
     async fn get_registration(
@@ -197,6 +217,7 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Registration>| r.into_body())
     }
 
     async fn update_registration(
@@ -235,6 +256,7 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, Some(req.registration), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn configure_management_settings(
@@ -254,7 +276,10 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn configure_dns_settings(
@@ -274,7 +299,10 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn configure_contact_settings(
@@ -294,7 +322,10 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_registration(
@@ -311,7 +342,10 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_registration(
@@ -331,6 +365,7 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn retrieve_authorization_code(
@@ -353,6 +388,7 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AuthorizationCode>| r.into_body())
     }
 
     async fn reset_authorization_code(
@@ -372,7 +408,10 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AuthorizationCode>| r.into_body())
     }
 
     async fn list_operations(
@@ -395,6 +434,11 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -414,6 +458,7 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

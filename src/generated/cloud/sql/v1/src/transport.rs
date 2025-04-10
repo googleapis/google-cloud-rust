@@ -64,6 +64,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn get(
@@ -90,6 +91,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::BackupRun>| r.into_body())
     }
 
     async fn insert(
@@ -115,6 +117,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn list(
@@ -142,6 +145,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::BackupRunsListResponse>| r.into_body())
     }
 
 }
@@ -192,6 +196,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::ConnectSettings>| r.into_body())
     }
 
     async fn generate_ephemeral_cert(
@@ -217,6 +222,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::GenerateEphemeralCertResponse>| r.into_body())
     }
 
 }
@@ -267,6 +273,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn get(
@@ -293,6 +300,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Database>| r.into_body())
     }
 
     async fn insert(
@@ -318,6 +326,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn list(
@@ -343,6 +352,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::DatabasesListResponse>| r.into_body())
     }
 
     async fn patch(
@@ -369,6 +379,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn update(
@@ -395,6 +406,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
 }
@@ -442,6 +454,7 @@ impl super::stub::SqlFlagsService for SqlFlagsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::FlagsListResponse>| r.into_body())
     }
 
 }
@@ -491,6 +504,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn clone(
@@ -516,6 +530,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn delete(
@@ -541,6 +556,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn demote_master(
@@ -566,6 +582,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn demote(
@@ -591,6 +608,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn export(
@@ -616,6 +634,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn failover(
@@ -641,6 +660,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn reencrypt(
@@ -666,6 +686,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn get(
@@ -691,6 +712,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::DatabaseInstance>| r.into_body())
     }
 
     async fn import(
@@ -716,6 +738,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn insert(
@@ -740,6 +763,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn list(
@@ -767,6 +791,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::InstancesListResponse>| r.into_body())
     }
 
     async fn list_server_cas(
@@ -792,6 +817,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::InstancesListServerCasResponse>| r.into_body())
     }
 
     async fn patch(
@@ -817,6 +843,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn promote_replica(
@@ -843,6 +870,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn switchover(
@@ -869,6 +897,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn reset_ssl_config(
@@ -894,6 +923,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn restart(
@@ -919,6 +949,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn restore_backup(
@@ -944,6 +975,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn rotate_server_ca(
@@ -969,6 +1001,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn start_replica(
@@ -994,6 +1027,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn stop_replica(
@@ -1019,6 +1053,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn truncate_log(
@@ -1044,6 +1079,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn update(
@@ -1069,6 +1105,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn create_ephemeral(
@@ -1094,6 +1131,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::SslCert>| r.into_body())
     }
 
     async fn reschedule_maintenance(
@@ -1119,6 +1157,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn verify_external_sync_settings(
@@ -1144,6 +1183,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>| r.into_body())
     }
 
     async fn start_external_sync(
@@ -1169,6 +1209,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn perform_disk_shrink(
@@ -1194,6 +1235,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn get_disk_shrink_config(
@@ -1219,6 +1261,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>| r.into_body())
     }
 
     async fn reset_replica_size(
@@ -1244,6 +1287,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn get_latest_recovery_time(
@@ -1269,6 +1313,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>| r.into_body())
     }
 
     async fn acquire_ssrs_lease(
@@ -1294,6 +1339,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>| r.into_body())
     }
 
     async fn release_ssrs_lease(
@@ -1319,6 +1365,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>| r.into_body())
     }
 
 }
@@ -1368,6 +1415,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn list(
@@ -1395,6 +1443,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::OperationsListResponse>| r.into_body())
     }
 
     async fn cancel(
@@ -1420,7 +1469,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
-        .map(|_: wkt::Empty| ())
+        .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
 }
@@ -1471,6 +1520,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn get(
@@ -1497,6 +1547,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::SslCert>| r.into_body())
     }
 
     async fn insert(
@@ -1522,6 +1573,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::SslCertsInsertResponse>| r.into_body())
     }
 
     async fn list(
@@ -1547,6 +1599,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::SslCertsListResponse>| r.into_body())
     }
 
 }
@@ -1595,6 +1648,7 @@ impl super::stub::SqlTiersService for SqlTiersService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::TiersListResponse>| r.into_body())
     }
 
 }
@@ -1646,6 +1700,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn get(
@@ -1673,6 +1728,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::User>| r.into_body())
     }
 
     async fn insert(
@@ -1698,6 +1754,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
     async fn list(
@@ -1723,6 +1780,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::UsersListResponse>| r.into_body())
     }
 
     async fn update(
@@ -1750,6 +1808,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
             ,
             options,
         ).await
+        .map(|r: gax::response::Response<crate::model::Operation>| r.into_body())
     }
 
 }

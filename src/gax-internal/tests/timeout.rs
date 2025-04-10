@@ -48,7 +48,7 @@ mod test {
             tokio::select! {
                 _ = &mut server => { },
                 r = &mut response => {
-                    let response = r?;
+                    let response = r?.into_body();
                     assert_eq!(
                         get_query_value(&response, "delay_ms"),
                         Some("200".to_string())
@@ -86,7 +86,7 @@ mod test {
             tokio::select! {
                 _ = &mut server => {  },
                 r = &mut response => {
-                    let response = r?;
+                    let response = r?.into_body();
                     assert_eq!(
                         get_query_value(&response, "delay_ms"),
                         Some("200".to_string())

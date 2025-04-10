@@ -60,5 +60,6 @@ impl super::stub::PublicCertificateAuthorityService for PublicCertificateAuthori
         self.inner
             .execute(builder, Some(req.external_account_key), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ExternalAccountKey>| r.into_body())
     }
 }

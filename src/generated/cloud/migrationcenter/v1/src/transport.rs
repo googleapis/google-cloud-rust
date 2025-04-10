@@ -62,6 +62,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAssetsResponse>| r.into_body())
     }
 
     async fn get_asset(
@@ -82,6 +83,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Asset>| r.into_body())
     }
 
     async fn update_asset(
@@ -118,7 +120,10 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.asset), options).await
+        self.inner
+            .execute(builder, Some(req.asset), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Asset>| r.into_body())
     }
 
     async fn batch_update_assets(
@@ -138,7 +143,9 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchUpdateAssetsResponse>| r.into_body(),
+        )
     }
 
     async fn delete_asset(
@@ -159,7 +166,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn batch_delete_assets(
@@ -182,7 +189,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn report_asset_frames(
@@ -203,7 +210,12 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("source", &req.source)]);
-        self.inner.execute(builder, Some(req.frames), options).await
+        self.inner
+            .execute(builder, Some(req.frames), options)
+            .await
+            .map(
+                |r: gax::response::Response<crate::model::ReportAssetFramesResponse>| r.into_body(),
+            )
     }
 
     async fn aggregate_assets_values(
@@ -223,7 +235,9 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::AggregateAssetsValuesResponse>| r.into_body(),
+        )
     }
 
     async fn create_import_job(
@@ -248,6 +262,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, Some(req.import_job), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_import_jobs(
@@ -275,6 +290,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListImportJobsResponse>| r.into_body())
     }
 
     async fn get_import_job(
@@ -295,6 +311,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ImportJob>| r.into_body())
     }
 
     async fn delete_import_job(
@@ -316,6 +333,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_import_job(
@@ -355,6 +373,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, Some(req.import_job), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn validate_import_job(
@@ -371,7 +390,10 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn run_import_job(
@@ -388,7 +410,10 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_import_data_file(
@@ -408,6 +433,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ImportDataFile>| r.into_body())
     }
 
     async fn list_import_data_files(
@@ -434,6 +460,11 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListImportDataFilesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_import_data_file(
@@ -458,6 +489,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, Some(req.import_data_file), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_import_data_file(
@@ -478,6 +510,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_groups(
@@ -501,6 +534,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListGroupsResponse>| r.into_body())
     }
 
     async fn get_group(
@@ -520,6 +554,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Group>| r.into_body())
     }
 
     async fn create_group(
@@ -538,7 +573,10 @@ impl super::stub::MigrationCenter for MigrationCenter {
             );
         let builder = builder.query(&[("groupId", &req.group_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.group), options).await
+        self.inner
+            .execute(builder, Some(req.group), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_group(
@@ -575,7 +613,10 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.group), options).await
+        self.inner
+            .execute(builder, Some(req.group), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_group(
@@ -596,6 +637,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn add_assets_to_group(
@@ -615,7 +657,10 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn remove_assets_from_group(
@@ -635,7 +680,10 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_error_frames(
@@ -661,6 +709,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListErrorFramesResponse>| r.into_body())
     }
 
     async fn get_error_frame(
@@ -681,6 +730,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ErrorFrame>| r.into_body())
     }
 
     async fn list_sources(
@@ -704,6 +754,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSourcesResponse>| r.into_body())
     }
 
     async fn get_source(
@@ -723,6 +774,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Source>| r.into_body())
     }
 
     async fn create_source(
@@ -741,7 +793,10 @@ impl super::stub::MigrationCenter for MigrationCenter {
             );
         let builder = builder.query(&[("sourceId", &req.source_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.source), options).await
+        self.inner
+            .execute(builder, Some(req.source), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_source(
@@ -778,7 +833,10 @@ impl super::stub::MigrationCenter for MigrationCenter {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.source), options).await
+        self.inner
+            .execute(builder, Some(req.source), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_source(
@@ -799,6 +857,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_preference_sets(
@@ -824,6 +883,11 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPreferenceSetsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_preference_set(
@@ -843,6 +907,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PreferenceSet>| r.into_body())
     }
 
     async fn create_preference_set(
@@ -867,6 +932,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, Some(req.preference_set), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_preference_set(
@@ -906,6 +972,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, Some(req.preference_set), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_preference_set(
@@ -926,6 +993,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_settings(
@@ -945,6 +1013,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Settings>| r.into_body())
     }
 
     async fn update_settings(
@@ -984,6 +1053,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, Some(req.settings), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_report_config(
@@ -1008,6 +1078,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, Some(req.report_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_report_config(
@@ -1027,6 +1098,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ReportConfig>| r.into_body())
     }
 
     async fn list_report_configs(
@@ -1053,6 +1125,9 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListReportConfigsResponse>| r.into_body(),
+            )
     }
 
     async fn delete_report_config(
@@ -1074,6 +1149,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_report(
@@ -1092,7 +1168,10 @@ impl super::stub::MigrationCenter for MigrationCenter {
             );
         let builder = builder.query(&[("reportId", &req.report_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.report), options).await
+        self.inner
+            .execute(builder, Some(req.report), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_report(
@@ -1113,6 +1192,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Report>| r.into_body())
     }
 
     async fn list_reports(
@@ -1137,6 +1217,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListReportsResponse>| r.into_body())
     }
 
     async fn delete_report(
@@ -1157,6 +1238,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -1179,6 +1261,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1198,6 +1281,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -1220,6 +1304,11 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1239,6 +1328,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1258,7 +1348,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1278,7 +1368,7 @@ impl super::stub::MigrationCenter for MigrationCenter {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

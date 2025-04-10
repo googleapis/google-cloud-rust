@@ -64,6 +64,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListMembershipsResponse>| r.into_body())
     }
 
     async fn list_features(
@@ -87,6 +88,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFeaturesResponse>| r.into_body())
     }
 
     async fn get_membership(
@@ -106,6 +108,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Membership>| r.into_body())
     }
 
     async fn get_feature(
@@ -125,6 +128,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Feature>| r.into_body())
     }
 
     async fn create_membership(
@@ -149,6 +153,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, Some(req.resource), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_feature(
@@ -173,6 +178,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, Some(req.resource), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_membership(
@@ -194,6 +200,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_feature(
@@ -215,6 +222,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_membership(
@@ -245,6 +253,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, Some(req.resource), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_feature(
@@ -275,6 +284,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, Some(req.resource), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_connect_manifest(
@@ -303,6 +313,11 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::GenerateConnectManifestResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -325,6 +340,11 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -344,6 +364,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -363,7 +384,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -383,7 +404,7 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

@@ -62,6 +62,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, Some(req.collector), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_annotation(
@@ -85,6 +86,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, Some(req.annotation), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_annotation(
@@ -104,6 +106,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Annotation>| r.into_body())
     }
 
     async fn list_collectors(
@@ -130,6 +133,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCollectorsResponse>| r.into_body())
     }
 
     async fn get_collector(
@@ -149,6 +153,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Collector>| r.into_body())
     }
 
     async fn update_collector(
@@ -188,6 +193,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, Some(req.collector), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_collector(
@@ -208,6 +214,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn resume_collector(
@@ -224,7 +231,10 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn register_collector(
@@ -241,7 +251,10 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn pause_collector(
@@ -258,7 +271,10 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -281,6 +297,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -300,6 +317,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -322,6 +340,11 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -341,6 +364,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -360,7 +384,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -380,7 +404,7 @@ impl super::stub::RapidMigrationAssessment for RapidMigrationAssessment {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

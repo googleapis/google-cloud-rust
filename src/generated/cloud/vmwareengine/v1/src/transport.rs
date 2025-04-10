@@ -64,6 +64,9 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPrivateCloudsResponse>| r.into_body(),
+            )
     }
 
     async fn get_private_cloud(
@@ -83,6 +86,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PrivateCloud>| r.into_body())
     }
 
     async fn create_private_cloud(
@@ -108,6 +112,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.private_cloud), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_private_cloud(
@@ -147,6 +152,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.private_cloud), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_private_cloud(
@@ -172,6 +178,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_private_cloud(
@@ -188,7 +195,10 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_clusters(
@@ -212,6 +222,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListClustersResponse>| r.into_body())
     }
 
     async fn get_cluster(
@@ -231,6 +242,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Cluster>| r.into_body())
     }
 
     async fn create_cluster(
@@ -256,6 +268,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_cluster(
@@ -296,6 +309,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_cluster(
@@ -316,6 +330,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_nodes(
@@ -337,6 +352,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNodesResponse>| r.into_body())
     }
 
     async fn get_node(
@@ -356,6 +372,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Node>| r.into_body())
     }
 
     async fn list_external_addresses(
@@ -382,6 +399,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListExternalAddressesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn fetch_network_policy_external_addresses(
@@ -406,6 +428,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::FetchNetworkPolicyExternalAddressesResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_external_address(
@@ -425,6 +452,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ExternalAddress>| r.into_body())
     }
 
     async fn create_external_address(
@@ -449,6 +477,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.external_address), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_external_address(
@@ -488,6 +517,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.external_address), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_external_address(
@@ -508,6 +538,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_subnets(
@@ -529,6 +560,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSubnetsResponse>| r.into_body())
     }
 
     async fn get_subnet(
@@ -548,6 +580,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Subnet>| r.into_body())
     }
 
     async fn update_subnet(
@@ -583,7 +616,10 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.subnet), options).await
+        self.inner
+            .execute(builder, Some(req.subnet), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_external_access_rules(
@@ -610,6 +646,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListExternalAccessRulesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_external_access_rule(
@@ -629,6 +670,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ExternalAccessRule>| r.into_body())
     }
 
     async fn create_external_access_rule(
@@ -653,6 +695,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.external_access_rule), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_external_access_rule(
@@ -692,6 +735,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.external_access_rule), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_external_access_rule(
@@ -712,6 +756,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_logging_servers(
@@ -738,6 +783,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListLoggingServersResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_logging_server(
@@ -757,6 +807,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LoggingServer>| r.into_body())
     }
 
     async fn create_logging_server(
@@ -781,6 +832,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.logging_server), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_logging_server(
@@ -820,6 +872,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.logging_server), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_logging_server(
@@ -840,6 +893,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_node_types(
@@ -865,6 +919,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNodeTypesResponse>| r.into_body())
     }
 
     async fn get_node_type(
@@ -884,6 +939,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NodeType>| r.into_body())
     }
 
     async fn show_nsx_credentials(
@@ -906,6 +962,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Credentials>| r.into_body())
     }
 
     async fn show_vcenter_credentials(
@@ -929,6 +986,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Credentials>| r.into_body())
     }
 
     async fn reset_nsx_credentials(
@@ -948,7 +1006,10 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn reset_vcenter_credentials(
@@ -968,7 +1029,10 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_dns_forwarding(
@@ -988,6 +1052,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DnsForwarding>| r.into_body())
     }
 
     async fn update_dns_forwarding(
@@ -1027,6 +1092,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.dns_forwarding), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_network_peering(
@@ -1046,6 +1112,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NetworkPeering>| r.into_body())
     }
 
     async fn list_network_peerings(
@@ -1072,6 +1139,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListNetworkPeeringsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_network_peering(
@@ -1096,6 +1168,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.network_peering), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_network_peering(
@@ -1116,6 +1189,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_network_peering(
@@ -1155,6 +1229,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.network_peering), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_peering_routes(
@@ -1180,6 +1255,9 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPeeringRoutesResponse>| r.into_body(),
+            )
     }
 
     async fn create_hcx_activation_key(
@@ -1204,6 +1282,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.hcx_activation_key), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_hcx_activation_keys(
@@ -1228,6 +1307,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListHcxActivationKeysResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_hcx_activation_key(
@@ -1247,6 +1331,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::HcxActivationKey>| r.into_body())
     }
 
     async fn get_network_policy(
@@ -1266,6 +1351,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NetworkPolicy>| r.into_body())
     }
 
     async fn list_network_policies(
@@ -1292,6 +1378,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListNetworkPoliciesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_network_policy(
@@ -1316,6 +1407,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.network_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_network_policy(
@@ -1355,6 +1447,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.network_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_network_policy(
@@ -1375,6 +1468,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_management_dns_zone_bindings(
@@ -1401,6 +1495,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListManagementDnsZoneBindingsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_management_dns_zone_binding(
@@ -1420,6 +1519,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ManagementDnsZoneBinding>| r.into_body())
     }
 
     async fn create_management_dns_zone_binding(
@@ -1447,6 +1547,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.management_dns_zone_binding), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_management_dns_zone_binding(
@@ -1488,6 +1589,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.management_dns_zone_binding), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_management_dns_zone_binding(
@@ -1508,6 +1610,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn repair_management_dns_zone_binding(
@@ -1524,7 +1627,10 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_vmware_engine_network(
@@ -1549,6 +1655,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.vmware_engine_network), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_vmware_engine_network(
@@ -1588,6 +1695,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.vmware_engine_network), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_vmware_engine_network(
@@ -1609,6 +1717,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_vmware_engine_network(
@@ -1628,6 +1737,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VmwareEngineNetwork>| r.into_body())
     }
 
     async fn list_vmware_engine_networks(
@@ -1654,6 +1764,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListVmwareEngineNetworksResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_private_connection(
@@ -1678,6 +1793,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.private_connection), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_private_connection(
@@ -1697,6 +1813,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PrivateConnection>| r.into_body())
     }
 
     async fn list_private_connections(
@@ -1723,6 +1840,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPrivateConnectionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_private_connection(
@@ -1762,6 +1884,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.private_connection), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_private_connection(
@@ -1782,6 +1905,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_private_connection_peering_routes(
@@ -1806,6 +1930,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListPrivateConnectionPeeringRoutesResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn grant_dns_bind_permission(
@@ -1822,7 +1951,10 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_dns_bind_permission(
@@ -1842,6 +1974,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DnsBindPermission>| r.into_body())
     }
 
     async fn revoke_dns_bind_permission(
@@ -1858,7 +1991,10 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -1881,6 +2017,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1900,6 +2037,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1919,7 +2057,10 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1952,6 +2093,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1971,7 +2113,9 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1994,6 +2138,11 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -2013,6 +2162,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -2032,7 +2182,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

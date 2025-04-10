@@ -57,7 +57,10 @@ impl super::stub::AnalyticsService for AnalyticsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -80,6 +83,11 @@ impl super::stub::AnalyticsService for AnalyticsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -99,6 +107,7 @@ impl super::stub::AnalyticsService for AnalyticsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -157,6 +166,7 @@ impl super::stub::CatalogService for CatalogService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCatalogsResponse>| r.into_body())
     }
 
     async fn update_catalog(
@@ -195,6 +205,7 @@ impl super::stub::CatalogService for CatalogService {
         self.inner
             .execute(builder, Some(req.catalog), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Catalog>| r.into_body())
     }
 
     async fn set_default_branch(
@@ -217,7 +228,7 @@ impl super::stub::CatalogService for CatalogService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_default_branch(
@@ -240,6 +251,7 @@ impl super::stub::CatalogService for CatalogService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GetDefaultBranchResponse>| r.into_body())
     }
 
     async fn get_completion_config(
@@ -259,6 +271,7 @@ impl super::stub::CatalogService for CatalogService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CompletionConfig>| r.into_body())
     }
 
     async fn update_completion_config(
@@ -297,6 +310,7 @@ impl super::stub::CatalogService for CatalogService {
         self.inner
             .execute(builder, Some(req.completion_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CompletionConfig>| r.into_body())
     }
 
     async fn get_attributes_config(
@@ -316,6 +330,7 @@ impl super::stub::CatalogService for CatalogService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AttributesConfig>| r.into_body())
     }
 
     async fn update_attributes_config(
@@ -354,6 +369,7 @@ impl super::stub::CatalogService for CatalogService {
         self.inner
             .execute(builder, Some(req.attributes_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AttributesConfig>| r.into_body())
     }
 
     async fn add_catalog_attribute(
@@ -373,7 +389,10 @@ impl super::stub::CatalogService for CatalogService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AttributesConfig>| r.into_body())
     }
 
     async fn remove_catalog_attribute(
@@ -393,7 +412,10 @@ impl super::stub::CatalogService for CatalogService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AttributesConfig>| r.into_body())
     }
 
     async fn replace_catalog_attribute(
@@ -413,7 +435,10 @@ impl super::stub::CatalogService for CatalogService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AttributesConfig>| r.into_body())
     }
 
     async fn list_operations(
@@ -436,6 +461,11 @@ impl super::stub::CatalogService for CatalogService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -455,6 +485,7 @@ impl super::stub::CatalogService for CatalogService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -514,6 +545,7 @@ impl super::stub::CompletionService for CompletionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CompleteQueryResponse>| r.into_body())
     }
 
     async fn import_completion_data(
@@ -533,7 +565,10 @@ impl super::stub::CompletionService for CompletionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -556,6 +591,11 @@ impl super::stub::CompletionService for CompletionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -575,6 +615,7 @@ impl super::stub::CompletionService for CompletionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -635,6 +676,7 @@ impl super::stub::ControlService for ControlService {
         self.inner
             .execute(builder, Some(req.control), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Control>| r.into_body())
     }
 
     async fn delete_control(
@@ -654,7 +696,7 @@ impl super::stub::ControlService for ControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_control(
@@ -693,6 +735,7 @@ impl super::stub::ControlService for ControlService {
         self.inner
             .execute(builder, Some(req.control), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Control>| r.into_body())
     }
 
     async fn get_control(
@@ -712,6 +755,7 @@ impl super::stub::ControlService for ControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Control>| r.into_body())
     }
 
     async fn list_controls(
@@ -734,6 +778,7 @@ impl super::stub::ControlService for ControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListControlsResponse>| r.into_body())
     }
 
     async fn list_operations(
@@ -756,6 +801,11 @@ impl super::stub::ControlService for ControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -775,6 +825,7 @@ impl super::stub::ControlService for ControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -842,6 +893,11 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
                 options,
             )
             .await
+            .map(
+                |r: gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_generative_questions_feature_config(
@@ -864,6 +920,11 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::GenerativeQuestionsFeatureConfig>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_generative_question_configs(
@@ -886,6 +947,11 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListGenerativeQuestionConfigsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn update_generative_question_config(
@@ -924,6 +990,7 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         self.inner
             .execute(builder, Some(req.generative_question_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::GenerativeQuestionConfig>| r.into_body())
     }
 
     async fn batch_update_generative_question_configs(
@@ -943,7 +1010,11 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<
+                crate::model::BatchUpdateGenerativeQuestionConfigsResponse,
+            >| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -966,6 +1037,11 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -985,6 +1061,7 @@ impl super::stub::GenerativeQuestionService for GenerativeQuestionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -1025,7 +1102,10 @@ impl super::stub::ModelService for ModelService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("dryRun", &req.dry_run)]);
-        self.inner.execute(builder, Some(req.model), options).await
+        self.inner
+            .execute(builder, Some(req.model), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_model(
@@ -1045,6 +1125,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn pause_model(
@@ -1061,7 +1142,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn resume_model(
@@ -1078,7 +1162,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn delete_model(
@@ -1098,7 +1185,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_models(
@@ -1120,6 +1207,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListModelsResponse>| r.into_body())
     }
 
     async fn update_model(
@@ -1155,7 +1243,10 @@ impl super::stub::ModelService for ModelService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.model), options).await
+        self.inner
+            .execute(builder, Some(req.model), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn tune_model(
@@ -1172,7 +1263,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -1195,6 +1289,11 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1214,6 +1313,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -1270,7 +1370,10 @@ impl super::stub::PredictionService for PredictionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::PredictResponse>| r.into_body())
     }
 
     async fn list_operations(
@@ -1293,6 +1396,11 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1312,6 +1420,7 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -1358,6 +1467,7 @@ impl super::stub::ProductService for ProductService {
         self.inner
             .execute(builder, Some(req.product), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Product>| r.into_body())
     }
 
     async fn get_product(
@@ -1377,6 +1487,7 @@ impl super::stub::ProductService for ProductService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Product>| r.into_body())
     }
 
     async fn list_products(
@@ -1409,6 +1520,7 @@ impl super::stub::ProductService for ProductService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListProductsResponse>| r.into_body())
     }
 
     async fn update_product(
@@ -1448,6 +1560,7 @@ impl super::stub::ProductService for ProductService {
         self.inner
             .execute(builder, Some(req.product), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Product>| r.into_body())
     }
 
     async fn delete_product(
@@ -1467,7 +1580,7 @@ impl super::stub::ProductService for ProductService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn purge_products(
@@ -1487,7 +1600,10 @@ impl super::stub::ProductService for ProductService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_products(
@@ -1507,7 +1623,10 @@ impl super::stub::ProductService for ProductService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn set_inventory(
@@ -1533,7 +1652,10 @@ impl super::stub::ProductService for ProductService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn add_fulfillment_places(
@@ -1553,7 +1675,10 @@ impl super::stub::ProductService for ProductService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn remove_fulfillment_places(
@@ -1573,7 +1698,10 @@ impl super::stub::ProductService for ProductService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn add_local_inventories(
@@ -1593,7 +1721,10 @@ impl super::stub::ProductService for ProductService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn remove_local_inventories(
@@ -1613,7 +1744,10 @@ impl super::stub::ProductService for ProductService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -1636,6 +1770,11 @@ impl super::stub::ProductService for ProductService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1655,6 +1794,7 @@ impl super::stub::ProductService for ProductService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -1711,7 +1851,10 @@ impl super::stub::SearchService for SearchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SearchResponse>| r.into_body())
     }
 
     async fn list_operations(
@@ -1734,6 +1877,11 @@ impl super::stub::SearchService for SearchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1753,6 +1901,7 @@ impl super::stub::SearchService for SearchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -1799,6 +1948,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         self.inner
             .execute(builder, Some(req.serving_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServingConfig>| r.into_body())
     }
 
     async fn delete_serving_config(
@@ -1818,7 +1968,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_serving_config(
@@ -1857,6 +2007,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         self.inner
             .execute(builder, Some(req.serving_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServingConfig>| r.into_body())
     }
 
     async fn get_serving_config(
@@ -1876,6 +2027,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServingConfig>| r.into_body())
     }
 
     async fn list_serving_configs(
@@ -1900,6 +2052,11 @@ impl super::stub::ServingConfigService for ServingConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServingConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn add_control(
@@ -1919,7 +2076,10 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ServingConfig>| r.into_body())
     }
 
     async fn remove_control(
@@ -1939,7 +2099,10 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ServingConfig>| r.into_body())
     }
 
     async fn list_operations(
@@ -1962,6 +2125,11 @@ impl super::stub::ServingConfigService for ServingConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1981,6 +2149,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -2027,6 +2196,7 @@ impl super::stub::UserEventService for UserEventService {
         self.inner
             .execute(builder, Some(req.user_event), options)
             .await
+            .map(|r: gax::response::Response<crate::model::UserEvent>| r.into_body())
     }
 
     async fn collect_user_event(
@@ -2057,6 +2227,7 @@ impl super::stub::UserEventService for UserEventService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<api::model::HttpBody>| r.into_body())
     }
 
     async fn purge_user_events(
@@ -2076,7 +2247,10 @@ impl super::stub::UserEventService for UserEventService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_user_events(
@@ -2096,7 +2270,10 @@ impl super::stub::UserEventService for UserEventService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn rejoin_user_events(
@@ -2116,7 +2293,10 @@ impl super::stub::UserEventService for UserEventService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -2139,6 +2319,11 @@ impl super::stub::UserEventService for UserEventService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -2158,6 +2343,7 @@ impl super::stub::UserEventService for UserEventService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

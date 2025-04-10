@@ -55,7 +55,10 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("domainName", &req.domain_name)]);
-        self.inner.execute(builder, Some(req.domain), options).await
+        self.inner
+            .execute(builder, Some(req.domain), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn reset_admin_password(
@@ -75,7 +78,9 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::ResetAdminPasswordResponse>| r.into_body(),
+        )
     }
 
     async fn list_domains(
@@ -99,6 +104,7 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDomainsResponse>| r.into_body())
     }
 
     async fn get_domain(
@@ -118,6 +124,7 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Domain>| r.into_body())
     }
 
     async fn update_domain(
@@ -153,7 +160,10 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.domain), options).await
+        self.inner
+            .execute(builder, Some(req.domain), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_domain(
@@ -173,6 +183,7 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn attach_trust(
@@ -192,7 +203,10 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn reconfigure_trust(
@@ -212,7 +226,10 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn detach_trust(
@@ -232,7 +249,10 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn validate_trust(
@@ -252,7 +272,10 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -275,6 +298,11 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -294,6 +322,7 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -313,7 +342,7 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -333,7 +362,7 @@ impl super::stub::ManagedIdentitiesService for ManagedIdentitiesService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

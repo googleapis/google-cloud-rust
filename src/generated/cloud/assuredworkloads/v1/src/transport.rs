@@ -61,6 +61,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         self.inner
             .execute(builder, Some(req.workload), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_workload(
@@ -99,6 +100,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         self.inner
             .execute(builder, Some(req.workload), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Workload>| r.into_body())
     }
 
     async fn restrict_allowed_resources(
@@ -118,7 +120,11 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::RestrictAllowedResourcesResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn delete_workload(
@@ -139,7 +145,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_workload(
@@ -159,6 +165,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Workload>| r.into_body())
     }
 
     async fn list_workloads(
@@ -184,6 +191,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListWorkloadsResponse>| r.into_body())
     }
 
     async fn list_operations(
@@ -206,6 +214,11 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -225,6 +238,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

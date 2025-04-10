@@ -64,6 +64,9 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAlertPoliciesResponse>| r.into_body(),
+            )
     }
 
     async fn get_alert_policy(
@@ -83,6 +86,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AlertPolicy>| r.into_body())
     }
 
     async fn create_alert_policy(
@@ -105,6 +109,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
         self.inner
             .execute(builder, Some(req.alert_policy), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AlertPolicy>| r.into_body())
     }
 
     async fn delete_alert_policy(
@@ -124,7 +129,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_alert_policy(
@@ -163,6 +168,7 @@ impl super::stub::AlertPolicyService for AlertPolicyService {
         self.inner
             .execute(builder, Some(req.alert_policy), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AlertPolicy>| r.into_body())
     }
 }
 
@@ -225,6 +231,7 @@ impl super::stub::GroupService for GroupService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListGroupsResponse>| r.into_body())
     }
 
     async fn get_group(
@@ -244,6 +251,7 @@ impl super::stub::GroupService for GroupService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Group>| r.into_body())
     }
 
     async fn create_group(
@@ -261,7 +269,10 @@ impl super::stub::GroupService for GroupService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner.execute(builder, Some(req.group), options).await
+        self.inner
+            .execute(builder, Some(req.group), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Group>| r.into_body())
     }
 
     async fn update_group(
@@ -288,7 +299,10 @@ impl super::stub::GroupService for GroupService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner.execute(builder, Some(req.group), options).await
+        self.inner
+            .execute(builder, Some(req.group), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Group>| r.into_body())
     }
 
     async fn delete_group(
@@ -309,7 +323,7 @@ impl super::stub::GroupService for GroupService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_group_members(
@@ -342,6 +356,7 @@ impl super::stub::GroupService for GroupService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListGroupMembersResponse>| r.into_body())
     }
 }
 
@@ -390,6 +405,11 @@ impl super::stub::MetricService for MetricService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListMonitoredResourceDescriptorsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_monitored_resource_descriptor(
@@ -409,6 +429,9 @@ impl super::stub::MetricService for MetricService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<api::model::MonitoredResourceDescriptor>| r.into_body(),
+            )
     }
 
     async fn list_metric_descriptors(
@@ -435,6 +458,11 @@ impl super::stub::MetricService for MetricService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListMetricDescriptorsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_metric_descriptor(
@@ -454,6 +482,7 @@ impl super::stub::MetricService for MetricService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<api::model::MetricDescriptor>| r.into_body())
     }
 
     async fn create_metric_descriptor(
@@ -476,6 +505,7 @@ impl super::stub::MetricService for MetricService {
         self.inner
             .execute(builder, Some(req.metric_descriptor), options)
             .await
+            .map(|r: gax::response::Response<api::model::MetricDescriptor>| r.into_body())
     }
 
     async fn delete_metric_descriptor(
@@ -495,7 +525,7 @@ impl super::stub::MetricService for MetricService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_time_series(
@@ -550,6 +580,7 @@ impl super::stub::MetricService for MetricService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTimeSeriesResponse>| r.into_body())
     }
 
     async fn create_time_series(
@@ -572,7 +603,7 @@ impl super::stub::MetricService for MetricService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_service_time_series(
@@ -595,7 +626,7 @@ impl super::stub::MetricService for MetricService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -643,6 +674,11 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListNotificationChannelDescriptorsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_notification_channel_descriptor(
@@ -662,6 +698,11 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::NotificationChannelDescriptor>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_notification_channels(
@@ -688,6 +729,11 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListNotificationChannelsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_notification_channel(
@@ -707,6 +753,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NotificationChannel>| r.into_body())
     }
 
     async fn create_notification_channel(
@@ -729,6 +776,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         self.inner
             .execute(builder, Some(req.notification_channel), options)
             .await
+            .map(|r: gax::response::Response<crate::model::NotificationChannel>| r.into_body())
     }
 
     async fn update_notification_channel(
@@ -767,6 +815,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         self.inner
             .execute(builder, Some(req.notification_channel), options)
             .await
+            .map(|r: gax::response::Response<crate::model::NotificationChannel>| r.into_body())
     }
 
     async fn delete_notification_channel(
@@ -787,7 +836,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn send_notification_channel_verification_code(
@@ -810,7 +859,7 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_notification_channel_verification_code(
@@ -830,7 +879,11 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<
+                crate::model::GetNotificationChannelVerificationCodeResponse,
+            >| r.into_body(),
+        )
     }
 
     async fn verify_notification_channel(
@@ -847,7 +900,10 @@ impl super::stub::NotificationChannelService for NotificationChannelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::NotificationChannel>| r.into_body())
     }
 }
 
@@ -890,7 +946,10 @@ impl super::stub::QueryService for QueryService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::QueryTimeSeriesResponse>| r.into_body())
     }
 }
 
@@ -937,6 +996,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         self.inner
             .execute(builder, Some(req.service), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Service>| r.into_body())
     }
 
     async fn get_service(
@@ -956,6 +1016,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Service>| r.into_body())
     }
 
     async fn list_services(
@@ -978,6 +1039,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListServicesResponse>| r.into_body())
     }
 
     async fn update_service(
@@ -1016,6 +1078,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         self.inner
             .execute(builder, Some(req.service), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Service>| r.into_body())
     }
 
     async fn delete_service(
@@ -1035,7 +1098,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_service_level_objective(
@@ -1060,6 +1123,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         self.inner
             .execute(builder, Some(req.service_level_objective), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceLevelObjective>| r.into_body())
     }
 
     async fn get_service_level_objective(
@@ -1080,6 +1144,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceLevelObjective>| r.into_body())
     }
 
     async fn list_service_level_objectives(
@@ -1106,6 +1171,11 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServiceLevelObjectivesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_service_level_objective(
@@ -1144,6 +1214,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         self.inner
             .execute(builder, Some(req.service_level_objective), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceLevelObjective>| r.into_body())
     }
 
     async fn delete_service_level_objective(
@@ -1163,7 +1234,7 @@ impl super::stub::ServiceMonitoringService for ServiceMonitoringService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -1203,7 +1274,10 @@ impl super::stub::SnoozeService for SnoozeService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.snooze), options).await
+        self.inner
+            .execute(builder, Some(req.snooze), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Snooze>| r.into_body())
     }
 
     async fn list_snoozes(
@@ -1226,6 +1300,7 @@ impl super::stub::SnoozeService for SnoozeService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSnoozesResponse>| r.into_body())
     }
 
     async fn get_snooze(
@@ -1245,6 +1320,7 @@ impl super::stub::SnoozeService for SnoozeService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Snooze>| r.into_body())
     }
 
     async fn update_snooze(
@@ -1280,7 +1356,10 @@ impl super::stub::SnoozeService for SnoozeService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.snooze), options).await
+        self.inner
+            .execute(builder, Some(req.snooze), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Snooze>| r.into_body())
     }
 }
 
@@ -1329,6 +1408,11 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListUptimeCheckConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_uptime_check_config(
@@ -1348,6 +1432,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::UptimeCheckConfig>| r.into_body())
     }
 
     async fn create_uptime_check_config(
@@ -1370,6 +1455,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         self.inner
             .execute(builder, Some(req.uptime_check_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::UptimeCheckConfig>| r.into_body())
     }
 
     async fn update_uptime_check_config(
@@ -1408,6 +1494,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         self.inner
             .execute(builder, Some(req.uptime_check_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::UptimeCheckConfig>| r.into_body())
     }
 
     async fn delete_uptime_check_config(
@@ -1427,7 +1514,7 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_uptime_check_ips(
@@ -1449,5 +1536,10 @@ impl super::stub::UptimeCheckService for UptimeCheckService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListUptimeCheckIpsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 }

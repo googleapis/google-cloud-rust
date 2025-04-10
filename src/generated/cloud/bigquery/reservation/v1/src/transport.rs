@@ -61,6 +61,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, Some(req.reservation), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Reservation>| r.into_body())
     }
 
     async fn list_reservations(
@@ -85,6 +86,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListReservationsResponse>| r.into_body())
     }
 
     async fn get_reservation(
@@ -104,6 +106,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Reservation>| r.into_body())
     }
 
     async fn delete_reservation(
@@ -123,7 +126,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_reservation(
@@ -162,6 +165,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, Some(req.reservation), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Reservation>| r.into_body())
     }
 
     async fn failover_reservation(
@@ -181,7 +185,10 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Reservation>| r.into_body())
     }
 
     async fn create_capacity_commitment(
@@ -209,6 +216,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, Some(req.capacity_commitment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CapacityCommitment>| r.into_body())
     }
 
     async fn list_capacity_commitments(
@@ -233,6 +241,11 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCapacityCommitmentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_capacity_commitment(
@@ -252,6 +265,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CapacityCommitment>| r.into_body())
     }
 
     async fn delete_capacity_commitment(
@@ -272,7 +286,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_capacity_commitment(
@@ -311,6 +325,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, Some(req.capacity_commitment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CapacityCommitment>| r.into_body())
     }
 
     async fn split_capacity_commitment(
@@ -327,7 +342,11 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::SplitCapacityCommitmentResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn merge_capacity_commitments(
@@ -347,7 +366,10 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::CapacityCommitment>| r.into_body())
     }
 
     async fn create_assignment(
@@ -371,6 +393,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, Some(req.assignment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Assignment>| r.into_body())
     }
 
     async fn list_assignments(
@@ -395,6 +418,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAssignmentsResponse>| r.into_body())
     }
 
     async fn delete_assignment(
@@ -414,7 +438,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn search_assignments(
@@ -440,6 +464,9 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchAssignmentsResponse>| r.into_body(),
+            )
     }
 
     async fn search_all_assignments(
@@ -465,6 +492,11 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchAllAssignmentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn move_assignment(
@@ -481,7 +513,10 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Assignment>| r.into_body())
     }
 
     async fn update_assignment(
@@ -520,6 +555,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, Some(req.assignment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Assignment>| r.into_body())
     }
 
     async fn get_bi_reservation(
@@ -539,6 +575,7 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BiReservation>| r.into_body())
     }
 
     async fn update_bi_reservation(
@@ -577,5 +614,6 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, Some(req.bi_reservation), options)
             .await
+            .map(|r: gax::response::Response<crate::model::BiReservation>| r.into_body())
     }
 }

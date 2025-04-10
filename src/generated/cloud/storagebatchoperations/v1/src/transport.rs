@@ -61,6 +61,7 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListJobsResponse>| r.into_body())
     }
 
     async fn get_job(
@@ -80,6 +81,7 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn create_job(
@@ -98,7 +100,10 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
             );
         let builder = builder.query(&[("jobId", &req.job_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.job), options).await
+        self.inner
+            .execute(builder, Some(req.job), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_job(
@@ -119,7 +124,7 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_job(
@@ -136,7 +141,10 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::CancelJobResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -159,6 +167,7 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -178,6 +187,7 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -200,6 +210,11 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -219,6 +234,7 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -238,7 +254,7 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -258,7 +274,7 @@ impl super::stub::StorageBatchOperations for StorageBatchOperations {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

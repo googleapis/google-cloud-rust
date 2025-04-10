@@ -55,7 +55,10 @@ impl super::stub::ApiKeys for ApiKeys {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("keyId", &req.key_id)]);
-        self.inner.execute(builder, Some(req.key), options).await
+        self.inner
+            .execute(builder, Some(req.key), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_keys(
@@ -78,6 +81,7 @@ impl super::stub::ApiKeys for ApiKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListKeysResponse>| r.into_body())
     }
 
     async fn get_key(
@@ -97,6 +101,7 @@ impl super::stub::ApiKeys for ApiKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Key>| r.into_body())
     }
 
     async fn get_key_string(
@@ -116,6 +121,7 @@ impl super::stub::ApiKeys for ApiKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::GetKeyStringResponse>| r.into_body())
     }
 
     async fn update_key(
@@ -151,7 +157,10 @@ impl super::stub::ApiKeys for ApiKeys {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.key), options).await
+        self.inner
+            .execute(builder, Some(req.key), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_key(
@@ -172,6 +181,7 @@ impl super::stub::ApiKeys for ApiKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_key(
@@ -188,7 +198,10 @@ impl super::stub::ApiKeys for ApiKeys {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn lookup_key(
@@ -209,6 +222,7 @@ impl super::stub::ApiKeys for ApiKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LookupKeyResponse>| r.into_body())
     }
 
     async fn get_operation(
@@ -228,6 +242,7 @@ impl super::stub::ApiKeys for ApiKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

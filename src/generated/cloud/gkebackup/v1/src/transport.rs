@@ -61,6 +61,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, Some(req.backup_plan), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_backup_plans(
@@ -87,6 +88,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupPlansResponse>| r.into_body())
     }
 
     async fn get_backup_plan(
@@ -106,6 +108,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BackupPlan>| r.into_body())
     }
 
     async fn update_backup_plan(
@@ -144,6 +147,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, Some(req.backup_plan), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_backup_plan(
@@ -164,6 +168,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_backup(
@@ -181,7 +186,10 @@ impl super::stub::BackupForGKE for BackupForGKE {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("backupId", &req.backup_id)]);
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_backups(
@@ -205,6 +213,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn get_backup(
@@ -224,6 +233,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn update_backup(
@@ -259,7 +269,10 @@ impl super::stub::BackupForGKE for BackupForGKE {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.backup), options).await
+        self.inner
+            .execute(builder, Some(req.backup), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_backup(
@@ -281,6 +294,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_volume_backups(
@@ -307,6 +321,9 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListVolumeBackupsResponse>| r.into_body(),
+            )
     }
 
     async fn get_volume_backup(
@@ -326,6 +343,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VolumeBackup>| r.into_body())
     }
 
     async fn create_restore_plan(
@@ -349,6 +367,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, Some(req.restore_plan), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_restore_plans(
@@ -375,6 +394,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRestorePlansResponse>| r.into_body())
     }
 
     async fn get_restore_plan(
@@ -394,6 +414,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::RestorePlan>| r.into_body())
     }
 
     async fn update_restore_plan(
@@ -432,6 +453,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, Some(req.restore_plan), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_restore_plan(
@@ -453,6 +475,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_restore(
@@ -476,6 +499,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, Some(req.restore), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_restores(
@@ -499,6 +523,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRestoresResponse>| r.into_body())
     }
 
     async fn get_restore(
@@ -518,6 +543,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Restore>| r.into_body())
     }
 
     async fn update_restore(
@@ -556,6 +582,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, Some(req.restore), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_restore(
@@ -577,6 +604,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_volume_restores(
@@ -603,6 +631,11 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListVolumeRestoresResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_volume_restore(
@@ -622,6 +655,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VolumeRestore>| r.into_body())
     }
 
     async fn get_backup_index_download_url(
@@ -644,6 +678,11 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::GetBackupIndexDownloadUrlResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_locations(
@@ -666,6 +705,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -685,6 +725,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -704,7 +745,10 @@ impl super::stub::BackupForGKE for BackupForGKE {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -737,6 +781,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -756,7 +801,9 @@ impl super::stub::BackupForGKE for BackupForGKE {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -779,6 +826,11 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -798,6 +850,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -817,7 +870,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -837,7 +890,7 @@ impl super::stub::BackupForGKE for BackupForGKE {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

@@ -58,6 +58,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, Some(req.cdn_key), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_cdn_keys(
@@ -81,6 +82,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCdnKeysResponse>| r.into_body())
     }
 
     async fn get_cdn_key(
@@ -100,6 +102,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CdnKey>| r.into_body())
     }
 
     async fn delete_cdn_key(
@@ -119,6 +122,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_cdn_key(
@@ -157,6 +161,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, Some(req.cdn_key), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_vod_session(
@@ -179,6 +184,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, Some(req.vod_session), options)
             .await
+            .map(|r: gax::response::Response<crate::model::VodSession>| r.into_body())
     }
 
     async fn get_vod_session(
@@ -198,6 +204,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VodSession>| r.into_body())
     }
 
     async fn list_vod_stitch_details(
@@ -222,6 +229,11 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListVodStitchDetailsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_vod_stitch_detail(
@@ -241,6 +253,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VodStitchDetail>| r.into_body())
     }
 
     async fn list_vod_ad_tag_details(
@@ -265,6 +278,11 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListVodAdTagDetailsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_vod_ad_tag_detail(
@@ -284,6 +302,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VodAdTagDetail>| r.into_body())
     }
 
     async fn list_live_ad_tag_details(
@@ -308,6 +327,11 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_live_ad_tag_detail(
@@ -327,6 +351,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LiveAdTagDetail>| r.into_body())
     }
 
     async fn create_slate(
@@ -345,7 +370,10 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
             );
         let builder = builder.query(&[("slateId", &req.slate_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.slate), options).await
+        self.inner
+            .execute(builder, Some(req.slate), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_slates(
@@ -369,6 +397,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSlatesResponse>| r.into_body())
     }
 
     async fn get_slate(
@@ -388,6 +417,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Slate>| r.into_body())
     }
 
     async fn update_slate(
@@ -423,7 +453,10 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.slate), options).await
+        self.inner
+            .execute(builder, Some(req.slate), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_slate(
@@ -443,6 +476,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_live_session(
@@ -465,6 +499,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, Some(req.live_session), options)
             .await
+            .map(|r: gax::response::Response<crate::model::LiveSession>| r.into_body())
     }
 
     async fn get_live_session(
@@ -484,6 +519,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LiveSession>| r.into_body())
     }
 
     async fn create_live_config(
@@ -508,6 +544,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, Some(req.live_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_live_configs(
@@ -534,6 +571,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListLiveConfigsResponse>| r.into_body())
     }
 
     async fn get_live_config(
@@ -553,6 +591,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LiveConfig>| r.into_body())
     }
 
     async fn delete_live_config(
@@ -572,6 +611,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_live_config(
@@ -610,6 +650,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, Some(req.live_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_vod_config(
@@ -634,6 +675,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, Some(req.vod_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_vod_configs(
@@ -660,6 +702,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListVodConfigsResponse>| r.into_body())
     }
 
     async fn get_vod_config(
@@ -679,6 +722,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::VodConfig>| r.into_body())
     }
 
     async fn delete_vod_config(
@@ -698,6 +742,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_vod_config(
@@ -736,6 +781,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, Some(req.vod_config), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -758,6 +804,11 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -777,6 +828,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -796,7 +848,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -816,7 +868,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

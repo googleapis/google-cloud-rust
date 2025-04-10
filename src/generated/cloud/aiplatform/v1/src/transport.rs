@@ -60,6 +60,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_dataset(
@@ -89,6 +90,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dataset>| r.into_body())
     }
 
     async fn update_dataset(
@@ -127,6 +129,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dataset>| r.into_body())
     }
 
     async fn list_datasets(
@@ -160,6 +163,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDatasetsResponse>| r.into_body())
     }
 
     async fn delete_dataset(
@@ -179,6 +183,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_data(
@@ -195,7 +200,10 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_data(
@@ -212,7 +220,10 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_dataset_version(
@@ -235,6 +246,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, Some(req.dataset_version), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_dataset_version(
@@ -273,6 +285,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, Some(req.dataset_version), options)
             .await
+            .map(|r: gax::response::Response<crate::model::DatasetVersion>| r.into_body())
     }
 
     async fn delete_dataset_version(
@@ -292,6 +305,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_dataset_version(
@@ -321,6 +335,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DatasetVersion>| r.into_body())
     }
 
     async fn list_dataset_versions(
@@ -357,6 +372,11 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDatasetVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn restore_dataset_version(
@@ -376,6 +396,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_data_items(
@@ -412,6 +433,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDataItemsResponse>| r.into_body())
     }
 
     async fn search_data_items(
@@ -470,6 +492,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SearchDataItemsResponse>| r.into_body())
     }
 
     async fn list_saved_queries(
@@ -506,6 +529,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSavedQueriesResponse>| r.into_body())
     }
 
     async fn delete_saved_query(
@@ -525,6 +549,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_annotation_spec(
@@ -554,6 +579,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AnnotationSpec>| r.into_body())
     }
 
     async fn list_annotations(
@@ -590,6 +616,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAnnotationsResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -612,6 +639,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -631,6 +659,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -650,7 +679,10 @@ impl super::stub::DatasetService for DatasetService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -683,6 +715,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -709,6 +742,11 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -731,6 +769,11 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -750,6 +793,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -769,7 +813,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -789,7 +833,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -819,6 +863,7 @@ impl super::stub::DatasetService for DatasetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -875,7 +920,10 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_deployment_resource_pool(
@@ -895,6 +943,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DeploymentResourcePool>| r.into_body())
     }
 
     async fn list_deployment_resource_pools(
@@ -919,6 +968,11 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDeploymentResourcePoolsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_deployment_resource_pool(
@@ -957,6 +1011,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, Some(req.deployment_resource_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_deployment_resource_pool(
@@ -976,6 +1031,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn query_deployed_models(
@@ -1000,6 +1056,11 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::QueryDeployedModelsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_locations(
@@ -1022,6 +1083,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1041,6 +1103,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1060,7 +1123,10 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1093,6 +1159,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1119,6 +1186,11 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -1141,6 +1213,11 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1160,6 +1237,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1179,7 +1257,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1199,7 +1277,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -1229,6 +1307,7 @@ impl super::stub::DeploymentResourcePoolService for DeploymentResourcePoolServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -1289,6 +1368,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, Some(req.endpoint), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_endpoint(
@@ -1308,6 +1388,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Endpoint>| r.into_body())
     }
 
     async fn list_endpoints(
@@ -1344,6 +1425,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEndpointsResponse>| r.into_body())
     }
 
     async fn update_endpoint(
@@ -1382,6 +1464,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, Some(req.endpoint), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Endpoint>| r.into_body())
     }
 
     async fn update_endpoint_long_running(
@@ -1407,7 +1490,10 @@ impl super::stub::EndpointService for EndpointService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_endpoint(
@@ -1427,6 +1513,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn deploy_model(
@@ -1446,7 +1533,10 @@ impl super::stub::EndpointService for EndpointService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undeploy_model(
@@ -1466,7 +1556,10 @@ impl super::stub::EndpointService for EndpointService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn mutate_deployed_model(
@@ -1486,7 +1579,10 @@ impl super::stub::EndpointService for EndpointService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -1509,6 +1605,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1528,6 +1625,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1547,7 +1645,10 @@ impl super::stub::EndpointService for EndpointService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1580,6 +1681,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1606,6 +1708,11 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -1628,6 +1735,11 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1647,6 +1759,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1666,7 +1779,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1686,7 +1799,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -1716,6 +1829,7 @@ impl super::stub::EndpointService for EndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -1772,7 +1886,9 @@ impl super::stub::EvaluationService for EvaluationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::EvaluateInstancesResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -1795,6 +1911,7 @@ impl super::stub::EvaluationService for EvaluationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1814,6 +1931,7 @@ impl super::stub::EvaluationService for EvaluationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1833,7 +1951,10 @@ impl super::stub::EvaluationService for EvaluationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1866,6 +1987,7 @@ impl super::stub::EvaluationService for EvaluationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1892,6 +2014,11 @@ impl super::stub::EvaluationService for EvaluationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -1914,6 +2041,11 @@ impl super::stub::EvaluationService for EvaluationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1933,6 +2065,7 @@ impl super::stub::EvaluationService for EvaluationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1952,7 +2085,7 @@ impl super::stub::EvaluationService for EvaluationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1972,7 +2105,7 @@ impl super::stub::EvaluationService for EvaluationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -2002,6 +2135,7 @@ impl super::stub::EvaluationService for EvaluationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -2048,6 +2182,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, Some(req.feature_online_store), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_feature_online_store(
@@ -2067,6 +2202,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FeatureOnlineStore>| r.into_body())
     }
 
     async fn list_feature_online_stores(
@@ -2093,6 +2229,11 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListFeatureOnlineStoresResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_feature_online_store(
@@ -2131,6 +2272,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, Some(req.feature_online_store), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_feature_online_store(
@@ -2151,6 +2293,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_feature_view(
@@ -2175,6 +2318,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, Some(req.feature_view), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_feature_view(
@@ -2194,6 +2338,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FeatureView>| r.into_body())
     }
 
     async fn list_feature_views(
@@ -2220,6 +2365,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFeatureViewsResponse>| r.into_body())
     }
 
     async fn update_feature_view(
@@ -2258,6 +2404,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, Some(req.feature_view), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_feature_view(
@@ -2277,6 +2424,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn sync_feature_view(
@@ -2296,7 +2444,10 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SyncFeatureViewResponse>| r.into_body())
     }
 
     async fn get_feature_view_sync(
@@ -2316,6 +2467,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FeatureViewSync>| r.into_body())
     }
 
     async fn list_feature_view_syncs(
@@ -2342,6 +2494,11 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListFeatureViewSyncsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_locations(
@@ -2364,6 +2521,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -2383,6 +2541,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -2402,7 +2561,10 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -2435,6 +2597,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -2461,6 +2624,11 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -2483,6 +2651,11 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -2502,6 +2675,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -2521,7 +2695,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -2541,7 +2715,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -2571,6 +2745,7 @@ impl super::stub::FeatureOnlineStoreAdminService for FeatureOnlineStoreAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -2627,7 +2802,9 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::FetchFeatureValuesResponse>| r.into_body(),
+        )
     }
 
     async fn search_nearest_entities(
@@ -2647,7 +2824,9 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::SearchNearestEntitiesResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -2670,6 +2849,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -2689,6 +2869,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -2708,7 +2889,10 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -2741,6 +2925,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -2767,6 +2952,11 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -2789,6 +2979,11 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -2808,6 +3003,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -2827,7 +3023,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -2847,7 +3043,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -2877,6 +3073,7 @@ impl super::stub::FeatureOnlineStoreService for FeatureOnlineStoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -2923,6 +3120,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, Some(req.feature_group), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_feature_group(
@@ -2942,6 +3140,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::FeatureGroup>| r.into_body())
     }
 
     async fn list_feature_groups(
@@ -2968,6 +3167,9 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListFeatureGroupsResponse>| r.into_body(),
+            )
     }
 
     async fn update_feature_group(
@@ -3006,6 +3208,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, Some(req.feature_group), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_feature_group(
@@ -3026,6 +3229,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_feature(
@@ -3049,6 +3253,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, Some(req.feature), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn batch_create_features(
@@ -3068,7 +3273,10 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_feature(
@@ -3088,6 +3296,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Feature>| r.into_body())
     }
 
     async fn list_features(
@@ -3122,6 +3331,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFeaturesResponse>| r.into_body())
     }
 
     async fn update_feature(
@@ -3160,6 +3370,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, Some(req.feature), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_feature(
@@ -3179,6 +3390,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -3201,6 +3413,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -3220,6 +3433,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -3239,7 +3453,10 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -3272,6 +3489,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -3298,6 +3516,11 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -3320,6 +3543,11 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -3339,6 +3567,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -3358,7 +3587,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -3378,7 +3607,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -3408,6 +3637,7 @@ impl super::stub::FeatureRegistryService for FeatureRegistryService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -3464,7 +3694,9 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::ReadFeatureValuesResponse>| r.into_body(),
+        )
     }
 
     async fn write_feature_values(
@@ -3484,7 +3716,9 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::WriteFeatureValuesResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -3507,6 +3741,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -3526,6 +3761,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -3545,7 +3781,10 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -3578,6 +3817,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -3604,6 +3844,11 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -3626,6 +3871,11 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -3645,6 +3895,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -3664,7 +3915,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -3684,7 +3935,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -3714,6 +3965,7 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -3760,6 +4012,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, Some(req.featurestore), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_featurestore(
@@ -3779,6 +4032,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Featurestore>| r.into_body())
     }
 
     async fn list_featurestores(
@@ -3815,6 +4069,9 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListFeaturestoresResponse>| r.into_body(),
+            )
     }
 
     async fn update_featurestore(
@@ -3853,6 +4110,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, Some(req.featurestore), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_featurestore(
@@ -3873,6 +4131,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_entity_type(
@@ -3896,6 +4155,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, Some(req.entity_type), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_entity_type(
@@ -3915,6 +4175,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::EntityType>| r.into_body())
     }
 
     async fn list_entity_types(
@@ -3951,6 +4212,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListEntityTypesResponse>| r.into_body())
     }
 
     async fn update_entity_type(
@@ -3989,6 +4251,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, Some(req.entity_type), options)
             .await
+            .map(|r: gax::response::Response<crate::model::EntityType>| r.into_body())
     }
 
     async fn delete_entity_type(
@@ -4009,6 +4272,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_feature(
@@ -4032,6 +4296,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, Some(req.feature), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn batch_create_features(
@@ -4051,7 +4316,10 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_feature(
@@ -4071,6 +4339,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Feature>| r.into_body())
     }
 
     async fn list_features(
@@ -4105,6 +4374,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFeaturesResponse>| r.into_body())
     }
 
     async fn update_feature(
@@ -4143,6 +4413,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, Some(req.feature), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Feature>| r.into_body())
     }
 
     async fn delete_feature(
@@ -4162,6 +4433,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_feature_values(
@@ -4181,7 +4453,10 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn batch_read_feature_values(
@@ -4201,7 +4476,10 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn export_feature_values(
@@ -4221,7 +4499,10 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_feature_values(
@@ -4241,7 +4522,10 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn search_features(
@@ -4267,6 +4551,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SearchFeaturesResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -4289,6 +4574,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -4308,6 +4594,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -4327,7 +4614,10 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -4360,6 +4650,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -4386,6 +4677,11 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -4408,6 +4704,11 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -4427,6 +4728,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -4446,7 +4748,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -4466,7 +4768,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -4496,6 +4798,7 @@ impl super::stub::FeaturestoreService for FeaturestoreService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -4555,6 +4858,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, Some(req.cached_content), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CachedContent>| r.into_body())
     }
 
     async fn get_cached_content(
@@ -4574,6 +4878,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CachedContent>| r.into_body())
     }
 
     async fn update_cached_content(
@@ -4612,6 +4917,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, Some(req.cached_content), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CachedContent>| r.into_body())
     }
 
     async fn delete_cached_content(
@@ -4631,7 +4937,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_cached_contents(
@@ -4656,6 +4962,11 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCachedContentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_locations(
@@ -4678,6 +4989,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -4697,6 +5009,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -4716,7 +5029,10 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -4749,6 +5065,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -4775,6 +5092,11 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -4797,6 +5119,11 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -4816,6 +5143,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -4835,7 +5163,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -4855,7 +5183,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -4885,6 +5213,7 @@ impl super::stub::GenAiCacheService for GenAiCacheService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -4930,6 +5259,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, Some(req.tuning_job), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TuningJob>| r.into_body())
     }
 
     async fn get_tuning_job(
@@ -4949,6 +5279,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TuningJob>| r.into_body())
     }
 
     async fn list_tuning_jobs(
@@ -4974,6 +5305,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTuningJobsResponse>| r.into_body())
     }
 
     async fn cancel_tuning_job(
@@ -4993,7 +5325,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn rebase_tuned_model(
@@ -5013,7 +5345,10 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -5036,6 +5371,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -5055,6 +5391,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -5074,7 +5411,10 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -5107,6 +5447,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -5133,6 +5474,11 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -5155,6 +5501,11 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -5174,6 +5525,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -5193,7 +5545,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -5213,7 +5565,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -5243,6 +5595,7 @@ impl super::stub::GenAiTuningService for GenAiTuningService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -5302,6 +5655,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, Some(req.index_endpoint), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_index_endpoint(
@@ -5321,6 +5675,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::IndexEndpoint>| r.into_body())
     }
 
     async fn list_index_endpoints(
@@ -5356,6 +5711,11 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListIndexEndpointsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_index_endpoint(
@@ -5394,6 +5754,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, Some(req.index_endpoint), options)
             .await
+            .map(|r: gax::response::Response<crate::model::IndexEndpoint>| r.into_body())
     }
 
     async fn delete_index_endpoint(
@@ -5413,6 +5774,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn deploy_index(
@@ -5432,7 +5794,10 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undeploy_index(
@@ -5452,7 +5817,10 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn mutate_deployed_index(
@@ -5475,6 +5843,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, Some(req.deployed_index), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -5497,6 +5866,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -5516,6 +5886,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -5535,7 +5906,10 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -5568,6 +5942,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -5594,6 +5969,11 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -5616,6 +5996,11 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -5635,6 +6020,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -5654,7 +6040,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -5674,7 +6060,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -5704,6 +6090,7 @@ impl super::stub::IndexEndpointService for IndexEndpointService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -5757,7 +6144,10 @@ impl super::stub::IndexService for IndexService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.index), options).await
+        self.inner
+            .execute(builder, Some(req.index), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_index(
@@ -5777,6 +6167,7 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Index>| r.into_body())
     }
 
     async fn list_indexes(
@@ -5809,6 +6200,7 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListIndexesResponse>| r.into_body())
     }
 
     async fn update_index(
@@ -5844,7 +6236,10 @@ impl super::stub::IndexService for IndexService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.index), options).await
+        self.inner
+            .execute(builder, Some(req.index), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_index(
@@ -5864,6 +6259,7 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn upsert_datapoints(
@@ -5883,7 +6279,10 @@ impl super::stub::IndexService for IndexService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::UpsertDatapointsResponse>| r.into_body())
     }
 
     async fn remove_datapoints(
@@ -5903,7 +6302,10 @@ impl super::stub::IndexService for IndexService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::RemoveDatapointsResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -5926,6 +6328,7 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -5945,6 +6348,7 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -5964,7 +6368,10 @@ impl super::stub::IndexService for IndexService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -5997,6 +6404,7 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -6023,6 +6431,11 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -6045,6 +6458,11 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -6064,6 +6482,7 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -6083,7 +6502,7 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -6103,7 +6522,7 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -6133,6 +6552,7 @@ impl super::stub::IndexService for IndexService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -6192,6 +6612,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req.custom_job), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CustomJob>| r.into_body())
     }
 
     async fn get_custom_job(
@@ -6211,6 +6632,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CustomJob>| r.into_body())
     }
 
     async fn list_custom_jobs(
@@ -6246,6 +6668,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCustomJobsResponse>| r.into_body())
     }
 
     async fn delete_custom_job(
@@ -6265,6 +6688,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_custom_job(
@@ -6284,7 +6708,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_data_labeling_job(
@@ -6307,6 +6731,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req.data_labeling_job), options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataLabelingJob>| r.into_body())
     }
 
     async fn get_data_labeling_job(
@@ -6326,6 +6751,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataLabelingJob>| r.into_body())
     }
 
     async fn list_data_labeling_jobs(
@@ -6362,6 +6788,11 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDataLabelingJobsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_data_labeling_job(
@@ -6381,6 +6812,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_data_labeling_job(
@@ -6400,7 +6832,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_hyperparameter_tuning_job(
@@ -6423,6 +6855,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req.hyperparameter_tuning_job), options)
             .await
+            .map(|r: gax::response::Response<crate::model::HyperparameterTuningJob>| r.into_body())
     }
 
     async fn get_hyperparameter_tuning_job(
@@ -6442,6 +6875,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::HyperparameterTuningJob>| r.into_body())
     }
 
     async fn list_hyperparameter_tuning_jobs(
@@ -6477,6 +6911,11 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListHyperparameterTuningJobsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_hyperparameter_tuning_job(
@@ -6496,6 +6935,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_hyperparameter_tuning_job(
@@ -6515,7 +6955,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_nas_job(
@@ -6535,6 +6975,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req.nas_job), options)
             .await
+            .map(|r: gax::response::Response<crate::model::NasJob>| r.into_body())
     }
 
     async fn get_nas_job(
@@ -6554,6 +6995,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NasJob>| r.into_body())
     }
 
     async fn list_nas_jobs(
@@ -6586,6 +7028,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListNasJobsResponse>| r.into_body())
     }
 
     async fn delete_nas_job(
@@ -6605,6 +7048,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_nas_job(
@@ -6624,7 +7068,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_nas_trial_detail(
@@ -6644,6 +7088,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NasTrialDetail>| r.into_body())
     }
 
     async fn list_nas_trial_details(
@@ -6668,6 +7113,11 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListNasTrialDetailsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_batch_prediction_job(
@@ -6690,6 +7140,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req.batch_prediction_job), options)
             .await
+            .map(|r: gax::response::Response<crate::model::BatchPredictionJob>| r.into_body())
     }
 
     async fn get_batch_prediction_job(
@@ -6709,6 +7160,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BatchPredictionJob>| r.into_body())
     }
 
     async fn list_batch_prediction_jobs(
@@ -6744,6 +7196,11 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBatchPredictionJobsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_batch_prediction_job(
@@ -6763,6 +7220,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_batch_prediction_job(
@@ -6782,7 +7240,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_model_deployment_monitoring_job(
@@ -6805,6 +7263,11 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req.model_deployment_monitoring_job), options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ModelDeploymentMonitoringJob>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn search_model_deployment_monitoring_stats_anomalies(
@@ -6827,7 +7290,11 @@ impl super::stub::JobService for JobService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<
+                crate::model::SearchModelDeploymentMonitoringStatsAnomaliesResponse,
+            >| r.into_body(),
+        )
     }
 
     async fn get_model_deployment_monitoring_job(
@@ -6847,6 +7314,11 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ModelDeploymentMonitoringJob>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_model_deployment_monitoring_jobs(
@@ -6882,6 +7354,11 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListModelDeploymentMonitoringJobsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn update_model_deployment_monitoring_job(
@@ -6922,6 +7399,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req.model_deployment_monitoring_job), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_model_deployment_monitoring_job(
@@ -6941,6 +7419,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn pause_model_deployment_monitoring_job(
@@ -6960,7 +7439,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn resume_model_deployment_monitoring_job(
@@ -6980,7 +7459,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_locations(
@@ -7003,6 +7482,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -7022,6 +7502,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -7041,7 +7522,10 @@ impl super::stub::JobService for JobService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -7074,6 +7558,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -7100,6 +7585,11 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -7122,6 +7612,11 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -7141,6 +7636,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -7160,7 +7656,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -7180,7 +7676,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -7210,6 +7706,7 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -7266,7 +7763,10 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::CountTokensResponse>| r.into_body())
     }
 
     async fn compute_tokens(
@@ -7286,7 +7786,10 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ComputeTokensResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -7309,6 +7812,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -7328,6 +7832,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -7347,7 +7852,10 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -7380,6 +7888,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -7406,6 +7915,11 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -7428,6 +7942,11 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -7447,6 +7966,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -7466,7 +7986,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -7486,7 +8006,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -7516,6 +8036,7 @@ impl super::stub::LlmUtilityService for LlmUtilityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -7558,7 +8079,10 @@ impl super::stub::MatchService for MatchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::FindNeighborsResponse>| r.into_body())
     }
 
     async fn read_index_datapoints(
@@ -7578,7 +8102,9 @@ impl super::stub::MatchService for MatchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::ReadIndexDatapointsResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -7601,6 +8127,7 @@ impl super::stub::MatchService for MatchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -7620,6 +8147,7 @@ impl super::stub::MatchService for MatchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -7639,7 +8167,10 @@ impl super::stub::MatchService for MatchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -7672,6 +8203,7 @@ impl super::stub::MatchService for MatchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -7698,6 +8230,11 @@ impl super::stub::MatchService for MatchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -7720,6 +8257,11 @@ impl super::stub::MatchService for MatchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -7739,6 +8281,7 @@ impl super::stub::MatchService for MatchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -7758,7 +8301,7 @@ impl super::stub::MatchService for MatchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -7778,7 +8321,7 @@ impl super::stub::MatchService for MatchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -7808,6 +8351,7 @@ impl super::stub::MatchService for MatchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -7854,6 +8398,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, Some(req.metadata_store), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_metadata_store(
@@ -7873,6 +8418,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MetadataStore>| r.into_body())
     }
 
     async fn list_metadata_stores(
@@ -7897,6 +8443,11 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListMetadataStoresResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_metadata_store(
@@ -7917,6 +8468,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_artifact(
@@ -7940,6 +8492,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, Some(req.artifact), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Artifact>| r.into_body())
     }
 
     async fn get_artifact(
@@ -7959,6 +8512,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Artifact>| r.into_body())
     }
 
     async fn list_artifacts(
@@ -7985,6 +8539,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListArtifactsResponse>| r.into_body())
     }
 
     async fn update_artifact(
@@ -8024,6 +8579,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, Some(req.artifact), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Artifact>| r.into_body())
     }
 
     async fn delete_artifact(
@@ -8044,6 +8600,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn purge_artifacts(
@@ -8063,7 +8620,10 @@ impl super::stub::MetadataService for MetadataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_context(
@@ -8087,6 +8647,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, Some(req.context), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Context>| r.into_body())
     }
 
     async fn get_context(
@@ -8106,6 +8667,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Context>| r.into_body())
     }
 
     async fn list_contexts(
@@ -8129,6 +8691,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListContextsResponse>| r.into_body())
     }
 
     async fn update_context(
@@ -8168,6 +8731,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, Some(req.context), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Context>| r.into_body())
     }
 
     async fn delete_context(
@@ -8189,6 +8753,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn purge_contexts(
@@ -8208,7 +8773,10 @@ impl super::stub::MetadataService for MetadataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn add_context_artifacts_and_executions(
@@ -8228,7 +8796,11 @@ impl super::stub::MetadataService for MetadataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::AddContextArtifactsAndExecutionsResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn add_context_children(
@@ -8248,7 +8820,9 @@ impl super::stub::MetadataService for MetadataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::AddContextChildrenResponse>| r.into_body(),
+        )
     }
 
     async fn remove_context_children(
@@ -8268,7 +8842,9 @@ impl super::stub::MetadataService for MetadataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::RemoveContextChildrenResponse>| r.into_body(),
+        )
     }
 
     async fn query_context_lineage_subgraph(
@@ -8291,6 +8867,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LineageSubgraph>| r.into_body())
     }
 
     async fn create_execution(
@@ -8314,6 +8891,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, Some(req.execution), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Execution>| r.into_body())
     }
 
     async fn get_execution(
@@ -8333,6 +8911,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Execution>| r.into_body())
     }
 
     async fn list_executions(
@@ -8359,6 +8938,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListExecutionsResponse>| r.into_body())
     }
 
     async fn update_execution(
@@ -8398,6 +8978,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, Some(req.execution), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Execution>| r.into_body())
     }
 
     async fn delete_execution(
@@ -8418,6 +8999,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn purge_executions(
@@ -8437,7 +9019,10 @@ impl super::stub::MetadataService for MetadataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn add_execution_events(
@@ -8457,7 +9042,9 @@ impl super::stub::MetadataService for MetadataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::AddExecutionEventsResponse>| r.into_body(),
+        )
     }
 
     async fn query_execution_inputs_and_outputs(
@@ -8480,6 +9067,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LineageSubgraph>| r.into_body())
     }
 
     async fn create_metadata_schema(
@@ -8503,6 +9091,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, Some(req.metadata_schema), options)
             .await
+            .map(|r: gax::response::Response<crate::model::MetadataSchema>| r.into_body())
     }
 
     async fn get_metadata_schema(
@@ -8522,6 +9111,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MetadataSchema>| r.into_body())
     }
 
     async fn list_metadata_schemas(
@@ -8547,6 +9137,11 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListMetadataSchemasResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn query_artifact_lineage_subgraph(
@@ -8571,6 +9166,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::LineageSubgraph>| r.into_body())
     }
 
     async fn list_locations(
@@ -8593,6 +9189,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -8612,6 +9209,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -8631,7 +9229,10 @@ impl super::stub::MetadataService for MetadataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -8664,6 +9265,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -8690,6 +9292,11 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -8712,6 +9319,11 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -8731,6 +9343,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -8750,7 +9363,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -8770,7 +9383,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -8800,6 +9413,7 @@ impl super::stub::MetadataService for MetadataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -8856,7 +9470,11 @@ impl super::stub::MigrationService for MigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::SearchMigratableResourcesResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn batch_migrate_resources(
@@ -8876,7 +9494,10 @@ impl super::stub::MigrationService for MigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -8899,6 +9520,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -8918,6 +9540,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -8937,7 +9560,10 @@ impl super::stub::MigrationService for MigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -8970,6 +9596,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -8996,6 +9623,11 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -9018,6 +9650,11 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -9037,6 +9674,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -9056,7 +9694,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -9076,7 +9714,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -9106,6 +9744,7 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -9166,6 +9805,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PublisherModel>| r.into_body())
     }
 
     async fn list_locations(
@@ -9188,6 +9828,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -9207,6 +9848,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -9226,7 +9868,10 @@ impl super::stub::ModelGardenService for ModelGardenService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -9259,6 +9904,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -9285,6 +9931,11 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -9307,6 +9958,11 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -9326,6 +9982,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -9345,7 +10002,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -9365,7 +10022,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -9395,6 +10052,7 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -9437,7 +10095,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_model(
@@ -9457,6 +10118,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn list_models(
@@ -9490,6 +10152,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListModelsResponse>| r.into_body())
     }
 
     async fn list_model_versions(
@@ -9526,6 +10189,9 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListModelVersionsResponse>| r.into_body(),
+            )
     }
 
     async fn list_model_version_checkpoints(
@@ -9550,6 +10216,11 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListModelVersionCheckpointsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_model(
@@ -9585,7 +10256,10 @@ impl super::stub::ModelService for ModelService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.model), options).await
+        self.inner
+            .execute(builder, Some(req.model), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn update_explanation_dataset(
@@ -9605,7 +10279,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_model(
@@ -9625,6 +10302,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_model_version(
@@ -9647,6 +10325,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn merge_version_aliases(
@@ -9666,7 +10345,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn export_model(
@@ -9683,7 +10365,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn copy_model(
@@ -9703,7 +10388,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn import_model_evaluation(
@@ -9723,7 +10411,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ModelEvaluation>| r.into_body())
     }
 
     async fn batch_import_model_evaluation_slices(
@@ -9743,7 +10434,11 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchImportModelEvaluationSlicesResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn batch_import_evaluated_annotations(
@@ -9763,7 +10458,11 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchImportEvaluatedAnnotationsResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn get_model_evaluation(
@@ -9783,6 +10482,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ModelEvaluation>| r.into_body())
     }
 
     async fn list_model_evaluations(
@@ -9818,6 +10518,11 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListModelEvaluationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_model_evaluation_slice(
@@ -9837,6 +10542,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ModelEvaluationSlice>| r.into_body())
     }
 
     async fn list_model_evaluation_slices(
@@ -9869,6 +10575,11 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListModelEvaluationSlicesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_locations(
@@ -9891,6 +10602,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -9910,6 +10622,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -9929,7 +10642,10 @@ impl super::stub::ModelService for ModelService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -9962,6 +10678,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -9988,6 +10705,11 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -10010,6 +10732,11 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -10029,6 +10756,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -10048,7 +10776,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -10068,7 +10796,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -10098,6 +10826,7 @@ impl super::stub::ModelService for ModelService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -10161,6 +10890,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, Some(req.notebook_runtime_template), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_notebook_runtime_template(
@@ -10180,6 +10910,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NotebookRuntimeTemplate>| r.into_body())
     }
 
     async fn list_notebook_runtime_templates(
@@ -10216,6 +10947,11 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListNotebookRuntimeTemplatesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_notebook_runtime_template(
@@ -10235,6 +10971,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_notebook_runtime_template(
@@ -10273,6 +11010,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, Some(req.notebook_runtime_template), options)
             .await
+            .map(|r: gax::response::Response<crate::model::NotebookRuntimeTemplate>| r.into_body())
     }
 
     async fn assign_notebook_runtime(
@@ -10292,7 +11030,10 @@ impl super::stub::NotebookService for NotebookService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_notebook_runtime(
@@ -10312,6 +11053,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NotebookRuntime>| r.into_body())
     }
 
     async fn list_notebook_runtimes(
@@ -10348,6 +11090,11 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListNotebookRuntimesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_notebook_runtime(
@@ -10367,6 +11114,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn upgrade_notebook_runtime(
@@ -10383,7 +11131,10 @@ impl super::stub::NotebookService for NotebookService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn start_notebook_runtime(
@@ -10400,7 +11151,10 @@ impl super::stub::NotebookService for NotebookService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn stop_notebook_runtime(
@@ -10417,7 +11171,10 @@ impl super::stub::NotebookService for NotebookService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_notebook_execution_job(
@@ -10441,6 +11198,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, Some(req.notebook_execution_job), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_notebook_execution_job(
@@ -10461,6 +11219,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NotebookExecutionJob>| r.into_body())
     }
 
     async fn list_notebook_execution_jobs(
@@ -10488,6 +11247,11 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListNotebookExecutionJobsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_notebook_execution_job(
@@ -10507,6 +11271,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -10529,6 +11294,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -10548,6 +11314,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -10567,7 +11334,10 @@ impl super::stub::NotebookService for NotebookService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -10600,6 +11370,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -10626,6 +11397,11 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -10648,6 +11424,11 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -10667,6 +11448,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -10686,7 +11468,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -10706,7 +11488,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -10736,6 +11518,7 @@ impl super::stub::NotebookService for NotebookService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -10796,6 +11579,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, Some(req.persistent_resource), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_persistent_resource(
@@ -10815,6 +11599,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PersistentResource>| r.into_body())
     }
 
     async fn list_persistent_resources(
@@ -10839,6 +11624,11 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPersistentResourcesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_persistent_resource(
@@ -10858,6 +11648,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_persistent_resource(
@@ -10896,6 +11687,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, Some(req.persistent_resource), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn reboot_persistent_resource(
@@ -10912,7 +11704,10 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -10935,6 +11730,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -10954,6 +11750,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -10973,7 +11770,10 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -11006,6 +11806,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -11032,6 +11833,11 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -11054,6 +11860,11 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -11073,6 +11884,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -11092,7 +11904,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -11112,7 +11924,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -11142,6 +11954,7 @@ impl super::stub::PersistentResourceService for PersistentResourceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -11201,6 +12014,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, Some(req.training_pipeline), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TrainingPipeline>| r.into_body())
     }
 
     async fn get_training_pipeline(
@@ -11220,6 +12034,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TrainingPipeline>| r.into_body())
     }
 
     async fn list_training_pipelines(
@@ -11255,6 +12070,11 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListTrainingPipelinesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_training_pipeline(
@@ -11274,6 +12094,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_training_pipeline(
@@ -11293,7 +12114,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_pipeline_job(
@@ -11317,6 +12138,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, Some(req.pipeline_job), options)
             .await
+            .map(|r: gax::response::Response<crate::model::PipelineJob>| r.into_body())
     }
 
     async fn get_pipeline_job(
@@ -11336,6 +12158,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PipelineJob>| r.into_body())
     }
 
     async fn list_pipeline_jobs(
@@ -11372,6 +12195,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListPipelineJobsResponse>| r.into_body())
     }
 
     async fn delete_pipeline_job(
@@ -11391,6 +12215,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn batch_delete_pipeline_jobs(
@@ -11410,7 +12235,10 @@ impl super::stub::PipelineService for PipelineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_pipeline_job(
@@ -11430,7 +12258,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn batch_cancel_pipeline_jobs(
@@ -11450,7 +12278,10 @@ impl super::stub::PipelineService for PipelineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -11473,6 +12304,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -11492,6 +12324,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -11511,7 +12344,10 @@ impl super::stub::PipelineService for PipelineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -11544,6 +12380,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -11570,6 +12407,11 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -11592,6 +12434,11 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -11611,6 +12458,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -11630,7 +12478,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -11650,7 +12498,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -11680,6 +12528,7 @@ impl super::stub::PipelineService for PipelineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -11736,7 +12585,10 @@ impl super::stub::PredictionService for PredictionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::PredictResponse>| r.into_body())
     }
 
     async fn raw_predict(
@@ -11756,7 +12608,10 @@ impl super::stub::PredictionService for PredictionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<api::model::HttpBody>| r.into_body())
     }
 
     async fn direct_predict(
@@ -11776,7 +12631,10 @@ impl super::stub::PredictionService for PredictionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::DirectPredictResponse>| r.into_body())
     }
 
     async fn direct_raw_predict(
@@ -11796,7 +12654,10 @@ impl super::stub::PredictionService for PredictionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::DirectRawPredictResponse>| r.into_body())
     }
 
     async fn explain(
@@ -11816,7 +12677,10 @@ impl super::stub::PredictionService for PredictionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ExplainResponse>| r.into_body())
     }
 
     async fn generate_content(
@@ -11836,7 +12700,10 @@ impl super::stub::PredictionService for PredictionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::GenerateContentResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -11859,6 +12726,7 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -11878,6 +12746,7 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -11897,7 +12766,10 @@ impl super::stub::PredictionService for PredictionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -11930,6 +12802,7 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -11956,6 +12829,11 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -11978,6 +12856,11 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -11997,6 +12880,7 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -12016,7 +12900,7 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -12036,7 +12920,7 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -12066,6 +12950,7 @@ impl super::stub::PredictionService for PredictionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -12105,7 +12990,9 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::QueryReasoningEngineResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -12128,6 +13015,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -12147,6 +13035,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -12166,7 +13055,10 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -12199,6 +13091,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -12225,6 +13118,11 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -12247,6 +13145,11 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -12266,6 +13169,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -12285,7 +13189,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -12305,7 +13209,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -12335,6 +13239,7 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -12380,6 +13285,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, Some(req.reasoning_engine), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_reasoning_engine(
@@ -12399,6 +13305,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ReasoningEngine>| r.into_body())
     }
 
     async fn list_reasoning_engines(
@@ -12424,6 +13331,11 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListReasoningEnginesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_reasoning_engine(
@@ -12462,6 +13374,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, Some(req.reasoning_engine), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_reasoning_engine(
@@ -12482,6 +13395,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -12504,6 +13418,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -12523,6 +13438,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -12542,7 +13458,10 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -12575,6 +13494,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -12601,6 +13521,11 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -12623,6 +13548,11 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -12642,6 +13572,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -12661,7 +13592,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -12681,7 +13612,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -12711,6 +13642,7 @@ impl super::stub::ReasoningEngineService for ReasoningEngineService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -12770,6 +13702,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, Some(req.schedule), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Schedule>| r.into_body())
     }
 
     async fn delete_schedule(
@@ -12789,6 +13722,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_schedule(
@@ -12808,6 +13742,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Schedule>| r.into_body())
     }
 
     async fn list_schedules(
@@ -12834,6 +13769,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSchedulesResponse>| r.into_body())
     }
 
     async fn pause_schedule(
@@ -12853,7 +13789,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn resume_schedule(
@@ -12873,7 +13809,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn update_schedule(
@@ -12912,6 +13848,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, Some(req.schedule), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Schedule>| r.into_body())
     }
 
     async fn list_locations(
@@ -12934,6 +13871,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -12953,6 +13891,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -12972,7 +13911,10 @@ impl super::stub::ScheduleService for ScheduleService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -13005,6 +13947,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -13031,6 +13974,11 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -13053,6 +14001,11 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -13072,6 +14025,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -13091,7 +14045,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -13111,7 +14065,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -13141,6 +14095,7 @@ impl super::stub::ScheduleService for ScheduleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -13200,6 +14155,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, Some(req.specialist_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_specialist_pool(
@@ -13219,6 +14175,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SpecialistPool>| r.into_body())
     }
 
     async fn list_specialist_pools(
@@ -13253,6 +14210,11 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListSpecialistPoolsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_specialist_pool(
@@ -13273,6 +14235,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_specialist_pool(
@@ -13311,6 +14274,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, Some(req.specialist_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -13333,6 +14297,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -13352,6 +14317,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -13371,7 +14337,10 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -13404,6 +14373,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -13430,6 +14400,11 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -13452,6 +14427,11 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -13471,6 +14451,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -13490,7 +14471,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -13510,7 +14491,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -13540,6 +14521,7 @@ impl super::stub::SpecialistPoolService for SpecialistPoolService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -13599,6 +14581,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, Some(req.tensorboard), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_tensorboard(
@@ -13618,6 +14601,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Tensorboard>| r.into_body())
     }
 
     async fn update_tensorboard(
@@ -13656,6 +14640,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, Some(req.tensorboard), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_tensorboards(
@@ -13692,6 +14677,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTensorboardsResponse>| r.into_body())
     }
 
     async fn delete_tensorboard(
@@ -13711,6 +14697,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn read_tensorboard_usage(
@@ -13733,6 +14720,11 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ReadTensorboardUsageResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn read_tensorboard_size(
@@ -13755,6 +14747,11 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ReadTensorboardSizeResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_tensorboard_experiment(
@@ -13778,6 +14775,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, Some(req.tensorboard_experiment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TensorboardExperiment>| r.into_body())
     }
 
     async fn get_tensorboard_experiment(
@@ -13797,6 +14795,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TensorboardExperiment>| r.into_body())
     }
 
     async fn update_tensorboard_experiment(
@@ -13835,6 +14834,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, Some(req.tensorboard_experiment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TensorboardExperiment>| r.into_body())
     }
 
     async fn list_tensorboard_experiments(
@@ -13871,6 +14871,11 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListTensorboardExperimentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_tensorboard_experiment(
@@ -13890,6 +14895,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_tensorboard_run(
@@ -13910,6 +14916,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, Some(req.tensorboard_run), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TensorboardRun>| r.into_body())
     }
 
     async fn batch_create_tensorboard_runs(
@@ -13929,7 +14936,11 @@ impl super::stub::TensorboardService for TensorboardService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchCreateTensorboardRunsResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn get_tensorboard_run(
@@ -13949,6 +14960,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TensorboardRun>| r.into_body())
     }
 
     async fn update_tensorboard_run(
@@ -13987,6 +14999,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, Some(req.tensorboard_run), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TensorboardRun>| r.into_body())
     }
 
     async fn list_tensorboard_runs(
@@ -14020,6 +15033,11 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListTensorboardRunsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_tensorboard_run(
@@ -14039,6 +15057,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn batch_create_tensorboard_time_series(
@@ -14058,7 +15077,11 @@ impl super::stub::TensorboardService for TensorboardService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchCreateTensorboardTimeSeriesResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn create_tensorboard_time_series(
@@ -14083,6 +15106,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, Some(req.tensorboard_time_series), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TensorboardTimeSeries>| r.into_body())
     }
 
     async fn get_tensorboard_time_series(
@@ -14102,6 +15126,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TensorboardTimeSeries>| r.into_body())
     }
 
     async fn update_tensorboard_time_series(
@@ -14140,6 +15165,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, Some(req.tensorboard_time_series), options)
             .await
+            .map(|r: gax::response::Response<crate::model::TensorboardTimeSeries>| r.into_body())
     }
 
     async fn list_tensorboard_time_series(
@@ -14176,6 +15202,11 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListTensorboardTimeSeriesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn delete_tensorboard_time_series(
@@ -14195,6 +15226,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn batch_read_tensorboard_time_series_data(
@@ -14221,6 +15253,11 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::BatchReadTensorboardTimeSeriesDataResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn read_tensorboard_time_series_data(
@@ -14245,6 +15282,11 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ReadTensorboardTimeSeriesDataResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn write_tensorboard_experiment_data(
@@ -14264,7 +15306,11 @@ impl super::stub::TensorboardService for TensorboardService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::WriteTensorboardExperimentDataResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn write_tensorboard_run_data(
@@ -14284,7 +15330,11 @@ impl super::stub::TensorboardService for TensorboardService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::WriteTensorboardRunDataResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn export_tensorboard_time_series_data(
@@ -14307,7 +15357,11 @@ impl super::stub::TensorboardService for TensorboardService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::ExportTensorboardTimeSeriesDataResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn list_locations(
@@ -14330,6 +15384,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -14349,6 +15404,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -14368,7 +15424,10 @@ impl super::stub::TensorboardService for TensorboardService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -14401,6 +15460,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -14427,6 +15487,11 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -14449,6 +15514,11 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -14468,6 +15538,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -14487,7 +15558,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -14507,7 +15578,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -14537,6 +15608,7 @@ impl super::stub::TensorboardService for TensorboardService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -14596,6 +15668,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, Some(req.rag_corpus), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_rag_corpus(
@@ -14624,6 +15697,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, Some(req.rag_corpus), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_rag_corpus(
@@ -14643,6 +15717,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::RagCorpus>| r.into_body())
     }
 
     async fn list_rag_corpora(
@@ -14667,6 +15742,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRagCorporaResponse>| r.into_body())
     }
 
     async fn delete_rag_corpus(
@@ -14687,6 +15763,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn upload_rag_file(
@@ -14706,7 +15783,10 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::UploadRagFileResponse>| r.into_body())
     }
 
     async fn import_rag_files(
@@ -14726,7 +15806,10 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_rag_file(
@@ -14746,6 +15829,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::RagFile>| r.into_body())
     }
 
     async fn list_rag_files(
@@ -14767,6 +15851,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRagFilesResponse>| r.into_body())
     }
 
     async fn delete_rag_file(
@@ -14786,6 +15871,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -14808,6 +15894,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -14827,6 +15914,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -14846,7 +15934,10 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -14879,6 +15970,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -14905,6 +15997,11 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -14927,6 +16024,11 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -14946,6 +16048,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -14965,7 +16068,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -14985,7 +16088,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -15015,6 +16118,7 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -15071,7 +16175,10 @@ impl super::stub::VertexRagService for VertexRagService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::RetrieveContextsResponse>| r.into_body())
     }
 
     async fn augment_prompt(
@@ -15091,7 +16198,10 @@ impl super::stub::VertexRagService for VertexRagService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AugmentPromptResponse>| r.into_body())
     }
 
     async fn corroborate_content(
@@ -15111,7 +16221,9 @@ impl super::stub::VertexRagService for VertexRagService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::CorroborateContentResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -15134,6 +16246,7 @@ impl super::stub::VertexRagService for VertexRagService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -15153,6 +16266,7 @@ impl super::stub::VertexRagService for VertexRagService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -15172,7 +16286,10 @@ impl super::stub::VertexRagService for VertexRagService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -15205,6 +16322,7 @@ impl super::stub::VertexRagService for VertexRagService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -15231,6 +16349,11 @@ impl super::stub::VertexRagService for VertexRagService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -15253,6 +16376,11 @@ impl super::stub::VertexRagService for VertexRagService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -15272,6 +16400,7 @@ impl super::stub::VertexRagService for VertexRagService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -15291,7 +16420,7 @@ impl super::stub::VertexRagService for VertexRagService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -15311,7 +16440,7 @@ impl super::stub::VertexRagService for VertexRagService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -15341,6 +16470,7 @@ impl super::stub::VertexRagService for VertexRagService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -15380,7 +16510,10 @@ impl super::stub::VizierService for VizierService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.study), options).await
+        self.inner
+            .execute(builder, Some(req.study), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Study>| r.into_body())
     }
 
     async fn get_study(
@@ -15400,6 +16533,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Study>| r.into_body())
     }
 
     async fn list_studies(
@@ -15421,6 +16555,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListStudiesResponse>| r.into_body())
     }
 
     async fn delete_study(
@@ -15440,7 +16575,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn lookup_study(
@@ -15460,7 +16595,10 @@ impl super::stub::VizierService for VizierService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Study>| r.into_body())
     }
 
     async fn suggest_trials(
@@ -15480,7 +16618,10 @@ impl super::stub::VizierService for VizierService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_trial(
@@ -15497,7 +16638,10 @@ impl super::stub::VizierService for VizierService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.trial), options).await
+        self.inner
+            .execute(builder, Some(req.trial), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Trial>| r.into_body())
     }
 
     async fn get_trial(
@@ -15517,6 +16661,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Trial>| r.into_body())
     }
 
     async fn list_trials(
@@ -15538,6 +16683,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTrialsResponse>| r.into_body())
     }
 
     async fn add_trial_measurement(
@@ -15557,7 +16703,10 @@ impl super::stub::VizierService for VizierService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Trial>| r.into_body())
     }
 
     async fn complete_trial(
@@ -15574,7 +16723,10 @@ impl super::stub::VizierService for VizierService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Trial>| r.into_body())
     }
 
     async fn delete_trial(
@@ -15594,7 +16746,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn check_trial_early_stopping_state(
@@ -15614,7 +16766,10 @@ impl super::stub::VizierService for VizierService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn stop_trial(
@@ -15631,7 +16786,10 @@ impl super::stub::VizierService for VizierService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Trial>| r.into_body())
     }
 
     async fn list_optimal_trials(
@@ -15651,7 +16809,9 @@ impl super::stub::VizierService for VizierService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::ListOptimalTrialsResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -15674,6 +16834,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -15693,6 +16854,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -15712,7 +16874,10 @@ impl super::stub::VizierService for VizierService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -15745,6 +16910,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -15771,6 +16937,11 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_operations(
@@ -15793,6 +16964,11 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -15812,6 +16988,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -15831,7 +17008,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -15851,7 +17028,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn wait_operation(
@@ -15881,6 +17058,7 @@ impl super::stub::VizierService for VizierService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

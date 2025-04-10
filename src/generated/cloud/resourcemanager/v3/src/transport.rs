@@ -57,6 +57,7 @@ impl super::stub::Folders for Folders {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Folder>| r.into_body())
     }
 
     async fn list_folders(
@@ -80,6 +81,7 @@ impl super::stub::Folders for Folders {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFoldersResponse>| r.into_body())
     }
 
     async fn search_folders(
@@ -102,6 +104,7 @@ impl super::stub::Folders for Folders {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SearchFoldersResponse>| r.into_body())
     }
 
     async fn create_folder(
@@ -118,7 +121,10 @@ impl super::stub::Folders for Folders {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.folder), options).await
+        self.inner
+            .execute(builder, Some(req.folder), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_folder(
@@ -154,7 +160,10 @@ impl super::stub::Folders for Folders {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.folder), options).await
+        self.inner
+            .execute(builder, Some(req.folder), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn move_folder(
@@ -171,7 +180,10 @@ impl super::stub::Folders for Folders {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_folder(
@@ -191,6 +203,7 @@ impl super::stub::Folders for Folders {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_folder(
@@ -207,7 +220,10 @@ impl super::stub::Folders for Folders {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -227,7 +243,10 @@ impl super::stub::Folders for Folders {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -247,7 +266,10 @@ impl super::stub::Folders for Folders {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -267,7 +289,9 @@ impl super::stub::Folders for Folders {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -287,6 +311,7 @@ impl super::stub::Folders for Folders {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -343,6 +368,7 @@ impl super::stub::Organizations for Organizations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Organization>| r.into_body())
     }
 
     async fn search_organizations(
@@ -365,6 +391,11 @@ impl super::stub::Organizations for Organizations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchOrganizationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_iam_policy(
@@ -384,7 +415,10 @@ impl super::stub::Organizations for Organizations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -404,7 +438,10 @@ impl super::stub::Organizations for Organizations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -424,7 +461,9 @@ impl super::stub::Organizations for Organizations {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -444,6 +483,7 @@ impl super::stub::Organizations for Organizations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -486,6 +526,7 @@ impl super::stub::Projects for Projects {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Project>| r.into_body())
     }
 
     async fn list_projects(
@@ -509,6 +550,7 @@ impl super::stub::Projects for Projects {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListProjectsResponse>| r.into_body())
     }
 
     async fn search_projects(
@@ -531,6 +573,7 @@ impl super::stub::Projects for Projects {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SearchProjectsResponse>| r.into_body())
     }
 
     async fn create_project(
@@ -550,6 +593,7 @@ impl super::stub::Projects for Projects {
         self.inner
             .execute(builder, Some(req.project), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_project(
@@ -588,6 +632,7 @@ impl super::stub::Projects for Projects {
         self.inner
             .execute(builder, Some(req.project), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn move_project(
@@ -604,7 +649,10 @@ impl super::stub::Projects for Projects {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_project(
@@ -624,6 +672,7 @@ impl super::stub::Projects for Projects {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_project(
@@ -640,7 +689,10 @@ impl super::stub::Projects for Projects {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -660,7 +712,10 @@ impl super::stub::Projects for Projects {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -680,7 +735,10 @@ impl super::stub::Projects for Projects {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -700,7 +758,9 @@ impl super::stub::Projects for Projects {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -720,6 +780,7 @@ impl super::stub::Projects for Projects {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -779,6 +840,7 @@ impl super::stub::TagBindings for TagBindings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTagBindingsResponse>| r.into_body())
     }
 
     async fn create_tag_binding(
@@ -799,6 +861,7 @@ impl super::stub::TagBindings for TagBindings {
         self.inner
             .execute(builder, Some(req.tag_binding), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_tag_binding(
@@ -818,6 +881,7 @@ impl super::stub::TagBindings for TagBindings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_effective_tags(
@@ -840,6 +904,9 @@ impl super::stub::TagBindings for TagBindings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListEffectiveTagsResponse>| r.into_body(),
+            )
     }
 
     async fn get_operation(
@@ -859,6 +926,7 @@ impl super::stub::TagBindings for TagBindings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -919,6 +987,7 @@ impl super::stub::TagHolds for TagHolds {
         self.inner
             .execute(builder, Some(req.tag_hold), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_tag_hold(
@@ -939,6 +1008,7 @@ impl super::stub::TagHolds for TagHolds {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_tag_holds(
@@ -961,6 +1031,7 @@ impl super::stub::TagHolds for TagHolds {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTagHoldsResponse>| r.into_body())
     }
 
     async fn get_operation(
@@ -980,6 +1051,7 @@ impl super::stub::TagHolds for TagHolds {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -1039,6 +1111,7 @@ impl super::stub::TagKeys for TagKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTagKeysResponse>| r.into_body())
     }
 
     async fn get_tag_key(
@@ -1058,6 +1131,7 @@ impl super::stub::TagKeys for TagKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TagKey>| r.into_body())
     }
 
     async fn get_namespaced_tag_key(
@@ -1078,6 +1152,7 @@ impl super::stub::TagKeys for TagKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TagKey>| r.into_body())
     }
 
     async fn create_tag_key(
@@ -1098,6 +1173,7 @@ impl super::stub::TagKeys for TagKeys {
         self.inner
             .execute(builder, Some(req.tag_key), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_tag_key(
@@ -1137,6 +1213,7 @@ impl super::stub::TagKeys for TagKeys {
         self.inner
             .execute(builder, Some(req.tag_key), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_tag_key(
@@ -1158,6 +1235,7 @@ impl super::stub::TagKeys for TagKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1177,7 +1255,10 @@ impl super::stub::TagKeys for TagKeys {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1197,7 +1278,10 @@ impl super::stub::TagKeys for TagKeys {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1217,7 +1301,9 @@ impl super::stub::TagKeys for TagKeys {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -1237,6 +1323,7 @@ impl super::stub::TagKeys for TagKeys {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -1296,6 +1383,7 @@ impl super::stub::TagValues for TagValues {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTagValuesResponse>| r.into_body())
     }
 
     async fn get_tag_value(
@@ -1315,6 +1403,7 @@ impl super::stub::TagValues for TagValues {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TagValue>| r.into_body())
     }
 
     async fn get_namespaced_tag_value(
@@ -1335,6 +1424,7 @@ impl super::stub::TagValues for TagValues {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::TagValue>| r.into_body())
     }
 
     async fn create_tag_value(
@@ -1355,6 +1445,7 @@ impl super::stub::TagValues for TagValues {
         self.inner
             .execute(builder, Some(req.tag_value), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_tag_value(
@@ -1394,6 +1485,7 @@ impl super::stub::TagValues for TagValues {
         self.inner
             .execute(builder, Some(req.tag_value), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_tag_value(
@@ -1415,6 +1507,7 @@ impl super::stub::TagValues for TagValues {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1434,7 +1527,10 @@ impl super::stub::TagValues for TagValues {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1454,7 +1550,10 @@ impl super::stub::TagValues for TagValues {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1474,7 +1573,9 @@ impl super::stub::TagValues for TagValues {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -1494,6 +1595,7 @@ impl super::stub::TagValues for TagValues {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

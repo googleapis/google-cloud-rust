@@ -60,6 +60,11 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::LookupServiceProjectAttachmentResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn list_service_project_attachments(
@@ -86,6 +91,11 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListServiceProjectAttachmentsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn create_service_project_attachment(
@@ -113,6 +123,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, Some(req.service_project_attachment), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_service_project_attachment(
@@ -132,6 +143,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceProjectAttachment>| r.into_body())
     }
 
     async fn delete_service_project_attachment(
@@ -152,6 +164,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn detach_service_project_attachment(
@@ -171,7 +184,11 @@ impl super::stub::AppHub for AppHub {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::DetachServiceProjectAttachmentResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn list_discovered_services(
@@ -198,6 +215,11 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDiscoveredServicesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_discovered_service(
@@ -217,6 +239,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DiscoveredService>| r.into_body())
     }
 
     async fn lookup_discovered_service(
@@ -240,6 +263,11 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::LookupDiscoveredServiceResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_services(
@@ -263,6 +291,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListServicesResponse>| r.into_body())
     }
 
     async fn create_service(
@@ -287,6 +316,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, Some(req.service), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_service(
@@ -306,6 +336,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Service>| r.into_body())
     }
 
     async fn update_service(
@@ -345,6 +376,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, Some(req.service), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_service(
@@ -365,6 +397,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_discovered_workloads(
@@ -391,6 +424,11 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDiscoveredWorkloadsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_discovered_workload(
@@ -410,6 +448,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DiscoveredWorkload>| r.into_body())
     }
 
     async fn lookup_discovered_workload(
@@ -433,6 +472,11 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::LookupDiscoveredWorkloadResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_workloads(
@@ -459,6 +503,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListWorkloadsResponse>| r.into_body())
     }
 
     async fn create_workload(
@@ -483,6 +528,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, Some(req.workload), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_workload(
@@ -502,6 +548,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Workload>| r.into_body())
     }
 
     async fn update_workload(
@@ -541,6 +588,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, Some(req.workload), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_workload(
@@ -561,6 +609,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_applications(
@@ -587,6 +636,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListApplicationsResponse>| r.into_body())
     }
 
     async fn create_application(
@@ -611,6 +661,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, Some(req.application), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_application(
@@ -630,6 +681,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Application>| r.into_body())
     }
 
     async fn update_application(
@@ -669,6 +721,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, Some(req.application), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_application(
@@ -689,6 +742,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -711,6 +765,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -730,6 +785,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -749,7 +805,10 @@ impl super::stub::AppHub for AppHub {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -782,6 +841,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -801,7 +861,9 @@ impl super::stub::AppHub for AppHub {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -824,6 +886,11 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -843,6 +910,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -862,7 +930,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -882,7 +950,7 @@ impl super::stub::AppHub for AppHub {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

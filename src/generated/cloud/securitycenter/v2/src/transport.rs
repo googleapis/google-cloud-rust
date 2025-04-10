@@ -57,7 +57,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchCreateResourceValueConfigsResponse>| {
+                r.into_body()
+            },
+        )
     }
 
     async fn bulk_mute_findings(
@@ -77,7 +81,10 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_big_query_export(
@@ -101,6 +108,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.big_query_export), options)
             .await
+            .map(|r: gax::response::Response<crate::model::BigQueryExport>| r.into_body())
     }
 
     async fn create_finding(
@@ -124,6 +132,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.finding), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Finding>| r.into_body())
     }
 
     async fn create_mute_config(
@@ -147,6 +156,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.mute_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::MuteConfig>| r.into_body())
     }
 
     async fn create_notification_config(
@@ -170,6 +180,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.notification_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::NotificationConfig>| r.into_body())
     }
 
     async fn create_source(
@@ -186,7 +197,10 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.source), options).await
+        self.inner
+            .execute(builder, Some(req.source), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Source>| r.into_body())
     }
 
     async fn delete_big_query_export(
@@ -206,7 +220,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn delete_mute_config(
@@ -226,7 +240,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn delete_notification_config(
@@ -246,7 +260,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn delete_resource_value_config(
@@ -266,7 +280,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_big_query_export(
@@ -286,6 +300,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::BigQueryExport>| r.into_body())
     }
 
     async fn get_simulation(
@@ -305,6 +320,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Simulation>| r.into_body())
     }
 
     async fn get_valued_resource(
@@ -324,6 +340,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ValuedResource>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -343,7 +360,10 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_mute_config(
@@ -363,6 +383,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::MuteConfig>| r.into_body())
     }
 
     async fn get_notification_config(
@@ -382,6 +403,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::NotificationConfig>| r.into_body())
     }
 
     async fn get_resource_value_config(
@@ -401,6 +423,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ResourceValueConfig>| r.into_body())
     }
 
     async fn get_source(
@@ -420,6 +443,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Source>| r.into_body())
     }
 
     async fn group_findings(
@@ -439,7 +463,10 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::GroupFindingsResponse>| r.into_body())
     }
 
     async fn list_attack_paths(
@@ -465,6 +492,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAttackPathsResponse>| r.into_body())
     }
 
     async fn list_big_query_exports(
@@ -489,6 +517,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListBigQueryExportsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_findings(
@@ -522,6 +555,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListFindingsResponse>| r.into_body())
     }
 
     async fn list_mute_configs(
@@ -546,6 +580,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListMuteConfigsResponse>| r.into_body())
     }
 
     async fn list_notification_configs(
@@ -570,6 +605,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListNotificationConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_resource_value_configs(
@@ -594,6 +634,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListResourceValueConfigsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_sources(
@@ -615,6 +660,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSourcesResponse>| r.into_body())
     }
 
     async fn list_valued_resources(
@@ -641,6 +687,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListValuedResourcesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn set_finding_state(
@@ -657,7 +708,10 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Finding>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -677,7 +731,10 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_mute(
@@ -694,7 +751,10 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Finding>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -714,7 +774,9 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn update_big_query_export(
@@ -753,6 +815,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.big_query_export), options)
             .await
+            .map(|r: gax::response::Response<crate::model::BigQueryExport>| r.into_body())
     }
 
     async fn update_external_system(
@@ -791,6 +854,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.external_system), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ExternalSystem>| r.into_body())
     }
 
     async fn update_finding(
@@ -829,6 +893,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.finding), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Finding>| r.into_body())
     }
 
     async fn update_mute_config(
@@ -867,6 +932,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.mute_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::MuteConfig>| r.into_body())
     }
 
     async fn update_notification_config(
@@ -905,6 +971,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.notification_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::NotificationConfig>| r.into_body())
     }
 
     async fn update_resource_value_config(
@@ -943,6 +1010,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.resource_value_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ResourceValueConfig>| r.into_body())
     }
 
     async fn update_security_marks(
@@ -981,6 +1049,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.security_marks), options)
             .await
+            .map(|r: gax::response::Response<crate::model::SecurityMarks>| r.into_body())
     }
 
     async fn update_source(
@@ -1016,7 +1085,10 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.source), options).await
+        self.inner
+            .execute(builder, Some(req.source), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Source>| r.into_body())
     }
 
     async fn list_operations(
@@ -1039,6 +1111,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1058,6 +1135,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1077,7 +1155,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1097,7 +1175,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

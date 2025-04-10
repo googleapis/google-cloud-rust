@@ -61,6 +61,7 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, Some(req.key_handle), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_key_handle(
@@ -80,6 +81,7 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::KeyHandle>| r.into_body())
     }
 
     async fn list_key_handles(
@@ -105,6 +107,7 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListKeyHandlesResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -127,6 +130,7 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -146,6 +150,7 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -165,7 +170,10 @@ impl super::stub::Autokey for Autokey {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -198,6 +206,7 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -217,7 +226,9 @@ impl super::stub::Autokey for Autokey {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -237,6 +248,7 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -312,6 +324,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, Some(req.autokey_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::AutokeyConfig>| r.into_body())
     }
 
     async fn get_autokey_config(
@@ -331,6 +344,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AutokeyConfig>| r.into_body())
     }
 
     async fn show_effective_autokey_config(
@@ -353,6 +367,11 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_locations(
@@ -375,6 +394,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -394,6 +414,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -413,7 +434,10 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -446,6 +470,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -465,7 +490,9 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -485,6 +512,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -534,6 +562,11 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListEkmConnectionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_ekm_connection(
@@ -553,6 +586,7 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::EkmConnection>| r.into_body())
     }
 
     async fn create_ekm_connection(
@@ -576,6 +610,7 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, Some(req.ekm_connection), options)
             .await
+            .map(|r: gax::response::Response<crate::model::EkmConnection>| r.into_body())
     }
 
     async fn update_ekm_connection(
@@ -614,6 +649,7 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, Some(req.ekm_connection), options)
             .await
+            .map(|r: gax::response::Response<crate::model::EkmConnection>| r.into_body())
     }
 
     async fn get_ekm_config(
@@ -633,6 +669,7 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::EkmConfig>| r.into_body())
     }
 
     async fn update_ekm_config(
@@ -671,6 +708,7 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, Some(req.ekm_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::EkmConfig>| r.into_body())
     }
 
     async fn verify_connectivity(
@@ -693,6 +731,11 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::VerifyConnectivityResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_locations(
@@ -715,6 +758,7 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -734,6 +778,7 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -753,7 +798,10 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -786,6 +834,7 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -805,7 +854,9 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -825,6 +876,7 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -871,6 +923,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListKeyRingsResponse>| r.into_body())
     }
 
     async fn list_crypto_keys(
@@ -898,6 +951,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCryptoKeysResponse>| r.into_body())
     }
 
     async fn list_crypto_key_versions(
@@ -925,6 +979,11 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCryptoKeyVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_import_jobs(
@@ -951,6 +1010,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListImportJobsResponse>| r.into_body())
     }
 
     async fn get_key_ring(
@@ -970,6 +1030,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::KeyRing>| r.into_body())
     }
 
     async fn get_crypto_key(
@@ -989,6 +1050,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CryptoKey>| r.into_body())
     }
 
     async fn get_crypto_key_version(
@@ -1008,6 +1070,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
     }
 
     async fn get_public_key(
@@ -1028,6 +1091,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PublicKey>| r.into_body())
     }
 
     async fn get_import_job(
@@ -1047,6 +1111,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ImportJob>| r.into_body())
     }
 
     async fn create_key_ring(
@@ -1070,6 +1135,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, Some(req.key_ring), options)
             .await
+            .map(|r: gax::response::Response<crate::model::KeyRing>| r.into_body())
     }
 
     async fn create_crypto_key(
@@ -1097,6 +1163,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, Some(req.crypto_key), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CryptoKey>| r.into_body())
     }
 
     async fn create_crypto_key_version(
@@ -1119,6 +1186,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, Some(req.crypto_key_version), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
     }
 
     async fn import_crypto_key_version(
@@ -1138,7 +1206,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
     }
 
     async fn create_import_job(
@@ -1162,6 +1233,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, Some(req.import_job), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ImportJob>| r.into_body())
     }
 
     async fn update_crypto_key(
@@ -1200,6 +1272,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, Some(req.crypto_key), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CryptoKey>| r.into_body())
     }
 
     async fn update_crypto_key_version(
@@ -1238,6 +1311,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, Some(req.crypto_key_version), options)
             .await
+            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
     }
 
     async fn update_crypto_key_primary_version(
@@ -1257,7 +1331,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::CryptoKey>| r.into_body())
     }
 
     async fn destroy_crypto_key_version(
@@ -1274,7 +1351,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
     }
 
     async fn restore_crypto_key_version(
@@ -1291,7 +1371,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
     }
 
     async fn encrypt(
@@ -1308,7 +1391,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::EncryptResponse>| r.into_body())
     }
 
     async fn decrypt(
@@ -1325,7 +1411,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::DecryptResponse>| r.into_body())
     }
 
     async fn raw_encrypt(
@@ -1345,7 +1434,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::RawEncryptResponse>| r.into_body())
     }
 
     async fn raw_decrypt(
@@ -1365,7 +1457,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::RawDecryptResponse>| r.into_body())
     }
 
     async fn asymmetric_sign(
@@ -1385,7 +1480,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AsymmetricSignResponse>| r.into_body())
     }
 
     async fn asymmetric_decrypt(
@@ -1405,7 +1503,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::AsymmetricDecryptResponse>| r.into_body(),
+        )
     }
 
     async fn mac_sign(
@@ -1422,7 +1522,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::MacSignResponse>| r.into_body())
     }
 
     async fn mac_verify(
@@ -1439,7 +1542,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::MacVerifyResponse>| r.into_body())
     }
 
     async fn generate_random_bytes(
@@ -1459,7 +1565,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateRandomBytesResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -1482,6 +1590,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1501,6 +1610,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1520,7 +1630,10 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1553,6 +1666,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1572,7 +1686,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -1592,5 +1708,6 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }

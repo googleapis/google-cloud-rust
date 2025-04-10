@@ -57,7 +57,9 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::GenerateAccessTokenResponse>| r.into_body(),
+        )
     }
 
     async fn generate_id_token(
@@ -77,7 +79,10 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::GenerateIdTokenResponse>| r.into_body())
     }
 
     async fn sign_blob(
@@ -94,7 +99,10 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SignBlobResponse>| r.into_body())
     }
 
     async fn sign_jwt(
@@ -111,6 +119,9 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SignJwtResponse>| r.into_body())
     }
 }

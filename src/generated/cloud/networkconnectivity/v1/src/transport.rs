@@ -64,6 +64,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServiceConnectionMapsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_service_connection_map(
@@ -83,6 +88,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceConnectionMap>| r.into_body())
     }
 
     async fn create_service_connection_map(
@@ -107,6 +113,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, Some(req.service_connection_map), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_service_connection_map(
@@ -146,6 +153,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, Some(req.service_connection_map), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_service_connection_map(
@@ -170,6 +178,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_service_connection_policies(
@@ -196,6 +205,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListServiceConnectionPoliciesResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_service_connection_policy(
@@ -215,6 +229,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceConnectionPolicy>| r.into_body())
     }
 
     async fn create_service_connection_policy(
@@ -242,6 +257,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, Some(req.service_connection_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_service_connection_policy(
@@ -281,6 +297,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, Some(req.service_connection_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_service_connection_policy(
@@ -305,6 +322,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_service_classes(
@@ -331,6 +349,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServiceClassesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_service_class(
@@ -350,6 +373,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceClass>| r.into_body())
     }
 
     async fn update_service_class(
@@ -389,6 +413,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, Some(req.service_class), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_service_class(
@@ -413,6 +438,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_service_connection_token(
@@ -432,6 +458,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ServiceConnectionToken>| r.into_body())
     }
 
     async fn list_service_connection_tokens(
@@ -458,6 +485,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListServiceConnectionTokensResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_service_connection_token(
@@ -483,6 +515,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, Some(req.service_connection_token), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_service_connection_token(
@@ -507,6 +540,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -529,6 +563,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -548,6 +583,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -567,7 +603,10 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -600,6 +639,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -619,7 +659,9 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -642,6 +684,11 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -661,6 +708,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -680,7 +728,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -700,7 +748,7 @@ impl super::stub::CrossNetworkAutomationService for CrossNetworkAutomationServic
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -761,6 +809,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListHubsResponse>| r.into_body())
     }
 
     async fn get_hub(
@@ -780,6 +829,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Hub>| r.into_body())
     }
 
     async fn create_hub(
@@ -798,7 +848,10 @@ impl super::stub::HubService for HubService {
             );
         let builder = builder.query(&[("hubId", &req.hub_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.hub), options).await
+        self.inner
+            .execute(builder, Some(req.hub), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_hub(
@@ -835,7 +888,10 @@ impl super::stub::HubService for HubService {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.hub), options).await
+        self.inner
+            .execute(builder, Some(req.hub), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_hub(
@@ -856,6 +912,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_hub_spokes(
@@ -883,6 +940,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListHubSpokesResponse>| r.into_body())
     }
 
     async fn query_hub_status(
@@ -910,6 +968,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::QueryHubStatusResponse>| r.into_body())
     }
 
     async fn list_spokes(
@@ -933,6 +992,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSpokesResponse>| r.into_body())
     }
 
     async fn get_spoke(
@@ -952,6 +1012,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Spoke>| r.into_body())
     }
 
     async fn create_spoke(
@@ -970,7 +1031,10 @@ impl super::stub::HubService for HubService {
             );
         let builder = builder.query(&[("spokeId", &req.spoke_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.spoke), options).await
+        self.inner
+            .execute(builder, Some(req.spoke), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_spoke(
@@ -1007,7 +1071,10 @@ impl super::stub::HubService for HubService {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.spoke), options).await
+        self.inner
+            .execute(builder, Some(req.spoke), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn reject_hub_spoke(
@@ -1027,7 +1094,10 @@ impl super::stub::HubService for HubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn accept_hub_spoke(
@@ -1047,7 +1117,10 @@ impl super::stub::HubService for HubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn accept_spoke_update(
@@ -1067,7 +1140,10 @@ impl super::stub::HubService for HubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn reject_spoke_update(
@@ -1087,7 +1163,10 @@ impl super::stub::HubService for HubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_spoke(
@@ -1108,6 +1187,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_route_table(
@@ -1127,6 +1207,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::RouteTable>| r.into_body())
     }
 
     async fn get_route(
@@ -1146,6 +1227,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Route>| r.into_body())
     }
 
     async fn list_routes(
@@ -1169,6 +1251,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRoutesResponse>| r.into_body())
     }
 
     async fn list_route_tables(
@@ -1195,6 +1278,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRouteTablesResponse>| r.into_body())
     }
 
     async fn get_group(
@@ -1214,6 +1298,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Group>| r.into_body())
     }
 
     async fn list_groups(
@@ -1237,6 +1322,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListGroupsResponse>| r.into_body())
     }
 
     async fn update_group(
@@ -1273,7 +1359,10 @@ impl super::stub::HubService for HubService {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner.execute(builder, Some(req.group), options).await
+        self.inner
+            .execute(builder, Some(req.group), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -1296,6 +1385,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1315,6 +1405,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1334,7 +1425,10 @@ impl super::stub::HubService for HubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1367,6 +1461,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1386,7 +1481,9 @@ impl super::stub::HubService for HubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1409,6 +1506,11 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1428,6 +1530,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1447,7 +1550,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1467,7 +1570,7 @@ impl super::stub::HubService for HubService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -1531,6 +1634,11 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPolicyBasedRoutesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_policy_based_route(
@@ -1550,6 +1658,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PolicyBasedRoute>| r.into_body())
     }
 
     async fn create_policy_based_route(
@@ -1574,6 +1683,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, Some(req.policy_based_route), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_policy_based_route(
@@ -1594,6 +1704,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -1616,6 +1727,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1635,6 +1747,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1654,7 +1767,10 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1687,6 +1803,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1706,7 +1823,9 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1729,6 +1848,11 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1748,6 +1872,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1767,7 +1892,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1787,7 +1912,7 @@ impl super::stub::PolicyBasedRoutingService for PolicyBasedRoutingService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

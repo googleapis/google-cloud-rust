@@ -62,6 +62,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         self.inner
             .execute(builder, Some(req.policy_binding), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_policy_binding(
@@ -81,6 +82,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::PolicyBinding>| r.into_body())
     }
 
     async fn update_policy_binding(
@@ -120,6 +122,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         self.inner
             .execute(builder, Some(req.policy_binding), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_policy_binding(
@@ -141,6 +144,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_policy_bindings(
@@ -166,6 +170,11 @@ impl super::stub::PolicyBindings for PolicyBindings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListPolicyBindingsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn search_target_policy_bindings(
@@ -194,6 +203,11 @@ impl super::stub::PolicyBindings for PolicyBindings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::SearchTargetPolicyBindingsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -213,6 +227,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -277,6 +292,7 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         self.inner
             .execute(builder, Some(req.principal_access_boundary_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_principal_access_boundary_policy(
@@ -296,6 +312,11 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::PrincipalAccessBoundaryPolicy>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_principal_access_boundary_policy(
@@ -337,6 +358,7 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         self.inner
             .execute(builder, Some(req.principal_access_boundary_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_principal_access_boundary_policy(
@@ -359,6 +381,7 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_principal_access_boundary_policies(
@@ -383,6 +406,11 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListPrincipalAccessBoundaryPoliciesResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn search_principal_access_boundary_policy_bindings(
@@ -407,6 +435,11 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn get_operation(
@@ -426,6 +459,7 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

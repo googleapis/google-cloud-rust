@@ -2299,6 +2299,7 @@ dependencies = [
  "google-cloud-wkt",
  "grpc-server",
  "http",
+ "http-body-util",
  "mockall",
  "prost",
  "reqwest",

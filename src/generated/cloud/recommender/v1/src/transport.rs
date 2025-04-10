@@ -60,6 +60,7 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInsightsResponse>| r.into_body())
     }
 
     async fn get_insight(
@@ -79,6 +80,7 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Insight>| r.into_body())
     }
 
     async fn mark_insight_accepted(
@@ -98,7 +100,10 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Insight>| r.into_body())
     }
 
     async fn list_recommendations(
@@ -124,6 +129,11 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListRecommendationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_recommendation(
@@ -143,6 +153,7 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Recommendation>| r.into_body())
     }
 
     async fn mark_recommendation_dismissed(
@@ -162,7 +173,10 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Recommendation>| r.into_body())
     }
 
     async fn mark_recommendation_claimed(
@@ -182,7 +196,10 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Recommendation>| r.into_body())
     }
 
     async fn mark_recommendation_succeeded(
@@ -202,7 +219,10 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Recommendation>| r.into_body())
     }
 
     async fn mark_recommendation_failed(
@@ -222,7 +242,10 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Recommendation>| r.into_body())
     }
 
     async fn get_recommender_config(
@@ -242,6 +265,7 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::RecommenderConfig>| r.into_body())
     }
 
     async fn update_recommender_config(
@@ -281,6 +305,7 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, Some(req.recommender_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::RecommenderConfig>| r.into_body())
     }
 
     async fn get_insight_type_config(
@@ -300,6 +325,7 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::InsightTypeConfig>| r.into_body())
     }
 
     async fn update_insight_type_config(
@@ -339,5 +365,6 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, Some(req.insight_type_config), options)
             .await
+            .map(|r: gax::response::Response<crate::model::InsightTypeConfig>| r.into_body())
     }
 }

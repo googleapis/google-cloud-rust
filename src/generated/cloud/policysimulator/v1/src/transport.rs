@@ -57,6 +57,7 @@ impl super::stub::Simulator for Simulator {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Replay>| r.into_body())
     }
 
     async fn create_replay(
@@ -73,7 +74,10 @@ impl super::stub::Simulator for Simulator {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.replay), options).await
+        self.inner
+            .execute(builder, Some(req.replay), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_replay_results(
@@ -95,6 +99,9 @@ impl super::stub::Simulator for Simulator {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListReplayResultsResponse>| r.into_body(),
+            )
     }
 
     async fn list_operations(
@@ -117,6 +124,11 @@ impl super::stub::Simulator for Simulator {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -136,6 +148,7 @@ impl super::stub::Simulator for Simulator {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

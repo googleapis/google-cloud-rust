@@ -62,6 +62,9 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDataExchangesResponse>| r.into_body(),
+            )
     }
 
     async fn list_org_data_exchanges(
@@ -86,6 +89,11 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListOrgDataExchangesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_data_exchange(
@@ -105,6 +113,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataExchange>| r.into_body())
     }
 
     async fn create_data_exchange(
@@ -128,6 +137,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, Some(req.data_exchange), options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataExchange>| r.into_body())
     }
 
     async fn update_data_exchange(
@@ -166,6 +176,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, Some(req.data_exchange), options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataExchange>| r.into_body())
     }
 
     async fn delete_data_exchange(
@@ -185,7 +196,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_listings(
@@ -207,6 +218,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListListingsResponse>| r.into_body())
     }
 
     async fn get_listing(
@@ -226,6 +238,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Listing>| r.into_body())
     }
 
     async fn create_listing(
@@ -249,6 +262,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, Some(req.listing), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Listing>| r.into_body())
     }
 
     async fn update_listing(
@@ -287,6 +301,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, Some(req.listing), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Listing>| r.into_body())
     }
 
     async fn delete_listing(
@@ -306,7 +321,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn subscribe_listing(
@@ -323,7 +338,10 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SubscribeListingResponse>| r.into_body())
     }
 
     async fn subscribe_data_exchange(
@@ -340,7 +358,10 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn refresh_subscription(
@@ -357,7 +378,10 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_subscription(
@@ -377,6 +401,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Subscription>| r.into_body())
     }
 
     async fn list_subscriptions(
@@ -402,6 +427,9 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListSubscriptionsResponse>| r.into_body(),
+            )
     }
 
     async fn list_shared_resource_subscriptions(
@@ -430,6 +458,11 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListSharedResourceSubscriptionsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn revoke_subscription(
@@ -446,7 +479,9 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::RevokeSubscriptionResponse>| r.into_body(),
+        )
     }
 
     async fn delete_subscription(
@@ -466,6 +501,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -485,7 +521,10 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -505,7 +544,10 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -525,7 +567,9 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn get_operation(
@@ -545,6 +589,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

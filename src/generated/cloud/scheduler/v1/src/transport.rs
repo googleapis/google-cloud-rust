@@ -59,6 +59,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListJobsResponse>| r.into_body())
     }
 
     async fn get_job(
@@ -78,6 +79,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn create_job(
@@ -94,7 +96,10 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.job), options).await
+        self.inner
+            .execute(builder, Some(req.job), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn update_job(
@@ -130,7 +135,10 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.job), options).await
+        self.inner
+            .execute(builder, Some(req.job), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn delete_job(
@@ -150,7 +158,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn pause_job(
@@ -167,7 +175,10 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn resume_job(
@@ -184,7 +195,10 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn run_job(
@@ -201,7 +215,10 @@ impl super::stub::CloudScheduler for CloudScheduler {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn list_locations(
@@ -224,6 +241,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -243,5 +261,6 @@ impl super::stub::CloudScheduler for CloudScheduler {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 }

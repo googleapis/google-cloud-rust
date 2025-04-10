@@ -62,5 +62,6 @@ impl super::stub::ConnectionService for ConnectionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListConnectionsResponse>| r.into_body())
     }
 }

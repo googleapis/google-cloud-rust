@@ -64,6 +64,11 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDeliveryPipelinesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_delivery_pipeline(
@@ -83,6 +88,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DeliveryPipeline>| r.into_body())
     }
 
     async fn create_delivery_pipeline(
@@ -108,6 +114,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req.delivery_pipeline), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_delivery_pipeline(
@@ -149,6 +156,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req.delivery_pipeline), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_delivery_pipeline(
@@ -173,6 +181,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_targets(
@@ -196,6 +205,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListTargetsResponse>| r.into_body())
     }
 
     async fn rollback_target(
@@ -215,7 +225,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::RollbackTargetResponse>| r.into_body())
     }
 
     async fn get_target(
@@ -235,6 +248,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Target>| r.into_body())
     }
 
     async fn create_target(
@@ -254,7 +268,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("targetId", &req.target_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner.execute(builder, Some(req.target), options).await
+        self.inner
+            .execute(builder, Some(req.target), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_target(
@@ -293,7 +310,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
-        self.inner.execute(builder, Some(req.target), options).await
+        self.inner
+            .execute(builder, Some(req.target), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_target(
@@ -317,6 +337,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_custom_target_types(
@@ -343,6 +364,11 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCustomTargetTypesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_custom_target_type(
@@ -362,6 +388,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CustomTargetType>| r.into_body())
     }
 
     async fn create_custom_target_type(
@@ -387,6 +414,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req.custom_target_type), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_custom_target_type(
@@ -428,6 +456,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req.custom_target_type), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_custom_target_type(
@@ -451,6 +480,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_releases(
@@ -474,6 +504,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListReleasesResponse>| r.into_body())
     }
 
     async fn get_release(
@@ -493,6 +524,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Release>| r.into_body())
     }
 
     async fn create_release(
@@ -524,6 +556,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req.release), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn abandon_release(
@@ -540,7 +573,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AbandonReleaseResponse>| r.into_body())
     }
 
     async fn create_deploy_policy(
@@ -566,6 +602,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req.deploy_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_deploy_policy(
@@ -607,6 +644,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req.deploy_policy), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_deploy_policy(
@@ -630,6 +668,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_deploy_policies(
@@ -656,6 +695,11 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDeployPoliciesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_deploy_policy(
@@ -675,6 +719,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DeployPolicy>| r.into_body())
     }
 
     async fn approve_rollout(
@@ -691,7 +736,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::ApproveRolloutResponse>| r.into_body())
     }
 
     async fn advance_rollout(
@@ -708,7 +756,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::AdvanceRolloutResponse>| r.into_body())
     }
 
     async fn cancel_rollout(
@@ -725,7 +776,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::CancelRolloutResponse>| r.into_body())
     }
 
     async fn list_rollouts(
@@ -749,6 +803,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRolloutsResponse>| r.into_body())
     }
 
     async fn get_rollout(
@@ -768,6 +823,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Rollout>| r.into_body())
     }
 
     async fn create_rollout(
@@ -800,6 +856,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req.rollout), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn ignore_job(
@@ -819,7 +876,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::IgnoreJobResponse>| r.into_body())
     }
 
     async fn retry_job(
@@ -839,7 +899,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::RetryJobResponse>| r.into_body())
     }
 
     async fn list_job_runs(
@@ -863,6 +926,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListJobRunsResponse>| r.into_body())
     }
 
     async fn get_job_run(
@@ -882,6 +946,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::JobRun>| r.into_body())
     }
 
     async fn terminate_job_run(
@@ -898,7 +963,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::TerminateJobRunResponse>| r.into_body())
     }
 
     async fn get_config(
@@ -918,6 +986,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Config>| r.into_body())
     }
 
     async fn create_automation(
@@ -943,6 +1012,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req.automation), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_automation(
@@ -984,6 +1054,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req.automation), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_automation(
@@ -1007,6 +1078,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_automation(
@@ -1026,6 +1098,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Automation>| r.into_body())
     }
 
     async fn list_automations(
@@ -1052,6 +1125,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAutomationsResponse>| r.into_body())
     }
 
     async fn get_automation_run(
@@ -1071,6 +1145,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::AutomationRun>| r.into_body())
     }
 
     async fn list_automation_runs(
@@ -1097,6 +1172,11 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAutomationRunsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn cancel_automation_run(
@@ -1113,7 +1193,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::CancelAutomationRunResponse>| r.into_body(),
+        )
     }
 
     async fn list_locations(
@@ -1136,6 +1218,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1155,6 +1238,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -1174,7 +1258,10 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -1207,6 +1294,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -1226,7 +1314,9 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -1249,6 +1339,11 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1268,6 +1363,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1287,7 +1383,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1307,7 +1403,7 @@ impl super::stub::CloudDeploy for CloudDeploy {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

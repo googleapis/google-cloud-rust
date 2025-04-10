@@ -67,6 +67,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, Some(req.certificate), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Certificate>| r.into_body())
     }
 
     async fn get_certificate(
@@ -86,6 +87,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Certificate>| r.into_body())
     }
 
     async fn list_certificates(
@@ -112,6 +114,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCertificatesResponse>| r.into_body())
     }
 
     async fn revoke_certificate(
@@ -128,7 +131,10 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Certificate>| r.into_body())
     }
 
     async fn update_certificate(
@@ -168,6 +174,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, Some(req.certificate), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Certificate>| r.into_body())
     }
 
     async fn activate_certificate_authority(
@@ -184,7 +191,10 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_certificate_authority(
@@ -209,6 +219,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, Some(req.certificate_authority), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn disable_certificate_authority(
@@ -225,7 +236,10 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn enable_certificate_authority(
@@ -242,7 +256,10 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn fetch_certificate_authority_csr(
@@ -262,6 +279,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::FetchCertificateAuthorityCsrResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_certificate_authority(
@@ -281,6 +303,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CertificateAuthority>| r.into_body())
     }
 
     async fn list_certificate_authorities(
@@ -307,6 +330,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCertificateAuthoritiesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn undelete_certificate_authority(
@@ -323,7 +351,10 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_certificate_authority(
@@ -349,6 +380,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_certificate_authority(
@@ -388,6 +420,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, Some(req.certificate_authority), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_ca_pool(
@@ -409,6 +442,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, Some(req.ca_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_ca_pool(
@@ -448,6 +482,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, Some(req.ca_pool), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_ca_pool(
@@ -467,6 +502,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CaPool>| r.into_body())
     }
 
     async fn list_ca_pools(
@@ -490,6 +526,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListCaPoolsResponse>| r.into_body())
     }
 
     async fn delete_ca_pool(
@@ -512,6 +549,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn fetch_ca_certs(
@@ -531,7 +569,10 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::FetchCaCertsResponse>| r.into_body())
     }
 
     async fn get_certificate_revocation_list(
@@ -551,6 +592,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::CertificateRevocationList>| r.into_body(),
+            )
     }
 
     async fn list_certificate_revocation_lists(
@@ -577,6 +621,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListCertificateRevocationListsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn update_certificate_revocation_list(
@@ -618,6 +667,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, Some(req.certificate_revocation_list), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_certificate_template(
@@ -642,6 +692,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, Some(req.certificate_template), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_certificate_template(
@@ -662,6 +713,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_certificate_template(
@@ -681,6 +733,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::CertificateTemplate>| r.into_body())
     }
 
     async fn list_certificate_templates(
@@ -707,6 +760,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListCertificateTemplatesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_certificate_template(
@@ -746,6 +804,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, Some(req.certificate_template), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
@@ -768,6 +827,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -787,6 +847,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
@@ -806,7 +867,10 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn get_iam_policy(
@@ -839,6 +903,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
@@ -858,7 +923,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
+        )
     }
 
     async fn list_operations(
@@ -881,6 +948,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -900,6 +972,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -919,7 +992,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -939,7 +1012,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

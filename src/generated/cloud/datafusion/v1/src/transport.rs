@@ -60,6 +60,11 @@ impl super::stub::DataFusion for DataFusion {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListAvailableVersionsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_instances(
@@ -86,6 +91,7 @@ impl super::stub::DataFusion for DataFusion {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListInstancesResponse>| r.into_body())
     }
 
     async fn get_instance(
@@ -105,6 +111,7 @@ impl super::stub::DataFusion for DataFusion {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn create_instance(
@@ -128,6 +135,7 @@ impl super::stub::DataFusion for DataFusion {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_instance(
@@ -147,6 +155,7 @@ impl super::stub::DataFusion for DataFusion {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_instance(
@@ -185,6 +194,7 @@ impl super::stub::DataFusion for DataFusion {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn restart_instance(
@@ -201,7 +211,10 @@ impl super::stub::DataFusion for DataFusion {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_operations(
@@ -224,6 +237,11 @@ impl super::stub::DataFusion for DataFusion {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -243,6 +261,7 @@ impl super::stub::DataFusion for DataFusion {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -262,7 +281,7 @@ impl super::stub::DataFusion for DataFusion {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -282,7 +301,7 @@ impl super::stub::DataFusion for DataFusion {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(

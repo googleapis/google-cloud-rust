@@ -55,7 +55,10 @@ impl super::stub::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("apiId", &req.api_id)]);
-        self.inner.execute(builder, Some(req.api), options).await
+        self.inner
+            .execute(builder, Some(req.api), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Api>| r.into_body())
     }
 
     async fn get_api(
@@ -75,6 +78,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Api>| r.into_body())
     }
 
     async fn list_apis(
@@ -97,6 +101,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListApisResponse>| r.into_body())
     }
 
     async fn update_api(
@@ -132,7 +137,10 @@ impl super::stub::ApiHub for ApiHub {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.api), options).await
+        self.inner
+            .execute(builder, Some(req.api), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Api>| r.into_body())
     }
 
     async fn delete_api(
@@ -153,7 +161,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_version(
@@ -177,6 +185,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, Some(req.version), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Version>| r.into_body())
     }
 
     async fn get_version(
@@ -196,6 +205,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Version>| r.into_body())
     }
 
     async fn list_versions(
@@ -218,6 +228,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListVersionsResponse>| r.into_body())
     }
 
     async fn update_version(
@@ -256,6 +267,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, Some(req.version), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Version>| r.into_body())
     }
 
     async fn delete_version(
@@ -276,7 +288,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_spec(
@@ -294,7 +306,10 @@ impl super::stub::ApiHub for ApiHub {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("specId", &req.spec_id)]);
-        self.inner.execute(builder, Some(req.spec), options).await
+        self.inner
+            .execute(builder, Some(req.spec), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Spec>| r.into_body())
     }
 
     async fn get_spec(
@@ -314,6 +329,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Spec>| r.into_body())
     }
 
     async fn get_spec_contents(
@@ -333,6 +349,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::SpecContents>| r.into_body())
     }
 
     async fn list_specs(
@@ -355,6 +372,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListSpecsResponse>| r.into_body())
     }
 
     async fn update_spec(
@@ -390,7 +408,10 @@ impl super::stub::ApiHub for ApiHub {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.spec), options).await
+        self.inner
+            .execute(builder, Some(req.spec), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Spec>| r.into_body())
     }
 
     async fn delete_spec(
@@ -410,7 +431,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn get_api_operation(
@@ -430,6 +451,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ApiOperation>| r.into_body())
     }
 
     async fn list_api_operations(
@@ -455,6 +477,9 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListApiOperationsResponse>| r.into_body(),
+            )
     }
 
     async fn get_definition(
@@ -474,6 +499,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Definition>| r.into_body())
     }
 
     async fn create_deployment(
@@ -497,6 +523,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, Some(req.deployment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn get_deployment(
@@ -516,6 +543,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn list_deployments(
@@ -541,6 +569,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDeploymentsResponse>| r.into_body())
     }
 
     async fn update_deployment(
@@ -579,6 +608,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, Some(req.deployment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn delete_deployment(
@@ -598,7 +628,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_attribute(
@@ -622,6 +652,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, Some(req.attribute), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Attribute>| r.into_body())
     }
 
     async fn get_attribute(
@@ -641,6 +672,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Attribute>| r.into_body())
     }
 
     async fn update_attribute(
@@ -679,6 +711,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, Some(req.attribute), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Attribute>| r.into_body())
     }
 
     async fn delete_attribute(
@@ -698,7 +731,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_attributes(
@@ -724,6 +757,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAttributesResponse>| r.into_body())
     }
 
     async fn search_resources(
@@ -743,7 +777,10 @@ impl super::stub::ApiHub for ApiHub {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::SearchResourcesResponse>| r.into_body())
     }
 
     async fn create_external_api(
@@ -767,6 +804,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, Some(req.external_api), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ExternalApi>| r.into_body())
     }
 
     async fn get_external_api(
@@ -786,6 +824,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ExternalApi>| r.into_body())
     }
 
     async fn update_external_api(
@@ -824,6 +863,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, Some(req.external_api), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ExternalApi>| r.into_body())
     }
 
     async fn delete_external_api(
@@ -843,7 +883,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_external_apis(
@@ -868,6 +908,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListExternalApisResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -890,6 +931,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -909,6 +951,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -931,6 +974,11 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -950,6 +998,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -969,7 +1018,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -989,7 +1038,7 @@ impl super::stub::ApiHub for ApiHub {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -1036,6 +1085,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, Some(req.dependency), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dependency>| r.into_body())
     }
 
     async fn get_dependency(
@@ -1055,6 +1105,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dependency>| r.into_body())
     }
 
     async fn update_dependency(
@@ -1093,6 +1144,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, Some(req.dependency), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Dependency>| r.into_body())
     }
 
     async fn delete_dependency(
@@ -1112,7 +1164,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_dependencies(
@@ -1138,6 +1190,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListDependenciesResponse>| r.into_body())
     }
 
     async fn list_locations(
@@ -1160,6 +1213,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1179,6 +1233,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -1201,6 +1256,11 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1220,6 +1280,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1239,7 +1300,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1259,7 +1320,7 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -1309,6 +1370,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         self.inner
             .execute(builder, Some(req.host_project_registration), options)
             .await
+            .map(|r: gax::response::Response<crate::model::HostProjectRegistration>| r.into_body())
     }
 
     async fn get_host_project_registration(
@@ -1328,6 +1390,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::HostProjectRegistration>| r.into_body())
     }
 
     async fn list_host_project_registrations(
@@ -1354,6 +1417,11 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListHostProjectRegistrationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_locations(
@@ -1376,6 +1444,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1395,6 +1464,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -1417,6 +1487,11 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1436,6 +1511,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1455,7 +1531,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1475,7 +1551,7 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -1518,6 +1594,7 @@ impl super::stub::LintingService for LintingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::StyleGuide>| r.into_body())
     }
 
     async fn update_style_guide(
@@ -1556,6 +1633,7 @@ impl super::stub::LintingService for LintingService {
         self.inner
             .execute(builder, Some(req.style_guide), options)
             .await
+            .map(|r: gax::response::Response<crate::model::StyleGuide>| r.into_body())
     }
 
     async fn get_style_guide_contents(
@@ -1575,6 +1653,7 @@ impl super::stub::LintingService for LintingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::StyleGuideContents>| r.into_body())
     }
 
     async fn lint_spec(
@@ -1594,7 +1673,7 @@ impl super::stub::LintingService for LintingService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_locations(
@@ -1617,6 +1696,7 @@ impl super::stub::LintingService for LintingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1636,6 +1716,7 @@ impl super::stub::LintingService for LintingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -1658,6 +1739,11 @@ impl super::stub::LintingService for LintingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1677,6 +1763,7 @@ impl super::stub::LintingService for LintingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1696,7 +1783,7 @@ impl super::stub::LintingService for LintingService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1716,7 +1803,7 @@ impl super::stub::LintingService for LintingService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -1759,6 +1846,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Plugin>| r.into_body())
     }
 
     async fn enable_plugin(
@@ -1775,7 +1863,10 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Plugin>| r.into_body())
     }
 
     async fn disable_plugin(
@@ -1792,7 +1883,10 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Plugin>| r.into_body())
     }
 
     async fn list_locations(
@@ -1815,6 +1909,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -1834,6 +1929,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -1856,6 +1952,11 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1875,6 +1976,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1894,7 +1996,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1914,7 +2016,7 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -1961,6 +2063,7 @@ impl super::stub::Provisioning for Provisioning {
         self.inner
             .execute(builder, Some(req.api_hub_instance), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_api_hub_instance(
@@ -1980,6 +2083,7 @@ impl super::stub::Provisioning for Provisioning {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ApiHubInstance>| r.into_body())
     }
 
     async fn lookup_api_hub_instance(
@@ -2002,6 +2106,11 @@ impl super::stub::Provisioning for Provisioning {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::LookupApiHubInstanceResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn list_locations(
@@ -2024,6 +2133,7 @@ impl super::stub::Provisioning for Provisioning {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -2043,6 +2153,7 @@ impl super::stub::Provisioning for Provisioning {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -2065,6 +2176,11 @@ impl super::stub::Provisioning for Provisioning {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -2084,6 +2200,7 @@ impl super::stub::Provisioning for Provisioning {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -2103,7 +2220,7 @@ impl super::stub::Provisioning for Provisioning {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -2123,7 +2240,7 @@ impl super::stub::Provisioning for Provisioning {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
@@ -2187,6 +2304,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, Some(req.runtime_project_attachment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::RuntimeProjectAttachment>| r.into_body())
     }
 
     async fn get_runtime_project_attachment(
@@ -2206,6 +2324,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::RuntimeProjectAttachment>| r.into_body())
     }
 
     async fn list_runtime_project_attachments(
@@ -2232,6 +2351,11 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::ListRuntimeProjectAttachmentsResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn delete_runtime_project_attachment(
@@ -2251,7 +2375,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn lookup_runtime_project_attachment(
@@ -2274,6 +2398,11 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<
+                    crate::model::LookupRuntimeProjectAttachmentResponse,
+                >| r.into_body(),
+            )
     }
 
     async fn list_locations(
@@ -2296,6 +2425,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
@@ -2315,6 +2445,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
@@ -2337,6 +2468,11 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -2356,6 +2492,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -2375,7 +2512,7 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -2395,6 +2532,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }

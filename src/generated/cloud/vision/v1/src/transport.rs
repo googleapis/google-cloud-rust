@@ -54,7 +54,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchAnnotateImagesResponse>| r.into_body(),
+        )
     }
 
     async fn batch_annotate_files(
@@ -71,7 +73,9 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::BatchAnnotateFilesResponse>| r.into_body(),
+        )
     }
 
     async fn async_batch_annotate_images(
@@ -91,7 +95,10 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn async_batch_annotate_files(
@@ -111,7 +118,10 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_operation(
@@ -131,6 +141,7 @@ impl super::stub::ImageAnnotator for ImageAnnotator {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -191,6 +202,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, Some(req.product_set), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProductSet>| r.into_body())
     }
 
     async fn list_product_sets(
@@ -215,6 +227,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListProductSetsResponse>| r.into_body())
     }
 
     async fn get_product_set(
@@ -234,6 +247,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProductSet>| r.into_body())
     }
 
     async fn update_product_set(
@@ -272,6 +286,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, Some(req.product_set), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ProductSet>| r.into_body())
     }
 
     async fn delete_product_set(
@@ -291,7 +306,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_product(
@@ -315,6 +330,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, Some(req.product), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Product>| r.into_body())
     }
 
     async fn list_products(
@@ -336,6 +352,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListProductsResponse>| r.into_body())
     }
 
     async fn get_product(
@@ -355,6 +372,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Product>| r.into_body())
     }
 
     async fn update_product(
@@ -393,6 +411,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, Some(req.product), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Product>| r.into_body())
     }
 
     async fn delete_product(
@@ -412,7 +431,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_reference_image(
@@ -436,6 +455,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, Some(req.reference_image), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ReferenceImage>| r.into_body())
     }
 
     async fn delete_reference_image(
@@ -455,7 +475,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_reference_images(
@@ -480,6 +500,11 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListReferenceImagesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_reference_image(
@@ -499,6 +524,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ReferenceImage>| r.into_body())
     }
 
     async fn add_product_to_product_set(
@@ -521,7 +547,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn remove_product_from_product_set(
@@ -544,7 +570,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_products_in_product_set(
@@ -566,6 +592,11 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListProductsInProductSetResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn import_product_sets(
@@ -585,7 +616,10 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn purge_products(
@@ -605,7 +639,10 @@ impl super::stub::ProductSearch for ProductSearch {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner
+            .execute(builder, Some(req), options)
+            .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_operation(
@@ -625,6 +662,7 @@ impl super::stub::ProductSearch for ProductSearch {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

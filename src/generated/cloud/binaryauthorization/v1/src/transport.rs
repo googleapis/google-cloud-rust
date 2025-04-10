@@ -57,6 +57,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn update_policy(
@@ -82,7 +83,10 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.policy), options).await
+        self.inner
+            .execute(builder, Some(req.policy), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn create_attestor(
@@ -106,6 +110,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, Some(req.attestor), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Attestor>| r.into_body())
     }
 
     async fn get_attestor(
@@ -125,6 +130,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Attestor>| r.into_body())
     }
 
     async fn update_attestor(
@@ -153,6 +159,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, Some(req.attestor), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Attestor>| r.into_body())
     }
 
     async fn list_attestors(
@@ -177,6 +184,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListAttestorsResponse>| r.into_body())
     }
 
     async fn delete_attestor(
@@ -196,7 +204,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -239,6 +247,7 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 }
 
@@ -281,6 +290,10 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>| {
+                r.into_body()
+            },
+        )
     }
 }
