@@ -48,8 +48,8 @@ pub struct SetIamPolicyRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SetIamPolicyRequest {
@@ -99,8 +99,8 @@ pub struct GetIamPolicyRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::model::GetPolicyOptions>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetIamPolicyRequest {
@@ -146,8 +146,8 @@ pub struct TestIamPermissionsRequest {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub permissions: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TestIamPermissionsRequest {
@@ -191,8 +191,8 @@ pub struct TestIamPermissionsResponse {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub permissions: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TestIamPermissionsResponse {
@@ -245,8 +245,8 @@ pub struct GetPolicyOptions {
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     pub requested_policy_version: i32,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPolicyOptions {
@@ -405,8 +405,8 @@ pub struct Policy {
     #[serde_as(as = "serde_with::base64::Base64")]
     pub etag: ::bytes::Bytes,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Policy {
@@ -526,8 +526,8 @@ pub struct Binding {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition: std::option::Option<gtype::model::Expr>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Binding {
@@ -634,8 +634,8 @@ pub struct AuditConfig {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub audit_log_configs: std::vec::Vec<crate::model::AuditLogConfig>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuditConfig {
@@ -706,8 +706,8 @@ pub struct AuditLogConfig {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub exempted_members: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuditLogConfig {
@@ -825,8 +825,8 @@ pub struct PolicyDelta {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub audit_config_deltas: std::vec::Vec<crate::model::AuditConfigDelta>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyDelta {
@@ -891,8 +891,8 @@ pub struct BindingDelta {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition: std::option::Option<gtype::model::Expr>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BindingDelta {
@@ -1027,8 +1027,8 @@ pub struct AuditConfigDelta {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub log_type: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuditConfigDelta {

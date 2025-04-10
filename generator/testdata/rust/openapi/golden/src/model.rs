@@ -34,8 +34,8 @@ pub struct ListLocationsResponse {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub next_page_token: std::option::Option<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLocationsResponse {
@@ -115,8 +115,8 @@ pub struct Location {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<wkt::Any>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Location {
@@ -189,8 +189,8 @@ pub struct ListSecretsResponse {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub total_size: std::option::Option<i32>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretsResponse {
@@ -352,8 +352,8 @@ pub struct Secret {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryption>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Secret {
@@ -484,8 +484,8 @@ pub struct Replication {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub user_managed: std::option::Option<crate::model::UserManaged>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Replication {
@@ -529,8 +529,8 @@ pub struct Automatic {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryption>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Automatic {
@@ -573,8 +573,8 @@ pub struct CustomerManagedEncryption {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key_name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomerManagedEncryption {
@@ -609,8 +609,8 @@ pub struct UserManaged {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub replicas: std::vec::Vec<crate::model::Replica>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UserManaged {
@@ -658,8 +658,8 @@ pub struct Replica {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryption>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Replica {
@@ -702,8 +702,8 @@ pub struct Topic {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Topic {
@@ -750,8 +750,8 @@ pub struct Rotation {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rotation_period: std::option::Option<wkt::Duration>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Rotation {
@@ -807,8 +807,8 @@ pub struct AddSecretVersionRequest {
     #[serde(skip)]
     pub location: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AddSecretVersionRequest {
@@ -869,8 +869,8 @@ pub struct SecretPayload {
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub data_crc_32_c: std::option::Option<i64>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecretPayload {
@@ -954,8 +954,8 @@ pub struct SecretVersion {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecretVersion {
@@ -1047,8 +1047,8 @@ pub struct ReplicationStatus {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub user_managed: std::option::Option<crate::model::UserManagedStatus>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicationStatus {
@@ -1090,8 +1090,8 @@ pub struct AutomaticStatus {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutomaticStatus {
@@ -1125,8 +1125,8 @@ pub struct CustomerManagedEncryptionStatus {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key_version_name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomerManagedEncryptionStatus {
@@ -1162,8 +1162,8 @@ pub struct UserManagedStatus {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub replicas: std::vec::Vec<crate::model::ReplicaStatus>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UserManagedStatus {
@@ -1206,8 +1206,8 @@ pub struct ReplicaStatus {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicaStatus {
@@ -1249,8 +1249,8 @@ impl wkt::message::Message for ReplicaStatus {
 #[non_exhaustive]
 pub struct Empty {
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Empty {
@@ -1287,8 +1287,8 @@ pub struct ListSecretVersionsResponse {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub total_size: std::option::Option<i32>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretVersionsResponse {
@@ -1357,8 +1357,8 @@ pub struct AccessSecretVersionResponse {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub payload: std::option::Option<crate::model::SecretPayload>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessSecretVersionResponse {
@@ -1422,8 +1422,8 @@ pub struct DisableSecretVersionRequest {
     #[serde(skip)]
     pub location: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DisableSecretVersionRequest {
@@ -1499,8 +1499,8 @@ pub struct EnableSecretVersionRequest {
     #[serde(skip)]
     pub location: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnableSecretVersionRequest {
@@ -1576,8 +1576,8 @@ pub struct DestroySecretVersionRequest {
     #[serde(skip)]
     pub location: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DestroySecretVersionRequest {
@@ -1656,8 +1656,8 @@ pub struct SetIamPolicyRequest {
     #[serde(skip)]
     pub location: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SetIamPolicyRequest {
@@ -1832,8 +1832,8 @@ pub struct Policy {
     #[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]
     pub etag: std::option::Option<::bytes::Bytes>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Policy {
@@ -1995,8 +1995,8 @@ pub struct Binding {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition: std::option::Option<crate::model::Expr>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Binding {
@@ -2100,8 +2100,8 @@ pub struct Expr {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub location: std::option::Option<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Expr {
@@ -2209,8 +2209,8 @@ pub struct AuditConfig {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub audit_log_configs: std::vec::Vec<crate::model::AuditLogConfig>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuditConfig {
@@ -2279,8 +2279,8 @@ pub struct AuditLogConfig {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub exempted_members: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuditLogConfig {
@@ -2344,8 +2344,8 @@ pub struct TestIamPermissionsRequest {
     #[serde(skip)]
     pub location: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TestIamPermissionsRequest {
@@ -2395,8 +2395,8 @@ pub struct TestIamPermissionsResponse {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub permissions: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TestIamPermissionsResponse {
@@ -2451,8 +2451,8 @@ pub struct ListLocationsRequest {
     #[serde(skip)]
     pub page_token: std::option::Option<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLocationsRequest {
@@ -2504,8 +2504,8 @@ pub struct GetLocationRequest {
     #[serde(skip)]
     pub location: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLocationRequest {
@@ -2558,8 +2558,8 @@ pub struct ListSecretsRequest {
     #[serde(skip)]
     pub filter: std::option::Option<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretsRequest {
@@ -2617,8 +2617,8 @@ pub struct CreateSecretRequest {
     #[serde(skip)]
     pub secret_id: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSecretRequest {
@@ -2683,8 +2683,8 @@ pub struct ListSecretsByProjectAndLocationRequest {
     #[serde(skip)]
     pub filter: std::option::Option<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretsByProjectAndLocationRequest {
@@ -2754,8 +2754,8 @@ pub struct CreateSecretByProjectAndLocationRequest {
     #[serde(skip)]
     pub secret_id: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSecretByProjectAndLocationRequest {
@@ -2807,8 +2807,8 @@ pub struct GetSecretRequest {
     #[serde(skip)]
     pub secret: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSecretRequest {
@@ -2854,8 +2854,8 @@ pub struct DeleteSecretRequest {
     #[serde(skip)]
     pub etag: std::option::Option<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSecretRequest {
@@ -2909,8 +2909,8 @@ pub struct UpdateSecretRequest {
     #[serde(skip)]
     pub update_mask: wkt::FieldMask,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSecretRequest {
@@ -2968,8 +2968,8 @@ pub struct GetSecretByProjectAndLocationAndSecretRequest {
     #[serde(skip)]
     pub secret: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSecretByProjectAndLocationAndSecretRequest {
@@ -3027,8 +3027,8 @@ pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
     #[serde(skip)]
     pub etag: std::option::Option<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSecretByProjectAndLocationAndSecretRequest {
@@ -3094,8 +3094,8 @@ pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
     #[serde(skip)]
     pub update_mask: wkt::FieldMask,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSecretByProjectAndLocationAndSecretRequest {
@@ -3172,8 +3172,8 @@ pub struct ListSecretVersionsRequest {
     #[serde(skip)]
     pub filter: std::option::Option<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretVersionsRequest {
@@ -3256,8 +3256,8 @@ pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
     #[serde(skip)]
     pub filter: std::option::Option<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSecretVersionsByProjectAndLocationAndSecretRequest {
@@ -3327,8 +3327,8 @@ pub struct GetSecretVersionRequest {
     #[serde(skip)]
     pub version: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSecretVersionRequest {
@@ -3386,8 +3386,8 @@ pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
     #[serde(skip)]
     pub version: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
@@ -3445,8 +3445,8 @@ pub struct AccessSecretVersionRequest {
     #[serde(skip)]
     pub version: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessSecretVersionRequest {
@@ -3504,8 +3504,8 @@ pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
     #[serde(skip)]
     pub version: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
@@ -3578,8 +3578,8 @@ pub struct GetIamPolicyRequest {
     #[serde(skip)]
     pub options_requested_policy_version: std::option::Option<i32>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetIamPolicyRequest {
@@ -3652,8 +3652,8 @@ pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
     #[serde(skip)]
     pub options_requested_policy_version: std::option::Option<i32>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetIamPolicyByProjectAndLocationAndSecretRequest {

@@ -42,8 +42,8 @@ pub struct ListLocationsRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLocationsRequest {
@@ -99,8 +99,8 @@ pub struct ListLocationsResponse {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLocationsResponse {
@@ -159,8 +159,8 @@ pub struct GetLocationRequest {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLocationRequest {
@@ -215,8 +215,8 @@ pub struct Location {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<wkt::Any>,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Location {

@@ -31,8 +31,8 @@ pub struct SourceContext {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub file_name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SourceContext {
