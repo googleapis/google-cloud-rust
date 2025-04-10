@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GenerateAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAccessTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
         self.inner.generate_access_token(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GenerateIdTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateIdTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateIdTokenResponse>> {
         self.inner.generate_id_token(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::SignBlobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SignBlobResponse> {
+    ) -> Result<gax::response::Response<crate::model::SignBlobResponse>> {
         self.inner.sign_blob(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::SignJwtRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SignJwtResponse> {
+    ) -> Result<gax::response::Response<crate::model::SignJwtResponse>> {
         self.inner.sign_jwt(req, options).await
     }
 }

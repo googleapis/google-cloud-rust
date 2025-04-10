@@ -93,6 +93,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .inspect_content(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::InspectContentRequest::parent].
@@ -165,6 +166,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .redact_image(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::RedactImageRequest::parent].
@@ -251,6 +253,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .deidentify_content(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::DeidentifyContentRequest::parent].
@@ -343,6 +346,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .reidentify_content(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ReidentifyContentRequest::parent].
@@ -432,6 +436,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_info_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListInfoTypesRequest::parent].
@@ -495,6 +500,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .create_inspect_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateInspectTemplateRequest::parent].
@@ -561,6 +567,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .update_inspect_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateInspectTemplateRequest::name].
@@ -624,6 +631,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_inspect_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInspectTemplateRequest::name].
@@ -669,6 +677,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_inspect_templates(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -753,6 +762,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .delete_inspect_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteInspectTemplateRequest::name].
@@ -800,6 +810,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .create_deidentify_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeidentifyTemplateRequest::parent].
@@ -870,6 +881,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .update_deidentify_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateDeidentifyTemplateRequest::name].
@@ -935,6 +947,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_deidentify_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeidentifyTemplateRequest::name].
@@ -982,6 +995,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_deidentify_templates(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1070,6 +1084,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .delete_deidentify_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDeidentifyTemplateRequest::name].
@@ -1115,6 +1130,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .create_job_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateJobTriggerRequest::parent].
@@ -1181,6 +1197,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .update_job_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateJobTriggerRequest::name].
@@ -1246,6 +1263,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .hybrid_inspect_job_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::HybridInspectJobTriggerRequest::name].
@@ -1297,6 +1315,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_job_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobTriggerRequest::name].
@@ -1339,6 +1358,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_job_triggers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1435,6 +1455,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .delete_job_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteJobTriggerRequest::name].
@@ -1480,6 +1501,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .activate_job_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ActivateJobTriggerRequest::name].
@@ -1525,6 +1547,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .create_discovery_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDiscoveryConfigRequest::parent].
@@ -1585,6 +1608,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .update_discovery_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateDiscoveryConfigRequest::name].
@@ -1648,6 +1672,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_discovery_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDiscoveryConfigRequest::name].
@@ -1693,6 +1718,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_discovery_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1771,6 +1797,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .delete_discovery_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDiscoveryConfigRequest::name].
@@ -1813,6 +1840,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .create_dlp_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDlpJobRequest::parent].
@@ -1876,6 +1904,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_dlp_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1969,6 +1998,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_dlp_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDlpJobRequest::name].
@@ -2011,6 +2041,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .delete_dlp_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDlpJobRequest::name].
@@ -2053,6 +2084,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .cancel_dlp_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelDlpJobRequest::name].
@@ -2098,6 +2130,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .create_stored_info_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateStoredInfoTypeRequest::parent].
@@ -2164,6 +2197,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .update_stored_info_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateStoredInfoTypeRequest::name].
@@ -2227,6 +2261,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_stored_info_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetStoredInfoTypeRequest::name].
@@ -2272,6 +2307,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_stored_info_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2356,6 +2392,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .delete_stored_info_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteStoredInfoTypeRequest::name].
@@ -2403,6 +2440,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_project_data_profiles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2489,6 +2527,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_table_data_profiles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2573,6 +2612,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_column_data_profiles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2659,6 +2699,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_project_data_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProjectDataProfileRequest::name].
@@ -2706,6 +2747,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_file_store_data_profiles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2794,6 +2836,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_file_store_data_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFileStoreDataProfileRequest::name].
@@ -2841,6 +2884,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .delete_file_store_data_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFileStoreDataProfileRequest::name].
@@ -2886,6 +2930,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_table_data_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTableDataProfileRequest::name].
@@ -2931,6 +2976,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_column_data_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetColumnDataProfileRequest::name].
@@ -2976,6 +3022,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .delete_table_data_profile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTableDataProfileRequest::name].
@@ -3021,6 +3068,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .hybrid_inspect_dlp_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::HybridInspectDlpJobRequest::name].
@@ -3072,6 +3120,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .finish_dlp_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FinishDlpJobRequest::name].
@@ -3117,6 +3166,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
@@ -3168,6 +3218,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .get_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
@@ -3210,6 +3261,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .list_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3288,6 +3340,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .search_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3366,6 +3419,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
@@ -3411,6 +3465,7 @@ pub mod dlp_service {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateConnectionRequest::name].

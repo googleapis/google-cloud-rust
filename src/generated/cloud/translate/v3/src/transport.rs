@@ -44,7 +44,7 @@ impl super::stub::TranslationService for TranslationService {
         &self,
         req: crate::model::TranslateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TranslateTextResponse> {
+    ) -> Result<gax::response::Response<crate::model::TranslateTextResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,17 +57,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::TranslateTextResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn romanize_text(
         &self,
         req: crate::model::RomanizeTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RomanizeTextResponse> {
+    ) -> Result<gax::response::Response<crate::model::RomanizeTextResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -80,17 +77,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::RomanizeTextResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn detect_language(
         &self,
         req: crate::model::DetectLanguageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DetectLanguageResponse> {
+    ) -> Result<gax::response::Response<crate::model::DetectLanguageResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -103,17 +97,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::DetectLanguageResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_supported_languages(
         &self,
         req: crate::model::GetSupportedLanguagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SupportedLanguages> {
+    ) -> Result<gax::response::Response<crate::model::SupportedLanguages>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -131,14 +122,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::SupportedLanguages>| r.into_body())
     }
 
     async fn translate_document(
         &self,
         req: crate::model::TranslateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TranslateDocumentResponse> {
+    ) -> Result<gax::response::Response<crate::model::TranslateDocumentResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -151,16 +141,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::TranslateDocumentResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn batch_translate_text(
         &self,
         req: crate::model::BatchTranslateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -173,17 +161,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn batch_translate_document(
         &self,
         req: crate::model::BatchTranslateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -196,17 +181,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_glossary(
         &self,
         req: crate::model::CreateGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -222,14 +204,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.glossary), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_glossary(
         &self,
         req: crate::model::UpdateGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -261,14 +242,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.glossary), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_glossaries(
         &self,
         req: crate::model::ListGlossariesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGlossariesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGlossariesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -287,14 +267,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListGlossariesResponse>| r.into_body())
     }
 
     async fn get_glossary(
         &self,
         req: crate::model::GetGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Glossary> {
+    ) -> Result<gax::response::Response<crate::model::Glossary>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -307,14 +286,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Glossary>| r.into_body())
     }
 
     async fn delete_glossary(
         &self,
         req: crate::model::DeleteGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -327,14 +305,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_glossary_entry(
         &self,
         req: crate::model::GetGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GlossaryEntry> {
+    ) -> Result<gax::response::Response<crate::model::GlossaryEntry>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -347,14 +324,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::GlossaryEntry>| r.into_body())
     }
 
     async fn list_glossary_entries(
         &self,
         req: crate::model::ListGlossaryEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGlossaryEntriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGlossaryEntriesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -372,18 +348,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListGlossaryEntriesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn create_glossary_entry(
         &self,
         req: crate::model::CreateGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GlossaryEntry> {
+    ) -> Result<gax::response::Response<crate::model::GlossaryEntry>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -399,14 +370,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.glossary_entry), options)
             .await
-            .map(|r: gax::response::Response<crate::model::GlossaryEntry>| r.into_body())
     }
 
     async fn update_glossary_entry(
         &self,
         req: crate::model::UpdateGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GlossaryEntry> {
+    ) -> Result<gax::response::Response<crate::model::GlossaryEntry>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -428,14 +398,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.glossary_entry), options)
             .await
-            .map(|r: gax::response::Response<crate::model::GlossaryEntry>| r.into_body())
     }
 
     async fn delete_glossary_entry(
         &self,
         req: crate::model::DeleteGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -448,14 +417,17 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_dataset(
         &self,
         req: crate::model::CreateDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -471,14 +443,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_dataset(
         &self,
         req: crate::model::GetDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dataset> {
+    ) -> Result<gax::response::Response<crate::model::Dataset>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -491,14 +462,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Dataset>| r.into_body())
     }
 
     async fn list_datasets(
         &self,
         req: crate::model::ListDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDatasetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDatasetsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -513,14 +483,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListDatasetsResponse>| r.into_body())
     }
 
     async fn delete_dataset(
         &self,
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -533,14 +502,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_adaptive_mt_dataset(
         &self,
         req: crate::model::CreateAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AdaptiveMtDataset> {
+    ) -> Result<gax::response::Response<crate::model::AdaptiveMtDataset>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -556,14 +524,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, Some(req.adaptive_mt_dataset), options)
             .await
-            .map(|r: gax::response::Response<crate::model::AdaptiveMtDataset>| r.into_body())
     }
 
     async fn delete_adaptive_mt_dataset(
         &self,
         req: crate::model::DeleteAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -576,14 +543,17 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_adaptive_mt_dataset(
         &self,
         req: crate::model::GetAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AdaptiveMtDataset> {
+    ) -> Result<gax::response::Response<crate::model::AdaptiveMtDataset>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -596,14 +566,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::AdaptiveMtDataset>| r.into_body())
     }
 
     async fn list_adaptive_mt_datasets(
         &self,
         req: crate::model::ListAdaptiveMtDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAdaptiveMtDatasetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAdaptiveMtDatasetsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -622,18 +591,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListAdaptiveMtDatasetsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn adaptive_mt_translate(
         &self,
         req: crate::model::AdaptiveMtTranslateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AdaptiveMtTranslateResponse> {
+    ) -> Result<gax::response::Response<crate::model::AdaptiveMtTranslateResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -646,16 +610,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::AdaptiveMtTranslateResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_adaptive_mt_file(
         &self,
         req: crate::model::GetAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AdaptiveMtFile> {
+    ) -> Result<gax::response::Response<crate::model::AdaptiveMtFile>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -668,14 +630,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::AdaptiveMtFile>| r.into_body())
     }
 
     async fn delete_adaptive_mt_file(
         &self,
         req: crate::model::DeleteAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -688,14 +649,17 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn import_adaptive_mt_file(
         &self,
         req: crate::model::ImportAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ImportAdaptiveMtFileResponse> {
+    ) -> Result<gax::response::Response<crate::model::ImportAdaptiveMtFileResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -708,16 +672,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::ImportAdaptiveMtFileResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_adaptive_mt_files(
         &self,
         req: crate::model::ListAdaptiveMtFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAdaptiveMtFilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAdaptiveMtFilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -735,18 +697,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListAdaptiveMtFilesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_adaptive_mt_sentences(
         &self,
         req: crate::model::ListAdaptiveMtSentencesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAdaptiveMtSentencesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAdaptiveMtSentencesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -764,18 +721,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListAdaptiveMtSentencesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn import_data(
         &self,
         req: crate::model::ImportDataRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -788,17 +740,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn export_data(
         &self,
         req: crate::model::ExportDataRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -811,17 +760,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_examples(
         &self,
         req: crate::model::ListExamplesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListExamplesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListExamplesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -837,14 +783,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListExamplesResponse>| r.into_body())
     }
 
     async fn create_model(
         &self,
         req: crate::model::CreateModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -854,17 +799,14 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req.model), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.model), options).await
     }
 
     async fn list_models(
         &self,
         req: crate::model::ListModelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListModelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListModelsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -880,14 +822,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListModelsResponse>| r.into_body())
     }
 
     async fn get_model(
         &self,
         req: crate::model::GetModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Model> {
+    ) -> Result<gax::response::Response<crate::model::Model>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -900,14 +841,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Model>| r.into_body())
     }
 
     async fn delete_model(
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -920,14 +860,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -943,14 +882,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -963,14 +901,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -986,18 +923,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1010,14 +942,13 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1030,14 +961,17 @@ impl super::stub::TranslationService for TranslationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1047,17 +981,19 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn wait_operation(
         &self,
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1067,10 +1003,7 @@ impl super::stub::TranslationService for TranslationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     fn get_polling_error_policy(

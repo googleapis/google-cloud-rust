@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListAccessPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAccessPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAccessPoliciesResponse>> {
         self.inner.list_access_policies(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetAccessPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AccessPolicy> {
+    ) -> Result<gax::response::Response<crate::model::AccessPolicy>> {
         self.inner.get_access_policy(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::AccessPolicy,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_access_policy(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateAccessPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_access_policy(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteAccessPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_access_policy(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListAccessLevelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAccessLevelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAccessLevelsResponse>> {
         self.inner.list_access_levels(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetAccessLevelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AccessLevel> {
+    ) -> Result<gax::response::Response<crate::model::AccessLevel>> {
         self.inner.get_access_level(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::CreateAccessLevelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_access_level(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::UpdateAccessLevelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_access_level(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteAccessLevelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_access_level(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::ReplaceAccessLevelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.replace_access_levels(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::ListServicePerimetersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServicePerimetersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServicePerimetersResponse>> {
         self.inner.list_service_perimeters(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::GetServicePerimeterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServicePerimeter> {
+    ) -> Result<gax::response::Response<crate::model::ServicePerimeter>> {
         self.inner.get_service_perimeter(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::CreateServicePerimeterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_service_perimeter(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::UpdateServicePerimeterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_service_perimeter(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::DeleteServicePerimeterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_service_perimeter(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::ReplaceServicePerimetersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.replace_service_perimeters(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::CommitServicePerimetersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.commit_service_perimeters(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::ListGcpUserAccessBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGcpUserAccessBindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGcpUserAccessBindingsResponse>> {
         self.inner.list_gcp_user_access_bindings(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::GetGcpUserAccessBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GcpUserAccessBinding> {
+    ) -> Result<gax::response::Response<crate::model::GcpUserAccessBinding>> {
         self.inner.get_gcp_user_access_binding(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::CreateGcpUserAccessBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .create_gcp_user_access_binding(req, options)
             .await
@@ -233,7 +233,7 @@ where
         &self,
         req: crate::model::UpdateGcpUserAccessBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .update_gcp_user_access_binding(req, options)
             .await
@@ -244,7 +244,7 @@ where
         &self,
         req: crate::model::DeleteGcpUserAccessBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .delete_gcp_user_access_binding(req, options)
             .await
@@ -255,7 +255,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -264,7 +264,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -273,7 +273,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -282,7 +282,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

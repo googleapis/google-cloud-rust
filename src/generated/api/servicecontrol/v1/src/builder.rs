@@ -93,6 +93,7 @@ pub mod quota_controller {
             (*self.0.stub)
                 .allocate_quota(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::AllocateQuotaRequest::service_name].
@@ -203,7 +204,10 @@ pub mod service_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::CheckResponse> {
-            (*self.0.stub).check(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .check(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::CheckRequest::service_name].
@@ -258,7 +262,10 @@ pub mod service_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ReportResponse> {
-            (*self.0.stub).report(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .report(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::ReportRequest::service_name].

@@ -97,6 +97,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -159,6 +160,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -215,6 +217,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -270,6 +273,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .get_iap_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIapSettingsRequest::name].
@@ -317,6 +321,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .update_iap_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [iap_settings][crate::model::UpdateIapSettingsRequest::iap_settings].
@@ -376,6 +381,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .list_tunnel_dest_groups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -450,6 +456,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .create_tunnel_dest_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTunnelDestGroupRequest::parent].
@@ -514,6 +521,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .get_tunnel_dest_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTunnelDestGroupRequest::name].
@@ -561,6 +569,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .delete_tunnel_dest_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTunnelDestGroupRequest::name].
@@ -608,6 +617,7 @@ pub mod identity_aware_proxy_admin_service {
             (*self.0.stub)
                 .update_tunnel_dest_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [tunnel_dest_group][crate::model::UpdateTunnelDestGroupRequest::tunnel_dest_group].
@@ -722,6 +732,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .list_brands(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListBrandsRequest::parent].
@@ -766,6 +777,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .create_brand(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBrandRequest::parent].
@@ -819,6 +831,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .get_brand(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBrandRequest::name].
@@ -868,6 +881,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .create_identity_aware_proxy_client(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateIdentityAwareProxyClientRequest::parent].
@@ -928,6 +942,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .list_identity_aware_proxy_clients(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1006,6 +1021,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .get_identity_aware_proxy_client(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIdentityAwareProxyClientRequest::name].
@@ -1055,6 +1071,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .reset_identity_aware_proxy_client_secret(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResetIdentityAwareProxyClientSecretRequest::name].
@@ -1104,6 +1121,7 @@ pub mod identity_aware_proxy_o_auth_service {
             (*self.0.stub)
                 .delete_identity_aware_proxy_client(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIdentityAwareProxyClientRequest::name].

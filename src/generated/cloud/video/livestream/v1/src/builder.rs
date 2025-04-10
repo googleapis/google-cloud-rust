@@ -98,6 +98,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .create_channel(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_channel`.
@@ -193,6 +194,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .list_channels(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -274,6 +276,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .get_channel(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetChannelRequest::name].
@@ -321,6 +324,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .delete_channel(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_channel`.
@@ -410,6 +414,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .update_channel(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_channel`.
@@ -507,6 +512,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .start_channel(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_channel`.
@@ -596,6 +602,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .stop_channel(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_channel`.
@@ -685,6 +692,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .create_input(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_input`.
@@ -780,6 +788,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .list_inputs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -861,6 +870,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .get_input(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInputRequest::name].
@@ -908,6 +918,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .delete_input(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_input`.
@@ -991,6 +1002,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .update_input(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_input`.
@@ -1083,6 +1095,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .create_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEventRequest::parent].
@@ -1146,6 +1159,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .list_events(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1227,6 +1241,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .get_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEventRequest::name].
@@ -1269,6 +1284,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .delete_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEventRequest::name].
@@ -1317,6 +1333,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .list_clips(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1398,6 +1415,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .get_clip(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClipRequest::name].
@@ -1445,6 +1463,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .create_clip(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_clip`.
@@ -1542,6 +1561,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .delete_clip(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_clip`.
@@ -1625,6 +1645,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .create_asset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_asset`.
@@ -1725,6 +1746,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .delete_asset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_asset`.
@@ -1803,6 +1825,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .get_asset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAssetRequest::name].
@@ -1845,6 +1868,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .list_assets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1926,6 +1950,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .get_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPoolRequest::name].
@@ -1973,6 +1998,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .update_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_pool`.
@@ -2065,6 +2091,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2140,6 +2167,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2185,6 +2213,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2263,6 +2292,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2308,6 +2338,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2353,6 +2384,7 @@ pub mod livestream_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

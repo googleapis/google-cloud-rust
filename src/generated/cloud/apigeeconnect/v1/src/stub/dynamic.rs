@@ -21,7 +21,7 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>;
 }
 
 /// All implementations of [super::ConnectionService] also implement [ConnectionService].
@@ -32,7 +32,7 @@ impl<T: super::ConnectionService> ConnectionService for T {
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         T::list_connections(self, req, options).await
     }
 }

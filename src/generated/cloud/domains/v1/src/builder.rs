@@ -93,6 +93,7 @@ pub mod domains {
             (*self.0.stub)
                 .search_domains(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [query][crate::model::SearchDomainsRequest::query].
@@ -146,6 +147,7 @@ pub mod domains {
             (*self.0.stub)
                 .retrieve_register_parameters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [domain_name][crate::model::RetrieveRegisterParametersRequest::domain_name].
@@ -199,6 +201,7 @@ pub mod domains {
             (*self.0.stub)
                 .register_domain(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `register_domain`.
@@ -325,6 +328,7 @@ pub mod domains {
             (*self.0.stub)
                 .retrieve_transfer_parameters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [domain_name][crate::model::RetrieveTransferParametersRequest::domain_name].
@@ -378,6 +382,7 @@ pub mod domains {
             (*self.0.stub)
                 .transfer_domain(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `transfer_domain`.
@@ -502,6 +507,7 @@ pub mod domains {
             (*self.0.stub)
                 .list_registrations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -577,6 +583,7 @@ pub mod domains {
             (*self.0.stub)
                 .get_registration(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRegistrationRequest::name].
@@ -627,6 +634,7 @@ pub mod domains {
             (*self.0.stub)
                 .update_registration(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_registration`.
@@ -724,6 +732,7 @@ pub mod domains {
             (*self.0.stub)
                 .configure_management_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `configure_management_settings`.
@@ -827,6 +836,7 @@ pub mod domains {
             (*self.0.stub)
                 .configure_dns_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `configure_dns_settings`.
@@ -936,6 +946,7 @@ pub mod domains {
             (*self.0.stub)
                 .configure_contact_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `configure_contact_settings`.
@@ -1054,6 +1065,7 @@ pub mod domains {
             (*self.0.stub)
                 .export_registration(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_registration`.
@@ -1137,6 +1149,7 @@ pub mod domains {
             (*self.0.stub)
                 .delete_registration(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_registration`.
@@ -1214,6 +1227,7 @@ pub mod domains {
             (*self.0.stub)
                 .retrieve_authorization_code(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [registration][crate::model::RetrieveAuthorizationCodeRequest::registration].
@@ -1259,6 +1273,7 @@ pub mod domains {
             (*self.0.stub)
                 .reset_authorization_code(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [registration][crate::model::ResetAuthorizationCodeRequest::registration].
@@ -1304,6 +1319,7 @@ pub mod domains {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1382,6 +1398,7 @@ pub mod domains {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

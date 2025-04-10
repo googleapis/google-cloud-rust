@@ -96,6 +96,7 @@ pub mod gateway_control {
             (*self.0.stub)
                 .generate_credentials(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateCredentialsRequest::name].

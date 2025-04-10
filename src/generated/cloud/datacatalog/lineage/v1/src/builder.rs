@@ -98,6 +98,7 @@ pub mod lineage {
             (*self.0.stub)
                 .process_open_lineage_run_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ProcessOpenLineageRunEventRequest::parent].
@@ -152,6 +153,7 @@ pub mod lineage {
             (*self.0.stub)
                 .create_process(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProcessRequest::parent].
@@ -209,6 +211,7 @@ pub mod lineage {
             (*self.0.stub)
                 .update_process(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [process][crate::model::UpdateProcessRequest::process].
@@ -269,6 +272,7 @@ pub mod lineage {
             (*self.0.stub)
                 .get_process(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProcessRequest::name].
@@ -311,6 +315,7 @@ pub mod lineage {
             (*self.0.stub)
                 .list_processes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -385,6 +390,7 @@ pub mod lineage {
             (*self.0.stub)
                 .delete_process(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_process`.
@@ -463,6 +469,7 @@ pub mod lineage {
             (*self.0.stub)
                 .create_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateRunRequest::parent].
@@ -517,6 +524,7 @@ pub mod lineage {
             (*self.0.stub)
                 .update_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [run][crate::model::UpdateRunRequest::run].
@@ -571,7 +579,10 @@ pub mod lineage {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Run> {
-            (*self.0.stub).get_run(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_run(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRunRequest::name].
@@ -614,6 +625,7 @@ pub mod lineage {
             (*self.0.stub)
                 .list_runs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -688,6 +700,7 @@ pub mod lineage {
             (*self.0.stub)
                 .delete_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_run`.
@@ -769,6 +782,7 @@ pub mod lineage {
             (*self.0.stub)
                 .create_lineage_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateLineageEventRequest::parent].
@@ -826,6 +840,7 @@ pub mod lineage {
             (*self.0.stub)
                 .get_lineage_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLineageEventRequest::name].
@@ -871,6 +886,7 @@ pub mod lineage {
             (*self.0.stub)
                 .list_lineage_events(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -943,6 +959,7 @@ pub mod lineage {
             (*self.0.stub)
                 .delete_lineage_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteLineageEventRequest::name].
@@ -991,6 +1008,7 @@ pub mod lineage {
             (*self.0.stub)
                 .search_links(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1074,6 +1092,7 @@ pub mod lineage {
             (*self.0.stub)
                 .batch_search_link_processes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1159,6 +1178,7 @@ pub mod lineage {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1237,6 +1257,7 @@ pub mod lineage {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1282,6 +1303,7 @@ pub mod lineage {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1327,6 +1349,7 @@ pub mod lineage {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

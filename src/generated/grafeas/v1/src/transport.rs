@@ -44,7 +44,7 @@ impl super::stub::Grafeas for Grafeas {
         &self,
         req: crate::model::GetOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Occurrence> {
+    ) -> Result<gax::response::Response<crate::model::Occurrence>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -57,14 +57,13 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Occurrence>| r.into_body())
     }
 
     async fn list_occurrences(
         &self,
         req: crate::model::ListOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOccurrencesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOccurrencesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -83,14 +82,13 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListOccurrencesResponse>| r.into_body())
     }
 
     async fn delete_occurrence(
         &self,
         req: crate::model::DeleteOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -103,14 +101,17 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_occurrence(
         &self,
         req: crate::model::CreateOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Occurrence> {
+    ) -> Result<gax::response::Response<crate::model::Occurrence>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -126,14 +127,13 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, Some(req.occurrence), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Occurrence>| r.into_body())
     }
 
     async fn batch_create_occurrences(
         &self,
         req: crate::model::BatchCreateOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchCreateOccurrencesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchCreateOccurrencesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -146,18 +146,14 @@ impl super::stub::Grafeas for Grafeas {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::BatchCreateOccurrencesResponse>| {
-                r.into_body()
-            },
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn update_occurrence(
         &self,
         req: crate::model::UpdateOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Occurrence> {
+    ) -> Result<gax::response::Response<crate::model::Occurrence>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -180,14 +176,13 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, Some(req.occurrence), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Occurrence>| r.into_body())
     }
 
     async fn get_occurrence_note(
         &self,
         req: crate::model::GetOccurrenceNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Note> {
+    ) -> Result<gax::response::Response<crate::model::Note>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -200,14 +195,13 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Note>| r.into_body())
     }
 
     async fn get_note(
         &self,
         req: crate::model::GetNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Note> {
+    ) -> Result<gax::response::Response<crate::model::Note>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -220,14 +214,13 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Note>| r.into_body())
     }
 
     async fn list_notes(
         &self,
         req: crate::model::ListNotesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNotesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNotesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -243,14 +236,13 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListNotesResponse>| r.into_body())
     }
 
     async fn delete_note(
         &self,
         req: crate::model::DeleteNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -263,14 +255,17 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_note(
         &self,
         req: crate::model::CreateNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Note> {
+    ) -> Result<gax::response::Response<crate::model::Note>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -281,17 +276,14 @@ impl super::stub::Grafeas for Grafeas {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("noteId", &req.note_id)]);
-        self.inner
-            .execute(builder, Some(req.note), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Note>| r.into_body())
+        self.inner.execute(builder, Some(req.note), options).await
     }
 
     async fn batch_create_notes(
         &self,
         req: crate::model::BatchCreateNotesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchCreateNotesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchCreateNotesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -304,17 +296,14 @@ impl super::stub::Grafeas for Grafeas {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::BatchCreateNotesResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn update_note(
         &self,
         req: crate::model::UpdateNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Note> {
+    ) -> Result<gax::response::Response<crate::model::Note>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -334,17 +323,14 @@ impl super::stub::Grafeas for Grafeas {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
-            .execute(builder, Some(req.note), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Note>| r.into_body())
+        self.inner.execute(builder, Some(req.note), options).await
     }
 
     async fn list_note_occurrences(
         &self,
         req: crate::model::ListNoteOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNoteOccurrencesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -363,10 +349,5 @@ impl super::stub::Grafeas for Grafeas {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListNoteOccurrencesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 }

@@ -44,7 +44,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
         &self,
         req: crate::model::BatchCreateResourceValueConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchCreateResourceValueConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchCreateResourceValueConfigsResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,18 +58,14 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::BatchCreateResourceValueConfigsResponse>| {
-                r.into_body()
-            },
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn bulk_mute_findings(
         &self,
         req: crate::model::BulkMuteFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -81,17 +78,14 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_big_query_export(
         &self,
         req: crate::model::CreateBigQueryExportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BigQueryExport> {
+    ) -> Result<gax::response::Response<crate::model::BigQueryExport>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -108,14 +102,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.big_query_export), options)
             .await
-            .map(|r: gax::response::Response<crate::model::BigQueryExport>| r.into_body())
     }
 
     async fn create_finding(
         &self,
         req: crate::model::CreateFindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -132,14 +125,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.finding), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Finding>| r.into_body())
     }
 
     async fn create_mute_config(
         &self,
         req: crate::model::CreateMuteConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MuteConfig> {
+    ) -> Result<gax::response::Response<crate::model::MuteConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -156,14 +148,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.mute_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::MuteConfig>| r.into_body())
     }
 
     async fn create_notification_config(
         &self,
         req: crate::model::CreateNotificationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationConfig> {
+    ) -> Result<gax::response::Response<crate::model::NotificationConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -180,14 +171,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.notification_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::NotificationConfig>| r.into_body())
     }
 
     async fn create_source(
         &self,
         req: crate::model::CreateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Source> {
+    ) -> Result<gax::response::Response<crate::model::Source>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -197,17 +187,14 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req.source), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Source>| r.into_body())
+        self.inner.execute(builder, Some(req.source), options).await
     }
 
     async fn delete_big_query_export(
         &self,
         req: crate::model::DeleteBigQueryExportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -220,14 +207,17 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn delete_mute_config(
         &self,
         req: crate::model::DeleteMuteConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -240,14 +230,17 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn delete_notification_config(
         &self,
         req: crate::model::DeleteNotificationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -260,14 +253,17 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn delete_resource_value_config(
         &self,
         req: crate::model::DeleteResourceValueConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -280,14 +276,17 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_big_query_export(
         &self,
         req: crate::model::GetBigQueryExportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BigQueryExport> {
+    ) -> Result<gax::response::Response<crate::model::BigQueryExport>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -300,14 +299,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::BigQueryExport>| r.into_body())
     }
 
     async fn get_simulation(
         &self,
         req: crate::model::GetSimulationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Simulation> {
+    ) -> Result<gax::response::Response<crate::model::Simulation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -320,14 +318,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Simulation>| r.into_body())
     }
 
     async fn get_valued_resource(
         &self,
         req: crate::model::GetValuedResourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ValuedResource> {
+    ) -> Result<gax::response::Response<crate::model::ValuedResource>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -340,14 +337,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ValuedResource>| r.into_body())
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -360,17 +356,14 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_mute_config(
         &self,
         req: crate::model::GetMuteConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MuteConfig> {
+    ) -> Result<gax::response::Response<crate::model::MuteConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -383,14 +376,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::MuteConfig>| r.into_body())
     }
 
     async fn get_notification_config(
         &self,
         req: crate::model::GetNotificationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationConfig> {
+    ) -> Result<gax::response::Response<crate::model::NotificationConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -403,14 +395,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::NotificationConfig>| r.into_body())
     }
 
     async fn get_resource_value_config(
         &self,
         req: crate::model::GetResourceValueConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ResourceValueConfig> {
+    ) -> Result<gax::response::Response<crate::model::ResourceValueConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -423,14 +414,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ResourceValueConfig>| r.into_body())
     }
 
     async fn get_source(
         &self,
         req: crate::model::GetSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Source> {
+    ) -> Result<gax::response::Response<crate::model::Source>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -443,14 +433,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Source>| r.into_body())
     }
 
     async fn group_findings(
         &self,
         req: crate::model::GroupFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GroupFindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::GroupFindingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -463,17 +452,14 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::GroupFindingsResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_attack_paths(
         &self,
         req: crate::model::ListAttackPathsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAttackPathsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAttackPathsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -492,14 +478,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListAttackPathsResponse>| r.into_body())
     }
 
     async fn list_big_query_exports(
         &self,
         req: crate::model::ListBigQueryExportsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBigQueryExportsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBigQueryExportsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -517,18 +502,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListBigQueryExportsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_findings(
         &self,
         req: crate::model::ListFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFindingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -555,14 +535,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListFindingsResponse>| r.into_body())
     }
 
     async fn list_mute_configs(
         &self,
         req: crate::model::ListMuteConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMuteConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMuteConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -580,14 +559,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListMuteConfigsResponse>| r.into_body())
     }
 
     async fn list_notification_configs(
         &self,
         req: crate::model::ListNotificationConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNotificationConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNotificationConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -605,18 +583,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListNotificationConfigsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_resource_value_configs(
         &self,
         req: crate::model::ListResourceValueConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListResourceValueConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListResourceValueConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -634,18 +607,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListResourceValueConfigsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_sources(
         &self,
         req: crate::model::ListSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSourcesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -660,14 +628,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListSourcesResponse>| r.into_body())
     }
 
     async fn list_valued_resources(
         &self,
         req: crate::model::ListValuedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListValuedResourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListValuedResourcesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -687,18 +654,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListValuedResourcesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn set_finding_state(
         &self,
         req: crate::model::SetFindingStateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -708,17 +670,14 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Finding>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -731,17 +690,14 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn set_mute(
         &self,
         req: crate::model::SetMuteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -751,17 +707,14 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Finding>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -774,16 +727,14 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn update_big_query_export(
         &self,
         req: crate::model::UpdateBigQueryExportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BigQueryExport> {
+    ) -> Result<gax::response::Response<crate::model::BigQueryExport>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -815,14 +766,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.big_query_export), options)
             .await
-            .map(|r: gax::response::Response<crate::model::BigQueryExport>| r.into_body())
     }
 
     async fn update_external_system(
         &self,
         req: crate::model::UpdateExternalSystemRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExternalSystem> {
+    ) -> Result<gax::response::Response<crate::model::ExternalSystem>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -854,14 +804,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.external_system), options)
             .await
-            .map(|r: gax::response::Response<crate::model::ExternalSystem>| r.into_body())
     }
 
     async fn update_finding(
         &self,
         req: crate::model::UpdateFindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -893,14 +842,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.finding), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Finding>| r.into_body())
     }
 
     async fn update_mute_config(
         &self,
         req: crate::model::UpdateMuteConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MuteConfig> {
+    ) -> Result<gax::response::Response<crate::model::MuteConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -932,14 +880,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.mute_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::MuteConfig>| r.into_body())
     }
 
     async fn update_notification_config(
         &self,
         req: crate::model::UpdateNotificationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationConfig> {
+    ) -> Result<gax::response::Response<crate::model::NotificationConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -971,14 +918,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.notification_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::NotificationConfig>| r.into_body())
     }
 
     async fn update_resource_value_config(
         &self,
         req: crate::model::UpdateResourceValueConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ResourceValueConfig> {
+    ) -> Result<gax::response::Response<crate::model::ResourceValueConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1010,14 +956,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.resource_value_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::ResourceValueConfig>| r.into_body())
     }
 
     async fn update_security_marks(
         &self,
         req: crate::model::UpdateSecurityMarksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecurityMarks> {
+    ) -> Result<gax::response::Response<crate::model::SecurityMarks>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1049,14 +994,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, Some(req.security_marks), options)
             .await
-            .map(|r: gax::response::Response<crate::model::SecurityMarks>| r.into_body())
     }
 
     async fn update_source(
         &self,
         req: crate::model::UpdateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Source> {
+    ) -> Result<gax::response::Response<crate::model::Source>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1085,17 +1029,14 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
-            .execute(builder, Some(req.source), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Source>| r.into_body())
+        self.inner.execute(builder, Some(req.source), options).await
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1111,18 +1052,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1135,14 +1071,13 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1155,14 +1090,17 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1175,7 +1113,10 @@ impl super::stub::SecurityCenter for SecurityCenter {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     fn get_polling_error_policy(

@@ -93,6 +93,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .translate_text(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [mime_type][crate::model::TranslateTextRequest::mime_type].
@@ -203,6 +204,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .romanize_text(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::RomanizeTextRequest::parent].
@@ -262,6 +264,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .detect_language(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::DetectLanguageRequest::parent].
@@ -339,6 +342,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .get_supported_languages(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GetSupportedLanguagesRequest::parent].
@@ -396,6 +400,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .translate_document(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::TranslateDocumentRequest::parent].
@@ -532,6 +537,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .batch_translate_text(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_translate_text`.
@@ -688,6 +694,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .batch_translate_document(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_translate_document`.
@@ -864,6 +871,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .create_glossary(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_glossary`.
@@ -954,6 +962,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .update_glossary(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_glossary`.
@@ -1042,6 +1051,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .list_glossaries(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1117,6 +1127,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .get_glossary(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGlossaryRequest::name].
@@ -1164,6 +1175,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .delete_glossary(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_glossary`.
@@ -1245,6 +1257,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .get_glossary_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGlossaryEntryRequest::name].
@@ -1290,6 +1303,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .list_glossary_entries(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1362,6 +1376,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .create_glossary_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateGlossaryEntryRequest::parent].
@@ -1416,6 +1431,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .update_glossary_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
@@ -1464,6 +1480,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .delete_glossary_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteGlossaryEntryRequest::name].
@@ -1511,6 +1528,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .create_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_dataset`.
@@ -1595,6 +1613,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .get_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDatasetRequest::name].
@@ -1637,6 +1656,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .list_datasets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1711,6 +1731,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .delete_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
@@ -1788,6 +1809,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .create_adaptive_mt_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAdaptiveMtDatasetRequest::parent].
@@ -1846,6 +1868,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .delete_adaptive_mt_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAdaptiveMtDatasetRequest::name].
@@ -1891,6 +1914,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .get_adaptive_mt_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAdaptiveMtDatasetRequest::name].
@@ -1936,6 +1960,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .list_adaptive_mt_datasets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2016,6 +2041,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .adaptive_mt_translate(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::AdaptiveMtTranslateRequest::parent].
@@ -2104,6 +2130,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .get_adaptive_mt_file(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAdaptiveMtFileRequest::name].
@@ -2149,6 +2176,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .delete_adaptive_mt_file(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAdaptiveMtFileRequest::name].
@@ -2194,6 +2222,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .import_adaptive_mt_file(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportAdaptiveMtFileRequest::parent].
@@ -2250,6 +2279,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .list_adaptive_mt_files(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2324,6 +2354,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .list_adaptive_mt_sentences(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2400,6 +2431,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .import_data(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_data`.
@@ -2486,6 +2518,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .export_data(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_data`.
@@ -2569,6 +2602,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .list_examples(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2649,6 +2683,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .create_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_model`.
@@ -2732,6 +2767,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .list_models(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2807,6 +2843,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .get_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetModelRequest::name].
@@ -2854,6 +2891,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_model`.
@@ -2929,6 +2967,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3004,6 +3043,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3049,6 +3089,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3127,6 +3168,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3172,6 +3214,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3217,6 +3260,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3262,6 +3306,7 @@ pub mod translation_service {
             (*self.0.stub)
                 .wait_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].

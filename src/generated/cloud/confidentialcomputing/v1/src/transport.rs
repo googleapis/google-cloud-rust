@@ -44,7 +44,7 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         &self,
         req: crate::model::CreateChallengeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Challenge> {
+    ) -> Result<gax::response::Response<crate::model::Challenge>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -60,14 +60,13 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         self.inner
             .execute(builder, Some(req.challenge), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Challenge>| r.into_body())
     }
 
     async fn verify_attestation(
         &self,
         req: crate::model::VerifyAttestationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VerifyAttestationResponse> {
+    ) -> Result<gax::response::Response<crate::model::VerifyAttestationResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -80,16 +79,14 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::VerifyAttestationResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -105,14 +102,13 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -125,6 +121,5 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 }

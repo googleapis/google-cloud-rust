@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::WorkstationCluster> {
+    ) -> Result<gax::response::Response<crate::model::WorkstationCluster>> {
         self.inner.get_workstation_cluster(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListWorkstationClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkstationClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkstationClustersResponse>> {
         self.inner.list_workstation_clusters(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_workstation_cluster(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_workstation_cluster(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteWorkstationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_workstation_cluster(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::GetWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::WorkstationConfig> {
+    ) -> Result<gax::response::Response<crate::model::WorkstationConfig>> {
         self.inner.get_workstation_config(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::ListWorkstationConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkstationConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkstationConfigsResponse>> {
         self.inner.list_workstation_configs(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::ListUsableWorkstationConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUsableWorkstationConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUsableWorkstationConfigsResponse>> {
         self.inner
             .list_usable_workstation_configs(req, options)
             .await
@@ -116,7 +116,7 @@ where
         &self,
         req: crate::model::CreateWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_workstation_config(req, options).await
     }
 
@@ -125,7 +125,7 @@ where
         &self,
         req: crate::model::UpdateWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_workstation_config(req, options).await
     }
 
@@ -134,7 +134,7 @@ where
         &self,
         req: crate::model::DeleteWorkstationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_workstation_config(req, options).await
     }
 
@@ -143,7 +143,7 @@ where
         &self,
         req: crate::model::GetWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Workstation> {
+    ) -> Result<gax::response::Response<crate::model::Workstation>> {
         self.inner.get_workstation(req, options).await
     }
 
@@ -152,7 +152,7 @@ where
         &self,
         req: crate::model::ListWorkstationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkstationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkstationsResponse>> {
         self.inner.list_workstations(req, options).await
     }
 
@@ -161,7 +161,7 @@ where
         &self,
         req: crate::model::ListUsableWorkstationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUsableWorkstationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUsableWorkstationsResponse>> {
         self.inner.list_usable_workstations(req, options).await
     }
 
@@ -170,7 +170,7 @@ where
         &self,
         req: crate::model::CreateWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_workstation(req, options).await
     }
 
@@ -179,7 +179,7 @@ where
         &self,
         req: crate::model::UpdateWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_workstation(req, options).await
     }
 
@@ -188,7 +188,7 @@ where
         &self,
         req: crate::model::DeleteWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_workstation(req, options).await
     }
 
@@ -197,7 +197,7 @@ where
         &self,
         req: crate::model::StartWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.start_workstation(req, options).await
     }
 
@@ -206,7 +206,7 @@ where
         &self,
         req: crate::model::StopWorkstationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.stop_workstation(req, options).await
     }
 
@@ -215,7 +215,7 @@ where
         &self,
         req: crate::model::GenerateAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAccessTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
         self.inner.generate_access_token(req, options).await
     }
 
@@ -224,7 +224,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -233,7 +233,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -242,7 +242,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -251,7 +251,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -260,7 +260,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -269,7 +269,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -278,7 +278,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

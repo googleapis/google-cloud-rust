@@ -45,10 +45,12 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::IAMPolicy::get_iam_policy].
@@ -56,10 +58,12 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::IAMPolicy::test_iam_permissions].
@@ -67,10 +71,11 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }

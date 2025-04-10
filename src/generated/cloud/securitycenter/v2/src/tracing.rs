@@ -42,7 +42,8 @@ where
         &self,
         req: crate::model::BatchCreateResourceValueConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchCreateResourceValueConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchCreateResourceValueConfigsResponse>>
+    {
         self.inner
             .batch_create_resource_value_configs(req, options)
             .await
@@ -53,7 +54,7 @@ where
         &self,
         req: crate::model::BulkMuteFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.bulk_mute_findings(req, options).await
     }
 
@@ -62,7 +63,7 @@ where
         &self,
         req: crate::model::CreateBigQueryExportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BigQueryExport> {
+    ) -> Result<gax::response::Response<crate::model::BigQueryExport>> {
         self.inner.create_big_query_export(req, options).await
     }
 
@@ -71,7 +72,7 @@ where
         &self,
         req: crate::model::CreateFindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         self.inner.create_finding(req, options).await
     }
 
@@ -80,7 +81,7 @@ where
         &self,
         req: crate::model::CreateMuteConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MuteConfig> {
+    ) -> Result<gax::response::Response<crate::model::MuteConfig>> {
         self.inner.create_mute_config(req, options).await
     }
 
@@ -89,7 +90,7 @@ where
         &self,
         req: crate::model::CreateNotificationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationConfig> {
+    ) -> Result<gax::response::Response<crate::model::NotificationConfig>> {
         self.inner.create_notification_config(req, options).await
     }
 
@@ -98,7 +99,7 @@ where
         &self,
         req: crate::model::CreateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Source> {
+    ) -> Result<gax::response::Response<crate::model::Source>> {
         self.inner.create_source(req, options).await
     }
 
@@ -107,7 +108,7 @@ where
         &self,
         req: crate::model::DeleteBigQueryExportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_big_query_export(req, options).await
     }
 
@@ -116,7 +117,7 @@ where
         &self,
         req: crate::model::DeleteMuteConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_mute_config(req, options).await
     }
 
@@ -125,7 +126,7 @@ where
         &self,
         req: crate::model::DeleteNotificationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_notification_config(req, options).await
     }
 
@@ -134,7 +135,7 @@ where
         &self,
         req: crate::model::DeleteResourceValueConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_resource_value_config(req, options).await
     }
 
@@ -143,7 +144,7 @@ where
         &self,
         req: crate::model::GetBigQueryExportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BigQueryExport> {
+    ) -> Result<gax::response::Response<crate::model::BigQueryExport>> {
         self.inner.get_big_query_export(req, options).await
     }
 
@@ -152,7 +153,7 @@ where
         &self,
         req: crate::model::GetSimulationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Simulation> {
+    ) -> Result<gax::response::Response<crate::model::Simulation>> {
         self.inner.get_simulation(req, options).await
     }
 
@@ -161,7 +162,7 @@ where
         &self,
         req: crate::model::GetValuedResourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ValuedResource> {
+    ) -> Result<gax::response::Response<crate::model::ValuedResource>> {
         self.inner.get_valued_resource(req, options).await
     }
 
@@ -170,7 +171,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -179,7 +180,7 @@ where
         &self,
         req: crate::model::GetMuteConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MuteConfig> {
+    ) -> Result<gax::response::Response<crate::model::MuteConfig>> {
         self.inner.get_mute_config(req, options).await
     }
 
@@ -188,7 +189,7 @@ where
         &self,
         req: crate::model::GetNotificationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationConfig> {
+    ) -> Result<gax::response::Response<crate::model::NotificationConfig>> {
         self.inner.get_notification_config(req, options).await
     }
 
@@ -197,7 +198,7 @@ where
         &self,
         req: crate::model::GetResourceValueConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ResourceValueConfig> {
+    ) -> Result<gax::response::Response<crate::model::ResourceValueConfig>> {
         self.inner.get_resource_value_config(req, options).await
     }
 
@@ -206,7 +207,7 @@ where
         &self,
         req: crate::model::GetSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Source> {
+    ) -> Result<gax::response::Response<crate::model::Source>> {
         self.inner.get_source(req, options).await
     }
 
@@ -215,7 +216,7 @@ where
         &self,
         req: crate::model::GroupFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GroupFindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::GroupFindingsResponse>> {
         self.inner.group_findings(req, options).await
     }
 
@@ -224,7 +225,7 @@ where
         &self,
         req: crate::model::ListAttackPathsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAttackPathsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAttackPathsResponse>> {
         self.inner.list_attack_paths(req, options).await
     }
 
@@ -233,7 +234,7 @@ where
         &self,
         req: crate::model::ListBigQueryExportsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBigQueryExportsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBigQueryExportsResponse>> {
         self.inner.list_big_query_exports(req, options).await
     }
 
@@ -242,7 +243,7 @@ where
         &self,
         req: crate::model::ListFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFindingsResponse>> {
         self.inner.list_findings(req, options).await
     }
 
@@ -251,7 +252,7 @@ where
         &self,
         req: crate::model::ListMuteConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMuteConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMuteConfigsResponse>> {
         self.inner.list_mute_configs(req, options).await
     }
 
@@ -260,7 +261,7 @@ where
         &self,
         req: crate::model::ListNotificationConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNotificationConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNotificationConfigsResponse>> {
         self.inner.list_notification_configs(req, options).await
     }
 
@@ -269,7 +270,7 @@ where
         &self,
         req: crate::model::ListResourceValueConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListResourceValueConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListResourceValueConfigsResponse>> {
         self.inner.list_resource_value_configs(req, options).await
     }
 
@@ -278,7 +279,7 @@ where
         &self,
         req: crate::model::ListSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSourcesResponse>> {
         self.inner.list_sources(req, options).await
     }
 
@@ -287,7 +288,7 @@ where
         &self,
         req: crate::model::ListValuedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListValuedResourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListValuedResourcesResponse>> {
         self.inner.list_valued_resources(req, options).await
     }
 
@@ -296,7 +297,7 @@ where
         &self,
         req: crate::model::SetFindingStateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         self.inner.set_finding_state(req, options).await
     }
 
@@ -305,7 +306,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -314,7 +315,7 @@ where
         &self,
         req: crate::model::SetMuteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         self.inner.set_mute(req, options).await
     }
 
@@ -323,7 +324,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -332,7 +333,7 @@ where
         &self,
         req: crate::model::UpdateBigQueryExportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BigQueryExport> {
+    ) -> Result<gax::response::Response<crate::model::BigQueryExport>> {
         self.inner.update_big_query_export(req, options).await
     }
 
@@ -341,7 +342,7 @@ where
         &self,
         req: crate::model::UpdateExternalSystemRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExternalSystem> {
+    ) -> Result<gax::response::Response<crate::model::ExternalSystem>> {
         self.inner.update_external_system(req, options).await
     }
 
@@ -350,7 +351,7 @@ where
         &self,
         req: crate::model::UpdateFindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         self.inner.update_finding(req, options).await
     }
 
@@ -359,7 +360,7 @@ where
         &self,
         req: crate::model::UpdateMuteConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MuteConfig> {
+    ) -> Result<gax::response::Response<crate::model::MuteConfig>> {
         self.inner.update_mute_config(req, options).await
     }
 
@@ -368,7 +369,7 @@ where
         &self,
         req: crate::model::UpdateNotificationConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationConfig> {
+    ) -> Result<gax::response::Response<crate::model::NotificationConfig>> {
         self.inner.update_notification_config(req, options).await
     }
 
@@ -377,7 +378,7 @@ where
         &self,
         req: crate::model::UpdateResourceValueConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ResourceValueConfig> {
+    ) -> Result<gax::response::Response<crate::model::ResourceValueConfig>> {
         self.inner.update_resource_value_config(req, options).await
     }
 
@@ -386,7 +387,7 @@ where
         &self,
         req: crate::model::UpdateSecurityMarksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecurityMarks> {
+    ) -> Result<gax::response::Response<crate::model::SecurityMarks>> {
         self.inner.update_security_marks(req, options).await
     }
 
@@ -395,7 +396,7 @@ where
         &self,
         req: crate::model::UpdateSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Source> {
+    ) -> Result<gax::response::Response<crate::model::Source>> {
         self.inner.update_source(req, options).await
     }
 
@@ -404,7 +405,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -413,7 +414,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -422,7 +423,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -431,7 +432,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

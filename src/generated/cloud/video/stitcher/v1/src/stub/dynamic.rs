@@ -23,205 +23,205 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_cdn_keys(
         &self,
         req: crate::model::ListCdnKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCdnKeysResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCdnKeysResponse>>;
 
     async fn get_cdn_key(
         &self,
         req: crate::model::GetCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CdnKey>;
+    ) -> crate::Result<gax::response::Response<crate::model::CdnKey>>;
 
     async fn delete_cdn_key(
         &self,
         req: crate::model::DeleteCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_cdn_key(
         &self,
         req: crate::model::UpdateCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_vod_session(
         &self,
         req: crate::model::CreateVodSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VodSession>;
+    ) -> crate::Result<gax::response::Response<crate::model::VodSession>>;
 
     async fn get_vod_session(
         &self,
         req: crate::model::GetVodSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VodSession>;
+    ) -> crate::Result<gax::response::Response<crate::model::VodSession>>;
 
     async fn list_vod_stitch_details(
         &self,
         req: crate::model::ListVodStitchDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVodStitchDetailsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListVodStitchDetailsResponse>>;
 
     async fn get_vod_stitch_detail(
         &self,
         req: crate::model::GetVodStitchDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VodStitchDetail>;
+    ) -> crate::Result<gax::response::Response<crate::model::VodStitchDetail>>;
 
     async fn list_vod_ad_tag_details(
         &self,
         req: crate::model::ListVodAdTagDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVodAdTagDetailsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListVodAdTagDetailsResponse>>;
 
     async fn get_vod_ad_tag_detail(
         &self,
         req: crate::model::GetVodAdTagDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VodAdTagDetail>;
+    ) -> crate::Result<gax::response::Response<crate::model::VodAdTagDetail>>;
 
     async fn list_live_ad_tag_details(
         &self,
         req: crate::model::ListLiveAdTagDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListLiveAdTagDetailsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>>;
 
     async fn get_live_ad_tag_detail(
         &self,
         req: crate::model::GetLiveAdTagDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LiveAdTagDetail>;
+    ) -> crate::Result<gax::response::Response<crate::model::LiveAdTagDetail>>;
 
     async fn create_slate(
         &self,
         req: crate::model::CreateSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_slates(
         &self,
         req: crate::model::ListSlatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListSlatesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListSlatesResponse>>;
 
     async fn get_slate(
         &self,
         req: crate::model::GetSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Slate>;
+    ) -> crate::Result<gax::response::Response<crate::model::Slate>>;
 
     async fn update_slate(
         &self,
         req: crate::model::UpdateSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_slate(
         &self,
         req: crate::model::DeleteSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_live_session(
         &self,
         req: crate::model::CreateLiveSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LiveSession>;
+    ) -> crate::Result<gax::response::Response<crate::model::LiveSession>>;
 
     async fn get_live_session(
         &self,
         req: crate::model::GetLiveSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LiveSession>;
+    ) -> crate::Result<gax::response::Response<crate::model::LiveSession>>;
 
     async fn create_live_config(
         &self,
         req: crate::model::CreateLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_live_configs(
         &self,
         req: crate::model::ListLiveConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListLiveConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListLiveConfigsResponse>>;
 
     async fn get_live_config(
         &self,
         req: crate::model::GetLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LiveConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::LiveConfig>>;
 
     async fn delete_live_config(
         &self,
         req: crate::model::DeleteLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_live_config(
         &self,
         req: crate::model::UpdateLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_vod_config(
         &self,
         req: crate::model::CreateVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_vod_configs(
         &self,
         req: crate::model::ListVodConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVodConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListVodConfigsResponse>>;
 
     async fn get_vod_config(
         &self,
         req: crate::model::GetVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VodConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::VodConfig>>;
 
     async fn delete_vod_config(
         &self,
         req: crate::model::DeleteVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_vod_config(
         &self,
         req: crate::model::UpdateVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -242,7 +242,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::CreateCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_cdn_key(self, req, options).await
     }
 
@@ -251,7 +251,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::ListCdnKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCdnKeysResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCdnKeysResponse>> {
         T::list_cdn_keys(self, req, options).await
     }
 
@@ -260,7 +260,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::GetCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CdnKey> {
+    ) -> crate::Result<gax::response::Response<crate::model::CdnKey>> {
         T::get_cdn_key(self, req, options).await
     }
 
@@ -269,7 +269,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::DeleteCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_cdn_key(self, req, options).await
     }
 
@@ -278,7 +278,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::UpdateCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_cdn_key(self, req, options).await
     }
 
@@ -287,7 +287,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::CreateVodSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VodSession> {
+    ) -> crate::Result<gax::response::Response<crate::model::VodSession>> {
         T::create_vod_session(self, req, options).await
     }
 
@@ -296,7 +296,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::GetVodSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VodSession> {
+    ) -> crate::Result<gax::response::Response<crate::model::VodSession>> {
         T::get_vod_session(self, req, options).await
     }
 
@@ -305,7 +305,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::ListVodStitchDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVodStitchDetailsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListVodStitchDetailsResponse>> {
         T::list_vod_stitch_details(self, req, options).await
     }
 
@@ -314,7 +314,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::GetVodStitchDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VodStitchDetail> {
+    ) -> crate::Result<gax::response::Response<crate::model::VodStitchDetail>> {
         T::get_vod_stitch_detail(self, req, options).await
     }
 
@@ -323,7 +323,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::ListVodAdTagDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVodAdTagDetailsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListVodAdTagDetailsResponse>> {
         T::list_vod_ad_tag_details(self, req, options).await
     }
 
@@ -332,7 +332,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::GetVodAdTagDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VodAdTagDetail> {
+    ) -> crate::Result<gax::response::Response<crate::model::VodAdTagDetail>> {
         T::get_vod_ad_tag_detail(self, req, options).await
     }
 
@@ -341,7 +341,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::ListLiveAdTagDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListLiveAdTagDetailsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>> {
         T::list_live_ad_tag_details(self, req, options).await
     }
 
@@ -350,7 +350,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::GetLiveAdTagDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LiveAdTagDetail> {
+    ) -> crate::Result<gax::response::Response<crate::model::LiveAdTagDetail>> {
         T::get_live_ad_tag_detail(self, req, options).await
     }
 
@@ -359,7 +359,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::CreateSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_slate(self, req, options).await
     }
 
@@ -368,7 +368,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::ListSlatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListSlatesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListSlatesResponse>> {
         T::list_slates(self, req, options).await
     }
 
@@ -377,7 +377,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::GetSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Slate> {
+    ) -> crate::Result<gax::response::Response<crate::model::Slate>> {
         T::get_slate(self, req, options).await
     }
 
@@ -386,7 +386,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::UpdateSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_slate(self, req, options).await
     }
 
@@ -395,7 +395,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::DeleteSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_slate(self, req, options).await
     }
 
@@ -404,7 +404,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::CreateLiveSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LiveSession> {
+    ) -> crate::Result<gax::response::Response<crate::model::LiveSession>> {
         T::create_live_session(self, req, options).await
     }
 
@@ -413,7 +413,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::GetLiveSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LiveSession> {
+    ) -> crate::Result<gax::response::Response<crate::model::LiveSession>> {
         T::get_live_session(self, req, options).await
     }
 
@@ -422,7 +422,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::CreateLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_live_config(self, req, options).await
     }
 
@@ -431,7 +431,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::ListLiveConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListLiveConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListLiveConfigsResponse>> {
         T::list_live_configs(self, req, options).await
     }
 
@@ -440,7 +440,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::GetLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LiveConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::LiveConfig>> {
         T::get_live_config(self, req, options).await
     }
 
@@ -449,7 +449,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::DeleteLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_live_config(self, req, options).await
     }
 
@@ -458,7 +458,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::UpdateLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_live_config(self, req, options).await
     }
 
@@ -467,7 +467,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::CreateVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_vod_config(self, req, options).await
     }
 
@@ -476,7 +476,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::ListVodConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVodConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListVodConfigsResponse>> {
         T::list_vod_configs(self, req, options).await
     }
 
@@ -485,7 +485,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::GetVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VodConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::VodConfig>> {
         T::get_vod_config(self, req, options).await
     }
 
@@ -494,7 +494,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::DeleteVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_vod_config(self, req, options).await
     }
 
@@ -503,7 +503,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: crate::model::UpdateVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_vod_config(self, req, options).await
     }
 
@@ -512,7 +512,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -521,7 +521,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -530,7 +530,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -539,7 +539,7 @@ impl<T: super::VideoStitcherService> VideoStitcherService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

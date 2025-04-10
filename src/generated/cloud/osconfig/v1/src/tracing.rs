@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ExecutePatchJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchJob> {
+    ) -> Result<gax::response::Response<crate::model::PatchJob>> {
         self.inner.execute_patch_job(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetPatchJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchJob> {
+    ) -> Result<gax::response::Response<crate::model::PatchJob>> {
         self.inner.get_patch_job(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CancelPatchJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchJob> {
+    ) -> Result<gax::response::Response<crate::model::PatchJob>> {
         self.inner.cancel_patch_job(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::ListPatchJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPatchJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPatchJobsResponse>> {
         self.inner.list_patch_jobs(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::ListPatchJobInstanceDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPatchJobInstanceDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>> {
         self.inner
             .list_patch_job_instance_details(req, options)
             .await
@@ -89,7 +89,7 @@ where
         &self,
         req: crate::model::CreatePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         self.inner.create_patch_deployment(req, options).await
     }
 
@@ -98,7 +98,7 @@ where
         &self,
         req: crate::model::GetPatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         self.inner.get_patch_deployment(req, options).await
     }
 
@@ -107,7 +107,7 @@ where
         &self,
         req: crate::model::ListPatchDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPatchDeploymentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPatchDeploymentsResponse>> {
         self.inner.list_patch_deployments(req, options).await
     }
 
@@ -116,7 +116,7 @@ where
         &self,
         req: crate::model::DeletePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_patch_deployment(req, options).await
     }
 
@@ -125,7 +125,7 @@ where
         &self,
         req: crate::model::UpdatePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         self.inner.update_patch_deployment(req, options).await
     }
 
@@ -134,7 +134,7 @@ where
         &self,
         req: crate::model::PausePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         self.inner.pause_patch_deployment(req, options).await
     }
 
@@ -143,7 +143,7 @@ where
         &self,
         req: crate::model::ResumePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         self.inner.resume_patch_deployment(req, options).await
     }
 
@@ -152,7 +152,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -161,7 +161,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -193,7 +193,7 @@ where
         &self,
         req: crate::model::CreateOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_os_policy_assignment(req, options).await
     }
 
@@ -202,7 +202,7 @@ where
         &self,
         req: crate::model::UpdateOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_os_policy_assignment(req, options).await
     }
 
@@ -211,7 +211,7 @@ where
         &self,
         req: crate::model::GetOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OSPolicyAssignment> {
+    ) -> Result<gax::response::Response<crate::model::OSPolicyAssignment>> {
         self.inner.get_os_policy_assignment(req, options).await
     }
 
@@ -220,7 +220,7 @@ where
         &self,
         req: crate::model::ListOSPolicyAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOSPolicyAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>> {
         self.inner.list_os_policy_assignments(req, options).await
     }
 
@@ -229,7 +229,8 @@ where
         &self,
         req: crate::model::ListOSPolicyAssignmentRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOSPolicyAssignmentRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>>
+    {
         self.inner
             .list_os_policy_assignment_revisions(req, options)
             .await
@@ -240,7 +241,7 @@ where
         &self,
         req: crate::model::DeleteOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_os_policy_assignment(req, options).await
     }
 
@@ -249,7 +250,7 @@ where
         &self,
         req: crate::model::GetOSPolicyAssignmentReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OSPolicyAssignmentReport> {
+    ) -> Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>> {
         self.inner
             .get_os_policy_assignment_report(req, options)
             .await
@@ -260,7 +261,7 @@ where
         &self,
         req: crate::model::ListOSPolicyAssignmentReportsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOSPolicyAssignmentReportsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>> {
         self.inner
             .list_os_policy_assignment_reports(req, options)
             .await
@@ -271,7 +272,7 @@ where
         &self,
         req: crate::model::GetInventoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Inventory> {
+    ) -> Result<gax::response::Response<crate::model::Inventory>> {
         self.inner.get_inventory(req, options).await
     }
 
@@ -280,7 +281,7 @@ where
         &self,
         req: crate::model::ListInventoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInventoriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInventoriesResponse>> {
         self.inner.list_inventories(req, options).await
     }
 
@@ -289,7 +290,7 @@ where
         &self,
         req: crate::model::GetVulnerabilityReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VulnerabilityReport> {
+    ) -> Result<gax::response::Response<crate::model::VulnerabilityReport>> {
         self.inner.get_vulnerability_report(req, options).await
     }
 
@@ -298,7 +299,7 @@ where
         &self,
         req: crate::model::ListVulnerabilityReportsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVulnerabilityReportsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVulnerabilityReportsResponse>> {
         self.inner.list_vulnerability_reports(req, options).await
     }
 
@@ -307,7 +308,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -316,7 +317,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

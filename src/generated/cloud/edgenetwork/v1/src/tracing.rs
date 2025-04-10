@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::InitializeZoneRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InitializeZoneResponse> {
+    ) -> Result<gax::response::Response<crate::model::InitializeZoneResponse>> {
         self.inner.initialize_zone(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListZonesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListZonesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListZonesResponse>> {
         self.inner.list_zones(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetZoneRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Zone> {
+    ) -> Result<gax::response::Response<crate::model::Zone>> {
         self.inner.get_zone(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::ListNetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNetworksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNetworksResponse>> {
         self.inner.list_networks(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::GetNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Network> {
+    ) -> Result<gax::response::Response<crate::model::Network>> {
         self.inner.get_network(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DiagnoseNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiagnoseNetworkResponse> {
+    ) -> Result<gax::response::Response<crate::model::DiagnoseNetworkResponse>> {
         self.inner.diagnose_network(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::CreateNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_network(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::DeleteNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_network(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::ListSubnetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSubnetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSubnetsResponse>> {
         self.inner.list_subnets(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::GetSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Subnet> {
+    ) -> Result<gax::response::Response<crate::model::Subnet>> {
         self.inner.get_subnet(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::CreateSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_subnet(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::UpdateSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_subnet(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::DeleteSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_subnet(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::ListInterconnectsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInterconnectsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInterconnectsResponse>> {
         self.inner.list_interconnects(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::GetInterconnectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Interconnect> {
+    ) -> Result<gax::response::Response<crate::model::Interconnect>> {
         self.inner.get_interconnect(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::DiagnoseInterconnectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiagnoseInterconnectResponse> {
+    ) -> Result<gax::response::Response<crate::model::DiagnoseInterconnectResponse>> {
         self.inner.diagnose_interconnect(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::ListInterconnectAttachmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInterconnectAttachmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInterconnectAttachmentsResponse>> {
         self.inner.list_interconnect_attachments(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::GetInterconnectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InterconnectAttachment> {
+    ) -> Result<gax::response::Response<crate::model::InterconnectAttachment>> {
         self.inner.get_interconnect_attachment(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::CreateInterconnectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .create_interconnect_attachment(req, options)
             .await
@@ -215,7 +215,7 @@ where
         &self,
         req: crate::model::DeleteInterconnectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .delete_interconnect_attachment(req, options)
             .await
@@ -226,7 +226,7 @@ where
         &self,
         req: crate::model::ListRoutersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRoutersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRoutersResponse>> {
         self.inner.list_routers(req, options).await
     }
 
@@ -235,7 +235,7 @@ where
         &self,
         req: crate::model::GetRouterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Router> {
+    ) -> Result<gax::response::Response<crate::model::Router>> {
         self.inner.get_router(req, options).await
     }
 
@@ -244,7 +244,7 @@ where
         &self,
         req: crate::model::DiagnoseRouterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiagnoseRouterResponse> {
+    ) -> Result<gax::response::Response<crate::model::DiagnoseRouterResponse>> {
         self.inner.diagnose_router(req, options).await
     }
 
@@ -253,7 +253,7 @@ where
         &self,
         req: crate::model::CreateRouterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_router(req, options).await
     }
 
@@ -262,7 +262,7 @@ where
         &self,
         req: crate::model::UpdateRouterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_router(req, options).await
     }
 
@@ -271,7 +271,7 @@ where
         &self,
         req: crate::model::DeleteRouterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_router(req, options).await
     }
 
@@ -280,7 +280,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -289,7 +289,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -298,7 +298,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -307,7 +307,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -316,7 +316,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -325,7 +325,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

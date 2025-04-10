@@ -93,6 +93,7 @@ pub mod config {
             (*self.0.stub)
                 .list_deployments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod config {
             (*self.0.stub)
                 .get_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
@@ -224,6 +226,7 @@ pub mod config {
             (*self.0.stub)
                 .create_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_deployment`.
@@ -328,6 +331,7 @@ pub mod config {
             (*self.0.stub)
                 .update_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_deployment`.
@@ -429,6 +433,7 @@ pub mod config {
             (*self.0.stub)
                 .delete_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_deployment`.
@@ -525,6 +530,7 @@ pub mod config {
             (*self.0.stub)
                 .list_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -606,6 +612,7 @@ pub mod config {
             (*self.0.stub)
                 .get_revision(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRevisionRequest::name].
@@ -648,6 +655,7 @@ pub mod config {
             (*self.0.stub)
                 .get_resource(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetResourceRequest::name].
@@ -690,6 +698,7 @@ pub mod config {
             (*self.0.stub)
                 .list_resources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -776,6 +785,7 @@ pub mod config {
             (*self.0.stub)
                 .export_deployment_statefile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ExportDeploymentStatefileRequest::parent].
@@ -829,6 +839,7 @@ pub mod config {
             (*self.0.stub)
                 .export_revision_statefile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ExportRevisionStatefileRequest::parent].
@@ -871,6 +882,7 @@ pub mod config {
             (*self.0.stub)
                 .import_statefile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportStatefileRequest::parent].
@@ -925,6 +937,7 @@ pub mod config {
             (*self.0.stub)
                 .delete_statefile(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteStatefileRequest::name].
@@ -978,6 +991,7 @@ pub mod config {
             (*self.0.stub)
                 .lock_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `lock_deployment`.
@@ -1061,6 +1075,7 @@ pub mod config {
             (*self.0.stub)
                 .unlock_deployment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `unlock_deployment`.
@@ -1142,6 +1157,7 @@ pub mod config {
             (*self.0.stub)
                 .export_lock_info(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ExportLockInfoRequest::name].
@@ -1189,6 +1205,7 @@ pub mod config {
             (*self.0.stub)
                 .create_preview(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_preview`.
@@ -1284,6 +1301,7 @@ pub mod config {
             (*self.0.stub)
                 .get_preview(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPreviewRequest::name].
@@ -1326,6 +1344,7 @@ pub mod config {
             (*self.0.stub)
                 .list_previews(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1412,6 +1431,7 @@ pub mod config {
             (*self.0.stub)
                 .delete_preview(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_preview`.
@@ -1495,6 +1515,7 @@ pub mod config {
             (*self.0.stub)
                 .export_preview_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ExportPreviewResultRequest::parent].
@@ -1540,6 +1561,7 @@ pub mod config {
             (*self.0.stub)
                 .list_terraform_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1624,6 +1646,7 @@ pub mod config {
             (*self.0.stub)
                 .get_terraform_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTerraformVersionRequest::name].
@@ -1669,6 +1692,7 @@ pub mod config {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1744,6 +1768,7 @@ pub mod config {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1786,6 +1811,7 @@ pub mod config {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1846,6 +1872,7 @@ pub mod config {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1900,6 +1927,7 @@ pub mod config {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1956,6 +1984,7 @@ pub mod config {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2034,6 +2063,7 @@ pub mod config {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2079,6 +2109,7 @@ pub mod config {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2124,6 +2155,7 @@ pub mod config {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

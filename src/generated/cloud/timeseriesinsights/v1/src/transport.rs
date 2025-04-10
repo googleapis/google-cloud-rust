@@ -44,7 +44,7 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         &self,
         req: crate::model::ListDataSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDataSetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDataSetsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -59,14 +59,13 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListDataSetsResponse>| r.into_body())
     }
 
     async fn create_data_set(
         &self,
         req: crate::model::CreateDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataSet> {
+    ) -> Result<gax::response::Response<crate::model::DataSet>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -82,14 +81,13 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         self.inner
             .execute(builder, Some(req.dataset), options)
             .await
-            .map(|r: gax::response::Response<crate::model::DataSet>| r.into_body())
     }
 
     async fn delete_data_set(
         &self,
         req: crate::model::DeleteDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -102,14 +100,17 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn append_events(
         &self,
         req: crate::model::AppendEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AppendEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::AppendEventsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -122,17 +123,14 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::AppendEventsResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn query_data_set(
         &self,
         req: crate::model::QueryDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryDataSetResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryDataSetResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -142,17 +140,14 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::QueryDataSetResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn evaluate_slice(
         &self,
         req: crate::model::EvaluateSliceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EvaluatedSlice> {
+    ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -165,17 +160,14 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::EvaluatedSlice>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn evaluate_timeseries(
         &self,
         req: crate::model::EvaluateTimeseriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EvaluatedSlice> {
+    ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -188,9 +180,6 @@ impl super::stub::TimeseriesInsightsController for TimeseriesInsightsController 
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::EvaluatedSlice>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 }

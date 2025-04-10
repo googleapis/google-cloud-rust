@@ -45,10 +45,12 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAuthorizationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Authorization>> + Send {
-        std::future::ready::<crate::Result<crate::model::Authorization>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Authorization>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Authorization>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::GSuiteAddOns::create_deployment].
@@ -56,10 +58,12 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Deployment>> + Send {
-        std::future::ready::<crate::Result<crate::model::Deployment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::GSuiteAddOns::replace_deployment].
@@ -67,10 +71,12 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReplaceDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Deployment>> + Send {
-        std::future::ready::<crate::Result<crate::model::Deployment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::GSuiteAddOns::get_deployment].
@@ -78,10 +84,12 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Deployment>> + Send {
-        std::future::ready::<crate::Result<crate::model::Deployment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::GSuiteAddOns::list_deployments].
@@ -89,11 +97,12 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDeploymentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDeploymentsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListDeploymentsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::GSuiteAddOns::delete_deployment].
@@ -101,8 +110,10 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::GSuiteAddOns::install_deployment].
@@ -110,8 +121,10 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::InstallDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::GSuiteAddOns::uninstall_deployment].
@@ -119,8 +132,10 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UninstallDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::GSuiteAddOns::get_install_status].
@@ -128,9 +143,11 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetInstallStatusRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::InstallStatus>> + Send {
-        std::future::ready::<crate::Result<crate::model::InstallStatus>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InstallStatus>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::InstallStatus>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

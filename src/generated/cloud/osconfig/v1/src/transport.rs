@@ -44,7 +44,7 @@ impl super::stub::OsConfigService for OsConfigService {
         &self,
         req: crate::model::ExecutePatchJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchJob> {
+    ) -> Result<gax::response::Response<crate::model::PatchJob>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,17 +57,14 @@ impl super::stub::OsConfigService for OsConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::PatchJob>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_patch_job(
         &self,
         req: crate::model::GetPatchJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchJob> {
+    ) -> Result<gax::response::Response<crate::model::PatchJob>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,14 +77,13 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PatchJob>| r.into_body())
     }
 
     async fn cancel_patch_job(
         &self,
         req: crate::model::CancelPatchJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchJob> {
+    ) -> Result<gax::response::Response<crate::model::PatchJob>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -97,17 +93,14 @@ impl super::stub::OsConfigService for OsConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::PatchJob>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_patch_jobs(
         &self,
         req: crate::model::ListPatchJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPatchJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPatchJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -126,14 +119,13 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListPatchJobsResponse>| r.into_body())
     }
 
     async fn list_patch_job_instance_details(
         &self,
         req: crate::model::ListPatchJobInstanceDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPatchJobInstanceDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -152,18 +144,13 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn create_patch_deployment(
         &self,
         req: crate::model::CreatePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -180,14 +167,13 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, Some(req.patch_deployment), options)
             .await
-            .map(|r: gax::response::Response<crate::model::PatchDeployment>| r.into_body())
     }
 
     async fn get_patch_deployment(
         &self,
         req: crate::model::GetPatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -200,14 +186,13 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PatchDeployment>| r.into_body())
     }
 
     async fn list_patch_deployments(
         &self,
         req: crate::model::ListPatchDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPatchDeploymentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPatchDeploymentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -225,18 +210,13 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPatchDeploymentsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn delete_patch_deployment(
         &self,
         req: crate::model::DeletePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -249,14 +229,17 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_patch_deployment(
         &self,
         req: crate::model::UpdatePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -288,14 +271,13 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, Some(req.patch_deployment), options)
             .await
-            .map(|r: gax::response::Response<crate::model::PatchDeployment>| r.into_body())
     }
 
     async fn pause_patch_deployment(
         &self,
         req: crate::model::PausePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -305,17 +287,14 @@ impl super::stub::OsConfigService for OsConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::PatchDeployment>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn resume_patch_deployment(
         &self,
         req: crate::model::ResumePatchDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PatchDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PatchDeployment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -325,17 +304,14 @@ impl super::stub::OsConfigService for OsConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::PatchDeployment>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -348,14 +324,13 @@ impl super::stub::OsConfigService for OsConfigService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -365,10 +340,12 @@ impl super::stub::OsConfigService for OsConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 }
 
@@ -398,7 +375,7 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         &self,
         req: crate::model::CreateOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -415,14 +392,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, Some(req.os_policy_assignment), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_os_policy_assignment(
         &self,
         req: crate::model::UpdateOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -454,14 +430,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, Some(req.os_policy_assignment), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_os_policy_assignment(
         &self,
         req: crate::model::GetOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OSPolicyAssignment> {
+    ) -> Result<gax::response::Response<crate::model::OSPolicyAssignment>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -474,14 +449,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::OSPolicyAssignment>| r.into_body())
     }
 
     async fn list_os_policy_assignments(
         &self,
         req: crate::model::ListOSPolicyAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOSPolicyAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -499,18 +473,14 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_os_policy_assignment_revisions(
         &self,
         req: crate::model::ListOSPolicyAssignmentRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOSPolicyAssignmentRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -528,18 +498,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::ListOSPolicyAssignmentRevisionsResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn delete_os_policy_assignment(
         &self,
         req: crate::model::DeleteOSPolicyAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -552,14 +517,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_os_policy_assignment_report(
         &self,
         req: crate::model::GetOSPolicyAssignmentReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OSPolicyAssignmentReport> {
+    ) -> Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -572,14 +536,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::OSPolicyAssignmentReport>| r.into_body())
     }
 
     async fn list_os_policy_assignment_reports(
         &self,
         req: crate::model::ListOSPolicyAssignmentReportsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOSPolicyAssignmentReportsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -595,18 +558,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::ListOSPolicyAssignmentReportsResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn get_inventory(
         &self,
         req: crate::model::GetInventoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Inventory> {
+    ) -> Result<gax::response::Response<crate::model::Inventory>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -620,14 +578,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Inventory>| r.into_body())
     }
 
     async fn list_inventories(
         &self,
         req: crate::model::ListInventoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInventoriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInventoriesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -647,14 +604,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListInventoriesResponse>| r.into_body())
     }
 
     async fn get_vulnerability_report(
         &self,
         req: crate::model::GetVulnerabilityReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VulnerabilityReport> {
+    ) -> Result<gax::response::Response<crate::model::VulnerabilityReport>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -667,14 +623,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::VulnerabilityReport>| r.into_body())
     }
 
     async fn list_vulnerability_reports(
         &self,
         req: crate::model::ListVulnerabilityReportsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVulnerabilityReportsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVulnerabilityReportsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -693,18 +648,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListVulnerabilityReportsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -717,14 +667,13 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -734,10 +683,12 @@ impl super::stub::OsConfigZonalService for OsConfigZonalService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

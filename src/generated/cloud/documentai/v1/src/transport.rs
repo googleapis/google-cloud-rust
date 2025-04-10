@@ -44,7 +44,7 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         &self,
         req: crate::model::ProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProcessResponse> {
+    ) -> Result<gax::response::Response<crate::model::ProcessResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -54,17 +54,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::ProcessResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn batch_process_documents(
         &self,
         req: crate::model::BatchProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -77,17 +74,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn fetch_processor_types(
         &self,
         req: crate::model::FetchProcessorTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchProcessorTypesResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchProcessorTypesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -103,18 +97,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::FetchProcessorTypesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_processor_types(
         &self,
         req: crate::model::ListProcessorTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProcessorTypesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProcessorTypesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -132,18 +121,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListProcessorTypesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_processor_type(
         &self,
         req: crate::model::GetProcessorTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProcessorType> {
+    ) -> Result<gax::response::Response<crate::model::ProcessorType>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -156,14 +140,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ProcessorType>| r.into_body())
     }
 
     async fn list_processors(
         &self,
         req: crate::model::ListProcessorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProcessorsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProcessorsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -181,14 +164,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListProcessorsResponse>| r.into_body())
     }
 
     async fn get_processor(
         &self,
         req: crate::model::GetProcessorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Processor> {
+    ) -> Result<gax::response::Response<crate::model::Processor>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -201,14 +183,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Processor>| r.into_body())
     }
 
     async fn train_processor_version(
         &self,
         req: crate::model::TrainProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -221,17 +202,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_processor_version(
         &self,
         req: crate::model::GetProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProcessorVersion> {
+    ) -> Result<gax::response::Response<crate::model::ProcessorVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -244,14 +222,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ProcessorVersion>| r.into_body())
     }
 
     async fn list_processor_versions(
         &self,
         req: crate::model::ListProcessorVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProcessorVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProcessorVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -269,18 +246,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListProcessorVersionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn delete_processor_version(
         &self,
         req: crate::model::DeleteProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -293,14 +265,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn deploy_processor_version(
         &self,
         req: crate::model::DeployProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -310,17 +281,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn undeploy_processor_version(
         &self,
         req: crate::model::UndeployProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -330,17 +298,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_processor(
         &self,
         req: crate::model::CreateProcessorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Processor> {
+    ) -> Result<gax::response::Response<crate::model::Processor>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -356,14 +321,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, Some(req.processor), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Processor>| r.into_body())
     }
 
     async fn delete_processor(
         &self,
         req: crate::model::DeleteProcessorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -376,14 +340,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn enable_processor(
         &self,
         req: crate::model::EnableProcessorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -393,17 +356,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn disable_processor(
         &self,
         req: crate::model::DisableProcessorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -413,17 +373,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn set_default_processor_version(
         &self,
         req: crate::model::SetDefaultProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -436,17 +393,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn review_document(
         &self,
         req: crate::model::ReviewDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -459,17 +413,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn evaluate_processor_version(
         &self,
         req: crate::model::EvaluateProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -482,17 +433,14 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_evaluation(
         &self,
         req: crate::model::GetEvaluationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Evaluation> {
+    ) -> Result<gax::response::Response<crate::model::Evaluation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -505,14 +453,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Evaluation>| r.into_body())
     }
 
     async fn list_evaluations(
         &self,
         req: crate::model::ListEvaluationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEvaluationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEvaluationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -530,14 +477,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListEvaluationsResponse>| r.into_body())
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -553,14 +499,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -573,14 +518,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -596,18 +540,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -620,14 +559,13 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -640,7 +578,10 @@ impl super::stub::DocumentProcessorService for DocumentProcessorService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     fn get_polling_error_policy(

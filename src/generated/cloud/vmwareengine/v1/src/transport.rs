@@ -44,7 +44,7 @@ impl super::stub::VmwareEngine for VmwareEngine {
         &self,
         req: crate::model::ListPrivateCloudsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPrivateCloudsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPrivateCloudsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -64,16 +64,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPrivateCloudsResponse>| r.into_body(),
-            )
     }
 
     async fn get_private_cloud(
         &self,
         req: crate::model::GetPrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PrivateCloud> {
+    ) -> Result<gax::response::Response<crate::model::PrivateCloud>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -86,14 +83,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PrivateCloud>| r.into_body())
     }
 
     async fn create_private_cloud(
         &self,
         req: crate::model::CreatePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -112,14 +108,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.private_cloud), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_private_cloud(
         &self,
         req: crate::model::UpdatePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -152,14 +147,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.private_cloud), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_private_cloud(
         &self,
         req: crate::model::DeletePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -178,14 +172,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_private_cloud(
         &self,
         req: crate::model::UndeletePrivateCloudRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -195,17 +188,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_clusters(
         &self,
         req: crate::model::ListClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListClustersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -222,14 +212,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListClustersResponse>| r.into_body())
     }
 
     async fn get_cluster(
         &self,
         req: crate::model::GetClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Cluster> {
+    ) -> Result<gax::response::Response<crate::model::Cluster>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -242,14 +231,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Cluster>| r.into_body())
     }
 
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -268,14 +256,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_cluster(
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -309,14 +296,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.cluster), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_cluster(
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -330,14 +316,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_nodes(
         &self,
         req: crate::model::ListNodesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNodesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNodesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -352,14 +337,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListNodesResponse>| r.into_body())
     }
 
     async fn get_node(
         &self,
         req: crate::model::GetNodeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Node> {
+    ) -> Result<gax::response::Response<crate::model::Node>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -372,14 +356,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Node>| r.into_body())
     }
 
     async fn list_external_addresses(
         &self,
         req: crate::model::ListExternalAddressesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListExternalAddressesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListExternalAddressesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -399,18 +382,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListExternalAddressesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn fetch_network_policy_external_addresses(
         &self,
         req: crate::model::FetchNetworkPolicyExternalAddressesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchNetworkPolicyExternalAddressesResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchNetworkPolicyExternalAddressesResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -428,18 +407,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::FetchNetworkPolicyExternalAddressesResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn get_external_address(
         &self,
         req: crate::model::GetExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExternalAddress> {
+    ) -> Result<gax::response::Response<crate::model::ExternalAddress>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -452,14 +426,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ExternalAddress>| r.into_body())
     }
 
     async fn create_external_address(
         &self,
         req: crate::model::CreateExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -477,14 +450,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.external_address), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_external_address(
         &self,
         req: crate::model::UpdateExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -517,14 +489,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.external_address), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_external_address(
         &self,
         req: crate::model::DeleteExternalAddressRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -538,14 +509,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_subnets(
         &self,
         req: crate::model::ListSubnetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSubnetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSubnetsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -560,14 +530,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListSubnetsResponse>| r.into_body())
     }
 
     async fn get_subnet(
         &self,
         req: crate::model::GetSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Subnet> {
+    ) -> Result<gax::response::Response<crate::model::Subnet>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -580,14 +549,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Subnet>| r.into_body())
     }
 
     async fn update_subnet(
         &self,
         req: crate::model::UpdateSubnetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -616,17 +584,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
-            .execute(builder, Some(req.subnet), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.subnet), options).await
     }
 
     async fn list_external_access_rules(
         &self,
         req: crate::model::ListExternalAccessRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListExternalAccessRulesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListExternalAccessRulesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -646,18 +611,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListExternalAccessRulesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_external_access_rule(
         &self,
         req: crate::model::GetExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExternalAccessRule> {
+    ) -> Result<gax::response::Response<crate::model::ExternalAccessRule>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -670,14 +630,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ExternalAccessRule>| r.into_body())
     }
 
     async fn create_external_access_rule(
         &self,
         req: crate::model::CreateExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -695,14 +654,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.external_access_rule), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_external_access_rule(
         &self,
         req: crate::model::UpdateExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -735,14 +693,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.external_access_rule), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_external_access_rule(
         &self,
         req: crate::model::DeleteExternalAccessRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -756,14 +713,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_logging_servers(
         &self,
         req: crate::model::ListLoggingServersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLoggingServersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLoggingServersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -783,18 +739,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListLoggingServersResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_logging_server(
         &self,
         req: crate::model::GetLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LoggingServer> {
+    ) -> Result<gax::response::Response<crate::model::LoggingServer>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -807,14 +758,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::LoggingServer>| r.into_body())
     }
 
     async fn create_logging_server(
         &self,
         req: crate::model::CreateLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -832,14 +782,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.logging_server), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_logging_server(
         &self,
         req: crate::model::UpdateLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -872,14 +821,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.logging_server), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_logging_server(
         &self,
         req: crate::model::DeleteLoggingServerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -893,14 +841,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_node_types(
         &self,
         req: crate::model::ListNodeTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNodeTypesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNodeTypesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -919,14 +866,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListNodeTypesResponse>| r.into_body())
     }
 
     async fn get_node_type(
         &self,
         req: crate::model::GetNodeTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NodeType> {
+    ) -> Result<gax::response::Response<crate::model::NodeType>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -939,14 +885,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::NodeType>| r.into_body())
     }
 
     async fn show_nsx_credentials(
         &self,
         req: crate::model::ShowNsxCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Credentials> {
+    ) -> Result<gax::response::Response<crate::model::Credentials>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -962,14 +907,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Credentials>| r.into_body())
     }
 
     async fn show_vcenter_credentials(
         &self,
         req: crate::model::ShowVcenterCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Credentials> {
+    ) -> Result<gax::response::Response<crate::model::Credentials>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -986,14 +930,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Credentials>| r.into_body())
     }
 
     async fn reset_nsx_credentials(
         &self,
         req: crate::model::ResetNsxCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1006,17 +949,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn reset_vcenter_credentials(
         &self,
         req: crate::model::ResetVcenterCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1029,17 +969,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_dns_forwarding(
         &self,
         req: crate::model::GetDnsForwardingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DnsForwarding> {
+    ) -> Result<gax::response::Response<crate::model::DnsForwarding>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1052,14 +989,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::DnsForwarding>| r.into_body())
     }
 
     async fn update_dns_forwarding(
         &self,
         req: crate::model::UpdateDnsForwardingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1092,14 +1028,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.dns_forwarding), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_network_peering(
         &self,
         req: crate::model::GetNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NetworkPeering> {
+    ) -> Result<gax::response::Response<crate::model::NetworkPeering>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1112,14 +1047,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::NetworkPeering>| r.into_body())
     }
 
     async fn list_network_peerings(
         &self,
         req: crate::model::ListNetworkPeeringsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNetworkPeeringsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNetworkPeeringsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1139,18 +1073,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListNetworkPeeringsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn create_network_peering(
         &self,
         req: crate::model::CreateNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1168,14 +1097,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.network_peering), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_network_peering(
         &self,
         req: crate::model::DeleteNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1189,14 +1117,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_network_peering(
         &self,
         req: crate::model::UpdateNetworkPeeringRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1229,14 +1156,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.network_peering), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_peering_routes(
         &self,
         req: crate::model::ListPeeringRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPeeringRoutesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPeeringRoutesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1255,16 +1181,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPeeringRoutesResponse>| r.into_body(),
-            )
     }
 
     async fn create_hcx_activation_key(
         &self,
         req: crate::model::CreateHcxActivationKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1282,14 +1205,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.hcx_activation_key), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_hcx_activation_keys(
         &self,
         req: crate::model::ListHcxActivationKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListHcxActivationKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListHcxActivationKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1307,18 +1229,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListHcxActivationKeysResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_hcx_activation_key(
         &self,
         req: crate::model::GetHcxActivationKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HcxActivationKey> {
+    ) -> Result<gax::response::Response<crate::model::HcxActivationKey>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1331,14 +1248,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::HcxActivationKey>| r.into_body())
     }
 
     async fn get_network_policy(
         &self,
         req: crate::model::GetNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NetworkPolicy> {
+    ) -> Result<gax::response::Response<crate::model::NetworkPolicy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1351,14 +1267,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::NetworkPolicy>| r.into_body())
     }
 
     async fn list_network_policies(
         &self,
         req: crate::model::ListNetworkPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNetworkPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNetworkPoliciesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1378,18 +1293,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListNetworkPoliciesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn create_network_policy(
         &self,
         req: crate::model::CreateNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1407,14 +1317,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.network_policy), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_network_policy(
         &self,
         req: crate::model::UpdateNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1447,14 +1356,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.network_policy), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_network_policy(
         &self,
         req: crate::model::DeleteNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1468,14 +1376,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_management_dns_zone_bindings(
         &self,
         req: crate::model::ListManagementDnsZoneBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListManagementDnsZoneBindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListManagementDnsZoneBindingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1495,18 +1402,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::ListManagementDnsZoneBindingsResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn get_management_dns_zone_binding(
         &self,
         req: crate::model::GetManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ManagementDnsZoneBinding> {
+    ) -> Result<gax::response::Response<crate::model::ManagementDnsZoneBinding>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1519,14 +1421,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ManagementDnsZoneBinding>| r.into_body())
     }
 
     async fn create_management_dns_zone_binding(
         &self,
         req: crate::model::CreateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1547,14 +1448,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.management_dns_zone_binding), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_management_dns_zone_binding(
         &self,
         req: crate::model::UpdateManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1589,14 +1489,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.management_dns_zone_binding), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_management_dns_zone_binding(
         &self,
         req: crate::model::DeleteManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1610,14 +1509,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn repair_management_dns_zone_binding(
         &self,
         req: crate::model::RepairManagementDnsZoneBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1627,17 +1525,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_vmware_engine_network(
         &self,
         req: crate::model::CreateVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1655,14 +1550,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.vmware_engine_network), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_vmware_engine_network(
         &self,
         req: crate::model::UpdateVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1695,14 +1589,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.vmware_engine_network), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_vmware_engine_network(
         &self,
         req: crate::model::DeleteVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1717,14 +1610,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_vmware_engine_network(
         &self,
         req: crate::model::GetVmwareEngineNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VmwareEngineNetwork> {
+    ) -> Result<gax::response::Response<crate::model::VmwareEngineNetwork>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1737,14 +1629,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::VmwareEngineNetwork>| r.into_body())
     }
 
     async fn list_vmware_engine_networks(
         &self,
         req: crate::model::ListVmwareEngineNetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVmwareEngineNetworksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVmwareEngineNetworksResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1764,18 +1655,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListVmwareEngineNetworksResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn create_private_connection(
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1793,14 +1679,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.private_connection), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_private_connection(
         &self,
         req: crate::model::GetPrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PrivateConnection> {
+    ) -> Result<gax::response::Response<crate::model::PrivateConnection>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1813,14 +1698,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PrivateConnection>| r.into_body())
     }
 
     async fn list_private_connections(
         &self,
         req: crate::model::ListPrivateConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPrivateConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPrivateConnectionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1840,18 +1724,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPrivateConnectionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn update_private_connection(
         &self,
         req: crate::model::UpdatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1884,14 +1763,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, Some(req.private_connection), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_private_connection(
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1905,14 +1783,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_private_connection_peering_routes(
         &self,
         req: crate::model::ListPrivateConnectionPeeringRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPrivateConnectionPeeringRoutesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPrivateConnectionPeeringRoutesResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1930,18 +1808,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::ListPrivateConnectionPeeringRoutesResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn grant_dns_bind_permission(
         &self,
         req: crate::model::GrantDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1951,17 +1824,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_dns_bind_permission(
         &self,
         req: crate::model::GetDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DnsBindPermission> {
+    ) -> Result<gax::response::Response<crate::model::DnsBindPermission>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1974,14 +1844,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::DnsBindPermission>| r.into_body())
     }
 
     async fn revoke_dns_bind_permission(
         &self,
         req: crate::model::RevokeDnsBindPermissionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1991,17 +1860,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2017,14 +1883,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2037,14 +1902,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2057,17 +1921,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2093,14 +1954,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2113,16 +1973,14 @@ impl super::stub::VmwareEngine for VmwareEngine {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2138,18 +1996,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2162,14 +2015,13 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -2182,7 +2034,10 @@ impl super::stub::VmwareEngine for VmwareEngine {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     fn get_polling_error_policy(

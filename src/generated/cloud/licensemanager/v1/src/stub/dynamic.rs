@@ -23,115 +23,115 @@ pub trait LicenseManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListConfigurationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConfigurationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListConfigurationsResponse>>;
 
     async fn get_configuration(
         &self,
         req: crate::model::GetConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Configuration>;
+    ) -> crate::Result<gax::response::Response<crate::model::Configuration>>;
 
     async fn create_configuration(
         &self,
         req: crate::model::CreateConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_configuration(
         &self,
         req: crate::model::UpdateConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_configuration(
         &self,
         req: crate::model::DeleteConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_instances(
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInstancesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>;
 
     async fn get_instance(
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance>;
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>>;
 
     async fn deactivate_configuration(
         &self,
         req: crate::model::DeactivateConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn reactivate_configuration(
         &self,
         req: crate::model::ReactivateConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn query_configuration_license_usage(
         &self,
         req: crate::model::QueryConfigurationLicenseUsageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryConfigurationLicenseUsageResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::QueryConfigurationLicenseUsageResponse>>;
 
     async fn aggregate_usage(
         &self,
         req: crate::model::AggregateUsageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AggregateUsageResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::AggregateUsageResponse>>;
 
     async fn list_products(
         &self,
         req: crate::model::ListProductsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListProductsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListProductsResponse>>;
 
     async fn get_product(
         &self,
         req: crate::model::GetProductRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Product>;
+    ) -> crate::Result<gax::response::Response<crate::model::Product>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -152,7 +152,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::ListConfigurationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConfigurationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConfigurationsResponse>> {
         T::list_configurations(self, req, options).await
     }
 
@@ -161,7 +161,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::GetConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Configuration> {
+    ) -> crate::Result<gax::response::Response<crate::model::Configuration>> {
         T::get_configuration(self, req, options).await
     }
 
@@ -170,7 +170,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::CreateConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_configuration(self, req, options).await
     }
 
@@ -179,7 +179,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::UpdateConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_configuration(self, req, options).await
     }
 
@@ -188,7 +188,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::DeleteConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_configuration(self, req, options).await
     }
 
@@ -197,7 +197,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInstancesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>> {
         T::list_instances(self, req, options).await
     }
 
@@ -206,7 +206,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance> {
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>> {
         T::get_instance(self, req, options).await
     }
 
@@ -215,7 +215,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::DeactivateConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::deactivate_configuration(self, req, options).await
     }
 
@@ -224,7 +224,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::ReactivateConfigurationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::reactivate_configuration(self, req, options).await
     }
 
@@ -233,7 +233,8 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::QueryConfigurationLicenseUsageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryConfigurationLicenseUsageResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryConfigurationLicenseUsageResponse>>
+    {
         T::query_configuration_license_usage(self, req, options).await
     }
 
@@ -242,7 +243,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::AggregateUsageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AggregateUsageResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::AggregateUsageResponse>> {
         T::aggregate_usage(self, req, options).await
     }
 
@@ -251,7 +252,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::ListProductsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListProductsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListProductsResponse>> {
         T::list_products(self, req, options).await
     }
 
@@ -260,7 +261,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: crate::model::GetProductRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Product> {
+    ) -> crate::Result<gax::response::Response<crate::model::Product>> {
         T::get_product(self, req, options).await
     }
 
@@ -269,7 +270,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -278,7 +279,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -287,7 +288,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -296,7 +297,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -305,7 +306,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -314,7 +315,7 @@ impl<T: super::LicenseManager> LicenseManager for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

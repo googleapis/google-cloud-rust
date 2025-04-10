@@ -44,7 +44,7 @@ impl super::stub::LivestreamService for LivestreamService {
         &self,
         req: crate::model::CreateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -62,14 +62,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, Some(req.channel), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_channels(
         &self,
         req: crate::model::ListChannelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListChannelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListChannelsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -86,14 +85,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListChannelsResponse>| r.into_body())
     }
 
     async fn get_channel(
         &self,
         req: crate::model::GetChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Channel> {
+    ) -> Result<gax::response::Response<crate::model::Channel>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -106,14 +104,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Channel>| r.into_body())
     }
 
     async fn delete_channel(
         &self,
         req: crate::model::DeleteChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -128,14 +125,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_channel(
         &self,
         req: crate::model::UpdateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -168,14 +164,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, Some(req.channel), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn start_channel(
         &self,
         req: crate::model::StartChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -185,17 +180,14 @@ impl super::stub::LivestreamService for LivestreamService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn stop_channel(
         &self,
         req: crate::model::StopChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -205,17 +197,14 @@ impl super::stub::LivestreamService for LivestreamService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_input(
         &self,
         req: crate::model::CreateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -227,17 +216,14 @@ impl super::stub::LivestreamService for LivestreamService {
             );
         let builder = builder.query(&[("inputId", &req.input_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
-            .execute(builder, Some(req.input), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.input), options).await
     }
 
     async fn list_inputs(
         &self,
         req: crate::model::ListInputsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInputsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInputsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -254,14 +240,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListInputsResponse>| r.into_body())
     }
 
     async fn get_input(
         &self,
         req: crate::model::GetInputRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Input> {
+    ) -> Result<gax::response::Response<crate::model::Input>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -274,14 +259,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Input>| r.into_body())
     }
 
     async fn delete_input(
         &self,
         req: crate::model::DeleteInputRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -295,14 +279,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_input(
         &self,
         req: crate::model::UpdateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -332,17 +315,14 @@ impl super::stub::LivestreamService for LivestreamService {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
-            .execute(builder, Some(req.input), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.input), options).await
     }
 
     async fn create_event(
         &self,
         req: crate::model::CreateEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Event> {
+    ) -> Result<gax::response::Response<crate::model::Event>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -354,17 +334,14 @@ impl super::stub::LivestreamService for LivestreamService {
             );
         let builder = builder.query(&[("eventId", &req.event_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
-            .execute(builder, Some(req.event), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Event>| r.into_body())
+        self.inner.execute(builder, Some(req.event), options).await
     }
 
     async fn list_events(
         &self,
         req: crate::model::ListEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEventsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -381,14 +358,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListEventsResponse>| r.into_body())
     }
 
     async fn get_event(
         &self,
         req: crate::model::GetEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Event> {
+    ) -> Result<gax::response::Response<crate::model::Event>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -401,14 +377,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Event>| r.into_body())
     }
 
     async fn delete_event(
         &self,
         req: crate::model::DeleteEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -422,14 +397,17 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_clips(
         &self,
         req: crate::model::ListClipsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListClipsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListClipsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -446,14 +424,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListClipsResponse>| r.into_body())
     }
 
     async fn get_clip(
         &self,
         req: crate::model::GetClipRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Clip> {
+    ) -> Result<gax::response::Response<crate::model::Clip>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -466,14 +443,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Clip>| r.into_body())
     }
 
     async fn create_clip(
         &self,
         req: crate::model::CreateClipRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -485,17 +461,14 @@ impl super::stub::LivestreamService for LivestreamService {
             );
         let builder = builder.query(&[("clipId", &req.clip_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
-            .execute(builder, Some(req.clip), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.clip), options).await
     }
 
     async fn delete_clip(
         &self,
         req: crate::model::DeleteClipRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -509,14 +482,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_asset(
         &self,
         req: crate::model::CreateAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -528,17 +500,14 @@ impl super::stub::LivestreamService for LivestreamService {
             );
         let builder = builder.query(&[("assetId", &req.asset_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
-            .execute(builder, Some(req.asset), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.asset), options).await
     }
 
     async fn delete_asset(
         &self,
         req: crate::model::DeleteAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -552,14 +521,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_asset(
         &self,
         req: crate::model::GetAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Asset> {
+    ) -> Result<gax::response::Response<crate::model::Asset>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -572,14 +540,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Asset>| r.into_body())
     }
 
     async fn list_assets(
         &self,
         req: crate::model::ListAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAssetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAssetsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -596,14 +563,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListAssetsResponse>| r.into_body())
     }
 
     async fn get_pool(
         &self,
         req: crate::model::GetPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Pool> {
+    ) -> Result<gax::response::Response<crate::model::Pool>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -616,14 +582,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Pool>| r.into_body())
     }
 
     async fn update_pool(
         &self,
         req: crate::model::UpdatePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -653,17 +618,14 @@ impl super::stub::LivestreamService for LivestreamService {
                 v.add(builder, "updateMask")
             });
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
-            .execute(builder, Some(req.pool), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.pool), options).await
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -679,14 +641,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -699,14 +660,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -722,18 +682,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -746,14 +701,13 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -766,14 +720,17 @@ impl super::stub::LivestreamService for LivestreamService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -783,10 +740,12 @@ impl super::stub::LivestreamService for LivestreamService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

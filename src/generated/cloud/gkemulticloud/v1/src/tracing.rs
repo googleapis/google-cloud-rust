@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateAttachedClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_attached_cluster(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::UpdateAttachedClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_attached_cluster(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::ImportAttachedClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.import_attached_cluster(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetAttachedClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AttachedCluster> {
+    ) -> Result<gax::response::Response<crate::model::AttachedCluster>> {
         self.inner.get_attached_cluster(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::ListAttachedClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAttachedClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAttachedClustersResponse>> {
         self.inner.list_attached_clusters(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteAttachedClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_attached_cluster(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetAttachedServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AttachedServerConfig> {
+    ) -> Result<gax::response::Response<crate::model::AttachedServerConfig>> {
         self.inner.get_attached_server_config(req, options).await
     }
 
@@ -105,7 +105,8 @@ where
         &self,
         req: crate::model::GenerateAttachedClusterInstallManifestRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAttachedClusterInstallManifestResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>>
+    {
         self.inner
             .generate_attached_cluster_install_manifest(req, options)
             .await
@@ -116,7 +117,8 @@ where
         &self,
         req: crate::model::GenerateAttachedClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAttachedClusterAgentTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>>
+    {
         self.inner
             .generate_attached_cluster_agent_token(req, options)
             .await
@@ -127,7 +129,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -136,7 +138,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -145,7 +147,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -154,7 +156,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -200,7 +202,7 @@ where
         &self,
         req: crate::model::CreateAwsClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_aws_cluster(req, options).await
     }
 
@@ -209,7 +211,7 @@ where
         &self,
         req: crate::model::UpdateAwsClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_aws_cluster(req, options).await
     }
 
@@ -218,7 +220,7 @@ where
         &self,
         req: crate::model::GetAwsClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AwsCluster> {
+    ) -> Result<gax::response::Response<crate::model::AwsCluster>> {
         self.inner.get_aws_cluster(req, options).await
     }
 
@@ -227,7 +229,7 @@ where
         &self,
         req: crate::model::ListAwsClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAwsClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAwsClustersResponse>> {
         self.inner.list_aws_clusters(req, options).await
     }
 
@@ -236,7 +238,7 @@ where
         &self,
         req: crate::model::DeleteAwsClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_aws_cluster(req, options).await
     }
 
@@ -245,7 +247,7 @@ where
         &self,
         req: crate::model::GenerateAwsClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAwsClusterAgentTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>> {
         self.inner
             .generate_aws_cluster_agent_token(req, options)
             .await
@@ -256,7 +258,7 @@ where
         &self,
         req: crate::model::GenerateAwsAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAwsAccessTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAwsAccessTokenResponse>> {
         self.inner.generate_aws_access_token(req, options).await
     }
 
@@ -265,7 +267,7 @@ where
         &self,
         req: crate::model::CreateAwsNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_aws_node_pool(req, options).await
     }
 
@@ -274,7 +276,7 @@ where
         &self,
         req: crate::model::UpdateAwsNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_aws_node_pool(req, options).await
     }
 
@@ -283,7 +285,7 @@ where
         &self,
         req: crate::model::RollbackAwsNodePoolUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.rollback_aws_node_pool_update(req, options).await
     }
 
@@ -292,7 +294,7 @@ where
         &self,
         req: crate::model::GetAwsNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AwsNodePool> {
+    ) -> Result<gax::response::Response<crate::model::AwsNodePool>> {
         self.inner.get_aws_node_pool(req, options).await
     }
 
@@ -301,7 +303,7 @@ where
         &self,
         req: crate::model::ListAwsNodePoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAwsNodePoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAwsNodePoolsResponse>> {
         self.inner.list_aws_node_pools(req, options).await
     }
 
@@ -310,7 +312,7 @@ where
         &self,
         req: crate::model::DeleteAwsNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_aws_node_pool(req, options).await
     }
 
@@ -319,7 +321,7 @@ where
         &self,
         req: crate::model::GetAwsOpenIdConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AwsOpenIdConfig> {
+    ) -> Result<gax::response::Response<crate::model::AwsOpenIdConfig>> {
         self.inner.get_aws_open_id_config(req, options).await
     }
 
@@ -328,7 +330,7 @@ where
         &self,
         req: crate::model::GetAwsJsonWebKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AwsJsonWebKeys> {
+    ) -> Result<gax::response::Response<crate::model::AwsJsonWebKeys>> {
         self.inner.get_aws_json_web_keys(req, options).await
     }
 
@@ -337,7 +339,7 @@ where
         &self,
         req: crate::model::GetAwsServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AwsServerConfig> {
+    ) -> Result<gax::response::Response<crate::model::AwsServerConfig>> {
         self.inner.get_aws_server_config(req, options).await
     }
 
@@ -346,7 +348,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -355,7 +357,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -364,7 +366,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -373,7 +375,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -419,7 +421,7 @@ where
         &self,
         req: crate::model::CreateAzureClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_azure_client(req, options).await
     }
 
@@ -428,7 +430,7 @@ where
         &self,
         req: crate::model::GetAzureClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureClient> {
+    ) -> Result<gax::response::Response<crate::model::AzureClient>> {
         self.inner.get_azure_client(req, options).await
     }
 
@@ -437,7 +439,7 @@ where
         &self,
         req: crate::model::ListAzureClientsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAzureClientsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAzureClientsResponse>> {
         self.inner.list_azure_clients(req, options).await
     }
 
@@ -446,7 +448,7 @@ where
         &self,
         req: crate::model::DeleteAzureClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_azure_client(req, options).await
     }
 
@@ -455,7 +457,7 @@ where
         &self,
         req: crate::model::CreateAzureClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_azure_cluster(req, options).await
     }
 
@@ -464,7 +466,7 @@ where
         &self,
         req: crate::model::UpdateAzureClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_azure_cluster(req, options).await
     }
 
@@ -473,7 +475,7 @@ where
         &self,
         req: crate::model::GetAzureClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureCluster> {
+    ) -> Result<gax::response::Response<crate::model::AzureCluster>> {
         self.inner.get_azure_cluster(req, options).await
     }
 
@@ -482,7 +484,7 @@ where
         &self,
         req: crate::model::ListAzureClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAzureClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAzureClustersResponse>> {
         self.inner.list_azure_clusters(req, options).await
     }
 
@@ -491,7 +493,7 @@ where
         &self,
         req: crate::model::DeleteAzureClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_azure_cluster(req, options).await
     }
 
@@ -500,7 +502,7 @@ where
         &self,
         req: crate::model::GenerateAzureClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAzureClusterAgentTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>> {
         self.inner
             .generate_azure_cluster_agent_token(req, options)
             .await
@@ -511,7 +513,7 @@ where
         &self,
         req: crate::model::GenerateAzureAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAzureAccessTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>> {
         self.inner.generate_azure_access_token(req, options).await
     }
 
@@ -520,7 +522,7 @@ where
         &self,
         req: crate::model::CreateAzureNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_azure_node_pool(req, options).await
     }
 
@@ -529,7 +531,7 @@ where
         &self,
         req: crate::model::UpdateAzureNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_azure_node_pool(req, options).await
     }
 
@@ -538,7 +540,7 @@ where
         &self,
         req: crate::model::GetAzureNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureNodePool> {
+    ) -> Result<gax::response::Response<crate::model::AzureNodePool>> {
         self.inner.get_azure_node_pool(req, options).await
     }
 
@@ -547,7 +549,7 @@ where
         &self,
         req: crate::model::ListAzureNodePoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAzureNodePoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAzureNodePoolsResponse>> {
         self.inner.list_azure_node_pools(req, options).await
     }
 
@@ -556,7 +558,7 @@ where
         &self,
         req: crate::model::DeleteAzureNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_azure_node_pool(req, options).await
     }
 
@@ -565,7 +567,7 @@ where
         &self,
         req: crate::model::GetAzureOpenIdConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureOpenIdConfig> {
+    ) -> Result<gax::response::Response<crate::model::AzureOpenIdConfig>> {
         self.inner.get_azure_open_id_config(req, options).await
     }
 
@@ -574,7 +576,7 @@ where
         &self,
         req: crate::model::GetAzureJsonWebKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureJsonWebKeys> {
+    ) -> Result<gax::response::Response<crate::model::AzureJsonWebKeys>> {
         self.inner.get_azure_json_web_keys(req, options).await
     }
 
@@ -583,7 +585,7 @@ where
         &self,
         req: crate::model::GetAzureServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureServerConfig> {
+    ) -> Result<gax::response::Response<crate::model::AzureServerConfig>> {
         self.inner.get_azure_server_config(req, options).await
     }
 
@@ -592,7 +594,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -601,7 +603,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -610,7 +612,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -619,7 +621,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

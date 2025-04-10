@@ -23,97 +23,97 @@ pub trait RapidMigrationAssessment: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_annotation(
         &self,
         req: crate::model::CreateAnnotationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_annotation(
         &self,
         req: crate::model::GetAnnotationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Annotation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Annotation>>;
 
     async fn list_collectors(
         &self,
         req: crate::model::ListCollectorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCollectorsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCollectorsResponse>>;
 
     async fn get_collector(
         &self,
         req: crate::model::GetCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Collector>;
+    ) -> crate::Result<gax::response::Response<crate::model::Collector>>;
 
     async fn update_collector(
         &self,
         req: crate::model::UpdateCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_collector(
         &self,
         req: crate::model::DeleteCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn resume_collector(
         &self,
         req: crate::model::ResumeCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn register_collector(
         &self,
         req: crate::model::RegisterCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn pause_collector(
         &self,
         req: crate::model::PauseCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -134,7 +134,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: crate::model::CreateCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_collector(self, req, options).await
     }
 
@@ -143,7 +143,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: crate::model::CreateAnnotationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_annotation(self, req, options).await
     }
 
@@ -152,7 +152,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: crate::model::GetAnnotationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Annotation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Annotation>> {
         T::get_annotation(self, req, options).await
     }
 
@@ -161,7 +161,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: crate::model::ListCollectorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCollectorsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCollectorsResponse>> {
         T::list_collectors(self, req, options).await
     }
 
@@ -170,7 +170,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: crate::model::GetCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Collector> {
+    ) -> crate::Result<gax::response::Response<crate::model::Collector>> {
         T::get_collector(self, req, options).await
     }
 
@@ -179,7 +179,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: crate::model::UpdateCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_collector(self, req, options).await
     }
 
@@ -188,7 +188,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: crate::model::DeleteCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_collector(self, req, options).await
     }
 
@@ -197,7 +197,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: crate::model::ResumeCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::resume_collector(self, req, options).await
     }
 
@@ -206,7 +206,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: crate::model::RegisterCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::register_collector(self, req, options).await
     }
 
@@ -215,7 +215,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: crate::model::PauseCollectorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::pause_collector(self, req, options).await
     }
 
@@ -224,7 +224,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -233,7 +233,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -242,7 +242,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -251,7 +251,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -260,7 +260,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -269,7 +269,7 @@ impl<T: super::RapidMigrationAssessment> RapidMigrationAssessment for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

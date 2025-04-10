@@ -44,7 +44,7 @@ impl super::stub::MetricsScopes for MetricsScopes {
         &self,
         req: crate::model::GetMetricsScopeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MetricsScope> {
+    ) -> Result<gax::response::Response<crate::model::MetricsScope>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -57,14 +57,14 @@ impl super::stub::MetricsScopes for MetricsScopes {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::MetricsScope>| r.into_body())
     }
 
     async fn list_metrics_scopes_by_monitored_project(
         &self,
         req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMetricsScopesByMonitoredProjectResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -85,18 +85,13 @@ impl super::stub::MetricsScopes for MetricsScopes {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::ListMetricsScopesByMonitoredProjectResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn create_monitored_project(
         &self,
         req: crate::model::CreateMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -112,14 +107,13 @@ impl super::stub::MetricsScopes for MetricsScopes {
         self.inner
             .execute(builder, Some(req.monitored_project), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_monitored_project(
         &self,
         req: crate::model::DeleteMonitoredProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -132,14 +126,13 @@ impl super::stub::MetricsScopes for MetricsScopes {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -152,7 +145,6 @@ impl super::stub::MetricsScopes for MetricsScopes {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

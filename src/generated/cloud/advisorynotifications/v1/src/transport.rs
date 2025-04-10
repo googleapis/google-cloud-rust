@@ -44,7 +44,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         &self,
         req: crate::model::ListNotificationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNotificationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNotificationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -64,16 +64,13 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListNotificationsResponse>| r.into_body(),
-            )
     }
 
     async fn get_notification(
         &self,
         req: crate::model::GetNotificationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Notification> {
+    ) -> Result<gax::response::Response<crate::model::Notification>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -87,14 +84,13 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Notification>| r.into_body())
     }
 
     async fn get_settings(
         &self,
         req: crate::model::GetSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -107,14 +103,13 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Settings>| r.into_body())
     }
 
     async fn update_settings(
         &self,
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -136,6 +131,5 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         self.inner
             .execute(builder, Some(req.settings), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Settings>| r.into_body())
     }
 }

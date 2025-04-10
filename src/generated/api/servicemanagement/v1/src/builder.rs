@@ -93,6 +93,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .list_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -168,6 +169,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .get_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::GetServiceRequest::service_name].
@@ -215,6 +217,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_service`.
@@ -299,6 +302,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
@@ -376,6 +380,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .undelete_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_service`.
@@ -457,6 +462,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .list_service_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -529,6 +535,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .get_service_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::GetServiceConfigRequest::service_name].
@@ -589,6 +596,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .create_service_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::CreateServiceConfigRequest::service_name].
@@ -648,6 +656,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .submit_config_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `submit_config_source`.
@@ -744,6 +753,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .list_service_rollouts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -822,6 +832,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .get_service_rollout(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service_name][crate::model::GetServiceRolloutRequest::service_name].
@@ -878,6 +889,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .create_service_rollout(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_service_rollout`.
@@ -964,6 +976,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .generate_config_report(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
@@ -1012,6 +1025,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1072,6 +1086,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1126,6 +1141,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1182,6 +1198,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1260,6 +1277,7 @@ pub mod service_manager {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

@@ -93,6 +93,7 @@ pub mod connection_service {
             (*self.0.stub)
                 .list_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.

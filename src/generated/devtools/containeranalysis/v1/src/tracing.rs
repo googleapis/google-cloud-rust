@@ -42,7 +42,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VulnerabilityOccurrencesSummary> {
+    ) -> Result<gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>> {
         self.inner
             .get_vulnerability_occurrences_summary(req, options)
             .await
@@ -80,7 +80,7 @@ where
         &self,
         req: crate::model::ExportSBOMRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExportSBOMResponse> {
+    ) -> Result<gax::response::Response<crate::model::ExportSBOMResponse>> {
         self.inner.export_sbom(req, options).await
     }
 }

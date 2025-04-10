@@ -101,6 +101,7 @@ pub mod speech {
             (*self.0.stub)
                 .create_recognizer(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_recognizer`.
@@ -197,6 +198,7 @@ pub mod speech {
             (*self.0.stub)
                 .list_recognizers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -272,6 +274,7 @@ pub mod speech {
             (*self.0.stub)
                 .get_recognizer(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRecognizerRequest::name].
@@ -322,6 +325,7 @@ pub mod speech {
             (*self.0.stub)
                 .update_recognizer(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_recognizer`.
@@ -423,6 +427,7 @@ pub mod speech {
             (*self.0.stub)
                 .delete_recognizer(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_recognizer`.
@@ -524,6 +529,7 @@ pub mod speech {
             (*self.0.stub)
                 .undelete_recognizer(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_recognizer`.
@@ -611,6 +617,7 @@ pub mod speech {
             (*self.0.stub)
                 .recognize(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [recognizer][crate::model::RecognizeRequest::recognizer].
@@ -685,6 +692,7 @@ pub mod speech {
             (*self.0.stub)
                 .batch_recognize(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_recognize`.
@@ -814,6 +822,7 @@ pub mod speech {
             (*self.0.stub)
                 .get_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConfigRequest::name].
@@ -856,6 +865,7 @@ pub mod speech {
             (*self.0.stub)
                 .update_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [config][crate::model::UpdateConfigRequest::config].
@@ -918,6 +928,7 @@ pub mod speech {
             (*self.0.stub)
                 .create_custom_class(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_custom_class`.
@@ -1017,6 +1028,7 @@ pub mod speech {
             (*self.0.stub)
                 .list_custom_classes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1092,6 +1104,7 @@ pub mod speech {
             (*self.0.stub)
                 .get_custom_class(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCustomClassRequest::name].
@@ -1142,6 +1155,7 @@ pub mod speech {
             (*self.0.stub)
                 .update_custom_class(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_custom_class`.
@@ -1243,6 +1257,7 @@ pub mod speech {
             (*self.0.stub)
                 .delete_custom_class(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_custom_class`.
@@ -1344,6 +1359,7 @@ pub mod speech {
             (*self.0.stub)
                 .undelete_custom_class(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_custom_class`.
@@ -1436,6 +1452,7 @@ pub mod speech {
             (*self.0.stub)
                 .create_phrase_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_phrase_set`.
@@ -1532,6 +1549,7 @@ pub mod speech {
             (*self.0.stub)
                 .list_phrase_sets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1607,6 +1625,7 @@ pub mod speech {
             (*self.0.stub)
                 .get_phrase_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPhraseSetRequest::name].
@@ -1654,6 +1673,7 @@ pub mod speech {
             (*self.0.stub)
                 .update_phrase_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_phrase_set`.
@@ -1752,6 +1772,7 @@ pub mod speech {
             (*self.0.stub)
                 .delete_phrase_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_phrase_set`.
@@ -1853,6 +1874,7 @@ pub mod speech {
             (*self.0.stub)
                 .undelete_phrase_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_phrase_set`.
@@ -1943,6 +1965,7 @@ pub mod speech {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2018,6 +2041,7 @@ pub mod speech {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2063,6 +2087,7 @@ pub mod speech {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2141,6 +2166,7 @@ pub mod speech {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2186,6 +2212,7 @@ pub mod speech {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2231,6 +2258,7 @@ pub mod speech {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

@@ -93,6 +93,7 @@ pub mod tpu {
             (*self.0.stub)
                 .list_nodes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -162,6 +163,7 @@ pub mod tpu {
             (*self.0.stub)
                 .get_node(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNodeRequest::name].
@@ -209,6 +211,7 @@ pub mod tpu {
             (*self.0.stub)
                 .create_node(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_node`.
@@ -300,6 +303,7 @@ pub mod tpu {
             (*self.0.stub)
                 .delete_node(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_node`.
@@ -377,6 +381,7 @@ pub mod tpu {
             (*self.0.stub)
                 .stop_node(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_node`.
@@ -456,6 +461,7 @@ pub mod tpu {
             (*self.0.stub)
                 .start_node(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_node`.
@@ -535,6 +541,7 @@ pub mod tpu {
             (*self.0.stub)
                 .update_node(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_node`.
@@ -621,6 +628,7 @@ pub mod tpu {
             (*self.0.stub)
                 .list_queued_resources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -693,6 +701,7 @@ pub mod tpu {
             (*self.0.stub)
                 .get_queued_resource(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQueuedResourceRequest::name].
@@ -743,6 +752,7 @@ pub mod tpu {
             (*self.0.stub)
                 .create_queued_resource(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_queued_resource`.
@@ -848,6 +858,7 @@ pub mod tpu {
             (*self.0.stub)
                 .delete_queued_resource(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_queued_resource`.
@@ -940,6 +951,7 @@ pub mod tpu {
             (*self.0.stub)
                 .reset_queued_resource(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reset_queued_resource`.
@@ -1021,6 +1033,7 @@ pub mod tpu {
             (*self.0.stub)
                 .generate_service_identity(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GenerateServiceIdentityRequest::parent].
@@ -1066,6 +1079,7 @@ pub mod tpu {
             (*self.0.stub)
                 .list_accelerator_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1150,6 +1164,7 @@ pub mod tpu {
             (*self.0.stub)
                 .get_accelerator_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAcceleratorTypeRequest::name].
@@ -1195,6 +1210,7 @@ pub mod tpu {
             (*self.0.stub)
                 .list_runtime_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1279,6 +1295,7 @@ pub mod tpu {
             (*self.0.stub)
                 .get_runtime_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRuntimeVersionRequest::name].
@@ -1324,6 +1341,7 @@ pub mod tpu {
             (*self.0.stub)
                 .get_guest_attributes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGuestAttributesRequest::name].
@@ -1386,6 +1404,7 @@ pub mod tpu {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1461,6 +1480,7 @@ pub mod tpu {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1506,6 +1526,7 @@ pub mod tpu {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1584,6 +1605,7 @@ pub mod tpu {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1629,6 +1651,7 @@ pub mod tpu {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1674,6 +1697,7 @@ pub mod tpu {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

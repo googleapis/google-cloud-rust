@@ -23,283 +23,283 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInstancesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>;
 
     async fn get_instance(
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance>;
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>>;
 
     async fn update_instance(
         &self,
         req: crate::model::UpdateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn rename_instance(
         &self,
         req: crate::model::RenameInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance>;
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>>;
 
     async fn reset_instance(
         &self,
         req: crate::model::ResetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn start_instance(
         &self,
         req: crate::model::StartInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn stop_instance(
         &self,
         req: crate::model::StopInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn enable_interactive_serial_console(
         &self,
         req: crate::model::EnableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn disable_interactive_serial_console(
         &self,
         req: crate::model::DisableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn detach_lun(
         &self,
         req: crate::model::DetachLunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_ssh_keys(
         &self,
         req: crate::model::ListSSHKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListSSHKeysResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListSSHKeysResponse>>;
 
     async fn create_ssh_key(
         &self,
         req: crate::model::CreateSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SSHKey>;
+    ) -> crate::Result<gax::response::Response<crate::model::SSHKey>>;
 
     async fn delete_ssh_key(
         &self,
         req: crate::model::DeleteSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_volumes(
         &self,
         req: crate::model::ListVolumesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVolumesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListVolumesResponse>>;
 
     async fn get_volume(
         &self,
         req: crate::model::GetVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Volume>;
+    ) -> crate::Result<gax::response::Response<crate::model::Volume>>;
 
     async fn update_volume(
         &self,
         req: crate::model::UpdateVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn rename_volume(
         &self,
         req: crate::model::RenameVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Volume>;
+    ) -> crate::Result<gax::response::Response<crate::model::Volume>>;
 
     async fn evict_volume(
         &self,
         req: crate::model::EvictVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn resize_volume(
         &self,
         req: crate::model::ResizeVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_networks(
         &self,
         req: crate::model::ListNetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNetworksResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNetworksResponse>>;
 
     async fn list_network_usage(
         &self,
         req: crate::model::ListNetworkUsageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNetworkUsageResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNetworkUsageResponse>>;
 
     async fn get_network(
         &self,
         req: crate::model::GetNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Network>;
+    ) -> crate::Result<gax::response::Response<crate::model::Network>>;
 
     async fn update_network(
         &self,
         req: crate::model::UpdateNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_volume_snapshot(
         &self,
         req: crate::model::CreateVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VolumeSnapshot>;
+    ) -> crate::Result<gax::response::Response<crate::model::VolumeSnapshot>>;
 
     async fn restore_volume_snapshot(
         &self,
         req: crate::model::RestoreVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_volume_snapshot(
         &self,
         req: crate::model::DeleteVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_volume_snapshot(
         &self,
         req: crate::model::GetVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VolumeSnapshot>;
+    ) -> crate::Result<gax::response::Response<crate::model::VolumeSnapshot>>;
 
     async fn list_volume_snapshots(
         &self,
         req: crate::model::ListVolumeSnapshotsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVolumeSnapshotsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListVolumeSnapshotsResponse>>;
 
     async fn get_lun(
         &self,
         req: crate::model::GetLunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Lun>;
+    ) -> crate::Result<gax::response::Response<crate::model::Lun>>;
 
     async fn list_luns(
         &self,
         req: crate::model::ListLunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListLunsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListLunsResponse>>;
 
     async fn evict_lun(
         &self,
         req: crate::model::EvictLunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_nfs_share(
         &self,
         req: crate::model::GetNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NfsShare>;
+    ) -> crate::Result<gax::response::Response<crate::model::NfsShare>>;
 
     async fn list_nfs_shares(
         &self,
         req: crate::model::ListNfsSharesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNfsSharesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNfsSharesResponse>>;
 
     async fn update_nfs_share(
         &self,
         req: crate::model::UpdateNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_nfs_share(
         &self,
         req: crate::model::CreateNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn rename_nfs_share(
         &self,
         req: crate::model::RenameNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NfsShare>;
+    ) -> crate::Result<gax::response::Response<crate::model::NfsShare>>;
 
     async fn delete_nfs_share(
         &self,
         req: crate::model::DeleteNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_provisioning_quotas(
         &self,
         req: crate::model::ListProvisioningQuotasRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListProvisioningQuotasResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListProvisioningQuotasResponse>>;
 
     async fn submit_provisioning_config(
         &self,
         req: crate::model::SubmitProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SubmitProvisioningConfigResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SubmitProvisioningConfigResponse>>;
 
     async fn get_provisioning_config(
         &self,
         req: crate::model::GetProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ProvisioningConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>;
 
     async fn create_provisioning_config(
         &self,
         req: crate::model::CreateProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ProvisioningConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>;
 
     async fn update_provisioning_config(
         &self,
         req: crate::model::UpdateProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ProvisioningConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>;
 
     async fn rename_network(
         &self,
         req: crate::model::RenameNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Network>;
+    ) -> crate::Result<gax::response::Response<crate::model::Network>>;
 
     async fn list_os_images(
         &self,
         req: crate::model::ListOSImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListOSImagesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListOSImagesResponse>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -320,7 +320,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInstancesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>> {
         T::list_instances(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance> {
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>> {
         T::get_instance(self, req, options).await
     }
 
@@ -338,7 +338,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::UpdateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_instance(self, req, options).await
     }
 
@@ -347,7 +347,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::RenameInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance> {
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>> {
         T::rename_instance(self, req, options).await
     }
 
@@ -356,7 +356,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ResetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::reset_instance(self, req, options).await
     }
 
@@ -365,7 +365,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::StartInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::start_instance(self, req, options).await
     }
 
@@ -374,7 +374,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::StopInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::stop_instance(self, req, options).await
     }
 
@@ -383,7 +383,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::EnableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::enable_interactive_serial_console(self, req, options).await
     }
 
@@ -392,7 +392,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::DisableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::disable_interactive_serial_console(self, req, options).await
     }
 
@@ -401,7 +401,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::DetachLunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::detach_lun(self, req, options).await
     }
 
@@ -410,7 +410,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ListSSHKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListSSHKeysResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListSSHKeysResponse>> {
         T::list_ssh_keys(self, req, options).await
     }
 
@@ -419,7 +419,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::CreateSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SSHKey> {
+    ) -> crate::Result<gax::response::Response<crate::model::SSHKey>> {
         T::create_ssh_key(self, req, options).await
     }
 
@@ -428,7 +428,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::DeleteSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_ssh_key(self, req, options).await
     }
 
@@ -437,7 +437,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ListVolumesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVolumesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListVolumesResponse>> {
         T::list_volumes(self, req, options).await
     }
 
@@ -446,7 +446,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::GetVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Volume> {
+    ) -> crate::Result<gax::response::Response<crate::model::Volume>> {
         T::get_volume(self, req, options).await
     }
 
@@ -455,7 +455,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::UpdateVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_volume(self, req, options).await
     }
 
@@ -464,7 +464,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::RenameVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Volume> {
+    ) -> crate::Result<gax::response::Response<crate::model::Volume>> {
         T::rename_volume(self, req, options).await
     }
 
@@ -473,7 +473,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::EvictVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::evict_volume(self, req, options).await
     }
 
@@ -482,7 +482,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ResizeVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::resize_volume(self, req, options).await
     }
 
@@ -491,7 +491,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ListNetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNetworksResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNetworksResponse>> {
         T::list_networks(self, req, options).await
     }
 
@@ -500,7 +500,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ListNetworkUsageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNetworkUsageResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNetworkUsageResponse>> {
         T::list_network_usage(self, req, options).await
     }
 
@@ -509,7 +509,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::GetNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Network> {
+    ) -> crate::Result<gax::response::Response<crate::model::Network>> {
         T::get_network(self, req, options).await
     }
 
@@ -518,7 +518,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::UpdateNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_network(self, req, options).await
     }
 
@@ -527,7 +527,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::CreateVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VolumeSnapshot> {
+    ) -> crate::Result<gax::response::Response<crate::model::VolumeSnapshot>> {
         T::create_volume_snapshot(self, req, options).await
     }
 
@@ -536,7 +536,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::RestoreVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::restore_volume_snapshot(self, req, options).await
     }
 
@@ -545,7 +545,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::DeleteVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_volume_snapshot(self, req, options).await
     }
 
@@ -554,7 +554,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::GetVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VolumeSnapshot> {
+    ) -> crate::Result<gax::response::Response<crate::model::VolumeSnapshot>> {
         T::get_volume_snapshot(self, req, options).await
     }
 
@@ -563,7 +563,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ListVolumeSnapshotsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVolumeSnapshotsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListVolumeSnapshotsResponse>> {
         T::list_volume_snapshots(self, req, options).await
     }
 
@@ -572,7 +572,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::GetLunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Lun> {
+    ) -> crate::Result<gax::response::Response<crate::model::Lun>> {
         T::get_lun(self, req, options).await
     }
 
@@ -581,7 +581,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ListLunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListLunsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListLunsResponse>> {
         T::list_luns(self, req, options).await
     }
 
@@ -590,7 +590,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::EvictLunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::evict_lun(self, req, options).await
     }
 
@@ -599,7 +599,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::GetNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NfsShare> {
+    ) -> crate::Result<gax::response::Response<crate::model::NfsShare>> {
         T::get_nfs_share(self, req, options).await
     }
 
@@ -608,7 +608,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ListNfsSharesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNfsSharesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNfsSharesResponse>> {
         T::list_nfs_shares(self, req, options).await
     }
 
@@ -617,7 +617,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::UpdateNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_nfs_share(self, req, options).await
     }
 
@@ -626,7 +626,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::CreateNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_nfs_share(self, req, options).await
     }
 
@@ -635,7 +635,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::RenameNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NfsShare> {
+    ) -> crate::Result<gax::response::Response<crate::model::NfsShare>> {
         T::rename_nfs_share(self, req, options).await
     }
 
@@ -644,7 +644,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::DeleteNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_nfs_share(self, req, options).await
     }
 
@@ -653,7 +653,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ListProvisioningQuotasRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListProvisioningQuotasResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListProvisioningQuotasResponse>> {
         T::list_provisioning_quotas(self, req, options).await
     }
 
@@ -662,7 +662,8 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::SubmitProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SubmitProvisioningConfigResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SubmitProvisioningConfigResponse>>
+    {
         T::submit_provisioning_config(self, req, options).await
     }
 
@@ -671,7 +672,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::GetProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ProvisioningConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::ProvisioningConfig>> {
         T::get_provisioning_config(self, req, options).await
     }
 
@@ -680,7 +681,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::CreateProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ProvisioningConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::ProvisioningConfig>> {
         T::create_provisioning_config(self, req, options).await
     }
 
@@ -689,7 +690,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::UpdateProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ProvisioningConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::ProvisioningConfig>> {
         T::update_provisioning_config(self, req, options).await
     }
 
@@ -698,7 +699,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::RenameNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Network> {
+    ) -> crate::Result<gax::response::Response<crate::model::Network>> {
         T::rename_network(self, req, options).await
     }
 
@@ -707,7 +708,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: crate::model::ListOSImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListOSImagesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListOSImagesResponse>> {
         T::list_os_images(self, req, options).await
     }
 
@@ -716,7 +717,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -725,7 +726,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -734,7 +735,7 @@ impl<T: super::BareMetalSolution> BareMetalSolution for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

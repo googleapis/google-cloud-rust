@@ -46,11 +46,12 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateWorkloadRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AssuredWorkloadsService::update_workload].
@@ -58,10 +59,12 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateWorkloadRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Workload>> + Send {
-        std::future::ready::<crate::Result<crate::model::Workload>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Workload>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Workload>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AssuredWorkloadsService::restrict_allowed_resources].
@@ -70,11 +73,13 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         _req: crate::model::RestrictAllowedResourcesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::RestrictAllowedResourcesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::RestrictAllowedResourcesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::RestrictAllowedResourcesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::RestrictAllowedResourcesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssuredWorkloadsService::delete_workload].
@@ -82,8 +87,10 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteWorkloadRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::AssuredWorkloadsService::get_workload].
@@ -91,10 +98,12 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetWorkloadRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Workload>> + Send {
-        std::future::ready::<crate::Result<crate::model::Workload>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Workload>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Workload>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AssuredWorkloadsService::list_workloads].
@@ -102,11 +111,12 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListWorkloadsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListWorkloadsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListWorkloadsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssuredWorkloadsService::list_operations].
@@ -114,11 +124,12 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssuredWorkloadsService::get_operation].
@@ -126,11 +137,12 @@ pub trait AssuredWorkloadsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Returns the polling error policy.
