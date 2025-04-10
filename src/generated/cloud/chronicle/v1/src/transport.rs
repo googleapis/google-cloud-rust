@@ -61,6 +61,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, Some(req.data_access_label), options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataAccessLabel>| r.into_body())
     }
 
     async fn get_data_access_label(
@@ -80,6 +81,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataAccessLabel>| r.into_body())
     }
 
     async fn list_data_access_labels(
@@ -105,6 +107,11 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDataAccessLabelsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_data_access_label(
@@ -143,6 +150,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, Some(req.data_access_label), options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataAccessLabel>| r.into_body())
     }
 
     async fn delete_data_access_label(
@@ -162,7 +170,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn create_data_access_scope(
@@ -186,6 +194,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, Some(req.data_access_scope), options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataAccessScope>| r.into_body())
     }
 
     async fn get_data_access_scope(
@@ -205,6 +214,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataAccessScope>| r.into_body())
     }
 
     async fn list_data_access_scopes(
@@ -230,6 +240,11 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListDataAccessScopesResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_data_access_scope(
@@ -268,6 +283,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, Some(req.data_access_scope), options)
             .await
+            .map(|r: gax::response::Response<crate::model::DataAccessScope>| r.into_body())
     }
 
     async fn delete_data_access_scope(
@@ -287,7 +303,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_operations(
@@ -310,6 +326,11 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -329,6 +350,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -348,7 +370,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -368,7 +390,7 @@ impl super::stub::DataAccessControlService for DataAccessControlService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -411,6 +433,7 @@ impl super::stub::EntityService for EntityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Watchlist>| r.into_body())
     }
 
     async fn list_watchlists(
@@ -436,6 +459,7 @@ impl super::stub::EntityService for EntityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListWatchlistsResponse>| r.into_body())
     }
 
     async fn create_watchlist(
@@ -459,6 +483,7 @@ impl super::stub::EntityService for EntityService {
         self.inner
             .execute(builder, Some(req.watchlist), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Watchlist>| r.into_body())
     }
 
     async fn update_watchlist(
@@ -497,6 +522,7 @@ impl super::stub::EntityService for EntityService {
         self.inner
             .execute(builder, Some(req.watchlist), options)
             .await
+            .map(|r: gax::response::Response<crate::model::Watchlist>| r.into_body())
     }
 
     async fn delete_watchlist(
@@ -517,7 +543,7 @@ impl super::stub::EntityService for EntityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_operations(
@@ -540,6 +566,11 @@ impl super::stub::EntityService for EntityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -559,6 +590,7 @@ impl super::stub::EntityService for EntityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -578,7 +610,7 @@ impl super::stub::EntityService for EntityService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -598,7 +630,7 @@ impl super::stub::EntityService for EntityService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -641,6 +673,7 @@ impl super::stub::InstanceService for InstanceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn list_operations(
@@ -663,6 +696,11 @@ impl super::stub::InstanceService for InstanceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -682,6 +720,7 @@ impl super::stub::InstanceService for InstanceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -701,7 +740,7 @@ impl super::stub::InstanceService for InstanceService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -721,7 +760,7 @@ impl super::stub::InstanceService for InstanceService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -765,6 +804,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ReferenceList>| r.into_body())
     }
 
     async fn list_reference_lists(
@@ -790,6 +830,11 @@ impl super::stub::ReferenceListService for ReferenceListService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListReferenceListsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn create_reference_list(
@@ -813,6 +858,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         self.inner
             .execute(builder, Some(req.reference_list), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ReferenceList>| r.into_body())
     }
 
     async fn update_reference_list(
@@ -851,6 +897,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         self.inner
             .execute(builder, Some(req.reference_list), options)
             .await
+            .map(|r: gax::response::Response<crate::model::ReferenceList>| r.into_body())
     }
 
     async fn list_operations(
@@ -873,6 +920,11 @@ impl super::stub::ReferenceListService for ReferenceListService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -892,6 +944,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -911,7 +964,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -931,7 +984,7 @@ impl super::stub::ReferenceListService for ReferenceListService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 }
 
@@ -971,7 +1024,10 @@ impl super::stub::RuleService for RuleService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req.rule), options).await
+        self.inner
+            .execute(builder, Some(req.rule), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Rule>| r.into_body())
     }
 
     async fn get_rule(
@@ -992,6 +1048,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Rule>| r.into_body())
     }
 
     async fn list_rules(
@@ -1015,6 +1072,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRulesResponse>| r.into_body())
     }
 
     async fn update_rule(
@@ -1050,7 +1108,10 @@ impl super::stub::RuleService for RuleService {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner.execute(builder, Some(req.rule), options).await
+        self.inner
+            .execute(builder, Some(req.rule), options)
+            .await
+            .map(|r: gax::response::Response<crate::model::Rule>| r.into_body())
     }
 
     async fn delete_rule(
@@ -1071,7 +1132,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn list_rule_revisions(
@@ -1097,6 +1158,9 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListRuleRevisionsResponse>| r.into_body(),
+            )
     }
 
     async fn create_retrohunt(
@@ -1119,6 +1183,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, Some(req.retrohunt), options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_retrohunt(
@@ -1138,6 +1203,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::Retrohunt>| r.into_body())
     }
 
     async fn list_retrohunts(
@@ -1163,6 +1229,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::ListRetrohuntsResponse>| r.into_body())
     }
 
     async fn get_rule_deployment(
@@ -1182,6 +1249,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<crate::model::RuleDeployment>| r.into_body())
     }
 
     async fn list_rule_deployments(
@@ -1207,6 +1275,11 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<crate::model::ListRuleDeploymentsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn update_rule_deployment(
@@ -1245,6 +1318,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, Some(req.rule_deployment), options)
             .await
+            .map(|r: gax::response::Response<crate::model::RuleDeployment>| r.into_body())
     }
 
     async fn list_operations(
@@ -1267,6 +1341,11 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(
+                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
+                    r.into_body()
+                },
+            )
     }
 
     async fn get_operation(
@@ -1286,6 +1365,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
+            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
@@ -1305,7 +1385,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     async fn cancel_operation(
@@ -1325,7 +1405,7 @@ impl super::stub::RuleService for RuleService {
         self.inner
             .execute(builder, Some(req), options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|_: gax::response::Response<wkt::Empty>| ())
     }
 
     fn get_polling_error_policy(
