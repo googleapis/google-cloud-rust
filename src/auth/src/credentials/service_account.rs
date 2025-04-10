@@ -87,6 +87,8 @@ use serde_json::Value;
 use std::sync::Arc;
 use time::OffsetDateTime;
 
+use super::AccessTokenCredentialOptions;
+
 const DEFAULT_SCOPE: &str = "https://www.googleapis.com/auth/cloud-platform";
 
 pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
@@ -153,6 +155,18 @@ impl Builder {
             ),
             quota_project_id: None,
         }
+    }
+
+    pub(crate) fn with_access_token_options(
+        mut self,
+        options: AccessTokenCredentialOptions,
+    ) -> Self {
+        if let Some(scopes) = options.scopes {
+            self.restrictions = ServiceAccountRestrictions::Scopes(scopes);
+        }
+
+        self.quota_project_id = options.quota_project_id;
+        self
     }
 
     /// Sets the audience for this credentials.

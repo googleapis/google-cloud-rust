@@ -78,6 +78,8 @@ use serde_json::Value;
 use std::sync::Arc;
 use std::time::Duration;
 
+use super::AccessTokenCredentialOptions;
+
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
 pub(crate) fn creds_from(js: Value) -> Result<Credentials> {
@@ -115,6 +117,15 @@ impl Builder {
             quota_project_id: None,
             token_uri: None,
         }
+    }
+
+    pub(crate) fn with_access_token_options(
+        mut self,
+        options: AccessTokenCredentialOptions,
+    ) -> Self {
+        self.scopes = options.scopes;
+        self.quota_project_id = options.quota_project_id;
+        self
     }
 
     /// Sets the URI for the token endpoint used to fetch access tokens.
