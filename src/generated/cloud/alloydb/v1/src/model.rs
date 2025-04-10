@@ -49,6 +49,9 @@ pub struct SqlResult {
     /// Rows returned by the SQL statement.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub rows: std::vec::Vec<crate::model::SqlResultRow>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlResult {
@@ -101,6 +104,9 @@ pub struct SqlResultColumn {
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub r#type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlResultColumn {
@@ -136,6 +142,9 @@ pub struct SqlResultRow {
     /// List of values in a row of sql result.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub values: std::vec::Vec<crate::model::SqlResultValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlResultRow {
@@ -175,6 +184,9 @@ pub struct SqlResultValue {
     /// Set to true if cell value is null.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub null_value: std::option::Option<bool>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlResultValue {
@@ -221,6 +233,9 @@ pub struct UserPassword {
     /// The initial password for the user.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub password: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UserPassword {
@@ -266,6 +281,9 @@ pub struct MigrationSource {
 
     /// Output only. Type of migration source.
     pub source_type: crate::model::migration_source::MigrationSourceType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MigrationSource {
@@ -376,6 +394,9 @@ pub struct EncryptionConfig {
     /// projects/[PROJECT]/locations/[REGION]/keyRings/[RING]/cryptoKeys/[KEY_NAME]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EncryptionConfig {
@@ -409,6 +430,9 @@ pub struct EncryptionInfo {
     /// database or the backup.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub kms_key_versions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EncryptionInfo {
@@ -524,6 +548,9 @@ pub struct SslConfig {
     /// Optional. Certificate Authority (CA) source. Only CA_SOURCE_MANAGED is
     /// supported currently, and is the default value.
     pub ca_source: crate::model::ssl_config::CaSource,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SslConfig {
@@ -755,6 +782,9 @@ pub struct AutomatedBackupPolicy {
     /// If no retention policy is set, a default of 14 days is used.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub retention: std::option::Option<crate::model::automated_backup_policy::Retention>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutomatedBackupPolicy {
@@ -971,6 +1001,9 @@ pub mod automated_backup_policy {
         /// used.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub days_of_week: std::vec::Vec<gtype::model::DayOfWeek>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl WeeklySchedule {
@@ -1017,6 +1050,9 @@ pub mod automated_backup_policy {
         /// The retention period.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub retention_period: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TimeBasedRetention {
@@ -1049,6 +1085,9 @@ pub mod automated_backup_policy {
     pub struct QuantityBasedRetention {
         /// The number of backups to retain.
         pub count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QuantityBasedRetention {
@@ -1130,6 +1169,9 @@ pub struct ContinuousBackupConfig {
     /// protect the user data.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub encryption_config: std::option::Option<crate::model::EncryptionConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ContinuousBackupConfig {
@@ -1193,6 +1235,9 @@ pub struct ContinuousBackupInfo {
     /// only field.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub earliest_restorable_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ContinuousBackupInfo {
@@ -1266,6 +1311,9 @@ pub struct BackupSource {
     /// * projects/{project}/locations/{region}/backups/{backup_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub backup_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BackupSource {
@@ -1307,6 +1355,9 @@ pub struct ContinuousBackupSource {
     /// Required. The point in time to restore to.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub point_in_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ContinuousBackupSource {
@@ -1346,6 +1397,9 @@ pub struct MaintenanceUpdatePolicy {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub maintenance_windows:
         std::vec::Vec<crate::model::maintenance_update_policy::MaintenanceWindow>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MaintenanceUpdatePolicy {
@@ -1389,6 +1443,9 @@ pub mod maintenance_update_policy {
         /// Maintenance will start within 1 hour of this time.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub start_time: std::option::Option<gtype::model::TimeOfDay>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MaintenanceWindow {
@@ -1434,6 +1491,9 @@ pub struct MaintenanceSchedule {
     /// Output only. The scheduled start time for the maintenance.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MaintenanceSchedule {
@@ -1629,6 +1689,9 @@ pub struct Cluster {
     /// source this cluster was imported from.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::cluster::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Cluster {
@@ -2027,6 +2090,9 @@ pub mod cluster {
         /// Field name is intended to be consistent with Cloud SQL.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub allocated_ip_range: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NetworkConfig {
@@ -2068,6 +2134,9 @@ pub mod cluster {
         /// * projects/{project}/locations/{region}/clusters/{cluster_id}
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub primary_cluster_name: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SecondaryConfig {
@@ -2103,6 +2172,9 @@ pub mod cluster {
         /// cluster.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub secondary_cluster_names: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PrimaryConfig {
@@ -2137,6 +2209,9 @@ pub mod cluster {
         /// Optional. Create an instance that allows connections from Private Service
         /// Connect endpoints to the instance.
         pub psc_enabled: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PscConfig {
@@ -2178,6 +2253,9 @@ pub mod cluster {
         /// grace end time of the cluster.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub grace_end_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TrialMetadata {
@@ -2559,6 +2637,9 @@ pub struct Instance {
     /// Output only. All outbound public IP addresses configured for the instance.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub outbound_public_ip_addresses: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Instance {
@@ -2833,6 +2914,9 @@ pub mod instance {
     pub struct MachineConfig {
         /// The number of CPU's in the VM instance.
         pub cpu_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MachineConfig {
@@ -2879,6 +2963,9 @@ pub mod instance {
         /// postgres-service health can have values: HEALTHY and UNHEALTHY.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub state: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Node {
@@ -2942,6 +3029,9 @@ pub mod instance {
         /// Any integer between 0 and 20 is considered valid.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub query_plans_per_minute: std::option::Option<u32>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QueryInsightsInstanceConfig {
@@ -2997,6 +3087,9 @@ pub mod instance {
     pub struct ReadPoolConfig {
         /// Read capacity, i.e. number of nodes in a read pool instance.
         pub node_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ReadPoolConfig {
@@ -3030,6 +3123,9 @@ pub mod instance {
         /// Optional. SSL configuration option for this instance.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub ssl_config: std::option::Option<crate::model::SslConfig>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ClientConnectionConfig {
@@ -3084,6 +3180,9 @@ pub mod instance {
         /// Name convention: \<uid\>.\<uid\>.\<region\>.alloydb-psc.goog
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub psc_dns_name: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PscInstanceConfig {
@@ -3144,6 +3243,9 @@ pub mod instance {
         /// Optional. Enabling an outbound public IP address to support a database
         /// server sending requests out into the internet.
         pub enable_outbound_public_ip: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InstanceNetworkConfig {
@@ -3197,6 +3299,9 @@ pub mod instance {
             /// CIDR range for one authorzied network of the instance.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub cidr_range: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl AuthorizedNetwork {
@@ -3477,6 +3582,9 @@ pub struct ConnectionInfo {
     /// Output only. The unique ID of the Instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub instance_uid: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConnectionInfo {
@@ -3643,6 +3751,9 @@ pub struct Backup {
     /// ```
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Backup {
@@ -3873,6 +3984,9 @@ pub mod backup {
         /// Output only. The length of the quantity-based queue, specified by the
         /// backup's retention policy.
         pub total_retention_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QuantityBasedExpiry {
@@ -4073,6 +4187,9 @@ pub struct SupportedDatabaseFlag {
     /// The restrictions on the flag value per type.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub restrictions: std::option::Option<crate::model::supported_database_flag::Restrictions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SupportedDatabaseFlag {
@@ -4233,6 +4350,9 @@ pub mod supported_database_flag {
         /// if there is a unbounded number of allowed values.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub allowed_values: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StringRestrictions {
@@ -4273,6 +4393,9 @@ pub mod supported_database_flag {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
         pub max_value: std::option::Option<wkt::Int64Value>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IntegerRestrictions {
@@ -4416,6 +4539,9 @@ pub struct User {
     /// Input only. If the user already exists and it has additional roles, keep
     /// them granted.
     pub keep_extra_roles: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl User {
@@ -4554,6 +4680,9 @@ pub struct Database {
     /// Example values include "C", "POSIX", etc
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub collation: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Database {
@@ -4615,6 +4744,9 @@ pub struct ListClustersRequest {
     /// Optional. Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClustersRequest {
@@ -4676,6 +4808,9 @@ pub struct ListClustersResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClustersResponse {
@@ -4746,6 +4881,9 @@ pub struct GetClusterRequest {
     /// Optional. The view of the cluster to return. Returns all default fields if
     /// not set.
     pub view: crate::model::ClusterView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetClusterRequest {
@@ -4810,6 +4948,9 @@ pub struct CreateSecondaryClusterRequest {
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSecondaryClusterRequest {
@@ -4896,6 +5037,9 @@ pub struct CreateClusterRequest {
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateClusterRequest {
@@ -4985,6 +5129,9 @@ pub struct UpdateClusterRequest {
     /// Optional. If set to true, update succeeds even if cluster is not found. In
     /// that case, a new cluster is created and `update_mask` is ignored.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateClusterRequest {
@@ -5075,6 +5222,9 @@ pub struct DeleteClusterRequest {
 
     /// Optional. Whether to cascade delete child instances for given cluster.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteClusterRequest {
@@ -5150,6 +5300,9 @@ pub struct SwitchoverClusterRequest {
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SwitchoverClusterRequest {
@@ -5219,6 +5372,9 @@ pub struct PromoteClusterRequest {
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PromoteClusterRequest {
@@ -5302,6 +5458,9 @@ pub struct RestoreClusterRequest {
     /// The source to import from.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::restore_cluster_request::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RestoreClusterRequest {
@@ -5472,6 +5631,9 @@ pub struct ListInstancesRequest {
     /// Optional. Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesRequest {
@@ -5533,6 +5695,9 @@ pub struct ListInstancesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesResponse {
@@ -5602,6 +5767,9 @@ pub struct GetInstanceRequest {
 
     /// The view of the instance to return.
     pub view: crate::model::InstanceView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceRequest {
@@ -5667,6 +5835,9 @@ pub struct CreateInstanceRequest {
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceRequest {
@@ -5753,6 +5924,9 @@ pub struct CreateSecondaryInstanceRequest {
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSecondaryInstanceRequest {
@@ -5810,6 +5984,9 @@ pub struct CreateInstanceRequests {
     /// should not be empty.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub create_instance_requests: std::vec::Vec<crate::model::CreateInstanceRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceRequests {
@@ -5864,6 +6041,9 @@ pub struct BatchCreateInstancesRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchCreateInstancesRequest {
@@ -5910,6 +6090,9 @@ pub struct BatchCreateInstancesResponse {
     /// Created instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub instances: std::vec::Vec<crate::model::Instance>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchCreateInstancesResponse {
@@ -5958,6 +6141,9 @@ pub struct BatchCreateInstancesMetadata {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub instance_statuses:
         std::collections::HashMap<std::string::String, crate::model::BatchCreateInstanceStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchCreateInstancesMetadata {
@@ -6039,6 +6225,9 @@ pub struct BatchCreateInstanceStatus {
 
     #[serde(rename = "type")]
     pub r#type: crate::model::instance::InstanceType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchCreateInstanceStatus {
@@ -6216,6 +6405,9 @@ pub struct UpdateInstanceRequest {
     /// Optional. If set to true, update succeeds even if instance is not found. In
     /// that case, a new instance is created and `update_mask` is ignored.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstanceRequest {
@@ -6303,6 +6495,9 @@ pub struct DeleteInstanceRequest {
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteInstanceRequest {
@@ -6372,6 +6567,9 @@ pub struct FailoverInstanceRequest {
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FailoverInstanceRequest {
@@ -6438,6 +6636,9 @@ pub struct InjectFaultRequest {
     /// checks and any other type of validation, but does not actually execute the
     /// create request.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InjectFaultRequest {
@@ -6573,6 +6774,9 @@ pub struct RestartInstanceRequest {
     /// restart upon. Applicable only to read instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub node_ids: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RestartInstanceRequest {
@@ -6648,6 +6852,9 @@ pub struct ExecuteSqlRequest {
     /// SecretManager etc.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub user_credential: std::option::Option<crate::model::execute_sql_request::UserCredential>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExecuteSqlRequest {
@@ -6752,6 +6959,9 @@ pub struct ExecuteSqlResponse {
     /// statement.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<crate::model::ExecuteSqlMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExecuteSqlResponse {
@@ -6811,6 +7021,9 @@ pub struct ExecuteSqlMetadata {
 
     /// Status of SQL execution.
     pub status: crate::model::execute_sql_metadata::Status,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExecuteSqlMetadata {
@@ -6958,6 +7171,9 @@ pub struct ListBackupsRequest {
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBackupsRequest {
@@ -7019,6 +7235,9 @@ pub struct ListBackupsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBackupsResponse {
@@ -7084,6 +7303,9 @@ pub struct GetBackupRequest {
     /// Required. Name of the resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetBackupRequest {
@@ -7141,6 +7363,9 @@ pub struct CreateBackupRequest {
     /// Optional. If set, the backend validates the request, but doesn't actually
     /// execute it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateBackupRequest {
@@ -7229,6 +7454,9 @@ pub struct UpdateBackupRequest {
     /// Optional. If set to true, update succeeds even if instance is not found. In
     /// that case, a new backup is created and `update_mask` is ignored.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateBackupRequest {
@@ -7315,6 +7543,9 @@ pub struct DeleteBackupRequest {
     /// deletion will be blocked and an ABORTED error will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteBackupRequest {
@@ -7377,6 +7608,9 @@ pub struct ListSupportedDatabaseFlagsRequest {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSupportedDatabaseFlagsRequest {
@@ -7422,6 +7656,9 @@ pub struct ListSupportedDatabaseFlagsResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSupportedDatabaseFlagsResponse {
@@ -7512,6 +7749,9 @@ pub struct GenerateClientCertificateRequest {
     /// ceritificate that can be used by AlloyDB connectors to exchange additional
     /// metadata with the server after TLS handshake.
     pub use_metadata_exchange: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateClientCertificateRequest {
@@ -7573,6 +7813,9 @@ pub struct GenerateClientCertificateResponse {
     /// Optional. The pem-encoded cluster ca X.509 certificate.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub ca_cert: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateClientCertificateResponse {
@@ -7630,6 +7873,9 @@ pub struct GetConnectionInfoRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConnectionInfoRequest {
@@ -7698,6 +7944,9 @@ pub struct OperationMetadata {
     /// Request specific metadata, if any.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub request_specific: std::option::Option<crate::model::operation_metadata::RequestSpecific>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -7845,6 +8094,9 @@ pub struct ListUsersRequest {
     /// Optional. Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListUsersRequest {
@@ -7906,6 +8158,9 @@ pub struct ListUsersResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListUsersResponse {
@@ -7972,6 +8227,9 @@ pub struct GetUserRequest {
     /// comment on the User.name field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetUserRequest {
@@ -8029,6 +8287,9 @@ pub struct CreateUserRequest {
     /// Optional. If set, the backend validates the request, but doesn't actually
     /// execute it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateUserRequest {
@@ -8116,6 +8377,9 @@ pub struct UpdateUserRequest {
 
     /// Optional. Allow missing fields in the update mask.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateUserRequest {
@@ -8196,6 +8460,9 @@ pub struct DeleteUserRequest {
     /// Optional. If set, the backend validates the request, but doesn't actually
     /// execute it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteUserRequest {
@@ -8254,6 +8521,9 @@ pub struct ListDatabasesRequest {
     /// This field is currently not supported, its value will be ignored if passed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDatabasesRequest {
@@ -8306,6 +8576,9 @@ pub struct ListDatabasesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDatabasesResponse {

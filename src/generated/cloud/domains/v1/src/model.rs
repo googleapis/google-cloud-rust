@@ -115,6 +115,9 @@ pub struct Registration {
     /// `Registration` supports.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub supported_privacy: std::vec::Vec<crate::model::ContactPrivacy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Registration {
@@ -418,6 +421,9 @@ pub struct ManagementSettings {
 
     /// Controls whether the domain can be transferred to another registrar.
     pub transfer_lock_state: crate::model::TransferLockState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ManagementSettings {
@@ -539,6 +545,9 @@ pub struct DnsSettings {
     /// The DNS provider of the registration.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub dns_provider: std::option::Option<crate::model::dns_settings::DnsProvider>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DnsSettings {
@@ -658,6 +667,9 @@ pub mod dns_settings {
         /// field is empty, DNSSEC is disabled.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub ds_records: std::vec::Vec<crate::model::dns_settings::DsRecord>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CustomDns {
@@ -719,6 +731,9 @@ pub mod dns_settings {
         /// otherwise it remains empty.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub ds_records: std::vec::Vec<crate::model::dns_settings::DsRecord>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GoogleDomainsDns {
@@ -784,6 +799,9 @@ pub mod dns_settings {
         /// The digest generated from the referenced DNSKEY.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub digest: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DsRecord {
@@ -1069,6 +1087,9 @@ pub mod dns_settings {
         /// `ipv4_address` and `ipv6_address` must be set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub ipv6_addresses: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GlueRecord {
@@ -1216,6 +1237,9 @@ pub struct ContactSettings {
     /// Required. The technical contact for the `Registration`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub technical_contact: std::option::Option<crate::model::contact_settings::Contact>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ContactSettings {
@@ -1300,6 +1324,9 @@ pub mod contact_settings {
         /// `"+1-800-555-0123"`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub fax_number: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Contact {
@@ -1360,6 +1387,9 @@ pub struct SearchDomainsRequest {
     /// Required. The location. Must be in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchDomainsRequest {
@@ -1395,6 +1425,9 @@ pub struct SearchDomainsResponse {
     /// Results of the domain name search.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub register_parameters: std::vec::Vec<crate::model::RegisterParameters>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchDomainsResponse {
@@ -1433,6 +1466,9 @@ pub struct RetrieveRegisterParametersRequest {
     /// Required. The location. Must be in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetrieveRegisterParametersRequest {
@@ -1468,6 +1504,9 @@ pub struct RetrieveRegisterParametersResponse {
     /// Parameters to use when calling the `RegisterDomain` method.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub register_parameters: std::option::Option<crate::model::RegisterParameters>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetrieveRegisterParametersResponse {
@@ -1529,6 +1568,9 @@ pub struct RegisterDomainRequest {
     /// the domain. Follows:
     /// <https://cloud.google.com/apis/design/design_patterns#request_validation>
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RegisterDomainRequest {
@@ -1610,6 +1652,9 @@ pub struct RetrieveTransferParametersRequest {
     /// Required. The location. Must be in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetrieveTransferParametersRequest {
@@ -1645,6 +1690,9 @@ pub struct RetrieveTransferParametersResponse {
     /// Parameters to use when calling the `TransferDomain` method.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub transfer_parameters: std::option::Option<crate::model::TransferParameters>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetrieveTransferParametersResponse {
@@ -1710,6 +1758,9 @@ pub struct TransferDomainRequest {
 
     /// Validate the request without actually transferring the domain.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferDomainRequest {
@@ -1815,6 +1866,9 @@ pub struct ListRegistrationsRequest {
     /// `(state=SUSPENDED) OR (issue:*)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRegistrationsRequest {
@@ -1867,6 +1921,9 @@ pub struct ListRegistrationsResponse {
     /// value on a subsequent call to get the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRegistrationsResponse {
@@ -1922,6 +1979,9 @@ pub struct GetRegistrationRequest {
     /// `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRegistrationRequest {
@@ -1957,6 +2017,9 @@ pub struct UpdateRegistrationRequest {
     /// `"labels"`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateRegistrationRequest {
@@ -2011,6 +2074,9 @@ pub struct ConfigureManagementSettingsRequest {
     /// is `"transfer_lock_state"`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigureManagementSettingsRequest {
@@ -2080,6 +2146,9 @@ pub struct ConfigureDnsSettingsRequest {
 
     /// Validate the request without actually updating the DNS settings.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigureDnsSettingsRequest {
@@ -2154,6 +2223,9 @@ pub struct ConfigureContactSettingsRequest {
 
     /// Validate the request without actually updating the contact settings.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigureContactSettingsRequest {
@@ -2221,6 +2293,9 @@ pub struct ExportRegistrationRequest {
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportRegistrationRequest {
@@ -2251,6 +2326,9 @@ pub struct DeleteRegistrationRequest {
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteRegistrationRequest {
@@ -2281,6 +2359,9 @@ pub struct RetrieveAuthorizationCodeRequest {
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub registration: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetrieveAuthorizationCodeRequest {
@@ -2311,6 +2392,9 @@ pub struct ResetAuthorizationCodeRequest {
     /// in the format `projects/*/locations/*/registrations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub registration: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResetAuthorizationCodeRequest {
@@ -2357,6 +2441,9 @@ pub struct RegisterParameters {
     /// Price to register or renew the domain for one year.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub yearly_price: std::option::Option<gtype::model::Money>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RegisterParameters {
@@ -2527,6 +2614,9 @@ pub struct TransferParameters {
     /// Price to transfer or renew the domain for one year.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub yearly_price: std::option::Option<gtype::model::Money>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferParameters {
@@ -2606,6 +2696,9 @@ pub struct AuthorizationCode {
     /// to or from another registrar.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuthorizationCode {
@@ -2655,6 +2748,9 @@ pub struct OperationMetadata {
     /// API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {

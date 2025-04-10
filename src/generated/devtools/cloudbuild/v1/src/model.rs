@@ -51,6 +51,9 @@ pub struct RetryBuildRequest {
     /// Required. Build ID of the original build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetryBuildRequest {
@@ -106,6 +109,9 @@ pub struct RunBuildTriggerRequest {
     /// Branch and tag names cannot consist of regular expressions.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::RepoSource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RunBuildTriggerRequest {
@@ -173,6 +179,9 @@ pub struct StorageSource {
 
     /// Option to specify the tool to fetch the source file for the build.
     pub source_fetcher: crate::model::storage_source::SourceFetcher,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StorageSource {
@@ -312,6 +321,9 @@ pub struct GitSource {
     /// information on `git fetch`, see <https://git-scm.com/docs/git-fetch>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub revision: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitSource {
@@ -379,6 +391,9 @@ pub struct RepoSource {
     /// one of these ways.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub revision: std::option::Option<crate::model::repo_source::Revision>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RepoSource {
@@ -556,6 +571,9 @@ pub struct StorageSourceManifest {
     /// omitted, the latest generation will be used.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StorageSourceManifest {
@@ -597,6 +615,9 @@ pub struct Source {
     /// Location of source.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::source::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Source {
@@ -771,6 +792,9 @@ pub struct BuiltImage {
     /// Output only. Stores timing information for pushing the specified image.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub push_timing: std::option::Option<crate::model::TimeSpan>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BuiltImage {
@@ -823,6 +847,9 @@ pub struct UploadedPythonPackage {
     /// Output only. Stores timing information for pushing the specified artifact.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub push_timing: std::option::Option<crate::model::TimeSpan>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UploadedPythonPackage {
@@ -878,6 +905,9 @@ pub struct UploadedMavenArtifact {
     /// Output only. Stores timing information for pushing the specified artifact.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub push_timing: std::option::Option<crate::model::TimeSpan>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UploadedMavenArtifact {
@@ -934,6 +964,9 @@ pub struct UploadedGoModule {
     /// Output only. Stores timing information for pushing the specified artifact.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub push_timing: std::option::Option<crate::model::TimeSpan>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UploadedGoModule {
@@ -990,6 +1023,9 @@ pub struct UploadedNpmPackage {
     /// Output only. Stores timing information for pushing the specified artifact.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub push_timing: std::option::Option<crate::model::TimeSpan>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UploadedNpmPackage {
@@ -1165,6 +1201,9 @@ pub struct BuildStep {
     /// in BuildOption.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub automap_substitutions: std::option::Option<bool>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BuildStep {
@@ -1349,6 +1388,9 @@ pub struct Volume {
     /// same build step or with certain reserved volume paths.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub path: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Volume {
@@ -1431,6 +1473,9 @@ pub struct Results {
     /// Npm packages uploaded to Artifact Registry at the end of the build.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub npm_packages: std::vec::Vec<crate::model::UploadedNpmPackage>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Results {
@@ -1564,6 +1609,9 @@ pub struct ArtifactResult {
     /// The file hash of the artifact.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub file_hash: std::vec::Vec<crate::model::FileHashes>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ArtifactResult {
@@ -1789,6 +1837,9 @@ pub struct Build {
     /// executing user steps.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub dependencies: std::vec::Vec<crate::model::Dependency>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Build {
@@ -2099,6 +2150,9 @@ pub mod build {
 
         /// The priority for this warning.
         pub priority: crate::model::build::warning::Priority,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Warning {
@@ -2209,6 +2263,9 @@ pub mod build {
         /// Explains the failure issue in more detail using hard-coded text.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub detail: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl FailureInfo {
@@ -2428,6 +2485,9 @@ pub struct Dependency {
     /// The type of dependency to fetch.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub dep: std::option::Option<crate::model::dependency::Dep>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Dependency {
@@ -2530,6 +2590,9 @@ pub mod dependency {
         /// Required. Where should the files be placed on the worker.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub dest_path: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GitSourceDependency {
@@ -2589,6 +2652,9 @@ pub mod dependency {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub repotype:
             std::option::Option<crate::model::dependency::git_source_repository::Repotype>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GitSourceRepository {
@@ -2712,6 +2778,9 @@ pub struct GitConfig {
     /// Configuration for HTTP related git operations.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub http: std::option::Option<crate::model::git_config::HttpConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitConfig {
@@ -2755,6 +2824,9 @@ pub mod git_config {
         /// should be in format `[protocol://][user[:password]@]proxyhost[:port]`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub proxy_secret_version_name: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl HttpConfig {
@@ -2849,6 +2921,9 @@ pub struct Artifacts {
     /// If any packages fail to be pushed, the build is marked FAILURE.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub npm_packages: std::vec::Vec<crate::model::artifacts::NpmPackage>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Artifacts {
@@ -2957,6 +3032,9 @@ pub mod artifacts {
         /// Output only. Stores timing information for pushing all artifact objects.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub timing: std::option::Option<crate::model::TimeSpan>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ArtifactObjects {
@@ -3035,6 +3113,9 @@ pub mod artifacts {
         /// Registry.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub version: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MavenArtifact {
@@ -3121,6 +3202,9 @@ pub mod artifacts {
         /// e.g. v0.2.3-alpha.x.12m.5
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub module_version: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GoModule {
@@ -3204,6 +3288,9 @@ pub mod artifacts {
         /// file.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub paths: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PythonPackage {
@@ -3254,6 +3341,9 @@ pub mod artifacts {
         /// e.g. workspace/path/to/package
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub package_path: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NpmPackage {
@@ -3297,6 +3387,9 @@ pub struct TimeSpan {
     /// End of time span.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeSpan {
@@ -3338,6 +3431,9 @@ pub struct BuildOperationMetadata {
     /// The build that the operation is tracking.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub build: std::option::Option<crate::model::Build>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BuildOperationMetadata {
@@ -3396,6 +3492,9 @@ pub struct SourceProvenance {
     /// (`.tar.gz`), the `FileHash` will be for the single path to that file.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub file_hashes: std::collections::HashMap<std::string::String, crate::model::FileHashes>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SourceProvenance {
@@ -3465,6 +3564,9 @@ pub struct FileHashes {
     /// Collection of file hashes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub file_hash: std::vec::Vec<crate::model::Hash>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FileHashes {
@@ -3504,6 +3606,9 @@ pub struct Hash {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub value: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Hash {
@@ -3617,6 +3722,9 @@ pub struct Secrets {
     /// variable.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub inline: std::vec::Vec<crate::model::InlineSecret>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Secrets {
@@ -3674,6 +3782,9 @@ pub struct InlineSecret {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]
     pub env_map: std::collections::HashMap<std::string::String, ::bytes::Bytes>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InlineSecret {
@@ -3722,6 +3833,9 @@ pub struct SecretManagerSecret {
     /// secrets, and must be used by at least one build step.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub env: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecretManagerSecret {
@@ -3771,6 +3885,9 @@ pub struct Secret {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]
     pub secret_env: std::collections::HashMap<std::string::String, ::bytes::Bytes>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Secret {
@@ -3821,6 +3938,9 @@ pub struct CreateBuildRequest {
     /// Required. Build resource to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub build: std::option::Option<crate::model::Build>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateBuildRequest {
@@ -3874,6 +3994,9 @@ pub struct GetBuildRequest {
     /// Required. ID of the build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetBuildRequest {
@@ -3939,6 +4062,9 @@ pub struct ListBuildsRequest {
     /// The raw filter text to constrain the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBuildsRequest {
@@ -3997,6 +4123,9 @@ pub struct ListBuildsResponse {
     /// This will be absent if the end of the response list has been reached.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBuildsResponse {
@@ -4060,6 +4189,9 @@ pub struct CancelBuildRequest {
     /// Required. ID of the build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CancelBuildRequest {
@@ -4106,6 +4238,9 @@ pub struct ApproveBuildRequest {
     /// Approval decision and metadata.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub approval_result: std::option::Option<crate::model::ApprovalResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApproveBuildRequest {
@@ -4154,6 +4289,9 @@ pub struct BuildApproval {
     /// Output only. Result of manual approval for this Build.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub result: std::option::Option<crate::model::ApprovalResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BuildApproval {
@@ -4278,6 +4416,9 @@ pub struct ApprovalConfig {
     /// become pending when created, and will need to be explicitly approved
     /// to start.
     pub approval_required: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApprovalConfig {
@@ -4327,6 +4468,9 @@ pub struct ApprovalResult {
     /// approved this Build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub url: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApprovalResult {
@@ -4471,6 +4615,9 @@ pub struct GitRepoSource {
     /// to this source.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub enterprise_config: std::option::Option<crate::model::git_repo_source::EnterpriseConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitRepoSource {
@@ -4645,6 +4792,9 @@ pub struct GitFileSource {
     /// to this source.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub enterprise_config: std::option::Option<crate::model::git_file_source::EnterpriseConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitFileSource {
@@ -4988,6 +5138,9 @@ pub struct BuildTrigger {
     /// At least one of the template fields must be provided.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub build_template: std::option::Option<crate::model::build_trigger::BuildTemplate>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BuildTrigger {
@@ -5328,6 +5481,9 @@ pub struct RepositoryEventConfig {
     /// The types of filter to trigger a build.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub filter: std::option::Option<crate::model::repository_event_config::Filter>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RepositoryEventConfig {
@@ -5535,6 +5691,9 @@ pub struct GitHubEventsConfig {
     /// Currently supported event types: push, pull_request.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub event: std::option::Option<crate::model::git_hub_events_config::Event>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitHubEventsConfig {
@@ -5677,6 +5836,9 @@ pub struct PubsubConfig {
     /// Potential issues with the underlying Pub/Sub subscription configuration.
     /// Only populated on get requests.
     pub state: crate::model::pubsub_config::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PubsubConfig {
@@ -5811,6 +5973,9 @@ pub struct WebhookConfig {
     /// Auth method specifies how the webhook authenticates with GCP.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub auth_method: std::option::Option<crate::model::webhook_config::AuthMethod>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WebhookConfig {
@@ -5964,6 +6129,9 @@ pub struct PullRequestFilter {
     /// A target ref is the git reference where the pull request will be applied.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub git_ref: std::option::Option<crate::model::pull_request_filter::GitRef>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PullRequestFilter {
@@ -6141,6 +6309,9 @@ pub struct PushFilter {
     /// A modified refs are the refs modified by a git push operation.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub git_ref: std::option::Option<crate::model::push_filter::GitRef>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PushFilter {
@@ -6257,6 +6428,9 @@ pub struct CreateBuildTriggerRequest {
     /// Required. `BuildTrigger` to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub trigger: std::option::Option<crate::model::BuildTrigger>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateBuildTriggerRequest {
@@ -6310,6 +6484,9 @@ pub struct GetBuildTriggerRequest {
     /// Required. Identifier (`id` or `name`) of the `BuildTrigger` to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub trigger_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetBuildTriggerRequest {
@@ -6363,6 +6540,9 @@ pub struct ListBuildTriggersRequest {
     /// Token to provide to skip to a particular spot in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBuildTriggersRequest {
@@ -6414,6 +6594,9 @@ pub struct ListBuildTriggersResponse {
     /// Token to receive the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBuildTriggersResponse {
@@ -6477,6 +6660,9 @@ pub struct DeleteBuildTriggerRequest {
     /// Required. ID of the `BuildTrigger` to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub trigger_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteBuildTriggerRequest {
@@ -6532,6 +6718,9 @@ pub struct UpdateBuildTriggerRequest {
     /// Otherwise, a full update of the mutable resource fields will be performed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateBuildTriggerRequest {
@@ -6674,6 +6863,9 @@ pub struct BuildOptions {
     ///
     /// If true, JSON-formatted logs are parsed as structured logs.
     pub enable_structured_logging: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BuildOptions {
@@ -6857,6 +7049,9 @@ pub mod build_options {
         /// Format projects/{project}/locations/{location}/workerPools/{workerPoolId}
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub name: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PoolOption {
@@ -7291,6 +7486,9 @@ pub struct ReceiveTriggerWebhookRequest {
     /// Secret token used for authorization if an OAuth token isn't provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secret: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReceiveTriggerWebhookRequest {
@@ -7344,7 +7542,10 @@ impl wkt::message::Message for ReceiveTriggerWebhookRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ReceiveTriggerWebhookResponse {}
+pub struct ReceiveTriggerWebhookResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ReceiveTriggerWebhookResponse {
     pub fn new() -> Self {
@@ -7413,6 +7614,9 @@ pub struct GitHubEnterpriseConfig {
     /// Optional. SSL certificate to use for requests to GitHub Enterprise.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub ssl_ca: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitHubEnterpriseConfig {
@@ -7512,6 +7716,9 @@ pub struct GitHubEnterpriseSecrets {
     /// The resource name for the OAuth client ID secret version in Secret Manager.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub oauth_client_id_version_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitHubEnterpriseSecrets {
@@ -7629,6 +7836,9 @@ pub struct WorkerPool {
     /// Configuration for the `WorkerPool`.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub config: std::option::Option<crate::model::worker_pool::Config>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WorkerPool {
@@ -7863,6 +8073,9 @@ pub struct PrivatePoolV1Config {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub private_service_connect:
         std::option::Option<crate::model::private_pool_v_1_config::PrivateServiceConnect>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrivatePoolV1Config {
@@ -7942,6 +8155,9 @@ pub mod private_pool_v_1_config {
         /// a standard disk size.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub disk_size_gb: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl WorkerConfig {
@@ -8001,6 +8217,9 @@ pub mod private_pool_v_1_config {
         /// If unspecified, a value of `/24` will be used.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub peered_network_ip_range: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NetworkConfig {
@@ -8144,6 +8363,9 @@ pub mod private_pool_v_1_config {
         /// If false, Only route private IPs, e.g. 10.0.0.0/8, 172.16.0.0/12, and
         /// 192.168.0.0/16 through PSC interface.
         pub route_all_traffic: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PrivateServiceConnect {
@@ -8206,6 +8428,9 @@ pub struct CreateWorkerPoolRequest {
     /// If set, validate the request and preview the response, but do not actually
     /// post it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateWorkerPoolRequest {
@@ -8257,6 +8482,9 @@ pub struct GetWorkerPoolRequest {
     /// Format: `projects/{project}/locations/{location}/workerPools/{workerPool}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetWorkerPoolRequest {
@@ -8301,6 +8529,9 @@ pub struct DeleteWorkerPoolRequest {
     /// If set, validate the request and preview the response, but do not actually
     /// post it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteWorkerPoolRequest {
@@ -8359,6 +8590,9 @@ pub struct UpdateWorkerPoolRequest {
     /// If set, validate the request and preview the response, but do not actually
     /// post it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateWorkerPoolRequest {
@@ -8416,6 +8650,9 @@ pub struct ListWorkerPoolsRequest {
     /// to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkerPoolsRequest {
@@ -8463,6 +8700,9 @@ pub struct ListWorkerPoolsResponse {
     /// results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkerPoolsResponse {
@@ -8527,6 +8767,9 @@ pub struct CreateWorkerPoolOperationMetadata {
     /// Time the operation was completed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub complete_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateWorkerPoolOperationMetadata {
@@ -8584,6 +8827,9 @@ pub struct UpdateWorkerPoolOperationMetadata {
     /// Time the operation was completed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub complete_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateWorkerPoolOperationMetadata {
@@ -8641,6 +8887,9 @@ pub struct DeleteWorkerPoolOperationMetadata {
     /// Time the operation was completed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub complete_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteWorkerPoolOperationMetadata {

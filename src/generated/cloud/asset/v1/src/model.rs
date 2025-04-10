@@ -48,6 +48,9 @@ pub struct AnalyzeIamPolicyLongrunningMetadata {
     /// Output only. The time the operation was created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeIamPolicyLongrunningMetadata {
@@ -140,6 +143,9 @@ pub struct ExportAssetsRequest {
     ///   supported asset types and relationship types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub relationship_types: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportAssetsRequest {
@@ -238,6 +244,9 @@ pub struct ExportAssetsResponse {
     /// single Cloud Storage object limit.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub output_result: std::option::Option<crate::model::OutputResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportAssetsResponse {
@@ -358,6 +367,9 @@ pub struct ListAssetsRequest {
     ///   for all supported asset types and relationship types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub relationship_types: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAssetsRequest {
@@ -449,6 +461,9 @@ pub struct ListAssetsResponse {
     /// remaining results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAssetsResponse {
@@ -557,6 +572,9 @@ pub struct BatchGetAssetsHistoryRequest {
     ///   supported asset types and relationship types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub relationship_types: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchGetAssetsHistoryRequest {
@@ -628,6 +646,9 @@ pub struct BatchGetAssetsHistoryResponse {
     /// A list of assets with valid time windows.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub assets: std::vec::Vec<crate::model::TemporalAsset>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchGetAssetsHistoryResponse {
@@ -678,6 +699,9 @@ pub struct CreateFeedRequest {
     /// organizations/organization_number/feeds/feed_id
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub feed: std::option::Option<crate::model::Feed>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateFeedRequest {
@@ -725,6 +749,9 @@ pub struct GetFeedRequest {
     /// organizations/organization_number/feeds/feed_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetFeedRequest {
@@ -756,6 +783,9 @@ pub struct ListFeedsRequest {
     /// "folders/12345")", or a project ID (such as "projects/my-project-id").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFeedsRequest {
@@ -784,6 +814,9 @@ pub struct ListFeedsResponse {
     /// A list of feeds.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub feeds: std::vec::Vec<crate::model::Feed>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFeedsResponse {
@@ -828,6 +861,9 @@ pub struct UpdateFeedRequest {
     /// are immutable or only set by the server.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateFeedRequest {
@@ -871,6 +907,9 @@ pub struct DeleteFeedRequest {
     /// organizations/organization_number/feeds/feed_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteFeedRequest {
@@ -900,6 +939,9 @@ pub struct OutputConfig {
     /// Asset export destination.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::output_config::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OutputConfig {
@@ -1016,6 +1058,9 @@ pub struct OutputResult {
     /// Asset export result.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub result: std::option::Option<crate::model::output_result::Result>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OutputResult {
@@ -1093,6 +1138,9 @@ pub struct GcsOutputResult {
     /// "gs://bucket_name/object_name".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub uris: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsOutputResult {
@@ -1127,6 +1175,9 @@ pub struct GcsDestination {
     /// Required.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub object_uri: std::option::Option<crate::model::gcs_destination::ObjectUri>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsDestination {
@@ -1307,6 +1358,9 @@ pub struct BigQueryDestination {
     /// table_type_B fails during one export call, the results in table_type_A will
     /// persist and there will not be partial results persisting in a table.
     pub separate_tables_per_asset_type: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BigQueryDestination {
@@ -1364,6 +1418,9 @@ impl wkt::message::Message for BigQueryDestination {
 pub struct PartitionSpec {
     /// The partition key for BigQuery partitioned table.
     pub partition_key: crate::model::partition_spec::PartitionKey,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PartitionSpec {
@@ -1473,6 +1530,9 @@ pub struct PubsubDestination {
     /// Example: `projects/PROJECT_ID/topics/TOPIC_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub topic: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PubsubDestination {
@@ -1502,6 +1562,9 @@ pub struct FeedOutputConfig {
     /// Asset feed destination.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::feed_output_config::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FeedOutputConfig {
@@ -1657,6 +1720,9 @@ pub struct Feed {
     ///   for all supported asset types and relationship types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub relationship_types: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Feed {
@@ -1927,6 +1993,9 @@ pub struct SearchAllResourcesRequest {
     /// Any invalid field path will trigger INVALID_ARGUMENT error.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub read_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchAllResourcesRequest {
@@ -2007,6 +2076,9 @@ pub struct SearchAllResourcesResponse {
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchAllResourcesResponse {
@@ -2165,6 +2237,9 @@ pub struct SearchAllIamPoliciesRequest {
     ///   non-primitive fields (e.g., `policy`) are not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchAllIamPoliciesRequest {
@@ -2236,6 +2311,9 @@ pub struct SearchAllIamPoliciesResponse {
     /// `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchAllIamPoliciesResponse {
@@ -2325,6 +2403,9 @@ pub struct IamPolicyAnalysisQuery {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition_context:
         std::option::Option<crate::model::iam_policy_analysis_query::ConditionContext>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IamPolicyAnalysisQuery {
@@ -2427,6 +2508,9 @@ pub mod iam_policy_analysis_query {
         /// types](https://cloud.google.com/asset-inventory/docs/supported-asset-types#analyzable_asset_types).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub full_resource_name: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ResourceSelector {
@@ -2472,6 +2556,9 @@ pub mod iam_policy_analysis_query {
         /// You must give a specific identity.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub identity: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IdentitySelector {
@@ -2509,6 +2596,9 @@ pub mod iam_policy_analysis_query {
         /// Optional. The permissions to appear in result.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub permissions: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AccessSelector {
@@ -2659,6 +2749,9 @@ pub mod iam_policy_analysis_query {
         /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.service_account_impersonation_analysis]: crate::model::AnalyzeIamPolicyResponse::service_account_impersonation_analysis
         /// [google.cloud.asset.v1.AssetService.AnalyzeIamPolicyLongrunning]: crate::client::AssetService::analyze_iam_policy_longrunning
         pub analyze_service_account_impersonation: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Options {
@@ -2723,6 +2816,9 @@ pub mod iam_policy_analysis_query {
         pub time_context: std::option::Option<
             crate::model::iam_policy_analysis_query::condition_context::TimeContext,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ConditionContext {
@@ -2843,6 +2939,9 @@ pub struct AnalyzeIamPolicyRequest {
     /// Default is empty.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub execution_timeout: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeIamPolicyRequest {
@@ -2916,6 +3015,9 @@ pub struct AnalyzeIamPolicyResponse {
     /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.main_analysis]: crate::model::AnalyzeIamPolicyResponse::main_analysis
     /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.service_account_impersonation_analysis]: crate::model::AnalyzeIamPolicyResponse::service_account_impersonation_analysis
     pub fully_explored: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeIamPolicyResponse {
@@ -2993,6 +3095,9 @@ pub mod analyze_iam_policy_response {
         /// A list of non-critical errors happened during the query handling.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub non_critical_errors: std::vec::Vec<crate::model::IamPolicyAnalysisState>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IamPolicyAnalysis {
@@ -3057,6 +3162,9 @@ pub struct IamPolicyAnalysisOutputConfig {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination:
         std::option::Option<crate::model::iam_policy_analysis_output_config::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IamPolicyAnalysisOutputConfig {
@@ -3182,6 +3290,9 @@ pub mod iam_policy_analysis_output_config {
         /// overwritten with the analysis result.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GcsDestination {
@@ -3248,6 +3359,9 @@ pub mod iam_policy_analysis_output_config {
         /// <https://cloud.google.com/bigquery/docs/loading-data-local#appending_to_or_overwriting_a_table_using_a_local_file>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub write_disposition: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BigQueryDestination {
@@ -3410,6 +3524,9 @@ pub struct AnalyzeIamPolicyLongrunningRequest {
     /// to.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub output_config: std::option::Option<crate::model::IamPolicyAnalysisOutputConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeIamPolicyLongrunningRequest {
@@ -3463,7 +3580,10 @@ impl wkt::message::Message for AnalyzeIamPolicyLongrunningRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AnalyzeIamPolicyLongrunningResponse {}
+pub struct AnalyzeIamPolicyLongrunningResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AnalyzeIamPolicyLongrunningResponse {
     pub fn new() -> Self {
@@ -3522,6 +3642,9 @@ pub struct SavedQuery {
     /// The query content.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub content: std::option::Option<crate::model::saved_query::QueryContent>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SavedQuery {
@@ -3615,6 +3738,9 @@ pub mod saved_query {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub query_content:
             std::option::Option<crate::model::saved_query::query_content::QueryContent>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl QueryContent {
@@ -3729,6 +3855,9 @@ pub struct CreateSavedQueryRequest {
     /// `name` field of the `saved_query` will be ignored.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub saved_query_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSavedQueryRequest {
@@ -3777,6 +3906,9 @@ pub struct GetSavedQueryRequest {
     /// * organizations/organization_number/savedQueries/saved_query_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSavedQueryRequest {
@@ -3832,6 +3964,9 @@ pub struct ListSavedQueriesRequest {
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSavedQueriesRequest {
@@ -3884,6 +4019,9 @@ pub struct ListSavedQueriesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSavedQueriesResponse {
@@ -3949,6 +4087,9 @@ pub struct UpdateSavedQueryRequest {
     /// Required. The list of fields to update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSavedQueryRequest {
@@ -3995,6 +4136,9 @@ pub struct DeleteSavedQueryRequest {
     /// * organizations/organization_number/savedQueries/saved_query_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSavedQueryRequest {
@@ -4039,6 +4183,9 @@ pub struct AnalyzeMoveRequest {
     /// Analysis view indicating what information should be included in the
     /// analysis response. If unspecified, the default view is FULL.
     pub view: crate::model::analyze_move_request::AnalysisView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeMoveRequest {
@@ -4155,6 +4302,9 @@ pub struct AnalyzeMoveResponse {
     /// analysis. The analysis is grouped by different Google Cloud services.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub move_analysis: std::vec::Vec<crate::model::MoveAnalysis>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeMoveResponse {
@@ -4193,6 +4343,9 @@ pub struct MoveAnalysis {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub result: std::option::Option<crate::model::move_analysis::Result>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MoveAnalysis {
@@ -4310,6 +4463,9 @@ pub struct MoveAnalysisResult {
     /// information and configuration changes, but will not block moves at runtime.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub warnings: std::vec::Vec<crate::model::MoveImpact>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MoveAnalysisResult {
@@ -4355,6 +4511,9 @@ pub struct MoveImpact {
     /// User friendly impact detail in a free form message.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub detail: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MoveImpact {
@@ -4385,6 +4544,9 @@ pub struct QueryAssetsOutputConfig {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub bigquery_destination:
         std::option::Option<crate::model::query_assets_output_config::BigQueryDestination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryAssetsOutputConfig {
@@ -4447,6 +4609,9 @@ pub mod query_assets_output_config {
         /// The default value is WRITE_EMPTY.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub write_disposition: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BigQueryDestination {
@@ -4554,6 +4719,9 @@ pub struct QueryAssetsRequest {
     ///   it will simply return a valid response with no rows.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub time: std::option::Option<crate::model::query_assets_request::Time>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryAssetsRequest {
@@ -4794,6 +4962,9 @@ pub struct QueryAssetsResponse {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub response: std::option::Option<crate::model::query_assets_response::Response>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryAssetsResponse {
@@ -4964,6 +5135,9 @@ pub struct QueryResult {
     /// Total rows of the whole query results.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub total_rows: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryResult {
@@ -5019,6 +5193,9 @@ pub struct TableSchema {
     /// Describes the fields in a table.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub fields: std::vec::Vec<crate::model::TableFieldSchema>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TableSchema {
@@ -5085,6 +5262,9 @@ pub struct TableFieldSchema {
     /// to RECORD.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub fields: std::vec::Vec<crate::model::TableFieldSchema>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TableFieldSchema {
@@ -5158,6 +5338,9 @@ pub struct BatchGetEffectiveIamPoliciesRequest {
     /// A maximum of 20 resources' effective policies can be retrieved in a batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub names: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchGetEffectiveIamPoliciesRequest {
@@ -5210,6 +5393,9 @@ pub struct BatchGetEffectiveIamPoliciesResponse {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub policy_results:
         std::vec::Vec<crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchGetEffectiveIamPoliciesResponse {
@@ -5288,6 +5474,9 @@ pub mod batch_get_effective_iam_policies_response {
         /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.full_resource_name]: crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy::full_resource_name
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub policies: std::vec::Vec<crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EffectiveIamPolicy {
@@ -5347,6 +5536,9 @@ pub mod batch_get_effective_iam_policies_response {
             /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.PolicyInfo.attached_resource]: crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo::attached_resource
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub policy: std::option::Option<iam_v1::model::Policy>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl PolicyInfo {
@@ -5427,6 +5619,9 @@ pub struct AnalyzerOrgPolicy {
     /// constraints. If set, `rules` must be empty and `inherit_from_parent`
     /// must be set to false.
     pub reset: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzerOrgPolicy {
@@ -5525,6 +5720,9 @@ pub mod analyzer_org_policy {
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub kind: std::option::Option<crate::model::analyzer_org_policy::rule::Kind>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Rule {
@@ -5699,6 +5897,9 @@ pub mod analyzer_org_policy {
             /// List of values denied at this resource.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub denied_values: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl StringValues {
@@ -5765,6 +5966,9 @@ pub struct AnalyzerOrgPolicyConstraint {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub constraint_definition:
         std::option::Option<crate::model::analyzer_org_policy_constraint::ConstraintDefinition>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzerOrgPolicyConstraint {
@@ -5905,6 +6109,9 @@ pub mod analyzer_org_policy_constraint {
         pub constraint_type: std::option::Option<
             crate::model::analyzer_org_policy_constraint::constraint::ConstraintType,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Constraint {
@@ -6070,6 +6277,9 @@ pub mod analyzer_org_policy_constraint {
             /// example, `"under:folders/123"` would match any resource under the
             /// 'folders/123' folder.
             pub supports_under: bool,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl ListConstraint {
@@ -6105,7 +6315,10 @@ pub mod analyzer_org_policy_constraint {
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
-        pub struct BooleanConstraint {}
+        pub struct BooleanConstraint {
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
 
         impl BooleanConstraint {
             pub fn new() -> Self {
@@ -6250,6 +6463,9 @@ pub mod analyzer_org_policy_constraint {
         /// Detailed information about this custom policy constraint.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub description: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CustomConstraint {
@@ -6525,6 +6741,9 @@ pub struct AnalyzeOrgPoliciesRequest {
     /// The pagination token to retrieve the next page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeOrgPoliciesRequest {
@@ -6599,6 +6818,9 @@ pub struct AnalyzeOrgPoliciesResponse {
     /// [google.cloud.asset.v1.AnalyzeOrgPoliciesResponse.org_policy_results]: crate::model::AnalyzeOrgPoliciesResponse::org_policy_results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeOrgPoliciesResponse {
@@ -6700,6 +6922,9 @@ pub mod analyze_org_policies_response {
         /// consolidated policy belongs (directly or cascadingly) to an organization.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub organization: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl OrgPolicyResult {
@@ -6815,6 +7040,9 @@ pub struct AnalyzeOrgPolicyGovernedContainersRequest {
     /// The pagination token to retrieve the next page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeOrgPolicyGovernedContainersRequest {
@@ -6884,6 +7112,9 @@ pub struct AnalyzeOrgPolicyGovernedContainersResponse {
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedContainersResponse.governed_containers]: crate::model::AnalyzeOrgPolicyGovernedContainersResponse::governed_containers
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeOrgPolicyGovernedContainersResponse {
@@ -7013,6 +7244,9 @@ pub mod analyze_org_policy_governed_containers_response {
         /// The effective tags on this resource.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub effective_tags: std::vec::Vec<crate::model::EffectiveTagDetails>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GovernedContainer {
@@ -7171,6 +7405,9 @@ pub struct AnalyzeOrgPolicyGovernedAssetsRequest {
     /// The pagination token to retrieve the next page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeOrgPolicyGovernedAssetsRequest {
@@ -7239,6 +7476,9 @@ pub struct AnalyzeOrgPolicyGovernedAssetsResponse {
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsResponse.governed_assets]: crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::governed_assets
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeOrgPolicyGovernedAssetsResponse {
@@ -7359,6 +7599,9 @@ pub mod analyze_org_policy_governed_assets_response {
         /// The effective tags on this resource.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub effective_tags: std::vec::Vec<crate::model::EffectiveTagDetails>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GovernedResource {
@@ -7482,6 +7725,9 @@ pub mod analyze_org_policy_governed_assets_response {
         /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsResponse.GovernedIamPolicy.attached_resource]: crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::attached_resource
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub asset_type: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GovernedIamPolicy {
@@ -7578,6 +7824,9 @@ pub mod analyze_org_policy_governed_assets_response {
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub governed_asset: std::option::Option<crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GovernedAsset {
@@ -7750,6 +7999,9 @@ pub struct TemporalAsset {
     /// Currently this is only set for responses in Real-Time Feed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub prior_asset: std::option::Option<crate::model::Asset>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TemporalAsset {
@@ -7897,6 +8149,9 @@ pub struct TimeWindow {
     /// timestamp is used instead.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeWindow {
@@ -8021,6 +8276,9 @@ pub struct Asset {
     /// policy](https://cloud.google.com/access-context-manager/docs/overview#access-policies).
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub access_context_policy: std::option::Option<crate::model::asset::AccessContextPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Asset {
@@ -8317,6 +8575,9 @@ pub struct Resource {
     /// For more information, see <https://cloud.google.com/about/locations/>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Resource {
@@ -8395,6 +8656,9 @@ pub struct RelatedAssets {
     /// The peer resources of the relationship.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub assets: std::vec::Vec<crate::model::RelatedAsset>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RelatedAssets {
@@ -8458,6 +8722,9 @@ pub struct RelationshipAttributes {
     /// The detail of the relationship, e.g. `contains`, `attaches`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub action: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RelationshipAttributes {
@@ -8545,6 +8812,9 @@ pub struct RelatedAsset {
     /// `INSTANCE_TO_INSTANCEGROUP`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub relationship_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RelatedAsset {
@@ -8614,6 +8884,9 @@ pub struct Tag {
     /// TagValue ID, in the format of tagValues/{TAG_VALUE_ID}.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub tag_value_id: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Tag {
@@ -8690,6 +8963,9 @@ pub struct EffectiveTagDetails {
     /// [google.cloud.asset.v1.EffectiveTagDetails.attached_resource]: crate::model::EffectiveTagDetails::attached_resource
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub effective_tags: std::vec::Vec<crate::model::Tag>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EffectiveTagDetails {
@@ -9112,6 +9388,9 @@ pub struct ResourceSearchResult {
     ///   - query by a given key's existence. Example: `sccSecurityMarks.foo:*`
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub scc_security_marks: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResourceSearchResult {
@@ -9401,6 +9680,9 @@ pub struct VersionedResource {
     /// `<https://cloud.google.com/asset-inventory/docs/supported-asset-types>`
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub resource: std::option::Option<wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VersionedResource {
@@ -9452,6 +9734,9 @@ pub struct AttachedResource {
     /// representations during version migration.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub versioned_resources: std::vec::Vec<crate::model::VersionedResource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachedResource {
@@ -9492,6 +9777,9 @@ pub struct RelatedResources {
     /// The detailed related resources of the primary resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub related_resources: std::vec::Vec<crate::model::RelatedResource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RelatedResources {
@@ -9531,6 +9819,9 @@ pub struct RelatedResource {
     /// `//compute.googleapis.com/projects/my_proj_123/zones/instance/instance123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub full_resource_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RelatedResource {
@@ -9645,6 +9936,9 @@ pub struct IamPolicySearchResult {
     /// information to explain why the search result matches the query.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub explanation: std::option::Option<crate::model::iam_policy_search_result::Explanation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IamPolicySearchResult {
@@ -9739,6 +10033,9 @@ pub mod iam_policy_search_result {
             std::string::String,
             crate::model::iam_policy_search_result::explanation::Permissions,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Explanation {
@@ -9779,6 +10076,9 @@ pub mod iam_policy_search_result {
             /// A list of permissions. A sample permission string: `compute.disk.get`.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub permissions: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Permissions {
@@ -9825,6 +10125,9 @@ pub struct IamPolicyAnalysisState {
     /// The human-readable description of the cause of failure.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub cause: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IamPolicyAnalysisState {
@@ -9859,6 +10162,9 @@ impl wkt::message::Message for IamPolicyAnalysisState {
 pub struct ConditionEvaluation {
     /// The evaluation result.
     pub evaluation_value: crate::model::condition_evaluation::EvaluationValue,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConditionEvaluation {
@@ -10001,6 +10307,9 @@ pub struct IamPolicyAnalysisResult {
     ///
     /// [google.cloud.asset.v1.IamPolicyAnalysisResult.iam_binding]: crate::model::IamPolicyAnalysisResult::iam_binding
     pub fully_explored: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IamPolicyAnalysisResult {
@@ -10082,6 +10391,9 @@ pub mod iam_policy_analysis_result {
         /// The analysis state of this resource.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub analysis_state: std::option::Option<crate::model::IamPolicyAnalysisState>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Resource {
@@ -10129,6 +10441,9 @@ pub mod iam_policy_analysis_result {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub oneof_access:
             std::option::Option<crate::model::iam_policy_analysis_result::access::OneofAccess>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Access {
@@ -10258,6 +10573,9 @@ pub mod iam_policy_analysis_result {
         /// The analysis state of this identity.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub analysis_state: std::option::Option<crate::model::IamPolicyAnalysisState>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Identity {
@@ -10304,6 +10622,9 @@ pub mod iam_policy_analysis_result {
         /// name for a resource node or an email of an identity.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub target_node: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Edge {
@@ -10383,6 +10704,9 @@ pub mod iam_policy_analysis_result {
         /// defined in the above IAM policy binding.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub condition_evaluation: std::option::Option<crate::model::ConditionEvaluation>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AccessControlList {
@@ -10471,6 +10795,9 @@ pub mod iam_policy_analysis_result {
         /// [google.cloud.asset.v1.IamPolicyAnalysisResult.IdentityList.identities]: crate::model::iam_policy_analysis_result::IdentityList::identities
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub group_edges: std::vec::Vec<crate::model::iam_policy_analysis_result::Edge>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IdentityList {

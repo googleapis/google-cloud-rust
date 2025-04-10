@@ -62,6 +62,9 @@ pub struct Operation {
     /// Some services might not provide the result.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub result: std::option::Option<crate::model::operation::Result>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Operation {
@@ -193,6 +196,9 @@ pub struct GetOperationRequest {
     /// The name of the operation resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetOperationRequest {
@@ -236,6 +242,9 @@ pub struct ListOperationsRequest {
     /// The standard list page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOperationsRequest {
@@ -290,6 +299,9 @@ pub struct ListOperationsResponse {
     /// The standard List next-page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOperationsResponse {
@@ -347,6 +359,9 @@ pub struct CancelOperationRequest {
     /// The name of the operation resource to be cancelled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CancelOperationRequest {
@@ -379,6 +394,9 @@ pub struct DeleteOperationRequest {
     /// The name of the operation resource to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteOperationRequest {
@@ -415,6 +433,9 @@ pub struct WaitOperationRequest {
     /// If RPC context deadline is also specified, the shorter one will be used.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub timeout: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WaitOperationRequest {
@@ -481,6 +502,9 @@ pub struct OperationInfo {
     /// Note: Altering this value constitutes a breaking change.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub metadata_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationInfo {

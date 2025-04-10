@@ -70,6 +70,9 @@ pub struct Api {
 
     /// Output only. State of the API.
     pub state: crate::model::api::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Api {
@@ -289,6 +292,9 @@ pub struct ApiConfig {
     ///   fields.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub managed_service_configs: std::vec::Vec<crate::model::api_config::File>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApiConfig {
@@ -425,6 +431,9 @@ pub mod api_config {
         #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
         pub contents: ::bytes::Bytes,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl File {
@@ -460,6 +469,9 @@ pub mod api_config {
         /// The OpenAPI Specification document file.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub document: std::option::Option<crate::model::api_config::File>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl OpenApiDocument {
@@ -507,6 +519,9 @@ pub mod api_config {
         /// file_descriptor_set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub source: std::vec::Vec<crate::model::api_config::File>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GrpcServiceDefinition {
@@ -665,6 +680,9 @@ pub struct Gateway {
     /// `{gateway_id}-{hash}.{region_code}.gateway.dev`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub default_hostname: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Gateway {
@@ -845,6 +863,9 @@ pub struct ListGatewaysRequest {
     /// Order by parameters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGatewaysRequest {
@@ -906,6 +927,9 @@ pub struct ListGatewaysResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable_locations: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGatewaysResponse {
@@ -972,6 +996,9 @@ pub struct GetGatewayRequest {
     /// `projects/*/locations/*/gateways/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetGatewayRequest {
@@ -1011,6 +1038,9 @@ pub struct CreateGatewayRequest {
     /// Required. Gateway resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gateway: std::option::Option<crate::model::Gateway>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateGatewayRequest {
@@ -1063,6 +1093,9 @@ pub struct UpdateGatewayRequest {
     /// Required. Gateway resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gateway: std::option::Option<crate::model::Gateway>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateGatewayRequest {
@@ -1105,6 +1138,9 @@ pub struct DeleteGatewayRequest {
     /// `projects/*/locations/*/gateways/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteGatewayRequest {
@@ -1150,6 +1186,9 @@ pub struct ListApisRequest {
     /// Order by parameters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListApisRequest {
@@ -1211,6 +1250,9 @@ pub struct ListApisResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable_locations: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListApisResponse {
@@ -1277,6 +1319,9 @@ pub struct GetApiRequest {
     /// `projects/*/locations/global/apis/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetApiRequest {
@@ -1316,6 +1361,9 @@ pub struct CreateApiRequest {
     /// Required. API resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub api: std::option::Option<crate::model::Api>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateApiRequest {
@@ -1368,6 +1416,9 @@ pub struct UpdateApiRequest {
     /// Required. API resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub api: std::option::Option<crate::model::Api>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateApiRequest {
@@ -1410,6 +1461,9 @@ pub struct DeleteApiRequest {
     /// `projects/*/locations/global/apis/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteApiRequest {
@@ -1455,6 +1509,9 @@ pub struct ListApiConfigsRequest {
     /// Order by parameters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListApiConfigsRequest {
@@ -1516,6 +1573,9 @@ pub struct ListApiConfigsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable_locations: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListApiConfigsResponse {
@@ -1586,6 +1646,9 @@ pub struct GetApiConfigRequest {
     /// Specifies which fields of the API Config are returned in the response.
     /// Defaults to `BASIC` view.
     pub view: crate::model::get_api_config_request::ConfigView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetApiConfigRequest {
@@ -1698,6 +1761,9 @@ pub struct CreateApiConfigRequest {
     /// Required. API resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub api_config: std::option::Option<crate::model::ApiConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateApiConfigRequest {
@@ -1750,6 +1816,9 @@ pub struct UpdateApiConfigRequest {
     /// Required. API Config resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub api_config: std::option::Option<crate::model::ApiConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateApiConfigRequest {
@@ -1792,6 +1861,9 @@ pub struct DeleteApiConfigRequest {
     /// `projects/*/locations/global/apis/*/configs/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteApiConfigRequest {
@@ -1853,6 +1925,9 @@ pub struct OperationMetadata {
     /// Output only. Diagnostics generated during processing of configuration source files.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub diagnostics: std::vec::Vec<crate::model::operation_metadata::Diagnostic>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -1944,6 +2019,9 @@ pub mod operation_metadata {
         /// The diagnostic message.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub message: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Diagnostic {

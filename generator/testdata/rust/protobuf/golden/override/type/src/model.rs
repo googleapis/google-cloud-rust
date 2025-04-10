@@ -82,6 +82,9 @@ pub struct Expr {
     /// reporting, e.g. a file name and a position in the file.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
 }
 
 impl Expr {

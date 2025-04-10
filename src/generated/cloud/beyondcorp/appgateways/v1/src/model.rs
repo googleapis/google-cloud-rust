@@ -68,6 +68,9 @@ pub struct ListAppGatewaysRequest {
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAppGatewaysRequest {
@@ -130,6 +133,9 @@ pub struct ListAppGatewaysResponse {
     /// A list of locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAppGatewaysResponse {
@@ -196,6 +202,9 @@ pub struct GetAppGatewayRequest {
     /// `projects/{project_id}/locations/{location_id}/appGateways/{app_gateway_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAppGatewayRequest {
@@ -258,6 +267,9 @@ pub struct CreateAppGatewayRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAppGatewayRequest {
@@ -335,6 +347,9 @@ pub struct DeleteAppGatewayRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAppGatewayRequest {
@@ -420,6 +435,9 @@ pub struct AppGateway {
 
     /// Required. The type of hosting used by the AppGateway.
     pub host_type: crate::model::app_gateway::HostType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppGateway {
@@ -543,6 +561,9 @@ pub mod app_gateway {
 
         /// Required. The ingress port of an allocated connection
         pub ingress_port: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AllocatedConnection {
@@ -787,6 +808,9 @@ pub struct AppGatewayOperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppGatewayOperationMetadata {

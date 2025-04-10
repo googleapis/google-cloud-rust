@@ -19,6 +19,7 @@
 #![no_implicit_prelude]
 extern crate bytes;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -84,6 +85,9 @@ pub struct AttributeContext {
     /// Supports extensions for advanced use cases, such as logs and metrics.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub extensions: std::vec::Vec<wkt::Any>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttributeContext {
@@ -223,6 +227,9 @@ pub mod attribute_context {
         /// physical location where this peer is running.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub region_code: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Peer {
@@ -302,6 +309,9 @@ pub mod attribute_context {
         /// "v1alpha1".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub version: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Api {
@@ -407,6 +417,9 @@ pub mod attribute_context {
         /// "//accesscontextmanager.googleapis.com/accessPolicies/MY_POLICY_ID/accessLevels/MY_LEVEL"
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub access_levels: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Auth {
@@ -530,6 +543,9 @@ pub mod attribute_context {
         /// Derived from the HTTP request `Authorization` header or equivalent.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub auth: std::option::Option<crate::model::attribute_context::Auth>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Request {
@@ -662,6 +678,9 @@ pub mod attribute_context {
         /// complete response from the backend.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub backend_latency: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Response {
@@ -814,6 +833,9 @@ pub mod attribute_context {
         /// `cloud.googleapis.com/location` label used by some Google Cloud APIs.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub location: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Resource {
@@ -956,6 +978,9 @@ pub struct AuditContext {
     /// Audit resource name which is scrubbed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub target_resource: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuditContext {

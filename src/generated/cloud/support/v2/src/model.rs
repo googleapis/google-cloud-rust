@@ -54,6 +54,9 @@ pub struct Actor {
 
     /// Output only. Whether the actor is a Google support actor.
     pub google_support: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Actor {
@@ -116,6 +119,9 @@ pub struct Attachment {
     /// Output only. The size of the attachment in bytes.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub size_bytes: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Attachment {
@@ -192,6 +198,9 @@ pub struct ListAttachmentsRequest {
     /// first page is retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAttachmentsRequest {
@@ -239,6 +248,9 @@ pub struct ListAttachmentsResponse {
     /// unspecified, there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAttachmentsResponse {
@@ -360,6 +372,9 @@ pub struct Case {
 
     /// The priority of this case.
     pub priority: crate::model::case::Priority,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Case {
@@ -657,6 +672,9 @@ pub struct CaseClassification {
     /// The display name of the classification.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CaseClassification {
@@ -692,6 +710,9 @@ pub struct GetCaseRequest {
     /// Required. The fully qualified name of a case to be retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCaseRequest {
@@ -726,6 +747,9 @@ pub struct CreateCaseRequest {
     /// Required. The case to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub case: std::option::Option<crate::model::Case>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCaseRequest {
@@ -792,6 +816,9 @@ pub struct ListCasesRequest {
     /// first page is retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCasesRequest {
@@ -846,6 +873,9 @@ pub struct ListCasesResponse {
     /// issued. If unspecified, there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCasesResponse {
@@ -947,6 +977,9 @@ pub struct SearchCasesRequest {
     /// first page is retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchCasesRequest {
@@ -1001,6 +1034,9 @@ pub struct SearchCasesResponse {
     /// issued. If unspecified, there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchCasesResponse {
@@ -1059,6 +1095,9 @@ pub struct EscalateCaseRequest {
     /// The escalation object to be sent with the escalation request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub escalation: std::option::Option<crate::model::Escalation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EscalateCaseRequest {
@@ -1109,6 +1148,9 @@ pub struct UpdateCaseRequest {
     /// `subscriber_email_addresses` is updated to empty.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCaseRequest {
@@ -1150,6 +1192,9 @@ pub struct CloseCaseRequest {
     /// Required. The fully qualified name of the case resource to be closed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloseCaseRequest {
@@ -1189,6 +1234,9 @@ pub struct SearchCaseClassificationsRequest {
     /// first page is retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchCaseClassificationsRequest {
@@ -1236,6 +1284,9 @@ pub struct SearchCaseClassificationsResponse {
     /// that is issued. If unspecified, there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchCaseClassificationsResponse {
@@ -1308,6 +1359,9 @@ pub struct Comment {
     /// body with all rich text syntax stripped.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub plain_text_body: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Comment {
@@ -1376,6 +1430,9 @@ pub struct ListCommentsRequest {
     /// first page is retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCommentsRequest {
@@ -1423,6 +1480,9 @@ pub struct ListCommentsResponse {
     /// issued. If unspecified, there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCommentsResponse {
@@ -1481,6 +1541,9 @@ pub struct CreateCommentRequest {
     /// Required. The Comment object to be added to this Case.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub comment: std::option::Option<crate::model::Comment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCommentRequest {
@@ -1523,6 +1586,9 @@ pub struct Escalation {
     /// Provides additional context on why the case is being escalated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub justification: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Escalation {

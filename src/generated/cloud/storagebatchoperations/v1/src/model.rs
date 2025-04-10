@@ -58,6 +58,9 @@ pub struct ListJobsRequest {
     /// Optional. Field to sort by. Supported fields are name, create_time.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListJobsRequest {
@@ -119,6 +122,9 @@ pub struct ListJobsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListJobsResponse {
@@ -185,6 +191,9 @@ pub struct GetJobRequest {
     /// Format: projects/{project_id}/locations/global/jobs/{job_id} .
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetJobRequest {
@@ -233,6 +242,9 @@ pub struct CreateJobRequest {
     /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateJobRequest {
@@ -292,6 +304,9 @@ pub struct CancelJobRequest {
     /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CancelJobRequest {
@@ -336,6 +351,9 @@ pub struct DeleteJobRequest {
     /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteJobRequest {
@@ -367,7 +385,10 @@ impl wkt::message::Message for DeleteJobRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CancelJobResponse {}
+pub struct CancelJobResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CancelJobResponse {
     pub fn new() -> Self {
@@ -420,6 +441,9 @@ pub struct OperationMetadata {
     /// Output only. The Job associated with the operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub job: std::option::Option<crate::model::Job>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -532,6 +556,9 @@ pub struct Job {
     /// Operation to be performed on the objects.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub transformation: std::option::Option<crate::model::job::Transformation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Job {
@@ -890,6 +917,9 @@ pub struct BucketList {
     /// specified, an error will be returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub buckets: std::vec::Vec<crate::model::bucket_list::Bucket>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BucketList {
@@ -935,6 +965,9 @@ pub mod bucket_list {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub object_configuration:
             std::option::Option<crate::model::bucket_list::bucket::ObjectConfiguration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Bucket {
@@ -1067,6 +1100,9 @@ pub struct Manifest {
     ///   files matching the pattern will be acted upon.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub manifest_location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Manifest {
@@ -1104,6 +1140,9 @@ pub struct PrefixList {
     /// * Supports empty string for all objects in a bucket.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub included_object_prefixes: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrefixList {
@@ -1143,6 +1182,9 @@ pub struct PutObjectHold {
     /// hold is set, object cannot be deleted or replaced. Resets object's time in
     /// the bucket for the purposes of the retention period.
     pub event_based_hold: crate::model::put_object_hold::HoldStatus,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PutObjectHold {
@@ -1258,6 +1300,9 @@ pub struct DeleteObject {
     /// doesn't specify an object's generation, a GetObjectMetadata call (a Class B
     /// operation) will be made to determine the live object generation.
     pub permanent_object_deletion_enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteObject {
@@ -1298,6 +1343,9 @@ pub struct RewriteObject {
     /// The object will be rewritten and set with the specified KMS key.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub kms_key: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RewriteObject {
@@ -1378,6 +1426,9 @@ pub struct PutMetadata {
     /// <https://cloud.google.com/storage/docs/metadata#custom-metadata>
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub custom_metadata: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PutMetadata {
@@ -1477,6 +1528,9 @@ pub struct ErrorSummary {
     /// Required. Sample error logs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub error_log_entries: std::vec::Vec<crate::model::ErrorLogEntry>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ErrorSummary {
@@ -1528,6 +1582,9 @@ pub struct ErrorLogEntry {
     /// error code for a job.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub error_details: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ErrorLogEntry {
@@ -1576,6 +1633,9 @@ pub struct Counters {
     /// Output only. Number of objects failed.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub failed_object_count: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Counters {
@@ -1622,6 +1682,9 @@ pub struct LoggingConfig {
     /// generated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub log_action_states: std::vec::Vec<crate::model::logging_config::LoggableActionState>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LoggingConfig {

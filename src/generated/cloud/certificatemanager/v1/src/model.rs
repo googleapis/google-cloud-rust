@@ -63,6 +63,9 @@ pub struct ListCertificateIssuanceConfigsRequest {
     /// descending order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateIssuanceConfigsRequest {
@@ -126,6 +129,9 @@ pub struct ListCertificateIssuanceConfigsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateIssuanceConfigsResponse {
@@ -192,6 +198,9 @@ pub struct GetCertificateIssuanceConfigRequest {
     /// the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCertificateIssuanceConfigRequest {
@@ -230,6 +239,9 @@ pub struct CreateCertificateIssuanceConfigRequest {
     /// Required. A definition of the certificate issuance config to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub certificate_issuance_config: std::option::Option<crate::model::CertificateIssuanceConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCertificateIssuanceConfigRequest {
@@ -280,6 +292,9 @@ pub struct DeleteCertificateIssuanceConfigRequest {
     /// the format `projects/*/locations/*/certificateIssuanceConfigs/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCertificateIssuanceConfigRequest {
@@ -345,6 +360,9 @@ pub struct CertificateIssuanceConfig {
 
     /// Required. The key algorithm to use when generating the private key.
     pub key_algorithm: crate::model::certificate_issuance_config::KeyAlgorithm,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateIssuanceConfig {
@@ -458,6 +476,9 @@ pub mod certificate_issuance_config {
         pub kind: std::option::Option<
             crate::model::certificate_issuance_config::certificate_authority_config::Kind,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CertificateAuthorityConfig {
@@ -520,6 +541,9 @@ pub mod certificate_issuance_config {
             /// "projects/{project}/locations/{location}/caPools/{ca_pool}".
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub ca_pool: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl CertificateAuthorityServiceConfig {
@@ -638,6 +662,9 @@ pub struct ListCertificatesRequest {
     /// order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificatesRequest {
@@ -701,6 +728,9 @@ pub struct ListCertificatesResponse {
     /// A list of locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificatesResponse {
@@ -767,6 +797,9 @@ pub struct GetCertificateRequest {
     /// `projects/*/locations/*/certificates/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCertificateRequest {
@@ -805,6 +838,9 @@ pub struct CreateCertificateRequest {
     /// Required. A definition of the certificate to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub certificate: std::option::Option<crate::model::Certificate>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCertificateRequest {
@@ -857,6 +893,9 @@ pub struct UpdateCertificateRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCertificateRequest {
@@ -901,6 +940,9 @@ pub struct DeleteCertificateRequest {
     /// `projects/*/locations/*/certificates/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCertificateRequest {
@@ -950,6 +992,9 @@ pub struct ListCertificateMapsRequest {
     /// descending order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateMapsRequest {
@@ -1013,6 +1058,9 @@ pub struct ListCertificateMapsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateMapsResponse {
@@ -1079,6 +1127,9 @@ pub struct GetCertificateMapRequest {
     /// `projects/*/locations/*/certificateMaps/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCertificateMapRequest {
@@ -1117,6 +1168,9 @@ pub struct CreateCertificateMapRequest {
     /// Required. A definition of the certificate map to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub certificate_map: std::option::Option<crate::model::CertificateMap>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCertificateMapRequest {
@@ -1172,6 +1226,9 @@ pub struct UpdateCertificateMapRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCertificateMapRequest {
@@ -1216,6 +1273,9 @@ pub struct DeleteCertificateMapRequest {
     /// `projects/*/locations/*/certificateMaps/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCertificateMapRequest {
@@ -1270,6 +1330,9 @@ pub struct ListCertificateMapEntriesRequest {
     /// To specify descending order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateMapEntriesRequest {
@@ -1333,6 +1396,9 @@ pub struct ListCertificateMapEntriesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateMapEntriesResponse {
@@ -1399,6 +1465,9 @@ pub struct GetCertificateMapEntryRequest {
     /// format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCertificateMapEntryRequest {
@@ -1437,6 +1506,9 @@ pub struct CreateCertificateMapEntryRequest {
     /// Required. A definition of the certificate map entry to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub certificate_map_entry: std::option::Option<crate::model::CertificateMapEntry>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCertificateMapEntryRequest {
@@ -1492,6 +1564,9 @@ pub struct UpdateCertificateMapEntryRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCertificateMapEntryRequest {
@@ -1536,6 +1611,9 @@ pub struct DeleteCertificateMapEntryRequest {
     /// format `projects/*/locations/*/certificateMaps/*/certificateMapEntries/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCertificateMapEntryRequest {
@@ -1585,6 +1663,9 @@ pub struct ListDnsAuthorizationsRequest {
     /// descending order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDnsAuthorizationsRequest {
@@ -1648,6 +1729,9 @@ pub struct ListDnsAuthorizationsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDnsAuthorizationsResponse {
@@ -1714,6 +1798,9 @@ pub struct GetDnsAuthorizationRequest {
     /// format `projects/*/locations/*/dnsAuthorizations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDnsAuthorizationRequest {
@@ -1752,6 +1839,9 @@ pub struct CreateDnsAuthorizationRequest {
     /// Required. A definition of the dns authorization to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub dns_authorization: std::option::Option<crate::model::DnsAuthorization>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDnsAuthorizationRequest {
@@ -1807,6 +1897,9 @@ pub struct UpdateDnsAuthorizationRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDnsAuthorizationRequest {
@@ -1851,6 +1944,9 @@ pub struct DeleteDnsAuthorizationRequest {
     /// `projects/*/locations/*/dnsAuthorizations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDnsAuthorizationRequest {
@@ -1909,6 +2005,9 @@ pub struct OperationMetadata {
     /// API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -2018,6 +2117,9 @@ pub struct Certificate {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub r#type: std::option::Option<crate::model::certificate::Type>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Certificate {
@@ -2197,6 +2299,9 @@ pub mod certificate {
         /// Input only. The PEM-encoded private key of the leaf certificate.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub pem_private_key: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SelfManagedCertificate {
@@ -2274,6 +2379,9 @@ pub mod certificate {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub authorization_attempt_info:
             std::vec::Vec<crate::model::certificate::managed_certificate::AuthorizationAttemptInfo>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ManagedCertificate {
@@ -2377,6 +2485,9 @@ pub mod certificate {
             /// programmatic access use Reason enum.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub details: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl ProvisioningIssue {
@@ -2503,6 +2614,9 @@ pub mod certificate {
             /// stable. For programmatic access use FailureReason enum.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub details: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl AuthorizationAttemptInfo {
@@ -2853,6 +2967,9 @@ pub struct CertificateMap {
     /// Forwarding Rule.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub gclb_targets: std::vec::Vec<crate::model::certificate_map::GclbTarget>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateMap {
@@ -2940,6 +3057,9 @@ pub mod certificate_map {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub target_proxy:
             std::option::Option<crate::model::certificate_map::gclb_target::TargetProxy>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GclbTarget {
@@ -3052,6 +3172,9 @@ pub mod certificate_map {
             /// Output only. Ports.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub ports: std::vec::Vec<u32>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl IpConfig {
@@ -3142,6 +3265,9 @@ pub struct CertificateMapEntry {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub r#match: std::option::Option<crate::model::certificate_map_entry::Match>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateMapEntry {
@@ -3397,6 +3523,9 @@ pub struct DnsAuthorization {
     /// - in location global: FIXED_RECORD.
     #[serde(rename = "type")]
     pub r#type: crate::model::dns_authorization::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DnsAuthorization {
@@ -3506,6 +3635,9 @@ pub mod dns_authorization {
         /// Output only. Data of the DNS Resource Record.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub data: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DnsResourceRecord {
@@ -3627,6 +3759,9 @@ pub struct ListTrustConfigsRequest {
     /// descending order for a field, add a suffix `" desc"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTrustConfigsRequest {
@@ -3690,6 +3825,9 @@ pub struct ListTrustConfigsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTrustConfigsResponse {
@@ -3756,6 +3894,9 @@ pub struct GetTrustConfigRequest {
     /// `projects/*/locations/*/trustConfigs/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTrustConfigRequest {
@@ -3795,6 +3936,9 @@ pub struct CreateTrustConfigRequest {
     /// Required. A definition of the TrustConfig to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub trust_config: std::option::Option<crate::model::TrustConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTrustConfigRequest {
@@ -3847,6 +3991,9 @@ pub struct UpdateTrustConfigRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTrustConfigRequest {
@@ -3897,6 +4044,9 @@ pub struct DeleteTrustConfigRequest {
     /// deletion will be blocked and an ABORTED error will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTrustConfigRequest {
@@ -3965,6 +4115,9 @@ pub struct TrustConfig {
     /// Only one TrustStore specified is currently allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub trust_stores: std::vec::Vec<crate::model::trust_config::TrustStore>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TrustConfig {
@@ -4051,6 +4204,9 @@ pub mod trust_config {
     pub struct TrustAnchor {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub kind: std::option::Option<crate::model::trust_config::trust_anchor::Kind>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TrustAnchor {
@@ -4128,6 +4284,9 @@ pub mod trust_config {
     pub struct IntermediateCA {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub kind: std::option::Option<crate::model::trust_config::intermediate_ca::Kind>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IntermediateCA {
@@ -4218,6 +4377,9 @@ pub mod trust_config {
         /// workload certificate feature.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub intermediate_cas: std::vec::Vec<crate::model::trust_config::IntermediateCA>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TrustStore {

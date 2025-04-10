@@ -46,6 +46,9 @@ pub struct CreateDataPolicyRequest {
     /// provided for the data policy creation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub data_policy: std::option::Option<crate::model::DataPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDataPolicyRequest {
@@ -96,6 +99,9 @@ pub struct UpdateDataPolicyRequest {
     /// Updates to the `name` and `dataPolicyId` fields are not allowed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDataPolicyRequest {
@@ -142,6 +148,9 @@ pub struct RenameDataPolicyRequest {
     /// Required. The new data policy id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub new_data_policy_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RenameDataPolicyRequest {
@@ -181,6 +190,9 @@ pub struct DeleteDataPolicyRequest {
     /// `projects/{project_number}/locations/{location_id}/dataPolicies/{data_policy_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDataPolicyRequest {
@@ -211,6 +223,9 @@ pub struct GetDataPolicyRequest {
     /// `projects/{project_number}/locations/{location_id}/dataPolicies/{data_policy_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDataPolicyRequest {
@@ -262,6 +277,9 @@ pub struct ListDataPoliciesRequest {
     /// cannot be used with wildcard filters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataPoliciesRequest {
@@ -314,6 +332,9 @@ pub struct ListDataPoliciesResponse {
     /// more results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataPoliciesResponse {
@@ -386,6 +407,9 @@ pub struct DataPolicy {
     /// The policy that is bound to this data policy.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub policy: std::option::Option<crate::model::data_policy::Policy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataPolicy {
@@ -595,6 +619,9 @@ pub struct DataMaskingPolicy {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub masking_expression:
         std::option::Option<crate::model::data_masking_policy::MaskingExpression>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataMaskingPolicy {

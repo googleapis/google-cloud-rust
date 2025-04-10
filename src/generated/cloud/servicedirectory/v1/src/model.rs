@@ -100,6 +100,9 @@ pub struct Endpoint {
     /// format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Endpoint {
@@ -214,6 +217,9 @@ pub struct ResolveServiceRequest {
     /// [API Filtering](https://aip.dev/160).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub endpoint_filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResolveServiceRequest {
@@ -257,6 +263,9 @@ impl wkt::message::Message for ResolveServiceRequest {
 pub struct ResolveServiceResponse {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service: std::option::Option<crate::model::Service>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResolveServiceResponse {
@@ -305,6 +314,9 @@ pub struct Namespace {
     /// format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Namespace {
@@ -370,6 +382,9 @@ pub struct CreateNamespaceRequest {
     /// Required. A namespace with initial fields set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub namespace: std::option::Option<crate::model::Namespace>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateNamespaceRequest {
@@ -470,6 +485,9 @@ pub struct ListNamespacesRequest {
     /// order by `name` in ascending order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNamespacesRequest {
@@ -531,6 +549,9 @@ pub struct ListNamespacesResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNamespacesResponse {
@@ -588,6 +609,9 @@ pub struct GetNamespaceRequest {
     /// Required. The name of the namespace to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetNamespaceRequest {
@@ -624,6 +648,9 @@ pub struct UpdateNamespaceRequest {
     /// Required. List of fields to be updated in this request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateNamespaceRequest {
@@ -668,6 +695,9 @@ pub struct DeleteNamespaceRequest {
     /// Required. The name of the namespace to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteNamespaceRequest {
@@ -714,6 +744,9 @@ pub struct CreateServiceRequest {
     /// Required. A service  with initial fields set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service: std::option::Option<crate::model::Service>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServiceRequest {
@@ -817,6 +850,9 @@ pub struct ListServicesRequest {
     /// order by `name` in ascending order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicesRequest {
@@ -878,6 +914,9 @@ pub struct ListServicesResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicesResponse {
@@ -937,6 +976,9 @@ pub struct GetServiceRequest {
     /// Required. The name of the service to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceRequest {
@@ -973,6 +1015,9 @@ pub struct UpdateServiceRequest {
     /// Required. List of fields to be updated in this request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateServiceRequest {
@@ -1017,6 +1062,9 @@ pub struct DeleteServiceRequest {
     /// Required. The name of the service to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServiceRequest {
@@ -1063,6 +1111,9 @@ pub struct CreateEndpointRequest {
     /// Required. A endpoint with initial fields set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub endpoint: std::option::Option<crate::model::Endpoint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateEndpointRequest {
@@ -1169,6 +1220,9 @@ pub struct ListEndpointsRequest {
     /// order by `name` in ascending order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEndpointsRequest {
@@ -1230,6 +1284,9 @@ pub struct ListEndpointsResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEndpointsResponse {
@@ -1289,6 +1346,9 @@ pub struct GetEndpointRequest {
     /// Required. The name of the endpoint to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEndpointRequest {
@@ -1325,6 +1385,9 @@ pub struct UpdateEndpointRequest {
     /// Required. List of fields to be updated in this request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateEndpointRequest {
@@ -1369,6 +1432,9 @@ pub struct DeleteEndpointRequest {
     /// Required. The name of the endpoint to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteEndpointRequest {
@@ -1442,6 +1508,9 @@ pub struct Service {
     /// format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Service {

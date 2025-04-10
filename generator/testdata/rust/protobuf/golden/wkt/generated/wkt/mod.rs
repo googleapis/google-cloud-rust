@@ -30,6 +30,9 @@ pub struct SourceContext {
     /// protobuf element.  For example: `"google/protobuf/source_context.proto"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub file_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    _unknown_fields: std::option::Option<serde_json::Map<std::string::String, serde_json::Value>>,
 }
 
 impl SourceContext {

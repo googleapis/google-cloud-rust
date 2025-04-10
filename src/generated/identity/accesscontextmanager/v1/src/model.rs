@@ -56,6 +56,9 @@ pub struct ListAccessPoliciesRequest {
     /// the first page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAccessPoliciesRequest {
@@ -102,6 +105,9 @@ pub struct ListAccessPoliciesResponse {
     /// empty, no further results remain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAccessPoliciesResponse {
@@ -158,6 +164,9 @@ pub struct GetAccessPolicyRequest {
     /// Format `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAccessPolicyRequest {
@@ -191,6 +200,9 @@ pub struct UpdateAccessPolicyRequest {
     /// Required. Mask to control which fields get updated. Must be non-empty.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAccessPolicyRequest {
@@ -234,6 +246,9 @@ pub struct DeleteAccessPolicyRequest {
     /// Format `accessPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAccessPolicyRequest {
@@ -283,6 +298,9 @@ pub struct ListAccessLevelsRequest {
     /// `CustomLevels`, rather than as `BasicLevels`. Defaults to returning
     /// `AccessLevels` in the format they were defined.
     pub access_level_format: crate::model::LevelFormat,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAccessLevelsRequest {
@@ -339,6 +357,9 @@ pub struct ListAccessLevelsResponse {
     /// empty, no further results remain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAccessLevelsResponse {
@@ -407,6 +428,9 @@ pub struct GetAccessLevelRequest {
     /// `CustomLevels`. In the CEL case, `BasicLevels` are translated to equivalent
     /// `CustomLevels`.
     pub access_level_format: crate::model::LevelFormat,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAccessLevelRequest {
@@ -456,6 +480,9 @@ pub struct CreateAccessLevelRequest {
     /// precondition for creation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub access_level: std::option::Option<crate::model::AccessLevel>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAccessLevelRequest {
@@ -504,6 +531,9 @@ pub struct UpdateAccessLevelRequest {
     /// Required. Mask to control which fields get updated. Must be non-empty.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAccessLevelRequest {
@@ -551,6 +581,9 @@ pub struct DeleteAccessLevelRequest {
     /// `accessPolicies/{policy_id}/accessLevels/{access_level_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAccessLevelRequest {
@@ -604,6 +637,9 @@ pub struct ReplaceAccessLevelsRequest {
     /// provided, the operation will be performed as if a valid etag is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplaceAccessLevelsRequest {
@@ -652,6 +688,9 @@ pub struct ReplaceAccessLevelsResponse {
     /// [google.identity.accesscontextmanager.v1.AccessLevel] instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub access_levels: std::vec::Vec<crate::model::AccessLevel>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplaceAccessLevelsResponse {
@@ -701,6 +740,9 @@ pub struct ListServicePerimetersRequest {
     /// Defaults to the first page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicePerimetersRequest {
@@ -748,6 +790,9 @@ pub struct ListServicePerimetersResponse {
     /// empty, no further results remain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicePerimetersResponse {
@@ -806,6 +851,9 @@ pub struct GetServicePerimeterRequest {
     /// `accessPolicies/{policy_id}/servicePerimeters/{service_perimeters_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServicePerimeterRequest {
@@ -846,6 +894,9 @@ pub struct CreateServicePerimeterRequest {
     /// precondition for creation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service_perimeter: std::option::Option<crate::model::ServicePerimeter>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServicePerimeterRequest {
@@ -891,6 +942,9 @@ pub struct UpdateServicePerimeterRequest {
     /// Required. Mask to control which fields get updated. Must be non-empty.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateServicePerimeterRequest {
@@ -938,6 +992,9 @@ pub struct DeleteServicePerimeterRequest {
     /// `accessPolicies/{policy_id}/servicePerimeters/{service_perimeter_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServicePerimeterRequest {
@@ -991,6 +1048,9 @@ pub struct ReplaceServicePerimetersRequest {
     /// provided, the operation will be performed as if a valid etag is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplaceServicePerimetersRequest {
@@ -1039,6 +1099,9 @@ pub struct ReplaceServicePerimetersResponse {
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplaceServicePerimetersResponse {
@@ -1093,6 +1156,9 @@ pub struct CommitServicePerimetersRequest {
     /// provided, the operation will be performed as if a valid etag is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CommitServicePerimetersRequest {
@@ -1132,6 +1198,9 @@ pub struct CommitServicePerimetersResponse {
     /// [google.identity.accesscontextmanager.v1.AccessPolicy].
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CommitServicePerimetersResponse {
@@ -1178,6 +1247,9 @@ pub struct ListGcpUserAccessBindingsRequest {
     /// from your previous list operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGcpUserAccessBindingsRequest {
@@ -1225,6 +1297,9 @@ pub struct ListGcpUserAccessBindingsResponse {
     /// Token to get the next page of items. If blank, there are no more items.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGcpUserAccessBindingsResponse {
@@ -1280,6 +1355,9 @@ pub struct GetGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetGcpUserAccessBindingRequest {
@@ -1315,6 +1393,9 @@ pub struct CreateGcpUserAccessBindingRequest {
     /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gcp_user_access_binding: std::option::Option<crate::model::GcpUserAccessBinding>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateGcpUserAccessBindingRequest {
@@ -1366,6 +1447,9 @@ pub struct UpdateGcpUserAccessBindingRequest {
     /// }
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateGcpUserAccessBindingRequest {
@@ -1410,6 +1494,9 @@ pub struct DeleteGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteGcpUserAccessBindingRequest {
@@ -1437,7 +1524,10 @@ impl wkt::message::Message for DeleteGcpUserAccessBindingRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct GcpUserAccessBindingOperationMetadata {}
+pub struct GcpUserAccessBindingOperationMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl GcpUserAccessBindingOperationMetadata {
     pub fn new() -> Self {
@@ -1456,7 +1546,10 @@ impl wkt::message::Message for GcpUserAccessBindingOperationMetadata {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AccessContextManagerOperationMetadata {}
+pub struct AccessContextManagerOperationMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AccessContextManagerOperationMetadata {
     pub fn new() -> Self {
@@ -1504,6 +1597,9 @@ pub struct AccessLevel {
     /// Required. Describes the necessary conditions for the level to apply.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub level: std::option::Option<crate::model::access_level::Level>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessLevel {
@@ -1646,6 +1742,9 @@ pub struct BasicLevel {
     /// is used, at least one `Condition` in `conditions` must be satisfied for the
     /// `AccessLevel` to be applied. Default behavior is AND.
     pub combining_function: crate::model::basic_level::ConditionCombiningFunction,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BasicLevel {
@@ -1793,6 +1892,9 @@ pub struct Condition {
     /// Must be valid ISO 3166-1 alpha-2 codes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub regions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Condition {
@@ -1879,6 +1981,9 @@ pub struct CustomLevel {
     /// Required. A Cloud CEL expression evaluating to a boolean.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expr: std::option::Option<gtype::model::Expr>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomLevel {
@@ -1940,6 +2045,9 @@ pub struct DevicePolicy {
 
     /// Whether the device needs to be corp owned.
     pub require_corp_owned: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DevicePolicy {
@@ -2025,6 +2133,9 @@ pub struct OsConstraint {
     /// conformant to domain policies, and the caller has permission to call
     /// the API targeted by the request.
     pub require_verified_chrome_os: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OsConstraint {
@@ -2117,6 +2228,9 @@ pub struct AccessPolicy {
     /// identical. Clients should not expect this to be in any specific format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessPolicy {
@@ -2215,6 +2329,9 @@ pub struct GcpUserAccessBinding {
     /// Example: "accessPolicies/9522/accessLevels/device_trusted"
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub access_levels: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcpUserAccessBinding {
@@ -2323,6 +2440,9 @@ pub struct ServicePerimeter {
     /// restrictions. use_explicit_dry_run_spec must bet set to True if any of the
     /// fields in the spec are set to non-default values.
     pub use_explicit_dry_run_spec: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServicePerimeter {
@@ -2540,6 +2660,9 @@ pub struct ServicePerimeterConfig {
     /// grants it. Must be empty for a perimeter bridge.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub egress_policies: std::vec::Vec<crate::model::service_perimeter_config::EgressPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServicePerimeterConfig {
@@ -2644,6 +2767,9 @@ pub mod service_perimeter_config {
         /// automatically includes all of the services protected by the perimeter.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub allowed_services: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl VpcAccessibleServices {
@@ -2686,6 +2812,9 @@ pub mod service_perimeter_config {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub kind:
             std::option::Option<crate::model::service_perimeter_config::method_selector::Kind>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MethodSelector {
@@ -2812,6 +2941,9 @@ pub mod service_perimeter_config {
         /// AND permissions for the service specified in `service_name`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub method_selectors: std::vec::Vec<crate::model::service_perimeter_config::MethodSelector>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ApiOperation {
@@ -2860,6 +2992,9 @@ pub mod service_perimeter_config {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub source:
             std::option::Option<crate::model::service_perimeter_config::ingress_source::Source>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IngressSource {
@@ -3012,6 +3147,9 @@ pub mod service_perimeter_config {
         /// perimeter. If left unspecified, then members of `identities` field will
         /// be allowed access.
         pub identity_type: crate::model::service_perimeter_config::IdentityType,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IngressFrom {
@@ -3092,6 +3230,9 @@ pub mod service_perimeter_config {
         /// perimeter are allowed.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub resources: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IngressTo {
@@ -3167,6 +3308,9 @@ pub mod service_perimeter_config {
         /// to apply.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub ingress_to: std::option::Option<crate::model::service_perimeter_config::IngressTo>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IngressPolicy {
@@ -3233,6 +3377,9 @@ pub mod service_perimeter_config {
         /// perimeter. If left unspecified, then members of `identities` field will
         /// be allowed access.
         pub identity_type: crate::model::service_perimeter_config::IdentityType,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EgressFrom {
@@ -3317,6 +3464,9 @@ pub mod service_perimeter_config {
         /// s3://bucket/path). Currently '*' is not allowed.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub external_resources: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EgressTo {
@@ -3410,6 +3560,9 @@ pub mod service_perimeter_config {
         /// to apply.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub egress_to: std::option::Option<crate::model::service_perimeter_config::EgressTo>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EgressPolicy {

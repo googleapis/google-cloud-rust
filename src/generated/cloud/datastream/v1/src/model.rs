@@ -57,6 +57,9 @@ pub struct DiscoverConnectionProfileRequest {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub data_object:
         std::option::Option<crate::model::discover_connection_profile_request::DataObject>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DiscoverConnectionProfileRequest {
@@ -408,6 +411,9 @@ pub struct DiscoverConnectionProfileResponse {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub data_object:
         std::option::Option<crate::model::discover_connection_profile_response::DataObject>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DiscoverConnectionProfileResponse {
@@ -602,6 +608,9 @@ pub struct FetchStaticIpsRequest {
     /// will likely not be specified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchStaticIpsRequest {
@@ -648,6 +657,9 @@ pub struct FetchStaticIpsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchStaticIpsResponse {
@@ -709,6 +721,9 @@ pub struct ListConnectionProfilesRequest {
     /// Order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectionProfilesRequest {
@@ -771,6 +786,9 @@ pub struct ListConnectionProfilesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectionProfilesResponse {
@@ -836,6 +854,9 @@ pub struct GetConnectionProfileRequest {
     /// Required. The name of the connection profile resource to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConnectionProfileRequest {
@@ -896,6 +917,9 @@ pub struct CreateConnectionProfileRequest {
 
     /// Optional. Create the connection profile without validating it.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateConnectionProfileRequest {
@@ -994,6 +1018,9 @@ pub struct UpdateConnectionProfileRequest {
 
     /// Optional. Update the connection profile without validating it.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateConnectionProfileRequest {
@@ -1071,6 +1098,9 @@ pub struct DeleteConnectionProfileRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteConnectionProfileRequest {
@@ -1127,6 +1157,9 @@ pub struct ListStreamsRequest {
     /// Order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListStreamsRequest {
@@ -1189,6 +1222,9 @@ pub struct ListStreamsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListStreamsResponse {
@@ -1254,6 +1290,9 @@ pub struct GetStreamRequest {
     /// Required. The name of the stream resource to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetStreamRequest {
@@ -1314,6 +1353,9 @@ pub struct CreateStreamRequest {
 
     /// Optional. Create the stream without validating it.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateStreamRequest {
@@ -1407,6 +1449,9 @@ pub struct UpdateStreamRequest {
 
     /// Optional. Update the stream without validating it.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateStreamRequest {
@@ -1482,6 +1527,9 @@ pub struct DeleteStreamRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteStreamRequest {
@@ -1526,6 +1574,9 @@ pub struct RunStreamRequest {
 
     /// Optional. Update the stream without validating it.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RunStreamRequest {
@@ -1572,6 +1623,9 @@ pub struct GetStreamObjectRequest {
     /// Required. The name of the stream object resource to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetStreamObjectRequest {
@@ -1606,6 +1660,9 @@ pub struct LookupStreamObjectRequest {
     /// Required. The source object identifier which maps to the stream object.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source_object_identifier: std::option::Option<crate::model::SourceObjectIdentifier>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LookupStreamObjectRequest {
@@ -1647,6 +1704,9 @@ pub struct StartBackfillJobRequest {
     /// for.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub object: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartBackfillJobRequest {
@@ -1676,6 +1736,9 @@ pub struct StartBackfillJobResponse {
     /// The stream object resource a backfill job was started for.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub object: std::option::Option<crate::model::StreamObject>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartBackfillJobResponse {
@@ -1710,6 +1773,9 @@ pub struct StopBackfillJobRequest {
     /// for.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub object: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StopBackfillJobRequest {
@@ -1739,6 +1805,9 @@ pub struct StopBackfillJobResponse {
     /// The stream object resource the backfill job was stopped for.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub object: std::option::Option<crate::model::StreamObject>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StopBackfillJobResponse {
@@ -1784,6 +1853,9 @@ pub struct ListStreamObjectsRequest {
     /// token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListStreamObjectsRequest {
@@ -1829,6 +1901,9 @@ pub struct ListStreamObjectsResponse {
     /// A token, which can be sent as `page_token` to retrieve the next page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListStreamObjectsResponse {
@@ -1918,6 +1993,9 @@ pub struct OperationMetadata {
     /// Output only. Results of executed validations if there are any.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub validation_result: std::option::Option<crate::model::ValidationResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -2027,6 +2105,9 @@ pub struct CreatePrivateConnectionRequest {
 
     /// Optional. If set to true, will skip validations.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePrivateConnectionRequest {
@@ -2112,6 +2193,9 @@ pub struct ListPrivateConnectionsRequest {
     /// Order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPrivateConnectionsRequest {
@@ -2174,6 +2258,9 @@ pub struct ListPrivateConnectionsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPrivateConnectionsResponse {
@@ -2259,6 +2346,9 @@ pub struct DeletePrivateConnectionRequest {
     /// Optional. If set to true, any child routes that belong to this
     /// PrivateConnection will also be deleted.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePrivateConnectionRequest {
@@ -2300,6 +2390,9 @@ pub struct GetPrivateConnectionRequest {
     /// Required. The name of the  private connectivity configuration to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPrivateConnectionRequest {
@@ -2353,6 +2446,9 @@ pub struct CreateRouteRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateRouteRequest {
@@ -2426,6 +2522,9 @@ pub struct ListRoutesRequest {
     /// Order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRoutesRequest {
@@ -2488,6 +2587,9 @@ pub struct ListRoutesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRoutesResponse {
@@ -2569,6 +2671,9 @@ pub struct DeleteRouteRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteRouteRequest {
@@ -2604,6 +2709,9 @@ pub struct GetRouteRequest {
     /// Required. The name of the Route resource to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRouteRequest {
@@ -2666,6 +2774,9 @@ pub struct OracleProfile {
     /// connection password. Mutually exclusive with the `password` field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secret_manager_stored_password: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OracleProfile {
@@ -2794,6 +2905,9 @@ pub struct OracleAsmConfig {
     /// ASM connection password. Mutually exclusive with the `password` field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secret_manager_stored_password: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OracleAsmConfig {
@@ -2900,6 +3014,9 @@ pub struct MysqlProfile {
     /// connection password. Mutually exclusive with the `password` field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secret_manager_stored_password: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MysqlProfile {
@@ -2996,6 +3113,9 @@ pub struct PostgresqlProfile {
     /// enabled from database side, otherwise will use unencrypted communication)
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ssl_config: std::option::Option<crate::model::PostgresqlSslConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostgresqlProfile {
@@ -3091,6 +3211,9 @@ pub struct SqlServerProfile {
     /// field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secret_manager_stored_password: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlServerProfile {
@@ -3157,6 +3280,9 @@ pub struct SalesforceProfile {
     /// Credentials for Salesforce connection.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub credentials: std::option::Option<crate::model::salesforce_profile::Credentials>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SalesforceProfile {
@@ -3293,6 +3419,9 @@ pub mod salesforce_profile {
         /// `security_token` field.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub secret_manager_stored_security_token: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl UserCredentials {
@@ -3368,6 +3497,9 @@ pub mod salesforce_profile {
         /// `client_secret` field.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub secret_manager_stored_client_secret: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Oauth2ClientCredentials {
@@ -3435,6 +3567,9 @@ pub struct GcsProfile {
     /// The root path inside the Cloud Storage bucket.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub root_path: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsProfile {
@@ -3466,7 +3601,10 @@ impl wkt::message::Message for GcsProfile {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct BigQueryProfile {}
+pub struct BigQueryProfile {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl BigQueryProfile {
     pub fn new() -> Self {
@@ -3487,7 +3625,10 @@ impl wkt::message::Message for BigQueryProfile {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct StaticServiceIpConnectivity {}
+pub struct StaticServiceIpConnectivity {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl StaticServiceIpConnectivity {
     pub fn new() -> Self {
@@ -3521,6 +3662,9 @@ pub struct ForwardSshTunnelConnectivity {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub authentication_method:
         std::option::Option<crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ForwardSshTunnelConnectivity {
@@ -3651,6 +3795,9 @@ pub struct VpcPeeringConfig {
     /// Required. A free subnet for peering. (CIDR of /29)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub subnet: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VpcPeeringConfig {
@@ -3723,6 +3870,9 @@ pub struct PrivateConnection {
     /// VPC Peering Config.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub vpc_peering_config: std::option::Option<crate::model::VpcPeeringConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrivateConnection {
@@ -3914,6 +4064,9 @@ pub struct PrivateConnectivity {
     /// Format: `projects/{project}/locations/{location}/privateConnections/{name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub private_connection: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrivateConnectivity {
@@ -3970,6 +4123,9 @@ pub struct Route {
 
     /// Destination port for connection
     pub destination_port: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Route {
@@ -4073,6 +4229,9 @@ pub struct MysqlSslConfig {
 
     /// Output only. Indicates whether the ca_certificate field is set.
     pub ca_certificate_set: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MysqlSslConfig {
@@ -4140,6 +4299,9 @@ pub struct OracleSslConfig {
     /// Output only. Indicates whether the ca_certificate field has been set for
     /// this Connection-Profile.
     pub ca_certificate_set: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OracleSslConfig {
@@ -4179,6 +4341,9 @@ pub struct PostgresqlSslConfig {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub encryption_setting:
         std::option::Option<crate::model::postgresql_ssl_config::EncryptionSetting>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostgresqlSslConfig {
@@ -4296,6 +4461,9 @@ pub mod postgresql_ssl_config {
         /// Required. Input only. PEM-encoded server root CA certificate.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub ca_certificate: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ServerVerification {
@@ -4347,6 +4515,9 @@ pub mod postgresql_ssl_config {
         /// Required. Input only. PEM-encoded server root CA certificate.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub ca_certificate: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ServerAndClientVerification {
@@ -4449,6 +4620,9 @@ pub struct ConnectionProfile {
     /// Connectivity options used to establish a connection to the profile.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub connectivity: std::option::Option<crate::model::connection_profile::Connectivity>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConnectionProfile {
@@ -4936,6 +5110,9 @@ pub struct OracleColumn {
 
     /// The ordinal position of the column in the table.
     pub ordinal_position: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OracleColumn {
@@ -5019,6 +5196,9 @@ pub struct OracleTable {
     /// everything.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub oracle_columns: std::vec::Vec<crate::model::OracleColumn>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OracleTable {
@@ -5063,6 +5243,9 @@ pub struct OracleSchema {
     /// Tables in the schema.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub oracle_tables: std::vec::Vec<crate::model::OracleTable>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OracleSchema {
@@ -5103,6 +5286,9 @@ pub struct OracleRdbms {
     /// Oracle schemas/databases in the database server.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub oracle_schemas: std::vec::Vec<crate::model::OracleSchema>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OracleRdbms {
@@ -5158,6 +5344,9 @@ pub struct OracleSourceConfig {
     /// Configuration to select the CDC method.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub cdc_method: std::option::Option<crate::model::oracle_source_config::CdcMethod>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OracleSourceConfig {
@@ -5371,7 +5560,10 @@ pub mod oracle_source_config {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct DropLargeObjects {}
+    pub struct DropLargeObjects {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl DropLargeObjects {
         pub fn new() -> Self {
@@ -5390,7 +5582,10 @@ pub mod oracle_source_config {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct StreamLargeObjects {}
+    pub struct StreamLargeObjects {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl StreamLargeObjects {
         pub fn new() -> Self {
@@ -5409,7 +5604,10 @@ pub mod oracle_source_config {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct LogMiner {}
+    pub struct LogMiner {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl LogMiner {
         pub fn new() -> Self {
@@ -5434,6 +5632,9 @@ pub mod oracle_source_config {
         pub log_file_access: std::option::Option<
             crate::model::oracle_source_config::binary_log_parser::LogFileAccess,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BinaryLogParser {
@@ -5544,7 +5745,10 @@ pub mod oracle_source_config {
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
-        pub struct OracleAsmLogFileAccess {}
+        pub struct OracleAsmLogFileAccess {
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
 
         impl OracleAsmLogFileAccess {
             pub fn new() -> Self {
@@ -5571,6 +5775,9 @@ pub mod oracle_source_config {
             /// Required. Oracle directory for archived logs.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub archived_log_directory: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl LogFileDirectories {
@@ -5677,6 +5884,9 @@ pub struct PostgresqlColumn {
 
     /// The ordinal position of the column in the table.
     pub ordinal_position: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostgresqlColumn {
@@ -5754,6 +5964,9 @@ pub struct PostgresqlTable {
     /// includes/excludes everything.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub postgresql_columns: std::vec::Vec<crate::model::PostgresqlColumn>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostgresqlTable {
@@ -5798,6 +6011,9 @@ pub struct PostgresqlSchema {
     /// Tables in the schema.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub postgresql_tables: std::vec::Vec<crate::model::PostgresqlTable>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostgresqlSchema {
@@ -5838,6 +6054,9 @@ pub struct PostgresqlRdbms {
     /// PostgreSQL schemas in the database server.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub postgresql_schemas: std::vec::Vec<crate::model::PostgresqlSchema>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostgresqlRdbms {
@@ -5891,6 +6110,9 @@ pub struct PostgresqlSourceConfig {
     /// negative. If not set (or set to 0), the system's default value will be
     /// used.
     pub max_concurrent_backfill_tasks: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PostgresqlSourceConfig {
@@ -5979,6 +6201,9 @@ pub struct SqlServerColumn {
 
     /// The ordinal position of the column in the table.
     pub ordinal_position: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlServerColumn {
@@ -6056,6 +6281,9 @@ pub struct SqlServerTable {
     /// includes/excludes everything.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub columns: std::vec::Vec<crate::model::SqlServerColumn>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlServerTable {
@@ -6100,6 +6328,9 @@ pub struct SqlServerSchema {
     /// Tables in the schema.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub tables: std::vec::Vec<crate::model::SqlServerTable>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlServerSchema {
@@ -6140,6 +6371,9 @@ pub struct SqlServerRdbms {
     /// SQLServer schemas in the database server.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub schemas: std::vec::Vec<crate::model::SqlServerSchema>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlServerRdbms {
@@ -6188,6 +6422,9 @@ pub struct SqlServerSourceConfig {
     /// Configuration to select the CDC read method for the stream.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub cdc_method: std::option::Option<crate::model::sql_server_source_config::CdcMethod>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlServerSourceConfig {
@@ -6333,7 +6570,10 @@ pub mod sql_server_source_config {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct SqlServerTransactionLogs {}
+pub struct SqlServerTransactionLogs {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl SqlServerTransactionLogs {
     pub fn new() -> Self {
@@ -6352,7 +6592,10 @@ impl wkt::message::Message for SqlServerTransactionLogs {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct SqlServerChangeTables {}
+pub struct SqlServerChangeTables {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl SqlServerChangeTables {
     pub fn new() -> Self {
@@ -6402,6 +6645,9 @@ pub struct MysqlColumn {
 
     /// Column scale.
     pub scale: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MysqlColumn {
@@ -6485,6 +6731,9 @@ pub struct MysqlTable {
     /// everything.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub mysql_columns: std::vec::Vec<crate::model::MysqlColumn>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MysqlTable {
@@ -6529,6 +6778,9 @@ pub struct MysqlDatabase {
     /// Tables in the database.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub mysql_tables: std::vec::Vec<crate::model::MysqlTable>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MysqlDatabase {
@@ -6569,6 +6821,9 @@ pub struct MysqlRdbms {
     /// Mysql databases on the server
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub mysql_databases: std::vec::Vec<crate::model::MysqlDatabase>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MysqlRdbms {
@@ -6620,6 +6875,9 @@ pub struct MysqlSourceConfig {
     /// The CDC method to use for the stream.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub cdc_method: std::option::Option<crate::model::mysql_source_config::CdcMethod>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MysqlSourceConfig {
@@ -6751,7 +7009,10 @@ pub mod mysql_source_config {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct BinaryLogPosition {}
+    pub struct BinaryLogPosition {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl BinaryLogPosition {
         pub fn new() -> Self {
@@ -6770,7 +7031,10 @@ pub mod mysql_source_config {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Gtid {}
+    pub struct Gtid {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Gtid {
         pub fn new() -> Self {
@@ -6815,6 +7079,9 @@ pub struct SalesforceSourceConfig {
     /// minutes and 24 hours.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub polling_interval: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SalesforceSourceConfig {
@@ -6869,6 +7136,9 @@ pub struct SalesforceOrg {
     /// Salesforce objects in the database server.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub objects: std::vec::Vec<crate::model::SalesforceObject>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SalesforceOrg {
@@ -6910,6 +7180,9 @@ pub struct SalesforceObject {
     /// excludes nothing.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub fields: std::vec::Vec<crate::model::SalesforceField>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SalesforceObject {
@@ -6957,6 +7230,9 @@ pub struct SalesforceField {
 
     /// Indicates whether the field can accept nil values.
     pub nillable: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SalesforceField {
@@ -7003,6 +7279,9 @@ pub struct SourceConfig {
     /// Stream configuration that is specific to the data source type.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source_stream_config: std::option::Option<crate::model::source_config::SourceStreamConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SourceConfig {
@@ -7225,7 +7504,10 @@ pub mod source_config {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AvroFileFormat {}
+pub struct AvroFileFormat {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AvroFileFormat {
     pub fn new() -> Self {
@@ -7250,6 +7532,9 @@ pub struct JsonFileFormat {
 
     /// Compression of the loaded JSON file.
     pub compression: crate::model::json_file_format::JsonCompression,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl JsonFileFormat {
@@ -7432,6 +7717,9 @@ pub struct GcsDestinationConfig {
     /// File Format that the data should be written in.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub file_format: std::option::Option<crate::model::gcs_destination_config::FileFormat>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsDestinationConfig {
@@ -7583,6 +7871,9 @@ pub struct BigQueryDestinationConfig {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub write_mode: std::option::Option<crate::model::big_query_destination_config::WriteMode>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BigQueryDestinationConfig {
@@ -7805,6 +8096,9 @@ pub mod big_query_destination_config {
         /// <https://cloud.google.com/bigquery/docs/reference/rest/v2/datasets#datasetreference>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub dataset_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SingleTargetDataset {
@@ -7837,6 +8131,9 @@ pub mod big_query_destination_config {
         pub dataset_template: std::option::Option<
             crate::model::big_query_destination_config::source_hierarchy_datasets::DatasetTemplate,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SourceHierarchyDatasets {
@@ -7889,6 +8186,9 @@ pub mod big_query_destination_config {
             /// for more information.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub kms_key_name: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl DatasetTemplate {
@@ -7955,6 +8255,9 @@ pub mod big_query_destination_config {
 
         /// Required. The table format.
         pub table_format: crate::model::big_query_destination_config::blmt_config::TableFormat,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BlmtConfig {
@@ -8134,7 +8437,10 @@ pub mod big_query_destination_config {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct AppendOnly {}
+    pub struct AppendOnly {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl AppendOnly {
         pub fn new() -> Self {
@@ -8154,7 +8460,10 @@ pub mod big_query_destination_config {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Merge {}
+    pub struct Merge {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Merge {
         pub fn new() -> Self {
@@ -8209,6 +8518,9 @@ pub struct DestinationConfig {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination_stream_config:
         std::option::Option<crate::model::destination_config::DestinationStreamConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DestinationConfig {
@@ -8394,6 +8706,9 @@ pub struct Stream {
     /// Stream backfill strategy.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub backfill_strategy: std::option::Option<crate::model::stream::BackfillStrategy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Stream {
@@ -8614,6 +8929,9 @@ pub mod stream {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub excluded_objects:
             std::option::Option<crate::model::stream::backfill_all_strategy::ExcludedObjects>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BackfillAllStrategy {
@@ -8831,7 +9149,10 @@ pub mod stream {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct BackfillNoneStrategy {}
+    pub struct BackfillNoneStrategy {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl BackfillNoneStrategy {
         pub fn new() -> Self {
@@ -8982,6 +9303,9 @@ pub struct StreamObject {
     /// The object identifier in the data source.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source_object: std::option::Option<crate::model::SourceObjectIdentifier>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StreamObject {
@@ -9069,6 +9393,9 @@ pub struct SourceObjectIdentifier {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source_identifier:
         std::option::Option<crate::model::source_object_identifier::SourceIdentifier>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SourceObjectIdentifier {
@@ -9298,6 +9625,9 @@ pub mod source_object_identifier {
         /// Required. The table name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub table: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl OracleObjectIdentifier {
@@ -9337,6 +9667,9 @@ pub mod source_object_identifier {
         /// Required. The table name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub table: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PostgresqlObjectIdentifier {
@@ -9376,6 +9709,9 @@ pub mod source_object_identifier {
         /// Required. The table name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub table: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MysqlObjectIdentifier {
@@ -9415,6 +9751,9 @@ pub mod source_object_identifier {
         /// Required. The table name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub table: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SqlServerObjectIdentifier {
@@ -9450,6 +9789,9 @@ pub mod source_object_identifier {
         /// Required. The object name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub object_name: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SalesforceObjectIdentifier {
@@ -9521,6 +9863,9 @@ pub struct BackfillJob {
     /// Output only. Errors which caused the backfill job to fail.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub errors: std::vec::Vec<crate::model::Error>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BackfillJob {
@@ -9757,6 +10102,9 @@ pub struct Error {
     /// Additional information about the error.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub details: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Error {
@@ -9820,6 +10168,9 @@ pub struct ValidationResult {
     /// validations).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub validations: std::vec::Vec<crate::model::Validation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ValidationResult {
@@ -9865,6 +10216,9 @@ pub struct Validation {
     /// A custom code identifying this validation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Validation {
@@ -10004,6 +10358,9 @@ pub struct ValidationMessage {
     /// A custom code identifying this specific message.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ValidationMessage {
@@ -10125,6 +10482,9 @@ pub struct CdcStrategy {
     /// If not set, the system's default value will be used.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub start_position: std::option::Option<crate::model::cdc_strategy::StartPosition>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CdcStrategy {
@@ -10260,7 +10620,10 @@ pub mod cdc_strategy {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct MostRecentStartPosition {}
+    pub struct MostRecentStartPosition {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl MostRecentStartPosition {
         pub fn new() -> Self {
@@ -10280,7 +10643,10 @@ pub mod cdc_strategy {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct NextAvailableStartPosition {}
+    pub struct NextAvailableStartPosition {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl NextAvailableStartPosition {
         pub fn new() -> Self {
@@ -10303,6 +10669,9 @@ pub mod cdc_strategy {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub position:
             std::option::Option<crate::model::cdc_strategy::specific_start_position::Position>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SpecificStartPosition {
@@ -10512,6 +10881,9 @@ pub struct SqlServerLsnPosition {
     /// Required. Log sequence number (LSN) from where Logs will be read
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub lsn: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SqlServerLsnPosition {
@@ -10541,6 +10913,9 @@ pub struct OracleScnPosition {
     /// Required. SCN number from where Logs will be read
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub scn: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OracleScnPosition {
@@ -10574,6 +10949,9 @@ pub struct MysqlLogPosition {
     /// Optional. The position within the binary log file. Default is head of file.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub log_position: std::option::Option<i32>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MysqlLogPosition {
@@ -10612,6 +10990,9 @@ pub struct MysqlGtidPosition {
     /// Required. The gtid set to start replication from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub gtid_set: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MysqlGtidPosition {

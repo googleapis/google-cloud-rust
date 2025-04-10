@@ -43,6 +43,9 @@ pub struct AuditData {
     /// The permission_delta when when creating or updating a Role.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub permission_delta: std::option::Option<crate::model::audit_data::PermissionDelta>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuditData {
@@ -87,6 +90,9 @@ pub mod audit_data {
         /// Removed permissions.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub removed_permissions: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PermissionDelta {
@@ -200,6 +206,9 @@ pub struct ServiceAccount {
 
     /// Output only. Whether the service account is disabled.
     pub disabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceAccount {
@@ -296,6 +305,9 @@ pub struct CreateServiceAccountRequest {
     /// [google.iam.admin.v1.ServiceAccount]: crate::model::ServiceAccount
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service_account: std::option::Option<crate::model::ServiceAccount>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServiceAccountRequest {
@@ -360,6 +372,9 @@ pub struct ListServiceAccountsRequest {
     /// [google.iam.admin.v1.ListServiceAccountsResponse.next_page_token]: crate::model::ListServiceAccountsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceAccountsRequest {
@@ -409,6 +424,9 @@ pub struct ListServiceAccountsResponse {
     /// [google.iam.admin.v1.ListServiceAccountsRequest.page_token]: crate::model::ListServiceAccountsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceAccountsResponse {
@@ -467,6 +485,9 @@ pub struct GetServiceAccountRequest {
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceAccountRequest {
@@ -500,6 +521,9 @@ pub struct DeleteServiceAccountRequest {
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServiceAccountRequest {
@@ -537,6 +561,9 @@ pub struct PatchServiceAccountRequest {
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PatchServiceAccountRequest {
@@ -583,6 +610,9 @@ pub struct UndeleteServiceAccountRequest {
     /// the account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeleteServiceAccountRequest {
@@ -611,6 +641,9 @@ pub struct UndeleteServiceAccountResponse {
     /// Metadata for the restored service account.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub restored_account: std::option::Option<crate::model::ServiceAccount>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeleteServiceAccountResponse {
@@ -649,6 +682,9 @@ pub struct EnableServiceAccountRequest {
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnableServiceAccountRequest {
@@ -682,6 +718,9 @@ pub struct DisableServiceAccountRequest {
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DisableServiceAccountRequest {
@@ -722,6 +761,9 @@ pub struct ListServiceAccountKeysRequest {
     /// is provided, all keys are returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub key_types: std::vec::Vec<crate::model::list_service_account_keys_request::KeyType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceAccountKeysRequest {
@@ -827,6 +869,9 @@ pub struct ListServiceAccountKeysResponse {
     /// The public keys for the service account.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub keys: std::vec::Vec<crate::model::ServiceAccountKey>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceAccountKeysResponse {
@@ -870,6 +915,9 @@ pub struct GetServiceAccountKeyRequest {
     /// Optional. The output format of the public key. The default is `TYPE_NONE`, which
     /// means that the public key is not returned.
     pub public_key_type: crate::model::ServiceAccountPublicKeyType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceAccountKeyRequest {
@@ -979,6 +1027,9 @@ pub struct ServiceAccountKey {
 
     /// The key status.
     pub disabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceAccountKey {
@@ -1098,6 +1149,9 @@ pub struct CreateServiceAccountKeyRequest {
     /// The default is currently a 2K RSA key.  However this may change in the
     /// future.
     pub key_algorithm: crate::model::ServiceAccountKeyAlgorithm,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServiceAccountKeyRequest {
@@ -1159,6 +1213,9 @@ pub struct UploadServiceAccountKeyRequest {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub public_key_data: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UploadServiceAccountKeyRequest {
@@ -1198,6 +1255,9 @@ pub struct DeleteServiceAccountKeyRequest {
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServiceAccountKeyRequest {
@@ -1232,6 +1292,9 @@ pub struct DisableServiceAccountKeyRequest {
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DisableServiceAccountKeyRequest {
@@ -1266,6 +1329,9 @@ pub struct EnableServiceAccountKeyRequest {
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnableServiceAccountKeyRequest {
@@ -1313,6 +1379,9 @@ pub struct SignBlobRequest {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub bytes_to_sign: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SignBlobRequest {
@@ -1362,6 +1431,9 @@ pub struct SignBlobResponse {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub signature: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SignBlobResponse {
@@ -1423,6 +1495,9 @@ pub struct SignJwtRequest {
     /// future.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub payload: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SignJwtRequest {
@@ -1471,6 +1546,9 @@ pub struct SignJwtResponse {
     /// The signed JWT.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub signed_jwt: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SignJwtResponse {
@@ -1539,6 +1617,9 @@ pub struct Role {
     /// The current deleted state of the role. This field is read only.
     /// It will be ignored in calls to CreateRole and UpdateRole.
     pub deleted: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Role {
@@ -1709,6 +1790,9 @@ pub struct QueryGrantableRolesRequest {
     /// QueryGrantableRolesResponse.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryGrantableRolesRequest {
@@ -1764,6 +1848,9 @@ pub struct QueryGrantableRolesResponse {
     /// `QueryGrantableRolesRequest.page_token` to this value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryGrantableRolesResponse {
@@ -1866,6 +1953,9 @@ pub struct ListRolesRequest {
 
     /// Include Roles that have been deleted.
     pub show_deleted: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRolesRequest {
@@ -1924,6 +2014,9 @@ pub struct ListRolesResponse {
     /// `ListRolesRequest.page_token` to this value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRolesResponse {
@@ -2009,6 +2102,9 @@ pub struct GetRoleRequest {
     /// ID or organization ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRoleRequest {
@@ -2073,6 +2169,9 @@ pub struct CreateRoleRequest {
     /// The Role resource to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub role: std::option::Option<crate::model::Role>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateRoleRequest {
@@ -2148,6 +2247,9 @@ pub struct UpdateRoleRequest {
     /// A mask describing which fields in the Role have changed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateRoleRequest {
@@ -2223,6 +2325,9 @@ pub struct DeleteRoleRequest {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub etag: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteRoleRequest {
@@ -2286,6 +2391,9 @@ pub struct UndeleteRoleRequest {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub etag: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeleteRoleRequest {
@@ -2346,6 +2454,9 @@ pub struct Permission {
     /// an alias of, and equivalent to, the listed primary_permission.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub primary_permission: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Permission {
@@ -2568,6 +2679,9 @@ pub struct QueryTestablePermissionsRequest {
     /// QueryTestablePermissionsRequest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryTestablePermissionsRequest {
@@ -2617,6 +2731,9 @@ pub struct QueryTestablePermissionsResponse {
     /// `QueryTestableRolesRequest.page_token` to this value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryTestablePermissionsResponse {
@@ -2676,6 +2793,9 @@ pub struct QueryAuditableServicesRequest {
     /// `//cloudresourcemanager.googleapis.com/projects/my-project`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub full_resource_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryAuditableServicesRequest {
@@ -2708,6 +2828,9 @@ pub struct QueryAuditableServicesResponse {
     /// The auditable services for a resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub services: std::vec::Vec<crate::model::query_auditable_services_response::AuditableService>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QueryAuditableServicesResponse {
@@ -2748,6 +2871,9 @@ pub mod query_auditable_services_response {
         /// For example, the service name for Cloud IAM is 'iam.googleapis.com'.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub name: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AuditableService {
@@ -2790,6 +2916,9 @@ pub struct LintPolicyRequest {
     /// Required. The Cloud IAM object to be linted.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub lint_object: std::option::Option<crate::model::lint_policy_request::LintObject>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LintPolicyRequest {
@@ -2902,6 +3031,9 @@ pub struct LintResult {
     /// Human readable debug message associated with the issue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub debug_message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LintResult {
@@ -3118,6 +3250,9 @@ pub struct LintPolicyResponse {
     /// List of lint results sorted by `severity` in descending order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub lint_results: std::vec::Vec<crate::model::LintResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LintPolicyResponse {

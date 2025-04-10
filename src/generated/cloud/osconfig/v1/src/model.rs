@@ -68,6 +68,9 @@ pub struct Inventory {
     /// Output only. Timestamp of the last reported inventory for the VM.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Inventory {
@@ -165,6 +168,9 @@ pub mod inventory {
         /// The current version of the OS Config agent running on the VM.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub osconfig_agent_version: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl OsInfo {
@@ -267,6 +273,9 @@ pub mod inventory {
         /// Specific details of this inventory item based on its type.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub details: std::option::Option<crate::model::inventory::item::Details>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Item {
@@ -538,6 +547,9 @@ pub mod inventory {
         /// Information about the different types of software packages.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub details: std::option::Option<crate::model::inventory::software_package::Details>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SoftwarePackage {
@@ -928,6 +940,9 @@ pub mod inventory {
         /// The version of the package.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub version: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl VersionedPackage {
@@ -987,6 +1002,9 @@ pub mod inventory {
         /// Any summary information provided about this patch.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub summary: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ZypperPatch {
@@ -1073,6 +1091,9 @@ pub mod inventory {
         /// The last published date of the update, in (UTC) date and time.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub last_deployment_change_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl WindowsUpdatePackage {
@@ -1181,6 +1202,9 @@ pub mod inventory {
             /// The name of the windows update category.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub name: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl WindowsUpdateCategory {
@@ -1232,6 +1256,9 @@ pub mod inventory {
         /// Date that the QFE update was installed.  Mapped from installed_on field.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub install_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl WindowsQuickFixEngineeringPackage {
@@ -1302,6 +1329,9 @@ pub mod inventory {
         /// The internet address for technical support.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub help_link: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl WindowsApplication {
@@ -1376,6 +1406,9 @@ pub struct GetInventoryRequest {
     /// Inventory view indicating what information should be included in the
     /// inventory resource. If unspecified, the default view is BASIC.
     pub view: crate::model::InventoryView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInventoryRequest {
@@ -1434,6 +1467,9 @@ pub struct ListInventoriesRequest {
     /// `Inventory` API resource to be included in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInventoriesRequest {
@@ -1492,6 +1528,9 @@ pub struct ListInventoriesResponse {
     /// The pagination token to retrieve the next page of inventory objects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInventoriesResponse {
@@ -1577,6 +1616,9 @@ pub struct OSPolicy {
     /// to `true` if the policy needs to be reported as compliant even if the
     /// policy has nothing to validate or enforce.
     pub allow_no_resource_group_match: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OSPolicy {
@@ -1650,6 +1692,9 @@ pub mod os_policy {
         /// An empty string matches all OS versions.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub os_version: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InventoryFilter {
@@ -1703,6 +1748,9 @@ pub mod os_policy {
         /// Resource type.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub resource_type: std::option::Option<crate::model::os_policy::resource::ResourceType>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Resource {
@@ -1892,6 +1940,9 @@ pub mod os_policy {
             /// A specific type of file.
             #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
             pub r#type: std::option::Option<crate::model::os_policy::resource::file::Type>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl File {
@@ -2041,6 +2092,9 @@ pub mod os_policy {
                 /// SHA256 checksum of the remote file.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub sha256_checksum: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Remote {
@@ -2087,6 +2141,9 @@ pub mod os_policy {
                 /// Generation number of the Cloud Storage object.
                 #[serde_as(as = "serde_with::DisplayFromStr")]
                 pub generation: i64,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Gcs {
@@ -2153,6 +2210,9 @@ pub mod os_policy {
             pub system_package: std::option::Option<
                 crate::model::os_policy::resource::package_resource::SystemPackage,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl PackageResource {
@@ -2486,6 +2546,9 @@ pub mod os_policy {
                 /// - install when true: `apt-get update && apt-get -y install
                 ///   package.deb`
                 pub pull_deps: bool,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Deb {
@@ -2531,6 +2594,9 @@ pub mod os_policy {
                 /// Required. Package name.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub name: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Apt {
@@ -2570,6 +2636,9 @@ pub mod os_policy {
                 /// - install when true: `yum -y install package.rpm` or
                 ///   `zypper -y install package.rpm`
                 pub pull_deps: bool,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Rpm {
@@ -2615,6 +2684,9 @@ pub mod os_policy {
                 /// Required. Package name.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub name: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Yum {
@@ -2650,6 +2722,9 @@ pub mod os_policy {
                 /// Required. Package name.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub name: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Zypper {
@@ -2685,6 +2760,9 @@ pub mod os_policy {
                 /// Required. Package name.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub name: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl GooGet {
@@ -2724,6 +2802,9 @@ pub mod os_policy {
                 /// REBOOT=ReallySuppress`.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub properties: std::vec::Vec<std::string::String>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Msi {
@@ -2859,6 +2940,9 @@ pub mod os_policy {
             pub repository: std::option::Option<
                 crate::model::os_policy::resource::repository_resource::Repository,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl RepositoryResource {
@@ -3081,6 +3165,9 @@ pub mod os_policy {
                 /// keyring at `/etc/apt/trusted.gpg.d/osconfig_agent_managed.gpg`.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub gpg_key: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl AptRepository {
@@ -3227,6 +3314,9 @@ pub mod os_policy {
                 /// URIs of GPG keys.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub gpg_keys: std::vec::Vec<std::string::String>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl YumRepository {
@@ -3302,6 +3392,9 @@ pub mod os_policy {
                 /// URIs of GPG keys.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub gpg_keys: std::vec::Vec<std::string::String>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl ZypperRepository {
@@ -3366,6 +3459,9 @@ pub mod os_policy {
                 /// Required. The url of the repository.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub url: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl GooRepository {
@@ -3472,6 +3568,9 @@ pub mod os_policy {
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub enforce:
                 std::option::Option<crate::model::os_policy::resource::exec_resource::Exec>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl ExecResource {
@@ -3545,6 +3644,9 @@ pub mod os_policy {
                 pub source: std::option::Option<
                     crate::model::os_policy::resource::exec_resource::exec::Source,
                 >,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Exec {
@@ -3793,6 +3895,9 @@ pub mod os_policy {
             #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
             pub source:
                 std::option::Option<crate::model::os_policy::resource::file_resource::Source>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl FileResource {
@@ -4038,6 +4143,9 @@ pub mod os_policy {
         /// The resources are executed in the exact order specified here.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub resources: std::vec::Vec<crate::model::os_policy::Resource>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ResourceGroup {
@@ -4152,6 +4260,9 @@ pub struct GetOSPolicyAssignmentReportRequest {
     /// For `{assignment_id}`, the OSPolicyAssignment id must be provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetOSPolicyAssignmentReportRequest {
@@ -4215,6 +4326,9 @@ pub struct ListOSPolicyAssignmentReportsRequest {
     /// should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOSPolicyAssignmentReportsRequest {
@@ -4268,6 +4382,9 @@ pub struct ListOSPolicyAssignmentReportsResponse {
     /// report objects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOSPolicyAssignmentReportsResponse {
@@ -4356,6 +4473,9 @@ pub struct OSPolicyAssignmentReport {
     /// this run, then this id will not be available in the agent logs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub last_run_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OSPolicyAssignmentReport {
@@ -4463,6 +4583,9 @@ pub mod os_policy_assignment_report {
         /// the VM.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub os_policy_resource_compliances: std::vec::Vec<crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl OSPolicyCompliance {
@@ -4556,6 +4679,9 @@ pub mod os_policy_assignment_report {
             /// Resource specific output.
             #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
             pub output: std::option::Option<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::Output>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl OSPolicyResourceCompliance {
@@ -4658,6 +4784,9 @@ pub mod os_policy_assignment_report {
                 /// Only populated if errors were encountered during this step execution.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub error_message: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl OSPolicyResourceConfigStep {
@@ -4784,6 +4913,9 @@ pub mod os_policy_assignment_report {
                 #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
                 #[serde_as(as = "serde_with::base64::Base64")]
                 pub enforcement_output: ::bytes::Bytes,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl ExecResourceOutput {
@@ -5034,6 +5166,9 @@ pub struct OSPolicyAssignment {
     /// resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OSPolicyAssignment {
@@ -5174,6 +5309,9 @@ pub mod os_policy_assignment {
         /// map to be selected.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
         pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl LabelSet {
@@ -5234,6 +5372,9 @@ pub mod os_policy_assignment {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub inventories:
             std::vec::Vec<crate::model::os_policy_assignment::instance_filter::Inventory>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InstanceFilter {
@@ -5311,6 +5452,9 @@ pub mod os_policy_assignment {
             /// An empty string matches all OS versions.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub os_version: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Inventory {
@@ -5363,6 +5507,9 @@ pub mod os_policy_assignment {
         /// applied.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub min_wait_duration: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Rollout {
@@ -5494,6 +5641,9 @@ pub struct OSPolicyAssignmentOperationMetadata {
     /// Rollout update time
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rollout_update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OSPolicyAssignmentOperationMetadata {
@@ -5719,6 +5869,9 @@ pub struct CreateOSPolicyAssignmentRequest {
     /// * Must be unique within the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub os_policy_assignment_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateOSPolicyAssignmentRequest {
@@ -5773,6 +5926,9 @@ pub struct UpdateOSPolicyAssignmentRequest {
     /// updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateOSPolicyAssignmentRequest {
@@ -5819,6 +5975,9 @@ pub struct GetOSPolicyAssignmentRequest {
     /// `projects/{project}/locations/{location}/osPolicyAssignments/{os_policy_assignment}@{revisionId}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetOSPolicyAssignmentRequest {
@@ -5857,6 +6016,9 @@ pub struct ListOSPolicyAssignmentsRequest {
     /// from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOSPolicyAssignmentsRequest {
@@ -5902,6 +6064,9 @@ pub struct ListOSPolicyAssignmentsResponse {
     /// The pagination token to retrieve the next page of OS policy assignments.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOSPolicyAssignmentsResponse {
@@ -5965,6 +6130,9 @@ pub struct ListOSPolicyAssignmentRevisionsRequest {
     /// continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOSPolicyAssignmentRevisionsRequest {
@@ -6011,6 +6179,9 @@ pub struct ListOSPolicyAssignmentRevisionsResponse {
     /// revisions.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOSPolicyAssignmentRevisionsResponse {
@@ -6065,6 +6236,9 @@ pub struct DeleteOSPolicyAssignmentRequest {
     /// Required. The name of the OS policy assignment to be deleted
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteOSPolicyAssignmentRequest {
@@ -6095,6 +6269,9 @@ pub struct FixedOrPercent {
     /// Type of the value.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub mode: std::option::Option<crate::model::fixed_or_percent::Mode>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FixedOrPercent {
@@ -6243,6 +6420,9 @@ pub struct PatchDeployment {
     /// Schedule for the patch.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub schedule: std::option::Option<crate::model::patch_deployment::Schedule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PatchDeployment {
@@ -6505,6 +6685,9 @@ pub struct OneTimeSchedule {
     /// Required. The desired patch job execution time.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub execute_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OneTimeSchedule {
@@ -6568,6 +6751,9 @@ pub struct RecurringSchedule {
     /// Configurations must match frequency.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub schedule_config: std::option::Option<crate::model::recurring_schedule::ScheduleConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RecurringSchedule {
@@ -6807,6 +6993,9 @@ pub mod recurring_schedule {
 pub struct WeeklySchedule {
     /// Required. Day of the week.
     pub day_of_week: gtype::model::DayOfWeek,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WeeklySchedule {
@@ -6837,6 +7026,9 @@ pub struct MonthlySchedule {
     /// One day in a month.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub day_of_month: std::option::Option<crate::model::monthly_schedule::DayOfMonth>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MonthlySchedule {
@@ -6958,6 +7150,9 @@ pub struct WeekDayOfMonth {
     /// negative, for example -5, the patches are deployed five days before before
     /// the second Tuesday of the month. Allowed values are in range [-30, 30].
     pub day_offset: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WeekDayOfMonth {
@@ -7015,6 +7210,9 @@ pub struct CreatePatchDeploymentRequest {
     /// Required. The patch deployment to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub patch_deployment: std::option::Option<crate::model::PatchDeployment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePatchDeploymentRequest {
@@ -7065,6 +7263,9 @@ pub struct GetPatchDeploymentRequest {
     /// `projects/*/patchDeployments/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPatchDeploymentRequest {
@@ -7104,6 +7305,9 @@ pub struct ListPatchDeploymentsRequest {
     /// from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPatchDeploymentsRequest {
@@ -7150,6 +7354,9 @@ pub struct ListPatchDeploymentsResponse {
     /// deployments.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPatchDeploymentsResponse {
@@ -7205,6 +7412,9 @@ pub struct DeletePatchDeploymentRequest {
     /// `projects/*/patchDeployments/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePatchDeploymentRequest {
@@ -7239,6 +7449,9 @@ pub struct UpdatePatchDeploymentRequest {
     /// should be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePatchDeploymentRequest {
@@ -7283,6 +7496,9 @@ pub struct PausePatchDeploymentRequest {
     /// `projects/*/patchDeployments/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PausePatchDeploymentRequest {
@@ -7313,6 +7529,9 @@ pub struct ResumePatchDeploymentRequest {
     /// `projects/*/patchDeployments/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResumePatchDeploymentRequest {
@@ -7375,6 +7594,9 @@ pub struct ExecutePatchJobRequest {
     /// Rollout strategy of the patch job.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rollout: std::option::Option<crate::model::PatchRollout>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExecutePatchJobRequest {
@@ -7462,6 +7684,9 @@ pub struct GetPatchJobRequest {
     /// Required. Name of the patch in the form `projects/*/patchJobs/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPatchJobRequest {
@@ -7506,6 +7731,9 @@ pub struct ListPatchJobInstanceDetailsRequest {
     /// `failure_reason`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPatchJobInstanceDetailsRequest {
@@ -7557,6 +7785,9 @@ pub struct ListPatchJobInstanceDetailsResponse {
     /// A pagination token that can be used to get the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPatchJobInstanceDetailsResponse {
@@ -7630,6 +7861,9 @@ pub struct PatchJobInstanceDetails {
     /// The number of times the agent that the agent attempts to apply the patch.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub attempt_count: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PatchJobInstanceDetails {
@@ -7703,6 +7937,9 @@ pub struct ListPatchJobsRequest {
     /// Currently, filtering is only available on the patch_deployment field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPatchJobsRequest {
@@ -7754,6 +7991,9 @@ pub struct ListPatchJobsResponse {
     /// A pagination token that can be used to get the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPatchJobsResponse {
@@ -7876,6 +8116,9 @@ pub struct PatchJob {
     /// Rollout strategy being applied.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rollout: std::option::Option<crate::model::PatchRollout>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PatchJob {
@@ -8088,6 +8331,9 @@ pub mod patch_job {
         /// the service.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub no_agent_detected_instance_count: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InstanceDetailsSummary {
@@ -8338,6 +8584,9 @@ pub struct PatchConfig {
 
     /// Allows the patch job to run on Managed instance groups (MIGs).
     pub mig_instances_allowed: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PatchConfig {
@@ -8510,7 +8759,10 @@ pub mod patch_config {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct Instance {}
+pub struct Instance {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl Instance {
     pub fn new() -> Self {
@@ -8669,6 +8921,9 @@ pub struct CancelPatchJobRequest {
     /// Required. Name of the patch in the form `projects/*/patchJobs/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CancelPatchJobRequest {
@@ -8711,6 +8966,9 @@ pub struct AptSettings {
     /// fields.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub exclusive_packages: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AptSettings {
@@ -8846,6 +9104,9 @@ pub struct YumSettings {
     /// configuration fields.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub exclusive_packages: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl YumSettings {
@@ -8899,7 +9160,10 @@ impl wkt::message::Message for YumSettings {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct GooSettings {}
+pub struct GooSettings {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl GooSettings {
     pub fn new() -> Self {
@@ -8945,6 +9209,9 @@ pub struct ZypperSettings {
     /// This field must not be used with any other patch configuration fields.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub exclusive_patches: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ZypperSettings {
@@ -9035,6 +9302,9 @@ pub struct WindowsUpdateSettings {
     /// patch configurations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub exclusive_patches: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WindowsUpdateSettings {
@@ -9214,6 +9484,9 @@ pub struct ExecStep {
     /// The ExecStepConfig for all Windows VMs targeted by the PatchJob.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub windows_exec_step_config: std::option::Option<crate::model::ExecStepConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExecStep {
@@ -9270,6 +9543,9 @@ pub struct ExecStepConfig {
     /// Location of the executable.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub executable: std::option::Option<crate::model::exec_step_config::Executable>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExecStepConfig {
@@ -9466,6 +9742,9 @@ pub struct GcsObject {
     /// ensure that the ExecStep specified by this PatchJob does not change.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub generation_number: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsObject {
@@ -9533,6 +9812,9 @@ pub struct PatchInstanceFilter {
     /// example prefix="prod-".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub instance_name_prefixes: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PatchInstanceFilter {
@@ -9619,6 +9901,9 @@ pub mod patch_instance_filter {
         /// instance to be targeted by this filter.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
         pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GroupLabel {
@@ -9681,6 +9966,9 @@ pub struct PatchRollout {
     /// VMs in the next zone fail to patch, the patch job stops.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub disruption_budget: std::option::Option<crate::model::FixedOrPercent>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PatchRollout {
@@ -9808,6 +10096,9 @@ pub struct VulnerabilityReport {
     /// VM.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VulnerabilityReport {
@@ -9893,6 +10184,9 @@ pub mod vulnerability_report {
         /// List of items affected by the vulnerability.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub items: std::vec::Vec<crate::model::vulnerability_report::vulnerability::Item>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Vulnerability {
@@ -10010,6 +10304,9 @@ pub mod vulnerability_report {
             pub references: std::vec::Vec<
                 crate::model::vulnerability_report::vulnerability::details::Reference,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Details {
@@ -10094,6 +10391,9 @@ pub mod vulnerability_report {
                 /// The source of the reference e.g. NVD.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub source: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Reference {
@@ -10156,6 +10456,9 @@ pub mod vulnerability_report {
             /// The upstream OS patch, packages or KB that fixes the vulnerability.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub upstream_fix: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Item {
@@ -10224,6 +10527,9 @@ pub struct GetVulnerabilityReportRequest {
     /// can be provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetVulnerabilityReportRequest {
@@ -10272,6 +10578,9 @@ pub struct ListVulnerabilityReportsRequest {
     /// `vulnerabilityReport` API resource to be included in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVulnerabilityReportsRequest {
@@ -10325,6 +10634,9 @@ pub struct ListVulnerabilityReportsResponse {
     /// object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVulnerabilityReportsResponse {
@@ -10422,6 +10734,9 @@ pub struct CVSSv3 {
     /// This metric measures the impact to the availability of the impacted
     /// component resulting from a successfully exploited vulnerability.
     pub availability_impact: crate::model::cvs_sv_3::Impact,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CVSSv3 {

@@ -58,6 +58,9 @@ pub struct Notification {
 
     /// Type of notification
     pub notification_type: crate::model::NotificationType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Notification {
@@ -132,6 +135,9 @@ pub struct Text {
 
     /// Status of the localization.
     pub localization_state: crate::model::LocalizationState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Text {
@@ -176,6 +182,9 @@ pub struct Subject {
     /// The text content.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub text: std::option::Option<crate::model::Text>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Subject {
@@ -220,6 +229,9 @@ pub struct Message {
     /// Time when Message was localized
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub localization_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Message {
@@ -286,6 +298,9 @@ pub mod message {
         /// The text content of the message body.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub text: std::option::Option<crate::model::Text>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Body {
@@ -323,6 +338,9 @@ pub struct Attachment {
     /// Data type of the attachment.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub data: std::option::Option<crate::model::attachment::Data>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Attachment {
@@ -406,6 +424,9 @@ pub struct Csv {
     /// single comma-separated string.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub data_rows: std::vec::Vec<crate::model::csv::CsvRow>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Csv {
@@ -457,6 +478,9 @@ pub mod csv {
         /// single comma-separated string.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub entries: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CsvRow {
@@ -518,6 +542,9 @@ pub struct ListNotificationsRequest {
     /// this RPC will throw an error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub language_code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNotificationsRequest {
@@ -579,6 +606,9 @@ pub struct ListNotificationsResponse {
 
     /// Estimation of a total number of notifications.
     pub total_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNotificationsResponse {
@@ -650,6 +680,9 @@ pub struct GetNotificationRequest {
     /// this RPC will throw an error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub language_code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetNotificationRequest {
@@ -702,6 +735,9 @@ pub struct Settings {
     /// should retry the read-modify-write cycle.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Settings {
@@ -748,6 +784,9 @@ impl wkt::message::Message for Settings {
 pub struct NotificationSettings {
     /// Whether the associated NotificationType is enabled.
     pub enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NotificationSettings {
@@ -780,6 +819,9 @@ pub struct GetSettingsRequest {
     /// projects/{projects}/locations/{location}/settings.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSettingsRequest {
@@ -809,6 +851,9 @@ pub struct UpdateSettingsRequest {
     /// Required. New settings.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub settings: std::option::Option<crate::model::Settings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSettingsRequest {

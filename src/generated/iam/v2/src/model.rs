@@ -124,6 +124,9 @@ pub struct DenyRule {
     /// functions and operators are not supported.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub denial_condition: std::option::Option<gtype::model::Expr>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DenyRule {
@@ -260,6 +263,9 @@ pub struct Policy {
     /// modified by that authority. Usage is restricted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub managing_authority: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Policy {
@@ -376,6 +382,9 @@ pub struct PolicyRule {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub kind: std::option::Option<crate::model::policy_rule::Kind>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyRule {
@@ -473,6 +482,9 @@ pub struct ListPoliciesRequest {
     /// [google.iam.v2.ListPoliciesResponse]: crate::model::ListPoliciesResponse
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPoliciesRequest {
@@ -521,6 +533,9 @@ pub struct ListPoliciesResponse {
     /// [google.iam.v2.ListPoliciesRequest]: crate::model::ListPoliciesRequest
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPoliciesResponse {
@@ -583,6 +598,9 @@ pub struct GetPolicyRequest {
     /// name. For projects, you can use the alphanumeric or the numeric ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPolicyRequest {
@@ -632,6 +650,9 @@ pub struct CreatePolicyRequest {
     /// (`.`). The first character must be a lowercase letter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub policy_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePolicyRequest {
@@ -680,6 +701,9 @@ pub struct UpdatePolicyRequest {
     /// a `409` error code and `ABORTED` status.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub policy: std::option::Option<crate::model::Policy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePolicyRequest {
@@ -729,6 +753,9 @@ pub struct DeletePolicyRequest {
     /// `etag`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePolicyRequest {
@@ -764,6 +791,9 @@ pub struct PolicyOperationMetadata {
     /// Timestamp when the `google.longrunning.Operation` was created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyOperationMetadata {

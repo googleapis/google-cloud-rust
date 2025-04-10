@@ -64,6 +64,9 @@ pub struct Service {
 
     /// Whether or not the service has been enabled for use by the consumer.
     pub state: crate::model::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Service {
@@ -159,6 +162,9 @@ pub struct ServiceConfig {
     /// This should not include the 'producer_destinations' field.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub monitoring: std::option::Option<api::model::Monitoring>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceConfig {
@@ -277,6 +283,9 @@ pub struct OperationMetadata {
     /// associated with.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub resource_names: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -321,6 +330,9 @@ pub struct EnableServiceRequest {
     /// project number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnableServiceRequest {
@@ -352,6 +364,9 @@ pub struct EnableServiceResponse {
     /// The new state of the service after enabling.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service: std::option::Option<crate::model::Service>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnableServiceResponse {
@@ -400,6 +415,9 @@ pub struct DisableServiceRequest {
 
     /// Defines the behavior for checking service usage when disabling a service.
     pub check_if_service_has_usage: crate::model::disable_service_request::CheckIfServiceHasUsage,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DisableServiceRequest {
@@ -517,6 +535,9 @@ pub struct DisableServiceResponse {
     /// The new state of the service after disabling.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service: std::option::Option<crate::model::Service>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DisableServiceResponse {
@@ -553,6 +574,9 @@ pub struct GetServiceRequest {
     /// project number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceRequest {
@@ -600,6 +624,9 @@ pub struct ListServicesRequest {
     /// The allowed filter strings are `state:ENABLED` and `state:DISABLED`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicesRequest {
@@ -652,6 +679,9 @@ pub struct ListServicesResponse {
     /// query.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicesResponse {
@@ -725,6 +755,9 @@ pub struct BatchEnableServicesRequest {
     /// will occur.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub service_ids: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchEnableServicesRequest {
@@ -772,6 +805,9 @@ pub struct BatchEnableServicesResponse {
     /// enabled, this field contains the details about each failure.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub failures: std::vec::Vec<crate::model::batch_enable_services_response::EnableFailure>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchEnableServicesResponse {
@@ -826,6 +862,9 @@ pub mod batch_enable_services_response {
         /// An error message describing why the service could not be enabled.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub error_message: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EnableFailure {
@@ -878,6 +917,9 @@ pub struct BatchGetServicesRequest {
     /// A single request can get a maximum of 30 services at a time.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub names: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchGetServicesRequest {
@@ -918,6 +960,9 @@ pub struct BatchGetServicesResponse {
     /// The requested Service states.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub services: std::vec::Vec<crate::model::Service>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchGetServicesResponse {

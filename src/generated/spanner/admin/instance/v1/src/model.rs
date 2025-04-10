@@ -52,6 +52,9 @@ pub struct OperationProgress {
     /// successfully.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationProgress {
@@ -99,6 +102,9 @@ pub struct ReplicaSelection {
     /// Required. Name of the location of the replicas (e.g., "us-central1").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicaSelection {
@@ -137,6 +143,9 @@ pub struct ReplicaInfo {
     /// documentation](https://cloud.google.com/spanner/docs/instances#region_types)
     /// for more details.
     pub default_leader_location: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicaInfo {
@@ -366,6 +375,9 @@ pub struct InstanceConfig {
     /// Output only. The storage limit in bytes per processing unit.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub storage_limit_per_processing_unit: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InstanceConfig {
@@ -791,6 +803,9 @@ pub struct ReplicaComputeCapacity {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub compute_capacity:
         std::option::Option<crate::model::replica_compute_capacity::ComputeCapacity>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicaComputeCapacity {
@@ -934,6 +949,9 @@ pub struct AutoscalingConfig {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub asymmetric_autoscaling_options:
         std::vec::Vec<crate::model::autoscaling_config::AsymmetricAutoscalingOption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutoscalingConfig {
@@ -1011,6 +1029,9 @@ pub mod autoscaling_config {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub max_limit:
             std::option::Option<crate::model::autoscaling_config::autoscaling_limits::MaxLimit>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AutoscalingLimits {
@@ -1207,6 +1228,9 @@ pub mod autoscaling_config {
         /// from 0 (no utilization) to 100 (full utilization). The valid range is
         /// [10, 99] inclusive.
         pub storage_utilization_percent: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AutoscalingTargets {
@@ -1253,6 +1277,9 @@ pub mod autoscaling_config {
         /// for the selected replicas.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub overrides: std::option::Option<crate::model::autoscaling_config::asymmetric_autoscaling_option::AutoscalingConfigOverrides>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AsymmetricAutoscalingOption {
@@ -1308,6 +1335,9 @@ pub mod autoscaling_config {
             /// high_priority_cpu_utilization_percent in the top-level autoscaling
             /// configuration for the selected replicas.
             pub autoscaling_target_high_priority_cpu_utilization_percent: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl AutoscalingConfigOverrides {
@@ -1491,6 +1521,9 @@ pub struct Instance {
     /// `default_backup_schedule_type` isn't set, or set to `NONE`, Spanner doesn't
     /// create a default backup schedule for new databases in the instance.
     pub default_backup_schedule_type: crate::model::instance::DefaultBackupScheduleType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Instance {
@@ -1933,6 +1966,9 @@ pub struct ListInstanceConfigsRequest {
     /// [google.spanner.admin.instance.v1.ListInstanceConfigsResponse.next_page_token]: crate::model::ListInstanceConfigsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstanceConfigsRequest {
@@ -1985,6 +2021,9 @@ pub struct ListInstanceConfigsResponse {
     /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstanceConfigsResponse {
@@ -2043,6 +2082,9 @@ pub struct GetInstanceConfigRequest {
     /// the form `projects/<project>/instanceConfigs/<config>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceConfigRequest {
@@ -2095,6 +2137,9 @@ pub struct CreateInstanceConfigRequest {
     /// An option to validate, but not actually execute, a request,
     /// and provide the same response.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceConfigRequest {
@@ -2177,6 +2222,9 @@ pub struct UpdateInstanceConfigRequest {
     /// An option to validate, but not actually execute, a request,
     /// and provide the same response.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstanceConfigRequest {
@@ -2245,6 +2293,9 @@ pub struct DeleteInstanceConfigRequest {
     /// An option to validate, but not actually execute, a request,
     /// and provide the same response.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteInstanceConfigRequest {
@@ -2352,6 +2403,9 @@ pub struct ListInstanceConfigOperationsRequest {
     /// [google.spanner.admin.instance.v1.ListInstanceConfigOperationsResponse.next_page_token]: crate::model::ListInstanceConfigOperationsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstanceConfigOperationsRequest {
@@ -2414,6 +2468,9 @@ pub struct ListInstanceConfigOperationsResponse {
     /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]: crate::client::InstanceAdmin::list_instance_config_operations
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstanceConfigOperationsResponse {
@@ -2481,6 +2538,9 @@ pub struct GetInstanceRequest {
     /// [google.spanner.admin.instance.v1.Instance]: crate::model::Instance
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub field_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceRequest {
@@ -2534,6 +2594,9 @@ pub struct CreateInstanceRequest {
     /// specified must be `<parent>/instances/<instance_id>`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance: std::option::Option<crate::model::Instance>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceRequest {
@@ -2630,6 +2693,9 @@ pub struct ListInstancesRequest {
     /// [google.spanner.admin.instance.v1.ListInstancesResponse.unreachable]: crate::model::ListInstancesResponse::unreachable
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance_deadline: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesRequest {
@@ -2706,6 +2772,9 @@ pub struct ListInstancesResponse {
     /// [google.spanner.admin.instance.v1.ListInstancesRequest.instance_deadline]: crate::model::ListInstancesRequest::instance_deadline
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesResponse {
@@ -2789,6 +2858,9 @@ pub struct UpdateInstanceRequest {
     /// [google.spanner.admin.instance.v1.Instance]: crate::model::Instance
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub field_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstanceRequest {
@@ -2834,6 +2906,9 @@ pub struct DeleteInstanceRequest {
     /// `projects/<project>/instances/<instance>`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteInstanceRequest {
@@ -2887,6 +2962,9 @@ pub struct CreateInstanceMetadata {
 
     /// The expected fulfillment period of this create operation.
     pub expected_fulfillment_period: crate::model::FulfillmentPeriod,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceMetadata {
@@ -2981,6 +3059,9 @@ pub struct UpdateInstanceMetadata {
 
     /// The expected fulfillment period of this update operation.
     pub expected_fulfillment_period: crate::model::FulfillmentPeriod,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstanceMetadata {
@@ -3065,6 +3146,9 @@ pub struct FreeInstanceMetadata {
     /// ExpireBehavior is `REMOVE_AFTER_GRACE_PERIOD`. This can be modified during
     /// or after creation, and before expiration.
     pub expire_behavior: crate::model::free_instance_metadata::ExpireBehavior,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FreeInstanceMetadata {
@@ -3201,6 +3285,9 @@ pub struct CreateInstanceConfigMetadata {
     /// The time at which this operation was cancelled.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cancel_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceConfigMetadata {
@@ -3270,6 +3357,9 @@ pub struct UpdateInstanceConfigMetadata {
     /// The time at which this operation was cancelled.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cancel_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstanceConfigMetadata {
@@ -3394,6 +3484,9 @@ pub struct InstancePartition {
     /// units](https://cloud.google.com/spanner/docs/compute-capacity).
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub compute_capacity: std::option::Option<crate::model::instance_partition::ComputeCapacity>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InstancePartition {
@@ -3666,6 +3759,9 @@ pub struct CreateInstancePartitionMetadata {
     /// The time at which this operation failed or was completed successfully.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstancePartitionMetadata {
@@ -3744,6 +3840,9 @@ pub struct CreateInstancePartitionRequest {
     /// `<parent>/instancePartitions/<instance_partition_id>`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance_partition: std::option::Option<crate::model::InstancePartition>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstancePartitionRequest {
@@ -3805,6 +3904,9 @@ pub struct DeleteInstancePartitionRequest {
     /// current status of the requested instance partition.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteInstancePartitionRequest {
@@ -3845,6 +3947,9 @@ pub struct GetInstancePartitionRequest {
     /// `projects/{project}/instances/{instance}/instancePartitions/{instance_partition}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstancePartitionRequest {
@@ -3893,6 +3998,9 @@ pub struct UpdateInstancePartitionRequest {
     /// [google.spanner.admin.instance.v1.InstancePartition]: crate::model::InstancePartition
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub field_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstancePartitionRequest {
@@ -3957,6 +4065,9 @@ pub struct UpdateInstancePartitionMetadata {
     /// The time at which this operation failed or was completed successfully.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstancePartitionMetadata {
@@ -4050,6 +4161,9 @@ pub struct ListInstancePartitionsRequest {
     /// [google.spanner.admin.instance.v1.ListInstancePartitionsResponse.unreachable]: crate::model::ListInstancePartitionsResponse::unreachable
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance_partition_deadline: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancePartitionsRequest {
@@ -4122,6 +4236,9 @@ pub struct ListInstancePartitionsResponse {
     /// [google.spanner.admin.instance.v1.ListInstancePartitionsRequest.instance_partition_deadline]: crate::model::ListInstancePartitionsRequest::instance_partition_deadline
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancePartitionsResponse {
@@ -4265,6 +4382,9 @@ pub struct ListInstancePartitionOperationsRequest {
     /// [google.spanner.admin.instance.v1.ListInstancePartitionOperationsResponse.unreachable_instance_partitions]: crate::model::ListInstancePartitionOperationsResponse::unreachable_instance_partitions
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance_partition_deadline: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancePartitionOperationsRequest {
@@ -4347,6 +4467,9 @@ pub struct ListInstancePartitionOperationsResponse {
     /// [google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest.instance_partition_deadline]: crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable_instance_partitions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancePartitionOperationsResponse {
@@ -4421,6 +4544,9 @@ pub struct MoveInstanceRequest {
     /// Values are of the form `projects/<project>/instanceConfigs/<config>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub target_config: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MoveInstanceRequest {
@@ -4455,7 +4581,10 @@ impl wkt::message::Message for MoveInstanceRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct MoveInstanceResponse {}
+pub struct MoveInstanceResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl MoveInstanceResponse {
     pub fn new() -> Self {
@@ -4497,6 +4626,9 @@ pub struct MoveInstanceMetadata {
     /// The time at which this operation was cancelled.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cancel_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MoveInstanceMetadata {

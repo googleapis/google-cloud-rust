@@ -20,6 +20,7 @@
 extern crate apps_script_type;
 extern crate bytes;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -39,6 +40,9 @@ pub struct DriveAddOnManifest {
     /// in relevant Drive view (e.g. the My Drive Doclist).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub on_items_selected_trigger: std::option::Option<crate::model::DriveExtensionPoint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DriveAddOnManifest {
@@ -86,6 +90,9 @@ pub struct DriveExtensionPoint {
     /// activated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub run_function: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DriveExtensionPoint {

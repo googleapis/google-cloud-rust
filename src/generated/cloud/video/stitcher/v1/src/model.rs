@@ -48,6 +48,9 @@ pub struct LiveAdTagDetail {
     /// A list of ad requests.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub ad_requests: std::vec::Vec<crate::model::AdRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LiveAdTagDetail {
@@ -95,6 +98,9 @@ pub struct VodAdTagDetail {
     /// A list of ad requests for one ad tag.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub ad_requests: std::vec::Vec<crate::model::AdRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VodAdTagDetail {
@@ -143,6 +149,9 @@ pub struct AdRequest {
     /// The response metadata received from the ad request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub response_metadata: std::option::Option<crate::model::ResponseMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdRequest {
@@ -194,6 +203,9 @@ pub struct RequestMetadata {
     /// The HTTP headers of the ad request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub headers: std::option::Option<wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RequestMetadata {
@@ -245,6 +257,9 @@ pub struct ResponseMetadata {
     /// The body of the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub body: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResponseMetadata {
@@ -322,6 +337,9 @@ pub struct CdnKey {
     /// Configuration associated with the CDN key.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub cdn_key_config: std::option::Option<crate::model::cdn_key::CdnKeyConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CdnKey {
@@ -477,6 +495,9 @@ pub struct GoogleCdnKey {
     /// The public name of the Google Cloud CDN key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GoogleCdnKey {
@@ -513,6 +534,9 @@ pub struct AkamaiCdnKey {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub token_key: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AkamaiCdnKey {
@@ -552,6 +576,9 @@ pub struct MediaCdnKey {
     /// Otherwise, the URL would be signed using the standard Media CDN signature.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub token_config: std::option::Option<crate::model::media_cdn_key::TokenConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MediaCdnKey {
@@ -610,6 +637,9 @@ pub mod media_cdn_key {
         /// Defaults to `edge-cache-token`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub query_parameter: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TokenConfig {
@@ -646,6 +676,9 @@ pub struct CompanionAds {
     /// List of companion ads.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub companions: std::vec::Vec<crate::model::Companion>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CompanionAds {
@@ -793,6 +826,9 @@ pub struct Companion {
     /// Ad resource associated with the companion ad.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub ad_resource: std::option::Option<crate::model::companion::AdResource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Companion {
@@ -999,6 +1035,9 @@ pub struct HtmlAdResource {
     /// The HTML to display for the ad resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub html_source: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HtmlAdResource {
@@ -1028,6 +1067,9 @@ pub struct IframeAdResource {
     /// URI source for an IFrame to display for the ad resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IframeAdResource {
@@ -1061,6 +1103,9 @@ pub struct StaticAdResource {
     /// Describes the MIME type of the ad resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub creative_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StaticAdResource {
@@ -1108,6 +1153,9 @@ pub struct Event {
     /// The offset in seconds if the event type is `PROGRESS`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub offset: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Event {
@@ -1340,6 +1388,9 @@ pub struct ProgressEvent {
     /// `COMPLETE`, `PROGRESS`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub events: std::vec::Vec<crate::model::Event>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProgressEvent {
@@ -1386,6 +1437,9 @@ pub struct FetchOptions {
     /// characters per value.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub headers: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchOptions {
@@ -1460,6 +1514,9 @@ pub struct LiveConfig {
     /// Options for fetching source manifests and segments.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source_fetch_options: std::option::Option<crate::model::FetchOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LiveConfig {
@@ -1706,6 +1763,9 @@ pub struct PrefetchConfig {
     /// initial duration should be set to 30s.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub initial_ad_request_duration: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrefetchConfig {
@@ -1754,6 +1814,9 @@ pub struct GamLiveConfig {
     /// Output only. The custom asset key identifier generated for the live config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub custom_asset_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GamLiveConfig {
@@ -1860,6 +1923,9 @@ pub struct VodSession {
     /// `projects/{project}/locations/{location}/vodConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub vod_config: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VodSession {
@@ -1983,6 +2049,9 @@ pub mod vod_session {
         /// Required. The stream ID generated by Ad Manager.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub stream_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GamSettings {
@@ -2026,6 +2095,9 @@ pub struct Interstitials {
     /// Information related to the content of the VOD session.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub session_content: std::option::Option<crate::model::VodSessionContent>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Interstitials {
@@ -2083,6 +2155,9 @@ pub struct VodSessionAd {
     /// `CLOSE_LINEAR`, `SKIP`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub activity_events: std::vec::Vec<crate::model::Event>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VodSessionAd {
@@ -2138,6 +2213,9 @@ pub struct VodSessionContent {
     /// in.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub duration: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VodSessionContent {
@@ -2182,6 +2260,9 @@ pub struct VodSessionAdBreak {
     /// Ad break start time in seconds relative to the start of the VOD asset.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time_offset: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VodSessionAdBreak {
@@ -2285,6 +2366,9 @@ pub struct LiveSession {
     /// Determines how the ad should be tracked. This overrides the value set in
     /// the live config for this session.
     pub ad_tracking: crate::model::AdTracking,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LiveSession {
@@ -2383,6 +2467,9 @@ pub mod live_session {
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
         pub targeting_parameters:
             std::collections::HashMap<std::string::String, std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GamSettings {
@@ -2430,6 +2517,9 @@ pub struct ManifestOptions {
     /// If specified, the output manifest will orders the video and muxed
     /// renditions by bitrate according to the ordering policy.
     pub bitrate_order: crate::model::manifest_options::OrderPolicy,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ManifestOptions {
@@ -2543,6 +2633,9 @@ pub struct RenditionFilter {
     /// will match.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub codecs: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RenditionFilter {
@@ -2588,6 +2681,9 @@ pub struct Slate {
     /// gam_slate has all the GAM-related attributes of slates.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gam_slate: std::option::Option<crate::model::slate::GamSlate>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Slate {
@@ -2644,6 +2740,9 @@ pub mod slate {
         /// Output only. The identifier generated for the slate by GAM.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub gam_slate_id: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GamSlate {
@@ -2690,6 +2789,9 @@ pub struct VodStitchDetail {
     /// A list of ad processing details for the fetched ad playlist.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub ad_stitch_details: std::vec::Vec<crate::model::AdStitchDetail>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VodStitchDetail {
@@ -2746,6 +2848,9 @@ pub struct AdStitchDetail {
     /// Optional. The metadata of the chosen media file for the ad.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub media: std::collections::HashMap<std::string::String, wkt::Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdStitchDetail {
@@ -2822,6 +2927,9 @@ pub struct CreateCdnKeyRequest {
     /// letter, the last a letter or a number, and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub cdn_key_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCdnKeyRequest {
@@ -2883,6 +2991,9 @@ pub struct ListCdnKeysRequest {
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCdnKeysRequest {
@@ -2944,6 +3055,9 @@ pub struct ListCdnKeysResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCdnKeysResponse {
@@ -3010,6 +3124,9 @@ pub struct GetCdnKeyRequest {
     /// `projects/{project}/locations/{location}/cdnKeys/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCdnKeyRequest {
@@ -3040,6 +3157,9 @@ pub struct DeleteCdnKeyRequest {
     /// `projects/{project_number}/locations/{location}/cdnKeys/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCdnKeyRequest {
@@ -3075,6 +3195,9 @@ pub struct UpdateCdnKeyRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCdnKeyRequest {
@@ -3121,6 +3244,9 @@ pub struct CreateVodSessionRequest {
     /// Required. Parameters for creating a session.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub vod_session: std::option::Option<crate::model::VodSession>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateVodSessionRequest {
@@ -3160,6 +3286,9 @@ pub struct GetVodSessionRequest {
     /// `projects/{project_number}/locations/{location}/vodSessions/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetVodSessionRequest {
@@ -3197,6 +3326,9 @@ pub struct ListVodStitchDetailsRequest {
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVodStitchDetailsRequest {
@@ -3242,6 +3374,9 @@ pub struct ListVodStitchDetailsResponse {
     /// The pagination token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVodStitchDetailsResponse {
@@ -3298,6 +3433,9 @@ pub struct GetVodStitchDetailRequest {
     /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodStitchDetails/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetVodStitchDetailRequest {
@@ -3335,6 +3473,9 @@ pub struct ListVodAdTagDetailsRequest {
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVodAdTagDetailsRequest {
@@ -3380,6 +3521,9 @@ pub struct ListVodAdTagDetailsResponse {
     /// The pagination token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVodAdTagDetailsResponse {
@@ -3436,6 +3580,9 @@ pub struct GetVodAdTagDetailRequest {
     /// `projects/{project}/locations/{location}/vodSessions/{vod_session_id}/vodAdTagDetails/{vod_ad_tag_detail}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetVodAdTagDetailRequest {
@@ -3473,6 +3620,9 @@ pub struct ListLiveAdTagDetailsRequest {
     /// The pagination token returned from a previous List request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLiveAdTagDetailsRequest {
@@ -3518,6 +3668,9 @@ pub struct ListLiveAdTagDetailsResponse {
     /// The pagination token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLiveAdTagDetailsResponse {
@@ -3573,6 +3726,9 @@ pub struct GetLiveAdTagDetailRequest {
     /// `projects/{project}/locations/{location}/liveSessions/{live_session}/liveAdTagDetails/{live_ad_tag_detail}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLiveAdTagDetailRequest {
@@ -3630,6 +3786,9 @@ pub struct CreateSlateRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSlateRequest {
@@ -3681,6 +3840,9 @@ pub struct GetSlateRequest {
     /// of `projects/{project_number}/locations/{location}/slates/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSlateRequest {
@@ -3727,6 +3889,9 @@ pub struct ListSlatesRequest {
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSlatesRequest {
@@ -3788,6 +3953,9 @@ pub struct ListSlatesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSlatesResponse {
@@ -3857,6 +4025,9 @@ pub struct UpdateSlateRequest {
     /// Required. The update mask which specifies fields which should be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSlateRequest {
@@ -3899,6 +4070,9 @@ pub struct DeleteSlateRequest {
     /// `projects/{project_number}/locations/{location}/slates/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSlateRequest {
@@ -3933,6 +4107,9 @@ pub struct CreateLiveSessionRequest {
     /// Required. Parameters for creating a live session.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub live_session: std::option::Option<crate::model::LiveSession>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateLiveSessionRequest {
@@ -3974,6 +4151,9 @@ pub struct GetLiveSessionRequest {
     /// `projects/{project_number}/locations/{location}/liveSessions/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLiveSessionRequest {
@@ -4028,6 +4208,9 @@ pub struct CreateLiveConfigRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateLiveConfigRequest {
@@ -4097,6 +4280,9 @@ pub struct ListLiveConfigsRequest {
     /// syntax](https://cloud.google.com/apis/design/design_patterns#sorting_order).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLiveConfigsRequest {
@@ -4158,6 +4344,9 @@ pub struct ListLiveConfigsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLiveConfigsResponse {
@@ -4225,6 +4414,9 @@ pub struct GetLiveConfigRequest {
     /// `projects/{project_number}/locations/{location}/liveConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLiveConfigRequest {
@@ -4255,6 +4447,9 @@ pub struct DeleteLiveConfigRequest {
     /// `projects/{project_number}/locations/{location}/liveConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteLiveConfigRequest {
@@ -4291,6 +4486,9 @@ pub struct UpdateLiveConfigRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateLiveConfigRequest {
@@ -4357,6 +4555,9 @@ pub struct CreateVodConfigRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateVodConfigRequest {
@@ -4427,6 +4628,9 @@ pub struct ListVodConfigsRequest {
     /// syntax](https://cloud.google.com/apis/design/design_patterns#sorting_order).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVodConfigsRequest {
@@ -4488,6 +4692,9 @@ pub struct ListVodConfigsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVodConfigsResponse {
@@ -4554,6 +4761,9 @@ pub struct GetVodConfigRequest {
     /// of `projects/{project_number}/locations/{location}/vodConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetVodConfigRequest {
@@ -4584,6 +4794,9 @@ pub struct DeleteVodConfigRequest {
     /// `projects/{project_number}/locations/{location}/vodConfigs/{id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteVodConfigRequest {
@@ -4620,6 +4833,9 @@ pub struct UpdateVodConfigRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateVodConfigRequest {
@@ -4673,6 +4889,9 @@ pub struct OperationMetadata {
     /// Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub verb: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -4746,6 +4965,9 @@ pub struct VodConfig {
     /// Options for fetching source manifests and segments.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source_fetch_options: std::option::Option<crate::model::FetchOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VodConfig {
@@ -4886,6 +5108,9 @@ pub struct GamVodConfig {
     /// Required. Ad Manager network code to associate with the VOD config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub network_code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GamVodConfig {

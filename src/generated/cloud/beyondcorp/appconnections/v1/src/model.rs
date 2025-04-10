@@ -68,6 +68,9 @@ pub struct ListAppConnectionsRequest {
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAppConnectionsRequest {
@@ -130,6 +133,9 @@ pub struct ListAppConnectionsResponse {
     /// A list of locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAppConnectionsResponse {
@@ -196,6 +202,9 @@ pub struct GetAppConnectionRequest {
     /// `projects/{project_id}/locations/{location_id}/appConnections/{app_connection_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAppConnectionRequest {
@@ -258,6 +267,9 @@ pub struct CreateAppConnectionRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAppConnectionRequest {
@@ -354,6 +366,9 @@ pub struct UpdateAppConnectionRequest {
 
     /// Optional. If set as true, will create the resource if it is not found.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAppConnectionRequest {
@@ -436,6 +451,9 @@ pub struct DeleteAppConnectionRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAppConnectionRequest {
@@ -497,6 +515,9 @@ pub struct ResolveAppConnectionsRequest {
     /// ResolveAppConnectionsResponse, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResolveAppConnectionsRequest {
@@ -557,6 +578,9 @@ pub struct ResolveAppConnectionsResponse {
     /// A list of locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResolveAppConnectionsResponse {
@@ -632,6 +656,9 @@ pub mod resolve_app_connections_response {
         /// `<https://www.googleapis.com/compute/v1/projects/{project_id}/zones/{zone_id}/instances/{instance_id}>`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub recent_mig_vms: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AppConnectionDetails {
@@ -726,6 +753,9 @@ pub struct AppConnection {
     /// Optional. Gateway used by the AppConnection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gateway: std::option::Option<crate::model::app_connection::Gateway>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppConnection {
@@ -856,6 +886,9 @@ pub mod app_connection {
 
         /// Required. Port of the remote application endpoint.
         pub port: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ApplicationEndpoint {
@@ -905,6 +938,9 @@ pub mod app_connection {
         /// `projects/{project_id}/locations/{location_id}/appgateways/{gateway_id}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub app_gateway: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Gateway {
@@ -1170,6 +1206,9 @@ pub struct AppConnectionOperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppConnectionOperationMetadata {

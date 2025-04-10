@@ -58,6 +58,9 @@ pub struct Challenge {
     /// Output only. Identical to nonce, but as a string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub tpm_nonce: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Challenge {
@@ -123,6 +126,9 @@ pub struct CreateChallengeRequest {
     /// all the Challenge fields are set by the server.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub challenge: std::option::Option<crate::model::Challenge>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateChallengeRequest {
@@ -194,6 +200,9 @@ pub struct VerifyAttestationRequest {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub tee_attestation:
         std::option::Option<crate::model::verify_attestation_request::TeeAttestation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VerifyAttestationRequest {
@@ -385,6 +394,9 @@ pub struct TdxCcelAttestation {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub td_quote: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TdxCcelAttestation {
@@ -446,6 +458,9 @@ pub struct SevSnpAttestation {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub aux_blob: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SevSnpAttestation {
@@ -487,6 +502,9 @@ pub struct VerifyAttestationResponse {
     /// related to VerifyAttestation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub partial_errors: std::vec::Vec<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VerifyAttestationResponse {
@@ -531,6 +549,9 @@ pub struct GcpCredentials {
     /// Same as id_tokens, but as a string.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub service_account_id_tokens: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcpCredentials {
@@ -579,6 +600,9 @@ pub struct TokenOptions {
     /// An optional additional configuration per token type.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub token_type_options: std::option::Option<crate::model::token_options::TokenTypeOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TokenOptions {
@@ -676,6 +700,9 @@ pub mod token_options {
         pub allowed_principal_tags: std::option::Option<
             crate::model::token_options::aws_principal_tags_options::AllowedPrincipalTags,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AwsPrincipalTagsOptions {
@@ -712,6 +739,9 @@ pub mod token_options {
             /// Optional. Container image signatures allowed in the token.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub container_image_signatures: std::option::Option<crate::model::token_options::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl AllowedPrincipalTags {
@@ -749,6 +779,9 @@ pub mod token_options {
                 /// into principal tags. Unrecognized key ids will be ignored.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub key_ids: std::vec::Vec<std::string::String>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl ContainerImageSignatures {
@@ -824,6 +857,9 @@ pub struct TpmAttestation {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
     pub cert_chain: std::vec::Vec<::bytes::Bytes>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TpmAttestation {
@@ -907,6 +943,9 @@ pub mod tpm_attestation {
         #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
         #[serde_as(as = "serde_with::base64::Base64")]
         pub raw_signature: ::bytes::Bytes,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Quote {
@@ -963,6 +1002,9 @@ pub struct ConfidentialSpaceInfo {
     /// that can be used for server-side signature verification.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub signed_entities: std::vec::Vec<crate::model::SignedEntity>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfidentialSpaceInfo {
@@ -999,6 +1041,9 @@ pub struct SignedEntity {
     /// object.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub container_image_signatures: std::vec::Vec<crate::model::ContainerImageSignature>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SignedEntity {
@@ -1057,6 +1102,9 @@ pub struct ContainerImageSignature {
 
     /// Optional. Reserved for future use.
     pub sig_alg: crate::model::SigningAlgorithm,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ContainerImageSignature {

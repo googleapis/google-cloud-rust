@@ -63,6 +63,9 @@ pub struct Process {
     /// Optional. The origin of this process and its runs and lineage events.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub origin: std::option::Option<crate::model::Origin>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Process {
@@ -148,6 +151,9 @@ pub struct Run {
 
     /// Required. The state of the run.
     pub state: crate::model::run::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Run {
@@ -315,6 +321,9 @@ pub struct LineageEvent {
     /// which the lineage is being reported.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LineageEvent {
@@ -377,6 +386,9 @@ pub struct EventLink {
     /// Required. Reference to the target entity
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub target: std::option::Option<crate::model::EntityReference>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EventLink {
@@ -420,6 +432,9 @@ pub struct EntityReference {
     /// of the entity.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub fully_qualified_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EntityReference {
@@ -473,6 +488,9 @@ pub struct OperationMetadata {
     /// success. This field is unset if the operation is still ongoing.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -687,6 +705,9 @@ pub struct ProcessOpenLineageRunEventRequest {
     /// `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessOpenLineageRunEventRequest {
@@ -745,6 +766,9 @@ pub struct ProcessOpenLineageRunEventResponse {
     /// `projects/{project}/locations/{location}/processes/{process}/runs/{run}/lineageEvents/{lineage_event}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub lineage_events: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessOpenLineageRunEventResponse {
@@ -803,6 +827,9 @@ pub struct CreateProcessRequest {
     /// `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateProcessRequest {
@@ -858,6 +885,9 @@ pub struct UpdateProcessRequest {
 
     /// If set to true and the process is not found, the request inserts it.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateProcessRequest {
@@ -906,6 +936,9 @@ pub struct GetProcessRequest {
     /// Required. The name of the process to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetProcessRequest {
@@ -951,6 +984,9 @@ pub struct ListProcessesRequest {
     /// match the parameters of the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProcessesRequest {
@@ -998,6 +1034,9 @@ pub struct ListProcessesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProcessesResponse {
@@ -1057,6 +1096,9 @@ pub struct DeleteProcessRequest {
     /// If set to true and the process is not found, the request
     /// succeeds but the server doesn't perform any actions.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteProcessRequest {
@@ -1103,6 +1145,9 @@ pub struct CreateRunRequest {
     /// `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateRunRequest {
@@ -1161,6 +1206,9 @@ pub struct UpdateRunRequest {
 
     /// If set to true and the run is not found, the request creates it.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateRunRequest {
@@ -1209,6 +1257,9 @@ pub struct GetRunRequest {
     /// Required. The name of the run to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRunRequest {
@@ -1253,6 +1304,9 @@ pub struct ListRunsRequest {
     /// match the parameters of the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRunsRequest {
@@ -1300,6 +1354,9 @@ pub struct ListRunsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRunsResponse {
@@ -1359,6 +1416,9 @@ pub struct DeleteRunRequest {
     /// If set to true and the run is not found, the request
     /// succeeds but the server doesn't perform any actions.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteRunRequest {
@@ -1405,6 +1465,9 @@ pub struct CreateLineageEventRequest {
     /// `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateLineageEventRequest {
@@ -1452,6 +1515,9 @@ pub struct GetLineageEventRequest {
     /// Required. The name of the lineage event to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLineageEventRequest {
@@ -1498,6 +1564,9 @@ pub struct ListLineageEventsRequest {
     /// match the parameters of the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLineageEventsRequest {
@@ -1545,6 +1614,9 @@ pub struct ListLineageEventsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLineageEventsResponse {
@@ -1604,6 +1676,9 @@ pub struct DeleteLineageEventRequest {
     /// If set to true and the lineage event is not found, the request
     /// succeeds but the server doesn't perform any actions.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteLineageEventRequest {
@@ -1662,6 +1737,9 @@ pub struct SearchLinksRequest {
     /// The asset for which you want to retrieve links.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub criteria: std::option::Option<crate::model::search_links_request::Criteria>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchLinksRequest {
@@ -1798,6 +1876,9 @@ pub struct SearchLinksResponse {
     /// page. Omitted if there are no more pages in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchLinksResponse {
@@ -1873,6 +1954,9 @@ pub struct Link {
     /// The end of the last event establishing this link.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Link {
@@ -1964,6 +2048,9 @@ pub struct BatchSearchLinkProcessesRequest {
     /// in the original request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchSearchLinkProcessesRequest {
@@ -2024,6 +2111,9 @@ pub struct BatchSearchLinkProcessesResponse {
     /// page. Omitted if there are no more pages in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchSearchLinkProcessesResponse {
@@ -2088,6 +2178,9 @@ pub struct ProcessLinks {
     /// the same process, they all are included in this array.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub links: std::vec::Vec<crate::model::ProcessLinkInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessLinks {
@@ -2137,6 +2230,9 @@ pub struct ProcessLinkInfo {
     /// The end of the last event establishing this link-process tuple.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessLinkInfo {
@@ -2199,6 +2295,9 @@ pub struct Origin {
     /// - `{source_type: CUSTOM,   name: "myCustomIntegration"}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Origin {

@@ -89,6 +89,9 @@ pub struct ListQueuesRequest {
     /// [google.cloud.tasks.v2.ListQueuesResponse.next_page_token]: crate::model::ListQueuesResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListQueuesRequest {
@@ -154,6 +157,9 @@ pub struct ListQueuesResponse {
     /// [google.cloud.tasks.v2.ListQueuesRequest.page_token]: crate::model::ListQueuesRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListQueuesResponse {
@@ -211,6 +217,9 @@ pub struct GetQueueRequest {
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetQueueRequest {
@@ -257,6 +266,9 @@ pub struct CreateQueueRequest {
     /// [google.cloud.tasks.v2.Queue.name]: crate::model::Queue::name
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub queue: std::option::Option<crate::model::Queue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateQueueRequest {
@@ -312,6 +324,9 @@ pub struct UpdateQueueRequest {
     /// If empty, then all fields will be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateQueueRequest {
@@ -357,6 +372,9 @@ pub struct DeleteQueueRequest {
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteQueueRequest {
@@ -390,6 +408,9 @@ pub struct PurgeQueueRequest {
     /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PurgeQueueRequest {
@@ -423,6 +444,9 @@ pub struct PauseQueueRequest {
     /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PauseQueueRequest {
@@ -456,6 +480,9 @@ pub struct ResumeQueueRequest {
     /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResumeQueueRequest {
@@ -534,6 +561,9 @@ pub struct ListTasksRequest {
     /// [google.cloud.tasks.v2.ListTasksResponse.next_page_token]: crate::model::ListTasksResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTasksRequest {
@@ -600,6 +630,9 @@ pub struct ListTasksResponse {
     /// [google.cloud.tasks.v2.ListTasksRequest.page_token]: crate::model::ListTasksRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTasksResponse {
@@ -676,6 +709,9 @@ pub struct GetTaskRequest {
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::view::BASIC
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::view::FULL
     pub response_view: crate::model::task::View,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTaskRequest {
@@ -778,6 +814,9 @@ pub struct CreateTaskRequest {
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::view::BASIC
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::view::FULL
     pub response_view: crate::model::task::View,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTaskRequest {
@@ -829,6 +868,9 @@ pub struct DeleteTaskRequest {
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTaskRequest {
@@ -880,6 +922,9 @@ pub struct RunTaskRequest {
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::view::BASIC
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::view::FULL
     pub response_view: crate::model::task::View,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RunTaskRequest {
@@ -1045,6 +1090,9 @@ pub struct Queue {
     /// field is unset, then no logs are written.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub stackdriver_logging_config: std::option::Option<crate::model::StackdriverLoggingConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Queue {
@@ -1293,6 +1341,9 @@ pub struct RateLimits {
     /// [max_concurrent_requests in
     /// queue.yaml/xml](https://cloud.google.com/appengine/docs/standard/python/config/queueref#max_concurrent_requests).
     pub max_concurrent_dispatches: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RateLimits {
@@ -1448,6 +1499,9 @@ pub struct RetryConfig {
     /// [google.cloud.tasks.v2.RetryConfig.max_backoff]: crate::model::RetryConfig::max_backoff
     /// [google.cloud.tasks.v2.RetryConfig.min_backoff]: crate::model::RetryConfig::min_backoff
     pub max_doublings: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetryConfig {
@@ -1513,6 +1567,9 @@ pub struct StackdriverLoggingConfig {
     /// This field may contain any value between 0.0 and 1.0, inclusive.
     /// 0.0 is the default and means that no operations are logged.
     pub sampling_ratio: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StackdriverLoggingConfig {
@@ -1645,6 +1702,9 @@ pub struct HttpRequest {
     /// [google.cloud.tasks.v2.HttpRequest.headers]: crate::model::HttpRequest::headers
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub authorization_header: std::option::Option<crate::model::http_request::AuthorizationHeader>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HttpRequest {
@@ -1966,6 +2026,9 @@ pub struct AppEngineHttpRequest {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub body: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppEngineHttpRequest {
@@ -2136,6 +2199,9 @@ pub struct AppEngineRouting {
     /// [google.cloud.tasks.v2.AppEngineRouting.version]: crate::model::AppEngineRouting::version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub host: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppEngineRouting {
@@ -2196,6 +2262,9 @@ pub struct OAuthToken {
     /// will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub scope: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OAuthToken {
@@ -2248,6 +2317,9 @@ pub struct OidcToken {
     /// specified in target will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub audience: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OidcToken {
@@ -2395,6 +2467,9 @@ pub struct Task {
     /// Required. The message to send to the worker.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub message_type: std::option::Option<crate::model::task::MessageType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Task {
@@ -2687,6 +2762,9 @@ pub struct Attempt {
     /// currently running and the `response_status` field is meaningless.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub response_status: std::option::Option<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Attempt {

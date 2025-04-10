@@ -85,6 +85,9 @@ pub struct Barcode {
     /// For example: `'MEBKM:TITLE:Google;URL:<https://www.google.com>;;'`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub raw_value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Barcode {
@@ -195,6 +198,9 @@ pub struct Document {
     /// Original source document from the user.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::document::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Document {
@@ -410,6 +416,9 @@ pub mod document {
         /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub text_offset: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ShardInfo {
@@ -489,6 +498,9 @@ pub mod document {
         /// <https://www.w3schools.com/cssref/pr_font_font-family.asp>
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub font_family: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Style {
@@ -590,6 +602,9 @@ pub mod document {
             /// `pt`).
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub unit: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl FontSize {
@@ -711,6 +726,9 @@ pub mod document {
         /// The history of this page.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub provenance: std::option::Option<crate::model::document::Provenance>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Page {
@@ -929,6 +947,9 @@ pub mod document {
             /// Dimension unit.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub unit: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Dimension {
@@ -983,6 +1004,9 @@ pub mod document {
 
             /// Height of the image in pixels.
             pub height: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Image {
@@ -1048,6 +1072,9 @@ pub mod document {
             #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
             #[serde_as(as = "serde_with::base64::Base64")]
             pub data: ::bytes::Bytes,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Matrix {
@@ -1120,6 +1147,9 @@ pub mod document {
             ///
             /// [google.cloud.documentai.v1.Document.Page.Layout]: crate::model::document::page::Layout
             pub orientation: crate::model::document::page::layout::Orientation,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Layout {
@@ -1273,6 +1303,9 @@ pub mod document {
             /// The history of this annotation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub provenance: std::option::Option<crate::model::document::Provenance>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Block {
@@ -1341,6 +1374,9 @@ pub mod document {
             /// The  history of this annotation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub provenance: std::option::Option<crate::model::document::Provenance>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Paragraph {
@@ -1410,6 +1446,9 @@ pub mod document {
             /// The  history of this annotation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub provenance: std::option::Option<crate::model::document::Provenance>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Line {
@@ -1490,6 +1529,9 @@ pub mod document {
             /// Text style attributes.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub style_info: std::option::Option<crate::model::document::page::token::StyleInfo>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Token {
@@ -1580,6 +1622,9 @@ pub mod document {
                 /// Detected break type.
                 #[serde(rename = "type")]
                 pub r#type: crate::model::document::page::token::detected_break::Type,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl DetectedBreak {
@@ -1736,6 +1781,9 @@ pub mod document {
                 /// Color of the background.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub background_color: std::option::Option<gtype::model::Color>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl StyleInfo {
@@ -1871,6 +1919,9 @@ pub mod document {
             /// A list of detected languages together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Symbol {
@@ -1933,6 +1984,9 @@ pub mod document {
             /// A list of detected languages together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl VisualElement {
@@ -2004,6 +2058,9 @@ pub mod document {
             /// The history of this table.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub provenance: std::option::Option<crate::model::document::Provenance>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Table {
@@ -2087,6 +2144,9 @@ pub mod document {
                 /// Cells that make up this row.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub cells: std::vec::Vec<crate::model::document::page::table::TableCell>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl TableRow {
@@ -2136,6 +2196,9 @@ pub mod document {
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub detected_languages:
                     std::vec::Vec<crate::model::document::page::DetectedLanguage>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl TableCell {
@@ -2242,6 +2305,9 @@ pub mod document {
             /// The history of this annotation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub provenance: std::option::Option<crate::model::document::Provenance>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl FormField {
@@ -2358,6 +2424,9 @@ pub mod document {
             /// [google.cloud.documentai.v1.Document.Page.DetectedBarcode]: crate::model::document::page::DetectedBarcode
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub barcode: std::option::Option<crate::model::Barcode>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl DetectedBarcode {
@@ -2408,6 +2477,9 @@ pub mod document {
 
             /// Confidence of detected language. Range `[0, 1]`.
             pub confidence: f32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl DetectedLanguage {
@@ -2450,6 +2522,9 @@ pub mod document {
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub detected_defects:
                 std::vec::Vec<crate::model::document::page::image_quality_scores::DetectedDefect>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl ImageQualityScores {
@@ -2511,6 +2586,9 @@ pub mod document {
                 /// Confidence of detected defect. Range `[0, 1]` where `1` indicates
                 /// strong confidence that the defect exists.
                 pub confidence: f32,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl DetectedDefect {
@@ -2603,6 +2681,9 @@ pub mod document {
         /// Optional. Whether the entity will be redacted for de-identification
         /// purposes.
         pub redacted: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Entity {
@@ -2746,6 +2827,9 @@ pub mod document {
             pub structured_value: std::option::Option<
                 crate::model::document::entity::normalized_value::StructuredValue,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl NormalizedValue {
@@ -3036,6 +3120,9 @@ pub mod document {
         /// Relationship description.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub relation: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EntityRelation {
@@ -3089,6 +3176,9 @@ pub mod document {
         /// populated for formFields.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub content: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TextAnchor {
@@ -3155,6 +3245,9 @@ pub mod document {
             /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub end_index: i64,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl TextSegment {
@@ -3196,6 +3289,9 @@ pub mod document {
         /// One or more references to visual page elements
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub page_refs: std::vec::Vec<crate::model::document::page_anchor::PageRef>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PageAnchor {
@@ -3264,6 +3360,9 @@ pub mod document {
             /// Optional. Confidence of detected page element, if applicable. Range
             /// `[0, 1]`.
             pub confidence: f32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl PageRef {
@@ -3460,6 +3559,9 @@ pub mod document {
         /// The type of provenance operation.
         #[serde(rename = "type")]
         pub r#type: crate::model::document::provenance::OperationType,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Provenance {
@@ -3529,6 +3631,9 @@ pub mod document {
 
             /// The id of the parent provenance.
             pub id: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Parent {
@@ -3687,6 +3792,9 @@ pub mod document {
         /// Who/what made the change
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub source: std::option::Option<crate::model::document::revision::Source>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Revision {
@@ -3827,6 +3935,9 @@ pub mod document {
             /// For example, the rejection reason when the state is `rejected`.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub state_message: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl HumanReview {
@@ -3894,6 +4005,9 @@ pub mod document {
         /// The history of this annotation.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub provenance: std::vec::Vec<crate::model::document::Provenance>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TextChange {
@@ -3949,6 +4063,9 @@ pub mod document {
         /// List of blocks in the document.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub blocks: std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DocumentLayout {
@@ -4000,6 +4117,9 @@ pub mod document {
             pub block: std::option::Option<
                 crate::model::document::document_layout::document_layout_block::Block,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl DocumentLayoutBlock {
@@ -4147,6 +4267,9 @@ pub mod document {
 
                 /// Page where block ends in the document.
                 pub page_end: i32,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl LayoutPageSpan {
@@ -4195,6 +4318,9 @@ pub mod document {
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub blocks:
                     std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl LayoutTextBlock {
@@ -4261,6 +4387,9 @@ pub mod document {
                 /// Table caption/title.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub caption: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl LayoutTableBlock {
@@ -4317,6 +4446,9 @@ pub mod document {
                 pub cells: std::vec::Vec<
                     crate::model::document::document_layout::document_layout_block::LayoutTableCell,
                 >,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl LayoutTableRow {
@@ -4359,6 +4491,9 @@ pub mod document {
 
                 /// How many columns this cell spans.
                 pub col_span: i32,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl LayoutTableCell {
@@ -4415,6 +4550,9 @@ pub mod document {
                 #[serde(rename = "type")]
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub r#type: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl LayoutListBlock {
@@ -4460,6 +4598,9 @@ pub mod document {
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub blocks:
                     std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl LayoutListEntry {
@@ -4510,6 +4651,9 @@ pub mod document {
         /// List of chunks.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub chunks: std::vec::Vec<crate::model::document::chunked_document::Chunk>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ChunkedDocument {
@@ -4572,6 +4716,9 @@ pub mod document {
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub page_footers:
                 std::vec::Vec<crate::model::document::chunked_document::chunk::ChunkPageFooter>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Chunk {
@@ -4669,6 +4816,9 @@ pub mod document {
 
                 /// Page where chunk ends in the document.
                 pub page_end: i32,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl ChunkPageSpan {
@@ -4710,6 +4860,9 @@ pub mod document {
                 pub page_span: std::option::Option<
                     crate::model::document::chunked_document::chunk::ChunkPageSpan,
                 >,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl ChunkPageHeader {
@@ -4763,6 +4916,9 @@ pub mod document {
                 pub page_span: std::option::Option<
                     crate::model::document::chunked_document::chunk::ChunkPageSpan,
                 >,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl ChunkPageFooter {
@@ -4845,6 +5001,9 @@ pub struct RawDocument {
     /// If not specified, a default ID is generated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RawDocument {
@@ -4890,6 +5049,9 @@ pub struct GcsDocument {
     /// An IANA MIME type (RFC6838) of the content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub mime_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsDocument {
@@ -4925,6 +5087,9 @@ pub struct GcsDocuments {
     /// The list of documents.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub documents: std::vec::Vec<crate::model::GcsDocument>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsDocuments {
@@ -4959,6 +5124,9 @@ pub struct GcsPrefix {
     /// The URI prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub gcs_uri_prefix: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsPrefix {
@@ -4989,6 +5157,9 @@ pub struct BatchDocumentsInputConfig {
     /// access to the buckets.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::batch_documents_input_config::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchDocumentsInputConfig {
@@ -5100,6 +5271,9 @@ pub struct DocumentOutputConfig {
     /// The destination of the results.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::document_output_config::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DocumentOutputConfig {
@@ -5184,6 +5358,9 @@ pub mod document_output_config {
         pub sharding_config: std::option::Option<
             crate::model::document_output_config::gcs_output_config::ShardingConfig,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GcsOutputConfig {
@@ -5244,6 +5421,9 @@ pub mod document_output_config {
 
             /// The number of overlapping pages between consecutive shards.
             pub pages_overlap: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl ShardingConfig {
@@ -5328,6 +5508,9 @@ pub struct OcrConfig {
     /// Configurations for premium OCR features.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub premium_features: std::option::Option<crate::model::ocr_config::PremiumFeatures>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OcrConfig {
@@ -5427,6 +5610,9 @@ pub mod ocr_config {
         /// will be a significant hindrance if the hint is wrong).
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub language_hints: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Hints {
@@ -5467,6 +5653,9 @@ pub mod ocr_config {
 
         /// Turn on the model that can extract LaTeX math formulas.
         pub enable_math_ocr: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PremiumFeatures {
@@ -5541,6 +5730,9 @@ pub struct ProcessOptions {
     /// [google.cloud.documentai.v1.DocumentProcessorService.ProcessDocument]: crate::client::DocumentProcessorService::process_document
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub page_range: std::option::Option<crate::model::process_options::PageRange>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessOptions {
@@ -5690,6 +5882,9 @@ pub mod process_options {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub chunking_config:
             std::option::Option<crate::model::process_options::layout_config::ChunkingConfig>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl LayoutConfig {
@@ -5736,6 +5931,9 @@ pub mod process_options {
 
             /// Optional. Whether or not to include ancestor headings when splitting.
             pub include_ancestor_headings: bool,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl ChunkingConfig {
@@ -5775,6 +5973,9 @@ pub mod process_options {
         /// Optional. Indices of the pages (starting from 1).
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub pages: std::vec::Vec<i32>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IndividualPageSelector {
@@ -5885,6 +6086,9 @@ pub struct ProcessRequest {
     /// The document payload.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::process_request::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessRequest {
@@ -6087,6 +6291,9 @@ pub struct HumanReviewStatus {
     /// [google.cloud.documentai.v1.HumanReviewStatus.state]: crate::model::HumanReviewStatus::state
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub human_review_operation: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HumanReviewStatus {
@@ -6222,6 +6429,9 @@ pub struct ProcessResponse {
     /// The status of human review on the processed document.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub human_review_status: std::option::Option<crate::model::HumanReviewStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessResponse {
@@ -6309,6 +6519,9 @@ pub struct BatchProcessRequest {
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchProcessRequest {
@@ -6388,7 +6601,10 @@ impl wkt::message::Message for BatchProcessRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct BatchProcessResponse {}
+pub struct BatchProcessResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl BatchProcessResponse {
     pub fn new() -> Self {
@@ -6431,6 +6647,9 @@ pub struct BatchProcessMetadata {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub individual_process_statuses:
         std::vec::Vec<crate::model::batch_process_metadata::IndividualProcessStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchProcessMetadata {
@@ -6523,6 +6742,9 @@ pub mod batch_process_metadata {
         /// The status of human review on the processed document.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub human_review_status: std::option::Option<crate::model::HumanReviewStatus>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IndividualProcessStatus {
@@ -6668,6 +6890,9 @@ pub struct FetchProcessorTypesRequest {
     /// Format: `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchProcessorTypesRequest {
@@ -6701,6 +6926,9 @@ pub struct FetchProcessorTypesResponse {
     /// The list of processor types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub processor_types: std::vec::Vec<crate::model::ProcessorType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchProcessorTypesResponse {
@@ -6750,6 +6978,9 @@ pub struct ListProcessorTypesRequest {
     /// Used to retrieve the next page of results, empty if at the end of the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProcessorTypesRequest {
@@ -6799,6 +7030,9 @@ pub struct ListProcessorTypesResponse {
     /// Points to the next page, otherwise empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProcessorTypesResponse {
@@ -6864,6 +7098,9 @@ pub struct ListProcessorsRequest {
     /// will point to the next processor.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProcessorsRequest {
@@ -6913,6 +7150,9 @@ pub struct ListProcessorsResponse {
     /// Points to the next processor, otherwise empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProcessorsResponse {
@@ -6971,6 +7211,9 @@ pub struct GetProcessorTypeRequest {
     /// Required. The processor type resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetProcessorTypeRequest {
@@ -7004,6 +7247,9 @@ pub struct GetProcessorRequest {
     /// Required. The processor resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetProcessorRequest {
@@ -7037,6 +7283,9 @@ pub struct GetProcessorVersionRequest {
     /// Required. The processor resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetProcessorVersionRequest {
@@ -7078,6 +7327,9 @@ pub struct ListProcessorVersionsRequest {
     /// token will point to the next processor version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProcessorVersionsRequest {
@@ -7127,6 +7379,9 @@ pub struct ListProcessorVersionsResponse {
     /// Points to the next processor, otherwise empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProcessorVersionsResponse {
@@ -7185,6 +7440,9 @@ pub struct DeleteProcessorVersionRequest {
     /// Required. The processor version resource name to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteProcessorVersionRequest {
@@ -7218,6 +7476,9 @@ pub struct DeleteProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteProcessorVersionMetadata {
@@ -7256,6 +7517,9 @@ pub struct DeployProcessorVersionRequest {
     /// Required. The processor version resource name to be deployed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployProcessorVersionRequest {
@@ -7285,7 +7549,10 @@ impl wkt::message::Message for DeployProcessorVersionRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeployProcessorVersionResponse {}
+pub struct DeployProcessorVersionResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeployProcessorVersionResponse {
     pub fn new() -> Self {
@@ -7312,6 +7579,9 @@ pub struct DeployProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeployProcessorVersionMetadata {
@@ -7350,6 +7620,9 @@ pub struct UndeployProcessorVersionRequest {
     /// Required. The processor version resource name to be undeployed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeployProcessorVersionRequest {
@@ -7379,7 +7652,10 @@ impl wkt::message::Message for UndeployProcessorVersionRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UndeployProcessorVersionResponse {}
+pub struct UndeployProcessorVersionResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UndeployProcessorVersionResponse {
     pub fn new() -> Self {
@@ -7406,6 +7682,9 @@ pub struct UndeployProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeployProcessorVersionMetadata {
@@ -7461,6 +7740,9 @@ pub struct CreateProcessorRequest {
     /// [google.cloud.documentai.v1.Processor.type]: crate::model::Processor::type
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub processor: std::option::Option<crate::model::Processor>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateProcessorRequest {
@@ -7503,6 +7785,9 @@ pub struct DeleteProcessorRequest {
     /// Required. The processor resource name to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteProcessorRequest {
@@ -7536,6 +7821,9 @@ pub struct DeleteProcessorMetadata {
     /// The basic metadata of the long-running operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteProcessorMetadata {
@@ -7574,6 +7862,9 @@ pub struct EnableProcessorRequest {
     /// Required. The processor resource name to be enabled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnableProcessorRequest {
@@ -7603,7 +7894,10 @@ impl wkt::message::Message for EnableProcessorRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct EnableProcessorResponse {}
+pub struct EnableProcessorResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl EnableProcessorResponse {
     pub fn new() -> Self {
@@ -7630,6 +7924,9 @@ pub struct EnableProcessorMetadata {
     /// The basic metadata of the long-running operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnableProcessorMetadata {
@@ -7668,6 +7965,9 @@ pub struct DisableProcessorRequest {
     /// Required. The processor resource name to be disabled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DisableProcessorRequest {
@@ -7697,7 +7997,10 @@ impl wkt::message::Message for DisableProcessorRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DisableProcessorResponse {}
+pub struct DisableProcessorResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DisableProcessorResponse {
     pub fn new() -> Self {
@@ -7724,6 +8027,9 @@ pub struct DisableProcessorMetadata {
     /// The basic metadata of the long-running operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DisableProcessorMetadata {
@@ -7775,6 +8081,9 @@ pub struct SetDefaultProcessorVersionRequest {
     /// [google.cloud.documentai.v1.ProcessorVersion]: crate::model::ProcessorVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub default_processor_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SetDefaultProcessorVersionRequest {
@@ -7813,7 +8122,10 @@ impl wkt::message::Message for SetDefaultProcessorVersionRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct SetDefaultProcessorVersionResponse {}
+pub struct SetDefaultProcessorVersionResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl SetDefaultProcessorVersionResponse {
     pub fn new() -> Self {
@@ -7840,6 +8152,9 @@ pub struct SetDefaultProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SetDefaultProcessorVersionMetadata {
@@ -7905,6 +8220,9 @@ pub struct TrainProcessorVersionRequest {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub processor_flags:
         std::option::Option<crate::model::train_processor_version_request::ProcessorFlags>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TrainProcessorVersionRequest {
@@ -8083,6 +8401,9 @@ pub mod train_processor_version_request {
         /// The documents used for testing the trained version.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub test_documents: std::option::Option<crate::model::BatchDocumentsInputConfig>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InputData {
@@ -8129,6 +8450,9 @@ pub mod train_processor_version_request {
 
         /// Training method to use for CDE training.
         pub training_method: crate::model::train_processor_version_request::custom_document_extraction_options::TrainingMethod,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CustomDocumentExtractionOptions {
@@ -8226,6 +8550,9 @@ pub mod train_processor_version_request {
         /// values are between 0.1 and 10. If not provided, recommended learning rate
         /// will be used.
         pub learning_rate_multiplier: f32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl FoundationModelTuningOptions {
@@ -8283,6 +8610,9 @@ pub struct TrainProcessorVersionResponse {
     /// The resource name of the processor version produced by training.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub processor_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TrainProcessorVersionResponse {
@@ -8325,6 +8655,9 @@ pub struct TrainProcessorVersionMetadata {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub test_dataset_validation:
         std::option::Option<crate::model::train_processor_version_metadata::DatasetValidation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TrainProcessorVersionMetadata {
@@ -8409,6 +8742,9 @@ pub mod train_processor_version_metadata {
         /// A single dataset error is terminal for training.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub dataset_errors: std::vec::Vec<rpc::model::Status>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DatasetValidation {
@@ -8487,6 +8823,9 @@ pub struct ReviewDocumentRequest {
     /// The document payload.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::review_document_request::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReviewDocumentRequest {
@@ -8666,6 +9005,9 @@ pub struct ReviewDocumentResponse {
     /// The reason why the review is rejected by reviewer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub rejection_reason: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReviewDocumentResponse {
@@ -8784,6 +9126,9 @@ pub struct ReviewDocumentOperationMetadata {
     /// The Crowd Compute question ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub question_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReviewDocumentOperationMetadata {
@@ -8838,6 +9183,9 @@ pub struct EvaluateProcessorVersionRequest {
     /// processor's dataset as evaluation input.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub evaluation_documents: std::option::Option<crate::model::BatchDocumentsInputConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EvaluateProcessorVersionRequest {
@@ -8885,6 +9233,9 @@ pub struct EvaluateProcessorVersionMetadata {
     /// The basic metadata of the long-running operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_metadata: std::option::Option<crate::model::CommonOperationMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EvaluateProcessorVersionMetadata {
@@ -8923,6 +9274,9 @@ pub struct EvaluateProcessorVersionResponse {
     /// The resource name of the created evaluation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub evaluation: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EvaluateProcessorVersionResponse {
@@ -8956,6 +9310,9 @@ pub struct GetEvaluationRequest {
     /// [google.cloud.documentai.v1.Evaluation]: crate::model::Evaluation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEvaluationRequest {
@@ -9003,6 +9360,9 @@ pub struct ListEvaluationsRequest {
     /// Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEvaluationsRequest {
@@ -9049,6 +9409,9 @@ pub struct ListEvaluationsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEvaluationsResponse {
@@ -9115,6 +9478,9 @@ pub struct DocumentSchema {
     /// Metadata of the schema.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<crate::model::document_schema::Metadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DocumentSchema {
@@ -9208,6 +9574,9 @@ pub mod document_schema {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub value_source:
             std::option::Option<crate::model::document_schema::entity_type::ValueSource>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EntityType {
@@ -9322,6 +9691,9 @@ pub mod document_schema {
             /// The individual values that this enum values type can include.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub values: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl EnumValues {
@@ -9371,6 +9743,9 @@ pub mod document_schema {
             /// in the document.
             pub occurrence_type:
                 crate::model::document_schema::entity_type::property::OccurrenceType,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Property {
@@ -9542,6 +9917,9 @@ pub mod document_schema {
         /// string values in `DocumentSchema.EntityType.name` and
         /// `DocumentSchema.EntityType.Property.name` will not be checked.
         pub skip_naming_validation: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Metadata {
@@ -9608,6 +9986,9 @@ pub struct EvaluationReference {
     /// An aggregate of the statistics for the evaluation with fuzzy matching off.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub aggregate_metrics_exact: std::option::Option<crate::model::evaluation::Metrics>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EvaluationReference {
@@ -9694,6 +10075,9 @@ pub struct Evaluation {
     /// The KMS key version with which data is encrypted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kms_key_version_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Evaluation {
@@ -9796,6 +10180,9 @@ pub mod evaluation {
 
         /// How many documents were used in the evaluation.
         pub evaluated_documents_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Counters {
@@ -9872,6 +10259,9 @@ pub mod evaluation {
 
         /// The amount of documents that had an occurrence of this label.
         pub total_documents_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Metrics {
@@ -9967,6 +10357,9 @@ pub mod evaluation {
         /// The metrics at the specific confidence level.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub metrics: std::option::Option<crate::model::evaluation::Metrics>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ConfidenceLevelMetrics {
@@ -10032,6 +10425,9 @@ pub mod evaluation {
 
         /// The metrics type for the label.
         pub metrics_type: crate::model::evaluation::multi_confidence_metrics::MetricsType,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MultiConfidenceMetrics {
@@ -10185,6 +10581,9 @@ pub struct Vertex {
 
     /// Y coordinate (starts from the top of the image).
     pub y: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Vertex {
@@ -10224,6 +10623,9 @@ pub struct NormalizedVertex {
 
     /// Y coordinate (starts from the top of the image).
     pub y: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NormalizedVertex {
@@ -10263,6 +10665,9 @@ pub struct BoundingPoly {
     /// The bounding polygon normalized vertices.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub normalized_vertices: std::vec::Vec<crate::model::NormalizedVertex>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BoundingPoly {
@@ -10323,6 +10728,9 @@ pub struct CommonOperationMetadata {
     /// The last update time of the operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CommonOperationMetadata {
@@ -10516,6 +10924,9 @@ pub struct ProcessorVersion {
     /// versions.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gen_ai_model_info: std::option::Option<crate::model::processor_version::GenAiModelInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessorVersion {
@@ -10664,6 +11075,9 @@ pub mod processor_version {
         /// If set, the processor version that will be used as a replacement.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub replacement_processor_version: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DeprecationInfo {
@@ -10707,6 +11121,9 @@ pub mod processor_version {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub model_info:
             std::option::Option<crate::model::processor_version::gen_ai_model_info::ModelInfo>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GenAiModelInfo {
@@ -10824,6 +11241,9 @@ pub mod processor_version {
             /// The minimum number of labeled documents in the training dataset
             /// required for finetuning.
             pub min_train_labeled_documents: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl FoundationGenAiModelInfo {
@@ -10868,6 +11288,9 @@ pub mod processor_version {
             /// The base processor version ID for the custom model.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub base_processor_version_id: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl CustomGenAiModelInfo {
@@ -11143,6 +11566,9 @@ pub struct ProcessorVersionAlias {
     /// The resource name of aliased processor version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub processor_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessorVersionAlias {
@@ -11227,6 +11653,9 @@ pub struct Processor {
 
     /// Output only. Reserved for future use.
     pub satisfies_pzi: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Processor {
@@ -11455,6 +11884,9 @@ pub struct ProcessorType {
     /// A set of Cloud Storage URIs of sample documents for this processor.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub sample_document_uris: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessorType {
@@ -11539,6 +11971,9 @@ pub mod processor_type {
         /// multi-regional support](/document-ai/docs/regions).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub location_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl LocationInfo {

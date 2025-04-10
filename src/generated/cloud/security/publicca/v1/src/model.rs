@@ -54,6 +54,9 @@ pub struct ExternalAccountKey {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub b64_mac_key: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExternalAccountKey {
@@ -108,6 +111,9 @@ pub struct CreateExternalAccountKeyRequest {
     /// CreateExternalAccountKeyRequest, set it to a default/empty value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub external_account_key: std::option::Option<crate::model::ExternalAccountKey>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateExternalAccountKeyRequest {

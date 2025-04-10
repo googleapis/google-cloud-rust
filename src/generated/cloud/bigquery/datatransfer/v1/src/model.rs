@@ -98,6 +98,9 @@ pub struct DataSourceParameter {
     /// If true, it should not be used in new transfers, and it should not be
     /// visible to users.
     pub deprecated: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataSourceParameter {
@@ -408,6 +411,9 @@ pub struct DataSource {
     /// The minimum interval for scheduler to schedule runs.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub minimum_schedule_interval: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataSource {
@@ -712,6 +718,9 @@ pub struct GetDataSourceRequest {
     /// `projects/{project_id}/locations/{location_id}/dataSources/{data_source_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDataSourceRequest {
@@ -754,6 +763,9 @@ pub struct ListDataSourcesRequest {
 
     /// Page size. The default page size is the maximum value of 1000 results.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataSourcesRequest {
@@ -802,6 +814,9 @@ pub struct ListDataSourcesResponse {
     /// to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataSourcesResponse {
@@ -921,6 +936,9 @@ pub struct CreateTransferConfigRequest {
     /// accounts](https://cloud.google.com/bigquery-transfer/docs/use-service-accounts).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_account_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTransferConfigRequest {
@@ -1042,6 +1060,9 @@ pub struct UpdateTransferConfigRequest {
     /// accounts](https://cloud.google.com/bigquery-transfer/docs/use-service-accounts).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_account_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTransferConfigRequest {
@@ -1111,6 +1132,9 @@ pub struct GetTransferConfigRequest {
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTransferConfigRequest {
@@ -1143,6 +1167,9 @@ pub struct DeleteTransferConfigRequest {
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTransferConfigRequest {
@@ -1175,6 +1202,9 @@ pub struct GetTransferRunRequest {
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTransferRunRequest {
@@ -1207,6 +1237,9 @@ pub struct DeleteTransferRunRequest {
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTransferRunRequest {
@@ -1253,6 +1286,9 @@ pub struct ListTransferConfigsRequest {
 
     /// Page size. The default page size is the maximum value of 1000 results.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTransferConfigsRequest {
@@ -1312,6 +1348,9 @@ pub struct ListTransferConfigsResponse {
     /// to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTransferConfigsResponse {
@@ -1387,6 +1426,9 @@ pub struct ListTransferRunsRequest {
 
     /// Indicates how run attempts are to be pulled.
     pub run_attempt: crate::model::list_transfer_runs_request::RunAttempt,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTransferRunsRequest {
@@ -1517,6 +1559,9 @@ pub struct ListTransferRunsResponse {
     /// to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTransferRunsResponse {
@@ -1589,6 +1634,9 @@ pub struct ListTransferLogsRequest {
     /// messages are returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub message_types: std::vec::Vec<crate::model::transfer_message::MessageSeverity>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTransferLogsRequest {
@@ -1648,6 +1696,9 @@ pub struct ListTransferLogsResponse {
     /// to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTransferLogsResponse {
@@ -1709,6 +1760,9 @@ pub struct CheckValidCredsRequest {
     /// `projects/{project_id}/locations/{location_id}/dataSources/{data_source_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CheckValidCredsRequest {
@@ -1737,6 +1791,9 @@ impl wkt::message::Message for CheckValidCredsRequest {
 pub struct CheckValidCredsResponse {
     /// If set to `true`, the credentials exist and are valid.
     pub has_valid_creds: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CheckValidCredsResponse {
@@ -1778,6 +1835,9 @@ pub struct ScheduleTransferRunsRequest {
     /// `"2017-05-30T00:00:00+00:00"`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScheduleTransferRunsRequest {
@@ -1825,6 +1885,9 @@ pub struct ScheduleTransferRunsResponse {
     /// The transfer runs that were scheduled.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub runs: std::vec::Vec<crate::model::TransferRun>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScheduleTransferRunsResponse {
@@ -1866,6 +1929,9 @@ pub struct StartManualTransferRunsRequest {
     /// run_time.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub time: std::option::Option<crate::model::start_manual_transfer_runs_request::Time>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartManualTransferRunsRequest {
@@ -1988,6 +2054,9 @@ pub mod start_manual_transfer_runs_request {
         /// (inclusive) and end_time (exclusive).
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub end_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TimeRange {
@@ -2050,6 +2119,9 @@ pub struct StartManualTransferRunsResponse {
     /// The transfer runs that were created.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub runs: std::vec::Vec<crate::model::TransferRun>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartManualTransferRunsResponse {
@@ -2091,6 +2163,9 @@ pub struct EnrollDataSourcesRequest {
     /// data source id.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub data_source_ids: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnrollDataSourcesRequest {
@@ -2138,6 +2213,9 @@ pub struct UnenrollDataSourcesRequest {
     /// data source id.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub data_source_ids: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UnenrollDataSourcesRequest {
@@ -2178,6 +2256,9 @@ impl wkt::message::Message for UnenrollDataSourcesRequest {
 pub struct EmailPreferences {
     /// If true, email notifications will be sent on transfer run failures.
     pub enable_failure_email: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EmailPreferences {
@@ -2224,6 +2305,9 @@ pub struct ScheduleOptions {
     /// limited by this option.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScheduleOptions {
@@ -2274,6 +2358,9 @@ pub struct ScheduleOptionsV2 {
     /// Data transfer schedules.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub schedule: std::option::Option<crate::model::schedule_options_v_2::Schedule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScheduleOptionsV2 {
@@ -2454,6 +2541,9 @@ pub struct TimeBasedSchedule {
     /// moment.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeBasedSchedule {
@@ -2497,7 +2587,10 @@ impl wkt::message::Message for TimeBasedSchedule {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ManualSchedule {}
+pub struct ManualSchedule {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ManualSchedule {
     pub fn new() -> Self {
@@ -2522,6 +2615,9 @@ pub struct EventDrivenSchedule {
     /// Format: projects/{project}/subscriptions/{subscription}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub pubsub_subscription: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EventDrivenSchedule {
@@ -2554,6 +2650,9 @@ pub struct UserInfo {
     /// E-mail address of the user.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub email: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UserInfo {
@@ -2707,6 +2806,9 @@ pub struct TransferConfig {
     /// The desination of the transfer config.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::transfer_config::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferConfig {
@@ -2936,6 +3038,9 @@ pub struct EncryptionConfiguration {
     /// The name of the KMS key used for encrypting BigQuery data.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub kms_key_name: std::option::Option<wkt::StringValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EncryptionConfiguration {
@@ -3043,6 +3148,9 @@ pub struct TransferRun {
     /// Data transfer destination.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::transfer_run::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferRun {
@@ -3240,6 +3348,9 @@ pub struct TransferMessage {
     /// Message text.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub message_text: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferMessage {

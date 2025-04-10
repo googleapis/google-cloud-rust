@@ -88,6 +88,9 @@ pub struct Insight {
     /// Recommendations derived from this insight.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub associated_recommendations: std::vec::Vec<crate::model::insight::RecommendationReference>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Insight {
@@ -219,6 +222,9 @@ pub mod insight {
         /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/recommenders/[RECOMMENDER_ID]/recommendations/[RECOMMENDATION_ID]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub recommendation: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RecommendationReference {
@@ -399,6 +405,9 @@ pub struct InsightStateInfo {
     /// A map of metadata for the state, provided by user or automations systems.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InsightStateInfo {
@@ -556,6 +565,9 @@ pub struct InsightTypeConfig {
     /// interfaces.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InsightTypeConfig {
@@ -638,6 +650,9 @@ pub struct InsightTypeGenerationConfig {
     /// by or are applied to all subtypes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub params: std::option::Option<wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InsightTypeGenerationConfig {
@@ -731,6 +746,9 @@ pub struct Recommendation {
     /// is suggested to be applied.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub xor_group_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Recommendation {
@@ -864,6 +882,9 @@ pub mod recommendation {
         /// projects/[PROJECT_NUMBER]/locations/[LOCATION]/insightTypes/[INSIGHT_TYPE_ID]/insights/[INSIGHT_ID]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub insight: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InsightReference {
@@ -967,6 +988,9 @@ pub struct RecommendationContent {
     /// Condensed overview information about the recommendation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub overview: std::option::Option<wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RecommendationContent {
@@ -1011,6 +1035,9 @@ pub struct OperationGroup {
     /// Loosely based on RFC6902 and should be performed in the order they appear.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub operations: std::vec::Vec<crate::model::Operation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationGroup {
@@ -1136,6 +1163,9 @@ pub struct Operation {
     /// describe a value for 'path' field.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub path_value: std::option::Option<crate::model::operation::PathValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Operation {
@@ -1299,6 +1329,9 @@ pub mod operation {
 pub struct ValueMatcher {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub match_variant: std::option::Option<crate::model::value_matcher::MatchVariant>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ValueMatcher {
@@ -1387,6 +1420,9 @@ pub struct CostProjection {
     /// The approximate cost savings in the billing account's local currency.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cost_in_local_currency: std::option::Option<gtype::model::Money>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CostProjection {
@@ -1439,6 +1475,9 @@ pub struct SecurityProjection {
     /// Additional security impact details that is provided by the recommender.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub details: std::option::Option<wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SecurityProjection {
@@ -1477,6 +1516,9 @@ pub struct SustainabilityProjection {
     /// Duration for which this sustainability applies.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub duration: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SustainabilityProjection {
@@ -1519,6 +1561,9 @@ pub struct ReliabilityProjection {
     /// Per-recommender projection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub details: std::option::Option<wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReliabilityProjection {
@@ -1634,6 +1679,9 @@ pub struct Impact {
     /// Contains projections (if any) for this category.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub projection: std::option::Option<crate::model::impact::Projection>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Impact {
@@ -1901,6 +1949,9 @@ pub struct RecommendationStateInfo {
     /// A map of metadata for the state, provided by user or automations systems.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RecommendationStateInfo {
@@ -2077,6 +2128,9 @@ pub struct RecommenderConfig {
     /// interfaces.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RecommenderConfig {
@@ -2159,6 +2213,9 @@ pub struct RecommenderGenerationConfig {
     /// by or are applied to all subtypes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub params: std::option::Option<wkt::Struct>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RecommenderGenerationConfig {
@@ -2253,6 +2310,9 @@ pub struct ListInsightsRequest {
     /// <https://google.aip.dev/160>)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInsightsRequest {
@@ -2305,6 +2365,9 @@ pub struct ListInsightsResponse {
     /// empty if there are no additional results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInsightsResponse {
@@ -2359,6 +2422,9 @@ pub struct GetInsightRequest {
     /// Required. Name of the insight.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInsightRequest {
@@ -2397,6 +2463,9 @@ pub struct MarkInsightAcceptedRequest {
     /// Required. Fingerprint of the Insight. Provides optimistic locking.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MarkInsightAcceptedRequest {
@@ -2506,6 +2575,9 @@ pub struct ListRecommendationsRequest {
     /// <https://google.aip.dev/160>)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRecommendationsRequest {
@@ -2558,6 +2630,9 @@ pub struct ListRecommendationsResponse {
     /// empty if there are no additional results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRecommendationsResponse {
@@ -2612,6 +2687,9 @@ pub struct GetRecommendationRequest {
     /// Required. Name of the recommendation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRecommendationRequest {
@@ -2645,6 +2723,9 @@ pub struct MarkRecommendationDismissedRequest {
     /// Fingerprint of the Recommendation. Provides optimistic locking.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MarkRecommendationDismissedRequest {
@@ -2691,6 +2772,9 @@ pub struct MarkRecommendationClaimedRequest {
     /// Required. Fingerprint of the Recommendation. Provides optimistic locking.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MarkRecommendationClaimedRequest {
@@ -2749,6 +2833,9 @@ pub struct MarkRecommendationSucceededRequest {
     /// Required. Fingerprint of the Recommendation. Provides optimistic locking.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MarkRecommendationSucceededRequest {
@@ -2807,6 +2894,9 @@ pub struct MarkRecommendationFailedRequest {
     /// Required. Fingerprint of the Recommendation. Provides optimistic locking.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MarkRecommendationFailedRequest {
@@ -2865,6 +2955,9 @@ pub struct GetRecommenderConfigRequest {
     ///
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRecommenderConfigRequest {
@@ -2902,6 +2995,9 @@ pub struct UpdateRecommenderConfigRequest {
     /// If true, validate the request and preview the change, but do not actually
     /// update it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateRecommenderConfigRequest {
@@ -2962,6 +3058,9 @@ pub struct GetInsightTypeConfigRequest {
     ///
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInsightTypeConfigRequest {
@@ -2999,6 +3098,9 @@ pub struct UpdateInsightTypeConfigRequest {
     /// If true, validate the request and preview the change, but do not actually
     /// update it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInsightTypeConfigRequest {
