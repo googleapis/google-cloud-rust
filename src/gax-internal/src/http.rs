@@ -124,7 +124,7 @@ impl ReqwestClient {
         options: &gax::options::RequestOptions,
         remaining_time: Option<std::time::Duration>,
     ) -> Result<O> {
-        builder = Self::effective_timeout(options, remaining_time)
+        builder = gax::retry_loop_internal::effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
         let auth_headers = self.cred.headers().await.map_err(Error::authentication)?;
@@ -221,18 +221,6 @@ impl ReqwestClient {
             .or_else(|| self.polling_backoff_policy.clone())
             .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
     }
-
-    fn effective_timeout(
-        options: &gax::options::RequestOptions,
-        remaining_time: Option<std::time::Duration>,
-    ) -> Option<std::time::Duration> {
-        match (options.attempt_timeout(), remaining_time) {
-            (None, None) => None,
-            (None, Some(t)) => Some(t),
-            (Some(t), None) => Some(*t),
-            (Some(a), Some(r)) => Some(*std::cmp::min(a, &r)),
-        }
-    }
 }
 
 #[doc(hidden)]
@@ -245,8 +233,6 @@ const SENSITIVE_HEADER: &str = "[sensitive]";
 mod test {
     use super::*;
     use std::collections::HashMap;
-    use std::time::Duration;
-    use test_case::test_case;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
@@ -359,32 +345,5 @@ mod test {
         );
         assert_eq!(err.headers(), &Some(want));
         Ok(())
-    }
-
-    #[test_case(None, None, None)]
-    #[test_case(Some(Duration::from_secs(4)), Some(Duration::from_secs(4)), None)]
-    #[test_case(Some(Duration::from_secs(4)), None, Some(Duration::from_secs(4)))]
-    #[test_case(
-        Some(Duration::from_secs(2)),
-        Some(Duration::from_secs(2)),
-        Some(Duration::from_secs(4))
-    )]
-    #[test_case(
-        Some(Duration::from_secs(2)),
-        Some(Duration::from_secs(4)),
-        Some(Duration::from_secs(2))
-    )]
-    fn effective_timeout(
-        want: Option<Duration>,
-        remaining: Option<Duration>,
-        request: Option<Duration>,
-    ) {
-        let options = gax::options::RequestOptions::default();
-        let options = request.into_iter().fold(options, |mut o, t| {
-            o.set_attempt_timeout(t);
-            o
-        });
-        let got = ReqwestClient::effective_timeout(&options, remaining);
-        assert_eq!(want, got);
     }
 }

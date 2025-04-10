@@ -99,10 +99,53 @@ where
     }
 }
 
+/// A helper to compute the time remaining in a retry loop, given the attempt
+/// timeout and the overall timeout.
+pub fn effective_timeout(
+    options: &crate::options::RequestOptions,
+    remaining_time: Option<std::time::Duration>,
+) -> Option<std::time::Duration> {
+    match (options.attempt_timeout(), remaining_time) {
+        (None, None) => None,
+        (None, Some(t)) => Some(t),
+        (Some(t), None) => Some(*t),
+        (Some(a), Some(r)) => Some(*std::cmp::min(a, &r)),
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
     use crate::error::Error;
+    use std::time::Duration;
+    use test_case::test_case;
+
+    #[test_case(None, None, None)]
+    #[test_case(Some(Duration::from_secs(4)), Some(Duration::from_secs(4)), None)]
+    #[test_case(Some(Duration::from_secs(4)), None, Some(Duration::from_secs(4)))]
+    #[test_case(
+        Some(Duration::from_secs(2)),
+        Some(Duration::from_secs(2)),
+        Some(Duration::from_secs(4))
+    )]
+    #[test_case(
+        Some(Duration::from_secs(2)),
+        Some(Duration::from_secs(4)),
+        Some(Duration::from_secs(2))
+    )]
+    fn effective_timeouts(
+        want: Option<Duration>,
+        remaining: Option<Duration>,
+        request: Option<Duration>,
+    ) {
+        let options = crate::options::RequestOptions::default();
+        let options = request.into_iter().fold(options, |mut o, t| {
+            o.set_attempt_timeout(t);
+            o
+        });
+        let got = effective_timeout(&options, remaining);
+        assert_eq!(want, got);
+    }
 
     #[tokio::test]
     async fn immediate_success() -> anyhow::Result<()> {
