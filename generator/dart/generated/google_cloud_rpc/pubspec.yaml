@@ -29,3 +29,4 @@ dependencies:
 
 dev_dependencies:
   test: any
+  lints: any

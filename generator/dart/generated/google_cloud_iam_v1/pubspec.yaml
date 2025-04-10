@@ -28,3 +28,6 @@ dependencies:
   google_cloud_protobuf: any
   google_cloud_type: any
   http: any
+
+dev_dependencies:
+  lints: any
