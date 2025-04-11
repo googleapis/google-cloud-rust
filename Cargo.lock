@@ -2277,7 +2277,6 @@ version = "0.21.0"
 dependencies = [
  "anyhow",
  "base64",
- "built",
  "bytes",
  "futures",
  "google-cloud-gax",
@@ -2301,6 +2300,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "axum",
+ "built",
  "bytes",
  "echo-server",
  "google-cloud-auth",

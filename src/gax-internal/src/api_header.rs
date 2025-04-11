@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Telemetry header helpers.
+
 /// Generated libraries create one static instance of this struct and use it
 /// to lazy initialize (via [std::sync::LazyLock]) the x-goog-api-client header
 /// value.
