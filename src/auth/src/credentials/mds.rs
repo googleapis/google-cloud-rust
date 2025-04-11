@@ -51,7 +51,9 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::credentials::dynamic::CredentialsTrait;
-use crate::credentials::{Credentials, DEFAULT_UNIVERSE_DOMAIN, Result};
+use crate::credentials::{
+    AccessTokenCredentialOptions, Credentials, DEFAULT_UNIVERSE_DOMAIN, Result,
+};
 use crate::errors::{self, CredentialsError, is_retryable};
 use crate::headers_util::build_bearer_headers;
 use crate::token::{Token, TokenProvider};
@@ -101,6 +103,15 @@ pub struct Builder {
 }
 
 impl Builder {
+    pub(crate) fn with_access_token_options(
+        mut self,
+        options: AccessTokenCredentialOptions,
+    ) -> Self {
+        self.scopes = options.scopes;
+        self.quota_project_id = options.quota_project_id;
+        self
+    }
+
     /// Sets the endpoint for this credentials.
     ///
     /// If not set, the credentials use `http://metadata.google.internal/`.
