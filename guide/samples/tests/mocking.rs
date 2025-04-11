@@ -92,7 +92,14 @@ mod test {
         // ANCHOR: error
         mock.expect_get_recognizer().return_once(|_, _| {
             // This time, return an error.
-            Err(gax::error::Error::other("fail"))
+            use gax::error::rpc::Status;
+            use gax::error::{Error, ServiceError};
+            let s = Status::default()
+                .set_code(404)
+                .set_message("Resource not found");
+            Err(Error::rpc(
+                ServiceError::from(s).with_http_status_code(404_u16),
+            ))
         });
         // ANCHOR_END: error
 
