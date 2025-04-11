@@ -13,22 +13,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
+# Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
+#{{{.}}}
+{{/Codec.BoilerPlate}}
 
-{{#Codec.DocLines}}
-{{{.}}}
-{{/Codec.DocLines}}
-class {{Codec.Name}} extends Enum {
-  {{#Values}}
-  {{#Codec.DocLines}}
-  {{{.}}}
-  {{/Codec.DocLines}}
-  static const {{Codec.Name}} = {{Parent.Codec.Name}}('{{Name}}');
+include: package:lints/core.yaml
 
-  {{/Values}}
-  const {{Codec.Name}}(super.value);
-
-  factory {{Codec.Name}}.fromJson(String json) => {{Codec.Name}}(json);
-
-  @override
-  String toString() => '{{Name}}.$value';
-}
+analyzer:
+  errors:
+    camel_case_types: ignore
+    implementation_imports: ignore
+    unintended_html_in_doc_comment: ignore
+    unused_import: ignore

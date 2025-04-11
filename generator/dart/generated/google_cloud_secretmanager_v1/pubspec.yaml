@@ -29,3 +29,6 @@ dependencies:
   google_cloud_location: any
   google_cloud_protobuf: any
   http: any
+
+dev_dependencies:
+  lints: any

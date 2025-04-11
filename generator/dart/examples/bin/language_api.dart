@@ -43,7 +43,7 @@ void main(List<String> args) async {
       AnalyzeSentimentRequest(document: document),
     );
 
-    print('result: ${result}');
+    print('result: $result');
     print('documentSentiment: ${result.documentSentiment}');
 
     for (final sentence in result.sentences!) {

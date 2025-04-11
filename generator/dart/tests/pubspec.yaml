@@ -23,6 +23,8 @@ environment:
 resolution: workspace
 
 dev_dependencies:
+  google_cloud_language_v2: any
   google_cloud_protobuf: any
   google_cloud_rpc: any
+  lints: ^5.0.0
   test: ^1.25.0

@@ -27,3 +27,6 @@ dependencies:
   google_cloud_gax: any
   google_cloud_protobuf: any
   http: any
+
+dev_dependencies:
+  lints: any

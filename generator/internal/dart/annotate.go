@@ -221,6 +221,9 @@ func (annotate *annotateModel) annotateModel(options map[string]string) (*modelA
 	// Remove our package self-reference.
 	delete(annotate.imports, model.PackageName)
 
+	// Add a dev dependency on package:lints.
+	devDependencies = append(devDependencies, "lints")
+
 	// Add the import for the google_cloud_gax package.
 	annotate.imports["cloud_gax"] = commonImport
 
