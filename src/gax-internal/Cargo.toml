@@ -42,9 +42,9 @@ _internal_grpc_client = [
   "dep:gax",
   "dep:prost-types",
   "dep:rpc",
-  "dep:wkt",
   "dep:tokio",
   "dep:tonic",
+  "dep:wkt",
 ]
 _internal_common = ["dep:auth", "dep:gax", "dep:thiserror"]
 
