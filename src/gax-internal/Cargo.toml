@@ -16,6 +16,7 @@
 name        = "google-cloud-gax-internal"
 version     = "0.1.0"
 description = "Google Cloud Client Libraries for Rust - Implementation Details"
+build       = "build.rs"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true
@@ -85,3 +86,6 @@ tokio       = { version = "1", features = ["test-util"] }
 # Local crates
 echo-server = { path = "echo-server" }
 grpc-server = { path = "grpc-server" }
+
+[build-dependencies]
+built = "0.7"

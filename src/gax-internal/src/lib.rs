@@ -26,6 +26,10 @@
 
 #[cfg(feature = "_internal_common")]
 #[doc(hidden)]
+pub mod api_header;
+
+#[cfg(feature = "_internal_common")]
+#[doc(hidden)]
 pub mod path_parameter;
 
 #[cfg(feature = "_internal_http_client")]

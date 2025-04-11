@@ -67,10 +67,10 @@ pub(crate) mod info {
     const VERSION: &str = env!("CARGO_PKG_VERSION");
     lazy_static::lazy_static! {
         pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
-            let ac = gax::api_header::XGoogApiClient{
+            let ac = gaxi::api_header::XGoogApiClient{
                 name:          NAME,
                 version:       VERSION,
-                library_type:  gax::api_header::GAPIC, 
+                library_type:  gaxi::api_header::GAPIC, 
             };
             ac.header_value()
         };
