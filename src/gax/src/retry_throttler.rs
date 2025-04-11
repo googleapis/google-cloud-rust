@@ -164,8 +164,8 @@ impl AdaptiveThrottler {
     ///
     /// # Parameters
     /// * `factor` - a factor to adjust the relative weight of transient
-    ///    failures vs. accepted requests. See the struct definition for
-    ///    details.
+    ///   failures vs. accepted requests. See the struct definition for
+    ///   details.
     ///
     /// # Example
     /// ```
@@ -186,8 +186,8 @@ impl AdaptiveThrottler {
     ///
     /// # Parameters
     /// * `factor` - a factor to adjust the relative weight of transient
-    ///    failures vs. accepted requests. See the struct definition for
-    ///    details. Clamped to zero if the value is negative.
+    ///   failures vs. accepted requests. See the struct definition for
+    ///   details. Clamped to zero if the value is negative.
     ///
     /// # Example
     /// ```
@@ -294,8 +294,8 @@ impl CircuitBreaker {
     ///
     /// # Parameters
     /// * `tokens` - the initial number of tokens. This is decreased by
-    ///    `error_cost` on each retry failure, and increased by `1` when a
-    ///    request succeeds.
+    ///   `error_cost` on each retry failure, and increased by `1` when a
+    ///   request succeeds.
     /// * `min_tokens` - stops accepting retry attempts when the number of
     ///   tokens is at or below this value.
     /// * `error_cost` - decrease the token count by this value on failed
@@ -326,8 +326,8 @@ impl CircuitBreaker {
     ///
     /// # Parameters
     /// * `tokens` - the initial number of tokens. This is decreased by
-    ///    `error_cost` on each retry failure, and increased by `1` when a
-    ///    request succeeds.
+    ///   `error_cost` on each retry failure, and increased by `1` when a
+    ///   request succeeds.
     /// * `min_tokens` - stops accepting retry attempts when the number of
     ///   tokens is at or below this value. Clamped to be `<= tokens`.
     /// * `error_cost` - decrease the token count by this value on failed
