@@ -85,7 +85,6 @@ jobs:
           cargo clean
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-wkt --no-default-features
-            cargo "${sub}" --package google-cloud-wkt --no-default-features --features prost
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features chrono
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features time
             cargo "${sub}" --package google-cloud-wkt --all-features

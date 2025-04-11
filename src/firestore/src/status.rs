@@ -14,7 +14,7 @@
 
 use super::google;
 
-impl wkt::prost::Convert<google::rpc::Status> for rpc::model::Status {
+impl gaxi::prost::Convert<google::rpc::Status> for rpc::model::Status {
     fn cnv(self) -> google::rpc::Status {
         google::rpc::Status {
             code: self.code.cnv(),
@@ -24,7 +24,7 @@ impl wkt::prost::Convert<google::rpc::Status> for rpc::model::Status {
     }
 }
 
-impl wkt::prost::Convert<rpc::model::Status> for google::rpc::Status {
+impl gaxi::prost::Convert<rpc::model::Status> for google::rpc::Status {
     fn cnv(self) -> rpc::model::Status {
         rpc::model::Status::new()
             .set_code(self.code)
@@ -34,7 +34,7 @@ impl wkt::prost::Convert<rpc::model::Status> for google::rpc::Status {
 }
 
 fn any_to_prost(value: wkt::Any) -> Option<prost_types::Any> {
-    use wkt::prost::Convert;
+    use gaxi::prost::Convert;
     let mapped = value.type_url().map(|url| match url {
         "type.googleapis.com/google.rpc.BadRequest" => value
             .try_into_message::<rpc::model::BadRequest>()
@@ -82,7 +82,7 @@ fn any_to_prost(value: wkt::Any) -> Option<prost_types::Any> {
 }
 
 fn any_from_prost(value: prost_types::Any) -> Option<wkt::Any> {
-    use wkt::prost::Convert;
+    use gaxi::prost::Convert;
     let mapped = match value.type_url.as_str() {
         "type.googleapis.com/google.rpc.BadRequest" => value
             .to_msg::<google::rpc::BadRequest>()
@@ -132,7 +132,7 @@ fn any_from_prost(value: prost_types::Any) -> Option<wkt::Any> {
 #[cfg(test)]
 mod test {
     use super::*;
-    use wkt::prost::Convert;
+    use gaxi::prost::Convert;
 
     #[test]
     fn from_prost() {

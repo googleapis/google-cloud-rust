@@ -48,7 +48,7 @@ gaxi = { version = "0.1", path = "../gax-internal", package = "google-cloud-gax-
 ] }
 gtype = { version = "0.2", path = "../generated/type", package = "google-cloud-type" }
 rpc = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
-wkt = { version = "0.3", path = "../wkt", package = "google-cloud-wkt", features = ["prost"] }
+wkt = { version = "0.3", path = "../wkt", package = "google-cloud-wkt" }
 
 [dev-dependencies]
 tokio                = { version = "1", features = ["full", "macros"] }

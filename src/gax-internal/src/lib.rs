@@ -40,6 +40,10 @@ pub mod http;
 #[doc(hidden)]
 pub mod grpc;
 
+#[cfg(feature = "_internal_grpc_client")]
+#[doc(hidden)]
+pub mod prost;
+
 #[cfg(feature = "_internal_common")]
 #[doc(hidden)]
 pub mod options;

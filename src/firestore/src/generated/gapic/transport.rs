@@ -274,7 +274,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::GetDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::GetDocumentRequest, h: http::header::HeaderMap| async {
             let extensions = {
@@ -315,7 +315,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::ListDocumentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::ListDocumentsRequest, h: http::header::HeaderMap| async {
             let extensions = {
@@ -361,7 +361,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::UpdateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::UpdateDocumentRequest, h: http::header::HeaderMap| async {
             let extensions = {
@@ -409,7 +409,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::DeleteDocumentRequest, h: http::header::HeaderMap| async {
             let extensions = {
@@ -451,7 +451,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::BeginTransactionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BeginTransactionResponse>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::BeginTransactionRequest, h: http::header::HeaderMap| async {
             let extensions = {
@@ -494,7 +494,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::CommitRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CommitResponse>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::CommitRequest, h: http::header::HeaderMap| async {
             let extensions = {
@@ -535,7 +535,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::RollbackRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::RollbackRequest, h: http::header::HeaderMap| async {
             let extensions = {
@@ -576,7 +576,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::PartitionQueryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PartitionQueryResponse>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::PartitionQueryRequest, h: http::header::HeaderMap| async {
             let extensions = {
@@ -619,7 +619,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::ListCollectionIdsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCollectionIdsResponse>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::ListCollectionIdsRequest, h: http::header::HeaderMap| async {
             let extensions = {
@@ -662,7 +662,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::BatchWriteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchWriteResponse>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::BatchWriteRequest, h: http::header::HeaderMap| async {
             let extensions = {
@@ -703,7 +703,7 @@ impl super::stub::Firestore for Firestore {
         req: crate::model::CreateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::CreateDocumentRequest, h: http::header::HeaderMap| async {
             let extensions = {
