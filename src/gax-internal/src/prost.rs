@@ -285,4 +285,22 @@ mod test {
         let got: wkt::Value = convert.cnv();
         assert_eq!(got, input);
     }
+
+    #[test]
+    fn from_wkt_null_value() {
+        let input = wkt::NullValue;
+        let got: i32 = input.cnv();
+        assert_eq!(got, 0);
+
+        let input = wkt::NullValue;
+        let got: prost_types::NullValue = input.cnv();
+        assert_eq!(got, prost_types::NullValue::NullValue);
+    }
+
+    #[test]
+    fn from_prost_null_value() {
+        let input = prost_types::NullValue::NullValue;
+        let got: wkt::NullValue = input.cnv();
+        assert_eq!(got, wkt::NullValue);
+    }
 }
