@@ -40,13 +40,13 @@ impl_primitive!(u64);
 impl_primitive!(String);
 impl_primitive!(bytes::Bytes);
 
-impl Convert<crate::Duration> for prost_types::Duration {
-    fn cnv(self) -> crate::Duration {
-        crate::Duration::clamp(self.seconds, self.nanos)
+impl Convert<wkt::Duration> for prost_types::Duration {
+    fn cnv(self) -> wkt::Duration {
+        wkt::Duration::clamp(self.seconds, self.nanos)
     }
 }
 
-impl Convert<prost_types::Duration> for crate::Duration {
+impl Convert<prost_types::Duration> for wkt::Duration {
     fn cnv(self) -> prost_types::Duration {
         prost_types::Duration {
             seconds: self.seconds(),
@@ -55,25 +55,25 @@ impl Convert<prost_types::Duration> for crate::Duration {
     }
 }
 
-impl Convert<crate::FieldMask> for prost_types::FieldMask {
-    fn cnv(self) -> crate::FieldMask {
-        crate::FieldMask::default().set_paths(self.paths)
+impl Convert<wkt::FieldMask> for prost_types::FieldMask {
+    fn cnv(self) -> wkt::FieldMask {
+        wkt::FieldMask::default().set_paths(self.paths)
     }
 }
 
-impl Convert<prost_types::FieldMask> for crate::FieldMask {
+impl Convert<prost_types::FieldMask> for wkt::FieldMask {
     fn cnv(self) -> prost_types::FieldMask {
         prost_types::FieldMask { paths: self.paths }
     }
 }
 
-impl Convert<crate::Timestamp> for prost_types::Timestamp {
-    fn cnv(self) -> crate::Timestamp {
-        crate::Timestamp::clamp(self.seconds, self.nanos)
+impl Convert<wkt::Timestamp> for prost_types::Timestamp {
+    fn cnv(self) -> wkt::Timestamp {
+        wkt::Timestamp::clamp(self.seconds, self.nanos)
     }
 }
 
-impl Convert<prost_types::Timestamp> for crate::Timestamp {
+impl Convert<prost_types::Timestamp> for wkt::Timestamp {
     fn cnv(self) -> prost_types::Timestamp {
         prost_types::Timestamp {
             seconds: self.seconds(),
@@ -82,8 +82,8 @@ impl Convert<prost_types::Timestamp> for crate::Timestamp {
     }
 }
 
-impl Convert<crate::Struct> for prost_types::Struct {
-    fn cnv(self) -> crate::Struct {
+impl Convert<wkt::Struct> for prost_types::Struct {
+    fn cnv(self) -> wkt::Struct {
         self.fields
             .into_iter()
             .map(|(k, v)| (k.cnv(), v.cnv()))
@@ -91,7 +91,7 @@ impl Convert<crate::Struct> for prost_types::Struct {
     }
 }
 
-impl Convert<prost_types::Struct> for crate::Struct {
+impl Convert<prost_types::Struct> for wkt::Struct {
     fn cnv(self) -> prost_types::Struct {
         prost_types::Struct {
             fields: self.into_iter().map(|(k, v)| (k.cnv(), v.cnv())).collect(),
@@ -99,28 +99,28 @@ impl Convert<prost_types::Struct> for crate::Struct {
     }
 }
 
-impl Convert<crate::Value> for prost_types::Value {
-    fn cnv(self) -> crate::Value {
+impl Convert<wkt::Value> for prost_types::Value {
+    fn cnv(self) -> wkt::Value {
         use prost_types::value::Kind;
         match self.kind {
-            None => crate::Value::Null,
+            None => wkt::Value::Null,
             Some(kind) => match kind {
-                Kind::NullValue(_) => crate::Value::Null,
+                Kind::NullValue(_) => wkt::Value::Null,
                 Kind::NumberValue(v) => {
                     let number =
                         serde_json::Number::from_f64(v).expect("JSON numbers cannot be NaN");
                     serde_json::Value::Number(number)
                 }
-                Kind::StringValue(v) => crate::Value::String(v),
-                Kind::BoolValue(v) => crate::Value::Bool(v),
-                Kind::StructValue(v) => crate::Value::Object(v.cnv()),
-                Kind::ListValue(v) => crate::Value::Array(v.cnv()),
+                Kind::StringValue(v) => wkt::Value::String(v),
+                Kind::BoolValue(v) => wkt::Value::Bool(v),
+                Kind::StructValue(v) => wkt::Value::Object(v.cnv()),
+                Kind::ListValue(v) => wkt::Value::Array(v.cnv()),
             },
         }
     }
 }
 
-impl Convert<prost_types::Value> for crate::Value {
+impl Convert<prost_types::Value> for wkt::Value {
     fn cnv(self) -> prost_types::Value {
         use prost_types::value::Kind;
         let kind = match self {
@@ -135,13 +135,13 @@ impl Convert<prost_types::Value> for crate::Value {
     }
 }
 
-impl Convert<crate::ListValue> for prost_types::ListValue {
-    fn cnv(self) -> crate::ListValue {
+impl Convert<wkt::ListValue> for prost_types::ListValue {
+    fn cnv(self) -> wkt::ListValue {
         self.values.into_iter().map(|v| v.cnv()).collect()
     }
 }
 
-impl Convert<prost_types::ListValue> for crate::ListValue {
+impl Convert<prost_types::ListValue> for wkt::ListValue {
     fn cnv(self) -> prost_types::ListValue {
         prost_types::ListValue {
             values: self.into_iter().map(|v| v.cnv()).collect(),
@@ -149,27 +149,21 @@ impl Convert<prost_types::ListValue> for crate::ListValue {
     }
 }
 
-impl Convert<i32> for crate::NullValue {
+impl Convert<i32> for wkt::NullValue {
     fn cnv(self) -> i32 {
         prost_types::NullValue::NullValue as i32
     }
 }
 
-impl Convert<crate::NullValue> for prost_types::NullValue {
-    fn cnv(self) -> crate::NullValue {
-        crate::NullValue
+impl Convert<wkt::NullValue> for prost_types::NullValue {
+    fn cnv(self) -> wkt::NullValue {
+        wkt::NullValue
     }
 }
 
-impl Convert<prost_types::NullValue> for crate::NullValue {
+impl Convert<prost_types::NullValue> for wkt::NullValue {
     fn cnv(self) -> prost_types::NullValue {
         prost_types::NullValue::NullValue
-    }
-}
-
-impl From<crate::NullValue> for i32 {
-    fn from(_value: crate::NullValue) -> Self {
-        i32::default()
     }
 }
 
@@ -220,13 +214,13 @@ mod test {
             seconds: 123,
             nanos: 456,
         };
-        let got: crate::Duration = input.cnv();
-        assert_eq!(got, crate::Duration::clamp(123, 456));
+        let got: wkt::Duration = input.cnv();
+        assert_eq!(got, wkt::Duration::clamp(123, 456));
     }
 
     #[test]
     fn from_wkt_duration() {
-        let input = crate::Duration::clamp(123, 456);
+        let input = wkt::Duration::clamp(123, 456);
         let got: prost_types::Duration = input.cnv();
         assert_eq!(
             got,
@@ -242,13 +236,13 @@ mod test {
         let input = prost_types::FieldMask {
             paths: ["a", "b", "c"].map(str::to_string).to_vec(),
         };
-        let got: crate::FieldMask = input.cnv();
-        assert_eq!(got, crate::FieldMask::default().set_paths(["a", "b", "c"]));
+        let got: wkt::FieldMask = input.cnv();
+        assert_eq!(got, wkt::FieldMask::default().set_paths(["a", "b", "c"]));
     }
 
     #[test]
     fn from_wkt_field_mask() {
-        let input = crate::FieldMask::default().set_paths(["p1", "p2", "p3"]);
+        let input = wkt::FieldMask::default().set_paths(["p1", "p2", "p3"]);
         let got: prost_types::FieldMask = input.cnv();
         assert_eq!(
             got,
@@ -264,13 +258,13 @@ mod test {
             seconds: 123,
             nanos: 456,
         };
-        let got: crate::Timestamp = input.cnv();
-        assert_eq!(got, crate::Timestamp::clamp(123, 456));
+        let got: wkt::Timestamp = input.cnv();
+        assert_eq!(got, wkt::Timestamp::clamp(123, 456));
     }
 
     #[test]
     fn from_wkt_timestamp() {
-        let input = crate::Timestamp::clamp(123, 456);
+        let input = wkt::Timestamp::clamp(123, 456);
         let got: prost_types::Timestamp = input.cnv();
         assert_eq!(
             got,
@@ -286,9 +280,9 @@ mod test {
     #[test_case(json!("xyz"))]
     #[test_case(json!([true, 1234.5, "xyz", null, {"a": "b"}]))]
     #[test_case(json!({"a": true, "b": "xyz"}))]
-    fn wkt_value_roundtrip(input: crate::Value) {
+    fn wkt_value_roundtrip(input: wkt::Value) {
         let convert: prost_types::Value = input.clone().cnv();
-        let got: crate::Value = convert.cnv();
+        let got: wkt::Value = convert.cnv();
         assert_eq!(got, input);
     }
 }

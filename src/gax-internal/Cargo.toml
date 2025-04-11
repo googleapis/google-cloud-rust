@@ -36,13 +36,24 @@ _internal_http_client = [
   "dep:tokio",
   "gax/unstable-sdk-client",
 ]
-_internal_grpc_client = ["_internal_common", "dep:auth", "dep:gax", "dep:rpc", "dep:tokio", "dep:tonic"]
+_internal_grpc_client = [
+  "_internal_common",
+  "dep:auth",
+  "dep:gax",
+  "dep:prost-types",
+  "dep:rpc",
+  "dep:wkt",
+  "dep:tokio",
+  "dep:tonic",
+]
 _internal_common = ["dep:auth", "dep:gax", "dep:thiserror"]
 
 [dependencies]
+bytes = { version = "1", features = ["serde"] }
 http = "1"
 http-body-util = "0.1"
 prost = "0.13"
+prost-types = { version = "0.13", optional = true }
 reqwest = { version = "0.12", optional = true }
 serde = { version = "1", optional = true }
 serde_json = { version = "1", optional = true }
@@ -59,6 +70,7 @@ gax = { version = "0.21", path = "../gax", package = "google-cloud-gax", feature
   "unstable-sdk-client",
 ], optional = true }
 rpc = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc", optional = true }
+wkt = { version = "0.3", path = "../wkt", package = "google-cloud-wkt", optional = true }
 
 [dev-dependencies]
 anyhow      = "1"
@@ -73,4 +85,3 @@ tokio       = { version = "1", features = ["test-util"] }
 # Local crates
 echo-server = { path = "echo-server" }
 grpc-server = { path = "grpc-server" }
-wkt         = { version = "0.3", path = "../wkt", package = "google-cloud-wkt" }

@@ -278,7 +278,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<{{Codec.ReturnType}}>> {
-        use wkt::prost::Convert;
+        use gaxi::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: {{InputType.Codec.QualifiedName}}, h: http::header::HeaderMap| async {
             let extensions = {

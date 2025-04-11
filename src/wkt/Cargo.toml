@@ -32,14 +32,12 @@ features = ["chrono", "time"]
 
 [features]
 chrono = ["dep:chrono"]
-prost  = ["dep:prost-types"]
 time   = []
 
 [dependencies]
 base64      = "0.22"
 bytes       = { version = "1", features = ["serde"] }
 chrono      = { version = "0.4", optional = true }
-prost-types = { version = "0.13", optional = true }
 serde       = { version = "1", features = ["serde_derive"] }
 serde_json  = "1"
 serde_with  = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
@@ -50,4 +48,4 @@ time        = { version = "0.3", features = ["formatting", "parsing"] }
 anyhow    = "1"
 bytes     = { version = "1", features = ["serde"] }
 test-case = "3"
-wkt       = { path = ".", package = "google-cloud-wkt", features = ["chrono", "prost", "time"] }
+wkt       = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }

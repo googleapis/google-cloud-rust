@@ -148,6 +148,13 @@ impl From<i32> for NullValue {
     }
 }
 
+// This is needed when `NullValue` is used in a Protobuf-generated message.
+impl From<NullValue> for i32 {
+    fn from(_value: NullValue) -> Self {
+        i32::default()
+    }
+}
+
 impl From<NullValue> for serde_json::Value {
     fn from(_value: NullValue) -> Self {
         serde_json::Value::Null
