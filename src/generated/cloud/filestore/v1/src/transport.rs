@@ -44,7 +44,7 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInstancesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInstancesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -64,14 +64,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListInstancesResponse>| r.into_body())
     }
 
     async fn get_instance(
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Instance> {
+    ) -> Result<gax::response::Response<crate::model::Instance>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -84,14 +83,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn create_instance(
         &self,
         req: crate::model::CreateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -108,14 +106,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_instance(
         &self,
         req: crate::model::UpdateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -147,14 +144,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn restore_instance(
         &self,
         req: crate::model::RestoreInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -164,17 +160,14 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn revert_instance(
         &self,
         req: crate::model::RevertInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -184,17 +177,14 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn delete_instance(
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -208,14 +198,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_snapshots(
         &self,
         req: crate::model::ListSnapshotsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSnapshotsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSnapshotsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -236,14 +225,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListSnapshotsResponse>| r.into_body())
     }
 
     async fn get_snapshot(
         &self,
         req: crate::model::GetSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Snapshot> {
+    ) -> Result<gax::response::Response<crate::model::Snapshot>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -256,14 +244,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Snapshot>| r.into_body())
     }
 
     async fn create_snapshot(
         &self,
         req: crate::model::CreateSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -280,14 +267,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, Some(req.snapshot), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_snapshot(
         &self,
         req: crate::model::DeleteSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -300,14 +286,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_snapshot(
         &self,
         req: crate::model::UpdateSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -339,14 +324,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, Some(req.snapshot), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -363,14 +347,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Backup> {
+    ) -> Result<gax::response::Response<crate::model::Backup>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -383,14 +366,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -401,17 +383,14 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("backupId", &req.backup_id)]);
-        self.inner
-            .execute(builder, Some(req.backup), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.backup), options).await
     }
 
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -424,14 +403,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_backup(
         &self,
         req: crate::model::UpdateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -460,17 +438,14 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
-            .execute(builder, Some(req.backup), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.backup), options).await
     }
 
     async fn promote_replica(
         &self,
         req: crate::model::PromoteReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -483,17 +458,14 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -509,14 +481,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -529,14 +500,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -552,18 +522,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -576,14 +541,13 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -596,14 +560,17 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -613,10 +580,12 @@ impl super::stub::CloudFilestoreManager for CloudFilestoreManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

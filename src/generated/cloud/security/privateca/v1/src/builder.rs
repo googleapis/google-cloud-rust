@@ -100,6 +100,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .create_certificate(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateRequest::parent].
@@ -180,6 +181,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .get_certificate(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCertificateRequest::name].
@@ -227,6 +229,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .list_certificates(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -313,6 +316,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .revoke_certificate(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RevokeCertificateRequest::name].
@@ -372,6 +376,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .update_certificate(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
@@ -444,6 +449,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .activate_certificate_authority(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `activate_certificate_authority`.
@@ -555,6 +561,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .create_certificate_authority(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_certificate_authority`.
@@ -666,6 +673,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .disable_certificate_authority(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `disable_certificate_authority`.
@@ -766,6 +774,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .enable_certificate_authority(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `enable_certificate_authority`.
@@ -855,6 +864,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .fetch_certificate_authority_csr(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FetchCertificateAuthorityCsrRequest::name].
@@ -904,6 +914,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .get_certificate_authority(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCertificateAuthorityRequest::name].
@@ -953,6 +964,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .list_certificate_authorities(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1048,6 +1060,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .undelete_certificate_authority(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_certificate_authority`.
@@ -1142,6 +1155,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .delete_certificate_authority(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_authority`.
@@ -1254,6 +1268,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .update_certificate_authority(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_certificate_authority`.
@@ -1357,6 +1372,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .create_ca_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_ca_pool`.
@@ -1459,6 +1475,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .update_ca_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_ca_pool`.
@@ -1553,6 +1570,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .get_ca_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCaPoolRequest::name].
@@ -1597,6 +1615,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .list_ca_pools(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1685,6 +1704,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .delete_ca_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_ca_pool`.
@@ -1771,6 +1791,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .fetch_ca_certs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [ca_pool][crate::model::FetchCaCertsRequest::ca_pool].
@@ -1826,6 +1847,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .get_certificate_revocation_list(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCertificateRevocationListRequest::name].
@@ -1875,6 +1897,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .list_certificate_revocation_lists(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1970,6 +1993,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .update_certificate_revocation_list(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_certificate_revocation_list`.
@@ -2080,6 +2104,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .create_certificate_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_certificate_template`.
@@ -2191,6 +2216,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .delete_certificate_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_template`.
@@ -2274,6 +2300,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .get_certificate_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCertificateTemplateRequest::name].
@@ -2323,6 +2350,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .list_certificate_templates(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2418,6 +2446,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .update_certificate_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_certificate_template`.
@@ -2519,6 +2548,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2596,6 +2626,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2640,6 +2671,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2702,6 +2734,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2758,6 +2791,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2816,6 +2850,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2896,6 +2931,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2943,6 +2979,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2990,6 +3027,7 @@ pub mod certificate_authority_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

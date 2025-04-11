@@ -45,10 +45,11 @@ pub trait GatewayControl: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateCredentialsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::GenerateCredentialsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::GenerateCredentialsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GenerateCredentialsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateCredentialsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }

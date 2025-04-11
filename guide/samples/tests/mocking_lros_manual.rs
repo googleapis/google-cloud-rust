@@ -17,6 +17,7 @@
 // ANCHOR: all
 use gax::Result;
 use gax::error::Error;
+use gax::response::Response;
 use google_cloud_gax as gax;
 use google_cloud_longrunning as longrunning;
 use google_cloud_speech_v2 as speech;
@@ -100,8 +101,8 @@ mod test {
         #[derive(Debug)]
         Speech {}
         impl speech::stub::Speech for Speech {
-            async fn batch_recognize(&self, req: BatchRecognizeRequest, _options: gax::options::RequestOptions) -> Result<Operation>;
-            async fn get_operation(&self, req: GetOperationRequest, _options: gax::options::RequestOptions) -> Result<Operation>;
+            async fn batch_recognize(&self, req: BatchRecognizeRequest, _options: gax::options::RequestOptions) -> Result<Response<Operation>>;
+            async fn get_operation(&self, req: GetOperationRequest, _options: gax::options::RequestOptions) -> Result<Response<Operation>>;
         }
     }
     // ANCHOR_END: mockall-macro
@@ -114,20 +115,22 @@ mod test {
         BatchRecognizeResponse::new().set_total_billed_duration(expected_duration())
     }
 
-    fn make_finished_operation(response: &BatchRecognizeResponse) -> Result<Operation> {
+    fn make_finished_operation(
+        response: &BatchRecognizeResponse,
+    ) -> Result<gax::response::Response<Operation>> {
         let any = wkt::Any::try_from(response).map_err(Error::serde)?;
         let operation = Operation::new()
             .set_done(true)
             .set_result(OperationResult::Response(any.into()));
-        Ok(operation)
+        Ok(Response::from(operation))
     }
 
     // ANCHOR: partial-op
-    fn make_partial_operation(progress: i32) -> Result<Operation> {
+    fn make_partial_operation(progress: i32) -> Result<Response<Operation>> {
         let metadata = OperationMetadata::new().set_progress_percent(progress);
         let any = wkt::Any::try_from(&metadata).map_err(Error::serde)?;
         let operation = Operation::new().set_metadata(Some(any));
-        Ok(operation)
+        Ok(Response::from(operation))
     }
     // ANCHOR_END: partial-op
 

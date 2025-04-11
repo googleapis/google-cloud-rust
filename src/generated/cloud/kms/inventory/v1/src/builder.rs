@@ -93,6 +93,7 @@ pub mod key_dashboard_service {
             (*self.0.stub)
                 .list_crypto_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -221,6 +222,7 @@ pub mod key_tracking_service {
             (*self.0.stub)
                 .get_protected_resources_summary(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProtectedResourcesSummaryRequest::name].
@@ -268,6 +270,7 @@ pub mod key_tracking_service {
             (*self.0.stub)
                 .search_protected_resources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.

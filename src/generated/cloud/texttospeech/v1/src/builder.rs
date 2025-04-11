@@ -93,6 +93,7 @@ pub mod text_to_speech {
             (*self.0.stub)
                 .list_voices(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [language_code][crate::model::ListVoicesRequest::language_code].
@@ -138,6 +139,7 @@ pub mod text_to_speech {
             (*self.0.stub)
                 .synthesize_speech(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [input][crate::model::SynthesizeSpeechRequest::input].
@@ -215,6 +217,7 @@ pub mod text_to_speech {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -293,6 +296,7 @@ pub mod text_to_speech {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -401,6 +405,7 @@ pub mod text_to_speech_long_audio_synthesize {
             (*self.0.stub)
                 .synthesize_long_audio(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `synthesize_long_audio`.
@@ -519,6 +524,7 @@ pub mod text_to_speech_long_audio_synthesize {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -599,6 +605,7 @@ pub mod text_to_speech_long_audio_synthesize {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

@@ -45,11 +45,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::InspectContentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::InspectContentResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::InspectContentResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InspectContentResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::InspectContentResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::redact_image].
@@ -57,11 +58,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RedactImageRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::RedactImageResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::RedactImageResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RedactImageResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::RedactImageResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::deidentify_content].
@@ -69,11 +71,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeidentifyContentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DeidentifyContentResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::DeidentifyContentResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DeidentifyContentResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::DeidentifyContentResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::reidentify_content].
@@ -81,11 +84,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ReidentifyContentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ReidentifyContentResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ReidentifyContentResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ReidentifyContentResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ReidentifyContentResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::list_info_types].
@@ -93,11 +97,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListInfoTypesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListInfoTypesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListInfoTypesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListInfoTypesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListInfoTypesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::create_inspect_template].
@@ -105,11 +110,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateInspectTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::InspectTemplate>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::InspectTemplate>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InspectTemplate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::InspectTemplate>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::update_inspect_template].
@@ -117,11 +123,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateInspectTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::InspectTemplate>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::InspectTemplate>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InspectTemplate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::InspectTemplate>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::get_inspect_template].
@@ -129,11 +136,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetInspectTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::InspectTemplate>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::InspectTemplate>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InspectTemplate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::InspectTemplate>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::list_inspect_templates].
@@ -141,11 +149,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListInspectTemplatesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListInspectTemplatesResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ListInspectTemplatesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListInspectTemplatesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListInspectTemplatesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::delete_inspect_template].
@@ -153,8 +162,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteInspectTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::create_deidentify_template].
@@ -162,11 +173,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateDeidentifyTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DeidentifyTemplate>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::DeidentifyTemplate>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DeidentifyTemplate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DeidentifyTemplate>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::update_deidentify_template].
@@ -174,11 +186,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateDeidentifyTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DeidentifyTemplate>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::DeidentifyTemplate>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DeidentifyTemplate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DeidentifyTemplate>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::get_deidentify_template].
@@ -186,11 +199,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDeidentifyTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DeidentifyTemplate>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::DeidentifyTemplate>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DeidentifyTemplate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DeidentifyTemplate>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::list_deidentify_templates].
@@ -199,11 +213,13 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListDeidentifyTemplatesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListDeidentifyTemplatesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListDeidentifyTemplatesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListDeidentifyTemplatesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDeidentifyTemplatesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::delete_deidentify_template].
@@ -211,8 +227,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDeidentifyTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::create_job_trigger].
@@ -220,10 +238,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateJobTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::JobTrigger>> + Send {
-        std::future::ready::<crate::Result<crate::model::JobTrigger>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::JobTrigger>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::JobTrigger>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DlpService::update_job_trigger].
@@ -231,10 +251,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateJobTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::JobTrigger>> + Send {
-        std::future::ready::<crate::Result<crate::model::JobTrigger>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::JobTrigger>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::JobTrigger>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DlpService::hybrid_inspect_job_trigger].
@@ -242,11 +264,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::HybridInspectJobTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::HybridInspectResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::HybridInspectResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::HybridInspectResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::HybridInspectResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::get_job_trigger].
@@ -254,10 +277,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetJobTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::JobTrigger>> + Send {
-        std::future::ready::<crate::Result<crate::model::JobTrigger>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::JobTrigger>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::JobTrigger>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DlpService::list_job_triggers].
@@ -265,11 +290,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListJobTriggersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListJobTriggersResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListJobTriggersResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListJobTriggersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListJobTriggersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::delete_job_trigger].
@@ -277,8 +303,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteJobTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::activate_job_trigger].
@@ -286,10 +314,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ActivateJobTriggerRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DlpJob>> + Send {
-        std::future::ready::<crate::Result<crate::model::DlpJob>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DlpJob>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DlpJob>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DlpService::create_discovery_config].
@@ -297,11 +327,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateDiscoveryConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DiscoveryConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::DiscoveryConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DiscoveryConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DiscoveryConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::update_discovery_config].
@@ -309,11 +340,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateDiscoveryConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DiscoveryConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::DiscoveryConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DiscoveryConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DiscoveryConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::get_discovery_config].
@@ -321,11 +353,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDiscoveryConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DiscoveryConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::DiscoveryConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DiscoveryConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DiscoveryConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::list_discovery_configs].
@@ -333,11 +366,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDiscoveryConfigsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDiscoveryConfigsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ListDiscoveryConfigsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDiscoveryConfigsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDiscoveryConfigsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::delete_discovery_config].
@@ -345,8 +379,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDiscoveryConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::create_dlp_job].
@@ -354,10 +390,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateDlpJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DlpJob>> + Send {
-        std::future::ready::<crate::Result<crate::model::DlpJob>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DlpJob>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DlpJob>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DlpService::list_dlp_jobs].
@@ -365,11 +403,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDlpJobsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDlpJobsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListDlpJobsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDlpJobsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDlpJobsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::get_dlp_job].
@@ -377,10 +416,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDlpJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DlpJob>> + Send {
-        std::future::ready::<crate::Result<crate::model::DlpJob>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DlpJob>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DlpJob>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DlpService::delete_dlp_job].
@@ -388,8 +429,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDlpJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::cancel_dlp_job].
@@ -397,8 +440,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CancelDlpJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::create_stored_info_type].
@@ -406,10 +451,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateStoredInfoTypeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::StoredInfoType>> + Send {
-        std::future::ready::<crate::Result<crate::model::StoredInfoType>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::StoredInfoType>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::StoredInfoType>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::update_stored_info_type].
@@ -417,10 +464,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateStoredInfoTypeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::StoredInfoType>> + Send {
-        std::future::ready::<crate::Result<crate::model::StoredInfoType>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::StoredInfoType>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::StoredInfoType>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::get_stored_info_type].
@@ -428,10 +477,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetStoredInfoTypeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::StoredInfoType>> + Send {
-        std::future::ready::<crate::Result<crate::model::StoredInfoType>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::StoredInfoType>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::StoredInfoType>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::list_stored_info_types].
@@ -439,11 +490,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListStoredInfoTypesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListStoredInfoTypesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListStoredInfoTypesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListStoredInfoTypesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListStoredInfoTypesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::delete_stored_info_type].
@@ -451,8 +503,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteStoredInfoTypeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::list_project_data_profiles].
@@ -461,11 +515,13 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListProjectDataProfilesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListProjectDataProfilesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListProjectDataProfilesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListProjectDataProfilesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListProjectDataProfilesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::list_table_data_profiles].
@@ -474,11 +530,13 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListTableDataProfilesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListTableDataProfilesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListTableDataProfilesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListTableDataProfilesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListTableDataProfilesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::list_column_data_profiles].
@@ -487,11 +545,13 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListColumnDataProfilesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListColumnDataProfilesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListColumnDataProfilesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListColumnDataProfilesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListColumnDataProfilesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::get_project_data_profile].
@@ -499,11 +559,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetProjectDataProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ProjectDataProfile>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ProjectDataProfile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ProjectDataProfile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProjectDataProfile>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::list_file_store_data_profiles].
@@ -512,11 +573,13 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListFileStoreDataProfilesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListFileStoreDataProfilesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListFileStoreDataProfilesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListFileStoreDataProfilesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListFileStoreDataProfilesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::get_file_store_data_profile].
@@ -524,11 +587,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetFileStoreDataProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::FileStoreDataProfile>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::FileStoreDataProfile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FileStoreDataProfile>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::FileStoreDataProfile>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::delete_file_store_data_profile].
@@ -536,8 +600,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteFileStoreDataProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::get_table_data_profile].
@@ -545,11 +611,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetTableDataProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TableDataProfile>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::TableDataProfile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TableDataProfile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::TableDataProfile>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::get_column_data_profile].
@@ -557,11 +624,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetColumnDataProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ColumnDataProfile>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ColumnDataProfile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ColumnDataProfile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ColumnDataProfile>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::DlpService::delete_table_data_profile].
@@ -569,8 +637,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTableDataProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::hybrid_inspect_dlp_job].
@@ -578,11 +648,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::HybridInspectDlpJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::HybridInspectResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::HybridInspectResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::HybridInspectResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::HybridInspectResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::finish_dlp_job].
@@ -590,8 +661,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::FinishDlpJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::create_connection].
@@ -599,10 +672,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Connection>> + Send {
-        std::future::ready::<crate::Result<crate::model::Connection>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Connection>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Connection>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DlpService::get_connection].
@@ -610,10 +685,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Connection>> + Send {
-        std::future::ready::<crate::Result<crate::model::Connection>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Connection>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Connection>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DlpService::list_connections].
@@ -621,11 +698,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListConnectionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListConnectionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListConnectionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::search_connections].
@@ -633,11 +711,12 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchConnectionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchConnectionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SearchConnectionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SearchConnectionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SearchConnectionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DlpService::delete_connection].
@@ -645,8 +724,10 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DlpService::update_connection].
@@ -654,9 +735,11 @@ pub trait DlpService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Connection>> + Send {
-        std::future::ready::<crate::Result<crate::model::Connection>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Connection>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Connection>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 }

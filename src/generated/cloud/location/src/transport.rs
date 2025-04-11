@@ -44,7 +44,7 @@ impl super::stub::Locations for Locations {
         &self,
         req: crate::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -60,14 +60,13 @@ impl super::stub::Locations for Locations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Location> {
+    ) -> Result<gax::response::Response<crate::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,6 +79,5 @@ impl super::stub::Locations for Locations {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Location>| r.into_body())
     }
 }

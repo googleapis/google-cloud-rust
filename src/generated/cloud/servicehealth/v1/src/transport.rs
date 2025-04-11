@@ -44,7 +44,7 @@ impl super::stub::ServiceHealth for ServiceHealth {
         &self,
         req: crate::model::ListEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEventsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -61,14 +61,13 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListEventsResponse>| r.into_body())
     }
 
     async fn get_event(
         &self,
         req: crate::model::GetEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Event> {
+    ) -> Result<gax::response::Response<crate::model::Event>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -81,14 +80,13 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Event>| r.into_body())
     }
 
     async fn list_organization_events(
         &self,
         req: crate::model::ListOrganizationEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrganizationEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrganizationEventsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -108,18 +106,13 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListOrganizationEventsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_organization_event(
         &self,
         req: crate::model::GetOrganizationEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OrganizationEvent> {
+    ) -> Result<gax::response::Response<crate::model::OrganizationEvent>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -132,14 +125,13 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::OrganizationEvent>| r.into_body())
     }
 
     async fn list_organization_impacts(
         &self,
         req: crate::model::ListOrganizationImpactsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrganizationImpactsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrganizationImpactsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -158,18 +150,13 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListOrganizationImpactsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_organization_impact(
         &self,
         req: crate::model::GetOrganizationImpactRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OrganizationImpact> {
+    ) -> Result<gax::response::Response<crate::model::OrganizationImpact>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -182,14 +169,13 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::OrganizationImpact>| r.into_body())
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -205,14 +191,13 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -225,6 +210,5 @@ impl super::stub::ServiceHealth for ServiceHealth {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 }

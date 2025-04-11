@@ -45,11 +45,12 @@ pub trait KeyDashboardService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListCryptoKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListCryptoKeysResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListCryptoKeysResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListCryptoKeysResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }
 
@@ -70,11 +71,12 @@ pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetProtectedResourcesSummaryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ProtectedResourcesSummary>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ProtectedResourcesSummary>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ProtectedResourcesSummary>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ProtectedResourcesSummary>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::KeyTrackingService::search_protected_resources].
@@ -83,10 +85,12 @@ pub trait KeyTrackingService: std::fmt::Debug + Send + Sync {
         _req: crate::model::SearchProtectedResourcesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::SearchProtectedResourcesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::SearchProtectedResourcesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::SearchProtectedResourcesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }

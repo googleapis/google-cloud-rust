@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ProcessOpenLineageRunEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProcessOpenLineageRunEventResponse> {
+    ) -> Result<gax::response::Response<crate::model::ProcessOpenLineageRunEventResponse>> {
         self.inner
             .process_open_lineage_run_event(req, options)
             .await
@@ -53,7 +53,7 @@ where
         &self,
         req: crate::model::CreateProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Process> {
+    ) -> Result<gax::response::Response<crate::model::Process>> {
         self.inner.create_process(req, options).await
     }
 
@@ -62,7 +62,7 @@ where
         &self,
         req: crate::model::UpdateProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Process> {
+    ) -> Result<gax::response::Response<crate::model::Process>> {
         self.inner.update_process(req, options).await
     }
 
@@ -71,7 +71,7 @@ where
         &self,
         req: crate::model::GetProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Process> {
+    ) -> Result<gax::response::Response<crate::model::Process>> {
         self.inner.get_process(req, options).await
     }
 
@@ -80,7 +80,7 @@ where
         &self,
         req: crate::model::ListProcessesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProcessesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProcessesResponse>> {
         self.inner.list_processes(req, options).await
     }
 
@@ -89,7 +89,7 @@ where
         &self,
         req: crate::model::DeleteProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_process(req, options).await
     }
 
@@ -98,7 +98,7 @@ where
         &self,
         req: crate::model::CreateRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Run> {
+    ) -> Result<gax::response::Response<crate::model::Run>> {
         self.inner.create_run(req, options).await
     }
 
@@ -107,7 +107,7 @@ where
         &self,
         req: crate::model::UpdateRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Run> {
+    ) -> Result<gax::response::Response<crate::model::Run>> {
         self.inner.update_run(req, options).await
     }
 
@@ -116,7 +116,7 @@ where
         &self,
         req: crate::model::GetRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Run> {
+    ) -> Result<gax::response::Response<crate::model::Run>> {
         self.inner.get_run(req, options).await
     }
 
@@ -125,7 +125,7 @@ where
         &self,
         req: crate::model::ListRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRunsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRunsResponse>> {
         self.inner.list_runs(req, options).await
     }
 
@@ -134,7 +134,7 @@ where
         &self,
         req: crate::model::DeleteRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_run(req, options).await
     }
 
@@ -143,7 +143,7 @@ where
         &self,
         req: crate::model::CreateLineageEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LineageEvent> {
+    ) -> Result<gax::response::Response<crate::model::LineageEvent>> {
         self.inner.create_lineage_event(req, options).await
     }
 
@@ -152,7 +152,7 @@ where
         &self,
         req: crate::model::GetLineageEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LineageEvent> {
+    ) -> Result<gax::response::Response<crate::model::LineageEvent>> {
         self.inner.get_lineage_event(req, options).await
     }
 
@@ -161,7 +161,7 @@ where
         &self,
         req: crate::model::ListLineageEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLineageEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLineageEventsResponse>> {
         self.inner.list_lineage_events(req, options).await
     }
 
@@ -170,7 +170,7 @@ where
         &self,
         req: crate::model::DeleteLineageEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_lineage_event(req, options).await
     }
 
@@ -179,7 +179,7 @@ where
         &self,
         req: crate::model::SearchLinksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchLinksResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchLinksResponse>> {
         self.inner.search_links(req, options).await
     }
 
@@ -188,7 +188,7 @@ where
         &self,
         req: crate::model::BatchSearchLinkProcessesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchSearchLinkProcessesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchSearchLinkProcessesResponse>> {
         self.inner.batch_search_link_processes(req, options).await
     }
 
@@ -197,7 +197,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -206,7 +206,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -215,7 +215,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -224,7 +224,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

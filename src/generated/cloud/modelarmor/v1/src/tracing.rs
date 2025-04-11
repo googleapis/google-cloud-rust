@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTemplatesResponse>> {
         self.inner.list_templates(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Template> {
+    ) -> Result<gax::response::Response<crate::model::Template>> {
         self.inner.get_template(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Template> {
+    ) -> Result<gax::response::Response<crate::model::Template>> {
         self.inner.create_template(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Template> {
+    ) -> Result<gax::response::Response<crate::model::Template>> {
         self.inner.update_template(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_template(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::GetFloorSettingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FloorSetting> {
+    ) -> Result<gax::response::Response<crate::model::FloorSetting>> {
         self.inner.get_floor_setting(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UpdateFloorSettingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FloorSetting> {
+    ) -> Result<gax::response::Response<crate::model::FloorSetting>> {
         self.inner.update_floor_setting(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::SanitizeUserPromptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SanitizeUserPromptResponse> {
+    ) -> Result<gax::response::Response<crate::model::SanitizeUserPromptResponse>> {
         self.inner.sanitize_user_prompt(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::SanitizeModelResponseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SanitizeModelResponseResponse> {
+    ) -> Result<gax::response::Response<crate::model::SanitizeModelResponseResponse>> {
         self.inner.sanitize_model_response(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

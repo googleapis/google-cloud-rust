@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListConstraintsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConstraintsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConstraintsResponse>> {
         self.inner.list_constraints(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPoliciesResponse>> {
         self.inner.list_policies(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.get_policy(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetEffectivePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.get_effective_policy(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::CreatePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.create_policy(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::UpdatePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         self.inner.update_policy(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::DeletePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_policy(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::CreateCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CustomConstraint> {
+    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
         self.inner.create_custom_constraint(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::UpdateCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CustomConstraint> {
+    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
         self.inner.update_custom_constraint(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::GetCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CustomConstraint> {
+    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
         self.inner.get_custom_constraint(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::ListCustomConstraintsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCustomConstraintsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCustomConstraintsResponse>> {
         self.inner.list_custom_constraints(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_custom_constraint(req, options).await
     }
 }

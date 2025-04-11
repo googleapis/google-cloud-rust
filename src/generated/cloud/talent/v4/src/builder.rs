@@ -93,6 +93,7 @@ pub mod company_service {
             (*self.0.stub)
                 .create_company(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCompanyRequest::parent].
@@ -144,6 +145,7 @@ pub mod company_service {
             (*self.0.stub)
                 .get_company(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCompanyRequest::name].
@@ -186,6 +188,7 @@ pub mod company_service {
             (*self.0.stub)
                 .update_company(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [company][crate::model::UpdateCompanyRequest::company].
@@ -240,6 +243,7 @@ pub mod company_service {
             (*self.0.stub)
                 .delete_company(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteCompanyRequest::name].
@@ -282,6 +286,7 @@ pub mod company_service {
             (*self.0.stub)
                 .list_companies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -360,6 +365,7 @@ pub mod company_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -456,6 +462,7 @@ pub mod completion {
             (*self.0.stub)
                 .complete_query(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [tenant][crate::model::CompleteQueryRequest::tenant].
@@ -548,6 +555,7 @@ pub mod completion {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -647,6 +655,7 @@ pub mod event_service {
             (*self.0.stub)
                 .create_client_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateClientEventRequest::parent].
@@ -701,6 +710,7 @@ pub mod event_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -797,6 +807,7 @@ pub mod job_service {
             (*self.0.stub)
                 .create_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
@@ -850,6 +861,7 @@ pub mod job_service {
             (*self.0.stub)
                 .batch_create_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_create_jobs`.
@@ -936,7 +948,10 @@ pub mod job_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Job> {
-            (*self.0.stub).get_job(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetJobRequest::name].
@@ -979,6 +994,7 @@ pub mod job_service {
             (*self.0.stub)
                 .update_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
@@ -1035,6 +1051,7 @@ pub mod job_service {
             (*self.0.stub)
                 .batch_update_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_update_jobs`.
@@ -1133,6 +1150,7 @@ pub mod job_service {
             (*self.0.stub)
                 .delete_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteJobRequest::name].
@@ -1180,6 +1198,7 @@ pub mod job_service {
             (*self.0.stub)
                 .batch_delete_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_delete_jobs`.
@@ -1269,6 +1288,7 @@ pub mod job_service {
             (*self.0.stub)
                 .list_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1350,6 +1370,7 @@ pub mod job_service {
             (*self.0.stub)
                 .search_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::SearchJobsRequest::parent].
@@ -1516,6 +1537,7 @@ pub mod job_service {
             (*self.0.stub)
                 .search_jobs_for_alert(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::SearchJobsRequest::parent].
@@ -1685,6 +1707,7 @@ pub mod job_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1781,6 +1804,7 @@ pub mod tenant_service {
             (*self.0.stub)
                 .create_tenant(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTenantRequest::parent].
@@ -1832,6 +1856,7 @@ pub mod tenant_service {
             (*self.0.stub)
                 .get_tenant(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTenantRequest::name].
@@ -1874,6 +1899,7 @@ pub mod tenant_service {
             (*self.0.stub)
                 .update_tenant(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [tenant][crate::model::UpdateTenantRequest::tenant].
@@ -1928,6 +1954,7 @@ pub mod tenant_service {
             (*self.0.stub)
                 .delete_tenant(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTenantRequest::name].
@@ -1970,6 +1997,7 @@ pub mod tenant_service {
             (*self.0.stub)
                 .list_tenants(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2042,6 +2070,7 @@ pub mod tenant_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

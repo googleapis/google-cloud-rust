@@ -104,11 +104,11 @@ void main() {
   test('QuotaFailure', () {
     final expected = QuotaFailure(
       violations: [
-        QuotaFailure$Violation(
+        QuotaFailure_Violation(
           subject: 'project:foo',
           description: 'Limit exceeded',
         ),
-        QuotaFailure$Violation(
+        QuotaFailure_Violation(
           subject: 'clientip:1.2.3.4',
           description: 'Service disabled',
         ),

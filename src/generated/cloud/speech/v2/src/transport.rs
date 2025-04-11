@@ -44,7 +44,7 @@ impl super::stub::Speech for Speech {
         &self,
         req: crate::model::CreateRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -62,14 +62,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.recognizer), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_recognizers(
         &self,
         req: crate::model::ListRecognizersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRecognizersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRecognizersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -88,14 +87,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListRecognizersResponse>| r.into_body())
     }
 
     async fn get_recognizer(
         &self,
         req: crate::model::GetRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recognizer> {
+    ) -> Result<gax::response::Response<crate::model::Recognizer>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -108,14 +106,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Recognizer>| r.into_body())
     }
 
     async fn update_recognizer(
         &self,
         req: crate::model::UpdateRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -148,14 +145,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.recognizer), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_recognizer(
         &self,
         req: crate::model::DeleteRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -171,14 +167,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_recognizer(
         &self,
         req: crate::model::UndeleteRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -188,17 +183,14 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn recognize(
         &self,
         req: crate::model::RecognizeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RecognizeResponse> {
+    ) -> Result<gax::response::Response<crate::model::RecognizeResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -211,17 +203,14 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::RecognizeResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn batch_recognize(
         &self,
         req: crate::model::BatchRecognizeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -234,17 +223,14 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_config(
         &self,
         req: crate::model::GetConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Config> {
+    ) -> Result<gax::response::Response<crate::model::Config>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -257,14 +243,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Config>| r.into_body())
     }
 
     async fn update_config(
         &self,
         req: crate::model::UpdateConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Config> {
+    ) -> Result<gax::response::Response<crate::model::Config>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -293,17 +278,14 @@ impl super::stub::Speech for Speech {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
-            .execute(builder, Some(req.config), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Config>| r.into_body())
+        self.inner.execute(builder, Some(req.config), options).await
     }
 
     async fn create_custom_class(
         &self,
         req: crate::model::CreateCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -321,14 +303,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.custom_class), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_custom_classes(
         &self,
         req: crate::model::ListCustomClassesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCustomClassesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCustomClassesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -347,16 +328,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListCustomClassesResponse>| r.into_body(),
-            )
     }
 
     async fn get_custom_class(
         &self,
         req: crate::model::GetCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CustomClass> {
+    ) -> Result<gax::response::Response<crate::model::CustomClass>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -369,14 +347,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::CustomClass>| r.into_body())
     }
 
     async fn update_custom_class(
         &self,
         req: crate::model::UpdateCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -409,14 +386,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.custom_class), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_custom_class(
         &self,
         req: crate::model::DeleteCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -432,14 +408,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_custom_class(
         &self,
         req: crate::model::UndeleteCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -449,17 +424,14 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_phrase_set(
         &self,
         req: crate::model::CreatePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -477,14 +449,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.phrase_set), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_phrase_sets(
         &self,
         req: crate::model::ListPhraseSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPhraseSetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPhraseSetsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -503,14 +474,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListPhraseSetsResponse>| r.into_body())
     }
 
     async fn get_phrase_set(
         &self,
         req: crate::model::GetPhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PhraseSet> {
+    ) -> Result<gax::response::Response<crate::model::PhraseSet>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -523,14 +493,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PhraseSet>| r.into_body())
     }
 
     async fn update_phrase_set(
         &self,
         req: crate::model::UpdatePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -563,14 +532,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, Some(req.phrase_set), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_phrase_set(
         &self,
         req: crate::model::DeletePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -586,14 +554,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn undelete_phrase_set(
         &self,
         req: crate::model::UndeletePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -603,17 +570,14 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -629,14 +593,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -649,14 +612,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -672,18 +634,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -696,14 +653,13 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -716,14 +672,17 @@ impl super::stub::Speech for Speech {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -733,10 +692,12 @@ impl super::stub::Speech for Speech {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

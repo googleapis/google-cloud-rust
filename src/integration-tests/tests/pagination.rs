@@ -21,7 +21,7 @@ mod mocking {
         #[derive(Debug)]
         SecretManagerService {}
         impl sm::stub::SecretManagerService for SecretManagerService {
-            async fn list_secrets(&self, req: sm::model::ListSecretsRequest, _options: gax::options::RequestOptions) -> gax::Result<sm::model::ListSecretsResponse>;
+            async fn list_secrets(&self, req: sm::model::ListSecretsRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<sm::model::ListSecretsResponse>>;
         }
     }
 
@@ -34,25 +34,31 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default()
-                    .set_next_page_token("test-page-001")
-                    .set_secrets(make_secrets(3, 0)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default()
+                        .set_next_page_token("test-page-001")
+                        .set_secrets(make_secrets(3, 0)),
+                ))
             });
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-001")
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default()
-                    .set_next_page_token("test-page-002")
-                    .set_secrets(make_secrets(3, 3)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default()
+                        .set_next_page_token("test-page-002")
+                        .set_secrets(make_secrets(3, 3)),
+                ))
             });
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-002")
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
+                ))
             });
 
         let client = sm::client::SecretManagerService::from_stub(mock);
@@ -92,25 +98,31 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default()
-                    .set_next_page_token("test-page-001")
-                    .set_secrets(make_secrets(3, 0)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default()
+                        .set_next_page_token("test-page-001")
+                        .set_secrets(make_secrets(3, 0)),
+                ))
             });
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-001")
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default()
-                    .set_next_page_token("test-page-002")
-                    .set_secrets(make_secrets(3, 3)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default()
+                        .set_next_page_token("test-page-002")
+                        .set_secrets(make_secrets(3, 3)),
+                ))
             });
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-002")
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
+                ))
             });
 
         let client = sm::client::SecretManagerService::from_stub(mock);
@@ -149,25 +161,31 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default()
-                    .set_next_page_token("test-page-001")
-                    .set_secrets(make_secrets(3, 0)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default()
+                        .set_next_page_token("test-page-001")
+                        .set_secrets(make_secrets(3, 0)),
+                ))
             });
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-001")
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default()
-                    .set_next_page_token("test-page-002")
-                    .set_secrets(make_secrets(3, 3)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default()
+                        .set_next_page_token("test-page-002")
+                        .set_secrets(make_secrets(3, 3)),
+                ))
             });
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-002")
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
+                ))
             });
 
         let client = sm::client::SecretManagerService::from_stub(mock);
@@ -203,25 +221,31 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default()
-                    .set_next_page_token("test-page-001")
-                    .set_secrets(make_secrets(3, 0)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default()
+                        .set_next_page_token("test-page-001")
+                        .set_secrets(make_secrets(3, 0)),
+                ))
             });
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-001")
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default()
-                    .set_next_page_token("test-page-002")
-                    .set_secrets(make_secrets(3, 3)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default()
+                        .set_next_page_token("test-page-002")
+                        .set_secrets(make_secrets(3, 3)),
+                ))
             });
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-002")
             .return_once(|_, _| {
-                Ok(sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)))
+                Ok(gax::response::Response::from(
+                    sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
+                ))
             });
 
         let client = sm::client::SecretManagerService::from_stub(mock);

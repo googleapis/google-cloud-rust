@@ -46,11 +46,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListClustersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListClustersResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListClustersResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::EdgeContainer::get_cluster].
@@ -58,10 +59,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Cluster>> + Send {
-        std::future::ready::<crate::Result<crate::model::Cluster>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Cluster>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Cluster>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::EdgeContainer::create_cluster].
@@ -69,11 +72,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::update_cluster].
@@ -81,11 +85,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::upgrade_cluster].
@@ -93,11 +98,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpgradeClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::delete_cluster].
@@ -105,11 +111,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::generate_access_token].
@@ -117,11 +124,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GenerateAccessTokenRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::GenerateAccessTokenResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::GenerateAccessTokenResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::EdgeContainer::generate_offline_credential].
@@ -130,11 +138,13 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         _req: crate::model::GenerateOfflineCredentialRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GenerateOfflineCredentialResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateOfflineCredentialResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::GenerateOfflineCredentialResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateOfflineCredentialResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::EdgeContainer::list_node_pools].
@@ -142,11 +152,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListNodePoolsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListNodePoolsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListNodePoolsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListNodePoolsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListNodePoolsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::EdgeContainer::get_node_pool].
@@ -154,10 +165,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::NodePool>> + Send {
-        std::future::ready::<crate::Result<crate::model::NodePool>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::NodePool>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::NodePool>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::EdgeContainer::create_node_pool].
@@ -165,11 +178,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::update_node_pool].
@@ -177,11 +191,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::delete_node_pool].
@@ -189,11 +204,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteNodePoolRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::list_machines].
@@ -201,11 +217,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListMachinesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListMachinesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListMachinesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListMachinesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListMachinesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::EdgeContainer::get_machine].
@@ -213,10 +230,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetMachineRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Machine>> + Send {
-        std::future::ready::<crate::Result<crate::model::Machine>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Machine>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Machine>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::EdgeContainer::list_vpn_connections].
@@ -224,11 +243,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVpnConnectionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListVpnConnectionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListVpnConnectionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListVpnConnectionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListVpnConnectionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::EdgeContainer::get_vpn_connection].
@@ -236,10 +256,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVpnConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VpnConnection>> + Send {
-        std::future::ready::<crate::Result<crate::model::VpnConnection>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VpnConnection>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::VpnConnection>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::create_vpn_connection].
@@ -247,11 +269,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateVpnConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::delete_vpn_connection].
@@ -259,11 +282,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteVpnConnectionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::get_server_config].
@@ -271,10 +295,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetServerConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ServerConfig>> + Send {
-        std::future::ready::<crate::Result<crate::model::ServerConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ServerConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServerConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::list_locations].
@@ -282,11 +308,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::EdgeContainer::get_location].
@@ -294,10 +321,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::list_operations].
@@ -305,11 +334,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::EdgeContainer::get_operation].
@@ -317,11 +347,12 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::EdgeContainer::delete_operation].
@@ -329,8 +360,10 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::EdgeContainer::cancel_operation].
@@ -338,8 +371,10 @@ pub trait EdgeContainer: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

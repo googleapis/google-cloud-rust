@@ -98,6 +98,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_cloud_exadata_infrastructures(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .get_cloud_exadata_infrastructure(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCloudExadataInfrastructureRequest::name].
@@ -226,6 +228,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .create_cloud_exadata_infrastructure(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cloud_exadata_infrastructure`.
@@ -340,6 +343,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .delete_cloud_exadata_infrastructure(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cloud_exadata_infrastructure`.
@@ -427,6 +431,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_cloud_vm_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -505,6 +510,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .get_cloud_vm_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCloudVmClusterRequest::name].
@@ -555,6 +561,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .create_cloud_vm_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cloud_vm_cluster`.
@@ -660,6 +667,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .delete_cloud_vm_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cloud_vm_cluster`.
@@ -747,6 +755,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_entitlements(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -816,6 +825,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_db_servers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -885,6 +895,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_db_nodes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -954,6 +965,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_gi_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1026,6 +1038,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_db_system_shapes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1100,6 +1113,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_autonomous_databases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1186,6 +1200,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .get_autonomous_database(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAutonomousDatabaseRequest::name].
@@ -1238,6 +1253,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .create_autonomous_database(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_autonomous_database`.
@@ -1347,6 +1363,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .delete_autonomous_database(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_autonomous_database`.
@@ -1435,6 +1452,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .restore_autonomous_database(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_autonomous_database`.
@@ -1525,6 +1543,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .generate_autonomous_database_wallet(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GenerateAutonomousDatabaseWalletRequest::name].
@@ -1590,6 +1609,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_autonomous_db_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1668,6 +1688,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_autonomous_database_character_sets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1750,6 +1771,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_autonomous_database_backups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1830,6 +1852,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1905,6 +1928,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1950,6 +1974,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2028,6 +2053,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2073,6 +2099,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2118,6 +2145,7 @@ pub mod oracle_database {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

@@ -23,19 +23,19 @@ pub trait FleetRouting: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::OptimizeToursRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::OptimizeToursResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::OptimizeToursResponse>>;
 
     async fn batch_optimize_tours(
         &self,
         req: crate::model::BatchOptimizeToursRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -56,7 +56,7 @@ impl<T: super::FleetRouting> FleetRouting for T {
         &self,
         req: crate::model::OptimizeToursRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::OptimizeToursResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::OptimizeToursResponse>> {
         T::optimize_tours(self, req, options).await
     }
 
@@ -65,7 +65,7 @@ impl<T: super::FleetRouting> FleetRouting for T {
         &self,
         req: crate::model::BatchOptimizeToursRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::batch_optimize_tours(self, req, options).await
     }
 
@@ -74,7 +74,7 @@ impl<T: super::FleetRouting> FleetRouting for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

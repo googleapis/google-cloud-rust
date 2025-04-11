@@ -45,10 +45,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateScanConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ScanConfig>> + Send {
-        std::future::ready::<crate::Result<crate::model::ScanConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ScanConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanConfig>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::WebSecurityScanner::delete_scan_config].
@@ -56,8 +58,10 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteScanConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::WebSecurityScanner::get_scan_config].
@@ -65,10 +69,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetScanConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ScanConfig>> + Send {
-        std::future::ready::<crate::Result<crate::model::ScanConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ScanConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanConfig>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::WebSecurityScanner::list_scan_configs].
@@ -76,11 +82,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListScanConfigsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListScanConfigsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListScanConfigsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListScanConfigsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListScanConfigsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::WebSecurityScanner::update_scan_config].
@@ -88,10 +95,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateScanConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ScanConfig>> + Send {
-        std::future::ready::<crate::Result<crate::model::ScanConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ScanConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanConfig>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::WebSecurityScanner::start_scan_run].
@@ -99,10 +108,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::StartScanRunRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ScanRun>> + Send {
-        std::future::ready::<crate::Result<crate::model::ScanRun>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ScanRun>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanRun>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::WebSecurityScanner::get_scan_run].
@@ -110,10 +121,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetScanRunRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ScanRun>> + Send {
-        std::future::ready::<crate::Result<crate::model::ScanRun>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ScanRun>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanRun>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::WebSecurityScanner::list_scan_runs].
@@ -121,11 +134,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListScanRunsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListScanRunsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListScanRunsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListScanRunsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListScanRunsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::WebSecurityScanner::stop_scan_run].
@@ -133,10 +147,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::StopScanRunRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ScanRun>> + Send {
-        std::future::ready::<crate::Result<crate::model::ScanRun>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ScanRun>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ScanRun>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::WebSecurityScanner::list_crawled_urls].
@@ -144,11 +160,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListCrawledUrlsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListCrawledUrlsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListCrawledUrlsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::WebSecurityScanner::get_finding].
@@ -156,10 +173,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetFindingRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Finding>> + Send {
-        std::future::ready::<crate::Result<crate::model::Finding>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Finding>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Finding>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::WebSecurityScanner::list_findings].
@@ -167,11 +186,12 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListFindingsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListFindingsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListFindingsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListFindingsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListFindingsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::WebSecurityScanner::list_finding_type_stats].
@@ -179,10 +199,11 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListFindingTypeStatsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListFindingTypeStatsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ListFindingTypeStatsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }

@@ -44,7 +44,7 @@ impl super::stub::ContainerAnalysis for ContainerAnalysis {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,17 +57,14 @@ impl super::stub::ContainerAnalysis for ContainerAnalysis {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -80,17 +77,14 @@ impl super::stub::ContainerAnalysis for ContainerAnalysis {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -103,16 +97,14 @@ impl super::stub::ContainerAnalysis for ContainerAnalysis {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_vulnerability_occurrences_summary(
         &self,
         req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VulnerabilityOccurrencesSummary> {
+    ) -> Result<gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -129,18 +121,13 @@ impl super::stub::ContainerAnalysis for ContainerAnalysis {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn export_sbom(
         &self,
         req: crate::model::ExportSBOMRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExportSBOMResponse> {
+    ) -> Result<gax::response::Response<crate::model::ExportSBOMResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -153,9 +140,6 @@ impl super::stub::ContainerAnalysis for ContainerAnalysis {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::ExportSBOMResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 }

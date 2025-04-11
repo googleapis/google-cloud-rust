@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateAssessmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assessment> {
+    ) -> Result<gax::response::Response<crate::model::Assessment>> {
         self.inner.create_assessment(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::AnnotateAssessmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnnotateAssessmentResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnnotateAssessmentResponse>> {
         self.inner.annotate_assessment(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Key> {
+    ) -> Result<gax::response::Response<crate::model::Key>> {
         self.inner.create_key(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::ListKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListKeysResponse>> {
         self.inner.list_keys(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::RetrieveLegacySecretKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RetrieveLegacySecretKeyResponse> {
+    ) -> Result<gax::response::Response<crate::model::RetrieveLegacySecretKeyResponse>> {
         self.inner.retrieve_legacy_secret_key(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::GetKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Key> {
+    ) -> Result<gax::response::Response<crate::model::Key>> {
         self.inner.get_key(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UpdateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Key> {
+    ) -> Result<gax::response::Response<crate::model::Key>> {
         self.inner.update_key(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_key(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::MigrateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Key> {
+    ) -> Result<gax::response::Response<crate::model::Key>> {
         self.inner.migrate_key(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::AddIpOverrideRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AddIpOverrideResponse> {
+    ) -> Result<gax::response::Response<crate::model::AddIpOverrideResponse>> {
         self.inner.add_ip_override(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::RemoveIpOverrideRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RemoveIpOverrideResponse> {
+    ) -> Result<gax::response::Response<crate::model::RemoveIpOverrideResponse>> {
         self.inner.remove_ip_override(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::ListIpOverridesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIpOverridesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIpOverridesResponse>> {
         self.inner.list_ip_overrides(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::GetMetricsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Metrics> {
+    ) -> Result<gax::response::Response<crate::model::Metrics>> {
         self.inner.get_metrics(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::CreateFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FirewallPolicy> {
+    ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
         self.inner.create_firewall_policy(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::ListFirewallPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFirewallPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFirewallPoliciesResponse>> {
         self.inner.list_firewall_policies(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::GetFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FirewallPolicy> {
+    ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
         self.inner.get_firewall_policy(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::UpdateFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FirewallPolicy> {
+    ) -> Result<gax::response::Response<crate::model::FirewallPolicy>> {
         self.inner.update_firewall_policy(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::DeleteFirewallPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_firewall_policy(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::ReorderFirewallPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReorderFirewallPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ReorderFirewallPoliciesResponse>> {
         self.inner.reorder_firewall_policies(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::ListRelatedAccountGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRelatedAccountGroupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>> {
         self.inner.list_related_account_groups(req, options).await
     }
 
@@ -222,7 +222,8 @@ where
         &self,
         req: crate::model::ListRelatedAccountGroupMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRelatedAccountGroupMembershipsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>>
+    {
         self.inner
             .list_related_account_group_memberships(req, options)
             .await
@@ -233,7 +234,8 @@ where
         &self,
         req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchRelatedAccountGroupMembershipsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>>
+    {
         self.inner
             .search_related_account_group_memberships(req, options)
             .await

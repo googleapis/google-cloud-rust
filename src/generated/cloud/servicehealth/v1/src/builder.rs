@@ -93,6 +93,7 @@ pub mod service_health {
             (*self.0.stub)
                 .list_events(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod service_health {
             (*self.0.stub)
                 .get_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEventRequest::name].
@@ -219,6 +221,7 @@ pub mod service_health {
             (*self.0.stub)
                 .list_organization_events(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -305,6 +308,7 @@ pub mod service_health {
             (*self.0.stub)
                 .get_organization_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrganizationEventRequest::name].
@@ -352,6 +356,7 @@ pub mod service_health {
             (*self.0.stub)
                 .list_organization_impacts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -432,6 +437,7 @@ pub mod service_health {
             (*self.0.stub)
                 .get_organization_impact(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrganizationImpactRequest::name].
@@ -477,6 +483,7 @@ pub mod service_health {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -552,6 +559,7 @@ pub mod service_health {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].

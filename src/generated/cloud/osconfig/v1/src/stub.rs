@@ -46,10 +46,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ExecutePatchJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PatchJob>> + Send {
-        std::future::ready::<crate::Result<crate::model::PatchJob>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PatchJob>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PatchJob>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::OsConfigService::get_patch_job].
@@ -57,10 +59,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPatchJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PatchJob>> + Send {
-        std::future::ready::<crate::Result<crate::model::PatchJob>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PatchJob>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PatchJob>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::OsConfigService::cancel_patch_job].
@@ -68,10 +72,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CancelPatchJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PatchJob>> + Send {
-        std::future::ready::<crate::Result<crate::model::PatchJob>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PatchJob>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PatchJob>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::OsConfigService::list_patch_jobs].
@@ -79,11 +85,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPatchJobsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPatchJobsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListPatchJobsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListPatchJobsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListPatchJobsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsConfigService::list_patch_job_instance_details].
@@ -92,11 +99,15 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListPatchJobInstanceDetailsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListPatchJobInstanceDetailsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListPatchJobInstanceDetailsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::ListPatchJobInstanceDetailsResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsConfigService::create_patch_deployment].
@@ -104,11 +115,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreatePatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PatchDeployment>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::PatchDeployment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PatchDeployment>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigService::get_patch_deployment].
@@ -116,11 +128,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PatchDeployment>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::PatchDeployment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PatchDeployment>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigService::list_patch_deployments].
@@ -128,11 +141,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPatchDeploymentsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPatchDeploymentsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ListPatchDeploymentsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListPatchDeploymentsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListPatchDeploymentsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsConfigService::delete_patch_deployment].
@@ -140,8 +154,10 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::OsConfigService::update_patch_deployment].
@@ -149,11 +165,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdatePatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PatchDeployment>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::PatchDeployment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PatchDeployment>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigService::pause_patch_deployment].
@@ -161,11 +178,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PausePatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PatchDeployment>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::PatchDeployment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PatchDeployment>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigService::resume_patch_deployment].
@@ -173,11 +191,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ResumePatchDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PatchDeployment>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::PatchDeployment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PatchDeployment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PatchDeployment>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigService::get_operation].
@@ -185,11 +204,12 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigService::cancel_operation].
@@ -197,8 +217,10 @@ pub trait OsConfigService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 }
 
@@ -219,11 +241,12 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateOSPolicyAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigZonalService::update_os_policy_assignment].
@@ -231,11 +254,12 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateOSPolicyAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigZonalService::get_os_policy_assignment].
@@ -243,11 +267,12 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOSPolicyAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::OSPolicyAssignment>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::OSPolicyAssignment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OSPolicyAssignment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::OSPolicyAssignment>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigZonalService::list_os_policy_assignments].
@@ -256,11 +281,13 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListOSPolicyAssignmentsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListOSPolicyAssignmentsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListOSPolicyAssignmentsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListOSPolicyAssignmentsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsConfigZonalService::list_os_policy_assignment_revisions].
@@ -269,11 +296,15 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListOSPolicyAssignmentRevisionsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListOSPolicyAssignmentRevisionsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListOSPolicyAssignmentRevisionsResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::ListOSPolicyAssignmentRevisionsResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsConfigZonalService::delete_os_policy_assignment].
@@ -281,11 +312,12 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteOSPolicyAssignmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigZonalService::get_os_policy_assignment_report].
@@ -293,11 +325,12 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetOSPolicyAssignmentReportRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::OSPolicyAssignmentReport>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::OSPolicyAssignmentReport>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::OSPolicyAssignmentReport>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsConfigZonalService::list_os_policy_assignment_reports].
@@ -306,11 +339,15 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListOSPolicyAssignmentReportsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListOSPolicyAssignmentReportsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListOSPolicyAssignmentReportsResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::ListOSPolicyAssignmentReportsResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsConfigZonalService::get_inventory].
@@ -318,10 +355,12 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetInventoryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Inventory>> + Send {
-        std::future::ready::<crate::Result<crate::model::Inventory>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Inventory>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Inventory>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::OsConfigZonalService::list_inventories].
@@ -329,11 +368,12 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListInventoriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListInventoriesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListInventoriesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListInventoriesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListInventoriesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsConfigZonalService::get_vulnerability_report].
@@ -341,11 +381,12 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVulnerabilityReportRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VulnerabilityReport>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::VulnerabilityReport>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VulnerabilityReport>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::VulnerabilityReport>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsConfigZonalService::list_vulnerability_reports].
@@ -354,11 +395,13 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListVulnerabilityReportsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListVulnerabilityReportsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListVulnerabilityReportsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListVulnerabilityReportsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListVulnerabilityReportsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsConfigZonalService::get_operation].
@@ -366,11 +409,12 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsConfigZonalService::cancel_operation].
@@ -378,8 +422,10 @@ pub trait OsConfigZonalService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

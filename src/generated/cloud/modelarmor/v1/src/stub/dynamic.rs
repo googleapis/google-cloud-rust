@@ -21,67 +21,67 @@ pub trait ModelArmor: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTemplatesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTemplatesResponse>>;
 
     async fn get_template(
         &self,
         req: crate::model::GetTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Template>;
+    ) -> crate::Result<gax::response::Response<crate::model::Template>>;
 
     async fn create_template(
         &self,
         req: crate::model::CreateTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Template>;
+    ) -> crate::Result<gax::response::Response<crate::model::Template>>;
 
     async fn update_template(
         &self,
         req: crate::model::UpdateTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Template>;
+    ) -> crate::Result<gax::response::Response<crate::model::Template>>;
 
     async fn delete_template(
         &self,
         req: crate::model::DeleteTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_floor_setting(
         &self,
         req: crate::model::GetFloorSettingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FloorSetting>;
+    ) -> crate::Result<gax::response::Response<crate::model::FloorSetting>>;
 
     async fn update_floor_setting(
         &self,
         req: crate::model::UpdateFloorSettingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FloorSetting>;
+    ) -> crate::Result<gax::response::Response<crate::model::FloorSetting>>;
 
     async fn sanitize_user_prompt(
         &self,
         req: crate::model::SanitizeUserPromptRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SanitizeUserPromptResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SanitizeUserPromptResponse>>;
 
     async fn sanitize_model_response(
         &self,
         req: crate::model::SanitizeModelResponseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SanitizeModelResponseResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SanitizeModelResponseResponse>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 }
 
 /// All implementations of [super::ModelArmor] also implement [ModelArmor].
@@ -92,7 +92,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: crate::model::ListTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTemplatesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTemplatesResponse>> {
         T::list_templates(self, req, options).await
     }
 
@@ -101,7 +101,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: crate::model::GetTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Template> {
+    ) -> crate::Result<gax::response::Response<crate::model::Template>> {
         T::get_template(self, req, options).await
     }
 
@@ -110,7 +110,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: crate::model::CreateTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Template> {
+    ) -> crate::Result<gax::response::Response<crate::model::Template>> {
         T::create_template(self, req, options).await
     }
 
@@ -119,7 +119,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: crate::model::UpdateTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Template> {
+    ) -> crate::Result<gax::response::Response<crate::model::Template>> {
         T::update_template(self, req, options).await
     }
 
@@ -128,7 +128,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: crate::model::DeleteTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_template(self, req, options).await
     }
 
@@ -137,7 +137,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: crate::model::GetFloorSettingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FloorSetting> {
+    ) -> crate::Result<gax::response::Response<crate::model::FloorSetting>> {
         T::get_floor_setting(self, req, options).await
     }
 
@@ -146,7 +146,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: crate::model::UpdateFloorSettingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FloorSetting> {
+    ) -> crate::Result<gax::response::Response<crate::model::FloorSetting>> {
         T::update_floor_setting(self, req, options).await
     }
 
@@ -155,7 +155,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: crate::model::SanitizeUserPromptRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SanitizeUserPromptResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SanitizeUserPromptResponse>> {
         T::sanitize_user_prompt(self, req, options).await
     }
 
@@ -164,7 +164,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: crate::model::SanitizeModelResponseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SanitizeModelResponseResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SanitizeModelResponseResponse>> {
         T::sanitize_model_response(self, req, options).await
     }
 
@@ -173,7 +173,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -182,7 +182,7 @@ impl<T: super::ModelArmor> ModelArmor for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

@@ -21,85 +21,85 @@ pub trait Grafeas: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Occurrence>;
+    ) -> crate::Result<gax::response::Response<crate::model::Occurrence>>;
 
     async fn list_occurrences(
         &self,
         req: crate::model::ListOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListOccurrencesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListOccurrencesResponse>>;
 
     async fn delete_occurrence(
         &self,
         req: crate::model::DeleteOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn create_occurrence(
         &self,
         req: crate::model::CreateOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Occurrence>;
+    ) -> crate::Result<gax::response::Response<crate::model::Occurrence>>;
 
     async fn batch_create_occurrences(
         &self,
         req: crate::model::BatchCreateOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BatchCreateOccurrencesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateOccurrencesResponse>>;
 
     async fn update_occurrence(
         &self,
         req: crate::model::UpdateOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Occurrence>;
+    ) -> crate::Result<gax::response::Response<crate::model::Occurrence>>;
 
     async fn get_occurrence_note(
         &self,
         req: crate::model::GetOccurrenceNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Note>;
+    ) -> crate::Result<gax::response::Response<crate::model::Note>>;
 
     async fn get_note(
         &self,
         req: crate::model::GetNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Note>;
+    ) -> crate::Result<gax::response::Response<crate::model::Note>>;
 
     async fn list_notes(
         &self,
         req: crate::model::ListNotesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNotesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNotesResponse>>;
 
     async fn delete_note(
         &self,
         req: crate::model::DeleteNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn create_note(
         &self,
         req: crate::model::CreateNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Note>;
+    ) -> crate::Result<gax::response::Response<crate::model::Note>>;
 
     async fn batch_create_notes(
         &self,
         req: crate::model::BatchCreateNotesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BatchCreateNotesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateNotesResponse>>;
 
     async fn update_note(
         &self,
         req: crate::model::UpdateNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Note>;
+    ) -> crate::Result<gax::response::Response<crate::model::Note>>;
 
     async fn list_note_occurrences(
         &self,
         req: crate::model::ListNoteOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNoteOccurrencesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>>;
 }
 
 /// All implementations of [super::Grafeas] also implement [Grafeas].
@@ -110,7 +110,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::GetOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Occurrence> {
+    ) -> crate::Result<gax::response::Response<crate::model::Occurrence>> {
         T::get_occurrence(self, req, options).await
     }
 
@@ -119,7 +119,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::ListOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListOccurrencesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListOccurrencesResponse>> {
         T::list_occurrences(self, req, options).await
     }
 
@@ -128,7 +128,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::DeleteOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_occurrence(self, req, options).await
     }
 
@@ -137,7 +137,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::CreateOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Occurrence> {
+    ) -> crate::Result<gax::response::Response<crate::model::Occurrence>> {
         T::create_occurrence(self, req, options).await
     }
 
@@ -146,7 +146,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::BatchCreateOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BatchCreateOccurrencesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateOccurrencesResponse>> {
         T::batch_create_occurrences(self, req, options).await
     }
 
@@ -155,7 +155,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::UpdateOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Occurrence> {
+    ) -> crate::Result<gax::response::Response<crate::model::Occurrence>> {
         T::update_occurrence(self, req, options).await
     }
 
@@ -164,7 +164,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::GetOccurrenceNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Note> {
+    ) -> crate::Result<gax::response::Response<crate::model::Note>> {
         T::get_occurrence_note(self, req, options).await
     }
 
@@ -173,7 +173,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::GetNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Note> {
+    ) -> crate::Result<gax::response::Response<crate::model::Note>> {
         T::get_note(self, req, options).await
     }
 
@@ -182,7 +182,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::ListNotesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNotesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNotesResponse>> {
         T::list_notes(self, req, options).await
     }
 
@@ -191,7 +191,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::DeleteNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_note(self, req, options).await
     }
 
@@ -200,7 +200,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::CreateNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Note> {
+    ) -> crate::Result<gax::response::Response<crate::model::Note>> {
         T::create_note(self, req, options).await
     }
 
@@ -209,7 +209,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::BatchCreateNotesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BatchCreateNotesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchCreateNotesResponse>> {
         T::batch_create_notes(self, req, options).await
     }
 
@@ -218,7 +218,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::UpdateNoteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Note> {
+    ) -> crate::Result<gax::response::Response<crate::model::Note>> {
         T::update_note(self, req, options).await
     }
 
@@ -227,7 +227,7 @@ impl<T: super::Grafeas> Grafeas for T {
         &self,
         req: crate::model::ListNoteOccurrencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNoteOccurrencesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>> {
         T::list_note_occurrences(self, req, options).await
     }
 }

@@ -53,6 +53,15 @@ var usesCustomEncoding = map[string]string{
 	".google.protobuf.UInt64Value": "",
 }
 
+// Used to concatenate a message and a child message.
+var nestedMessageChar = "_"
+
+// Used to concatenate a message and a child enum.
+var nestedEnumChar = "_"
+
+// Appended to a name to avoid conflicting with a Dart identifier.
+var deconflictChar = "$"
+
 // Dart reserved words.
 //
 // This blocklist includes words that can never be used as an identifier as well
@@ -105,12 +114,12 @@ func messageName(m *api.Message) string {
 	if m.Parent == nil {
 		// For top-most symbols, check for conflicts with reserved names.
 		if _, hasConflict := reservedNames[name]; hasConflict {
-			return name + "$"
+			return name + deconflictChar
 		} else {
 			return name
 		}
 	} else {
-		return messageName(m.Parent) + "$" + name
+		return messageName(m.Parent) + nestedMessageChar + name
 	}
 }
 
@@ -122,22 +131,23 @@ func qualifiedName(m *api.Message) string {
 func fieldName(field *api.Field) string {
 	name := strcase.ToLowerCamel(field.Name)
 	if _, hasConflict := reservedNames[name]; hasConflict {
-		name = name + "$"
+		name = name + deconflictChar
 	}
 	return name
 }
 
 func enumName(e *api.Enum) string {
+	name := strcase.ToCamel(e.Name)
 	if e.Parent != nil {
-		return messageName(e.Parent) + "$" + strcase.ToCamel(e.Name)
+		name = messageName(e.Parent) + nestedEnumChar + name
 	}
-	return strcase.ToCamel(e.Name)
+	return name
 }
 
 func enumValueName(e *api.EnumValue) string {
 	name := strcase.ToLowerCamel(e.Name)
 	if _, hasConflict := reservedNames[name]; hasConflict {
-		name = name + "$"
+		name = name + deconflictChar
 	}
 	return name
 }

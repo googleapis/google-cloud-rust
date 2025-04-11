@@ -23,193 +23,193 @@ pub trait LivestreamService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_channels(
         &self,
         req: crate::model::ListChannelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListChannelsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListChannelsResponse>>;
 
     async fn get_channel(
         &self,
         req: crate::model::GetChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Channel>;
+    ) -> crate::Result<gax::response::Response<crate::model::Channel>>;
 
     async fn delete_channel(
         &self,
         req: crate::model::DeleteChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_channel(
         &self,
         req: crate::model::UpdateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn start_channel(
         &self,
         req: crate::model::StartChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn stop_channel(
         &self,
         req: crate::model::StopChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_input(
         &self,
         req: crate::model::CreateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_inputs(
         &self,
         req: crate::model::ListInputsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInputsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListInputsResponse>>;
 
     async fn get_input(
         &self,
         req: crate::model::GetInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Input>;
+    ) -> crate::Result<gax::response::Response<crate::model::Input>>;
 
     async fn delete_input(
         &self,
         req: crate::model::DeleteInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_input(
         &self,
         req: crate::model::UpdateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_event(
         &self,
         req: crate::model::CreateEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Event>;
+    ) -> crate::Result<gax::response::Response<crate::model::Event>>;
 
     async fn list_events(
         &self,
         req: crate::model::ListEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEventsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListEventsResponse>>;
 
     async fn get_event(
         &self,
         req: crate::model::GetEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Event>;
+    ) -> crate::Result<gax::response::Response<crate::model::Event>>;
 
     async fn delete_event(
         &self,
         req: crate::model::DeleteEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_clips(
         &self,
         req: crate::model::ListClipsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListClipsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListClipsResponse>>;
 
     async fn get_clip(
         &self,
         req: crate::model::GetClipRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Clip>;
+    ) -> crate::Result<gax::response::Response<crate::model::Clip>>;
 
     async fn create_clip(
         &self,
         req: crate::model::CreateClipRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_clip(
         &self,
         req: crate::model::DeleteClipRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_asset(
         &self,
         req: crate::model::CreateAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_asset(
         &self,
         req: crate::model::DeleteAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_asset(
         &self,
         req: crate::model::GetAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Asset>;
+    ) -> crate::Result<gax::response::Response<crate::model::Asset>>;
 
     async fn list_assets(
         &self,
         req: crate::model::ListAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAssetsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListAssetsResponse>>;
 
     async fn get_pool(
         &self,
         req: crate::model::GetPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Pool>;
+    ) -> crate::Result<gax::response::Response<crate::model::Pool>>;
 
     async fn update_pool(
         &self,
         req: crate::model::UpdatePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -230,7 +230,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::CreateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_channel(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::ListChannelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListChannelsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListChannelsResponse>> {
         T::list_channels(self, req, options).await
     }
 
@@ -248,7 +248,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::GetChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Channel> {
+    ) -> crate::Result<gax::response::Response<crate::model::Channel>> {
         T::get_channel(self, req, options).await
     }
 
@@ -257,7 +257,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::DeleteChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_channel(self, req, options).await
     }
 
@@ -266,7 +266,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::UpdateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_channel(self, req, options).await
     }
 
@@ -275,7 +275,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::StartChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::start_channel(self, req, options).await
     }
 
@@ -284,7 +284,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::StopChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::stop_channel(self, req, options).await
     }
 
@@ -293,7 +293,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::CreateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_input(self, req, options).await
     }
 
@@ -302,7 +302,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::ListInputsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInputsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListInputsResponse>> {
         T::list_inputs(self, req, options).await
     }
 
@@ -311,7 +311,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::GetInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Input> {
+    ) -> crate::Result<gax::response::Response<crate::model::Input>> {
         T::get_input(self, req, options).await
     }
 
@@ -320,7 +320,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::DeleteInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_input(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::UpdateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_input(self, req, options).await
     }
 
@@ -338,7 +338,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::CreateEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Event> {
+    ) -> crate::Result<gax::response::Response<crate::model::Event>> {
         T::create_event(self, req, options).await
     }
 
@@ -347,7 +347,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::ListEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEventsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListEventsResponse>> {
         T::list_events(self, req, options).await
     }
 
@@ -356,7 +356,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::GetEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Event> {
+    ) -> crate::Result<gax::response::Response<crate::model::Event>> {
         T::get_event(self, req, options).await
     }
 
@@ -365,7 +365,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::DeleteEventRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_event(self, req, options).await
     }
 
@@ -374,7 +374,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::ListClipsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListClipsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListClipsResponse>> {
         T::list_clips(self, req, options).await
     }
 
@@ -383,7 +383,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::GetClipRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Clip> {
+    ) -> crate::Result<gax::response::Response<crate::model::Clip>> {
         T::get_clip(self, req, options).await
     }
 
@@ -392,7 +392,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::CreateClipRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_clip(self, req, options).await
     }
 
@@ -401,7 +401,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::DeleteClipRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_clip(self, req, options).await
     }
 
@@ -410,7 +410,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::CreateAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_asset(self, req, options).await
     }
 
@@ -419,7 +419,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::DeleteAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_asset(self, req, options).await
     }
 
@@ -428,7 +428,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::GetAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Asset> {
+    ) -> crate::Result<gax::response::Response<crate::model::Asset>> {
         T::get_asset(self, req, options).await
     }
 
@@ -437,7 +437,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::ListAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAssetsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAssetsResponse>> {
         T::list_assets(self, req, options).await
     }
 
@@ -446,7 +446,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::GetPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Pool> {
+    ) -> crate::Result<gax::response::Response<crate::model::Pool>> {
         T::get_pool(self, req, options).await
     }
 
@@ -455,7 +455,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: crate::model::UpdatePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_pool(self, req, options).await
     }
 
@@ -464,7 +464,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -473,7 +473,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -482,7 +482,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -491,7 +491,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -500,7 +500,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -509,7 +509,7 @@ impl<T: super::LivestreamService> LivestreamService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

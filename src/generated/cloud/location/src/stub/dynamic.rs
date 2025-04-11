@@ -21,13 +21,13 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Location>;
+    ) -> crate::Result<gax::response::Response<crate::model::Location>>;
 }
 
 /// All implementations of [super::Locations] also implement [Locations].
@@ -38,7 +38,7 @@ impl<T: super::Locations> Locations for T {
         &self,
         req: crate::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -47,7 +47,7 @@ impl<T: super::Locations> Locations for T {
         &self,
         req: crate::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Location> {
+    ) -> crate::Result<gax::response::Response<crate::model::Location>> {
         T::get_location(self, req, options).await
     }
 }

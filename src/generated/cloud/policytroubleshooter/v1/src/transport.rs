@@ -44,7 +44,7 @@ impl super::stub::IamChecker for IamChecker {
         &self,
         req: crate::model::TroubleshootIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TroubleshootIamPolicyResponse> {
+    ) -> Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -54,8 +54,6 @@ impl super::stub::IamChecker for IamChecker {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::TroubleshootIamPolicyResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 }

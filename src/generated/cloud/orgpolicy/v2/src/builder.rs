@@ -93,6 +93,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .list_constraints(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -162,6 +163,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .list_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -231,6 +233,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .get_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
@@ -276,6 +279,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .get_effective_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEffectivePolicyRequest::name].
@@ -318,6 +322,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .create_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
@@ -369,6 +374,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .update_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
@@ -423,6 +429,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .delete_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
@@ -474,6 +481,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .create_custom_constraint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCustomConstraintRequest::parent].
@@ -530,6 +538,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .update_custom_constraint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
@@ -580,6 +589,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .get_custom_constraint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCustomConstraintRequest::name].
@@ -625,6 +635,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .list_custom_constraints(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -697,6 +708,7 @@ pub mod org_policy {
             (*self.0.stub)
                 .delete_custom_constraint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomConstraintRequest::name].

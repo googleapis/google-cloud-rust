@@ -102,6 +102,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .create_autoscaling_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAutoscalingPolicyRequest::parent].
@@ -160,6 +161,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .update_autoscaling_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [policy][crate::model::UpdateAutoscalingPolicyRequest::policy].
@@ -210,6 +212,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .get_autoscaling_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAutoscalingPolicyRequest::name].
@@ -259,6 +262,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .list_autoscaling_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -337,6 +341,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .delete_autoscaling_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAutoscalingPolicyRequest::name].
@@ -381,6 +386,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -443,6 +449,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -499,6 +506,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -557,6 +565,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -637,6 +646,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -684,6 +694,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -731,6 +742,7 @@ pub mod autoscaling_policy_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -832,6 +844,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .create_batch(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_batch`.
@@ -928,6 +941,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .get_batch(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBatchRequest::name].
@@ -970,6 +984,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .list_batches(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1051,6 +1066,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .delete_batch(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBatchRequest::name].
@@ -1093,6 +1109,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1153,6 +1170,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1207,6 +1225,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1263,6 +1282,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1341,6 +1361,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1386,6 +1407,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1431,6 +1453,7 @@ pub mod batch_controller {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -1532,6 +1555,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
@@ -1643,6 +1667,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
@@ -1769,6 +1794,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .stop_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_cluster`.
@@ -1874,6 +1900,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .start_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_cluster`.
@@ -1979,6 +2006,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
@@ -2077,6 +2105,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .get_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetClusterRequest::project_id].
@@ -2131,6 +2160,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .list_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2217,6 +2247,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .diagnose_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `diagnose_cluster`.
@@ -2355,6 +2386,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2415,6 +2447,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2469,6 +2502,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2525,6 +2559,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2603,6 +2638,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2648,6 +2684,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2693,6 +2730,7 @@ pub mod cluster_controller {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2789,6 +2827,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .submit_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SubmitJobRequest::project_id].
@@ -2854,6 +2893,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .submit_job_as_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `submit_job_as_operation`.
@@ -2941,7 +2981,10 @@ pub mod job_controller {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Job> {
-            (*self.0.stub).get_job(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_job(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetJobRequest::project_id].
@@ -2996,6 +3039,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .list_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3092,6 +3136,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .update_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateJobRequest::project_id].
@@ -3161,6 +3206,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .cancel_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CancelJobRequest::project_id].
@@ -3215,6 +3261,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .delete_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteJobRequest::project_id].
@@ -3269,6 +3316,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -3329,6 +3377,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -3383,6 +3432,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3439,6 +3489,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3517,6 +3568,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3562,6 +3614,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3607,6 +3660,7 @@ pub mod job_controller {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3708,6 +3762,7 @@ pub mod node_group_controller {
             (*self.0.stub)
                 .create_node_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_node_group`.
@@ -3810,6 +3865,7 @@ pub mod node_group_controller {
             (*self.0.stub)
                 .resize_node_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `resize_node_group`.
@@ -3907,6 +3963,7 @@ pub mod node_group_controller {
             (*self.0.stub)
                 .get_node_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNodeGroupRequest::name].
@@ -3949,6 +4006,7 @@ pub mod node_group_controller {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -4009,6 +4067,7 @@ pub mod node_group_controller {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -4063,6 +4122,7 @@ pub mod node_group_controller {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -4119,6 +4179,7 @@ pub mod node_group_controller {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4197,6 +4258,7 @@ pub mod node_group_controller {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4242,6 +4304,7 @@ pub mod node_group_controller {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4287,6 +4350,7 @@ pub mod node_group_controller {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -4390,6 +4454,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .create_session_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSessionTemplateRequest::parent].
@@ -4446,6 +4511,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .update_session_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [session_template][crate::model::UpdateSessionTemplateRequest::session_template].
@@ -4496,6 +4562,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .get_session_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSessionTemplateRequest::name].
@@ -4543,6 +4610,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .list_session_templates(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4623,6 +4691,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .delete_session_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSessionTemplateRequest::name].
@@ -4667,6 +4736,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -4729,6 +4799,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -4785,6 +4856,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -4843,6 +4915,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4923,6 +4996,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4970,6 +5044,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -5017,6 +5092,7 @@ pub mod session_template_controller {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -5118,6 +5194,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .create_session(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_session`.
@@ -5215,6 +5292,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .get_session(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSessionRequest::name].
@@ -5257,6 +5335,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .list_sessions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5340,6 +5419,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .terminate_session(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `terminate_session`.
@@ -5427,6 +5507,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .delete_session(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_session`.
@@ -5509,6 +5590,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -5569,6 +5651,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -5623,6 +5706,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -5679,6 +5763,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5757,6 +5842,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -5802,6 +5888,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -5847,6 +5934,7 @@ pub mod session_controller {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -5950,6 +6038,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .create_workflow_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkflowTemplateRequest::parent].
@@ -6006,6 +6095,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .get_workflow_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkflowTemplateRequest::name].
@@ -6066,6 +6156,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .instantiate_workflow_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `instantiate_workflow_template`.
@@ -6173,6 +6264,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .instantiate_inline_workflow_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `instantiate_inline_workflow_template`.
@@ -6265,6 +6357,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .update_workflow_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [template][crate::model::UpdateWorkflowTemplateRequest::template].
@@ -6315,6 +6408,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .list_workflow_templates(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -6389,6 +6483,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .delete_workflow_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkflowTemplateRequest::name].
@@ -6439,6 +6534,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -6501,6 +6597,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -6557,6 +6654,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -6615,6 +6713,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -6695,6 +6794,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -6742,6 +6842,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -6789,6 +6890,7 @@ pub mod workflow_template_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

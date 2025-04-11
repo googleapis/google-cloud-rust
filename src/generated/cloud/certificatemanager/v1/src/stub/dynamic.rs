@@ -23,211 +23,211 @@ pub trait CertificateManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListCertificatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCertificatesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificatesResponse>>;
 
     async fn get_certificate(
         &self,
         req: crate::model::GetCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Certificate>;
+    ) -> crate::Result<gax::response::Response<crate::model::Certificate>>;
 
     async fn create_certificate(
         &self,
         req: crate::model::CreateCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_certificate(
         &self,
         req: crate::model::UpdateCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_certificate(
         &self,
         req: crate::model::DeleteCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_certificate_maps(
         &self,
         req: crate::model::ListCertificateMapsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCertificateMapsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateMapsResponse>>;
 
     async fn get_certificate_map(
         &self,
         req: crate::model::GetCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CertificateMap>;
+    ) -> crate::Result<gax::response::Response<crate::model::CertificateMap>>;
 
     async fn create_certificate_map(
         &self,
         req: crate::model::CreateCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_certificate_map(
         &self,
         req: crate::model::UpdateCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_certificate_map(
         &self,
         req: crate::model::DeleteCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_certificate_map_entries(
         &self,
         req: crate::model::ListCertificateMapEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCertificateMapEntriesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateMapEntriesResponse>>;
 
     async fn get_certificate_map_entry(
         &self,
         req: crate::model::GetCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CertificateMapEntry>;
+    ) -> crate::Result<gax::response::Response<crate::model::CertificateMapEntry>>;
 
     async fn create_certificate_map_entry(
         &self,
         req: crate::model::CreateCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_certificate_map_entry(
         &self,
         req: crate::model::UpdateCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_certificate_map_entry(
         &self,
         req: crate::model::DeleteCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_dns_authorizations(
         &self,
         req: crate::model::ListDnsAuthorizationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDnsAuthorizationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDnsAuthorizationsResponse>>;
 
     async fn get_dns_authorization(
         &self,
         req: crate::model::GetDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DnsAuthorization>;
+    ) -> crate::Result<gax::response::Response<crate::model::DnsAuthorization>>;
 
     async fn create_dns_authorization(
         &self,
         req: crate::model::CreateDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_dns_authorization(
         &self,
         req: crate::model::UpdateDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_dns_authorization(
         &self,
         req: crate::model::DeleteDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_certificate_issuance_configs(
         &self,
         req: crate::model::ListCertificateIssuanceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCertificateIssuanceConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateIssuanceConfigsResponse>>;
 
     async fn get_certificate_issuance_config(
         &self,
         req: crate::model::GetCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CertificateIssuanceConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::CertificateIssuanceConfig>>;
 
     async fn create_certificate_issuance_config(
         &self,
         req: crate::model::CreateCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_certificate_issuance_config(
         &self,
         req: crate::model::DeleteCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_trust_configs(
         &self,
         req: crate::model::ListTrustConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTrustConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTrustConfigsResponse>>;
 
     async fn get_trust_config(
         &self,
         req: crate::model::GetTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TrustConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::TrustConfig>>;
 
     async fn create_trust_config(
         &self,
         req: crate::model::CreateTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_trust_config(
         &self,
         req: crate::model::UpdateTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_trust_config(
         &self,
         req: crate::model::DeleteTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -248,7 +248,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::ListCertificatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCertificatesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificatesResponse>> {
         T::list_certificates(self, req, options).await
     }
 
@@ -257,7 +257,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::GetCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Certificate> {
+    ) -> crate::Result<gax::response::Response<crate::model::Certificate>> {
         T::get_certificate(self, req, options).await
     }
 
@@ -266,7 +266,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_certificate(self, req, options).await
     }
 
@@ -275,7 +275,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::UpdateCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_certificate(self, req, options).await
     }
 
@@ -284,7 +284,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_certificate(self, req, options).await
     }
 
@@ -293,7 +293,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::ListCertificateMapsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCertificateMapsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateMapsResponse>> {
         T::list_certificate_maps(self, req, options).await
     }
 
@@ -302,7 +302,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::GetCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CertificateMap> {
+    ) -> crate::Result<gax::response::Response<crate::model::CertificateMap>> {
         T::get_certificate_map(self, req, options).await
     }
 
@@ -311,7 +311,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_certificate_map(self, req, options).await
     }
 
@@ -320,7 +320,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::UpdateCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_certificate_map(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_certificate_map(self, req, options).await
     }
 
@@ -338,7 +338,8 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::ListCertificateMapEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCertificateMapEntriesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateMapEntriesResponse>>
+    {
         T::list_certificate_map_entries(self, req, options).await
     }
 
@@ -347,7 +348,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::GetCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CertificateMapEntry> {
+    ) -> crate::Result<gax::response::Response<crate::model::CertificateMapEntry>> {
         T::get_certificate_map_entry(self, req, options).await
     }
 
@@ -356,7 +357,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_certificate_map_entry(self, req, options).await
     }
 
@@ -365,7 +366,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::UpdateCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_certificate_map_entry(self, req, options).await
     }
 
@@ -374,7 +375,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_certificate_map_entry(self, req, options).await
     }
 
@@ -383,7 +384,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::ListDnsAuthorizationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDnsAuthorizationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDnsAuthorizationsResponse>> {
         T::list_dns_authorizations(self, req, options).await
     }
 
@@ -392,7 +393,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::GetDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DnsAuthorization> {
+    ) -> crate::Result<gax::response::Response<crate::model::DnsAuthorization>> {
         T::get_dns_authorization(self, req, options).await
     }
 
@@ -401,7 +402,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_dns_authorization(self, req, options).await
     }
 
@@ -410,7 +411,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::UpdateDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_dns_authorization(self, req, options).await
     }
 
@@ -419,7 +420,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_dns_authorization(self, req, options).await
     }
 
@@ -428,7 +429,8 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::ListCertificateIssuanceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCertificateIssuanceConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCertificateIssuanceConfigsResponse>>
+    {
         T::list_certificate_issuance_configs(self, req, options).await
     }
 
@@ -437,7 +439,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::GetCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CertificateIssuanceConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::CertificateIssuanceConfig>> {
         T::get_certificate_issuance_config(self, req, options).await
     }
 
@@ -446,7 +448,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_certificate_issuance_config(self, req, options).await
     }
 
@@ -455,7 +457,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_certificate_issuance_config(self, req, options).await
     }
 
@@ -464,7 +466,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::ListTrustConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTrustConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTrustConfigsResponse>> {
         T::list_trust_configs(self, req, options).await
     }
 
@@ -473,7 +475,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::GetTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TrustConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::TrustConfig>> {
         T::get_trust_config(self, req, options).await
     }
 
@@ -482,7 +484,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::CreateTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_trust_config(self, req, options).await
     }
 
@@ -491,7 +493,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::UpdateTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_trust_config(self, req, options).await
     }
 
@@ -500,7 +502,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: crate::model::DeleteTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_trust_config(self, req, options).await
     }
 
@@ -509,7 +511,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -518,7 +520,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -527,7 +529,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -536,7 +538,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -545,7 +547,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -554,7 +556,7 @@ impl<T: super::CertificateManager> CertificateManager for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

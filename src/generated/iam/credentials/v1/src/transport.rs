@@ -44,7 +44,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
         &self,
         req: crate::model::GenerateAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAccessTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,16 +57,14 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::GenerateAccessTokenResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn generate_id_token(
         &self,
         req: crate::model::GenerateIdTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateIdTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateIdTokenResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -79,17 +77,14 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::GenerateIdTokenResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn sign_blob(
         &self,
         req: crate::model::SignBlobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SignBlobResponse> {
+    ) -> Result<gax::response::Response<crate::model::SignBlobResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -99,17 +94,14 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::SignBlobResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn sign_jwt(
         &self,
         req: crate::model::SignJwtRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SignJwtResponse> {
+    ) -> Result<gax::response::Response<crate::model::SignJwtResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -119,9 +111,6 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::SignJwtResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 }

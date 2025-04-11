@@ -43,7 +43,7 @@ func TestMessageNames(t *testing.T) {
 		want    string
 	}{
 		{message: r, want: "Replication"},
-		{message: a, want: "Replication$Automatic"},
+		{message: a, want: "Replication_Automatic"},
 		{message: f, want: "Function$"},
 		{message: sample.SecretPayload(), want: "SecretPayload"},
 	} {
@@ -95,7 +95,7 @@ func TestEnumNames(t *testing.T) {
 		wantEnum string
 	}{
 		{non_nested, "Code"},
-		{nested, "SecretVersion$State"},
+		{nested, "SecretVersion_State"},
 	} {
 		if got := enumName(test.enum); got != test.wantEnum {
 			t.Errorf("c.enumName(%q) = %q; want = %s", test.enum.Name, got, test.wantEnum)

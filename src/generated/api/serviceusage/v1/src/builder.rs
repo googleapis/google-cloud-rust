@@ -98,6 +98,7 @@ pub mod service_usage {
             (*self.0.stub)
                 .enable_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `enable_service`.
@@ -181,6 +182,7 @@ pub mod service_usage {
             (*self.0.stub)
                 .disable_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `disable_service`.
@@ -276,6 +278,7 @@ pub mod service_usage {
             (*self.0.stub)
                 .get_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
@@ -318,6 +321,7 @@ pub mod service_usage {
             (*self.0.stub)
                 .list_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -401,6 +405,7 @@ pub mod service_usage {
             (*self.0.stub)
                 .batch_enable_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_enable_services`.
@@ -493,6 +498,7 @@ pub mod service_usage {
             (*self.0.stub)
                 .batch_get_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchGetServicesRequest::parent].
@@ -549,6 +555,7 @@ pub mod service_usage {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -627,6 +634,7 @@ pub mod service_usage {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

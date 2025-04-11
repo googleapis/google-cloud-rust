@@ -44,7 +44,7 @@ impl super::stub::Datastream for Datastream {
         &self,
         req: crate::model::ListConnectionProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConnectionProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConnectionProfilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -64,18 +64,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListConnectionProfilesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_connection_profile(
         &self,
         req: crate::model::GetConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ConnectionProfile> {
+    ) -> Result<gax::response::Response<crate::model::ConnectionProfile>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -88,14 +83,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ConnectionProfile>| r.into_body())
     }
 
     async fn create_connection_profile(
         &self,
         req: crate::model::CreateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -115,14 +109,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, Some(req.connection_profile), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_connection_profile(
         &self,
         req: crate::model::UpdateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -157,14 +150,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, Some(req.connection_profile), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_connection_profile(
         &self,
         req: crate::model::DeleteConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -178,14 +170,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn discover_connection_profile(
         &self,
         req: crate::model::DiscoverConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscoverConnectionProfileResponse> {
+    ) -> Result<gax::response::Response<crate::model::DiscoverConnectionProfileResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -198,18 +189,14 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::DiscoverConnectionProfileResponse>| {
-                r.into_body()
-            },
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_streams(
         &self,
         req: crate::model::ListStreamsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListStreamsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListStreamsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -226,14 +213,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListStreamsResponse>| r.into_body())
     }
 
     async fn get_stream(
         &self,
         req: crate::model::GetStreamRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Stream> {
+    ) -> Result<gax::response::Response<crate::model::Stream>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -246,14 +232,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Stream>| r.into_body())
     }
 
     async fn create_stream(
         &self,
         req: crate::model::CreateStreamRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -267,17 +252,14 @@ impl super::stub::Datastream for Datastream {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("force", &req.force)]);
-        self.inner
-            .execute(builder, Some(req.stream), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.stream), options).await
     }
 
     async fn update_stream(
         &self,
         req: crate::model::UpdateStreamRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -309,17 +291,14 @@ impl super::stub::Datastream for Datastream {
         let builder = builder.query(&[("requestId", &req.request_id)]);
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         let builder = builder.query(&[("force", &req.force)]);
-        self.inner
-            .execute(builder, Some(req.stream), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.stream), options).await
     }
 
     async fn delete_stream(
         &self,
         req: crate::model::DeleteStreamRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -333,14 +312,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn run_stream(
         &self,
         req: crate::model::RunStreamRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -350,17 +328,14 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_stream_object(
         &self,
         req: crate::model::GetStreamObjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StreamObject> {
+    ) -> Result<gax::response::Response<crate::model::StreamObject>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -373,14 +348,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::StreamObject>| r.into_body())
     }
 
     async fn lookup_stream_object(
         &self,
         req: crate::model::LookupStreamObjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StreamObject> {
+    ) -> Result<gax::response::Response<crate::model::StreamObject>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -393,17 +367,14 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::StreamObject>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_stream_objects(
         &self,
         req: crate::model::ListStreamObjectsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListStreamObjectsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListStreamObjectsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -418,16 +389,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListStreamObjectsResponse>| r.into_body(),
-            )
     }
 
     async fn start_backfill_job(
         &self,
         req: crate::model::StartBackfillJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StartBackfillJobResponse> {
+    ) -> Result<gax::response::Response<crate::model::StartBackfillJobResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -440,17 +408,14 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::StartBackfillJobResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn stop_backfill_job(
         &self,
         req: crate::model::StopBackfillJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StopBackfillJobResponse> {
+    ) -> Result<gax::response::Response<crate::model::StopBackfillJobResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -463,17 +428,14 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::StopBackfillJobResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn fetch_static_ips(
         &self,
         req: crate::model::FetchStaticIpsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchStaticIpsResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchStaticIpsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -491,14 +453,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::FetchStaticIpsResponse>| r.into_body())
     }
 
     async fn create_private_connection(
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -517,14 +478,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, Some(req.private_connection), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_private_connection(
         &self,
         req: crate::model::GetPrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PrivateConnection> {
+    ) -> Result<gax::response::Response<crate::model::PrivateConnection>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -537,14 +497,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PrivateConnection>| r.into_body())
     }
 
     async fn list_private_connections(
         &self,
         req: crate::model::ListPrivateConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPrivateConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPrivateConnectionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -564,18 +523,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPrivateConnectionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn delete_private_connection(
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -590,14 +544,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_route(
         &self,
         req: crate::model::CreateRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -609,17 +562,14 @@ impl super::stub::Datastream for Datastream {
             );
         let builder = builder.query(&[("routeId", &req.route_id)]);
         let builder = builder.query(&[("requestId", &req.request_id)]);
-        self.inner
-            .execute(builder, Some(req.route), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.route), options).await
     }
 
     async fn get_route(
         &self,
         req: crate::model::GetRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Route> {
+    ) -> Result<gax::response::Response<crate::model::Route>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -632,14 +582,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Route>| r.into_body())
     }
 
     async fn list_routes(
         &self,
         req: crate::model::ListRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRoutesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRoutesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -656,14 +605,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListRoutesResponse>| r.into_body())
     }
 
     async fn delete_route(
         &self,
         req: crate::model::DeleteRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -677,14 +625,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -700,14 +647,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -720,14 +666,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -743,18 +688,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -767,14 +707,13 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -787,14 +726,17 @@ impl super::stub::Datastream for Datastream {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -804,10 +746,12 @@ impl super::stub::Datastream for Datastream {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

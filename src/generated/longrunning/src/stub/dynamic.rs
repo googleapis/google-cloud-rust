@@ -21,25 +21,25 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: crate::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: crate::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 }
 
 /// All implementations of [super::Operations] also implement [Operations].
@@ -50,7 +50,7 @@ impl<T: super::Operations> Operations for T {
         &self,
         req: crate::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -59,7 +59,7 @@ impl<T: super::Operations> Operations for T {
         &self,
         req: crate::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Operation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -68,7 +68,7 @@ impl<T: super::Operations> Operations for T {
         &self,
         req: crate::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -77,7 +77,7 @@ impl<T: super::Operations> Operations for T {
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }

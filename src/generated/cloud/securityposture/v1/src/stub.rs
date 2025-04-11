@@ -46,11 +46,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPosturesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPosturesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListPosturesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListPosturesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListPosturesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SecurityPosture::list_posture_revisions].
@@ -58,11 +59,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPostureRevisionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPostureRevisionsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ListPostureRevisionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListPostureRevisionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListPostureRevisionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SecurityPosture::get_posture].
@@ -70,10 +72,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPostureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Posture>> + Send {
-        std::future::ready::<crate::Result<crate::model::Posture>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Posture>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Posture>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::SecurityPosture::create_posture].
@@ -81,11 +85,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreatePostureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::update_posture].
@@ -93,11 +98,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdatePostureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::delete_posture].
@@ -105,11 +111,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePostureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::extract_posture].
@@ -117,11 +124,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ExtractPostureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::list_posture_deployments].
@@ -130,11 +138,13 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListPostureDeploymentsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListPostureDeploymentsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListPostureDeploymentsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListPostureDeploymentsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListPostureDeploymentsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SecurityPosture::get_posture_deployment].
@@ -142,11 +152,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPostureDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PostureDeployment>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::PostureDeployment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PostureDeployment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PostureDeployment>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::create_posture_deployment].
@@ -154,11 +165,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreatePostureDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::update_posture_deployment].
@@ -166,11 +178,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdatePostureDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::delete_posture_deployment].
@@ -178,11 +191,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePostureDeploymentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::list_posture_templates].
@@ -190,11 +204,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListPostureTemplatesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListPostureTemplatesResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ListPostureTemplatesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListPostureTemplatesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListPostureTemplatesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SecurityPosture::get_posture_template].
@@ -202,11 +217,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetPostureTemplateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::PostureTemplate>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::PostureTemplate>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::PostureTemplate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::PostureTemplate>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::list_locations].
@@ -214,11 +230,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SecurityPosture::get_location].
@@ -226,10 +243,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::list_operations].
@@ -237,11 +256,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::SecurityPosture::get_operation].
@@ -249,11 +269,12 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::SecurityPosture::delete_operation].
@@ -261,8 +282,10 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::SecurityPosture::cancel_operation].
@@ -270,8 +293,10 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

@@ -93,6 +93,7 @@ pub mod policies {
             (*self.0.stub)
                 .list_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -162,6 +163,7 @@ pub mod policies {
             (*self.0.stub)
                 .get_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
@@ -209,6 +211,7 @@ pub mod policies {
             (*self.0.stub)
                 .create_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_policy`.
@@ -304,6 +307,7 @@ pub mod policies {
             (*self.0.stub)
                 .update_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_policy`.
@@ -387,6 +391,7 @@ pub mod policies {
             (*self.0.stub)
                 .delete_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_policy`.
@@ -471,6 +476,7 @@ pub mod policies {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

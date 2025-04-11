@@ -44,7 +44,7 @@ impl super::stub::GkeHub for GkeHub {
         &self,
         req: crate::model::ListMembershipsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMembershipsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMembershipsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -64,14 +64,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListMembershipsResponse>| r.into_body())
     }
 
     async fn list_features(
         &self,
         req: crate::model::ListFeaturesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFeaturesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFeaturesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -88,14 +87,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListFeaturesResponse>| r.into_body())
     }
 
     async fn get_membership(
         &self,
         req: crate::model::GetMembershipRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Membership> {
+    ) -> Result<gax::response::Response<crate::model::Membership>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -108,14 +106,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Membership>| r.into_body())
     }
 
     async fn get_feature(
         &self,
         req: crate::model::GetFeatureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Feature> {
+    ) -> Result<gax::response::Response<crate::model::Feature>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -128,14 +125,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Feature>| r.into_body())
     }
 
     async fn create_membership(
         &self,
         req: crate::model::CreateMembershipRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -153,14 +149,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, Some(req.resource), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_feature(
         &self,
         req: crate::model::CreateFeatureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -178,14 +173,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, Some(req.resource), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_membership(
         &self,
         req: crate::model::DeleteMembershipRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -200,14 +194,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_feature(
         &self,
         req: crate::model::DeleteFeatureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -222,14 +215,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_membership(
         &self,
         req: crate::model::UpdateMembershipRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -253,14 +245,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, Some(req.resource), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_feature(
         &self,
         req: crate::model::UpdateFeatureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -284,14 +275,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, Some(req.resource), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn generate_connect_manifest(
         &self,
         req: crate::model::GenerateConnectManifestRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateConnectManifestResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateConnectManifestResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -313,18 +303,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::GenerateConnectManifestResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -340,18 +325,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -364,14 +344,13 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -384,14 +363,17 @@ impl super::stub::GkeHub for GkeHub {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -401,10 +383,12 @@ impl super::stub::GkeHub for GkeHub {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

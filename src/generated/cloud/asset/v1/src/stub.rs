@@ -46,11 +46,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ExportAssetsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AssetService::list_assets].
@@ -58,11 +59,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAssetsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAssetsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAssetsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAssetsResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListAssetsResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AssetService::batch_get_assets_history].
@@ -71,11 +73,13 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         _req: crate::model::BatchGetAssetsHistoryRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::BatchGetAssetsHistoryResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::BatchGetAssetsHistoryResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::BatchGetAssetsHistoryResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::BatchGetAssetsHistoryResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::create_feed].
@@ -83,8 +87,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateFeedRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Feed>> + Send {
-        std::future::ready::<crate::Result<crate::model::Feed>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Feed>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Feed>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AssetService::get_feed].
@@ -92,8 +100,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetFeedRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Feed>> + Send {
-        std::future::ready::<crate::Result<crate::model::Feed>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Feed>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Feed>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AssetService::list_feeds].
@@ -101,11 +113,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListFeedsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListFeedsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListFeedsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListFeedsResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListFeedsResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AssetService::update_feed].
@@ -113,8 +126,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateFeedRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Feed>> + Send {
-        std::future::ready::<crate::Result<crate::model::Feed>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Feed>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Feed>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AssetService::delete_feed].
@@ -122,8 +139,10 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteFeedRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::AssetService::search_all_resources].
@@ -131,11 +150,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchAllResourcesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchAllResourcesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SearchAllResourcesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SearchAllResourcesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SearchAllResourcesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::search_all_iam_policies].
@@ -143,11 +163,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchAllIamPoliciesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchAllIamPoliciesResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::SearchAllIamPoliciesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SearchAllIamPoliciesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SearchAllIamPoliciesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::analyze_iam_policy].
@@ -155,11 +176,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AnalyzeIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AnalyzeIamPolicyResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AnalyzeIamPolicyResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnalyzeIamPolicyResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AnalyzeIamPolicyResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::analyze_iam_policy_longrunning].
@@ -167,11 +189,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AnalyzeIamPolicyLongrunningRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::AssetService::analyze_move].
@@ -179,11 +202,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AnalyzeMoveRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AnalyzeMoveResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AnalyzeMoveResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnalyzeMoveResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AnalyzeMoveResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::query_assets].
@@ -191,11 +215,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::QueryAssetsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::QueryAssetsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::QueryAssetsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::QueryAssetsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::QueryAssetsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::create_saved_query].
@@ -203,10 +228,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSavedQueryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SavedQuery>> + Send {
-        std::future::ready::<crate::Result<crate::model::SavedQuery>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SavedQuery>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SavedQuery>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AssetService::get_saved_query].
@@ -214,10 +241,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSavedQueryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SavedQuery>> + Send {
-        std::future::ready::<crate::Result<crate::model::SavedQuery>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SavedQuery>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SavedQuery>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AssetService::list_saved_queries].
@@ -225,11 +254,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSavedQueriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSavedQueriesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListSavedQueriesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSavedQueriesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListSavedQueriesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::update_saved_query].
@@ -237,10 +267,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSavedQueryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SavedQuery>> + Send {
-        std::future::ready::<crate::Result<crate::model::SavedQuery>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SavedQuery>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SavedQuery>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::AssetService::delete_saved_query].
@@ -248,8 +280,10 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSavedQueryRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::AssetService::batch_get_effective_iam_policies].
@@ -258,11 +292,15 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         _req: crate::model::BatchGetEffectiveIamPoliciesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::BatchGetEffectiveIamPoliciesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::BatchGetEffectiveIamPoliciesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::BatchGetEffectiveIamPoliciesResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::BatchGetEffectiveIamPoliciesResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::analyze_org_policies].
@@ -270,11 +308,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AnalyzeOrgPoliciesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AnalyzeOrgPoliciesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AnalyzeOrgPoliciesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnalyzeOrgPoliciesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AnalyzeOrgPoliciesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::analyze_org_policy_governed_containers].
@@ -283,11 +322,15 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         _req: crate::model::AnalyzeOrgPolicyGovernedContainersRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::analyze_org_policy_governed_assets].
@@ -296,11 +339,15 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         _req: crate::model::AnalyzeOrgPolicyGovernedAssetsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::AssetService::get_operation].
@@ -308,11 +355,12 @@ pub trait AssetService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Returns the polling error policy.

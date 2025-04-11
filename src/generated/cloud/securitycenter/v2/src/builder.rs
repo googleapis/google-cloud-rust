@@ -98,6 +98,7 @@ pub mod security_center {
             (*self.0.stub)
                 .batch_create_resource_value_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateResourceValueConfigsRequest::parent].
@@ -159,6 +160,7 @@ pub mod security_center {
             (*self.0.stub)
                 .bulk_mute_findings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_mute_findings`.
@@ -251,6 +253,7 @@ pub mod security_center {
             (*self.0.stub)
                 .create_big_query_export(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBigQueryExportRequest::parent].
@@ -308,6 +311,7 @@ pub mod security_center {
             (*self.0.stub)
                 .create_finding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFindingRequest::parent].
@@ -368,6 +372,7 @@ pub mod security_center {
             (*self.0.stub)
                 .create_mute_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateMuteConfigRequest::parent].
@@ -430,6 +435,7 @@ pub mod security_center {
             (*self.0.stub)
                 .create_notification_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateNotificationConfigRequest::parent].
@@ -489,6 +495,7 @@ pub mod security_center {
             (*self.0.stub)
                 .create_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
@@ -543,6 +550,7 @@ pub mod security_center {
             (*self.0.stub)
                 .delete_big_query_export(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBigQueryExportRequest::name].
@@ -588,6 +596,7 @@ pub mod security_center {
             (*self.0.stub)
                 .delete_mute_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteMuteConfigRequest::name].
@@ -635,6 +644,7 @@ pub mod security_center {
             (*self.0.stub)
                 .delete_notification_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteNotificationConfigRequest::name].
@@ -682,6 +692,7 @@ pub mod security_center {
             (*self.0.stub)
                 .delete_resource_value_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteResourceValueConfigRequest::name].
@@ -727,6 +738,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_big_query_export(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBigQueryExportRequest::name].
@@ -769,6 +781,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_simulation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSimulationRequest::name].
@@ -814,6 +827,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_valued_resource(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetValuedResourceRequest::name].
@@ -856,6 +870,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -907,6 +922,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_mute_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMuteConfigRequest::name].
@@ -952,6 +968,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_notification_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNotificationConfigRequest::name].
@@ -997,6 +1014,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_resource_value_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetResourceValueConfigRequest::name].
@@ -1039,6 +1057,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSourceRequest::name].
@@ -1081,6 +1100,7 @@ pub mod security_center {
             (*self.0.stub)
                 .group_findings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1162,6 +1182,7 @@ pub mod security_center {
             (*self.0.stub)
                 .list_attack_paths(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1240,6 +1261,7 @@ pub mod security_center {
             (*self.0.stub)
                 .list_big_query_exports(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1309,6 +1331,7 @@ pub mod security_center {
             (*self.0.stub)
                 .list_findings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1399,6 +1422,7 @@ pub mod security_center {
             (*self.0.stub)
                 .list_mute_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1473,6 +1497,7 @@ pub mod security_center {
             (*self.0.stub)
                 .list_notification_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1549,6 +1574,7 @@ pub mod security_center {
             (*self.0.stub)
                 .list_resource_value_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1620,6 +1646,7 @@ pub mod security_center {
             (*self.0.stub)
                 .list_sources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1692,6 +1719,7 @@ pub mod security_center {
             (*self.0.stub)
                 .list_valued_resources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1773,6 +1801,7 @@ pub mod security_center {
             (*self.0.stub)
                 .set_finding_state(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SetFindingStateRequest::name].
@@ -1821,6 +1850,7 @@ pub mod security_center {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1881,6 +1911,7 @@ pub mod security_center {
             (*self.0.stub)
                 .set_mute(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SetMuteRequest::name].
@@ -1932,6 +1963,7 @@ pub mod security_center {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1988,6 +2020,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_big_query_export(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [big_query_export][crate::model::UpdateBigQueryExportRequest::big_query_export].
@@ -2045,6 +2078,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_external_system(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [external_system][crate::model::UpdateExternalSystemRequest::external_system].
@@ -2099,6 +2133,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_finding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [finding][crate::model::UpdateFindingRequest::finding].
@@ -2156,6 +2191,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_mute_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [mute_config][crate::model::UpdateMuteConfigRequest::mute_config].
@@ -2215,6 +2251,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_notification_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [notification_config][crate::model::UpdateNotificationConfigRequest::notification_config].
@@ -2276,6 +2313,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_resource_value_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource_value_config][crate::model::UpdateResourceValueConfigRequest::resource_value_config].
@@ -2335,6 +2373,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_security_marks(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [security_marks][crate::model::UpdateSecurityMarksRequest::security_marks].
@@ -2389,6 +2428,7 @@ pub mod security_center {
             (*self.0.stub)
                 .update_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
@@ -2446,6 +2486,7 @@ pub mod security_center {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2524,6 +2565,7 @@ pub mod security_center {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2569,6 +2611,7 @@ pub mod security_center {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2614,6 +2657,7 @@ pub mod security_center {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

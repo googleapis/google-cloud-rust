@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListLbTrafficExtensionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLbTrafficExtensionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLbTrafficExtensionsResponse>> {
         self.inner.list_lb_traffic_extensions(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetLbTrafficExtensionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LbTrafficExtension> {
+    ) -> Result<gax::response::Response<crate::model::LbTrafficExtension>> {
         self.inner.get_lb_traffic_extension(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateLbTrafficExtensionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_lb_traffic_extension(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateLbTrafficExtensionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_lb_traffic_extension(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteLbTrafficExtensionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_lb_traffic_extension(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListLbRouteExtensionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLbRouteExtensionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLbRouteExtensionsResponse>> {
         self.inner.list_lb_route_extensions(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetLbRouteExtensionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LbRouteExtension> {
+    ) -> Result<gax::response::Response<crate::model::LbRouteExtension>> {
         self.inner.get_lb_route_extension(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::CreateLbRouteExtensionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_lb_route_extension(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::UpdateLbRouteExtensionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_lb_route_extension(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteLbRouteExtensionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_lb_route_extension(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
@@ -250,7 +250,7 @@ where
         &self,
         req: crate::model::ListEndpointPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEndpointPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEndpointPoliciesResponse>> {
         self.inner.list_endpoint_policies(req, options).await
     }
 
@@ -259,7 +259,7 @@ where
         &self,
         req: crate::model::GetEndpointPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EndpointPolicy> {
+    ) -> Result<gax::response::Response<crate::model::EndpointPolicy>> {
         self.inner.get_endpoint_policy(req, options).await
     }
 
@@ -268,7 +268,7 @@ where
         &self,
         req: crate::model::CreateEndpointPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_endpoint_policy(req, options).await
     }
 
@@ -277,7 +277,7 @@ where
         &self,
         req: crate::model::UpdateEndpointPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_endpoint_policy(req, options).await
     }
 
@@ -286,7 +286,7 @@ where
         &self,
         req: crate::model::DeleteEndpointPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_endpoint_policy(req, options).await
     }
 
@@ -295,7 +295,7 @@ where
         &self,
         req: crate::model::ListGatewaysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGatewaysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGatewaysResponse>> {
         self.inner.list_gateways(req, options).await
     }
 
@@ -304,7 +304,7 @@ where
         &self,
         req: crate::model::GetGatewayRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Gateway> {
+    ) -> Result<gax::response::Response<crate::model::Gateway>> {
         self.inner.get_gateway(req, options).await
     }
 
@@ -313,7 +313,7 @@ where
         &self,
         req: crate::model::CreateGatewayRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_gateway(req, options).await
     }
 
@@ -322,7 +322,7 @@ where
         &self,
         req: crate::model::UpdateGatewayRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_gateway(req, options).await
     }
 
@@ -331,7 +331,7 @@ where
         &self,
         req: crate::model::DeleteGatewayRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_gateway(req, options).await
     }
 
@@ -340,7 +340,7 @@ where
         &self,
         req: crate::model::ListGrpcRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGrpcRoutesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGrpcRoutesResponse>> {
         self.inner.list_grpc_routes(req, options).await
     }
 
@@ -349,7 +349,7 @@ where
         &self,
         req: crate::model::GetGrpcRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GrpcRoute> {
+    ) -> Result<gax::response::Response<crate::model::GrpcRoute>> {
         self.inner.get_grpc_route(req, options).await
     }
 
@@ -358,7 +358,7 @@ where
         &self,
         req: crate::model::CreateGrpcRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_grpc_route(req, options).await
     }
 
@@ -367,7 +367,7 @@ where
         &self,
         req: crate::model::UpdateGrpcRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_grpc_route(req, options).await
     }
 
@@ -376,7 +376,7 @@ where
         &self,
         req: crate::model::DeleteGrpcRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_grpc_route(req, options).await
     }
 
@@ -385,7 +385,7 @@ where
         &self,
         req: crate::model::ListHttpRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListHttpRoutesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListHttpRoutesResponse>> {
         self.inner.list_http_routes(req, options).await
     }
 
@@ -394,7 +394,7 @@ where
         &self,
         req: crate::model::GetHttpRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HttpRoute> {
+    ) -> Result<gax::response::Response<crate::model::HttpRoute>> {
         self.inner.get_http_route(req, options).await
     }
 
@@ -403,7 +403,7 @@ where
         &self,
         req: crate::model::CreateHttpRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_http_route(req, options).await
     }
 
@@ -412,7 +412,7 @@ where
         &self,
         req: crate::model::UpdateHttpRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_http_route(req, options).await
     }
 
@@ -421,7 +421,7 @@ where
         &self,
         req: crate::model::DeleteHttpRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_http_route(req, options).await
     }
 
@@ -430,7 +430,7 @@ where
         &self,
         req: crate::model::ListTcpRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTcpRoutesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTcpRoutesResponse>> {
         self.inner.list_tcp_routes(req, options).await
     }
 
@@ -439,7 +439,7 @@ where
         &self,
         req: crate::model::GetTcpRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TcpRoute> {
+    ) -> Result<gax::response::Response<crate::model::TcpRoute>> {
         self.inner.get_tcp_route(req, options).await
     }
 
@@ -448,7 +448,7 @@ where
         &self,
         req: crate::model::CreateTcpRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_tcp_route(req, options).await
     }
 
@@ -457,7 +457,7 @@ where
         &self,
         req: crate::model::UpdateTcpRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_tcp_route(req, options).await
     }
 
@@ -466,7 +466,7 @@ where
         &self,
         req: crate::model::DeleteTcpRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_tcp_route(req, options).await
     }
 
@@ -475,7 +475,7 @@ where
         &self,
         req: crate::model::ListTlsRoutesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTlsRoutesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTlsRoutesResponse>> {
         self.inner.list_tls_routes(req, options).await
     }
 
@@ -484,7 +484,7 @@ where
         &self,
         req: crate::model::GetTlsRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TlsRoute> {
+    ) -> Result<gax::response::Response<crate::model::TlsRoute>> {
         self.inner.get_tls_route(req, options).await
     }
 
@@ -493,7 +493,7 @@ where
         &self,
         req: crate::model::CreateTlsRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_tls_route(req, options).await
     }
 
@@ -502,7 +502,7 @@ where
         &self,
         req: crate::model::UpdateTlsRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_tls_route(req, options).await
     }
 
@@ -511,7 +511,7 @@ where
         &self,
         req: crate::model::DeleteTlsRouteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_tls_route(req, options).await
     }
 
@@ -520,7 +520,7 @@ where
         &self,
         req: crate::model::ListServiceBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServiceBindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServiceBindingsResponse>> {
         self.inner.list_service_bindings(req, options).await
     }
 
@@ -529,7 +529,7 @@ where
         &self,
         req: crate::model::GetServiceBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceBinding> {
+    ) -> Result<gax::response::Response<crate::model::ServiceBinding>> {
         self.inner.get_service_binding(req, options).await
     }
 
@@ -538,7 +538,7 @@ where
         &self,
         req: crate::model::CreateServiceBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_service_binding(req, options).await
     }
 
@@ -547,7 +547,7 @@ where
         &self,
         req: crate::model::DeleteServiceBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_service_binding(req, options).await
     }
 
@@ -556,7 +556,7 @@ where
         &self,
         req: crate::model::ListMeshesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMeshesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMeshesResponse>> {
         self.inner.list_meshes(req, options).await
     }
 
@@ -565,7 +565,7 @@ where
         &self,
         req: crate::model::GetMeshRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Mesh> {
+    ) -> Result<gax::response::Response<crate::model::Mesh>> {
         self.inner.get_mesh(req, options).await
     }
 
@@ -574,7 +574,7 @@ where
         &self,
         req: crate::model::CreateMeshRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_mesh(req, options).await
     }
 
@@ -583,7 +583,7 @@ where
         &self,
         req: crate::model::UpdateMeshRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_mesh(req, options).await
     }
 
@@ -592,7 +592,7 @@ where
         &self,
         req: crate::model::DeleteMeshRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_mesh(req, options).await
     }
 
@@ -601,7 +601,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -610,7 +610,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -619,7 +619,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -628,7 +628,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -637,7 +637,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -646,7 +646,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -655,7 +655,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -664,7 +664,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -673,7 +673,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 
