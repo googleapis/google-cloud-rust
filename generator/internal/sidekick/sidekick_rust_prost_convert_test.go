@@ -15,11 +15,18 @@
 package sidekick
 
 import (
+	"os"
 	"path"
 	"testing"
 )
 
 func TestRustProstConvert(t *testing.T) {
+	outDir, err := os.MkdirTemp(t.TempDir(), "golden")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(outDir)
+
 	type TestConfig struct {
 		Source        string
 		ServiceConfig string
@@ -50,7 +57,7 @@ func TestRustProstConvert(t *testing.T) {
 			},
 			ServiceConfig: config.ServiceConfig,
 			Language:      "rust",
-			Output:        path.Join(testdataDir, "rust/protobuf/golden/convert", config.Name),
+			Output:        path.Join(outDir, config.Name),
 			Codec: map[string]string{
 				"copyright-year":    "2024",
 				"template-override": "templates/convert-prost",

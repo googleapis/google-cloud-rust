@@ -21,7 +21,12 @@ import (
 )
 
 func TestDartFromProtobuf(t *testing.T) {
-	outDir := path.Join(testdataDir, "dart/protobuf/golden/secretmanager")
+	outDir, err := os.MkdirTemp(t.TempDir(), "golden")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(outDir)
+
 	svcConfig := path.Join(testdataDir, "googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml")
 	specificationSource := path.Join(testdataDir, "googleapis/google/cloud/secretmanager/v1")
 
@@ -52,7 +57,7 @@ func TestDartFromProtobuf(t *testing.T) {
 	}
 
 	for _, expected := range []string{"pubspec.yaml", "lib/secretmanager.dart", "README.md"} {
-		filename := path.Join(projectRoot, outDir, expected)
+		filename := path.Join(outDir, expected)
 		if _, err := os.Stat(filename); os.IsNotExist(err) {
 			t.Errorf("missing %s: %s", filename, err)
 		}

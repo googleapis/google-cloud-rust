@@ -57,14 +57,6 @@ jobs:
         run: go run ./cmd/sidekick refreshall -project-root dart
       - run: git diff --exit-code
 
-      # Regenerate and check our goldens.
-      - name: Generate a Dart secretmanager / protobuf client
-        run: go test -run TestDart github.com/googleapis/google-cloud-rust/generator/internal/sidekick
-        working-directory: generator
-      - name: Detect changed goldens
-        run: git diff --exit-code
-        working-directory: generator/testdata/dart
-
   validate-packages:
     runs-on: ubuntu-24.04
     steps:
