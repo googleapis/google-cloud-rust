@@ -112,6 +112,9 @@ pub struct Feature {
     /// Output only. When the Feature resource was deleted.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Feature {
@@ -236,6 +239,9 @@ impl wkt::message::Message for Feature {
 pub struct FeatureResourceState {
     /// The current state of the Feature resource in the Hub API.
     pub state: crate::model::feature_resource_state::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FeatureResourceState {
@@ -358,6 +364,9 @@ pub struct FeatureState {
     /// The time this status and any related Feature-specific details were updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FeatureState {
@@ -478,6 +487,9 @@ pub mod feature_state {
 pub struct CommonFeatureSpec {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub feature_spec: std::option::Option<crate::model::common_feature_spec::FeatureSpec>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CommonFeatureSpec {
@@ -559,6 +571,9 @@ pub struct CommonFeatureState {
     /// Output only. The "running state" of the Feature in this Hub.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub state: std::option::Option<crate::model::FeatureState>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CommonFeatureState {
@@ -591,6 +606,9 @@ impl wkt::message::Message for CommonFeatureState {
 pub struct MembershipFeatureSpec {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub feature_spec: std::option::Option<crate::model::membership_feature_spec::FeatureSpec>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MembershipFeatureSpec {
@@ -676,6 +694,9 @@ pub struct MembershipFeatureState {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub feature_state: std::option::Option<crate::model::membership_feature_state::FeatureState>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MembershipFeatureState {
@@ -844,6 +865,9 @@ pub struct Membership {
     /// Type of resource represented by this Membership
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub r#type: std::option::Option<crate::model::membership::Type>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Membership {
@@ -1040,6 +1064,9 @@ pub struct MembershipEndpoint {
     /// Output only. Whether the lifecycle of this membership is managed by a
     /// google cluster platform service.
     pub google_managed: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MembershipEndpoint {
@@ -1133,6 +1160,9 @@ pub struct KubernetesResource {
     /// Optional. Options for Kubernetes resource generation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub resource_options: std::option::Option<crate::model::ResourceOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl KubernetesResource {
@@ -1214,6 +1244,9 @@ pub struct ResourceOptions {
     #[serde(rename = "k8sVersion")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub k8s_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResourceOptions {
@@ -1263,6 +1296,9 @@ pub struct ResourceManifest {
     /// This field is used for REST mapping when applying the resource in a
     /// cluster.
     pub cluster_scoped: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResourceManifest {
@@ -1307,6 +1343,9 @@ pub struct GkeCluster {
     /// Output only. If cluster_missing is set then it denotes that the GKE cluster
     /// no longer exists in the GKE Control Plane.
     pub cluster_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GkeCluster {
@@ -1367,6 +1406,9 @@ pub struct KubernetesMetadata {
     /// EndpointDetails are updated internally for API consumers.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl KubernetesMetadata {
@@ -1462,6 +1504,9 @@ pub struct MonitoringConfig {
     /// the Cluster object as well as to GKE-Hub.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub cluster_hash: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MonitoringConfig {
@@ -1517,6 +1562,9 @@ impl wkt::message::Message for MonitoringConfig {
 pub struct MembershipState {
     /// Output only. The current state of the Membership resource.
     pub code: crate::model::membership_state::Code,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MembershipState {
@@ -1662,6 +1710,9 @@ pub struct Authority {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub oidc_jwks: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Authority {
@@ -1757,6 +1808,9 @@ pub struct ListMembershipsRequest {
     /// See <https://google.aip.dev/132#ordering>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMembershipsRequest {
@@ -1820,6 +1874,9 @@ pub struct ListMembershipsResponse {
     /// List of locations that could not be reached while fetching this list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMembershipsResponse {
@@ -1886,6 +1943,9 @@ pub struct GetMembershipRequest {
     /// `projects/*/locations/*/memberships/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetMembershipRequest {
@@ -1948,6 +2008,9 @@ pub struct CreateMembershipRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateMembershipRequest {
@@ -2020,6 +2083,9 @@ pub struct DeleteMembershipRequest {
     /// deleted. Otherwise, the request will only work if the Membership has no
     /// subresource.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteMembershipRequest {
@@ -2093,6 +2159,9 @@ pub struct UpdateMembershipRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateMembershipRequest {
@@ -2186,6 +2255,9 @@ pub struct GenerateConnectManifestRequest {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub image_pull_secret_content: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateConnectManifestRequest {
@@ -2256,6 +2328,9 @@ pub struct GenerateConnectManifestResponse {
     /// cluster for GKE Connect agent installation/upgrade.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub manifest: std::vec::Vec<crate::model::ConnectAgentResource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateConnectManifestResponse {
@@ -2296,6 +2371,9 @@ pub struct ConnectAgentResource {
     /// YAML manifest of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub manifest: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConnectAgentResource {
@@ -2339,6 +2417,9 @@ pub struct TypeMeta {
     /// APIVersion of the resource (e.g. v1).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TypeMeta {
@@ -2411,6 +2492,9 @@ pub struct ListFeaturesRequest {
     /// See <https://google.aip.dev/132#ordering>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFeaturesRequest {
@@ -2470,6 +2554,9 @@ pub struct ListFeaturesResponse {
     /// that there are no more resources to return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFeaturesResponse {
@@ -2525,6 +2612,9 @@ pub struct GetFeatureRequest {
     /// `projects/*/locations/*/features/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetFeatureRequest {
@@ -2579,6 +2669,9 @@ pub struct CreateFeatureRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateFeatureRequest {
@@ -2651,6 +2744,9 @@ pub struct DeleteFeatureRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteFeatureRequest {
@@ -2724,6 +2820,9 @@ pub struct UpdateFeatureRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateFeatureRequest {
@@ -2805,6 +2904,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {

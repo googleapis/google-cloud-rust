@@ -93,6 +93,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .list_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .get_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
@@ -221,6 +223,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
@@ -321,6 +324,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
@@ -418,6 +422,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .upgrade_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `upgrade_cluster`.
@@ -518,6 +523,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
@@ -599,6 +605,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .generate_access_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [cluster][crate::model::GenerateAccessTokenRequest::cluster].
@@ -646,6 +653,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .generate_offline_credential(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [cluster][crate::model::GenerateOfflineCredentialRequest::cluster].
@@ -688,6 +696,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .list_node_pools(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -769,6 +778,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .get_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNodePoolRequest::name].
@@ -816,6 +826,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .create_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_node_pool`.
@@ -917,6 +928,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .update_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_node_pool`.
@@ -1015,6 +1027,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .delete_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_node_pool`.
@@ -1093,6 +1106,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .list_machines(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1174,6 +1188,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .get_machine(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMachineRequest::name].
@@ -1219,6 +1234,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .list_vpn_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1303,6 +1319,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .get_vpn_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVpnConnectionRequest::name].
@@ -1353,6 +1370,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .create_vpn_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_vpn_connection`.
@@ -1458,6 +1476,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .delete_vpn_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vpn_connection`.
@@ -1536,6 +1555,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .get_server_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServerConfigRequest::name].
@@ -1581,6 +1601,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1656,6 +1677,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1701,6 +1723,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1779,6 +1802,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1824,6 +1848,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1869,6 +1894,7 @@ pub mod edge_container {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

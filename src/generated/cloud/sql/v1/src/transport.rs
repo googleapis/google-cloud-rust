@@ -44,7 +44,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         &self,
         req: crate::model::SqlBackupRunsDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -70,7 +70,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         &self,
         req: crate::model::SqlBackupRunsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupRun> {
+    ) -> Result<gax::response::Response<crate::model::BackupRun>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -96,7 +96,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         &self,
         req: crate::model::SqlBackupRunsInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -121,7 +121,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         &self,
         req: crate::model::SqlBackupRunsListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupRunsListResponse> {
+    ) -> Result<gax::response::Response<crate::model::BackupRunsListResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -172,7 +172,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
         &self,
         req: crate::model::GetConnectSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ConnectSettings> {
+    ) -> Result<gax::response::Response<crate::model::ConnectSettings>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -198,7 +198,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
         &self,
         req: crate::model::GenerateEphemeralCertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateEphemeralCertResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -247,7 +247,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         &self,
         req: crate::model::SqlDatabasesDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -273,7 +273,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         &self,
         req: crate::model::SqlDatabasesGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Database> {
+    ) -> Result<gax::response::Response<crate::model::Database>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -299,7 +299,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         &self,
         req: crate::model::SqlDatabasesInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -324,7 +324,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         &self,
         req: crate::model::SqlDatabasesListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DatabasesListResponse> {
+    ) -> Result<gax::response::Response<crate::model::DatabasesListResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -349,7 +349,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -375,7 +375,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -425,7 +425,7 @@ impl super::stub::SqlFlagsService for SqlFlagsService {
         &self,
         req: crate::model::SqlFlagsListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FlagsListResponse> {
+    ) -> Result<gax::response::Response<crate::model::FlagsListResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -472,7 +472,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesAddServerCaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -497,7 +497,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesCloneRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -522,7 +522,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -547,7 +547,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesDemoteMasterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -572,7 +572,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesDemoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -597,7 +597,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesExportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -622,7 +622,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesFailoverRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -647,7 +647,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesReencryptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -672,7 +672,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DatabaseInstance> {
+    ) -> Result<gax::response::Response<crate::model::DatabaseInstance>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -697,7 +697,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesImportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -722,7 +722,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -746,7 +746,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InstancesListResponse> {
+    ) -> Result<gax::response::Response<crate::model::InstancesListResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -773,7 +773,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesListServerCasRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InstancesListServerCasResponse> {
+    ) -> Result<gax::response::Response<crate::model::InstancesListServerCasResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -798,7 +798,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesPatchRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -823,7 +823,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesPromoteReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -849,7 +849,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesSwitchoverRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -875,7 +875,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesResetSslConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -900,7 +900,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesRestartRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -925,7 +925,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesRestoreBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -950,7 +950,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesRotateServerCaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -975,7 +975,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesStartReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1000,7 +1000,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesStopReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1025,7 +1025,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesTruncateLogRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1050,7 +1050,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -1075,7 +1075,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesCreateEphemeralCertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SslCert> {
+    ) -> Result<gax::response::Response<crate::model::SslCert>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1100,7 +1100,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1125,7 +1125,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1150,7 +1150,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesStartExternalSyncRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1175,7 +1175,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesPerformDiskShrinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1200,7 +1200,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SqlInstancesGetDiskShrinkConfigResponse> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1225,7 +1225,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesResetReplicaSizeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1250,7 +1250,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SqlInstancesGetLatestRecoveryTimeResponse> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1275,7 +1275,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SqlInstancesAcquireSsrsLeaseResponse> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1300,7 +1300,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         &self,
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SqlInstancesReleaseSsrsLeaseResponse> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1349,7 +1349,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         &self,
         req: crate::model::SqlOperationsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1374,7 +1374,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         &self,
         req: crate::model::SqlOperationsListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OperationsListResponse> {
+    ) -> Result<gax::response::Response<crate::model::OperationsListResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1401,7 +1401,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         &self,
         req: crate::model::SqlOperationsCancelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1420,7 +1420,10 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             None::<gaxi::http::NoBody>,
             options,
         ).await
-        .map(|_: wkt::Empty| ())
+        .map(|r: gax::response::Response<wkt::Empty>| {
+            let (parts, _) = r.into_parts();
+            gax::response::Response::from_parts(parts, ()) 
+        })
     }
 
 }
@@ -1451,7 +1454,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         &self,
         req: crate::model::SqlSslCertsDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1477,7 +1480,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         &self,
         req: crate::model::SqlSslCertsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SslCert> {
+    ) -> Result<gax::response::Response<crate::model::SslCert>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1503,7 +1506,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         &self,
         req: crate::model::SqlSslCertsInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SslCertsInsertResponse> {
+    ) -> Result<gax::response::Response<crate::model::SslCertsInsertResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1528,7 +1531,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         &self,
         req: crate::model::SqlSslCertsListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SslCertsListResponse> {
+    ) -> Result<gax::response::Response<crate::model::SslCertsListResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1577,7 +1580,7 @@ impl super::stub::SqlTiersService for SqlTiersService {
         &self,
         req: crate::model::SqlTiersListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TiersListResponse> {
+    ) -> Result<gax::response::Response<crate::model::TiersListResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1625,7 +1628,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         &self,
         req: crate::model::SqlUsersDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1652,7 +1655,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         &self,
         req: crate::model::SqlUsersGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::User> {
+    ) -> Result<gax::response::Response<crate::model::User>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1679,7 +1682,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         &self,
         req: crate::model::SqlUsersInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1704,7 +1707,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         &self,
         req: crate::model::SqlUsersListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UsersListResponse> {
+    ) -> Result<gax::response::Response<crate::model::UsersListResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1729,7 +1732,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         &self,
         req: crate::model::SqlUsersUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner

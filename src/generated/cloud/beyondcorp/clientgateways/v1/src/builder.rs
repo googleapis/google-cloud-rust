@@ -100,6 +100,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .list_client_gateways(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -186,6 +187,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .get_client_gateway(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClientGatewayRequest::name].
@@ -238,6 +240,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .create_client_gateway(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_client_gateway`.
@@ -353,6 +356,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .delete_client_gateway(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_client_gateway`.
@@ -445,6 +449,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -522,6 +527,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -566,6 +572,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -628,6 +635,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -684,6 +692,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -742,6 +751,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -822,6 +832,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -869,6 +880,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -916,6 +928,7 @@ pub mod client_gateways_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

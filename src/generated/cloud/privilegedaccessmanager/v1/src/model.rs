@@ -48,6 +48,9 @@ pub struct CheckOnboardingStatusRequest {
     /// * `organizations/{organization-number}/locations/{region}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CheckOnboardingStatusRequest {
@@ -83,6 +86,9 @@ pub struct CheckOnboardingStatusResponse {
     /// detected or reported.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub findings: std::vec::Vec<crate::model::check_onboarding_status_response::Finding>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CheckOnboardingStatusResponse {
@@ -130,6 +136,9 @@ pub mod check_onboarding_status_response {
         pub finding_type: std::option::Option<
             crate::model::check_onboarding_status_response::finding::FindingType,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Finding {
@@ -216,6 +225,9 @@ pub mod check_onboarding_status_response {
             /// List of permissions that are being denied.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub missing_permissions: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl IAMAccessDenied {
@@ -321,6 +333,9 @@ pub struct Entitlement {
     /// updating an entitlement, then the server rejects the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Entitlement {
@@ -460,6 +475,9 @@ pub mod entitlement {
         pub justification_type: std::option::Option<
             crate::model::entitlement::requester_justification_config::JustificationType,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RequesterJustificationConfig {
@@ -572,7 +590,10 @@ pub mod entitlement {
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
-        pub struct NotMandatory {}
+        pub struct NotMandatory {
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
 
         impl NotMandatory {
             pub fn new() -> Self {
@@ -591,7 +612,10 @@ pub mod entitlement {
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
-        pub struct Unstructured {}
+        pub struct Unstructured {
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
 
         impl Unstructured {
             pub fn new() -> Self {
@@ -644,6 +668,9 @@ pub mod entitlement {
         /// entitlement.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub requester_email_recipients: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AdditionalNotificationTargets {
@@ -764,6 +791,9 @@ pub struct AccessControlEntry {
     /// <https://cloud.google.com/iam/docs/principal-identifiers#v1>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub principals: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessControlEntry {
@@ -798,6 +828,9 @@ impl wkt::message::Message for AccessControlEntry {
 pub struct ApprovalWorkflow {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub approval_workflow: std::option::Option<crate::model::approval_workflow::ApprovalWorkflow>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApprovalWorkflow {
@@ -898,6 +931,9 @@ pub struct ManualApprovals {
     /// in the specified order sequentially. Only 1 step is supported.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub steps: std::vec::Vec<crate::model::manual_approvals::Step>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ManualApprovals {
@@ -954,6 +990,9 @@ pub mod manual_approvals {
         /// pending approval.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub approver_email_recipients: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Step {
@@ -1005,6 +1044,9 @@ pub mod manual_approvals {
 pub struct PrivilegedAccess {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub access_type: std::option::Option<crate::model::privileged_access::AccessType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrivilegedAccess {
@@ -1087,6 +1129,9 @@ pub mod privileged_access {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub role_bindings:
             std::vec::Vec<crate::model::privileged_access::gcp_iam_access::RoleBinding>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GcpIamAccess {
@@ -1153,6 +1198,9 @@ pub mod privileged_access {
             /// <https://cloud.google.com/iam/docs/conditions-overview#attributes>.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub condition_expression: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl RoleBinding {
@@ -1217,6 +1265,9 @@ pub struct ListEntitlementsRequest {
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEntitlementsRequest {
@@ -1278,6 +1329,9 @@ pub struct ListEntitlementsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEntitlementsResponse {
@@ -1360,6 +1414,9 @@ pub struct SearchEntitlementsRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchEntitlementsRequest {
@@ -1488,6 +1545,9 @@ pub struct SearchEntitlementsResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchEntitlementsResponse {
@@ -1542,6 +1602,9 @@ pub struct GetEntitlementRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEntitlementRequest {
@@ -1608,6 +1671,9 @@ pub struct CreateEntitlementRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateEntitlementRequest {
@@ -1680,6 +1746,9 @@ pub struct DeleteEntitlementRequest {
     /// deleted. (Otherwise, the request only works if the entitlement has no child
     /// grant.)
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteEntitlementRequest {
@@ -1733,6 +1802,9 @@ pub struct UpdateEntitlementRequest {
     /// A value of '*' for this field refers to full replacement of the resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateEntitlementRequest {
@@ -1834,6 +1906,9 @@ pub struct Grant {
     /// state. A `true` value here indicates that PAM no longer has any certainty
     /// on the access a user has because of this grant.
     pub externally_modified: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Grant {
@@ -1971,6 +2046,9 @@ pub mod grant {
         /// this array.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub events: std::vec::Vec<crate::model::grant::timeline::Event>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Timeline {
@@ -2013,6 +2091,9 @@ pub mod grant {
 
             #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
             pub event: std::option::Option<crate::model::grant::timeline::event::Event>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Event {
@@ -2409,6 +2490,9 @@ pub mod grant {
                 /// workflow completes. If omitted, then the request never expires.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub expire_time: std::option::Option<wkt::Timestamp>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Requested {
@@ -2448,6 +2532,9 @@ pub mod grant {
                 /// Output only. Username of the user who approved the grant.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub actor: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Approved {
@@ -2494,6 +2581,9 @@ pub mod grant {
                 /// Output only. Username of the user who denied the grant.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub actor: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Denied {
@@ -2539,6 +2629,9 @@ pub mod grant {
                 /// Output only. Username of the user who revoked the grant.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub actor: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Revoked {
@@ -2581,6 +2674,9 @@ pub mod grant {
                 /// Output only. The time at which the access is granted.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub scheduled_activation_time: std::option::Option<wkt::Timestamp>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Scheduled {
@@ -2612,7 +2708,10 @@ pub mod grant {
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
             #[non_exhaustive]
-            pub struct Activated {}
+            pub struct Activated {
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
 
             impl Activated {
                 pub fn new() -> Self {
@@ -2635,6 +2734,9 @@ pub mod grant {
                 /// Output only. The error that occurred while activating the grant.
                 #[serde(skip_serializing_if = "std::option::Option::is_none")]
                 pub error: std::option::Option<rpc::model::Status>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl ActivationFailed {
@@ -2663,7 +2765,10 @@ pub mod grant {
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
             #[non_exhaustive]
-            pub struct Expired {}
+            pub struct Expired {
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
 
             impl Expired {
                 pub fn new() -> Self {
@@ -2682,7 +2787,10 @@ pub mod grant {
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
             #[non_exhaustive]
-            pub struct Ended {}
+            pub struct Ended {
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
 
             impl Ended {
                 pub fn new() -> Self {
@@ -2702,7 +2810,10 @@ pub mod grant {
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
             #[non_exhaustive]
-            pub struct ExternallyModified {}
+            pub struct ExternallyModified {
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
 
             impl ExternallyModified {
                 pub fn new() -> Self {
@@ -2766,6 +2877,9 @@ pub mod grant {
         /// If unspecified, then access hasn't been removed yet.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub access_remove_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AuditTrail {
@@ -2912,6 +3026,9 @@ pub mod grant {
 pub struct Justification {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub justification: std::option::Option<crate::model::justification::Justification>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Justification {
@@ -3005,6 +3122,9 @@ pub struct ListGrantsRequest {
     /// Optional. Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGrantsRequest {
@@ -3066,6 +3186,9 @@ pub struct ListGrantsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGrantsResponse {
@@ -3147,6 +3270,9 @@ pub struct SearchGrantsRequest {
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchGrantsRequest {
@@ -3281,6 +3407,9 @@ pub struct SearchGrantsResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchGrantsResponse {
@@ -3335,6 +3464,9 @@ pub struct GetGrantRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetGrantRequest {
@@ -3370,6 +3502,9 @@ pub struct ApproveGrantRequest {
     /// used in this grant is true.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub reason: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApproveGrantRequest {
@@ -3411,6 +3546,9 @@ pub struct DenyGrantRequest {
     /// used in this grant is true.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub reason: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DenyGrantRequest {
@@ -3450,6 +3588,9 @@ pub struct RevokeGrantRequest {
     /// Optional. The reason for revoking this grant.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub reason: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RevokeGrantRequest {
@@ -3506,6 +3647,9 @@ pub struct CreateGrantRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateGrantRequest {
@@ -3579,6 +3723,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {

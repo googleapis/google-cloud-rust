@@ -67,6 +67,9 @@ pub struct Contact {
     /// updated more than 1 year ago.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub validate_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Contact {
@@ -152,6 +155,9 @@ pub struct ListContactsRequest {
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListContactsRequest {
@@ -200,6 +206,9 @@ pub struct ListContactsResponse {
     /// rest of the parameters the same as the original request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListContactsResponse {
@@ -257,6 +266,9 @@ pub struct GetContactRequest {
     /// projects/{project_id}/contacts/{contact_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetContactRequest {
@@ -289,6 +301,9 @@ pub struct DeleteContactRequest {
     /// projects/{project_id}/contacts/{contact_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteContactRequest {
@@ -325,6 +340,9 @@ pub struct CreateContactRequest {
     /// tag.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub contact: std::option::Option<crate::model::Contact>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateContactRequest {
@@ -370,6 +388,9 @@ pub struct UpdateContactRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateContactRequest {
@@ -432,6 +453,9 @@ pub struct ComputeContactsRequest {
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComputeContactsRequest {
@@ -493,6 +517,9 @@ pub struct ComputeContactsResponse {
     /// rest of the parameters the same as the original request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComputeContactsResponse {
@@ -562,6 +589,9 @@ pub struct SendTestMessageRequest {
     /// Required. The notification category to send the test message for. All
     /// contacts must be subscribed to this category.
     pub notification_category: crate::model::NotificationCategory,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SendTestMessageRequest {

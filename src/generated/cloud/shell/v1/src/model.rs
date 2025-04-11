@@ -88,6 +88,9 @@ pub struct Environment {
     /// methods.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub public_keys: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Environment {
@@ -254,6 +257,9 @@ pub struct GetEnvironmentRequest {
     /// or `users/someone@example.com/environments/default`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEnvironmentRequest {
@@ -280,7 +286,10 @@ impl wkt::message::Message for GetEnvironmentRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CreateEnvironmentMetadata {}
+pub struct CreateEnvironmentMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CreateEnvironmentMetadata {
     pub fn new() -> Self {
@@ -300,7 +309,10 @@ impl wkt::message::Message for CreateEnvironmentMetadata {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct DeleteEnvironmentMetadata {}
+pub struct DeleteEnvironmentMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl DeleteEnvironmentMetadata {
     pub fn new() -> Self {
@@ -339,6 +351,9 @@ pub struct StartEnvironmentRequest {
     /// Public keys that should be added to the environment before it is started.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub public_keys: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartEnvironmentRequest {
@@ -403,6 +418,9 @@ pub struct AuthorizeEnvironmentRequest {
     /// when the server received the request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expire_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AuthorizeEnvironmentRequest {
@@ -452,7 +470,10 @@ impl wkt::message::Message for AuthorizeEnvironmentRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AuthorizeEnvironmentResponse {}
+pub struct AuthorizeEnvironmentResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AuthorizeEnvironmentResponse {
     pub fn new() -> Self {
@@ -474,7 +495,10 @@ impl wkt::message::Message for AuthorizeEnvironmentResponse {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AuthorizeEnvironmentMetadata {}
+pub struct AuthorizeEnvironmentMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AuthorizeEnvironmentMetadata {
     pub fn new() -> Self {
@@ -499,6 +523,9 @@ impl wkt::message::Message for AuthorizeEnvironmentMetadata {
 pub struct StartEnvironmentMetadata {
     /// Current state of the environment being started.
     pub state: crate::model::start_environment_metadata::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartEnvironmentMetadata {
@@ -622,6 +649,9 @@ pub struct StartEnvironmentResponse {
     /// Environment that was started.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub environment: std::option::Option<crate::model::Environment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartEnvironmentResponse {
@@ -669,6 +699,9 @@ pub struct AddPublicKeyRequest {
     /// Base64.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AddPublicKeyRequest {
@@ -707,6 +740,9 @@ pub struct AddPublicKeyResponse {
     /// Key that was added to the environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AddPublicKeyResponse {
@@ -735,7 +771,10 @@ impl wkt::message::Message for AddPublicKeyResponse {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AddPublicKeyMetadata {}
+pub struct AddPublicKeyMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AddPublicKeyMetadata {
     pub fn new() -> Self {
@@ -766,6 +805,9 @@ pub struct RemovePublicKeyRequest {
     /// Key that should be removed from the environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RemovePublicKeyRequest {
@@ -800,7 +842,10 @@ impl wkt::message::Message for RemovePublicKeyRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct RemovePublicKeyResponse {}
+pub struct RemovePublicKeyResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl RemovePublicKeyResponse {
     pub fn new() -> Self {
@@ -822,7 +867,10 @@ impl wkt::message::Message for RemovePublicKeyResponse {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct RemovePublicKeyMetadata {}
+pub struct RemovePublicKeyMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl RemovePublicKeyMetadata {
     pub fn new() -> Self {
@@ -845,6 +893,9 @@ impl wkt::message::Message for RemovePublicKeyMetadata {
 pub struct CloudShellErrorDetails {
     /// Code indicating the specific error the occurred.
     pub code: crate::model::cloud_shell_error_details::CloudShellErrorCode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudShellErrorDetails {

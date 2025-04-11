@@ -44,7 +44,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: crate::model::ListClientConnectorServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListClientConnectorServicesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListClientConnectorServicesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -70,7 +70,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: crate::model::GetClientConnectorServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ClientConnectorService> {
+    ) -> Result<gax::response::Response<crate::model::ClientConnectorService>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -89,7 +89,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: crate::model::CreateClientConnectorServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -115,7 +115,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: crate::model::UpdateClientConnectorServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -156,7 +156,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: crate::model::DeleteClientConnectorServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -177,7 +177,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -199,7 +199,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -218,7 +218,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -238,7 +238,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -270,7 +270,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -290,7 +290,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -312,7 +312,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -331,7 +331,7 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -344,14 +344,17 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -361,10 +364,12 @@ impl super::stub::ClientConnectorServicesService for ClientConnectorServicesServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

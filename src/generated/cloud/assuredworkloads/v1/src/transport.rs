@@ -44,7 +44,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         &self,
         req: crate::model::CreateWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -67,7 +67,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         &self,
         req: crate::model::UpdateWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Workload> {
+    ) -> Result<gax::response::Response<crate::model::Workload>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -105,7 +105,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         &self,
         req: crate::model::RestrictAllowedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RestrictAllowedResourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::RestrictAllowedResourcesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -125,7 +125,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         &self,
         req: crate::model::DeleteWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -139,14 +139,17 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_workload(
         &self,
         req: crate::model::GetWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Workload> {
+    ) -> Result<gax::response::Response<crate::model::Workload>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -165,7 +168,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         &self,
         req: crate::model::ListWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkloadsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -190,7 +193,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -212,7 +215,7 @@ impl super::stub::AssuredWorkloadsService for AssuredWorkloadsService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

@@ -71,6 +71,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -241,6 +244,9 @@ pub struct PolicyBinding {
     /// Output only. The time when the policy binding was most recently updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyBinding {
@@ -365,6 +371,9 @@ pub mod policy_binding {
         /// The different types of targets that can be bound to a policy.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub target: std::option::Option<crate::model::policy_binding::target::Target>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Target {
@@ -547,6 +556,9 @@ pub struct CreatePolicyBindingRequest {
     /// Optional. If set, validate the request and preview the creation, but do not
     /// actually post it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePolicyBindingRequest {
@@ -609,6 +621,9 @@ pub struct GetPolicyBindingRequest {
     /// * `organizations/{organization_id}/locations/{location}/policyBindings/{policy_binding_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPolicyBindingRequest {
@@ -649,6 +664,9 @@ pub struct UpdatePolicyBindingRequest {
     /// Optional. The list of fields to update
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePolicyBindingRequest {
@@ -714,6 +732,9 @@ pub struct DeletePolicyBindingRequest {
     /// Optional. If set, validate the request and preview the deletion, but do not
     /// actually post it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePolicyBindingRequest {
@@ -792,6 +813,9 @@ pub struct ListPolicyBindingsRequest {
     /// * `policy:example`: The binding policy's name is `example`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPolicyBindingsRequest {
@@ -844,6 +868,9 @@ pub struct ListPolicyBindingsResponse {
     /// page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPolicyBindingsResponse {
@@ -937,6 +964,9 @@ pub struct SearchTargetPolicyBindingsRequest {
     /// * `organizations/{organization_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchTargetPolicyBindingsRequest {
@@ -989,6 +1019,9 @@ pub struct SearchTargetPolicyBindingsResponse {
     /// page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchTargetPolicyBindingsResponse {
@@ -1066,6 +1099,9 @@ pub struct CreatePrincipalAccessBoundaryPolicyRequest {
     /// Optional. If set, validate the request and preview the creation, but do not
     /// actually post it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePrincipalAccessBoundaryPolicyRequest {
@@ -1124,6 +1160,9 @@ pub struct GetPrincipalAccessBoundaryPolicyRequest {
     /// `organizations/{organization_id}/locations/{location}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPrincipalAccessBoundaryPolicyRequest {
@@ -1165,6 +1204,9 @@ pub struct UpdatePrincipalAccessBoundaryPolicyRequest {
     /// Optional. The list of fields to update
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePrincipalAccessBoundaryPolicyRequest {
@@ -1230,6 +1272,9 @@ pub struct DeletePrincipalAccessBoundaryPolicyRequest {
     /// Optional. If set to true, the request will force the deletion of the policy
     /// even if the policy is referenced in policy bindings.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePrincipalAccessBoundaryPolicyRequest {
@@ -1299,6 +1344,9 @@ pub struct ListPrincipalAccessBoundaryPoliciesRequest {
     /// page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPrincipalAccessBoundaryPoliciesRequest {
@@ -1346,6 +1394,9 @@ pub struct ListPrincipalAccessBoundaryPoliciesResponse {
     /// page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPrincipalAccessBoundaryPoliciesResponse {
@@ -1419,6 +1470,9 @@ pub struct SearchPrincipalAccessBoundaryPolicyBindingsRequest {
     /// that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchPrincipalAccessBoundaryPolicyBindingsRequest {
@@ -1465,6 +1519,9 @@ pub struct SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     /// page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchPrincipalAccessBoundaryPolicyBindingsResponse {
@@ -1559,6 +1616,9 @@ pub struct PrincipalAccessBoundaryPolicy {
     /// Optional. The details for the principal access boundary policy.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub details: std::option::Option<crate::model::PrincipalAccessBoundaryPolicyDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrincipalAccessBoundaryPolicy {
@@ -1656,6 +1716,9 @@ pub struct PrincipalAccessBoundaryPolicyDetails {
     /// policy's creation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub enforcement_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrincipalAccessBoundaryPolicyDetails {
@@ -1719,6 +1782,9 @@ pub struct PrincipalAccessBoundaryPolicyRule {
     /// Required. The access relationship of principals to the resources in this
     /// rule.
     pub effect: crate::model::principal_access_boundary_policy_rule::Effect,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrincipalAccessBoundaryPolicyRule {

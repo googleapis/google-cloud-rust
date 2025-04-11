@@ -45,10 +45,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAssessmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Assessment>> + Send {
-        std::future::ready::<crate::Result<crate::model::Assessment>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Assessment>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Assessment>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::annotate_assessment].
@@ -56,11 +58,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AnnotateAssessmentRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AnnotateAssessmentResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AnnotateAssessmentResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AnnotateAssessmentResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AnnotateAssessmentResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::create_key].
@@ -68,8 +71,11 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Key>> + Send {
-        std::future::ready::<crate::Result<crate::model::Key>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>>
+    + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Key>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::list_keys].
@@ -77,11 +83,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListKeysResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListKeysResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListKeysResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListKeysResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::retrieve_legacy_secret_key].
@@ -90,11 +97,13 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         _req: crate::model::RetrieveLegacySecretKeyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::RetrieveLegacySecretKeyResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::RetrieveLegacySecretKeyResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::RetrieveLegacySecretKeyResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::RetrieveLegacySecretKeyResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::get_key].
@@ -102,8 +111,11 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Key>> + Send {
-        std::future::ready::<crate::Result<crate::model::Key>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>>
+    + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Key>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::update_key].
@@ -111,8 +123,11 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Key>> + Send {
-        std::future::ready::<crate::Result<crate::model::Key>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>>
+    + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Key>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::delete_key].
@@ -120,8 +135,10 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::migrate_key].
@@ -129,8 +146,11 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MigrateKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Key>> + Send {
-        std::future::ready::<crate::Result<crate::model::Key>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>>
+    + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Key>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::add_ip_override].
@@ -138,11 +158,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AddIpOverrideRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AddIpOverrideResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AddIpOverrideResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AddIpOverrideResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AddIpOverrideResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::remove_ip_override].
@@ -150,11 +171,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RemoveIpOverrideRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::RemoveIpOverrideResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::RemoveIpOverrideResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RemoveIpOverrideResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::RemoveIpOverrideResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::list_ip_overrides].
@@ -162,11 +184,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListIpOverridesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListIpOverridesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListIpOverridesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListIpOverridesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListIpOverridesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::get_metrics].
@@ -174,10 +197,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetMetricsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Metrics>> + Send {
-        std::future::ready::<crate::Result<crate::model::Metrics>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Metrics>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Metrics>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::create_firewall_policy].
@@ -185,10 +210,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateFirewallPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::FirewallPolicy>> + Send {
-        std::future::ready::<crate::Result<crate::model::FirewallPolicy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FirewallPolicy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::FirewallPolicy>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::list_firewall_policies].
@@ -196,11 +223,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListFirewallPoliciesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListFirewallPoliciesResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ListFirewallPoliciesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListFirewallPoliciesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListFirewallPoliciesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::get_firewall_policy].
@@ -208,10 +236,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetFirewallPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::FirewallPolicy>> + Send {
-        std::future::ready::<crate::Result<crate::model::FirewallPolicy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FirewallPolicy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::FirewallPolicy>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::update_firewall_policy].
@@ -219,10 +249,12 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateFirewallPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::FirewallPolicy>> + Send {
-        std::future::ready::<crate::Result<crate::model::FirewallPolicy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::FirewallPolicy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::FirewallPolicy>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::delete_firewall_policy].
@@ -230,8 +262,10 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteFirewallPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::reorder_firewall_policies].
@@ -240,11 +274,13 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ReorderFirewallPoliciesRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ReorderFirewallPoliciesResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ReorderFirewallPoliciesResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ReorderFirewallPoliciesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ReorderFirewallPoliciesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::list_related_account_groups].
@@ -253,11 +289,13 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListRelatedAccountGroupsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListRelatedAccountGroupsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListRelatedAccountGroupsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListRelatedAccountGroupsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::list_related_account_group_memberships].
@@ -266,11 +304,15 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListRelatedAccountGroupMembershipsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListRelatedAccountGroupMembershipsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListRelatedAccountGroupMembershipsResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::RecaptchaEnterpriseService::search_related_account_group_memberships].
@@ -279,10 +321,14 @@ pub trait RecaptchaEnterpriseService: std::fmt::Debug + Send + Sync {
         _req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::SearchRelatedAccountGroupMembershipsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>,
+        >,
     > + Send {
         std::future::ready::<
-            crate::Result<crate::model::SearchRelatedAccountGroupMembershipsResponse>,
+            crate::Result<
+                gax::response::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>,
+            >,
         >(Err(Error::other("unimplemented")))
     }
 }

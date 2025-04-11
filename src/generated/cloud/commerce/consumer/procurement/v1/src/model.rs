@@ -41,6 +41,9 @@ pub struct AssignmentProtocol {
     /// The type of assignment protocol.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub assignment_type: std::option::Option<crate::model::assignment_protocol::AssignmentType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AssignmentProtocol {
@@ -145,7 +148,10 @@ pub mod assignment_protocol {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct ManualAssignmentType {}
+    pub struct ManualAssignmentType {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl ManualAssignmentType {
         pub fn new() -> Self {
@@ -170,6 +176,9 @@ pub mod assignment_protocol {
         /// be at least 7 days, if set. If unset, the license will never expire.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub inactive_license_ttl: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AutoAssignmentType {
@@ -229,6 +238,9 @@ pub struct LicensePool {
 
     /// Output only. Total number of licenses in the pool.
     pub total_license_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LicensePool {
@@ -282,6 +294,9 @@ pub struct GetLicensePoolRequest {
     /// Format: `billingAccounts/{billing_account}/orders/{order}/licensePool`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLicensePoolRequest {
@@ -319,6 +334,9 @@ pub struct UpdateLicensePoolRequest {
     /// Required. The list of fields to update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateLicensePoolRequest {
@@ -370,6 +388,9 @@ pub struct AssignRequest {
     /// Format: `name@domain.com`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub usernames: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AssignRequest {
@@ -409,7 +430,10 @@ impl wkt::message::Message for AssignRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AssignResponse {}
+pub struct AssignResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AssignResponse {
     pub fn new() -> Self {
@@ -440,6 +464,9 @@ pub struct UnassignRequest {
     /// Format: `name@domain.com`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub usernames: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UnassignRequest {
@@ -479,7 +506,10 @@ impl wkt::message::Message for UnassignRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UnassignResponse {}
+pub struct UnassignResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UnassignResponse {
     pub fn new() -> Self {
@@ -514,6 +544,9 @@ pub struct EnumerateLicensedUsersRequest {
     /// call. Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnumerateLicensedUsersRequest {
@@ -566,6 +599,9 @@ pub struct LicensedUser {
     /// hours).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub recent_usage_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LicensedUser {
@@ -621,6 +657,9 @@ pub struct EnumerateLicensedUsersResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnumerateLicensedUsersResponse {
@@ -710,6 +749,9 @@ pub struct Order {
     /// The weak etag of the order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Order {
@@ -809,6 +851,9 @@ pub struct LineItem {
     /// changes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub change_history: std::vec::Vec<crate::model::LineItemChange>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LineItem {
@@ -914,6 +959,9 @@ pub struct LineItemChange {
     /// partners or cancelled by the user.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LineItemChange {
@@ -1037,6 +1085,9 @@ pub struct LineItemInfo {
     /// Output only. Information about the subscription created, if applicable.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub subscription: std::option::Option<crate::model::Subscription>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LineItemInfo {
@@ -1092,6 +1143,9 @@ pub struct Parameter {
     /// Value of parameter.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub value: std::option::Option<crate::model::parameter::Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Parameter {
@@ -1134,6 +1188,9 @@ pub mod parameter {
         /// The kind of value.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub kind: std::option::Option<crate::model::parameter::value::Kind>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Value {
@@ -1273,6 +1330,9 @@ pub struct Subscription {
     /// This field indicates order/subscription status after pending plan change is
     /// cancelled or rejected.
     pub auto_renewal_enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Subscription {
@@ -1342,6 +1402,9 @@ pub struct PlaceOrderRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PlaceOrderRequest {
@@ -1393,7 +1456,10 @@ impl wkt::message::Message for PlaceOrderRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct PlaceOrderMetadata {}
+pub struct PlaceOrderMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl PlaceOrderMetadata {
     pub fn new() -> Self {
@@ -1419,6 +1485,9 @@ pub struct GetOrderRequest {
     /// Required. The name of the order to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetOrderRequest {
@@ -1479,6 +1548,9 @@ pub struct ListOrdersRequest {
     /// For example, `display_name=abc OR display_name=def`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOrdersRequest {
@@ -1533,6 +1605,9 @@ pub struct ListOrdersResponse {
     /// The token for fetching the next page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOrdersResponse {
@@ -1607,6 +1682,9 @@ pub struct ModifyOrderRequest {
     /// if the invoker supplies this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ModifyOrderRequest {
@@ -1683,6 +1761,9 @@ pub mod modify_order_request {
         /// [LineItemChangeType.LINE_ITEM_CHANGE_TYPE_UPDATE]. Follows plan default
         /// config when this field is not specified.
         pub auto_renewal_behavior: crate::model::AutoRenewalBehavior,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Modification {
@@ -1746,7 +1827,10 @@ pub mod modify_order_request {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ModifyOrderMetadata {}
+pub struct ModifyOrderMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ModifyOrderMetadata {
     pub fn new() -> Self {
@@ -1781,6 +1865,9 @@ pub struct CancelOrderRequest {
 
     /// Optional. Cancellation policy of this request.
     pub cancellation_policy: crate::model::cancel_order_request::CancellationPolicy,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CancelOrderRequest {
@@ -1903,7 +1990,10 @@ pub mod cancel_order_request {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CancelOrderMetadata {}
+pub struct CancelOrderMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CancelOrderMetadata {
     pub fn new() -> Self {

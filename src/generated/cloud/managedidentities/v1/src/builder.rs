@@ -107,6 +107,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .create_microsoft_ad_domain(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_microsoft_ad_domain`.
@@ -199,6 +200,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .reset_admin_password(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResetAdminPasswordRequest::name].
@@ -243,6 +245,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .list_domains(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -326,6 +329,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .get_domain(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDomainRequest::name].
@@ -375,6 +379,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .update_domain(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_domain`.
@@ -466,6 +471,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .delete_domain(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_domain`.
@@ -545,6 +551,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .attach_trust(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `attach_trust`.
@@ -636,6 +643,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .reconfigure_trust(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reconfigure_trust`.
@@ -732,6 +740,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .detach_trust(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `detach_trust`.
@@ -820,6 +829,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .validate_trust(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `validate_trust`.
@@ -906,6 +916,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -986,6 +997,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1033,6 +1045,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1080,6 +1093,7 @@ pub mod managed_identities_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

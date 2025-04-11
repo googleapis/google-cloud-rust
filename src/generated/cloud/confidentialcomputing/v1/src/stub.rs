@@ -45,10 +45,12 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateChallengeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Challenge>> + Send {
-        std::future::ready::<crate::Result<crate::model::Challenge>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Challenge>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Challenge>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ConfidentialComputing::verify_attestation].
@@ -56,11 +58,12 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::VerifyAttestationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VerifyAttestationResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::VerifyAttestationResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VerifyAttestationResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::VerifyAttestationResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ConfidentialComputing::list_locations].
@@ -68,11 +71,12 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ConfidentialComputing::get_location].
@@ -80,9 +84,11 @@ pub trait ConfidentialComputing: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

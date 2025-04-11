@@ -53,6 +53,9 @@ pub struct CreateWorkloadRequest {
     /// projects with the identifier as the value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub external_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateWorkloadRequest {
@@ -104,6 +107,9 @@ pub struct UpdateWorkloadRequest {
     /// Required. The list of fields to be updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateWorkloadRequest {
@@ -152,6 +158,9 @@ pub struct DeleteWorkloadRequest {
     /// If this is provided, it must match the server's etag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteWorkloadRequest {
@@ -191,6 +200,9 @@ pub struct GetWorkloadRequest {
     /// "organizations/123/locations/us-east1/workloads/assured-workload-1".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetWorkloadRequest {
@@ -235,6 +247,9 @@ pub struct ListWorkloadsRequest {
     /// only filtering by labels is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkloadsRequest {
@@ -286,6 +301,9 @@ pub struct ListWorkloadsResponse {
     /// The next page token. Return empty if reached the last page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListWorkloadsResponse {
@@ -434,6 +452,9 @@ pub struct Workload {
 
     /// Optional. Compliance Regime associated with this workload.
     pub partner: crate::model::workload::Partner,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Workload {
@@ -612,6 +633,9 @@ pub mod workload {
 
         /// Indicates the type of resource.
         pub resource_type: crate::model::workload::resource_info::ResourceType,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ResourceInfo {
@@ -743,6 +767,9 @@ pub mod workload {
         /// and at most 876,000 hours.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub rotation_period: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl KMSSettings {
@@ -801,6 +828,9 @@ pub mod workload {
         /// name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub display_name: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ResourceSettings {
@@ -856,6 +886,9 @@ pub mod workload {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub setup_errors:
             std::vec::Vec<crate::model::workload::saa_enrollment_response::SetupError>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SaaEnrollmentResponse {
@@ -1293,6 +1326,9 @@ pub struct CreateWorkloadOperationMetadata {
     /// Optional. Compliance controls that should be applied to the resources managed by
     /// the workload.
     pub compliance_regime: crate::model::workload::ComplianceRegime,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateWorkloadOperationMetadata {
@@ -1355,6 +1391,9 @@ pub struct RestrictAllowedResourcesRequest {
 
     /// Required. The type of restriction for using gcp products in the Workload environment.
     pub restriction_type: crate::model::restrict_allowed_resources_request::RestrictionType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RestrictAllowedResourcesRequest {
@@ -1464,7 +1503,10 @@ pub mod restrict_allowed_resources_request {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct RestrictAllowedResourcesResponse {}
+pub struct RestrictAllowedResourcesResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl RestrictAllowedResourcesResponse {
     pub fn new() -> Self {
@@ -1504,6 +1546,9 @@ pub struct AcknowledgeViolationRequest {
     /// organizations/{organization_id}/policies/{constraint_name}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub non_compliant_org_policy: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AcknowledgeViolationRequest {
@@ -1544,7 +1589,10 @@ impl wkt::message::Message for AcknowledgeViolationRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AcknowledgeViolationResponse {}
+pub struct AcknowledgeViolationResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AcknowledgeViolationResponse {
     pub fn new() -> Self {
@@ -1571,6 +1619,9 @@ pub struct TimeWindow {
     /// The end of the time window.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeWindow {
@@ -1630,6 +1681,9 @@ pub struct ListViolationsRequest {
     /// Optional. A custom filter for filtering by the Violations properties.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListViolationsRequest {
@@ -1690,6 +1744,9 @@ pub struct ListViolationsResponse {
     /// The next page token. Returns empty if reached the last page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListViolationsResponse {
@@ -1746,6 +1803,9 @@ pub struct GetViolationRequest {
     /// organizations/{organization}/locations/{location}/workloads/{workload}/violations/{violation}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetViolationRequest {
@@ -1841,6 +1901,9 @@ pub struct Violation {
     /// <https://console.cloud.google.com/logs/query>;query={logName}{protoPayload.resourceName}{protoPayload.methodName}{timeRange}{organization}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub exception_audit_log_link: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Violation {
@@ -1992,6 +2055,9 @@ pub mod violation {
 
         /// Output only. Reemediation type based on the type of org policy values violated
         pub remediation_type: crate::model::violation::remediation::RemediationType,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Remediation {
@@ -2061,6 +2127,9 @@ pub mod violation {
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub console_instructions:
                 std::option::Option<crate::model::violation::remediation::instructions::Console>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Instructions {
@@ -2127,6 +2196,9 @@ pub mod violation {
                 /// Additional urls for more information about steps
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub additional_links: std::vec::Vec<std::string::String>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Gcloud {
@@ -2191,6 +2263,9 @@ pub mod violation {
                 /// Additional urls for more information about steps
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
                 pub additional_links: std::vec::Vec<std::string::String>,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl Console {

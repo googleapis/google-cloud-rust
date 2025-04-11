@@ -44,7 +44,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: crate::model::ListTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTemplatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -70,7 +70,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: crate::model::GetTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Template> {
+    ) -> Result<gax::response::Response<crate::model::Template>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -89,7 +89,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: crate::model::CreateTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Template> {
+    ) -> Result<gax::response::Response<crate::model::Template>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -113,7 +113,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: crate::model::UpdateTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Template> {
+    ) -> Result<gax::response::Response<crate::model::Template>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -152,7 +152,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: crate::model::DeleteTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -166,14 +166,17 @@ impl super::stub::ModelArmor for ModelArmor {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_floor_setting(
         &self,
         req: crate::model::GetFloorSettingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FloorSetting> {
+    ) -> Result<gax::response::Response<crate::model::FloorSetting>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -192,7 +195,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: crate::model::UpdateFloorSettingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FloorSetting> {
+    ) -> Result<gax::response::Response<crate::model::FloorSetting>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -230,7 +233,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: crate::model::SanitizeUserPromptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SanitizeUserPromptResponse> {
+    ) -> Result<gax::response::Response<crate::model::SanitizeUserPromptResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -250,7 +253,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: crate::model::SanitizeModelResponseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SanitizeModelResponseResponse> {
+    ) -> Result<gax::response::Response<crate::model::SanitizeModelResponseResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -270,7 +273,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -292,7 +295,7 @@ impl super::stub::ModelArmor for ModelArmor {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

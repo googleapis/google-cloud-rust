@@ -44,7 +44,7 @@ impl super::stub::CompletionService for CompletionService {
         &self,
         req: crate::model::CompleteQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CompleteQueryResponse> {
+    ) -> Result<gax::response::Response<crate::model::CompleteQueryResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -70,7 +70,7 @@ impl super::stub::CompletionService for CompletionService {
         &self,
         req: crate::model::ImportSuggestionDenyListEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -90,7 +90,7 @@ impl super::stub::CompletionService for CompletionService {
         &self,
         req: crate::model::PurgeSuggestionDenyListEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -110,7 +110,7 @@ impl super::stub::CompletionService for CompletionService {
         &self,
         req: crate::model::ImportCompletionSuggestionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -130,7 +130,7 @@ impl super::stub::CompletionService for CompletionService {
         &self,
         req: crate::model::PurgeCompletionSuggestionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -150,7 +150,7 @@ impl super::stub::CompletionService for CompletionService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -172,7 +172,7 @@ impl super::stub::CompletionService for CompletionService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -191,7 +191,7 @@ impl super::stub::CompletionService for CompletionService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -201,10 +201,12 @@ impl super::stub::CompletionService for CompletionService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(
@@ -248,7 +250,7 @@ impl super::stub::ControlService for ControlService {
         &self,
         req: crate::model::CreateControlRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Control> {
+    ) -> Result<gax::response::Response<crate::model::Control>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -271,7 +273,7 @@ impl super::stub::ControlService for ControlService {
         &self,
         req: crate::model::DeleteControlRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -284,14 +286,17 @@ impl super::stub::ControlService for ControlService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_control(
         &self,
         req: crate::model::UpdateControlRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Control> {
+    ) -> Result<gax::response::Response<crate::model::Control>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -329,7 +334,7 @@ impl super::stub::ControlService for ControlService {
         &self,
         req: crate::model::GetControlRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Control> {
+    ) -> Result<gax::response::Response<crate::model::Control>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -348,7 +353,7 @@ impl super::stub::ControlService for ControlService {
         &self,
         req: crate::model::ListControlsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListControlsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListControlsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -370,7 +375,7 @@ impl super::stub::ControlService for ControlService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -392,7 +397,7 @@ impl super::stub::ControlService for ControlService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -411,7 +416,7 @@ impl super::stub::ControlService for ControlService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -421,10 +426,12 @@ impl super::stub::ControlService for ControlService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 }
 
@@ -454,7 +461,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::ConverseConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ConverseConversationResponse> {
+    ) -> Result<gax::response::Response<crate::model::ConverseConversationResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -471,7 +478,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::CreateConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Conversation> {
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -493,7 +500,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::DeleteConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -506,14 +513,17 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_conversation(
         &self,
         req: crate::model::UpdateConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Conversation> {
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -551,7 +561,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::GetConversationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Conversation> {
+    ) -> Result<gax::response::Response<crate::model::Conversation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -570,7 +580,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::ListConversationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConversationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConversationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -596,7 +606,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::AnswerQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnswerQueryResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnswerQueryResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -616,7 +626,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::GetAnswerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Answer> {
+    ) -> Result<gax::response::Response<crate::model::Answer>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -635,7 +645,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::CreateSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Session> {
+    ) -> Result<gax::response::Response<crate::model::Session>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -657,7 +667,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::DeleteSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -670,14 +680,17 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_session(
         &self,
         req: crate::model::UpdateSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Session> {
+    ) -> Result<gax::response::Response<crate::model::Session>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -715,7 +728,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::GetSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Session> {
+    ) -> Result<gax::response::Response<crate::model::Session>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -735,7 +748,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: crate::model::ListSessionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSessionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSessionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -758,7 +771,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -780,7 +793,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -799,7 +812,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -809,10 +822,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 }
 
@@ -842,7 +857,7 @@ impl super::stub::DataStoreService for DataStoreService {
         &self,
         req: crate::model::CreateDataStoreRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -871,7 +886,7 @@ impl super::stub::DataStoreService for DataStoreService {
         &self,
         req: crate::model::GetDataStoreRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataStore> {
+    ) -> Result<gax::response::Response<crate::model::DataStore>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -890,7 +905,7 @@ impl super::stub::DataStoreService for DataStoreService {
         &self,
         req: crate::model::ListDataStoresRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDataStoresResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDataStoresResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -915,7 +930,7 @@ impl super::stub::DataStoreService for DataStoreService {
         &self,
         req: crate::model::DeleteDataStoreRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -934,7 +949,7 @@ impl super::stub::DataStoreService for DataStoreService {
         &self,
         req: crate::model::UpdateDataStoreRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataStore> {
+    ) -> Result<gax::response::Response<crate::model::DataStore>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -972,7 +987,7 @@ impl super::stub::DataStoreService for DataStoreService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -994,7 +1009,7 @@ impl super::stub::DataStoreService for DataStoreService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1013,7 +1028,7 @@ impl super::stub::DataStoreService for DataStoreService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1023,10 +1038,12 @@ impl super::stub::DataStoreService for DataStoreService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(
@@ -1070,7 +1087,7 @@ impl super::stub::DocumentService for DocumentService {
         &self,
         req: crate::model::GetDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
+    ) -> Result<gax::response::Response<crate::model::Document>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1089,7 +1106,7 @@ impl super::stub::DocumentService for DocumentService {
         &self,
         req: crate::model::ListDocumentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDocumentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1113,7 +1130,7 @@ impl super::stub::DocumentService for DocumentService {
         &self,
         req: crate::model::CreateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
+    ) -> Result<gax::response::Response<crate::model::Document>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1136,7 +1153,7 @@ impl super::stub::DocumentService for DocumentService {
         &self,
         req: crate::model::UpdateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
+    ) -> Result<gax::response::Response<crate::model::Document>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1175,7 +1192,7 @@ impl super::stub::DocumentService for DocumentService {
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1188,14 +1205,17 @@ impl super::stub::DocumentService for DocumentService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn import_documents(
         &self,
         req: crate::model::ImportDocumentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1215,7 +1235,7 @@ impl super::stub::DocumentService for DocumentService {
         &self,
         req: crate::model::PurgeDocumentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1235,7 +1255,7 @@ impl super::stub::DocumentService for DocumentService {
         &self,
         req: crate::model::BatchGetDocumentsMetadataRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchGetDocumentsMetadataResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchGetDocumentsMetadataResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1267,7 +1287,7 @@ impl super::stub::DocumentService for DocumentService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1289,7 +1309,7 @@ impl super::stub::DocumentService for DocumentService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1308,7 +1328,7 @@ impl super::stub::DocumentService for DocumentService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1318,10 +1338,12 @@ impl super::stub::DocumentService for DocumentService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(
@@ -1365,7 +1387,7 @@ impl super::stub::EngineService for EngineService {
         &self,
         req: crate::model::CreateEngineRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1383,7 +1405,7 @@ impl super::stub::EngineService for EngineService {
         &self,
         req: crate::model::DeleteEngineRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1402,7 +1424,7 @@ impl super::stub::EngineService for EngineService {
         &self,
         req: crate::model::UpdateEngineRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Engine> {
+    ) -> Result<gax::response::Response<crate::model::Engine>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1438,7 +1460,7 @@ impl super::stub::EngineService for EngineService {
         &self,
         req: crate::model::GetEngineRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Engine> {
+    ) -> Result<gax::response::Response<crate::model::Engine>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1457,7 +1479,7 @@ impl super::stub::EngineService for EngineService {
         &self,
         req: crate::model::ListEnginesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEnginesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEnginesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1479,7 +1501,7 @@ impl super::stub::EngineService for EngineService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1501,7 +1523,7 @@ impl super::stub::EngineService for EngineService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1520,7 +1542,7 @@ impl super::stub::EngineService for EngineService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1530,10 +1552,12 @@ impl super::stub::EngineService for EngineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(
@@ -1577,7 +1601,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         &self,
         req: crate::model::GenerateGroundedContentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateGroundedContentResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateGroundedContentResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1597,7 +1621,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         &self,
         req: crate::model::CheckGroundingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CheckGroundingResponse> {
+    ) -> Result<gax::response::Response<crate::model::CheckGroundingResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1617,7 +1641,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1639,7 +1663,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1658,7 +1682,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1668,10 +1692,12 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 }
 
@@ -1701,7 +1727,7 @@ impl super::stub::ProjectService for ProjectService {
         &self,
         req: crate::model::ProvisionProjectRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1718,7 +1744,7 @@ impl super::stub::ProjectService for ProjectService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1740,7 +1766,7 @@ impl super::stub::ProjectService for ProjectService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1759,7 +1785,7 @@ impl super::stub::ProjectService for ProjectService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1769,10 +1795,12 @@ impl super::stub::ProjectService for ProjectService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(
@@ -1816,7 +1844,7 @@ impl super::stub::RankService for RankService {
         &self,
         req: crate::model::RankRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RankResponse> {
+    ) -> Result<gax::response::Response<crate::model::RankResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1836,7 +1864,7 @@ impl super::stub::RankService for RankService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1858,7 +1886,7 @@ impl super::stub::RankService for RankService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1877,7 +1905,7 @@ impl super::stub::RankService for RankService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1887,10 +1915,12 @@ impl super::stub::RankService for RankService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 }
 
@@ -1920,7 +1950,7 @@ impl super::stub::RecommendationService for RecommendationService {
         &self,
         req: crate::model::RecommendRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RecommendResponse> {
+    ) -> Result<gax::response::Response<crate::model::RecommendResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1940,7 +1970,7 @@ impl super::stub::RecommendationService for RecommendationService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1962,7 +1992,7 @@ impl super::stub::RecommendationService for RecommendationService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1981,7 +2011,7 @@ impl super::stub::RecommendationService for RecommendationService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1991,10 +2021,12 @@ impl super::stub::RecommendationService for RecommendationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 }
 
@@ -2024,7 +2056,7 @@ impl super::stub::SchemaService for SchemaService {
         &self,
         req: crate::model::GetSchemaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Schema> {
+    ) -> Result<gax::response::Response<crate::model::Schema>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2043,7 +2075,7 @@ impl super::stub::SchemaService for SchemaService {
         &self,
         req: crate::model::ListSchemasRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSchemasResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSchemasResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2064,7 +2096,7 @@ impl super::stub::SchemaService for SchemaService {
         &self,
         req: crate::model::CreateSchemaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2082,7 +2114,7 @@ impl super::stub::SchemaService for SchemaService {
         &self,
         req: crate::model::UpdateSchemaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -2109,7 +2141,7 @@ impl super::stub::SchemaService for SchemaService {
         &self,
         req: crate::model::DeleteSchemaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -2128,7 +2160,7 @@ impl super::stub::SchemaService for SchemaService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2150,7 +2182,7 @@ impl super::stub::SchemaService for SchemaService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2169,7 +2201,7 @@ impl super::stub::SchemaService for SchemaService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2179,10 +2211,12 @@ impl super::stub::SchemaService for SchemaService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(
@@ -2226,7 +2260,7 @@ impl super::stub::SearchService for SearchService {
         &self,
         req: crate::model::SearchRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2246,7 +2280,7 @@ impl super::stub::SearchService for SearchService {
         &self,
         req: crate::model::SearchRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2266,7 +2300,7 @@ impl super::stub::SearchService for SearchService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2288,7 +2322,7 @@ impl super::stub::SearchService for SearchService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2307,7 +2341,7 @@ impl super::stub::SearchService for SearchService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2317,10 +2351,12 @@ impl super::stub::SearchService for SearchService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 }
 
@@ -2350,7 +2386,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         &self,
         req: crate::model::TrainCustomModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2370,7 +2406,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         &self,
         req: crate::model::ListCustomModelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCustomModelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCustomModelsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2392,7 +2428,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2414,7 +2450,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2433,7 +2469,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2443,10 +2479,12 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(
@@ -2490,7 +2528,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         &self,
         req: crate::model::UpdateServingConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServingConfig> {
+    ) -> Result<gax::response::Response<crate::model::ServingConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -2528,7 +2566,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2550,7 +2588,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2569,7 +2607,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2579,10 +2617,12 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 }
 
@@ -2612,7 +2652,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::GetSiteSearchEngineRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SiteSearchEngine> {
+    ) -> Result<gax::response::Response<crate::model::SiteSearchEngine>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2631,7 +2671,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::CreateTargetSiteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2653,7 +2693,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::BatchCreateTargetSitesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2673,7 +2713,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::GetTargetSiteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TargetSite> {
+    ) -> Result<gax::response::Response<crate::model::TargetSite>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2692,7 +2732,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::UpdateTargetSiteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -2720,7 +2760,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::DeleteTargetSiteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -2739,7 +2779,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::ListTargetSitesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTargetSitesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTargetSitesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2763,7 +2803,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::CreateSitemapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2785,7 +2825,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::DeleteSitemapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -2804,7 +2844,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::FetchSitemapsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchSitemapsResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchSitemapsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2836,7 +2876,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::EnableAdvancedSiteSearchRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2856,7 +2896,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::DisableAdvancedSiteSearchRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2876,7 +2916,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::RecrawlUrisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2896,7 +2936,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::BatchVerifyTargetSitesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2916,7 +2956,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: crate::model::FetchDomainVerificationStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchDomainVerificationStatusResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchDomainVerificationStatusResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2943,7 +2983,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2965,7 +3005,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -2984,7 +3024,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -2994,10 +3034,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(
@@ -3041,7 +3083,7 @@ impl super::stub::UserEventService for UserEventService {
         &self,
         req: crate::model::WriteUserEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserEvent> {
+    ) -> Result<gax::response::Response<crate::model::UserEvent>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -3064,7 +3106,7 @@ impl super::stub::UserEventService for UserEventService {
         &self,
         req: crate::model::CollectUserEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<api::model::HttpBody> {
+    ) -> Result<gax::response::Response<api::model::HttpBody>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -3095,7 +3137,7 @@ impl super::stub::UserEventService for UserEventService {
         &self,
         req: crate::model::PurgeUserEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -3115,7 +3157,7 @@ impl super::stub::UserEventService for UserEventService {
         &self,
         req: crate::model::ImportUserEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -3135,7 +3177,7 @@ impl super::stub::UserEventService for UserEventService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -3157,7 +3199,7 @@ impl super::stub::UserEventService for UserEventService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -3176,7 +3218,7 @@ impl super::stub::UserEventService for UserEventService {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -3186,10 +3228,12 @@ impl super::stub::UserEventService for UserEventService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

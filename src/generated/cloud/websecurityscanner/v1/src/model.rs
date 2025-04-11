@@ -50,6 +50,9 @@ pub struct CrawledUrl {
     /// Output only. The body of the request that was used to visit the URL.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub body: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CrawledUrl {
@@ -171,6 +174,9 @@ pub struct Finding {
     /// Output only. An addon containing information reported for an XXE, if any.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub xxe: std::option::Option<crate::model::Xxe>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Finding {
@@ -414,6 +420,9 @@ pub struct Form {
     /// ! The names of form fields related to the vulnerability.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub fields: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Form {
@@ -462,6 +471,9 @@ pub struct OutdatedLibrary {
     /// URLs to learn more information about the vulnerabilities in the library.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub learn_more_urls: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OutdatedLibrary {
@@ -513,6 +525,9 @@ pub struct ViolatingResource {
     /// URL of this violating resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub resource_url: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ViolatingResource {
@@ -548,6 +563,9 @@ pub struct VulnerableParameters {
     /// The vulnerable parameter names.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub parameter_names: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VulnerableParameters {
@@ -586,6 +604,9 @@ pub struct VulnerableHeaders {
     /// List of missing headers.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub missing_headers: std::vec::Vec<crate::model::vulnerable_headers::Header>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VulnerableHeaders {
@@ -640,6 +661,9 @@ pub mod vulnerable_headers {
         /// Header value.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub value: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Header {
@@ -687,6 +711,9 @@ pub struct Xss {
     /// The reproduction url for the seeding POST request of a Stored XSS.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub stored_xss_seeding_url: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Xss {
@@ -880,6 +907,9 @@ pub struct Xxe {
 
     /// Location within the request where the payload was placed.
     pub payload_location: crate::model::xxe::Location,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Xxe {
@@ -980,6 +1010,9 @@ pub struct FindingTypeStats {
 
     /// Output only. The count of findings belonging to this finding type.
     pub finding_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FindingTypeStats {
@@ -1066,6 +1099,9 @@ pub struct ScanConfig {
 
     /// Whether to keep scanning even if most requests return HTTP error codes.
     pub ignore_http_status_errors: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScanConfig {
@@ -1205,6 +1241,9 @@ pub mod scan_config {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub authentication:
             std::option::Option<crate::model::scan_config::authentication::Authentication>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Authentication {
@@ -1359,6 +1398,9 @@ pub mod scan_config {
             /// and not returned in any response nor included in audit logs.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub password: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl GoogleAccount {
@@ -1409,6 +1451,9 @@ pub mod scan_config {
             /// Required. The login form URL of the website.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub login_url: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl CustomAccount {
@@ -1461,6 +1506,9 @@ pub mod scan_config {
             pub iap_credentials: std::option::Option<
                 crate::model::scan_config::authentication::iap_credential::IapCredentials,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl IapCredential {
@@ -1523,6 +1571,9 @@ pub mod scan_config {
                 /// Identity-Aware-Proxy (IAP).
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
                 pub target_audience_client_id: std::string::String,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl IapTestServiceAccountInfo {
@@ -1593,6 +1644,9 @@ pub mod scan_config {
 
         /// Required. The duration of time between executions in days.
         pub interval_duration_days: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Schedule {
@@ -1823,6 +1877,9 @@ pub struct ScanConfigError {
     /// future.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub field_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScanConfigError {
@@ -2243,6 +2300,9 @@ pub struct ScanRun {
     /// Output only. A list of warnings, if such are encountered during this scan run.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub warning_traces: std::vec::Vec<crate::model::ScanRunWarningTrace>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScanRun {
@@ -2501,6 +2561,9 @@ pub struct ScanRunErrorTrace {
     /// common HTTP error code, if such is available. For example, if this code is
     /// 404, the scan has encountered too many NOT_FOUND responses.
     pub most_common_http_error_code: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScanRunErrorTrace {
@@ -2669,6 +2732,9 @@ pub struct ScanRunLog {
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub error_trace: std::option::Option<crate::model::ScanRunErrorTrace>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScanRunLog {
@@ -2752,6 +2818,9 @@ impl wkt::message::Message for ScanRunLog {
 pub struct ScanRunWarningTrace {
     /// Output only. Indicates the warning code.
     pub code: crate::model::scan_run_warning_trace::Code,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScanRunWarningTrace {
@@ -2878,6 +2947,9 @@ pub struct CreateScanConfigRequest {
     /// Required. The ScanConfig to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub scan_config: std::option::Option<crate::model::ScanConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateScanConfigRequest {
@@ -2917,6 +2989,9 @@ pub struct DeleteScanConfigRequest {
     /// format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteScanConfigRequest {
@@ -2947,6 +3022,9 @@ pub struct GetScanConfigRequest {
     /// format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetScanConfigRequest {
@@ -2988,6 +3066,9 @@ pub struct ListScanConfigsRequest {
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListScanConfigsRequest {
@@ -3037,6 +3118,9 @@ pub struct UpdateScanConfigRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateScanConfigRequest {
@@ -3083,6 +3167,9 @@ pub struct ListScanConfigsResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListScanConfigsResponse {
@@ -3138,6 +3225,9 @@ pub struct StartScanRunRequest {
     /// format of 'projects/{projectId}/scanConfigs/{scanConfigId}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartScanRunRequest {
@@ -3169,6 +3259,9 @@ pub struct GetScanRunRequest {
     /// 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetScanRunRequest {
@@ -3210,6 +3303,9 @@ pub struct ListScanRunsRequest {
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListScanRunsRequest {
@@ -3256,6 +3352,9 @@ pub struct ListScanRunsResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListScanRunsResponse {
@@ -3312,6 +3411,9 @@ pub struct StopScanRunRequest {
     /// 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StopScanRunRequest {
@@ -3354,6 +3456,9 @@ pub struct ListCrawledUrlsRequest {
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCrawledUrlsRequest {
@@ -3400,6 +3505,9 @@ pub struct ListCrawledUrlsResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCrawledUrlsResponse {
@@ -3456,6 +3564,9 @@ pub struct GetFindingRequest {
     /// 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}/findings/{findingId}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetFindingRequest {
@@ -3505,6 +3616,9 @@ pub struct ListFindingsRequest {
     /// If not specified or not positive, the implementation will select a
     /// reasonable value.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFindingsRequest {
@@ -3557,6 +3671,9 @@ pub struct ListFindingsResponse {
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFindingsResponse {
@@ -3613,6 +3730,9 @@ pub struct ListFindingTypeStatsRequest {
     /// 'projects/{projectId}/scanConfigs/{scanConfigId}/scanRuns/{scanRunId}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFindingTypeStatsRequest {
@@ -3642,6 +3762,9 @@ pub struct ListFindingTypeStatsResponse {
     /// The list of FindingTypeStats returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub finding_type_stats: std::vec::Vec<crate::model::FindingTypeStats>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFindingTypeStatsResponse {

@@ -98,6 +98,7 @@ pub mod vpc_access_service {
             (*self.0.stub)
                 .create_connector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_connector`.
@@ -188,6 +189,7 @@ pub mod vpc_access_service {
             (*self.0.stub)
                 .get_connector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectorRequest::name].
@@ -230,6 +232,7 @@ pub mod vpc_access_service {
             (*self.0.stub)
                 .list_connectors(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -304,6 +307,7 @@ pub mod vpc_access_service {
             (*self.0.stub)
                 .delete_connector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connector`.
@@ -379,6 +383,7 @@ pub mod vpc_access_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -457,6 +462,7 @@ pub mod vpc_access_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -535,6 +541,7 @@ pub mod vpc_access_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

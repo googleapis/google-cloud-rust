@@ -102,6 +102,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .create_cdn_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cdn_key`.
@@ -193,6 +194,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .list_cdn_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -276,6 +278,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .get_cdn_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCdnKeyRequest::name].
@@ -325,6 +328,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .delete_cdn_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cdn_key`.
@@ -404,6 +408,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .update_cdn_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cdn_key`.
@@ -495,6 +500,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .create_vod_session(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateVodSessionRequest::parent].
@@ -548,6 +554,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .get_vod_session(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVodSessionRequest::name].
@@ -595,6 +602,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .list_vod_stitch_details(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -669,6 +677,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .get_vod_stitch_detail(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVodStitchDetailRequest::name].
@@ -716,6 +725,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .list_vod_ad_tag_details(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -790,6 +800,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .get_vod_ad_tag_detail(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVodAdTagDetailRequest::name].
@@ -837,6 +848,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .list_live_ad_tag_details(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -911,6 +923,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .get_live_ad_tag_detail(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLiveAdTagDetailRequest::name].
@@ -960,6 +973,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .create_slate(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_slate`.
@@ -1057,6 +1071,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .list_slates(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1140,6 +1155,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .get_slate(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSlateRequest::name].
@@ -1189,6 +1205,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .update_slate(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_slate`.
@@ -1282,6 +1299,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .delete_slate(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_slate`.
@@ -1359,6 +1377,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .create_live_session(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateLiveSessionRequest::parent].
@@ -1412,6 +1431,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .get_live_session(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLiveSessionRequest::name].
@@ -1464,6 +1484,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .create_live_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_live_config`.
@@ -1562,6 +1583,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .list_live_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1645,6 +1667,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .get_live_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLiveConfigRequest::name].
@@ -1697,6 +1720,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .delete_live_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_live_config`.
@@ -1779,6 +1803,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .update_live_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_live_config`.
@@ -1873,6 +1898,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .create_vod_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_vod_config`.
@@ -1971,6 +1997,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .list_vod_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2054,6 +2081,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .get_vod_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVodConfigRequest::name].
@@ -2103,6 +2131,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .delete_vod_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vod_config`.
@@ -2182,6 +2211,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .update_vod_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_vod_config`.
@@ -2274,6 +2304,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2354,6 +2385,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2401,6 +2433,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2448,6 +2481,7 @@ pub mod video_stitcher_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

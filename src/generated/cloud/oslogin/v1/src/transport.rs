@@ -44,7 +44,7 @@ impl super::stub::OsLoginService for OsLoginService {
         &self,
         req: crate::model::CreateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<oslogin_common::model::SshPublicKey> {
+    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -66,7 +66,7 @@ impl super::stub::OsLoginService for OsLoginService {
         &self,
         req: crate::model::DeletePosixAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -79,14 +79,17 @@ impl super::stub::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn delete_ssh_public_key(
         &self,
         req: crate::model::DeleteSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -99,14 +102,17 @@ impl super::stub::OsLoginService for OsLoginService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_login_profile(
         &self,
         req: crate::model::GetLoginProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LoginProfile> {
+    ) -> Result<gax::response::Response<crate::model::LoginProfile>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -130,7 +136,7 @@ impl super::stub::OsLoginService for OsLoginService {
         &self,
         req: crate::model::GetSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<oslogin_common::model::SshPublicKey> {
+    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -149,7 +155,7 @@ impl super::stub::OsLoginService for OsLoginService {
         &self,
         req: crate::model::ImportSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ImportSshPublicKeyResponse> {
+    ) -> Result<gax::response::Response<crate::model::ImportSshPublicKeyResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -176,7 +182,7 @@ impl super::stub::OsLoginService for OsLoginService {
         &self,
         req: crate::model::UpdateSshPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<oslogin_common::model::SshPublicKey> {
+    ) -> Result<gax::response::Response<oslogin_common::model::SshPublicKey>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner

@@ -44,7 +44,7 @@ impl super::stub::LookupService for LookupService {
         &self,
         req: crate::model::ResolveServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ResolveServiceResponse> {
+    ) -> Result<gax::response::Response<crate::model::ResolveServiceResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -61,7 +61,7 @@ impl super::stub::LookupService for LookupService {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -83,7 +83,7 @@ impl super::stub::LookupService for LookupService {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -125,7 +125,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::CreateNamespaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Namespace> {
+    ) -> Result<gax::response::Response<crate::model::Namespace>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -148,7 +148,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::ListNamespacesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNamespacesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNamespacesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -174,7 +174,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::GetNamespaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Namespace> {
+    ) -> Result<gax::response::Response<crate::model::Namespace>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -193,7 +193,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::UpdateNamespaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Namespace> {
+    ) -> Result<gax::response::Response<crate::model::Namespace>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -231,7 +231,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::DeleteNamespaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -244,14 +244,17 @@ impl super::stub::RegistrationService for RegistrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Service> {
+    ) -> Result<gax::response::Response<crate::model::Service>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -274,7 +277,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServicesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -297,7 +300,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Service> {
+    ) -> Result<gax::response::Response<crate::model::Service>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -316,7 +319,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Service> {
+    ) -> Result<gax::response::Response<crate::model::Service>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -354,7 +357,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -367,14 +370,17 @@ impl super::stub::RegistrationService for RegistrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_endpoint(
         &self,
         req: crate::model::CreateEndpointRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Endpoint> {
+    ) -> Result<gax::response::Response<crate::model::Endpoint>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -397,7 +403,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::ListEndpointsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEndpointsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEndpointsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -423,7 +429,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::GetEndpointRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Endpoint> {
+    ) -> Result<gax::response::Response<crate::model::Endpoint>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -442,7 +448,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::UpdateEndpointRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Endpoint> {
+    ) -> Result<gax::response::Response<crate::model::Endpoint>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -480,7 +486,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: crate::model::DeleteEndpointRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -493,14 +499,17 @@ impl super::stub::RegistrationService for RegistrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -520,7 +529,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -540,7 +549,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -560,7 +569,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -582,7 +591,7 @@ impl super::stub::RegistrationService for RegistrationService {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

@@ -86,6 +86,9 @@ pub struct Instance {
     /// Output only. A list of hostnames for this instance.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub host_config: std::option::Option<crate::model::instance::HostConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Instance {
@@ -206,6 +209,9 @@ pub mod instance {
         /// Output only. Git SSH hostname.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub git_ssh: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl HostConfig {
@@ -273,6 +279,9 @@ pub mod instance {
         /// included in this list.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub psc_allowed_projects: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PrivateConfig {
@@ -513,6 +522,9 @@ pub struct Repository {
     /// Input only. Initial configurations for the repository.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub initial_config: std::option::Option<crate::model::repository::InitialConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Repository {
@@ -618,6 +630,9 @@ pub mod repository {
         /// Output only. API is the URI for API access.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub api: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl URIs {
@@ -795,6 +810,9 @@ pub mod repository {
         /// Valid template name(s) are: default.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub readme: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InitialConfig {
@@ -915,6 +933,9 @@ pub struct BranchRule {
     /// Optional. List of required status checks before merging to the branch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub required_status_checks: std::vec::Vec<crate::model::branch_rule::Check>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BranchRule {
@@ -1050,6 +1071,9 @@ pub mod branch_rule {
         /// Required. The context of the check.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub context: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Check {
@@ -1096,6 +1120,9 @@ pub struct ListInstancesRequest {
     /// Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesRequest {
@@ -1156,6 +1183,9 @@ pub struct ListInstancesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesResponse {
@@ -1221,6 +1251,9 @@ pub struct GetInstanceRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceRequest {
@@ -1274,6 +1307,9 @@ pub struct CreateInstanceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceRequest {
@@ -1340,6 +1376,9 @@ pub struct DeleteInstanceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteInstanceRequest {
@@ -1404,6 +1443,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -1497,6 +1539,9 @@ pub struct ListRepositoriesRequest {
     /// API), this field is ignored.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub instance: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRepositoriesRequest {
@@ -1553,6 +1598,9 @@ pub struct ListRepositoriesResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRepositoriesResponse {
@@ -1609,6 +1657,9 @@ pub struct GetRepositoryRequest {
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRepositoryRequest {
@@ -1649,6 +1700,9 @@ pub struct CreateRepositoryRequest {
     /// characters, and valid characters are /[a-z][0-9]-/.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub repository_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateRepositoryRequest {
@@ -1699,6 +1753,9 @@ pub struct DeleteRepositoryRequest {
     /// Optional. If set to true, and the repository is not found, the request will
     /// succeed but no action will be taken on the server.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteRepositoryRequest {
@@ -1736,6 +1793,9 @@ pub struct GetBranchRuleRequest {
     /// `projects/{project}/locations/{location}/repositories/{repository}/branchRules/{branch_rule}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetBranchRuleRequest {
@@ -1770,6 +1830,9 @@ pub struct CreateBranchRuleRequest {
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub branch_rule_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateBranchRuleRequest {
@@ -1818,6 +1881,9 @@ pub struct ListBranchRulesRequest {
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBranchRulesRequest {
@@ -1862,6 +1928,9 @@ pub struct DeleteBranchRuleRequest {
     /// Optional. If set to true, and the branch rule is not found, the request
     /// will succeed but no action will be taken on the server.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteBranchRuleRequest {
@@ -1908,6 +1977,9 @@ pub struct UpdateBranchRuleRequest {
     /// The special value "*" means full replacement.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateBranchRuleRequest {
@@ -1959,6 +2031,9 @@ pub struct ListBranchRulesResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBranchRulesResponse {

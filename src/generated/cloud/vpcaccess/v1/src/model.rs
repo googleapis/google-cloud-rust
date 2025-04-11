@@ -78,6 +78,9 @@ pub struct Connector {
 
     /// Maximum value of instances in autoscaling group underlying the connector.
     pub max_instances: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Connector {
@@ -194,6 +197,9 @@ pub mod connector {
         /// the connector create request was issued.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub project_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Subnet {
@@ -311,6 +317,9 @@ pub struct CreateConnectorRequest {
     /// Required. Resource to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub connector: std::option::Option<crate::model::Connector>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateConnectorRequest {
@@ -355,6 +364,9 @@ pub struct GetConnectorRequest {
     /// Required. Name of a Serverless VPC Access connector to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConnectorRequest {
@@ -391,6 +403,9 @@ pub struct ListConnectorsRequest {
     /// Continuation token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectorsRequest {
@@ -436,6 +451,9 @@ pub struct ListConnectorsResponse {
     /// Continuation token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectorsResponse {
@@ -490,6 +508,9 @@ pub struct DeleteConnectorRequest {
     /// Required. Name of a Serverless VPC Access connector to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteConnectorRequest {
@@ -533,6 +554,9 @@ pub struct OperationMetadata {
     /// projects/my-project/locations/us-central1/connectors/v1.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub target: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {

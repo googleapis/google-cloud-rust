@@ -44,7 +44,7 @@ impl super::stub::PublicCertificateAuthorityService for PublicCertificateAuthori
         &self,
         req: crate::model::CreateExternalAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExternalAccountKey> {
+    ) -> Result<gax::response::Response<crate::model::ExternalAccountKey>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner

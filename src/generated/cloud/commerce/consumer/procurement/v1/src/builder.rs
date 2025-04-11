@@ -97,6 +97,7 @@ pub mod license_management_service {
             (*self.0.stub)
                 .get_license_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetLicensePoolRequest::name].
@@ -144,6 +145,7 @@ pub mod license_management_service {
             (*self.0.stub)
                 .update_license_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
@@ -197,7 +199,10 @@ pub mod license_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AssignResponse> {
-            (*self.0.stub).assign(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .assign(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::AssignRequest::parent].
@@ -253,6 +258,7 @@ pub mod license_management_service {
             (*self.0.stub)
                 .unassign(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::UnassignRequest::parent].
@@ -311,6 +317,7 @@ pub mod license_management_service {
             (*self.0.stub)
                 .enumerate_licensed_users(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -387,6 +394,7 @@ pub mod license_management_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -492,6 +500,7 @@ pub mod consumer_procurement_service {
             (*self.0.stub)
                 .place_order(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `place_order`.
@@ -591,6 +600,7 @@ pub mod consumer_procurement_service {
             (*self.0.stub)
                 .get_order(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOrderRequest::name].
@@ -635,6 +645,7 @@ pub mod consumer_procurement_service {
             (*self.0.stub)
                 .list_orders(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -717,6 +728,7 @@ pub mod consumer_procurement_service {
             (*self.0.stub)
                 .modify_order(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `modify_order`.
@@ -821,6 +833,7 @@ pub mod consumer_procurement_service {
             (*self.0.stub)
                 .cancel_order(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `cancel_order`.
@@ -917,6 +930,7 @@ pub mod consumer_procurement_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

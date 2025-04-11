@@ -23,169 +23,169 @@ pub trait Speech: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_recognizers(
         &self,
         req: crate::model::ListRecognizersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRecognizersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRecognizersResponse>>;
 
     async fn get_recognizer(
         &self,
         req: crate::model::GetRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recognizer>;
+    ) -> crate::Result<gax::response::Response<crate::model::Recognizer>>;
 
     async fn update_recognizer(
         &self,
         req: crate::model::UpdateRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_recognizer(
         &self,
         req: crate::model::DeleteRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn undelete_recognizer(
         &self,
         req: crate::model::UndeleteRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn recognize(
         &self,
         req: crate::model::RecognizeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RecognizeResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::RecognizeResponse>>;
 
     async fn batch_recognize(
         &self,
         req: crate::model::BatchRecognizeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_config(
         &self,
         req: crate::model::GetConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Config>;
+    ) -> crate::Result<gax::response::Response<crate::model::Config>>;
 
     async fn update_config(
         &self,
         req: crate::model::UpdateConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Config>;
+    ) -> crate::Result<gax::response::Response<crate::model::Config>>;
 
     async fn create_custom_class(
         &self,
         req: crate::model::CreateCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_custom_classes(
         &self,
         req: crate::model::ListCustomClassesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCustomClassesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCustomClassesResponse>>;
 
     async fn get_custom_class(
         &self,
         req: crate::model::GetCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CustomClass>;
+    ) -> crate::Result<gax::response::Response<crate::model::CustomClass>>;
 
     async fn update_custom_class(
         &self,
         req: crate::model::UpdateCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_custom_class(
         &self,
         req: crate::model::DeleteCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn undelete_custom_class(
         &self,
         req: crate::model::UndeleteCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_phrase_set(
         &self,
         req: crate::model::CreatePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_phrase_sets(
         &self,
         req: crate::model::ListPhraseSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPhraseSetsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPhraseSetsResponse>>;
 
     async fn get_phrase_set(
         &self,
         req: crate::model::GetPhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PhraseSet>;
+    ) -> crate::Result<gax::response::Response<crate::model::PhraseSet>>;
 
     async fn update_phrase_set(
         &self,
         req: crate::model::UpdatePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_phrase_set(
         &self,
         req: crate::model::DeletePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn undelete_phrase_set(
         &self,
         req: crate::model::UndeletePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -206,7 +206,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::CreateRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_recognizer(self, req, options).await
     }
 
@@ -215,7 +215,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::ListRecognizersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRecognizersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRecognizersResponse>> {
         T::list_recognizers(self, req, options).await
     }
 
@@ -224,7 +224,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::GetRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recognizer> {
+    ) -> crate::Result<gax::response::Response<crate::model::Recognizer>> {
         T::get_recognizer(self, req, options).await
     }
 
@@ -233,7 +233,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::UpdateRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_recognizer(self, req, options).await
     }
 
@@ -242,7 +242,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::DeleteRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_recognizer(self, req, options).await
     }
 
@@ -251,7 +251,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::UndeleteRecognizerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::undelete_recognizer(self, req, options).await
     }
 
@@ -260,7 +260,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::RecognizeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RecognizeResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::RecognizeResponse>> {
         T::recognize(self, req, options).await
     }
 
@@ -269,7 +269,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::BatchRecognizeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::batch_recognize(self, req, options).await
     }
 
@@ -278,7 +278,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::GetConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Config> {
+    ) -> crate::Result<gax::response::Response<crate::model::Config>> {
         T::get_config(self, req, options).await
     }
 
@@ -287,7 +287,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::UpdateConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Config> {
+    ) -> crate::Result<gax::response::Response<crate::model::Config>> {
         T::update_config(self, req, options).await
     }
 
@@ -296,7 +296,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::CreateCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_custom_class(self, req, options).await
     }
 
@@ -305,7 +305,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::ListCustomClassesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCustomClassesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCustomClassesResponse>> {
         T::list_custom_classes(self, req, options).await
     }
 
@@ -314,7 +314,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::GetCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CustomClass> {
+    ) -> crate::Result<gax::response::Response<crate::model::CustomClass>> {
         T::get_custom_class(self, req, options).await
     }
 
@@ -323,7 +323,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::UpdateCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_custom_class(self, req, options).await
     }
 
@@ -332,7 +332,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::DeleteCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_custom_class(self, req, options).await
     }
 
@@ -341,7 +341,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::UndeleteCustomClassRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::undelete_custom_class(self, req, options).await
     }
 
@@ -350,7 +350,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::CreatePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_phrase_set(self, req, options).await
     }
 
@@ -359,7 +359,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::ListPhraseSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPhraseSetsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPhraseSetsResponse>> {
         T::list_phrase_sets(self, req, options).await
     }
 
@@ -368,7 +368,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::GetPhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PhraseSet> {
+    ) -> crate::Result<gax::response::Response<crate::model::PhraseSet>> {
         T::get_phrase_set(self, req, options).await
     }
 
@@ -377,7 +377,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::UpdatePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_phrase_set(self, req, options).await
     }
 
@@ -386,7 +386,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::DeletePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_phrase_set(self, req, options).await
     }
 
@@ -395,7 +395,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: crate::model::UndeletePhraseSetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::undelete_phrase_set(self, req, options).await
     }
 
@@ -404,7 +404,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -413,7 +413,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -422,7 +422,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -431,7 +431,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -440,7 +440,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -449,7 +449,7 @@ impl<T: super::Speech> Speech for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

@@ -54,6 +54,9 @@ pub struct ListConnectionsRequest {
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectionsRequest {
@@ -101,6 +104,9 @@ pub struct ListConnectionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectionsResponse {
@@ -162,6 +168,9 @@ pub struct Connection {
 
     /// The count of streams.
     pub stream_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Connection {
@@ -209,6 +218,9 @@ pub struct Cluster {
     /// The region of the cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub region: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Cluster {
@@ -264,6 +276,9 @@ pub struct EgressRequest {
     /// Timeout for the HTTP request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub timeout: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EgressRequest {
@@ -332,6 +347,9 @@ pub struct Payload {
     /// The kind of payload.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub kind: std::option::Option<crate::model::payload::Kind>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Payload {
@@ -456,6 +474,9 @@ pub struct StreamInfo {
     /// Unique identifier for the stream.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StreamInfo {
@@ -511,6 +532,9 @@ pub struct EgressResponse {
     /// Format: `projects/{project_number or project_id}/endpoints/{endpoint}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EgressResponse {
@@ -605,6 +629,9 @@ pub struct HttpRequest {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub body: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HttpRequest {
@@ -678,6 +705,9 @@ pub struct Url {
     /// Path starts with `/`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub path: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Url {
@@ -721,6 +751,9 @@ pub struct Header {
 
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub values: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Header {
@@ -784,6 +817,9 @@ pub struct HttpResponse {
     /// be read from Body.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub content_length: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HttpResponse {

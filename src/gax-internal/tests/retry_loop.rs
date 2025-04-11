@@ -56,7 +56,7 @@ mod test {
                 RequestOptions::default(),
             )
             .await;
-        let response = response?;
+        let response = response?.into_body();
         assert_eq!(response, json!({"status": "done"}));
         Ok(())
     }
@@ -108,7 +108,7 @@ mod test {
         let response = client
             .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
-        let response = response?;
+        let response = response?.into_body();
         assert_eq!(response, json!({"status": "done"}));
         Ok(())
     }
@@ -255,7 +255,7 @@ mod test {
         let response = client
             .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
-        let response = response?;
+        let response = response?.into_body();
         assert_eq!(response, json!({"status": "done"}));
         Ok(())
     }
@@ -298,7 +298,7 @@ mod test {
         let response = client
             .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
-        let response = response?;
+        let response = response?.into_body();
         assert_eq!(response, json!({"status": "done"}));
         Ok(())
     }
@@ -529,7 +529,7 @@ mod test {
         let response = client
             .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
-        let response = response?;
+        let response = response?.into_body();
         assert_eq!(response, json!({"status": "done"}));
         Ok(())
     }
@@ -614,7 +614,8 @@ mod test {
                     let _ = tx.send("--marker--");
                     let _ = tx.send("success");
                     assert!(r.is_ok(), "{r:?}");
-                    assert_eq!(r.ok(), Some(json!({"status": "done"})));
+                    let response = r.unwrap().into_body();
+                    assert_eq!(response, json!({"status": "done"}));
                     break;
                 },
                 _ = interval.tick() => {
@@ -785,7 +786,8 @@ mod test {
                     let _ = tx.send("--marker--");
                     let _ = tx.send("success");
                     assert!(r.is_ok(), "{r:?}");
-                    assert_eq!(r.ok(), Some(json!({"status": "done"})));
+                    let response = r.unwrap().into_body();
+                    assert_eq!(response, json!({"status": "done"}));
                     break;
                 },
                 _ = interval.tick() => {

@@ -42,7 +42,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::ListServiceAccountsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServiceAccountsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServiceAccountsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -66,7 +66,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::GetServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -85,7 +85,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::CreateServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -105,7 +105,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::ServiceAccount,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -122,7 +122,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::PatchServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -148,7 +148,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::DeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -161,14 +161,17 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn undelete_service_account(
         &self,
         req: crate::model::UndeleteServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UndeleteServiceAccountResponse> {
+    ) -> Result<gax::response::Response<crate::model::UndeleteServiceAccountResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -185,7 +188,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::EnableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -195,17 +198,19 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn disable_service_account(
         &self,
         req: crate::model::DisableServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -215,17 +220,19 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn list_service_account_keys(
         &self,
         req: crate::model::ListServiceAccountKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServiceAccountKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServiceAccountKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -247,7 +254,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::GetServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccountKey> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccountKey>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -267,7 +274,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::CreateServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccountKey> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccountKey>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -284,7 +291,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::UploadServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceAccountKey> {
+    ) -> Result<gax::response::Response<crate::model::ServiceAccountKey>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -304,7 +311,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::DeleteServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -317,14 +324,17 @@ impl super::stub::Iam for Iam {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn disable_service_account_key(
         &self,
         req: crate::model::DisableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -334,17 +344,19 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn enable_service_account_key(
         &self,
         req: crate::model::EnableServiceAccountKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -354,17 +366,19 @@ impl super::stub::Iam for Iam {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn sign_blob(
         &self,
         req: crate::model::SignBlobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SignBlobResponse> {
+    ) -> Result<gax::response::Response<crate::model::SignBlobResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -381,7 +395,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::SignJwtRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SignJwtResponse> {
+    ) -> Result<gax::response::Response<crate::model::SignJwtResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -398,7 +412,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -430,7 +444,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -450,7 +464,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -470,7 +484,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::QueryGrantableRolesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryGrantableRolesResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryGrantableRolesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -490,7 +504,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::ListRolesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRolesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRolesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -514,7 +528,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::GetRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Role> {
+    ) -> Result<gax::response::Response<crate::model::Role>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -533,7 +547,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::CreateRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Role> {
+    ) -> Result<gax::response::Response<crate::model::Role>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -550,7 +564,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::UpdateRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Role> {
+    ) -> Result<gax::response::Response<crate::model::Role>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -577,7 +591,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::DeleteRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Role> {
+    ) -> Result<gax::response::Response<crate::model::Role>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -597,7 +611,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::UndeleteRoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Role> {
+    ) -> Result<gax::response::Response<crate::model::Role>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -614,7 +628,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::QueryTestablePermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryTestablePermissionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryTestablePermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -634,7 +648,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::QueryAuditableServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryAuditableServicesResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryAuditableServicesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -654,7 +668,7 @@ impl super::stub::Iam for Iam {
         &self,
         req: crate::model::LintPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LintPolicyResponse> {
+    ) -> Result<gax::response::Response<crate::model::LintPolicyResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner

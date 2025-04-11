@@ -21,79 +21,79 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListInsightsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInsightsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListInsightsResponse>>;
 
     async fn get_insight(
         &self,
         req: crate::model::GetInsightRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Insight>;
+    ) -> crate::Result<gax::response::Response<crate::model::Insight>>;
 
     async fn mark_insight_accepted(
         &self,
         req: crate::model::MarkInsightAcceptedRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Insight>;
+    ) -> crate::Result<gax::response::Response<crate::model::Insight>>;
 
     async fn list_recommendations(
         &self,
         req: crate::model::ListRecommendationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRecommendationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRecommendationsResponse>>;
 
     async fn get_recommendation(
         &self,
         req: crate::model::GetRecommendationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recommendation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Recommendation>>;
 
     async fn mark_recommendation_dismissed(
         &self,
         req: crate::model::MarkRecommendationDismissedRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recommendation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Recommendation>>;
 
     async fn mark_recommendation_claimed(
         &self,
         req: crate::model::MarkRecommendationClaimedRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recommendation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Recommendation>>;
 
     async fn mark_recommendation_succeeded(
         &self,
         req: crate::model::MarkRecommendationSucceededRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recommendation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Recommendation>>;
 
     async fn mark_recommendation_failed(
         &self,
         req: crate::model::MarkRecommendationFailedRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recommendation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Recommendation>>;
 
     async fn get_recommender_config(
         &self,
         req: crate::model::GetRecommenderConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RecommenderConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::RecommenderConfig>>;
 
     async fn update_recommender_config(
         &self,
         req: crate::model::UpdateRecommenderConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RecommenderConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::RecommenderConfig>>;
 
     async fn get_insight_type_config(
         &self,
         req: crate::model::GetInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::InsightTypeConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::InsightTypeConfig>>;
 
     async fn update_insight_type_config(
         &self,
         req: crate::model::UpdateInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::InsightTypeConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::InsightTypeConfig>>;
 }
 
 /// All implementations of [super::Recommender] also implement [Recommender].
@@ -104,7 +104,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::ListInsightsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInsightsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListInsightsResponse>> {
         T::list_insights(self, req, options).await
     }
 
@@ -113,7 +113,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::GetInsightRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Insight> {
+    ) -> crate::Result<gax::response::Response<crate::model::Insight>> {
         T::get_insight(self, req, options).await
     }
 
@@ -122,7 +122,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::MarkInsightAcceptedRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Insight> {
+    ) -> crate::Result<gax::response::Response<crate::model::Insight>> {
         T::mark_insight_accepted(self, req, options).await
     }
 
@@ -131,7 +131,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::ListRecommendationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRecommendationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRecommendationsResponse>> {
         T::list_recommendations(self, req, options).await
     }
 
@@ -140,7 +140,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::GetRecommendationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recommendation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Recommendation>> {
         T::get_recommendation(self, req, options).await
     }
 
@@ -149,7 +149,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::MarkRecommendationDismissedRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recommendation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Recommendation>> {
         T::mark_recommendation_dismissed(self, req, options).await
     }
 
@@ -158,7 +158,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::MarkRecommendationClaimedRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recommendation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Recommendation>> {
         T::mark_recommendation_claimed(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::MarkRecommendationSucceededRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recommendation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Recommendation>> {
         T::mark_recommendation_succeeded(self, req, options).await
     }
 
@@ -176,7 +176,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::MarkRecommendationFailedRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Recommendation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Recommendation>> {
         T::mark_recommendation_failed(self, req, options).await
     }
 
@@ -185,7 +185,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::GetRecommenderConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RecommenderConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::RecommenderConfig>> {
         T::get_recommender_config(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::UpdateRecommenderConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RecommenderConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::RecommenderConfig>> {
         T::update_recommender_config(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::GetInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::InsightTypeConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         T::get_insight_type_config(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::Recommender> Recommender for T {
         &self,
         req: crate::model::UpdateInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::InsightTypeConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         T::update_insight_type_config(self, req, options).await
     }
 }

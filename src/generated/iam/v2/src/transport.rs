@@ -44,7 +44,7 @@ impl super::stub::Policies for Policies {
         &self,
         req: crate::model::ListPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPoliciesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -65,7 +65,7 @@ impl super::stub::Policies for Policies {
         &self,
         req: crate::model::GetPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -84,7 +84,7 @@ impl super::stub::Policies for Policies {
         &self,
         req: crate::model::CreatePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -102,7 +102,7 @@ impl super::stub::Policies for Policies {
         &self,
         req: crate::model::UpdatePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -128,7 +128,7 @@ impl super::stub::Policies for Policies {
         &self,
         req: crate::model::DeletePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -148,7 +148,7 @@ impl super::stub::Policies for Policies {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

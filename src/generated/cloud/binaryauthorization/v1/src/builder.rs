@@ -97,6 +97,7 @@ pub mod binauthz_management_service_v_1 {
             (*self.0.stub)
                 .get_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyRequest::name].
@@ -141,6 +142,7 @@ pub mod binauthz_management_service_v_1 {
             (*self.0.stub)
                 .update_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
@@ -188,6 +190,7 @@ pub mod binauthz_management_service_v_1 {
             (*self.0.stub)
                 .create_attestor(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAttestorRequest::parent].
@@ -247,6 +250,7 @@ pub mod binauthz_management_service_v_1 {
             (*self.0.stub)
                 .get_attestor(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAttestorRequest::name].
@@ -291,6 +295,7 @@ pub mod binauthz_management_service_v_1 {
             (*self.0.stub)
                 .update_attestor(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
@@ -338,6 +343,7 @@ pub mod binauthz_management_service_v_1 {
             (*self.0.stub)
                 .list_attestors(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -409,6 +415,7 @@ pub mod binauthz_management_service_v_1 {
             (*self.0.stub)
                 .delete_attestor(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAttestorRequest::name].
@@ -505,6 +512,7 @@ pub mod system_policy_v_1 {
             (*self.0.stub)
                 .get_system_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSystemPolicyRequest::name].
@@ -606,6 +614,7 @@ pub mod validation_helper_v_1 {
             (*self.0.stub)
                 .validate_attestation_occurrence(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [attestor][crate::model::ValidateAttestationOccurrenceRequest::attestor].

@@ -44,7 +44,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::ListParametersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListParametersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListParametersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -70,7 +70,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::GetParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Parameter> {
+    ) -> Result<gax::response::Response<crate::model::Parameter>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -89,7 +89,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::CreateParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Parameter> {
+    ) -> Result<gax::response::Response<crate::model::Parameter>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -113,7 +113,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::UpdateParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Parameter> {
+    ) -> Result<gax::response::Response<crate::model::Parameter>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -152,7 +152,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::DeleteParameterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -166,14 +166,17 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_parameter_versions(
         &self,
         req: crate::model::ListParameterVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListParameterVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListParameterVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -196,7 +199,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::GetParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ParameterVersion> {
+    ) -> Result<gax::response::Response<crate::model::ParameterVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -216,7 +219,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::RenderParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RenderParameterVersionResponse> {
+    ) -> Result<gax::response::Response<crate::model::RenderParameterVersionResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -235,7 +238,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::CreateParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ParameterVersion> {
+    ) -> Result<gax::response::Response<crate::model::ParameterVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -259,7 +262,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::UpdateParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ParameterVersion> {
+    ) -> Result<gax::response::Response<crate::model::ParameterVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -298,7 +301,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: crate::model::DeleteParameterVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -312,14 +315,17 @@ impl super::stub::ParameterManager for ParameterManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -341,7 +347,7 @@ impl super::stub::ParameterManager for ParameterManager {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

@@ -23,55 +23,55 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ComputeThreatListDiffRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ComputeThreatListDiffResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ComputeThreatListDiffResponse>>;
 
     async fn search_uris(
         &self,
         req: crate::model::SearchUrisRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchUrisResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchUrisResponse>>;
 
     async fn search_hashes(
         &self,
         req: crate::model::SearchHashesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchHashesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchHashesResponse>>;
 
     async fn create_submission(
         &self,
         req: crate::model::CreateSubmissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Submission>;
+    ) -> crate::Result<gax::response::Response<crate::model::Submission>>;
 
     async fn submit_uri(
         &self,
         req: crate::model::SubmitUriRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -92,7 +92,7 @@ impl<T: super::WebRiskService> WebRiskService for T {
         &self,
         req: crate::model::ComputeThreatListDiffRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ComputeThreatListDiffResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ComputeThreatListDiffResponse>> {
         T::compute_threat_list_diff(self, req, options).await
     }
 
@@ -101,7 +101,7 @@ impl<T: super::WebRiskService> WebRiskService for T {
         &self,
         req: crate::model::SearchUrisRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchUrisResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchUrisResponse>> {
         T::search_uris(self, req, options).await
     }
 
@@ -110,7 +110,7 @@ impl<T: super::WebRiskService> WebRiskService for T {
         &self,
         req: crate::model::SearchHashesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchHashesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchHashesResponse>> {
         T::search_hashes(self, req, options).await
     }
 
@@ -119,7 +119,7 @@ impl<T: super::WebRiskService> WebRiskService for T {
         &self,
         req: crate::model::CreateSubmissionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Submission> {
+    ) -> crate::Result<gax::response::Response<crate::model::Submission>> {
         T::create_submission(self, req, options).await
     }
 
@@ -128,7 +128,7 @@ impl<T: super::WebRiskService> WebRiskService for T {
         &self,
         req: crate::model::SubmitUriRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::submit_uri(self, req, options).await
     }
 
@@ -137,7 +137,7 @@ impl<T: super::WebRiskService> WebRiskService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -146,7 +146,7 @@ impl<T: super::WebRiskService> WebRiskService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -155,7 +155,7 @@ impl<T: super::WebRiskService> WebRiskService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -164,7 +164,7 @@ impl<T: super::WebRiskService> WebRiskService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

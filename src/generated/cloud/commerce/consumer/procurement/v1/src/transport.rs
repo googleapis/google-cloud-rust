@@ -44,7 +44,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         &self,
         req: crate::model::GetLicensePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LicensePool> {
+    ) -> Result<gax::response::Response<crate::model::LicensePool>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -63,7 +63,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         &self,
         req: crate::model::UpdateLicensePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LicensePool> {
+    ) -> Result<gax::response::Response<crate::model::LicensePool>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -101,7 +101,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         &self,
         req: crate::model::AssignRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AssignResponse> {
+    ) -> Result<gax::response::Response<crate::model::AssignResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -118,7 +118,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         &self,
         req: crate::model::UnassignRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UnassignResponse> {
+    ) -> Result<gax::response::Response<crate::model::UnassignResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -138,7 +138,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         &self,
         req: crate::model::EnumerateLicensedUsersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EnumerateLicensedUsersResponse> {
+    ) -> Result<gax::response::Response<crate::model::EnumerateLicensedUsersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -162,7 +162,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -204,7 +204,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         &self,
         req: crate::model::PlaceOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -224,7 +224,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         &self,
         req: crate::model::GetOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Order> {
+    ) -> Result<gax::response::Response<crate::model::Order>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -243,7 +243,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         &self,
         req: crate::model::ListOrdersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrdersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrdersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -265,7 +265,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         &self,
         req: crate::model::ModifyOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -282,7 +282,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         &self,
         req: crate::model::CancelOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -299,7 +299,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

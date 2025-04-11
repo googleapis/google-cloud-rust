@@ -45,10 +45,12 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateDataPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DataPolicy>> + Send {
-        std::future::ready::<crate::Result<crate::model::DataPolicy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DataPolicy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DataPolicy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataPolicyService::update_data_policy].
@@ -56,10 +58,12 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateDataPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DataPolicy>> + Send {
-        std::future::ready::<crate::Result<crate::model::DataPolicy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DataPolicy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DataPolicy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataPolicyService::rename_data_policy].
@@ -67,10 +71,12 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RenameDataPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DataPolicy>> + Send {
-        std::future::ready::<crate::Result<crate::model::DataPolicy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DataPolicy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DataPolicy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataPolicyService::delete_data_policy].
@@ -78,8 +84,10 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDataPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DataPolicyService::get_data_policy].
@@ -87,10 +95,12 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDataPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DataPolicy>> + Send {
-        std::future::ready::<crate::Result<crate::model::DataPolicy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DataPolicy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DataPolicy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataPolicyService::list_data_policies].
@@ -98,11 +108,12 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDataPoliciesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDataPoliciesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListDataPoliciesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDataPoliciesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDataPoliciesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DataPolicyService::get_iam_policy].
@@ -110,10 +121,12 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataPolicyService::set_iam_policy].
@@ -121,10 +134,12 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DataPolicyService::test_iam_permissions].
@@ -132,10 +147,11 @@ pub trait DataPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }

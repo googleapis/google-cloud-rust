@@ -44,7 +44,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         &self,
         req: crate::model::ListNotificationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNotificationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNotificationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -70,7 +70,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         &self,
         req: crate::model::GetNotificationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Notification> {
+    ) -> Result<gax::response::Response<crate::model::Notification>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -90,7 +90,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         &self,
         req: crate::model::GetSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -109,7 +109,7 @@ impl super::stub::AdvisoryNotificationsService for AdvisoryNotificationsService 
         &self,
         req: crate::model::UpdateSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Settings> {
+    ) -> Result<gax::response::Response<crate::model::Settings>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner

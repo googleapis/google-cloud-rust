@@ -102,6 +102,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .list_service_connection_maps(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -192,6 +193,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .get_service_connection_map(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceConnectionMapRequest::name].
@@ -246,6 +248,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .create_service_connection_map(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_service_connection_map`.
@@ -357,6 +360,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .update_service_connection_map(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_service_connection_map`.
@@ -465,6 +469,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .delete_service_connection_map(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service_connection_map`.
@@ -556,6 +561,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .list_service_connection_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -646,6 +652,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .get_service_connection_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceConnectionPolicyRequest::name].
@@ -700,6 +707,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .create_service_connection_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_service_connection_policy`.
@@ -816,6 +824,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .update_service_connection_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_service_connection_policy`.
@@ -926,6 +935,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .delete_service_connection_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service_connection_policy`.
@@ -1015,6 +1025,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .list_service_classes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1098,6 +1109,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .get_service_class(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceClassRequest::name].
@@ -1150,6 +1162,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .update_service_class(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_service_class`.
@@ -1253,6 +1266,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .delete_service_class(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service_class`.
@@ -1344,6 +1358,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .get_service_connection_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceConnectionTokenRequest::name].
@@ -1393,6 +1408,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .list_service_connection_tokens(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1488,6 +1504,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .create_service_connection_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_service_connection_token`.
@@ -1604,6 +1621,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .delete_service_connection_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service_connection_token`.
@@ -1693,6 +1711,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1770,6 +1789,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1814,6 +1834,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1876,6 +1897,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1932,6 +1954,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1990,6 +2013,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2070,6 +2094,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2117,6 +2142,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2164,6 +2190,7 @@ pub mod cross_network_automation_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2260,6 +2287,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .list_hubs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2338,7 +2366,10 @@ pub mod hub_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Hub> {
-            (*self.0.stub).get_hub(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_hub(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetHubRequest::name].
@@ -2386,6 +2417,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .create_hub(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_hub`.
@@ -2483,6 +2515,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .update_hub(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_hub`.
@@ -2577,6 +2610,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .delete_hub(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_hub`.
@@ -2655,6 +2689,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .list_hub_spokes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2756,6 +2791,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .query_hub_status(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2843,6 +2879,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .list_spokes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2924,6 +2961,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .get_spoke(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSpokeRequest::name].
@@ -2971,6 +3009,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .create_spoke(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_spoke`.
@@ -3071,6 +3110,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .update_spoke(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_spoke`.
@@ -3168,6 +3208,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .reject_hub_spoke(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reject_hub_spoke`.
@@ -3269,6 +3310,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .accept_hub_spoke(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `accept_hub_spoke`.
@@ -3367,6 +3409,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .accept_spoke_update(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `accept_spoke_update`.
@@ -3471,6 +3514,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .reject_spoke_update(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reject_spoke_update`.
@@ -3578,6 +3622,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .delete_spoke(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_spoke`.
@@ -3656,6 +3701,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .get_route_table(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRouteTableRequest::name].
@@ -3698,6 +3744,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .get_route(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRouteRequest::name].
@@ -3740,6 +3787,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .list_routes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3821,6 +3869,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .list_route_tables(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3902,6 +3951,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .get_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGroupRequest::name].
@@ -3944,6 +3994,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .list_groups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4030,6 +4081,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_group`.
@@ -4125,6 +4177,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4200,6 +4253,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -4242,6 +4296,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -4302,6 +4357,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -4356,6 +4412,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -4412,6 +4469,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4490,6 +4548,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4535,6 +4594,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4580,6 +4640,7 @@ pub mod hub_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -4683,6 +4744,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .list_policy_based_routes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4769,6 +4831,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .get_policy_based_route(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyBasedRouteRequest::name].
@@ -4821,6 +4884,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .create_policy_based_route(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_policy_based_route`.
@@ -4930,6 +4994,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .delete_policy_based_route(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_policy_based_route`.
@@ -5013,6 +5078,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5090,6 +5156,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -5134,6 +5201,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -5196,6 +5264,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -5252,6 +5321,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -5310,6 +5380,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5390,6 +5461,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -5437,6 +5509,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -5484,6 +5557,7 @@ pub mod policy_based_routing_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

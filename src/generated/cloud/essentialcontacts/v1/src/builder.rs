@@ -97,6 +97,7 @@ pub mod essential_contacts_service {
             (*self.0.stub)
                 .create_contact(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateContactRequest::parent].
@@ -150,6 +151,7 @@ pub mod essential_contacts_service {
             (*self.0.stub)
                 .update_contact(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [contact][crate::model::UpdateContactRequest::contact].
@@ -206,6 +208,7 @@ pub mod essential_contacts_service {
             (*self.0.stub)
                 .list_contacts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -277,6 +280,7 @@ pub mod essential_contacts_service {
             (*self.0.stub)
                 .get_contact(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetContactRequest::name].
@@ -321,6 +325,7 @@ pub mod essential_contacts_service {
             (*self.0.stub)
                 .delete_contact(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteContactRequest::name].
@@ -365,6 +370,7 @@ pub mod essential_contacts_service {
             (*self.0.stub)
                 .compute_contacts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -447,6 +453,7 @@ pub mod essential_contacts_service {
             (*self.0.stub)
                 .send_test_message(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][crate::model::SendTestMessageRequest::resource].

@@ -44,7 +44,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::CreateBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -65,7 +65,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::GetBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Build> {
+    ) -> Result<gax::response::Response<crate::model::Build>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -88,7 +88,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::ListBuildsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBuildsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBuildsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -114,7 +114,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::CancelBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Build> {
+    ) -> Result<gax::response::Response<crate::model::Build>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -134,7 +134,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::RetryBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -154,7 +154,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::ApproveBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -171,7 +171,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::CreateBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BuildTrigger> {
+    ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -194,7 +194,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::GetBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BuildTrigger> {
+    ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -220,7 +220,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::ListBuildTriggersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBuildTriggersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBuildTriggersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -245,7 +245,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::DeleteBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -265,14 +265,17 @@ impl super::stub::CloudBuild for CloudBuild {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_build_trigger(
         &self,
         req: crate::model::UpdateBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BuildTrigger> {
+    ) -> Result<gax::response::Response<crate::model::BuildTrigger>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -307,7 +310,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::RunBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -331,7 +334,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::ReceiveTriggerWebhookRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReceiveTriggerWebhookResponse> {
+    ) -> Result<gax::response::Response<crate::model::ReceiveTriggerWebhookResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -356,7 +359,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::CreateWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -380,7 +383,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::GetWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::WorkerPool> {
+    ) -> Result<gax::response::Response<crate::model::WorkerPool>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -399,7 +402,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::DeleteWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -421,7 +424,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::UpdateWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -460,7 +463,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: crate::model::ListWorkerPoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkerPoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -484,7 +487,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -503,7 +506,7 @@ impl super::stub::CloudBuild for CloudBuild {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -513,10 +516,12 @@ impl super::stub::CloudBuild for CloudBuild {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

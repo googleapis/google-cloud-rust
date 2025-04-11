@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ExportEntitiesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.export_entities(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ImportEntitiesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.import_entities(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateIndexRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_index(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteIndexRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_index(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::GetIndexRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Index> {
+    ) -> Result<gax::response::Response<crate::model::Index>> {
         self.inner.get_index(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListIndexesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIndexesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIndexesResponse>> {
         self.inner.list_indexes(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

@@ -44,7 +44,7 @@ impl super::stub::IamChecker for IamChecker {
         &self,
         req: crate::model::TroubleshootIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TroubleshootIamPolicyResponse> {
+    ) -> Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner

@@ -44,7 +44,7 @@ impl super::stub::TranscoderService for TranscoderService {
         &self,
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -61,7 +61,7 @@ impl super::stub::TranscoderService for TranscoderService {
         &self,
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -84,7 +84,7 @@ impl super::stub::TranscoderService for TranscoderService {
         &self,
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -103,7 +103,7 @@ impl super::stub::TranscoderService for TranscoderService {
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -117,14 +117,17 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_job_template(
         &self,
         req: crate::model::CreateJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTemplate> {
+    ) -> Result<gax::response::Response<crate::model::JobTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -147,7 +150,7 @@ impl super::stub::TranscoderService for TranscoderService {
         &self,
         req: crate::model::ListJobTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobTemplatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -173,7 +176,7 @@ impl super::stub::TranscoderService for TranscoderService {
         &self,
         req: crate::model::GetJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTemplate> {
+    ) -> Result<gax::response::Response<crate::model::JobTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -192,7 +195,7 @@ impl super::stub::TranscoderService for TranscoderService {
         &self,
         req: crate::model::DeleteJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -206,6 +209,9 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 }

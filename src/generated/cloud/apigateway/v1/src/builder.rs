@@ -93,6 +93,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .list_gateways(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .get_gateway(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGatewayRequest::name].
@@ -221,6 +223,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .create_gateway(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_gateway`.
@@ -315,6 +318,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .update_gateway(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_gateway`.
@@ -406,6 +410,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .delete_gateway(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_gateway`.
@@ -478,6 +483,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .list_apis(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -556,7 +562,10 @@ pub mod api_gateway_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Api> {
-            (*self.0.stub).get_api(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_api(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetApiRequest::name].
@@ -604,6 +613,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .create_api(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_api`.
@@ -695,6 +705,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .update_api(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_api`.
@@ -783,6 +794,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .delete_api(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_api`.
@@ -855,6 +867,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .list_api_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -936,6 +949,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .get_api_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetApiConfigRequest::name].
@@ -992,6 +1006,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .create_api_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_api_config`.
@@ -1087,6 +1102,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .update_api_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_api_config`.
@@ -1179,6 +1195,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .delete_api_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_api_config`.
@@ -1254,6 +1271,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1332,6 +1350,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1377,6 +1396,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1422,6 +1442,7 @@ pub mod api_gateway_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

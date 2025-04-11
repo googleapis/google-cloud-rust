@@ -44,7 +44,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::ListMigrationJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMigrationJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMigrationJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -70,7 +70,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::GetMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MigrationJob> {
+    ) -> Result<gax::response::Response<crate::model::MigrationJob>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -89,7 +89,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::CreateMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -113,7 +113,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::UpdateMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -152,7 +152,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::DeleteMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -173,7 +173,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::StartMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -190,7 +190,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::StopMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -207,7 +207,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::ResumeMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -224,7 +224,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::PromoteMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -241,7 +241,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::VerifyMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -258,7 +258,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::RestartMigrationJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -275,7 +275,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::GenerateSshScriptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SshScript> {
+    ) -> Result<gax::response::Response<crate::model::SshScript>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -295,7 +295,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::GenerateTcpProxyScriptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TcpProxyScript> {
+    ) -> Result<gax::response::Response<crate::model::TcpProxyScript>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -315,7 +315,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::ListConnectionProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConnectionProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConnectionProfilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -341,7 +341,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::GetConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ConnectionProfile> {
+    ) -> Result<gax::response::Response<crate::model::ConnectionProfile>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -360,7 +360,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::CreateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -386,7 +386,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::UpdateConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -427,7 +427,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::DeleteConnectionProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -448,7 +448,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::CreatePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -473,7 +473,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::GetPrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PrivateConnection> {
+    ) -> Result<gax::response::Response<crate::model::PrivateConnection>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -492,7 +492,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::ListPrivateConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPrivateConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPrivateConnectionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -518,7 +518,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::DeletePrivateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -538,7 +538,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::GetConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ConversionWorkspace> {
+    ) -> Result<gax::response::Response<crate::model::ConversionWorkspace>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -557,7 +557,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::ListConversionWorkspacesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConversionWorkspacesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConversionWorkspacesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -582,7 +582,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::CreateConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -606,7 +606,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::UpdateConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -645,7 +645,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::DeleteConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -666,7 +666,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::CreateMappingRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MappingRule> {
+    ) -> Result<gax::response::Response<crate::model::MappingRule>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -690,7 +690,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::DeleteMappingRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -704,14 +704,17 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_mapping_rules(
         &self,
         req: crate::model::ListMappingRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMappingRulesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMappingRulesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -735,7 +738,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::GetMappingRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MappingRule> {
+    ) -> Result<gax::response::Response<crate::model::MappingRule>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -754,7 +757,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::SeedConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -771,7 +774,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::ImportMappingRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -791,7 +794,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::ConvertConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -808,7 +811,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::CommitConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -825,7 +828,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::RollbackConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -842,7 +845,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::ApplyConversionWorkspaceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -859,7 +862,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::DescribeDatabaseEntitiesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DescribeDatabaseEntitiesResponse> {
+    ) -> Result<gax::response::Response<crate::model::DescribeDatabaseEntitiesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -888,7 +891,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::SearchBackgroundJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchBackgroundJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchBackgroundJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -925,7 +928,8 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::DescribeConversionWorkspaceRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DescribeConversionWorkspaceRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::DescribeConversionWorkspaceRevisionsResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -951,7 +955,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: crate::model::FetchStaticIpsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchStaticIpsResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchStaticIpsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -975,7 +979,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -997,7 +1001,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1016,7 +1020,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1036,7 +1040,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1068,7 +1072,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1088,7 +1092,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1110,7 +1114,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1129,7 +1133,7 @@ impl super::stub::DataMigrationService for DataMigrationService {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1142,14 +1146,17 @@ impl super::stub::DataMigrationService for DataMigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1159,10 +1166,12 @@ impl super::stub::DataMigrationService for DataMigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

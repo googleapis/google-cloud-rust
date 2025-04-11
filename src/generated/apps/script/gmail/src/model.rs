@@ -20,6 +20,7 @@
 extern crate apps_script_type;
 extern crate bytes;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -66,6 +67,9 @@ pub struct GmailAddOnManifest {
     /// invocation of the add-on, in order to ensure a smooth user experience.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub authorization_check_function: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GmailAddOnManifest {
@@ -149,6 +153,9 @@ pub struct UniversalAction {
     /// invokes the action.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub action_type: std::option::Option<crate::model::universal_action::ActionType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UniversalAction {
@@ -261,6 +268,9 @@ pub struct ComposeTrigger {
 
     /// Define the level of data access when a compose time addon is triggered.
     pub draft_access: crate::model::compose_trigger::DraftAccess,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComposeTrigger {
@@ -378,6 +388,9 @@ pub struct ContextualTrigger {
     /// add-on.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub trigger: std::option::Option<crate::model::contextual_trigger::Trigger>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ContextualTrigger {
@@ -465,7 +478,10 @@ pub mod contextual_trigger {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UnconditionalTrigger {}
+pub struct UnconditionalTrigger {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UnconditionalTrigger {
     pub fn new() -> Self {

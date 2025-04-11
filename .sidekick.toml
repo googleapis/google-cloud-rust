@@ -41,6 +41,7 @@ disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 # all) generated crates. 
 'package:bytes'      = 'force-used=true,package=bytes,version=1,feature=serde'
 'package:serde'      = 'force-used=true,package=serde,version=1,feature=serde_derive'
+'package:serde_json' = 'force-used=true,package=serde_json,version=1'
 'package:serde_with' = 'force-used=true,package=serde_with,version=3,default-features=false,feature=base64,feature=macros,feature=std'
 # These are used by crates with services.
 'package:async-trait' = 'used-if=services,package=async-trait,version=0.1'
@@ -48,7 +49,6 @@ disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 'package:gaxi'        = 'used-if=services,package=google-cloud-gax-internal,path=src/gax-internal,feature=_internal_http_client,version=0.1'
 'package:lazy_static' = 'used-if=services,package=lazy_static,version=1'
 'package:reqwest'     = 'used-if=services,package=reqwest,version=0.12,feature=json'
-'package:serde_json'  = 'used-if=services,package=serde_json,version=1'
 'package:tracing'     = 'used-if=services,package=tracing,version=0.1'
 # Only used if LROs are present
 'package:lro' = 'used-if=lro,package=google-cloud-lro,path=src/lro,version=0.1'

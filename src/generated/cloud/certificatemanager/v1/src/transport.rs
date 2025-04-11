@@ -44,7 +44,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::ListCertificatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCertificatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCertificatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -70,7 +70,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::GetCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Certificate> {
+    ) -> Result<gax::response::Response<crate::model::Certificate>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -89,7 +89,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::CreateCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -112,7 +112,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::UpdateCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -150,7 +150,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::DeleteCertificateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -169,7 +169,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::ListCertificateMapsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCertificateMapsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCertificateMapsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -195,7 +195,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::GetCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CertificateMap> {
+    ) -> Result<gax::response::Response<crate::model::CertificateMap>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -214,7 +214,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::CreateCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -237,7 +237,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::UpdateCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -275,7 +275,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::DeleteCertificateMapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -294,7 +294,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::ListCertificateMapEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCertificateMapEntriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCertificateMapEntriesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -320,7 +320,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::GetCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CertificateMapEntry> {
+    ) -> Result<gax::response::Response<crate::model::CertificateMapEntry>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -339,7 +339,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::CreateCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -362,7 +362,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::UpdateCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -400,7 +400,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::DeleteCertificateMapEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -419,7 +419,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::ListDnsAuthorizationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDnsAuthorizationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDnsAuthorizationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -445,7 +445,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::GetDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DnsAuthorization> {
+    ) -> Result<gax::response::Response<crate::model::DnsAuthorization>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -464,7 +464,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::CreateDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -487,7 +487,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::UpdateDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -525,7 +525,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::DeleteDnsAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -544,7 +544,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::ListCertificateIssuanceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCertificateIssuanceConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCertificateIssuanceConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -570,7 +570,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::GetCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CertificateIssuanceConfig> {
+    ) -> Result<gax::response::Response<crate::model::CertificateIssuanceConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -589,7 +589,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::CreateCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -615,7 +615,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::DeleteCertificateIssuanceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -634,7 +634,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::ListTrustConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTrustConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTrustConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -660,7 +660,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::GetTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TrustConfig> {
+    ) -> Result<gax::response::Response<crate::model::TrustConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -679,7 +679,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::CreateTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -702,7 +702,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::UpdateTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -740,7 +740,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: crate::model::DeleteTrustConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -760,7 +760,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -782,7 +782,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -801,7 +801,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -823,7 +823,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -842,7 +842,7 @@ impl super::stub::CertificateManager for CertificateManager {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -855,14 +855,17 @@ impl super::stub::CertificateManager for CertificateManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -872,10 +875,12 @@ impl super::stub::CertificateManager for CertificateManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

@@ -60,6 +60,9 @@ pub struct Template {
     /// Optional. metadata for this template
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub template_metadata: std::option::Option<crate::model::template::TemplateMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Template {
@@ -170,6 +173,9 @@ pub mod template {
 
         /// Optional. If true, log sanitize operations.
         pub log_sanitize_operations: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TemplateMetadata {
@@ -271,6 +277,9 @@ pub struct FloorSetting {
     /// Optional. Floor Settings enforcement status.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub enable_floor_setting_enforcement: std::option::Option<bool>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FloorSetting {
@@ -356,6 +365,9 @@ pub struct ListTemplatesRequest {
     /// Optional. Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTemplatesRequest {
@@ -417,6 +429,9 @@ pub struct ListTemplatesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTemplatesResponse {
@@ -482,6 +497,9 @@ pub struct GetTemplateRequest {
     /// Required. Name of the resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTemplateRequest {
@@ -537,6 +555,9 @@ pub struct CreateTemplateRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTemplateRequest {
@@ -611,6 +632,9 @@ pub struct UpdateTemplateRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTemplateRequest {
@@ -674,6 +698,9 @@ pub struct DeleteTemplateRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTemplateRequest {
@@ -710,6 +737,9 @@ pub struct GetFloorSettingRequest {
     /// projects/123/floorsetting.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetFloorSettingRequest {
@@ -747,6 +777,9 @@ pub struct UpdateFloorSettingRequest {
     /// user does not provide a mask then all fields will be overwritten.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateFloorSettingRequest {
@@ -804,6 +837,9 @@ pub struct FilterConfig {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub malicious_uri_filter_settings:
         std::option::Option<crate::model::MaliciousUriFilterSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FilterConfig {
@@ -879,6 +915,9 @@ pub struct PiAndJailbreakFilterSettings {
     /// positive match is reported. Confidence level will only be used if the
     /// filter is enabled.
     pub confidence_level: crate::model::DetectionConfidenceLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PiAndJailbreakFilterSettings {
@@ -993,6 +1032,9 @@ pub struct MaliciousUriFilterSettings {
     /// Optional. Tells whether the Malicious URI filter is enabled or disabled.
     pub filter_enforcement:
         crate::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MaliciousUriFilterSettings {
@@ -1095,6 +1137,9 @@ pub struct RaiFilterSettings {
     /// Required. List of Responsible AI filters enabled for template.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub rai_filters: std::vec::Vec<crate::model::rai_filter_settings::RaiFilter>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RaiFilterSettings {
@@ -1140,6 +1185,9 @@ pub mod rai_filter_settings {
         /// match is reported. If the confidence level is unspecified (i.e., 0), the
         /// system will use a reasonable default level based on the `filter_type`.
         pub confidence_level: crate::model::DetectionConfidenceLevel,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RaiFilter {
@@ -1184,6 +1232,9 @@ pub struct SdpFilterSettings {
     /// Either of Sensitive Data Protection basic or advanced configuration.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub sdp_configuration: std::option::Option<crate::model::sdp_filter_settings::SdpConfiguration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SdpFilterSettings {
@@ -1307,6 +1358,9 @@ pub struct SdpBasicConfig {
     /// Optional. Tells whether the Sensitive Data Protection basic config is
     /// enabled or disabled.
     pub filter_enforcement: crate::model::sdp_basic_config::SdpBasicConfigEnforcement,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SdpBasicConfig {
@@ -1430,6 +1484,9 @@ pub struct SdpAdvancedConfig {
     /// `projects/{project}/locations/{location}/deidentifyTemplates/{deidentify_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub deidentify_template: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SdpAdvancedConfig {
@@ -1476,6 +1533,9 @@ pub struct SanitizeUserPromptRequest {
     /// Required. User prompt data to sanitize.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub user_prompt_data: std::option::Option<crate::model::DataItem>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SanitizeUserPromptRequest {
@@ -1525,6 +1585,9 @@ pub struct SanitizeModelResponseRequest {
     /// Optional. User Prompt associated with Model response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub user_prompt: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SanitizeModelResponseRequest {
@@ -1571,6 +1634,9 @@ pub struct SanitizeUserPromptResponse {
     /// Output only. Sanitization Result.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sanitization_result: std::option::Option<crate::model::SanitizationResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SanitizeUserPromptResponse {
@@ -1605,6 +1671,9 @@ pub struct SanitizeModelResponseResponse {
     /// Output only. Sanitization Result.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sanitization_result: std::option::Option<crate::model::SanitizationResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SanitizeModelResponseResponse {
@@ -1662,6 +1731,9 @@ pub struct SanitizationResult {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sanitization_metadata:
         std::option::Option<crate::model::sanitization_result::SanitizationMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SanitizationResult {
@@ -1737,6 +1809,9 @@ pub mod sanitization_result {
         /// Error message if any.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub error_message: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SanitizationMetadata {
@@ -1778,6 +1853,9 @@ pub struct FilterResult {
     /// results.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub filter_result: std::option::Option<crate::model::filter_result::FilterResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FilterResult {
@@ -2051,6 +2129,9 @@ pub struct RaiFilterResult {
         std::string::String,
         crate::model::rai_filter_result::RaiFilterTypeResult,
     >,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RaiFilterResult {
@@ -2125,6 +2206,9 @@ pub mod rai_filter_result {
 
         /// Output only. Match state for this RAI filter.
         pub match_state: crate::model::FilterMatchState,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RaiFilterTypeResult {
@@ -2178,6 +2262,9 @@ pub struct SdpFilterResult {
     /// Either of Sensitive Data Protection Inspect result or Deidentify result.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub result: std::option::Option<crate::model::sdp_filter_result::Result>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SdpFilterResult {
@@ -2317,6 +2404,9 @@ pub struct SdpInspectResult {
     /// the server reached the maximum amount of resources allowed for a single API
     /// call.
     pub findings_truncated: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SdpInspectResult {
@@ -2386,6 +2476,9 @@ pub struct DataItem {
     /// Either of text or bytes data.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub data_item: std::option::Option<crate::model::data_item::DataItem>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataItem {
@@ -2490,6 +2583,9 @@ pub struct ByteDataItem {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub byte_data: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ByteDataItem {
@@ -2616,6 +2712,9 @@ pub struct SdpDeidentifyResult {
     /// List of Sensitive Data Protection info-types that were de-identified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub info_types: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SdpDeidentifyResult {
@@ -2701,6 +2800,9 @@ pub struct SdpFinding {
     /// Location for this finding.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub location: std::option::Option<crate::model::sdp_finding::SdpFindingLocation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SdpFinding {
@@ -2764,6 +2866,9 @@ pub mod sdp_finding {
         /// Provided when the content is text.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub codepoint_range: std::option::Option<crate::model::RangeInfo>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SdpFindingLocation {
@@ -2823,6 +2928,9 @@ pub struct PiAndJailbreakFilterResult {
 
     /// Confidence level identified for Prompt injection and Jailbreak.
     pub confidence_level: crate::model::DetectionConfidenceLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PiAndJailbreakFilterResult {
@@ -2900,6 +3008,9 @@ pub struct MaliciousUriFilterResult {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub malicious_uri_matched_items:
         std::vec::Vec<crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MaliciousUriFilterResult {
@@ -2975,6 +3086,9 @@ pub mod malicious_uri_filter_result {
         /// ByteItemType.PLAINTEXT_UTF8
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub locations: std::vec::Vec<crate::model::RangeInfo>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MaliciousUriMatchedItem {
@@ -3039,6 +3153,9 @@ pub struct VirusScanFilterResult {
     /// This field will be empty if no virus was detected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub virus_details: std::vec::Vec<crate::model::VirusDetail>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VirusScanFilterResult {
@@ -3200,6 +3317,9 @@ pub struct VirusDetail {
 
     /// Threat type of the identified virus
     pub threat_type: crate::model::virus_detail::ThreatType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VirusDetail {
@@ -3343,6 +3463,9 @@ pub struct CsamFilterResult {
 
     /// Output only. Match state for CSAM.
     pub match_state: crate::model::FilterMatchState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CsamFilterResult {
@@ -3398,6 +3521,9 @@ pub struct MessageItem {
     /// The message content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MessageItem {
@@ -3514,6 +3640,9 @@ pub struct RangeInfo {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub end: std::option::Option<i64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RangeInfo {

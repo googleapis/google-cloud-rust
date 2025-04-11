@@ -75,6 +75,9 @@ pub struct ReplicationCycle {
     /// Provides details on the state of the cycle in case of an error.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub error: std::option::Option<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicationCycle {
@@ -253,6 +256,9 @@ pub struct CycleStep {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub step: std::option::Option<crate::model::cycle_step::Step>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CycleStep {
@@ -407,7 +413,10 @@ pub mod cycle_step {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct InitializingReplicationStep {}
+pub struct InitializingReplicationStep {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl InitializingReplicationStep {
     pub fn new() -> Self {
@@ -444,6 +453,9 @@ pub struct ReplicatingStep {
     /// second.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub last_thirty_minutes_average_bytes_per_second: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicatingStep {
@@ -493,7 +505,10 @@ impl wkt::message::Message for ReplicatingStep {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct PostProcessingStep {}
+pub struct PostProcessingStep {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl PostProcessingStep {
     pub fn new() -> Self {
@@ -517,6 +532,9 @@ pub struct ReplicationSync {
     /// replication.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub last_sync_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicationSync {
@@ -638,6 +656,9 @@ pub struct MigratingVm {
     /// Details about the source VM.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source_vm_details: std::option::Option<crate::model::migrating_vm::SourceVmDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MigratingVm {
@@ -1060,6 +1081,9 @@ pub struct CloneJob {
     /// Details of the VM to create as the target of this clone job.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub target_vm_details: std::option::Option<crate::model::clone_job::TargetVmDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloneJob {
@@ -1293,6 +1317,9 @@ pub struct CloneStep {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub step: std::option::Option<crate::model::clone_step::Step>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloneStep {
@@ -1444,7 +1471,10 @@ pub mod clone_step {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AdaptingOSStep {}
+pub struct AdaptingOSStep {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AdaptingOSStep {
     pub fn new() -> Self {
@@ -1463,7 +1493,10 @@ impl wkt::message::Message for AdaptingOSStep {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct PreparingVMDisksStep {}
+pub struct PreparingVMDisksStep {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl PreparingVMDisksStep {
     pub fn new() -> Self {
@@ -1482,7 +1515,10 @@ impl wkt::message::Message for PreparingVMDisksStep {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct InstantiatingMigratedVMStep {}
+pub struct InstantiatingMigratedVMStep {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl InstantiatingMigratedVMStep {
     pub fn new() -> Self {
@@ -1544,6 +1580,9 @@ pub struct CutoverJob {
     /// Details of the VM to create as the target of this cutover job.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub target_vm_details: std::option::Option<crate::model::cutover_job::TargetVmDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CutoverJob {
@@ -1789,6 +1828,9 @@ pub struct CutoverStep {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub step: std::option::Option<crate::model::cutover_step::Step>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CutoverStep {
@@ -2013,7 +2055,10 @@ pub mod cutover_step {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ShuttingDownSourceVMStep {}
+pub struct ShuttingDownSourceVMStep {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ShuttingDownSourceVMStep {
     pub fn new() -> Self {
@@ -2060,6 +2105,9 @@ pub struct CreateCloneJobRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCloneJobRequest {
@@ -2110,6 +2158,9 @@ pub struct CancelCloneJobRequest {
     /// Required. The clone job id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CancelCloneJobRequest {
@@ -2135,7 +2186,10 @@ impl wkt::message::Message for CancelCloneJobRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CancelCloneJobResponse {}
+pub struct CancelCloneJobResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CancelCloneJobResponse {
     pub fn new() -> Self {
@@ -2180,6 +2234,9 @@ pub struct ListCloneJobsRequest {
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCloneJobsRequest {
@@ -2242,6 +2299,9 @@ pub struct ListCloneJobsResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCloneJobsResponse {
@@ -2307,6 +2367,9 @@ pub struct GetCloneJobRequest {
     /// Required. The name of the CloneJob.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCloneJobRequest {
@@ -2356,6 +2419,9 @@ pub struct Source {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source_details: std::option::Option<crate::model::source::SourceDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Source {
@@ -2514,6 +2580,9 @@ pub struct VmwareSourceDetails {
     /// The thumbprint representing the certificate for the vcenter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub thumbprint: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VmwareSourceDetails {
@@ -2595,6 +2664,9 @@ pub struct AwsSourceDetails {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub credentials_type: std::option::Option<crate::model::aws_source_details::CredentialsType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsSourceDetails {
@@ -2736,6 +2808,9 @@ pub mod aws_source_details {
         /// Input only. AWS secret access key.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub secret_access_key: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AccessKeyCredentials {
@@ -2781,6 +2856,9 @@ pub mod aws_source_details {
         /// Value of tag.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub value: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Tag {
@@ -2956,6 +3034,9 @@ pub struct DatacenterConnector {
     /// Output only. The status of the current / last upgradeAppliance operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub upgrade_status: std::option::Option<crate::model::UpgradeStatus>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DatacenterConnector {
@@ -3185,6 +3266,9 @@ pub struct UpgradeStatus {
     /// The version from which we upgraded.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub previous_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpgradeStatus {
@@ -3326,6 +3410,9 @@ pub struct AvailableUpdates {
     /// CLI.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub in_place_update: std::option::Option<crate::model::ApplianceVersion>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AvailableUpdates {
@@ -3382,6 +3469,9 @@ pub struct ApplianceVersion {
     /// Link to a page that contains the version release notes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub release_notes_uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApplianceVersion {
@@ -3454,6 +3544,9 @@ pub struct ListSourcesRequest {
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSourcesRequest {
@@ -3516,6 +3609,9 @@ pub struct ListSourcesResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSourcesResponse {
@@ -3581,6 +3677,9 @@ pub struct GetSourceRequest {
     /// Required. The Source name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSourceRequest {
@@ -3634,6 +3733,9 @@ pub struct CreateSourceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSourceRequest {
@@ -3708,6 +3810,9 @@ pub struct UpdateSourceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSourceRequest {
@@ -3771,6 +3876,9 @@ pub struct DeleteSourceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSourceRequest {
@@ -3813,6 +3921,9 @@ pub struct FetchInventoryRequest {
     /// If this flag is set to true, the source will be queried instead of using
     /// cached results. Using this flag will make the call slower.
     pub force_refresh: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchInventoryRequest {
@@ -3890,6 +4001,9 @@ pub struct VmwareVmDetails {
 
     /// Output only. The VM Boot Option.
     pub boot_option: crate::model::vmware_vm_details::BootOption,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VmwareVmDetails {
@@ -4187,6 +4301,9 @@ pub struct AwsVmDetails {
 
     /// The CPU architecture.
     pub architecture: crate::model::aws_vm_details::VmArchitecture,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsVmDetails {
@@ -4614,6 +4731,9 @@ pub struct AwsSecurityGroup {
     /// The AWS security group name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsSecurityGroup {
@@ -4649,6 +4769,9 @@ pub struct VmwareVmsDetails {
     /// The details of the vmware VMs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub details: std::vec::Vec<crate::model::VmwareVmDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VmwareVmsDetails {
@@ -4683,6 +4806,9 @@ pub struct AwsVmsDetails {
     /// The details of the AWS VMs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub details: std::vec::Vec<crate::model::AwsVmDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsVmsDetails {
@@ -4724,6 +4850,9 @@ pub struct FetchInventoryResponse {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source_vms: std::option::Option<crate::model::fetch_inventory_response::SourceVms>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchInventoryResponse {
@@ -4887,6 +5016,9 @@ pub struct UtilizationReport {
     /// are ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub vms: std::vec::Vec<crate::model::VmUtilizationInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UtilizationReport {
@@ -5130,6 +5262,9 @@ pub struct VmUtilizationInfo {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub vm_details: std::option::Option<crate::model::vm_utilization_info::VmDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VmUtilizationInfo {
@@ -5253,6 +5388,9 @@ pub struct VmUtilizationMetrics {
     /// kilobytes per second.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub network_throughput_average_kbps: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VmUtilizationMetrics {
@@ -5350,6 +5488,9 @@ pub struct ListUtilizationReportsRequest {
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListUtilizationReportsRequest {
@@ -5421,6 +5562,9 @@ pub struct ListUtilizationReportsResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListUtilizationReportsResponse {
@@ -5490,6 +5634,9 @@ pub struct GetUtilizationReportRequest {
     /// Optional. The level of details of the report.
     /// Defaults to FULL
     pub view: crate::model::UtilizationReportView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetUtilizationReportRequest {
@@ -5557,6 +5704,9 @@ pub struct CreateUtilizationReportRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateUtilizationReportRequest {
@@ -5628,6 +5778,9 @@ pub struct DeleteUtilizationReportRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteUtilizationReportRequest {
@@ -5672,6 +5825,9 @@ pub struct ListDatacenterConnectorsResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDatacenterConnectorsResponse {
@@ -5737,6 +5893,9 @@ pub struct GetDatacenterConnectorRequest {
     /// Required. The name of the DatacenterConnector.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDatacenterConnectorRequest {
@@ -5793,6 +5952,9 @@ pub struct CreateDatacenterConnectorRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDatacenterConnectorRequest {
@@ -5864,6 +6026,9 @@ pub struct DeleteDatacenterConnectorRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDatacenterConnectorRequest {
@@ -5915,6 +6080,9 @@ pub struct UpgradeApplianceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpgradeApplianceRequest {
@@ -5949,7 +6117,10 @@ impl wkt::message::Message for UpgradeApplianceRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct UpgradeApplianceResponse {}
+pub struct UpgradeApplianceResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl UpgradeApplianceResponse {
     pub fn new() -> Self {
@@ -5995,6 +6166,9 @@ pub struct ListDatacenterConnectorsRequest {
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDatacenterConnectorsRequest {
@@ -6115,6 +6289,9 @@ pub struct ComputeEngineTargetDefaults {
     /// The hostname to assign to the VM.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub hostname: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComputeEngineTargetDefaults {
@@ -6361,6 +6538,9 @@ pub struct ComputeEngineTargetDetails {
     /// The hostname to assign to the VM.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub hostname: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComputeEngineTargetDetails {
@@ -6555,6 +6735,9 @@ pub struct NetworkInterface {
     /// The external IP to define in the NIC.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub external_ip: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NetworkInterface {
@@ -6606,6 +6789,9 @@ pub struct AppliedLicense {
     /// The OS license returned from the adaptation module's report.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub os_license: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppliedLicense {
@@ -6722,6 +6908,9 @@ pub struct SchedulingNodeAffinity {
     /// Corresponds to the label values of Node resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub values: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SchedulingNodeAffinity {
@@ -6854,6 +7043,9 @@ pub struct ComputeScheduling {
     /// running on a sole-tenant node. Ignored if no node_affinites are
     /// configured.
     pub min_node_cpus: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComputeScheduling {
@@ -7047,6 +7239,9 @@ pub struct SchedulePolicy {
     /// sync. OS adaptation is a process where the VM's operating system undergoes
     /// changes and adaptations to fully function on Compute Engine.
     pub skip_os_adaptation: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SchedulePolicy {
@@ -7109,6 +7304,9 @@ pub struct CreateMigratingVmRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateMigratingVmRequest {
@@ -7186,6 +7384,9 @@ pub struct ListMigratingVmsRequest {
 
     /// Optional. The level of details of each migrating VM.
     pub view: crate::model::MigratingVmView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMigratingVmsRequest {
@@ -7254,6 +7455,9 @@ pub struct ListMigratingVmsResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMigratingVmsResponse {
@@ -7322,6 +7526,9 @@ pub struct GetMigratingVmRequest {
 
     /// Optional. The level of details of the migrating VM.
     pub view: crate::model::MigratingVmView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetMigratingVmRequest {
@@ -7381,6 +7588,9 @@ pub struct UpdateMigratingVmRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateMigratingVmRequest {
@@ -7430,6 +7640,9 @@ pub struct DeleteMigratingVmRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteMigratingVmRequest {
@@ -7459,6 +7672,9 @@ pub struct StartMigrationRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub migrating_vm: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartMigrationRequest {
@@ -7484,7 +7700,10 @@ impl wkt::message::Message for StartMigrationRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct StartMigrationResponse {}
+pub struct StartMigrationResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl StartMigrationResponse {
     pub fn new() -> Self {
@@ -7507,6 +7726,9 @@ pub struct PauseMigrationRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub migrating_vm: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PauseMigrationRequest {
@@ -7532,7 +7754,10 @@ impl wkt::message::Message for PauseMigrationRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct PauseMigrationResponse {}
+pub struct PauseMigrationResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl PauseMigrationResponse {
     pub fn new() -> Self {
@@ -7555,6 +7780,9 @@ pub struct ResumeMigrationRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub migrating_vm: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResumeMigrationRequest {
@@ -7580,7 +7808,10 @@ impl wkt::message::Message for ResumeMigrationRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ResumeMigrationResponse {}
+pub struct ResumeMigrationResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ResumeMigrationResponse {
     pub fn new() -> Self {
@@ -7603,6 +7834,9 @@ pub struct FinalizeMigrationRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub migrating_vm: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FinalizeMigrationRequest {
@@ -7628,7 +7862,10 @@ impl wkt::message::Message for FinalizeMigrationRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct FinalizeMigrationResponse {}
+pub struct FinalizeMigrationResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl FinalizeMigrationResponse {
     pub fn new() -> Self {
@@ -7669,6 +7906,9 @@ pub struct TargetProject {
     /// Output only. The last time the target project resource was updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TargetProject {
@@ -7728,6 +7968,9 @@ pub struct GetTargetProjectRequest {
     /// Required. The TargetProject name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTargetProjectRequest {
@@ -7779,6 +8022,9 @@ pub struct ListTargetProjectsRequest {
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTargetProjectsRequest {
@@ -7841,6 +8087,9 @@ pub struct ListTargetProjectsResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTargetProjectsResponse {
@@ -7930,6 +8179,9 @@ pub struct CreateTargetProjectRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTargetProjectRequest {
@@ -8009,6 +8261,9 @@ pub struct UpdateTargetProjectRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTargetProjectRequest {
@@ -8074,6 +8329,9 @@ pub struct DeleteTargetProjectRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTargetProjectRequest {
@@ -8126,6 +8384,9 @@ pub struct Group {
     /// Display name is a user defined name for this group which can be updated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Group {
@@ -8207,6 +8468,9 @@ pub struct ListGroupsRequest {
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGroupsRequest {
@@ -8269,6 +8533,9 @@ pub struct ListGroupsResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGroupsResponse {
@@ -8334,6 +8601,9 @@ pub struct GetGroupRequest {
     /// Required. The group name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetGroupRequest {
@@ -8387,6 +8657,9 @@ pub struct CreateGroupRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateGroupRequest {
@@ -8461,6 +8734,9 @@ pub struct UpdateGroupRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateGroupRequest {
@@ -8524,6 +8800,9 @@ pub struct DeleteGroupRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteGroupRequest {
@@ -8563,6 +8842,9 @@ pub struct AddGroupMigrationRequest {
     /// The full path name of the MigratingVm to add.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub migrating_vm: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AddGroupMigrationRequest {
@@ -8594,7 +8876,10 @@ impl wkt::message::Message for AddGroupMigrationRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AddGroupMigrationResponse {}
+pub struct AddGroupMigrationResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AddGroupMigrationResponse {
     pub fn new() -> Self {
@@ -8621,6 +8906,9 @@ pub struct RemoveGroupMigrationRequest {
     /// The MigratingVm to remove.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub migrating_vm: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RemoveGroupMigrationRequest {
@@ -8652,7 +8940,10 @@ impl wkt::message::Message for RemoveGroupMigrationRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct RemoveGroupMigrationResponse {}
+pub struct RemoveGroupMigrationResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl RemoveGroupMigrationResponse {
     pub fn new() -> Self {
@@ -8699,6 +8990,9 @@ pub struct CreateCutoverJobRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCutoverJobRequest {
@@ -8749,6 +9043,9 @@ pub struct CancelCutoverJobRequest {
     /// Required. The cutover job id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CancelCutoverJobRequest {
@@ -8774,7 +9071,10 @@ impl wkt::message::Message for CancelCutoverJobRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CancelCutoverJobResponse {}
+pub struct CancelCutoverJobResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CancelCutoverJobResponse {
     pub fn new() -> Self {
@@ -8819,6 +9119,9 @@ pub struct ListCutoverJobsRequest {
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCutoverJobsRequest {
@@ -8881,6 +9184,9 @@ pub struct ListCutoverJobsResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCutoverJobsResponse {
@@ -8946,6 +9252,9 @@ pub struct GetCutoverJobRequest {
     /// Required. The name of the CutoverJob.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCutoverJobRequest {
@@ -9004,6 +9313,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -9093,6 +9405,9 @@ pub struct MigrationError {
     /// Output only. The time the error occurred.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub error_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MigrationError {
@@ -9280,6 +9595,9 @@ pub struct AwsSourceVmDetails {
     /// The total size of the disks being migrated in bytes.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub committed_storage_bytes: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsSourceVmDetails {
@@ -9403,6 +9721,9 @@ pub struct ListReplicationCyclesRequest {
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReplicationCyclesRequest {
@@ -9465,6 +9786,9 @@ pub struct ListReplicationCyclesResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReplicationCyclesResponse {
@@ -9530,6 +9854,9 @@ pub struct GetReplicationCycleRequest {
     /// Required. The name of the ReplicationCycle.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetReplicationCycleRequest {

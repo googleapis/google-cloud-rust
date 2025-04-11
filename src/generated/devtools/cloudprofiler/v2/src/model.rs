@@ -50,6 +50,9 @@ pub struct CreateProfileRequest {
     /// One or more profile types that the agent is capable of providing.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub profile_type: std::vec::Vec<crate::model::ProfileType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateProfileRequest {
@@ -104,6 +107,9 @@ pub struct CreateOfflineProfileRequest {
     /// Contents of the profile to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub profile: std::option::Option<crate::model::Profile>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateOfflineProfileRequest {
@@ -149,6 +155,9 @@ pub struct UpdateProfileRequest {
     /// fields are overwritten.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateProfileRequest {
@@ -225,6 +234,9 @@ pub struct Profile {
     /// This output is only present in response from the ListProfiles method.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Profile {
@@ -335,6 +347,9 @@ pub struct Deployment {
     /// "us-central".
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Deployment {
@@ -395,6 +410,9 @@ pub struct ListProfilesRequest {
     /// the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProfilesRequest {
@@ -448,6 +466,9 @@ pub struct ListProfilesResponse {
     /// non-zero value may indicate a transient failure, in which case if the
     /// number is too high for your use case, the call may be retried.
     pub skipped_profiles: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProfilesResponse {

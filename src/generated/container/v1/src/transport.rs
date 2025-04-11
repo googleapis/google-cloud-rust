@@ -44,7 +44,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::ListClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListClustersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -65,7 +65,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::GetClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Cluster> {
+    ) -> Result<gax::response::Response<crate::model::Cluster>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -87,7 +87,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::CreateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -107,7 +107,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::UpdateClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -124,7 +124,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::UpdateNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -141,7 +141,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetNodePoolAutoscalingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -161,7 +161,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetLoggingServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -181,7 +181,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetMonitoringServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -201,7 +201,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetAddonsConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -218,7 +218,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -238,7 +238,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::UpdateMasterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -258,7 +258,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetMasterAuthRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -278,7 +278,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::DeleteClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -300,7 +300,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -324,7 +324,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -346,7 +346,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -356,17 +356,19 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn get_server_config(
         &self,
         req: crate::model::GetServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServerConfig> {
+    ) -> Result<gax::response::Response<crate::model::ServerConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -390,7 +392,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::GetJSONWebKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GetJSONWebKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -409,7 +411,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::ListNodePoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNodePoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNodePoolsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -434,7 +436,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::GetNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NodePool> {
+    ) -> Result<gax::response::Response<crate::model::NodePool>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -457,7 +459,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::CreateNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -477,7 +479,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::DeleteNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -500,7 +502,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::CompleteNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -513,17 +515,19 @@ impl super::stub::ClusterManager for ClusterManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn rollback_node_pool_upgrade(
         &self,
         req: crate::model::RollbackNodePoolUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -540,7 +544,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetNodePoolManagementRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -560,7 +564,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -580,7 +584,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetLegacyAbacRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -600,7 +604,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::StartIPRotationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -620,7 +624,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::CompleteIPRotationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -640,7 +644,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetNodePoolSizeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -657,7 +661,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetNetworkPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -677,7 +681,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::SetMaintenancePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -697,7 +701,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::ListUsableSubnetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUsableSubnetworksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUsableSubnetworksResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -722,7 +726,7 @@ impl super::stub::ClusterManager for ClusterManager {
         &self,
         req: crate::model::CheckAutopilotCompatibilityRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CheckAutopilotCompatibilityResponse> {
+    ) -> Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

@@ -69,6 +69,9 @@ pub struct AccessTuple {
     /// role, see <https://cloud.google.com/iam/help/roles/reference>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub permission: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessTuple {
@@ -167,6 +170,9 @@ pub struct ExplainedPolicy {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     pub relevance: crate::model::HeuristicRelevance,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExplainedPolicy {
@@ -295,6 +301,9 @@ pub struct BindingExplanation {
     /// <https://cloud.google.com/iam/docs/conditions-overview>.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition: std::option::Option<gtype::model::Expr>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BindingExplanation {
@@ -390,6 +399,9 @@ pub mod binding_explanation {
         /// The relevance of the principal's status to the overall determination for
         /// the binding.
         pub relevance: crate::model::HeuristicRelevance,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnnotatedMembership {
@@ -611,6 +623,9 @@ pub struct Replay {
     /// Output only. Summary statistics about the replayed log entries.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub results_summary: std::option::Option<crate::model::replay::ResultsSummary>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Replay {
@@ -689,6 +704,9 @@ pub mod replay {
         /// The date of the newest log entry replayed.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub newest_date: std::option::Option<gtype::model::Date>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ResultsSummary {
@@ -854,6 +872,9 @@ pub struct ReplayResult {
     /// The result of replaying the access tuple.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub result: std::option::Option<crate::model::replay_result::Result>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplayResult {
@@ -1012,6 +1033,9 @@ pub struct CreateReplayRequest {
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub replay: std::option::Option<crate::model::Replay>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateReplayRequest {
@@ -1050,6 +1074,9 @@ pub struct ReplayOperationMetadata {
     /// Time when the request was received.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplayOperationMetadata {
@@ -1095,6 +1122,9 @@ pub struct GetReplayRequest {
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetReplayRequest {
@@ -1156,6 +1186,9 @@ pub struct ListReplayResultsRequest {
     /// [google.cloud.policysimulator.v1.Simulator.ListReplayResults]: crate::client::Simulator::list_replay_results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReplayResultsRequest {
@@ -1210,6 +1243,9 @@ pub struct ListReplayResultsResponse {
     /// [google.cloud.policysimulator.v1.ReplayResult]: crate::model::ReplayResult
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReplayResultsResponse {
@@ -1288,6 +1324,9 @@ pub struct ReplayConfig {
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
     pub log_source: crate::model::replay_config::LogSource,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplayConfig {
@@ -1409,6 +1448,9 @@ pub struct ReplayDiff {
     /// [google.cloud.policysimulator.v1.AccessState]: crate::model::AccessState
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub access_diff: std::option::Option<crate::model::AccessStateDiff>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplayDiff {
@@ -1462,6 +1504,9 @@ pub struct AccessStateDiff {
     /// How the principal's access, specified in the AccessState field, changed
     /// between the current (baseline) policies and proposed (simulated) policies.
     pub access_change: crate::model::access_state_diff::AccessChangeType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessStateDiff {
@@ -1653,6 +1698,9 @@ pub struct ExplainedAccess {
     /// [google.cloud.policysimulator.v1.AccessState]: crate::model::AccessState
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub errors: std::vec::Vec<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExplainedAccess {

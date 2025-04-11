@@ -45,7 +45,7 @@ mod test {
         #[derive(Debug)]
         Speech {}
         impl speech::stub::Speech for Speech {
-            async fn get_recognizer(&self, req: speech::model::GetRecognizerRequest, _options: gax::options::RequestOptions) -> gax::Result<speech::model::Recognizer>;
+            async fn get_recognizer(&self, req: speech::model::GetRecognizerRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<speech::model::Recognizer>>;
         }
     }
     // ANCHOR_END: mockall_macro
@@ -62,7 +62,9 @@ mod test {
                 // Optionally, verify fields in the request.
                 r.name == "invalid-test-recognizer")
             .return_once(|_, _| {
-                Ok(speech::model::Recognizer::new().set_display_name("test-display-name"))
+                Ok(gax::response::Response::from(
+                    speech::model::Recognizer::new().set_display_name("test-display-name"),
+                ))
             });
         // ANCHOR_END: mock_expectation
 

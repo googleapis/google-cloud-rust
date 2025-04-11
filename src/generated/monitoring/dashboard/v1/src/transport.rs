@@ -44,7 +44,7 @@ impl super::stub::DashboardsService for DashboardsService {
         &self,
         req: crate::model::CreateDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dashboard> {
+    ) -> Result<gax::response::Response<crate::model::Dashboard>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -67,7 +67,7 @@ impl super::stub::DashboardsService for DashboardsService {
         &self,
         req: crate::model::ListDashboardsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDashboardsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDashboardsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -91,7 +91,7 @@ impl super::stub::DashboardsService for DashboardsService {
         &self,
         req: crate::model::GetDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dashboard> {
+    ) -> Result<gax::response::Response<crate::model::Dashboard>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -110,7 +110,7 @@ impl super::stub::DashboardsService for DashboardsService {
         &self,
         req: crate::model::DeleteDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -123,14 +123,17 @@ impl super::stub::DashboardsService for DashboardsService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_dashboard(
         &self,
         req: crate::model::UpdateDashboardRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dashboard> {
+    ) -> Result<gax::response::Response<crate::model::Dashboard>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner

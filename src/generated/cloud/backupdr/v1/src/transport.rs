@@ -44,7 +44,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::ListManagementServersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListManagementServersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListManagementServersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -76,7 +76,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::GetManagementServerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ManagementServer> {
+    ) -> Result<gax::response::Response<crate::model::ManagementServer>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -95,7 +95,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::CreateManagementServerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -119,7 +119,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::DeleteManagementServerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -139,7 +139,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::CreateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -164,7 +164,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::ListBackupVaultsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupVaultsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupVaultsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -191,7 +191,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::FetchUsableBackupVaultsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchUsableBackupVaultsResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchUsableBackupVaultsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -217,7 +217,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::GetBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupVault> {
+    ) -> Result<gax::response::Response<crate::model::BackupVault>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -237,7 +237,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::UpdateBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -278,7 +278,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::DeleteBackupVaultRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -306,7 +306,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::ListDataSourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDataSourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDataSourcesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -332,7 +332,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::GetDataSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataSource> {
+    ) -> Result<gax::response::Response<crate::model::DataSource>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -351,7 +351,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::UpdateDataSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -391,7 +391,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::ListBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -415,7 +415,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::GetBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Backup> {
+    ) -> Result<gax::response::Response<crate::model::Backup>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -435,7 +435,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::UpdateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -472,7 +472,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -492,7 +492,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::RestoreBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -509,7 +509,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::CreateBackupPlanRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -533,7 +533,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::GetBackupPlanRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupPlan> {
+    ) -> Result<gax::response::Response<crate::model::BackupPlan>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -552,7 +552,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::ListBackupPlansRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupPlansResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupPlansResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -578,7 +578,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::DeleteBackupPlanRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -598,7 +598,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::CreateBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -623,7 +623,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::GetBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupPlanAssociation> {
+    ) -> Result<gax::response::Response<crate::model::BackupPlanAssociation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -642,7 +642,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::ListBackupPlanAssociationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupPlanAssociationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupPlanAssociationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -667,7 +667,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::DeleteBackupPlanAssociationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -687,7 +687,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::TriggerBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -707,7 +707,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: crate::model::InitializeServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -727,7 +727,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -749,7 +749,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -768,7 +768,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -788,7 +788,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -820,7 +820,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -840,7 +840,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -862,7 +862,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -881,7 +881,7 @@ impl super::stub::BackupDR for BackupDR {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -894,14 +894,17 @@ impl super::stub::BackupDR for BackupDR {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -911,10 +914,12 @@ impl super::stub::BackupDR for BackupDR {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

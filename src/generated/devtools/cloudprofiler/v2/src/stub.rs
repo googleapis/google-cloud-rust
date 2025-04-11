@@ -45,10 +45,12 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Profile>> + Send {
-        std::future::ready::<crate::Result<crate::model::Profile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Profile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Profile>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ProfilerService::create_offline_profile].
@@ -56,10 +58,12 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateOfflineProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Profile>> + Send {
-        std::future::ready::<crate::Result<crate::model::Profile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Profile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Profile>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ProfilerService::update_profile].
@@ -67,10 +71,12 @@ pub trait ProfilerService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Profile>> + Send {
-        std::future::ready::<crate::Result<crate::model::Profile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Profile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Profile>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 }
 
@@ -91,10 +97,11 @@ pub trait ExportService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListProfilesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListProfilesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListProfilesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListProfilesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListProfilesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }

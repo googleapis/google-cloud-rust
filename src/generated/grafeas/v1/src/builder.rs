@@ -93,6 +93,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .get_occurrence(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOccurrenceRequest::name].
@@ -135,6 +136,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .list_occurrences(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -213,6 +215,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .delete_occurrence(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteOccurrenceRequest::name].
@@ -258,6 +261,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .create_occurrence(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateOccurrenceRequest::parent].
@@ -312,6 +316,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .batch_create_occurrences(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateOccurrencesRequest::parent].
@@ -368,6 +373,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .update_occurrence(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateOccurrenceRequest::name].
@@ -431,6 +437,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .get_occurrence_note(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetOccurrenceNoteRequest::name].
@@ -473,6 +480,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .get_note(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNoteRequest::name].
@@ -515,6 +523,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .list_notes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -590,6 +599,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .delete_note(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteNoteRequest::name].
@@ -632,6 +642,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .create_note(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateNoteRequest::parent].
@@ -689,6 +700,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .batch_create_notes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateNotesRequest::parent].
@@ -742,6 +754,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .update_note(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateNoteRequest::name].
@@ -802,6 +815,7 @@ pub mod grafeas {
             (*self.0.stub)
                 .list_note_occurrences(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.

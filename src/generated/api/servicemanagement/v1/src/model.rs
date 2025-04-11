@@ -50,6 +50,9 @@ pub struct ManagedService {
     /// ID of the project that produces and owns this service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub producer_project_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ManagedService {
@@ -100,6 +103,9 @@ pub struct OperationMetadata {
     /// The start time of the operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -168,6 +174,9 @@ pub mod operation_metadata {
 
         /// The status code.
         pub status: crate::model::operation_metadata::Status,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Step {
@@ -287,6 +296,9 @@ pub struct Diagnostic {
     /// Message describing the error or warning.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Diagnostic {
@@ -394,6 +406,9 @@ pub struct ConfigSource {
     /// configuration (`google.api.Service`).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub files: std::vec::Vec<crate::model::ConfigFile>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigSource {
@@ -442,6 +457,9 @@ pub struct ConfigFile {
 
     /// The type of configuration file this represents.
     pub file_type: crate::model::config_file::FileType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigFile {
@@ -576,6 +594,9 @@ pub struct ConfigRef {
     /// format: "services/{service name}/configs/{config id}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConfigRef {
@@ -612,6 +633,9 @@ pub struct ChangeReport {
     /// Example: visibility.rules[selector='LibraryService.CreateBook'].restriction
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub config_changes: std::vec::Vec<api::model::ConfigChange>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ChangeReport {
@@ -679,6 +703,9 @@ pub struct Rollout {
     /// and how they should be used at runtime.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub strategy: std::option::Option<crate::model::rollout::Strategy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Rollout {
@@ -853,6 +880,9 @@ pub mod rollout {
         /// which must be greater than 0.0 and the sum must equal to 100.0.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
         pub percentages: std::collections::HashMap<std::string::String, f64>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TrafficPercentStrategy {
@@ -885,7 +915,10 @@ pub mod rollout {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct DeleteServiceStrategy {}
+    pub struct DeleteServiceStrategy {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl DeleteServiceStrategy {
         pub fn new() -> Self {
@@ -1023,6 +1056,9 @@ pub struct ListServicesRequest {
     /// - project:<project_id>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub consumer_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicesRequest {
@@ -1077,6 +1113,9 @@ pub struct ListServicesResponse {
     /// Token that can be passed to `ListServices` to resume a paginated query.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicesResponse {
@@ -1132,6 +1171,9 @@ pub struct GetServiceRequest {
     /// naming requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceRequest {
@@ -1161,6 +1203,9 @@ pub struct CreateServiceRequest {
     /// Required. Initial values for the service resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service: std::option::Option<crate::model::ManagedService>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServiceRequest {
@@ -1195,6 +1240,9 @@ pub struct DeleteServiceRequest {
     /// requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteServiceRequest {
@@ -1226,6 +1274,9 @@ pub struct UndeleteServiceRequest {
     /// requirements. For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeleteServiceRequest {
@@ -1255,6 +1306,9 @@ pub struct UndeleteServiceResponse {
     /// Revived service resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service: std::option::Option<crate::model::ManagedService>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeleteServiceResponse {
@@ -1300,6 +1354,9 @@ pub struct GetServiceConfigRequest {
     /// Specifies which parts of the Service Config should be returned in the
     /// response.
     pub view: crate::model::get_service_config_request::ConfigView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceConfigRequest {
@@ -1414,6 +1471,9 @@ pub struct ListServiceConfigsRequest {
     /// The max number of items to include in the response list. Page size is 50
     /// if not specified. Maximum value is 100.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceConfigsRequest {
@@ -1459,6 +1519,9 @@ pub struct ListServiceConfigsResponse {
     /// The token of the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceConfigsResponse {
@@ -1519,6 +1582,9 @@ pub struct CreateServiceConfigRequest {
     /// Required. The service configuration resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service_config: std::option::Option<api::model::Service>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServiceConfigRequest {
@@ -1568,6 +1634,9 @@ pub struct SubmitConfigSourceRequest {
     /// `google.api.Service` configuration based on the `ConfigSource` provided,
     /// but the generated config and the sources will NOT be persisted.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SubmitConfigSourceRequest {
@@ -1614,6 +1683,9 @@ pub struct SubmitConfigSourceResponse {
     /// The generated service configuration.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service_config: std::option::Option<api::model::Service>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SubmitConfigSourceResponse {
@@ -1652,6 +1724,9 @@ pub struct CreateServiceRolloutRequest {
     /// Required. The rollout resource. The `service_name` field is output only.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rollout: std::option::Option<crate::model::Rollout>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateServiceRolloutRequest {
@@ -1713,6 +1788,9 @@ pub struct ListServiceRolloutsRequest {
     /// `filter='strategy=TrafficPercentStrategy'`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceRolloutsRequest {
@@ -1764,6 +1842,9 @@ pub struct ListServiceRolloutsResponse {
     /// The token of the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServiceRolloutsResponse {
@@ -1824,6 +1905,9 @@ pub struct GetServiceRolloutRequest {
     /// Required. The id of the rollout resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub rollout_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetServiceRolloutRequest {
@@ -1855,7 +1939,10 @@ impl wkt::message::Message for GetServiceRolloutRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct EnableServiceResponse {}
+pub struct EnableServiceResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl EnableServiceResponse {
     pub fn new() -> Self {
@@ -1898,6 +1985,9 @@ pub struct GenerateConfigReportRequest {
     /// [google.api.servicemanagement.v1.ConfigSource]: crate::model::ConfigSource
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub old_config: std::option::Option<wkt::Any>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateConfigReportRequest {
@@ -1954,6 +2044,9 @@ pub struct GenerateConfigReportResponse {
     /// belongs to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub diagnostics: std::vec::Vec<crate::model::Diagnostic>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateConfigReportResponse {

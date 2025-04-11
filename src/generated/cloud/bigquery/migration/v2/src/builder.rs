@@ -98,6 +98,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .create_migration_workflow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateMigrationWorkflowRequest::parent].
@@ -154,6 +155,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .get_migration_workflow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMigrationWorkflowRequest::name].
@@ -205,6 +207,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .list_migration_workflows(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -287,6 +290,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .delete_migration_workflow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteMigrationWorkflowRequest::name].
@@ -332,6 +336,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .start_migration_workflow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StartMigrationWorkflowRequest::name].
@@ -377,6 +382,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .get_migration_subtask(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMigrationSubtaskRequest::name].
@@ -428,6 +434,7 @@ pub mod migration_service {
             (*self.0.stub)
                 .list_migration_subtasks(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.

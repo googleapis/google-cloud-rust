@@ -45,10 +45,11 @@ pub trait ConnectionService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListConnectionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListConnectionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListConnectionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }

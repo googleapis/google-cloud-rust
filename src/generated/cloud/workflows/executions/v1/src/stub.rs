@@ -45,11 +45,12 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListExecutionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListExecutionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListExecutionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListExecutionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListExecutionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Executions::create_execution].
@@ -57,10 +58,12 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateExecutionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Execution>> + Send {
-        std::future::ready::<crate::Result<crate::model::Execution>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Execution>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Execution>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Executions::get_execution].
@@ -68,10 +71,12 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetExecutionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Execution>> + Send {
-        std::future::ready::<crate::Result<crate::model::Execution>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Execution>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Execution>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Executions::cancel_execution].
@@ -79,9 +84,11 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CancelExecutionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Execution>> + Send {
-        std::future::ready::<crate::Result<crate::model::Execution>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Execution>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Execution>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 }

@@ -44,7 +44,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListSecretsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSecretsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSecretsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -66,7 +66,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::CreateSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Secret> {
+    ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -84,7 +84,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::AddSecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecretVersion> {
+    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -104,7 +104,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Secret> {
+    ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -123,7 +123,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::UpdateSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Secret> {
+    ) -> Result<gax::response::Response<crate::model::Secret>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -159,7 +159,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DeleteSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -173,14 +173,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_secret_versions(
         &self,
         req: crate::model::ListSecretVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSecretVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSecretVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -202,7 +205,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetSecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecretVersion> {
+    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -221,7 +224,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::AccessSecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AccessSecretVersionResponse> {
+    ) -> Result<gax::response::Response<crate::model::AccessSecretVersionResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -240,7 +243,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DisableSecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecretVersion> {
+    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -257,7 +260,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::EnableSecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecretVersion> {
+    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -274,7 +277,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DestroySecretVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SecretVersion> {
+    ) -> Result<gax::response::Response<crate::model::SecretVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -291,7 +294,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -311,7 +314,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -343,7 +346,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -363,7 +366,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -385,7 +388,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

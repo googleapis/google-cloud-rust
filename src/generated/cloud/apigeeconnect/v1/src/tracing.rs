@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         self.inner.list_connections(req, options).await
     }
 }

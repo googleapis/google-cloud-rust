@@ -20,6 +20,7 @@
 extern crate apps_script_type;
 extern crate bytes;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -58,6 +59,9 @@ pub struct CalendarAddOnManifest {
 
     /// Define the level of data access when an event addon is triggered.
     pub current_event_access: crate::model::calendar_add_on_manifest::EventAccess,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CalendarAddOnManifest {
@@ -240,6 +244,9 @@ pub struct ConferenceSolution {
     /// Required. The URL for the logo image of the ConferenceSolution.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub logo_url: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConferenceSolution {
@@ -291,6 +298,9 @@ pub struct CalendarExtensionPoint {
     /// activated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub run_function: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CalendarExtensionPoint {

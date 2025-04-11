@@ -85,6 +85,9 @@ pub struct Constraint {
     /// Immutable after creation.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub constraint_type: std::option::Option<crate::model::constraint::ConstraintType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Constraint {
@@ -231,6 +234,9 @@ pub mod constraint {
         /// example, `"under:folders/123"` would match any resource under the
         /// 'folders/123' folder.
         pub supports_under: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ListConstraint {
@@ -266,7 +272,10 @@ pub mod constraint {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct BooleanConstraint {}
+    pub struct BooleanConstraint {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl BooleanConstraint {
         pub fn new() -> Self {
@@ -419,6 +428,9 @@ pub struct CustomConstraint {
     /// `UpdateCustomConstraint` RPC was called
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomConstraint {
@@ -686,6 +698,9 @@ pub struct Policy {
     /// ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Policy {
@@ -759,6 +774,9 @@ pub struct AlternatePolicySpec {
     /// Specify constraint for configurations of Google Cloud resources.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub spec: std::option::Option<crate::model::PolicySpec>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AlternatePolicySpec {
@@ -841,6 +859,9 @@ pub struct PolicySpec {
     /// constraints. If set, `rules` must be empty and `inherit_from_parent`
     /// must be set to false.
     pub reset: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicySpec {
@@ -921,6 +942,9 @@ pub mod policy_spec {
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub kind: std::option::Option<crate::model::policy_spec::policy_rule::Kind>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PolicyRule {
@@ -1100,6 +1124,9 @@ pub mod policy_spec {
             /// List of values denied at this resource.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub denied_values: std::vec::Vec<std::string::String>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl StringValues {
@@ -1183,6 +1210,9 @@ pub struct ListConstraintsRequest {
     /// and will be ignored. The server may at any point start using this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConstraintsRequest {
@@ -1229,6 +1259,9 @@ pub struct ListConstraintsResponse {
     /// Page token used to retrieve the next page. This is currently not used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConstraintsResponse {
@@ -1301,6 +1334,9 @@ pub struct ListPoliciesRequest {
     /// and will be ignored. The server may at any point start using this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPoliciesRequest {
@@ -1350,6 +1386,9 @@ pub struct ListPoliciesResponse {
     /// the server may at any point start supplying a valid token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPoliciesResponse {
@@ -1408,6 +1447,9 @@ pub struct GetPolicyRequest {
     /// [google.cloud.orgpolicy.v2.Policy]: crate::model::Policy
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPolicyRequest {
@@ -1441,6 +1483,9 @@ pub struct GetEffectivePolicyRequest {
     /// [google.cloud.orgpolicy.v2.Policy]: crate::model::Policy
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEffectivePolicyRequest {
@@ -1481,6 +1526,9 @@ pub struct CreatePolicyRequest {
     /// Required. Policy to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub policy: std::option::Option<crate::model::Policy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePolicyRequest {
@@ -1526,6 +1574,9 @@ pub struct UpdatePolicyRequest {
     /// policy, not the full request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePolicyRequest {
@@ -1575,6 +1626,9 @@ pub struct DeletePolicyRequest {
     /// ABORTED error will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePolicyRequest {
@@ -1617,6 +1671,9 @@ pub struct CreateCustomConstraintRequest {
     /// Required. Custom constraint to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom_constraint: std::option::Option<crate::model::CustomConstraint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCustomConstraintRequest {
@@ -1659,6 +1716,9 @@ pub struct GetCustomConstraintRequest {
     /// entry for naming requirements.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCustomConstraintRequest {
@@ -1703,6 +1763,9 @@ pub struct ListCustomConstraintsRequest {
     /// and will be ignored. The server may at any point start using this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCustomConstraintsRequest {
@@ -1752,6 +1815,9 @@ pub struct ListCustomConstraintsResponse {
     /// the server may at any point start supplying a valid token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCustomConstraintsResponse {
@@ -1807,6 +1873,9 @@ pub struct UpdateCustomConstraintRequest {
     /// Required. `CustomConstraint` to update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom_constraint: std::option::Option<crate::model::CustomConstraint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCustomConstraintRequest {
@@ -1843,6 +1912,9 @@ pub struct DeleteCustomConstraintRequest {
     /// See the custom constraint entry for naming rules.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCustomConstraintRequest {

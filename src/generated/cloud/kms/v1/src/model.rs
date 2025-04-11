@@ -64,6 +64,9 @@ pub struct CreateKeyHandleRequest {
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub key_handle: std::option::Option<crate::model::KeyHandle>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateKeyHandleRequest {
@@ -114,6 +117,9 @@ pub struct GetKeyHandleRequest {
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetKeyHandleRequest {
@@ -177,6 +183,9 @@ pub struct KeyHandle {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub resource_type_selector: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl KeyHandle {
@@ -221,7 +230,10 @@ impl wkt::message::Message for KeyHandle {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct CreateKeyHandleMetadata {}
+pub struct CreateKeyHandleMetadata {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl CreateKeyHandleMetadata {
     pub fn new() -> Self {
@@ -279,6 +291,9 @@ pub struct ListKeyHandlesRequest {
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListKeyHandlesRequest {
@@ -339,6 +354,9 @@ pub struct ListKeyHandlesResponse {
     /// [google.cloud.kms.v1.ListKeyHandlesRequest.page_token]: crate::model::ListKeyHandlesRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListKeyHandlesResponse {
@@ -407,6 +425,9 @@ pub struct UpdateAutokeyConfigRequest {
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAutokeyConfigRequest {
@@ -456,6 +477,9 @@ pub struct GetAutokeyConfigRequest {
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAutokeyConfigRequest {
@@ -509,6 +533,9 @@ pub struct AutokeyConfig {
 
     /// Output only. The state for the AutokeyConfig.
     pub state: crate::model::autokey_config::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutokeyConfig {
@@ -628,6 +655,9 @@ pub struct ShowEffectiveAutokeyConfigRequest {
     /// of nested folder configurations on a given resource project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ShowEffectiveAutokeyConfigRequest {
@@ -661,6 +691,9 @@ pub struct ShowEffectiveAutokeyConfigResponse {
     /// ancestry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key_project: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ShowEffectiveAutokeyConfigResponse {
@@ -730,6 +763,9 @@ pub struct ListEkmConnectionsRequest {
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEkmConnectionsRequest {
@@ -802,6 +838,9 @@ pub struct ListEkmConnectionsResponse {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     pub total_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEkmConnectionsResponse {
@@ -869,6 +908,9 @@ pub struct GetEkmConnectionRequest {
     /// [google.cloud.kms.v1.EkmConnection.name]: crate::model::EkmConnection::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEkmConnectionRequest {
@@ -917,6 +959,9 @@ pub struct CreateEkmConnectionRequest {
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ekm_connection: std::option::Option<crate::model::EkmConnection>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateEkmConnectionRequest {
@@ -976,6 +1021,9 @@ pub struct UpdateEkmConnectionRequest {
     /// Required. List of fields to be updated in this request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateEkmConnectionRequest {
@@ -1026,6 +1074,9 @@ pub struct GetEkmConfigRequest {
     /// [google.cloud.kms.v1.EkmConfig.name]: crate::model::EkmConfig::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEkmConfigRequest {
@@ -1064,6 +1115,9 @@ pub struct UpdateEkmConfigRequest {
     /// Required. List of fields to be updated in this request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateEkmConfigRequest {
@@ -1161,6 +1215,9 @@ pub struct Certificate {
     /// [google.cloud.kms.v1.Certificate.parsed]: crate::model::Certificate::parsed
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub sha256_fingerprint: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Certificate {
@@ -1313,6 +1370,9 @@ pub struct EkmConnection {
     /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode.CLOUD_KMS]: crate::model::ekm_connection::key_management_mode::CLOUD_KMS
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub crypto_space_path: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EkmConnection {
@@ -1421,6 +1481,9 @@ pub mod ekm_connection {
         /// [google.cloud.kms.v1.Certificate]: crate::model::Certificate
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub server_certificates: std::vec::Vec<crate::model::Certificate>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ServiceResolver {
@@ -1604,6 +1667,9 @@ pub struct EkmConfig {
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub default_ekm_connection: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EkmConfig {
@@ -1649,6 +1715,9 @@ pub struct VerifyConnectivityRequest {
     /// [google.cloud.kms.v1.EkmConnection.name]: crate::model::EkmConnection::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VerifyConnectivityRequest {
@@ -1677,7 +1746,10 @@ impl wkt::message::Message for VerifyConnectivityRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct VerifyConnectivityResponse {}
+pub struct VerifyConnectivityResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl VerifyConnectivityResponse {
     pub fn new() -> Self {
@@ -1715,6 +1787,9 @@ pub struct KeyRing {
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl KeyRing {
@@ -1893,6 +1968,9 @@ pub struct CryptoKey {
     /// Controls the rate of automatic rotation.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub rotation_schedule: std::option::Option<crate::model::crypto_key::RotationSchedule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CryptoKey {
@@ -2237,6 +2315,9 @@ pub struct CryptoKeyVersionTemplate {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
     pub algorithm: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CryptoKeyVersionTemplate {
@@ -2292,6 +2373,9 @@ pub struct KeyOperationAttestation {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cert_chains:
         std::option::Option<crate::model::key_operation_attestation::CertificateChains>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl KeyOperationAttestation {
@@ -2360,6 +2444,9 @@ pub mod key_operation_attestation {
         /// Google partition certificate chain corresponding to the attestation.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub google_partition_certs: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CertificateChains {
@@ -2636,6 +2723,9 @@ pub struct CryptoKeyVersion {
     ///
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.crypto_key_version]: crate::model::ImportCryptoKeyVersionRequest::crypto_key_version
     pub reimport_eligible: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CryptoKeyVersion {
@@ -3431,6 +3521,9 @@ pub struct ChecksummedData {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub crc32c_checksum: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ChecksummedData {
@@ -3541,6 +3634,9 @@ pub struct PublicKey {
     /// [google.cloud.kms.v1.PublicKey.public_key_format]: crate::model::PublicKey::public_key_format
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub public_key: std::option::Option<crate::model::ChecksummedData>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PublicKey {
@@ -3835,6 +3931,9 @@ pub struct ImportJob {
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub attestation: std::option::Option<crate::model::KeyOperationAttestation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportJob {
@@ -3962,6 +4061,9 @@ pub mod import_job {
         /// (<https://tools.ietf.org/html/rfc7468#section-13>).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub pem: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl WrappingPublicKey {
@@ -4210,6 +4312,9 @@ pub struct ExternalProtectionLevelOptions {
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub ekm_connection_key_path: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExternalProtectionLevelOptions {
@@ -4265,6 +4370,9 @@ pub struct KeyAccessJustificationsPolicy {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub allowed_access_reasons: std::vec::Vec<crate::model::AccessReason>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl KeyAccessJustificationsPolicy {
@@ -4339,6 +4447,9 @@ pub struct ListKeyRingsRequest {
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListKeyRingsRequest {
@@ -4434,6 +4545,9 @@ pub struct ListCryptoKeysRequest {
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCryptoKeysRequest {
@@ -4541,6 +4655,9 @@ pub struct ListCryptoKeyVersionsRequest {
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCryptoKeyVersionsRequest {
@@ -4644,6 +4761,9 @@ pub struct ListImportJobsRequest {
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListImportJobsRequest {
@@ -4716,6 +4836,9 @@ pub struct ListKeyRingsResponse {
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     pub total_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListKeyRingsResponse {
@@ -4795,6 +4918,9 @@ pub struct ListCryptoKeysResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     pub total_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCryptoKeysResponse {
@@ -4875,6 +5001,9 @@ pub struct ListCryptoKeyVersionsResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     pub total_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCryptoKeyVersionsResponse {
@@ -4954,6 +5083,9 @@ pub struct ListImportJobsResponse {
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     pub total_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListImportJobsResponse {
@@ -5021,6 +5153,9 @@ pub struct GetKeyRingRequest {
     /// [google.cloud.kms.v1.KeyRing.name]: crate::model::KeyRing::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetKeyRingRequest {
@@ -5057,6 +5192,9 @@ pub struct GetCryptoKeyRequest {
     /// [google.cloud.kms.v1.CryptoKey.name]: crate::model::CryptoKey::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCryptoKeyRequest {
@@ -5093,6 +5231,9 @@ pub struct GetCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCryptoKeyVersionRequest {
@@ -5142,6 +5283,9 @@ pub struct GetPublicKeyRequest {
     /// [google.cloud.kms.v1.PublicKey.pem]: crate::model::PublicKey::pem
     /// [google.cloud.kms.v1.PublicKey.public_key]: crate::model::PublicKey::public_key
     pub public_key_format: crate::model::public_key::PublicKeyFormat,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPublicKeyRequest {
@@ -5189,6 +5333,9 @@ pub struct GetImportJobRequest {
     /// [google.cloud.kms.v1.ImportJob.name]: crate::model::ImportJob::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetImportJobRequest {
@@ -5237,6 +5384,9 @@ pub struct CreateKeyRingRequest {
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub key_ring: std::option::Option<crate::model::KeyRing>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateKeyRingRequest {
@@ -5315,6 +5465,9 @@ pub struct CreateCryptoKeyRequest {
     /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
     /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
     pub skip_initial_version_creation: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCryptoKeyRequest {
@@ -5381,6 +5534,9 @@ pub struct CreateCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub crypto_key_version: std::option::Option<crate::model::CryptoKeyVersion>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCryptoKeyVersionRequest {
@@ -5534,6 +5690,9 @@ pub struct ImportCryptoKeyVersionRequest {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub wrapped_key_material:
         std::option::Option<crate::model::import_crypto_key_version_request::WrappedKeyMaterial>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportCryptoKeyVersionRequest {
@@ -5680,6 +5839,9 @@ pub struct CreateImportJobRequest {
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub import_job: std::option::Option<crate::model::ImportJob>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateImportJobRequest {
@@ -5733,6 +5895,9 @@ pub struct UpdateCryptoKeyRequest {
     /// Required. List of fields to be updated in this request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCryptoKeyRequest {
@@ -5784,6 +5949,9 @@ pub struct UpdateCryptoKeyVersionRequest {
     /// Required. List of fields to be updated in this request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCryptoKeyVersionRequest {
@@ -5840,6 +6008,9 @@ pub struct UpdateCryptoKeyPrimaryVersionRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub crypto_key_version_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCryptoKeyPrimaryVersionRequest {
@@ -5884,6 +6055,9 @@ pub struct DestroyCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DestroyCryptoKeyVersionRequest {
@@ -5919,6 +6093,9 @@ pub struct RestoreCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RestoreCryptoKeyVersionRequest {
@@ -6062,6 +6239,9 @@ pub struct EncryptRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub additional_authenticated_data_crc32c: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EncryptRequest {
@@ -6205,6 +6385,9 @@ pub struct DecryptRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub additional_authenticated_data_crc32c: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DecryptRequest {
@@ -6399,6 +6582,9 @@ pub struct RawEncryptRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub initialization_vector_crc32c: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RawEncryptRequest {
@@ -6590,6 +6776,9 @@ pub struct RawDecryptRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub initialization_vector_crc32c: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RawDecryptRequest {
@@ -6766,6 +6955,9 @@ pub struct AsymmetricSignRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub data_crc32c: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsymmetricSignRequest {
@@ -6872,6 +7064,9 @@ pub struct AsymmetricDecryptRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub ciphertext_crc32c: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsymmetricDecryptRequest {
@@ -6955,6 +7150,9 @@ pub struct MacSignRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub data_crc32c: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MacSignRequest {
@@ -7073,6 +7271,9 @@ pub struct MacVerifyRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub mac_crc32c: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MacVerifyRequest {
@@ -7149,6 +7350,9 @@ pub struct GenerateRandomBytesRequest {
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::protection_level::HSM
     pub protection_level: crate::model::ProtectionLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateRandomBytesRequest {
@@ -7276,6 +7480,9 @@ pub struct EncryptResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     pub protection_level: crate::model::ProtectionLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EncryptResponse {
@@ -7388,6 +7595,9 @@ pub struct DecryptResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     pub protection_level: crate::model::ProtectionLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DecryptResponse {
@@ -7571,6 +7781,9 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     pub protection_level: crate::model::ProtectionLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RawEncryptResponse {
@@ -7767,6 +7980,9 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.RawDecryptRequest.initialization_vector_crc32c]: crate::model::RawDecryptRequest::initialization_vector_crc32c
     #[serde(rename = "verifiedInitializationVectorCrc32c")]
     pub verified_initialization_vector_crc32c: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RawDecryptResponse {
@@ -7919,6 +8135,9 @@ pub struct AsymmetricSignResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     pub protection_level: crate::model::ProtectionLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsymmetricSignResponse {
@@ -8037,6 +8256,9 @@ pub struct AsymmetricDecryptResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     pub protection_level: crate::model::ProtectionLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsymmetricDecryptResponse {
@@ -8150,6 +8372,9 @@ pub struct MacSignResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     pub protection_level: crate::model::ProtectionLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MacSignResponse {
@@ -8282,6 +8507,9 @@ pub struct MacVerifyResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     pub protection_level: crate::model::ProtectionLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MacVerifyResponse {
@@ -8368,6 +8596,9 @@ pub struct GenerateRandomBytesResponse {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub data_crc32c: std::option::Option<wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateRandomBytesResponse {
@@ -8408,6 +8639,9 @@ pub struct Digest {
     /// Required. The message digest.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub digest: std::option::Option<crate::model::digest::Digest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Digest {
@@ -8541,6 +8775,9 @@ pub struct LocationMetadata {
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
     /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::protection_level::EXTERNAL
     pub ekm_available: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocationMetadata {

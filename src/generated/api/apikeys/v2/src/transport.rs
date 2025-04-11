@@ -44,7 +44,7 @@ impl super::stub::ApiKeys for ApiKeys {
         &self,
         req: crate::model::CreateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -62,7 +62,7 @@ impl super::stub::ApiKeys for ApiKeys {
         &self,
         req: crate::model::ListKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -84,7 +84,7 @@ impl super::stub::ApiKeys for ApiKeys {
         &self,
         req: crate::model::GetKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Key> {
+    ) -> Result<gax::response::Response<crate::model::Key>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -103,7 +103,7 @@ impl super::stub::ApiKeys for ApiKeys {
         &self,
         req: crate::model::GetKeyStringRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GetKeyStringResponse> {
+    ) -> Result<gax::response::Response<crate::model::GetKeyStringResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -122,7 +122,7 @@ impl super::stub::ApiKeys for ApiKeys {
         &self,
         req: crate::model::UpdateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -158,7 +158,7 @@ impl super::stub::ApiKeys for ApiKeys {
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -178,7 +178,7 @@ impl super::stub::ApiKeys for ApiKeys {
         &self,
         req: crate::model::UndeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -195,7 +195,7 @@ impl super::stub::ApiKeys for ApiKeys {
         &self,
         req: crate::model::LookupKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LookupKeyResponse> {
+    ) -> Result<gax::response::Response<crate::model::LookupKeyResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -215,7 +215,7 @@ impl super::stub::ApiKeys for ApiKeys {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

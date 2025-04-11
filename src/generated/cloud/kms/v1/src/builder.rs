@@ -98,6 +98,7 @@ pub mod autokey {
             (*self.0.stub)
                 .create_key_handle(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_key_handle`.
@@ -189,6 +190,7 @@ pub mod autokey {
             (*self.0.stub)
                 .get_key_handle(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKeyHandleRequest::name].
@@ -231,6 +233,7 @@ pub mod autokey {
             (*self.0.stub)
                 .list_key_handles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -309,6 +312,7 @@ pub mod autokey {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -384,6 +388,7 @@ pub mod autokey {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -426,6 +431,7 @@ pub mod autokey {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -486,6 +492,7 @@ pub mod autokey {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -540,6 +547,7 @@ pub mod autokey {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -596,6 +604,7 @@ pub mod autokey {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -695,6 +704,7 @@ pub mod autokey_admin {
             (*self.0.stub)
                 .update_autokey_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
@@ -752,6 +762,7 @@ pub mod autokey_admin {
             (*self.0.stub)
                 .get_autokey_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAutokeyConfigRequest::name].
@@ -799,6 +810,7 @@ pub mod autokey_admin {
             (*self.0.stub)
                 .show_effective_autokey_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ShowEffectiveAutokeyConfigRequest::parent].
@@ -844,6 +856,7 @@ pub mod autokey_admin {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -919,6 +932,7 @@ pub mod autokey_admin {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -961,6 +975,7 @@ pub mod autokey_admin {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1021,6 +1036,7 @@ pub mod autokey_admin {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1075,6 +1091,7 @@ pub mod autokey_admin {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1131,6 +1148,7 @@ pub mod autokey_admin {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1230,6 +1248,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .list_ekm_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1314,6 +1333,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .get_ekm_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEkmConnectionRequest::name].
@@ -1359,6 +1379,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .create_ekm_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEkmConnectionRequest::parent].
@@ -1419,6 +1440,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .update_ekm_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
@@ -1473,6 +1495,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .get_ekm_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEkmConfigRequest::name].
@@ -1515,6 +1538,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .update_ekm_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
@@ -1572,6 +1596,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .verify_connectivity(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::VerifyConnectivityRequest::name].
@@ -1617,6 +1642,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1692,6 +1718,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1734,6 +1761,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1794,6 +1822,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1848,6 +1877,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1904,6 +1934,7 @@ pub mod ekm_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2004,6 +2035,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .list_key_rings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2087,6 +2119,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .list_crypto_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2182,6 +2215,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .list_crypto_key_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2274,6 +2308,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .list_import_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2357,6 +2392,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .get_key_ring(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKeyRingRequest::name].
@@ -2401,6 +2437,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .get_crypto_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCryptoKeyRequest::name].
@@ -2448,6 +2485,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .get_crypto_key_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCryptoKeyVersionRequest::name].
@@ -2492,6 +2530,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .get_public_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPublicKeyRequest::name].
@@ -2545,6 +2584,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .get_import_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetImportJobRequest::name].
@@ -2589,6 +2629,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .create_key_ring(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRingRequest::parent].
@@ -2648,6 +2689,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .create_crypto_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCryptoKeyRequest::parent].
@@ -2716,6 +2758,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .create_crypto_key_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCryptoKeyVersionRequest::parent].
@@ -2774,6 +2817,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .import_crypto_key_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportCryptoKeyVersionRequest::parent].
@@ -2858,6 +2902,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .create_import_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateImportJobRequest::parent].
@@ -2917,6 +2962,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .update_crypto_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
@@ -2976,6 +3022,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .update_crypto_key_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
@@ -3039,6 +3086,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .update_crypto_key_primary_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateCryptoKeyPrimaryVersionRequest::name].
@@ -3094,6 +3142,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .destroy_crypto_key_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DestroyCryptoKeyVersionRequest::name].
@@ -3143,6 +3192,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .restore_crypto_key_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RestoreCryptoKeyVersionRequest::name].
@@ -3184,7 +3234,10 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::EncryptResponse> {
-            (*self.0.stub).encrypt(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .encrypt(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::EncryptRequest::name].
@@ -3258,7 +3311,10 @@ pub mod key_management_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DecryptResponse> {
-            (*self.0.stub).decrypt(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .decrypt(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DecryptRequest::name].
@@ -3335,6 +3391,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .raw_encrypt(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RawEncryptRequest::name].
@@ -3426,6 +3483,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .raw_decrypt(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RawDecryptRequest::name].
@@ -3523,6 +3581,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .asymmetric_sign(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AsymmetricSignRequest::name].
@@ -3603,6 +3662,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .asymmetric_decrypt(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AsymmetricDecryptRequest::name].
@@ -3662,6 +3722,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .mac_sign(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MacSignRequest::name].
@@ -3721,6 +3782,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .mac_verify(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MacVerifyRequest::name].
@@ -3798,6 +3860,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .generate_random_bytes(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [location][crate::model::GenerateRandomBytesRequest::location].
@@ -3860,6 +3923,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3937,6 +4001,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3981,6 +4046,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -4043,6 +4109,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -4099,6 +4166,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -4157,6 +4225,7 @@ pub mod key_management_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

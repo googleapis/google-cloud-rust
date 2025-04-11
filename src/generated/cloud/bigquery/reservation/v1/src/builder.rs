@@ -96,6 +96,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .create_reservation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateReservationRequest::parent].
@@ -156,6 +157,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .list_reservations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -225,6 +227,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .get_reservation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReservationRequest::name].
@@ -270,6 +273,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .delete_reservation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteReservationRequest::name].
@@ -315,6 +319,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .update_reservation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [reservation][crate::model::UpdateReservationRequest::reservation].
@@ -372,6 +377,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .failover_reservation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::FailoverReservationRequest::name].
@@ -419,6 +425,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .create_capacity_commitment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateCapacityCommitmentRequest::parent].
@@ -489,6 +496,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .list_capacity_commitments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -563,6 +571,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .get_capacity_commitment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCapacityCommitmentRequest::name].
@@ -610,6 +619,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .delete_capacity_commitment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteCapacityCommitmentRequest::name].
@@ -663,6 +673,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .update_capacity_commitment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
@@ -724,6 +735,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .split_capacity_commitment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SplitCapacityCommitmentRequest::name].
@@ -777,6 +789,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .merge_capacity_commitments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::MergeCapacityCommitmentsRequest::parent].
@@ -833,6 +846,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .create_assignment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAssignmentRequest::parent].
@@ -890,6 +904,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .list_assignments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -962,6 +977,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .delete_assignment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAssignmentRequest::name].
@@ -1007,6 +1023,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .search_assignments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1085,6 +1102,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .search_all_assignments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1160,6 +1178,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .move_assignment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MoveAssignmentRequest::name].
@@ -1217,6 +1236,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .update_assignment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
@@ -1274,6 +1294,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .get_bi_reservation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBiReservationRequest::name].
@@ -1319,6 +1340,7 @@ pub mod reservation_service {
             (*self.0.stub)
                 .update_bi_reservation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].

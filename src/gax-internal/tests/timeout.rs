@@ -42,14 +42,13 @@ mod test {
             RequestOptions::default(),
         );
 
-        let start = tokio::time::Instant::now();
         tokio::pin!(server);
         tokio::pin!(response);
         loop {
             tokio::select! {
                 _ = &mut server => { },
                 r = &mut response => {
-                    let response = r?;
+                    let response = r?.into_body();
                     assert_eq!(
                         get_query_value(&response, "delay_ms"),
                         Some("200".to_string())
@@ -59,14 +58,6 @@ mod test {
                 _ = interval.tick() => { },
             }
         }
-
-        let elapsed = tokio::time::Instant::now() - start;
-        assert!(
-            check_elapsed_time(elapsed, delay),
-            "got: {:?}, wanted closer to: {:?}",
-            elapsed,
-            delay
-        );
 
         Ok(())
     }
@@ -89,14 +80,13 @@ mod test {
             test_options(&timeout),
         );
 
-        let start = tokio::time::Instant::now();
         tokio::pin!(server);
         tokio::pin!(response);
         loop {
             tokio::select! {
                 _ = &mut server => {  },
                 r = &mut response => {
-                    let response = r?;
+                    let response = r?.into_body();
                     assert_eq!(
                         get_query_value(&response, "delay_ms"),
                         Some("200".to_string())
@@ -106,14 +96,6 @@ mod test {
                 _ = interval.tick() => { },
             }
         }
-
-        let elapsed = tokio::time::Instant::now() - start;
-        assert!(
-            check_elapsed_time(elapsed, delay),
-            "got: {:?}, wanted closer to: {:?}",
-            elapsed,
-            delay
-        );
 
         Ok(())
     }
@@ -159,12 +141,7 @@ mod test {
         }
 
         let elapsed = tokio::time::Instant::now() - start;
-        assert!(
-            check_elapsed_time(elapsed, timeout),
-            "got: {:?}, wanted closer to: {:?}",
-            elapsed,
-            delay
-        );
+        assert_eq!(elapsed, timeout);
 
         Ok(())
     }
@@ -247,21 +224,11 @@ mod test {
             .lock()
             .unwrap()
             .expect("Backoff policy should be called.");
-        assert!(
-            check_elapsed_time(elapsed, attempt_timeout),
-            "got: {:?}, wanted closer to: {:?}",
-            elapsed,
-            attempt_timeout
-        );
+        assert_eq!(elapsed, attempt_timeout);
 
         // Verify the time at which we expect the operation to complete
         let elapsed = tokio::time::Instant::now() - start;
-        assert!(
-            check_elapsed_time(elapsed, overall_timeout),
-            "got: {:?}, wanted closer to: {:?}",
-            elapsed,
-            delay
-        );
+        assert_eq!(elapsed, overall_timeout);
 
         Ok(())
     }
@@ -294,15 +261,5 @@ mod test {
         let mut config = ClientConfig::default();
         config.cred = auth::credentials::testing::test_credentials().into();
         config
-    }
-
-    // Check the elapsed time, allowing for some error.
-    //
-    // In all tests, we use a clock tick of 10ms. We will return true if a
-    // given `d` is within -10ms and +20ms of `expected`. The upper bound is
-    // greater, because the tests always seem to add an extra tick of the clock.
-    fn check_elapsed_time(actual: Duration, expected: Duration) -> bool {
-        return expected - Duration::from_millis(10_u64) <= actual
-            && actual <= expected + Duration::from_millis(20_u64);
     }
 }

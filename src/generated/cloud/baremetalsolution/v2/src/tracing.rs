@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInstancesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInstancesResponse>> {
         self.inner.list_instances(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Instance> {
+    ) -> Result<gax::response::Response<crate::model::Instance>> {
         self.inner.get_instance(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::UpdateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_instance(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::RenameInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Instance> {
+    ) -> Result<gax::response::Response<crate::model::Instance>> {
         self.inner.rename_instance(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::ResetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.reset_instance(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::StartInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.start_instance(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::StopInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.stop_instance(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::EnableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .enable_interactive_serial_console(req, options)
             .await
@@ -116,7 +116,7 @@ where
         &self,
         req: crate::model::DisableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .disable_interactive_serial_console(req, options)
             .await
@@ -127,7 +127,7 @@ where
         &self,
         req: crate::model::DetachLunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.detach_lun(req, options).await
     }
 
@@ -136,7 +136,7 @@ where
         &self,
         req: crate::model::ListSSHKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSSHKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSSHKeysResponse>> {
         self.inner.list_ssh_keys(req, options).await
     }
 
@@ -145,7 +145,7 @@ where
         &self,
         req: crate::model::CreateSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SSHKey> {
+    ) -> Result<gax::response::Response<crate::model::SSHKey>> {
         self.inner.create_ssh_key(req, options).await
     }
 
@@ -154,7 +154,7 @@ where
         &self,
         req: crate::model::DeleteSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_ssh_key(req, options).await
     }
 
@@ -163,7 +163,7 @@ where
         &self,
         req: crate::model::ListVolumesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVolumesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVolumesResponse>> {
         self.inner.list_volumes(req, options).await
     }
 
@@ -172,7 +172,7 @@ where
         &self,
         req: crate::model::GetVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Volume> {
+    ) -> Result<gax::response::Response<crate::model::Volume>> {
         self.inner.get_volume(req, options).await
     }
 
@@ -181,7 +181,7 @@ where
         &self,
         req: crate::model::UpdateVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_volume(req, options).await
     }
 
@@ -190,7 +190,7 @@ where
         &self,
         req: crate::model::RenameVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Volume> {
+    ) -> Result<gax::response::Response<crate::model::Volume>> {
         self.inner.rename_volume(req, options).await
     }
 
@@ -199,7 +199,7 @@ where
         &self,
         req: crate::model::EvictVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.evict_volume(req, options).await
     }
 
@@ -208,7 +208,7 @@ where
         &self,
         req: crate::model::ResizeVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.resize_volume(req, options).await
     }
 
@@ -217,7 +217,7 @@ where
         &self,
         req: crate::model::ListNetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNetworksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNetworksResponse>> {
         self.inner.list_networks(req, options).await
     }
 
@@ -226,7 +226,7 @@ where
         &self,
         req: crate::model::ListNetworkUsageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNetworkUsageResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNetworkUsageResponse>> {
         self.inner.list_network_usage(req, options).await
     }
 
@@ -235,7 +235,7 @@ where
         &self,
         req: crate::model::GetNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Network> {
+    ) -> Result<gax::response::Response<crate::model::Network>> {
         self.inner.get_network(req, options).await
     }
 
@@ -244,7 +244,7 @@ where
         &self,
         req: crate::model::UpdateNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_network(req, options).await
     }
 
@@ -253,7 +253,7 @@ where
         &self,
         req: crate::model::CreateVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VolumeSnapshot> {
+    ) -> Result<gax::response::Response<crate::model::VolumeSnapshot>> {
         self.inner.create_volume_snapshot(req, options).await
     }
 
@@ -262,7 +262,7 @@ where
         &self,
         req: crate::model::RestoreVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.restore_volume_snapshot(req, options).await
     }
 
@@ -271,7 +271,7 @@ where
         &self,
         req: crate::model::DeleteVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_volume_snapshot(req, options).await
     }
 
@@ -280,7 +280,7 @@ where
         &self,
         req: crate::model::GetVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VolumeSnapshot> {
+    ) -> Result<gax::response::Response<crate::model::VolumeSnapshot>> {
         self.inner.get_volume_snapshot(req, options).await
     }
 
@@ -289,7 +289,7 @@ where
         &self,
         req: crate::model::ListVolumeSnapshotsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVolumeSnapshotsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVolumeSnapshotsResponse>> {
         self.inner.list_volume_snapshots(req, options).await
     }
 
@@ -298,7 +298,7 @@ where
         &self,
         req: crate::model::GetLunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Lun> {
+    ) -> Result<gax::response::Response<crate::model::Lun>> {
         self.inner.get_lun(req, options).await
     }
 
@@ -307,7 +307,7 @@ where
         &self,
         req: crate::model::ListLunsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLunsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLunsResponse>> {
         self.inner.list_luns(req, options).await
     }
 
@@ -316,7 +316,7 @@ where
         &self,
         req: crate::model::EvictLunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.evict_lun(req, options).await
     }
 
@@ -325,7 +325,7 @@ where
         &self,
         req: crate::model::GetNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NfsShare> {
+    ) -> Result<gax::response::Response<crate::model::NfsShare>> {
         self.inner.get_nfs_share(req, options).await
     }
 
@@ -334,7 +334,7 @@ where
         &self,
         req: crate::model::ListNfsSharesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNfsSharesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNfsSharesResponse>> {
         self.inner.list_nfs_shares(req, options).await
     }
 
@@ -343,7 +343,7 @@ where
         &self,
         req: crate::model::UpdateNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_nfs_share(req, options).await
     }
 
@@ -352,7 +352,7 @@ where
         &self,
         req: crate::model::CreateNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_nfs_share(req, options).await
     }
 
@@ -361,7 +361,7 @@ where
         &self,
         req: crate::model::RenameNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NfsShare> {
+    ) -> Result<gax::response::Response<crate::model::NfsShare>> {
         self.inner.rename_nfs_share(req, options).await
     }
 
@@ -370,7 +370,7 @@ where
         &self,
         req: crate::model::DeleteNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_nfs_share(req, options).await
     }
 
@@ -379,7 +379,7 @@ where
         &self,
         req: crate::model::ListProvisioningQuotasRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProvisioningQuotasResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProvisioningQuotasResponse>> {
         self.inner.list_provisioning_quotas(req, options).await
     }
 
@@ -388,7 +388,7 @@ where
         &self,
         req: crate::model::SubmitProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SubmitProvisioningConfigResponse> {
+    ) -> Result<gax::response::Response<crate::model::SubmitProvisioningConfigResponse>> {
         self.inner.submit_provisioning_config(req, options).await
     }
 
@@ -397,7 +397,7 @@ where
         &self,
         req: crate::model::GetProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProvisioningConfig> {
+    ) -> Result<gax::response::Response<crate::model::ProvisioningConfig>> {
         self.inner.get_provisioning_config(req, options).await
     }
 
@@ -406,7 +406,7 @@ where
         &self,
         req: crate::model::CreateProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProvisioningConfig> {
+    ) -> Result<gax::response::Response<crate::model::ProvisioningConfig>> {
         self.inner.create_provisioning_config(req, options).await
     }
 
@@ -415,7 +415,7 @@ where
         &self,
         req: crate::model::UpdateProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProvisioningConfig> {
+    ) -> Result<gax::response::Response<crate::model::ProvisioningConfig>> {
         self.inner.update_provisioning_config(req, options).await
     }
 
@@ -424,7 +424,7 @@ where
         &self,
         req: crate::model::RenameNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Network> {
+    ) -> Result<gax::response::Response<crate::model::Network>> {
         self.inner.rename_network(req, options).await
     }
 
@@ -433,7 +433,7 @@ where
         &self,
         req: crate::model::ListOSImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOSImagesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOSImagesResponse>> {
         self.inner.list_os_images(req, options).await
     }
 
@@ -442,7 +442,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -451,7 +451,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -460,7 +460,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

@@ -46,10 +46,12 @@ pub trait PolicyTroubleshooter: std::fmt::Debug + Send + Sync {
         _req: crate::model::TroubleshootIamPolicyRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::TroubleshootIamPolicyResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::TroubleshootIamPolicyResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::TroubleshootIamPolicyResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 }

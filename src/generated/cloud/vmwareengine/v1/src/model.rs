@@ -103,6 +103,9 @@ pub struct ListPrivateCloudsRequest {
     /// Currently, only ordering by `name` is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPrivateCloudsRequest {
@@ -169,6 +172,9 @@ pub struct ListPrivateCloudsResponse {
     /// wildcards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPrivateCloudsResponse {
@@ -241,6 +247,9 @@ pub struct GetPrivateCloudRequest {
     /// `projects/my-project/locations/us-central1-a/privateClouds/my-cloud`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPrivateCloudRequest {
@@ -304,6 +313,9 @@ pub struct CreatePrivateCloudRequest {
     /// Optional. True if you want the request to be validated and not executed;
     /// false otherwise.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePrivateCloudRequest {
@@ -381,6 +393,9 @@ pub struct UpdatePrivateCloudRequest {
     /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePrivateCloudRequest {
@@ -462,6 +477,9 @@ pub struct DeletePrivateCloudRequest {
     /// [google.cloud.vmwareengine.v1.VmwareEngine.UndeletePrivateCloud]: crate::client::VmwareEngine::undelete_private_cloud
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub delay_hours: std::option::Option<i32>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePrivateCloudRequest {
@@ -524,6 +542,9 @@ pub struct UndeletePrivateCloudRequest {
     /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeletePrivateCloudRequest {
@@ -606,6 +627,9 @@ pub struct ListClustersRequest {
     /// Currently, only ordering by `name` is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClustersRequest {
@@ -672,6 +696,9 @@ pub struct ListClustersResponse {
     /// wildcards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClustersResponse {
@@ -744,6 +771,9 @@ pub struct GetClusterRequest {
     /// `projects/my-project/locations/us-central1-a/privateClouds/my-cloud/clusters/my-cluster`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetClusterRequest {
@@ -807,6 +837,9 @@ pub struct CreateClusterRequest {
     /// Optional. True if you want the request to be validated and not executed;
     /// false otherwise.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateClusterRequest {
@@ -883,6 +916,9 @@ pub struct UpdateClusterRequest {
     /// Optional. True if you want the request to be validated and not executed;
     /// false otherwise.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateClusterRequest {
@@ -948,6 +984,9 @@ pub struct DeleteClusterRequest {
     /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteClusterRequest {
@@ -1005,6 +1044,9 @@ pub struct ListNodesRequest {
     /// token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNodesRequest {
@@ -1054,6 +1096,9 @@ pub struct ListNodesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNodesResponse {
@@ -1113,6 +1158,9 @@ pub struct GetNodeRequest {
     /// `projects/{project}/locations/{location}/privateClouds/{private_cloud}/clusters/{cluster}/nodes/{node}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetNodeRequest {
@@ -1202,6 +1250,9 @@ pub struct ListExternalAddressesRequest {
     /// Currently, only ordering by `name` is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListExternalAddressesRequest {
@@ -1268,6 +1319,9 @@ pub struct ListExternalAddressesResponse {
     /// wildcards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListExternalAddressesResponse {
@@ -1356,6 +1410,9 @@ pub struct FetchNetworkPolicyExternalAddressesRequest {
     /// `page_token`, must match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchNetworkPolicyExternalAddressesRequest {
@@ -1406,6 +1463,9 @@ pub struct FetchNetworkPolicyExternalAddressesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchNetworkPolicyExternalAddressesResponse {
@@ -1467,6 +1527,9 @@ pub struct GetExternalAddressRequest {
     /// `projects/my-project/locations/us-central1-a/privateClouds/my-cloud/externalAddresses/my-ip`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetExternalAddressRequest {
@@ -1539,6 +1602,9 @@ pub struct CreateExternalAddressRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateExternalAddressRequest {
@@ -1622,6 +1688,9 @@ pub struct UpdateExternalAddressRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateExternalAddressRequest {
@@ -1695,6 +1764,9 @@ pub struct DeleteExternalAddressRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteExternalAddressRequest {
@@ -1752,6 +1824,9 @@ pub struct ListSubnetsRequest {
     /// `ListSubnetsRequest` must match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSubnetsRequest {
@@ -1806,6 +1881,9 @@ pub struct ListSubnetsResponse {
     /// wildcards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSubnetsResponse {
@@ -1878,6 +1956,9 @@ pub struct GetSubnetRequest {
     /// `projects/my-project/locations/us-central1-a/privateClouds/my-cloud/subnets/my-subnet`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSubnetRequest {
@@ -1918,6 +1999,9 @@ pub struct UpdateSubnetRequest {
     /// Required. Subnet description.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub subnet: std::option::Option<crate::model::Subnet>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSubnetRequest {
@@ -2019,6 +2103,9 @@ pub struct ListExternalAccessRulesRequest {
     /// Currently, only ordering by `name` is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListExternalAccessRulesRequest {
@@ -2085,6 +2172,9 @@ pub struct ListExternalAccessRulesResponse {
     /// wildcards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListExternalAccessRulesResponse {
@@ -2157,6 +2247,9 @@ pub struct GetExternalAccessRuleRequest {
     /// `projects/my-project/locations/us-central1/networkPolicies/my-policy/externalAccessRules/my-rule`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetExternalAccessRuleRequest {
@@ -2229,6 +2322,9 @@ pub struct CreateExternalAccessRuleRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateExternalAccessRuleRequest {
@@ -2312,6 +2408,9 @@ pub struct UpdateExternalAccessRuleRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateExternalAccessRuleRequest {
@@ -2385,6 +2484,9 @@ pub struct DeleteExternalAccessRuleRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteExternalAccessRuleRequest {
@@ -2481,6 +2583,9 @@ pub struct ListLoggingServersRequest {
     /// Currently, only ordering by `name` is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLoggingServersRequest {
@@ -2547,6 +2652,9 @@ pub struct ListLoggingServersResponse {
     /// wildcards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLoggingServersResponse {
@@ -2619,6 +2727,9 @@ pub struct GetLoggingServerRequest {
     /// `projects/my-project/locations/us-central1-a/privateClouds/my-cloud/loggingServers/my-logging-server`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLoggingServerRequest {
@@ -2691,6 +2802,9 @@ pub struct CreateLoggingServerRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateLoggingServerRequest {
@@ -2774,6 +2888,9 @@ pub struct UpdateLoggingServerRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateLoggingServerRequest {
@@ -2847,6 +2964,9 @@ pub struct DeleteLoggingServerRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteLoggingServerRequest {
@@ -2912,6 +3032,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -3034,6 +3157,9 @@ pub struct ListNodeTypesRequest {
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNodeTypesRequest {
@@ -3094,6 +3220,9 @@ pub struct ListNodeTypesResponse {
     /// wildcards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNodeTypesResponse {
@@ -3166,6 +3295,9 @@ pub struct GetNodeTypeRequest {
     /// `projects/my-proj/locations/us-central1-a/nodeTypes/standard-72`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetNodeTypeRequest {
@@ -3203,6 +3335,9 @@ pub struct ShowNsxCredentialsRequest {
     /// `projects/my-project/locations/us-central1-a/privateClouds/my-cloud`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub private_cloud: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ShowNsxCredentialsRequest {
@@ -3253,6 +3388,9 @@ pub struct ShowVcenterCredentialsRequest {
     /// zertoadmin@gve.local.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub username: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ShowVcenterCredentialsRequest {
@@ -3313,6 +3451,9 @@ pub struct ResetNsxCredentialsRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResetNsxCredentialsRequest {
@@ -3385,6 +3526,9 @@ pub struct ResetVcenterCredentialsRequest {
     /// zertoadmin@gve.local.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub username: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResetVcenterCredentialsRequest {
@@ -3439,6 +3583,9 @@ pub struct ListHcxActivationKeysResponse {
     /// wildcards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListHcxActivationKeysResponse {
@@ -3527,6 +3674,9 @@ pub struct ListHcxActivationKeysRequest {
     /// token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListHcxActivationKeysRequest {
@@ -3572,6 +3722,9 @@ pub struct GetHcxActivationKeyRequest {
     /// `projects/my-project/locations/us-central1/privateClouds/my-cloud/hcxActivationKeys/my-key`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetHcxActivationKeyRequest {
@@ -3644,6 +3797,9 @@ pub struct CreateHcxActivationKeyRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateHcxActivationKeyRequest {
@@ -3706,6 +3862,9 @@ pub struct GetDnsForwardingRequest {
     /// `projects/my-project/locations/us-central1-a/privateClouds/my-cloud/dnsForwarding`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDnsForwardingRequest {
@@ -3763,6 +3922,9 @@ pub struct UpdateDnsForwardingRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDnsForwardingRequest {
@@ -3854,6 +4016,9 @@ pub struct CreateNetworkPeeringRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateNetworkPeeringRequest {
@@ -3933,6 +4098,9 @@ pub struct DeleteNetworkPeeringRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteNetworkPeeringRequest {
@@ -3975,6 +4143,9 @@ pub struct GetNetworkPeeringRequest {
     /// `projects/my-project/locations/global/networkPeerings/my-peering`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetNetworkPeeringRequest {
@@ -4062,6 +4233,9 @@ pub struct ListNetworkPeeringsRequest {
     /// Currently, only ordering by `name` is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNetworkPeeringsRequest {
@@ -4143,6 +4317,9 @@ pub struct UpdateNetworkPeeringRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateNetworkPeeringRequest {
@@ -4204,6 +4381,9 @@ pub struct ListNetworkPeeringsResponse {
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNetworkPeeringsResponse {
@@ -4296,6 +4476,9 @@ pub struct ListPeeringRoutesRequest {
     /// "direction=OUTGOING". Other filter expressions return an error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPeeringRoutesRequest {
@@ -4351,6 +4534,9 @@ pub struct ListPeeringRoutesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPeeringRoutesResponse {
@@ -4464,6 +4650,9 @@ pub struct ListNetworkPoliciesRequest {
     /// Currently, only ordering by `name` is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNetworkPoliciesRequest {
@@ -4530,6 +4719,9 @@ pub struct ListNetworkPoliciesResponse {
     /// wildcards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListNetworkPoliciesResponse {
@@ -4602,6 +4794,9 @@ pub struct GetNetworkPolicyRequest {
     /// `projects/my-project/locations/us-central1/networkPolicies/my-network-policy`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetNetworkPolicyRequest {
@@ -4659,6 +4854,9 @@ pub struct UpdateNetworkPolicyRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateNetworkPolicyRequest {
@@ -4752,6 +4950,9 @@ pub struct CreateNetworkPolicyRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateNetworkPolicyRequest {
@@ -4831,6 +5032,9 @@ pub struct DeleteNetworkPolicyRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteNetworkPolicyRequest {
@@ -4927,6 +5131,9 @@ pub struct ListManagementDnsZoneBindingsRequest {
     /// Currently, only ordering by `name` is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListManagementDnsZoneBindingsRequest {
@@ -4993,6 +5200,9 @@ pub struct ListManagementDnsZoneBindingsResponse {
     /// wildcards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListManagementDnsZoneBindingsResponse {
@@ -5065,6 +5275,9 @@ pub struct GetManagementDnsZoneBindingRequest {
     /// `projects/my-project/locations/us-central1-a/privateClouds/my-cloud/managementDnsZoneBindings/my-management-dns-zone-binding`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetManagementDnsZoneBindingRequest {
@@ -5135,6 +5348,9 @@ pub struct CreateManagementDnsZoneBindingRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateManagementDnsZoneBindingRequest {
@@ -5218,6 +5434,9 @@ pub struct UpdateManagementDnsZoneBindingRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateManagementDnsZoneBindingRequest {
@@ -5291,6 +5510,9 @@ pub struct DeleteManagementDnsZoneBindingRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteManagementDnsZoneBindingRequest {
@@ -5347,6 +5569,9 @@ pub struct RepairManagementDnsZoneBindingRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RepairManagementDnsZoneBindingRequest {
@@ -5429,6 +5654,9 @@ pub struct CreateVmwareEngineNetworkRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateVmwareEngineNetworkRequest {
@@ -5513,6 +5741,9 @@ pub struct UpdateVmwareEngineNetworkRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateVmwareEngineNetworkRequest {
@@ -5593,6 +5824,9 @@ pub struct DeleteVmwareEngineNetworkRequest {
     /// value is out of date, this request returns an `ABORTED` error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteVmwareEngineNetworkRequest {
@@ -5641,6 +5875,9 @@ pub struct GetVmwareEngineNetworkRequest {
     /// `projects/my-project/locations/global/vmwareEngineNetworks/my-network`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetVmwareEngineNetworkRequest {
@@ -5728,6 +5965,9 @@ pub struct ListVmwareEngineNetworksRequest {
     /// Currently, only ordering by `name` is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVmwareEngineNetworksRequest {
@@ -5793,6 +6033,9 @@ pub struct ListVmwareEngineNetworksResponse {
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVmwareEngineNetworksResponse {
@@ -5900,6 +6143,9 @@ pub struct CreatePrivateConnectionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreatePrivateConnectionRequest {
@@ -5962,6 +6208,9 @@ pub struct GetPrivateConnectionRequest {
     /// `projects/my-project/locations/us-central1/privateConnections/my-connection`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPrivateConnectionRequest {
@@ -6049,6 +6298,9 @@ pub struct ListPrivateConnectionsRequest {
     /// Currently, only ordering by `name` is supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPrivateConnectionsRequest {
@@ -6114,6 +6366,9 @@ pub struct ListPrivateConnectionsResponse {
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPrivateConnectionsResponse {
@@ -6207,6 +6462,9 @@ pub struct UpdatePrivateConnectionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePrivateConnectionRequest {
@@ -6280,6 +6538,9 @@ pub struct DeletePrivateConnectionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePrivateConnectionRequest {
@@ -6334,6 +6595,9 @@ pub struct ListPrivateConnectionPeeringRoutesRequest {
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPrivateConnectionPeeringRoutesRequest {
@@ -6383,6 +6647,9 @@ pub struct ListPrivateConnectionPeeringRoutesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListPrivateConnectionPeeringRoutesResponse {
@@ -6468,6 +6735,9 @@ pub struct GrantDnsBindPermissionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GrantDnsBindPermissionRequest {
@@ -6543,6 +6813,9 @@ pub struct RevokeDnsBindPermissionRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RevokeDnsBindPermissionRequest {
@@ -6595,6 +6868,9 @@ pub struct GetDnsBindPermissionRequest {
     /// `projects/my-project/locations/global/dnsBindPermission`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDnsBindPermissionRequest {
@@ -6655,6 +6931,9 @@ pub struct NetworkConfig {
     /// ESXi hosts.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub dns_server_ip: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NetworkConfig {
@@ -6722,6 +7001,9 @@ pub struct NodeTypeConfig {
     /// If zero is provided max value from `nodeType.availableCustomCoreCounts`
     /// will be used.
     pub custom_core_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NodeTypeConfig {
@@ -6769,6 +7051,9 @@ pub struct StretchedClusterConfig {
     /// be a project number or a project ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secondary_location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StretchedClusterConfig {
@@ -6873,6 +7158,9 @@ pub struct PrivateCloud {
     /// Optional. Type of the private cloud. Defaults to STANDARD.
     #[serde(rename = "type")]
     pub r#type: crate::model::private_cloud::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrivateCloud {
@@ -7041,6 +7329,9 @@ pub mod private_cloud {
         /// private clouds.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub stretched_cluster_config: std::option::Option<crate::model::StretchedClusterConfig>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ManagementCluster {
@@ -7273,6 +7564,9 @@ pub struct Cluster {
     /// belong to a STRETCHED private cloud.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub stretched_cluster_config: std::option::Option<crate::model::StretchedClusterConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Cluster {
@@ -7482,6 +7776,9 @@ pub struct Node {
 
     /// Output only. The state of the appliance.
     pub state: crate::model::node::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Node {
@@ -7652,6 +7949,9 @@ pub struct ExternalAddress {
     /// User-provided description for this resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExternalAddress {
@@ -7831,6 +8131,9 @@ pub struct Subnet {
 
     /// Output only. VLAN ID of the VLAN on which the subnet is configured
     pub vlan_id: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Subnet {
@@ -8051,6 +8354,9 @@ pub struct ExternalAccessRule {
     /// Output only. System-generated unique identifier for the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExternalAccessRule {
@@ -8188,6 +8494,9 @@ pub mod external_access_rule {
     pub struct IpRange {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub ip_range: std::option::Option<crate::model::external_access_rule::ip_range::IpRange>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IpRange {
@@ -8485,6 +8794,9 @@ pub struct LoggingServer {
     /// Output only. System-generated unique identifier for the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LoggingServer {
@@ -8749,6 +9061,9 @@ pub struct NodeType {
     /// Output only. Capabilities of this node type.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub capabilities: std::vec::Vec<crate::model::node_type::Capability>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NodeType {
@@ -8973,6 +9288,9 @@ pub struct Credentials {
     /// Initial password.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub password: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Credentials {
@@ -9037,6 +9355,9 @@ pub struct HcxActivationKey {
     /// Output only. System-generated unique identifier for the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uid: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HcxActivationKey {
@@ -9175,6 +9496,9 @@ pub struct Hcx {
     /// Fully qualified domain name of the appliance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub fqdn: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Hcx {
@@ -9301,6 +9625,9 @@ pub struct Nsx {
     /// Fully qualified domain name of the appliance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub fqdn: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Nsx {
@@ -9422,6 +9749,9 @@ pub struct Vcenter {
     /// Fully qualified domain name of the appliance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub fqdn: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Vcenter {
@@ -9563,6 +9893,9 @@ pub struct AutoscalingSettings {
     /// minutes (for example, 30, 31, 50, 180 minutes).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cool_down_period: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AutoscalingSettings {
@@ -9627,6 +9960,9 @@ pub mod autoscaling_settings {
 
         /// Required. The utilization triggering the scale-in operation in percent.
         pub scale_in: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Thresholds {
@@ -9693,6 +10029,9 @@ pub mod autoscaling_settings {
         /// storage.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub storage_thresholds: std::option::Option<crate::model::autoscaling_settings::Thresholds>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AutoscalingPolicy {
@@ -9794,6 +10133,9 @@ pub struct DnsForwarding {
     /// Required. List of domain mappings to configure
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub forwarding_rules: std::vec::Vec<crate::model::dns_forwarding::ForwardingRule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DnsForwarding {
@@ -9864,6 +10206,9 @@ pub mod dns_forwarding {
         /// Required. List of DNS servers to use for domain resolution
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub name_servers: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ForwardingRule {
@@ -9994,6 +10339,9 @@ pub struct NetworkPeering {
     /// Optional. User-provided description for this network peering.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NetworkPeering {
@@ -10343,6 +10691,9 @@ pub struct PeeringRoute {
     /// * Routes of direction `OUTGOING` are exported from the intranet VPC network
     ///   of the VMware Engine network.
     pub direction: crate::model::peering_route::Direction,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PeeringRoute {
@@ -10588,6 +10939,9 @@ pub struct NetworkPolicy {
     /// `projects/{project_number}/locations/{location}/vmwareEngineNetworks/{vmware_engine_network_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub vmware_engine_network_canonical: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NetworkPolicy {
@@ -10708,6 +11062,9 @@ pub mod network_policy {
         /// Output only. State of the service. New values may be added to this enum
         /// when appropriate.
         pub state: crate::model::network_policy::network_service::State,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NetworkService {
@@ -10851,6 +11208,9 @@ pub struct ManagementDnsZoneBinding {
     /// VMware engine network.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub bind_network: std::option::Option<crate::model::management_dns_zone_binding::BindNetwork>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ManagementDnsZoneBinding {
@@ -11124,6 +11484,9 @@ pub struct VmwareEngineNetwork {
     /// request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VmwareEngineNetwork {
@@ -11231,6 +11594,9 @@ pub mod vmware_engine_network {
         /// `projects/123123/global/networks/my-network`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub network: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl VpcNetwork {
@@ -11544,6 +11910,9 @@ pub struct PrivateConnection {
     /// Output only. Peering state between service network and VMware Engine
     /// network.
     pub peering_state: crate::model::private_connection::PeeringState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrivateConnection {
@@ -11949,6 +12318,9 @@ pub struct LocationMetadata {
     /// Output only. Capabilities of this location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub capabilities: std::vec::Vec<crate::model::location_metadata::Capability>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocationMetadata {
@@ -12054,6 +12426,9 @@ pub struct DnsBindPermission {
     /// intranet VPC project corresponding to the consumer project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub principals: std::vec::Vec<crate::model::Principal>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DnsBindPermission {
@@ -12097,6 +12472,9 @@ pub struct Principal {
     /// consumer project.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub principal: std::option::Option<crate::model::principal::Principal>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Principal {

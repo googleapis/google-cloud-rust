@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetGoogleServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GoogleServiceAccount> {
+    ) -> Result<gax::response::Response<crate::model::GoogleServiceAccount>> {
         self.inner.get_google_service_account(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::CreateTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TransferJob> {
+    ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         self.inner.create_transfer_job(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::UpdateTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TransferJob> {
+    ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         self.inner.update_transfer_job(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TransferJob> {
+    ) -> Result<gax::response::Response<crate::model::TransferJob>> {
         self.inner.get_transfer_job(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::ListTransferJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTransferJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTransferJobsResponse>> {
         self.inner.list_transfer_jobs(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::PauseTransferOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.pause_transfer_operation(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::ResumeTransferOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.resume_transfer_operation(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::RunTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.run_transfer_job(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::DeleteTransferJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_transfer_job(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::CreateAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AgentPool> {
+    ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         self.inner.create_agent_pool(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::UpdateAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AgentPool> {
+    ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         self.inner.update_agent_pool(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::GetAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AgentPool> {
+    ) -> Result<gax::response::Response<crate::model::AgentPool>> {
         self.inner.get_agent_pool(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::ListAgentPoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAgentPoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAgentPoolsResponse>> {
         self.inner.list_agent_pools(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::DeleteAgentPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_agent_pool(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

@@ -45,10 +45,12 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ContainerAnalysis::get_iam_policy].
@@ -56,10 +58,12 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ContainerAnalysis::test_iam_permissions].
@@ -67,11 +71,12 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContainerAnalysis::get_vulnerability_occurrences_summary].
@@ -80,11 +85,13 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         _req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::VulnerabilityOccurrencesSummary>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::VulnerabilityOccurrencesSummary>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ContainerAnalysis::export_sbom].
@@ -92,10 +99,11 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ExportSBOMRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ExportSBOMResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ExportSBOMResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ExportSBOMResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ExportSBOMResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

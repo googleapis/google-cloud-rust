@@ -44,7 +44,7 @@ impl super::stub::FleetRouting for FleetRouting {
         &self,
         req: crate::model::OptimizeToursRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OptimizeToursResponse> {
+    ) -> Result<gax::response::Response<crate::model::OptimizeToursResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -64,7 +64,7 @@ impl super::stub::FleetRouting for FleetRouting {
         &self,
         req: crate::model::BatchOptimizeToursRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -84,7 +84,7 @@ impl super::stub::FleetRouting for FleetRouting {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

@@ -98,6 +98,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .export_assets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_assets`.
@@ -219,6 +220,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .list_assets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -325,6 +327,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .batch_get_assets_history(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchGetAssetsHistoryRequest::parent].
@@ -404,6 +407,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .create_feed(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeedRequest::parent].
@@ -458,6 +462,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .get_feed(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFeedRequest::name].
@@ -500,6 +505,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .list_feeds(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListFeedsRequest::parent].
@@ -542,6 +548,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .update_feed(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [feed][crate::model::UpdateFeedRequest::feed].
@@ -593,6 +600,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .delete_feed(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeedRequest::name].
@@ -638,6 +646,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .search_all_resources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -739,6 +748,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .search_all_iam_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -834,6 +844,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyRequest::analysis_query].
@@ -906,6 +917,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_iam_policy_longrunning(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `analyze_iam_policy_longrunning`.
@@ -1008,6 +1020,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_move(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][crate::model::AnalyzeMoveRequest::resource].
@@ -1065,6 +1078,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .query_assets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::QueryAssetsRequest::parent].
@@ -1157,6 +1171,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .create_saved_query(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateSavedQueryRequest::parent].
@@ -1214,6 +1229,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .get_saved_query(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSavedQueryRequest::name].
@@ -1259,6 +1275,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .list_saved_queries(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1337,6 +1354,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .update_saved_query(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [saved_query][crate::model::UpdateSavedQueryRequest::saved_query].
@@ -1394,6 +1412,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .delete_saved_query(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteSavedQueryRequest::name].
@@ -1441,6 +1460,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .batch_get_effective_iam_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [scope][crate::model::BatchGetEffectiveIamPoliciesRequest::scope].
@@ -1497,6 +1517,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_org_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1585,6 +1606,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_org_policy_governed_containers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1673,6 +1695,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .analyze_org_policy_governed_assets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1759,6 +1782,7 @@ pub mod asset_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

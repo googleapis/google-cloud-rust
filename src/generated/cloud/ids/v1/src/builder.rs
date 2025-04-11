@@ -93,6 +93,7 @@ pub mod ids {
             (*self.0.stub)
                 .list_endpoints(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod ids {
             (*self.0.stub)
                 .get_endpoint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEndpointRequest::name].
@@ -221,6 +223,7 @@ pub mod ids {
             (*self.0.stub)
                 .create_endpoint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_endpoint`.
@@ -322,6 +325,7 @@ pub mod ids {
             (*self.0.stub)
                 .delete_endpoint(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_endpoint`.
@@ -403,6 +407,7 @@ pub mod ids {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -481,6 +486,7 @@ pub mod ids {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -526,6 +532,7 @@ pub mod ids {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -571,6 +578,7 @@ pub mod ids {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

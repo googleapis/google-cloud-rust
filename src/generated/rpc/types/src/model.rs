@@ -19,6 +19,7 @@
 #![no_implicit_prelude]
 extern crate bytes;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -84,6 +85,9 @@ pub struct ErrorInfo {
     /// instances that can be created in a single (batch) request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ErrorInfo {
@@ -143,6 +147,9 @@ pub struct RetryInfo {
     /// Clients should wait at least this long between retrying the same request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub retry_delay: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetryInfo {
@@ -179,6 +186,9 @@ pub struct DebugInfo {
     /// Additional debugging information provided by the server.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub detail: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DebugInfo {
@@ -229,6 +239,9 @@ pub struct QuotaFailure {
     /// Describes all quota violations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub violations: std::vec::Vec<crate::model::quota_failure::Violation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl QuotaFailure {
@@ -281,6 +294,9 @@ pub mod quota_failure {
         /// exceeded".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub description: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Violation {
@@ -321,6 +337,9 @@ pub struct PreconditionFailure {
     /// Describes all precondition violations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub violations: std::vec::Vec<crate::model::precondition_failure::Violation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PreconditionFailure {
@@ -376,6 +395,9 @@ pub mod precondition_failure {
         /// For example: "Terms of service not accepted".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub description: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Violation {
@@ -419,6 +441,9 @@ pub struct BadRequest {
     /// Describes all violations in a client request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub field_violations: std::vec::Vec<crate::model::bad_request::FieldViolation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BadRequest {
@@ -514,6 +539,9 @@ pub mod bad_request {
         /// return to the API consumer.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub localized_message: std::option::Option<crate::model::LocalizedMessage>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl FieldViolation {
@@ -574,6 +602,9 @@ pub struct RequestInfo {
     /// stack trace that can be sent back to the service provider for debugging.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub serving_data: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RequestInfo {
@@ -632,6 +663,9 @@ pub struct ResourceInfo {
     /// on the developer console project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResourceInfo {
@@ -683,6 +717,9 @@ pub struct Help {
     /// URL(s) pointing to additional information on handling the current error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub links: std::vec::Vec<crate::model::help::Link>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Help {
@@ -726,6 +763,9 @@ pub mod help {
         /// The URL of the link.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub url: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Link {
@@ -769,6 +809,9 @@ pub struct LocalizedMessage {
     /// The localized error message in the above locale.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub message: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocalizedMessage {
@@ -818,6 +861,9 @@ pub struct HttpRequest {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub body: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HttpRequest {
@@ -883,6 +929,9 @@ pub struct HttpResponse {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub body: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HttpResponse {
@@ -939,6 +988,9 @@ pub struct HttpHeader {
     /// The HTTP header value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HttpHeader {
@@ -996,6 +1048,9 @@ pub struct Status {
     /// message types for APIs to use.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub details: std::vec::Vec<wkt::Any>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Status {

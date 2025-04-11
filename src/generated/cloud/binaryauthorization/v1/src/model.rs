@@ -100,6 +100,9 @@ pub struct Policy {
     /// Output only. Time when the policy was last updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Policy {
@@ -300,6 +303,9 @@ pub struct AdmissionWhitelistPattern {
     /// wildcard which matches subdirectories of a given entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name_pattern: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdmissionWhitelistPattern {
@@ -352,6 +358,9 @@ pub struct AdmissionRule {
 
     /// Required. The action when a pod creation is denied by the admission rule.
     pub enforcement_mode: crate::model::admission_rule::EnforcementMode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdmissionRule {
@@ -559,6 +568,9 @@ pub struct Attestor {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub attestor_type: std::option::Option<crate::model::attestor::AttestorType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Attestor {
@@ -694,6 +706,9 @@ pub struct UserOwnedGrafeasNote {
     /// future versions may use an email based on a different naming pattern.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub delegation_service_account_email: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UserOwnedGrafeasNote {
@@ -754,6 +769,9 @@ pub struct PkixPublicKey {
     /// identifiers encoded in `public_key_pem` (i.e. this algorithm must match
     /// that of the public key).
     pub signature_algorithm: crate::model::pkix_public_key::SignatureAlgorithm,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PkixPublicKey {
@@ -945,6 +963,9 @@ pub struct AttestorPublicKey {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub public_key: std::option::Option<crate::model::attestor_public_key::PublicKey>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttestorPublicKey {
@@ -1082,6 +1103,9 @@ pub struct GetPolicyRequest {
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPolicyRequest {
@@ -1116,6 +1140,9 @@ pub struct UpdatePolicyRequest {
     /// [google.cloud.binaryauthorization.v1.Policy.name]: crate::model::Policy::name
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub policy: std::option::Option<crate::model::Policy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePolicyRequest {
@@ -1165,6 +1192,9 @@ pub struct CreateAttestorRequest {
     /// [google.cloud.binaryauthorization.v1.Attestor.name]: crate::model::Attestor::name
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub attestor: std::option::Option<crate::model::Attestor>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAttestorRequest {
@@ -1212,6 +1242,9 @@ pub struct GetAttestorRequest {
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAttestorRequest {
@@ -1246,6 +1279,9 @@ pub struct UpdateAttestorRequest {
     /// [google.cloud.binaryauthorization.v1.Attestor.name]: crate::model::Attestor::name
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub attestor: std::option::Option<crate::model::Attestor>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAttestorRequest {
@@ -1293,6 +1329,9 @@ pub struct ListAttestorsRequest {
     /// [google.cloud.binaryauthorization.v1.ListAttestorsResponse.next_page_token]: crate::model::ListAttestorsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAttestorsRequest {
@@ -1344,6 +1383,9 @@ pub struct ListAttestorsResponse {
     /// [google.cloud.binaryauthorization.v1.ListAttestorsRequest.page_token]: crate::model::ListAttestorsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAttestorsResponse {
@@ -1401,6 +1443,9 @@ pub struct DeleteAttestorRequest {
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAttestorRequest {
@@ -1431,6 +1476,9 @@ pub struct GetSystemPolicyRequest {
     /// Note that the system policy is not associated with a project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSystemPolicyRequest {
@@ -1486,6 +1534,9 @@ pub struct ValidateAttestationOccurrenceRequest {
     /// subject of the containing [Occurrence][grafeas.v1.Occurrence].
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub occurrence_resource_uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ValidateAttestationOccurrenceRequest {
@@ -1547,6 +1598,9 @@ pub struct ValidateAttestationOccurrenceResponse {
     /// The reason for denial if the Attestation couldn't be validated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub denial_reason: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ValidateAttestationOccurrenceResponse {

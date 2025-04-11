@@ -29,6 +29,7 @@ rust-version.workspace = true
 [dependencies]
 bytes      = { version = "1", features = ["serde"] }
 serde      = { version = "1", features = ["serde_derive"] }
+serde_json = { version = "1" }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 wkt        = { version = "0.3", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
 

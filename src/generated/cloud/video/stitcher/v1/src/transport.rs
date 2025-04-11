@@ -44,7 +44,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::CreateCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -64,7 +64,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::ListCdnKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCdnKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCdnKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -87,7 +87,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::GetCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CdnKey> {
+    ) -> Result<gax::response::Response<crate::model::CdnKey>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -106,7 +106,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::DeleteCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -125,7 +125,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::UpdateCdnKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -163,7 +163,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::CreateVodSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodSession> {
+    ) -> Result<gax::response::Response<crate::model::VodSession>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -185,7 +185,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::GetVodSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodSession> {
+    ) -> Result<gax::response::Response<crate::model::VodSession>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -204,7 +204,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::ListVodStitchDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVodStitchDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVodStitchDetailsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -228,7 +228,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::GetVodStitchDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodStitchDetail> {
+    ) -> Result<gax::response::Response<crate::model::VodStitchDetail>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -247,7 +247,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::ListVodAdTagDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVodAdTagDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVodAdTagDetailsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -271,7 +271,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::GetVodAdTagDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodAdTagDetail> {
+    ) -> Result<gax::response::Response<crate::model::VodAdTagDetail>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -290,7 +290,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::ListLiveAdTagDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLiveAdTagDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -314,7 +314,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::GetLiveAdTagDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveAdTagDetail> {
+    ) -> Result<gax::response::Response<crate::model::LiveAdTagDetail>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -333,7 +333,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::CreateSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -352,7 +352,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::ListSlatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSlatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSlatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -375,7 +375,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::GetSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Slate> {
+    ) -> Result<gax::response::Response<crate::model::Slate>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -394,7 +394,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::UpdateSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -430,7 +430,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::DeleteSlateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -449,7 +449,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::CreateLiveSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveSession> {
+    ) -> Result<gax::response::Response<crate::model::LiveSession>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -471,7 +471,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::GetLiveSessionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveSession> {
+    ) -> Result<gax::response::Response<crate::model::LiveSession>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -490,7 +490,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::CreateLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -514,7 +514,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::ListLiveConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLiveConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLiveConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -540,7 +540,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::GetLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LiveConfig> {
+    ) -> Result<gax::response::Response<crate::model::LiveConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -559,7 +559,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::DeleteLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -578,7 +578,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::UpdateLiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -616,7 +616,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::CreateVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -640,7 +640,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::ListVodConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVodConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVodConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -666,7 +666,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::GetVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VodConfig> {
+    ) -> Result<gax::response::Response<crate::model::VodConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -685,7 +685,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::DeleteVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -704,7 +704,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: crate::model::UpdateVodConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -742,7 +742,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -764,7 +764,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -783,7 +783,7 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -796,14 +796,17 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -813,10 +816,12 @@ impl super::stub::VideoStitcherService for VideoStitcherService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

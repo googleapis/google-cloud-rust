@@ -100,6 +100,7 @@ pub mod advisory_notifications_service {
             (*self.0.stub)
                 .list_notifications(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -183,6 +184,7 @@ pub mod advisory_notifications_service {
             (*self.0.stub)
                 .get_notification(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetNotificationRequest::name].
@@ -233,6 +235,7 @@ pub mod advisory_notifications_service {
             (*self.0.stub)
                 .get_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
@@ -277,6 +280,7 @@ pub mod advisory_notifications_service {
             (*self.0.stub)
                 .update_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].

@@ -46,11 +46,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListMembershipsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListMembershipsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListMembershipsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListMembershipsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListMembershipsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::GkeHub::list_features].
@@ -58,11 +59,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListFeaturesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListFeaturesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListFeaturesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListFeaturesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListFeaturesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::GkeHub::get_membership].
@@ -70,10 +72,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetMembershipRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Membership>> + Send {
-        std::future::ready::<crate::Result<crate::model::Membership>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Membership>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Membership>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::GkeHub::get_feature].
@@ -81,10 +85,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetFeatureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Feature>> + Send {
-        std::future::ready::<crate::Result<crate::model::Feature>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Feature>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Feature>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::GkeHub::create_membership].
@@ -92,11 +98,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateMembershipRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::GkeHub::create_feature].
@@ -104,11 +111,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateFeatureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::GkeHub::delete_membership].
@@ -116,11 +124,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteMembershipRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::GkeHub::delete_feature].
@@ -128,11 +137,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteFeatureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::GkeHub::update_membership].
@@ -140,11 +150,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateMembershipRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::GkeHub::update_feature].
@@ -152,11 +163,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateFeatureRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::GkeHub::generate_connect_manifest].
@@ -165,11 +177,13 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         _req: crate::model::GenerateConnectManifestRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GenerateConnectManifestResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateConnectManifestResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::GenerateConnectManifestResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateConnectManifestResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::GkeHub::list_operations].
@@ -177,11 +191,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::GkeHub::get_operation].
@@ -189,11 +204,12 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::GkeHub::delete_operation].
@@ -201,8 +217,10 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::GkeHub::cancel_operation].
@@ -210,8 +228,10 @@ pub trait GkeHub: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

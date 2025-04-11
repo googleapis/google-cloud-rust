@@ -44,7 +44,7 @@ impl super::stub::ConnectionService for ConnectionService {
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -67,7 +67,7 @@ impl super::stub::ConnectionService for ConnectionService {
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -86,7 +86,7 @@ impl super::stub::ConnectionService for ConnectionService {
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -110,7 +110,7 @@ impl super::stub::ConnectionService for ConnectionService {
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -139,7 +139,7 @@ impl super::stub::ConnectionService for ConnectionService {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -152,14 +152,17 @@ impl super::stub::ConnectionService for ConnectionService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -179,7 +182,7 @@ impl super::stub::ConnectionService for ConnectionService {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -199,7 +202,7 @@ impl super::stub::ConnectionService for ConnectionService {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner

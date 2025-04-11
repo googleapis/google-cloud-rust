@@ -46,11 +46,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListInstancesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListInstancesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListInstancesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::get_instance].
@@ -58,10 +59,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Instance>> + Send {
-        std::future::ready::<crate::Result<crate::model::Instance>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Instance>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BareMetalSolution::update_instance].
@@ -69,11 +72,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::rename_instance].
@@ -81,10 +85,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RenameInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Instance>> + Send {
-        std::future::ready::<crate::Result<crate::model::Instance>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Instance>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BareMetalSolution::reset_instance].
@@ -92,11 +98,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ResetInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::start_instance].
@@ -104,11 +111,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::StartInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::stop_instance].
@@ -116,11 +124,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::StopInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::enable_interactive_serial_console].
@@ -128,11 +137,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EnableInteractiveSerialConsoleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::disable_interactive_serial_console].
@@ -140,11 +150,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DisableInteractiveSerialConsoleRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::detach_lun].
@@ -152,11 +163,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DetachLunRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::list_ssh_keys].
@@ -164,11 +176,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSSHKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSSHKeysResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListSSHKeysResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSSHKeysResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListSSHKeysResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::create_ssh_key].
@@ -176,10 +189,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSSHKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SSHKey>> + Send {
-        std::future::ready::<crate::Result<crate::model::SSHKey>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SSHKey>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SSHKey>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BareMetalSolution::delete_ssh_key].
@@ -187,8 +202,10 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSSHKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BareMetalSolution::list_volumes].
@@ -196,11 +213,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVolumesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListVolumesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListVolumesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListVolumesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListVolumesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::get_volume].
@@ -208,10 +226,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVolumeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Volume>> + Send {
-        std::future::ready::<crate::Result<crate::model::Volume>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Volume>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Volume>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BareMetalSolution::update_volume].
@@ -219,11 +239,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateVolumeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::rename_volume].
@@ -231,10 +252,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RenameVolumeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Volume>> + Send {
-        std::future::ready::<crate::Result<crate::model::Volume>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Volume>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Volume>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BareMetalSolution::evict_volume].
@@ -242,11 +265,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EvictVolumeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::resize_volume].
@@ -254,11 +278,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ResizeVolumeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::list_networks].
@@ -266,11 +291,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListNetworksRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListNetworksResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListNetworksResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListNetworksResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListNetworksResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::list_network_usage].
@@ -278,11 +304,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListNetworkUsageRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListNetworkUsageResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListNetworkUsageResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListNetworkUsageResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListNetworkUsageResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::get_network].
@@ -290,10 +317,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetNetworkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Network>> + Send {
-        std::future::ready::<crate::Result<crate::model::Network>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Network>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Network>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BareMetalSolution::update_network].
@@ -301,11 +330,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateNetworkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::create_volume_snapshot].
@@ -313,10 +343,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateVolumeSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VolumeSnapshot>> + Send {
-        std::future::ready::<crate::Result<crate::model::VolumeSnapshot>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VolumeSnapshot>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::VolumeSnapshot>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::restore_volume_snapshot].
@@ -324,11 +356,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RestoreVolumeSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::delete_volume_snapshot].
@@ -336,8 +369,10 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteVolumeSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BareMetalSolution::get_volume_snapshot].
@@ -345,10 +380,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVolumeSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VolumeSnapshot>> + Send {
-        std::future::ready::<crate::Result<crate::model::VolumeSnapshot>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VolumeSnapshot>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::VolumeSnapshot>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::list_volume_snapshots].
@@ -356,11 +393,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVolumeSnapshotsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListVolumeSnapshotsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListVolumeSnapshotsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListVolumeSnapshotsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListVolumeSnapshotsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::get_lun].
@@ -368,8 +406,11 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLunRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Lun>> + Send {
-        std::future::ready::<crate::Result<crate::model::Lun>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Lun>>>
+    + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Lun>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BareMetalSolution::list_luns].
@@ -377,11 +418,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListLunsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLunsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListLunsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListLunsResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListLunsResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::evict_lun].
@@ -389,11 +431,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EvictLunRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::get_nfs_share].
@@ -401,10 +444,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetNfsShareRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::NfsShare>> + Send {
-        std::future::ready::<crate::Result<crate::model::NfsShare>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::NfsShare>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::NfsShare>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BareMetalSolution::list_nfs_shares].
@@ -412,11 +457,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListNfsSharesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListNfsSharesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListNfsSharesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListNfsSharesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListNfsSharesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::update_nfs_share].
@@ -424,11 +470,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateNfsShareRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::create_nfs_share].
@@ -436,11 +483,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateNfsShareRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::rename_nfs_share].
@@ -448,10 +496,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RenameNfsShareRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::NfsShare>> + Send {
-        std::future::ready::<crate::Result<crate::model::NfsShare>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::NfsShare>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::NfsShare>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BareMetalSolution::delete_nfs_share].
@@ -459,11 +509,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteNfsShareRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::list_provisioning_quotas].
@@ -472,11 +523,13 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListProvisioningQuotasRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListProvisioningQuotasResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListProvisioningQuotasResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListProvisioningQuotasResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListProvisioningQuotasResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::submit_provisioning_config].
@@ -485,11 +538,13 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         _req: crate::model::SubmitProvisioningConfigRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::SubmitProvisioningConfigResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::SubmitProvisioningConfigResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::SubmitProvisioningConfigResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SubmitProvisioningConfigResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::get_provisioning_config].
@@ -497,11 +552,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetProvisioningConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ProvisioningConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ProvisioningConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::create_provisioning_config].
@@ -509,11 +565,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateProvisioningConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ProvisioningConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ProvisioningConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::update_provisioning_config].
@@ -521,11 +578,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateProvisioningConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ProvisioningConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ProvisioningConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProvisioningConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::rename_network].
@@ -533,10 +591,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RenameNetworkRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Network>> + Send {
-        std::future::ready::<crate::Result<crate::model::Network>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Network>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Network>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BareMetalSolution::list_os_images].
@@ -544,11 +604,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListOSImagesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListOSImagesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListOSImagesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListOSImagesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListOSImagesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::list_locations].
@@ -556,11 +617,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BareMetalSolution::get_location].
@@ -568,10 +630,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BareMetalSolution::get_operation].
@@ -579,11 +643,12 @@ pub trait BareMetalSolution: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Returns the polling error policy.

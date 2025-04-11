@@ -44,7 +44,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::ExportAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -64,7 +64,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::ListAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAssetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAssetsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -103,7 +103,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::BatchGetAssetsHistoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchGetAssetsHistoryResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchGetAssetsHistoryResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -143,7 +143,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::CreateFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Feed> {
+    ) -> Result<gax::response::Response<crate::model::Feed>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -160,7 +160,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::GetFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Feed> {
+    ) -> Result<gax::response::Response<crate::model::Feed>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -179,7 +179,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::ListFeedsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFeedsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFeedsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -198,7 +198,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::UpdateFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Feed> {
+    ) -> Result<gax::response::Response<crate::model::Feed>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -224,7 +224,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::DeleteFeedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -237,14 +237,17 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn search_all_resources(
         &self,
         req: crate::model::SearchAllResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchAllResourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchAllResourcesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -284,7 +287,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::SearchAllIamPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchAllIamPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchAllIamPoliciesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -314,7 +317,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::AnalyzeIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeIamPolicyResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeIamPolicyResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -363,7 +366,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::AnalyzeIamPolicyLongrunningRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -389,7 +392,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::AnalyzeMoveRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeMoveResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeMoveResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -413,7 +416,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::QueryAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryAssetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryAssetsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -433,7 +436,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::CreateSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SavedQuery> {
+    ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -456,7 +459,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::GetSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SavedQuery> {
+    ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -475,7 +478,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::ListSavedQueriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSavedQueriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSavedQueriesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -500,7 +503,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::UpdateSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SavedQuery> {
+    ) -> Result<gax::response::Response<crate::model::SavedQuery>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -538,7 +541,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::DeleteSavedQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -551,14 +554,17 @@ impl super::stub::AssetService for AssetService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn batch_get_effective_iam_policies(
         &self,
         req: crate::model::BatchGetEffectiveIamPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchGetEffectiveIamPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchGetEffectiveIamPoliciesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -584,7 +590,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::AnalyzeOrgPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeOrgPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPoliciesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -613,7 +619,8 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::AnalyzeOrgPolicyGovernedContainersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeOrgPolicyGovernedContainersResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedContainersResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -642,7 +649,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: crate::model::AnalyzeOrgPolicyGovernedAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::AnalyzeOrgPolicyGovernedAssetsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -671,7 +678,7 @@ impl super::stub::AssetService for AssetService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

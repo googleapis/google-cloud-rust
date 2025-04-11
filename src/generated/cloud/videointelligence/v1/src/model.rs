@@ -84,6 +84,9 @@ pub struct AnnotateVideoRequest {
     /// location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotateVideoRequest {
@@ -188,6 +191,9 @@ pub struct VideoContext {
     /// Config for OBJECT_TRACKING.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub object_tracking_config: std::option::Option<crate::model::ObjectTrackingConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VideoContext {
@@ -338,6 +344,9 @@ pub struct LabelDetectionConfig {
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
     pub video_confidence_threshold: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LabelDetectionConfig {
@@ -396,6 +405,9 @@ pub struct ShotChangeDetectionConfig {
     /// "builtin/latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub model: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ShotChangeDetectionConfig {
@@ -427,6 +439,9 @@ pub struct ObjectTrackingConfig {
     /// "builtin/latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub model: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ObjectTrackingConfig {
@@ -465,6 +480,9 @@ pub struct FaceDetectionConfig {
     /// Whether to enable face attributes detection, such as glasses, dark_glasses,
     /// mouth_open etc. Ignored if 'include_bounding_boxes' is set to false.
     pub include_attributes: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FaceDetectionConfig {
@@ -516,6 +534,9 @@ pub struct PersonDetectionConfig {
     /// etc.
     /// Ignored if 'include_bounding_boxes' is set to false.
     pub include_attributes: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PersonDetectionConfig {
@@ -559,6 +580,9 @@ pub struct ExplicitContentDetectionConfig {
     /// "builtin/latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub model: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExplicitContentDetectionConfig {
@@ -598,6 +622,9 @@ pub struct TextDetectionConfig {
     /// "builtin/latest".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub model: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TextDetectionConfig {
@@ -644,6 +671,9 @@ pub struct VideoSegment {
     /// corresponding to the end of the segment (inclusive).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time_offset: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VideoSegment {
@@ -688,6 +718,9 @@ pub struct LabelSegment {
 
     /// Confidence that the label is accurate. Range: [0, 1].
     pub confidence: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LabelSegment {
@@ -730,6 +763,9 @@ pub struct LabelFrame {
 
     /// Confidence that the label is accurate. Range: [0, 1].
     pub confidence: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LabelFrame {
@@ -778,6 +814,9 @@ pub struct Entity {
     /// Language code for `description` in BCP-47 format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub language_code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Entity {
@@ -838,6 +877,9 @@ pub struct LabelAnnotation {
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LabelAnnotation {
@@ -913,6 +955,9 @@ pub struct ExplicitContentFrame {
 
     /// Likelihood of the pornography content..
     pub pornography_likelihood: crate::model::Likelihood,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExplicitContentFrame {
@@ -960,6 +1005,9 @@ pub struct ExplicitContentAnnotation {
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExplicitContentAnnotation {
@@ -1010,6 +1058,9 @@ pub struct NormalizedBoundingBox {
 
     /// Bottom Y coordinate.
     pub bottom: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NormalizedBoundingBox {
@@ -1066,6 +1117,9 @@ pub struct FaceDetectionAnnotation {
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FaceDetectionAnnotation {
@@ -1116,6 +1170,9 @@ pub struct PersonDetectionAnnotation {
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PersonDetectionAnnotation {
@@ -1156,6 +1213,9 @@ pub struct FaceSegment {
     /// Video segment where a face was detected.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub segment: std::option::Option<crate::model::VideoSegment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FaceSegment {
@@ -1195,6 +1255,9 @@ pub struct FaceFrame {
     /// corresponding to the video frame for this location.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FaceFrame {
@@ -1247,6 +1310,9 @@ pub struct FaceAnnotation {
     /// All video frames where a face was detected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub frames: std::vec::Vec<crate::model::FaceFrame>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FaceAnnotation {
@@ -1313,6 +1379,9 @@ pub struct TimestampedObject {
     /// Optional. The detected landmarks.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub landmarks: std::vec::Vec<crate::model::DetectedLandmark>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimestampedObject {
@@ -1389,6 +1458,9 @@ pub struct Track {
 
     /// Optional. The confidence score of the tracked object.
     pub confidence: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Track {
@@ -1458,6 +1530,9 @@ pub struct DetectedAttribute {
     /// can be "black", "blonde", etc.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub value: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DetectedAttribute {
@@ -1508,6 +1583,9 @@ pub struct DetectedLandmark {
 
     /// The confidence score of the detected landmark. Range [0, 1].
     pub confidence: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DetectedLandmark {
@@ -1632,6 +1710,9 @@ pub struct VideoAnnotationResults {
     /// some videos may succeed and some may fail.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub error: std::option::Option<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VideoAnnotationResults {
@@ -1835,6 +1916,9 @@ pub struct AnnotateVideoResponse {
     /// Annotation results for all videos specified in `AnnotateVideoRequest`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub annotation_results: std::vec::Vec<crate::model::VideoAnnotationResults>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotateVideoResponse {
@@ -1891,6 +1975,9 @@ pub struct VideoAnnotationProgress {
     /// one segment.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub segment: std::option::Option<crate::model::VideoSegment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VideoAnnotationProgress {
@@ -1961,6 +2048,9 @@ pub struct AnnotateVideoProgress {
     /// Progress metadata for all videos specified in `AnnotateVideoRequest`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub annotation_progress: std::vec::Vec<crate::model::VideoAnnotationProgress>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotateVideoProgress {
@@ -2048,6 +2138,9 @@ pub struct SpeechTranscriptionConfig {
     /// confidence for those words. If `false`, no word-level confidence
     /// information is returned. The default is `false`.
     pub enable_word_confidence: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SpeechTranscriptionConfig {
@@ -2141,6 +2234,9 @@ pub struct SpeechContext {
     /// [usage limits](https://cloud.google.com/speech/limits#content).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub phrases: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SpeechContext {
@@ -2184,6 +2280,9 @@ pub struct SpeechTranscription {
     /// detected to have the most likelihood of being spoken in the audio.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub language_code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SpeechTranscription {
@@ -2238,6 +2337,9 @@ pub struct SpeechRecognitionAlternative {
     /// the words from the beginning of the audio.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub words: std::vec::Vec<crate::model::WordInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SpeechRecognitionAlternative {
@@ -2314,6 +2416,9 @@ pub struct WordInfo {
     /// have spoken this word. Value ranges from 1 up to diarization_speaker_count,
     /// and is only set if speaker diarization is enabled.
     pub speaker_tag: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WordInfo {
@@ -2377,6 +2482,9 @@ pub struct NormalizedVertex {
 
     /// Y coordinate.
     pub y: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NormalizedVertex {
@@ -2428,6 +2536,9 @@ pub struct NormalizedBoundingPoly {
     /// Normalized vertices of the bounding polygon.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub vertices: std::vec::Vec<crate::model::NormalizedVertex>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NormalizedBoundingPoly {
@@ -2470,6 +2581,9 @@ pub struct TextSegment {
     /// Information related to the frames where OCR detected text appears.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub frames: std::vec::Vec<crate::model::TextFrame>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TextSegment {
@@ -2525,6 +2639,9 @@ pub struct TextFrame {
     /// Timestamp of this frame.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TextFrame {
@@ -2578,6 +2695,9 @@ pub struct TextAnnotation {
     /// Feature version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TextAnnotation {
@@ -2629,6 +2749,9 @@ pub struct ObjectTrackingFrame {
     /// The timestamp of the frame in microseconds.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ObjectTrackingFrame {
@@ -2691,6 +2814,9 @@ pub struct ObjectTrackingAnnotation {
     /// and streaming modes.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub track_info: std::option::Option<crate::model::object_tracking_annotation::TrackInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ObjectTrackingAnnotation {
@@ -2847,6 +2973,9 @@ pub struct LogoRecognitionAnnotation {
     /// multiple instances of the same logo class appearing in one VideoSegment.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub segments: std::vec::Vec<crate::model::VideoSegment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogoRecognitionAnnotation {

@@ -44,7 +44,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::CreateScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanConfig> {
+    ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -66,7 +66,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::DeleteScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -79,14 +79,17 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_scan_config(
         &self,
         req: crate::model::GetScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanConfig> {
+    ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -105,7 +108,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::ListScanConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListScanConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListScanConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -129,7 +132,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::UpdateScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanConfig> {
+    ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -167,7 +170,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::StartScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanRun> {
+    ) -> Result<gax::response::Response<crate::model::ScanRun>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -184,7 +187,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::GetScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanRun> {
+    ) -> Result<gax::response::Response<crate::model::ScanRun>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -203,7 +206,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::ListScanRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListScanRunsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListScanRunsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -224,7 +227,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::StopScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanRun> {
+    ) -> Result<gax::response::Response<crate::model::ScanRun>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -241,7 +244,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::ListCrawledUrlsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCrawledUrlsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -265,7 +268,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::GetFindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -284,7 +287,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::ListFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFindingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -306,7 +309,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         &self,
         req: crate::model::ListFindingTypeStatsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFindingTypeStatsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

@@ -42,7 +42,8 @@ where
         &self,
         req: crate::model::ListCloudExadataInfrastructuresRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCloudExadataInfrastructuresResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCloudExadataInfrastructuresResponse>>
+    {
         self.inner
             .list_cloud_exadata_infrastructures(req, options)
             .await
@@ -53,7 +54,7 @@ where
         &self,
         req: crate::model::GetCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CloudExadataInfrastructure> {
+    ) -> Result<gax::response::Response<crate::model::CloudExadataInfrastructure>> {
         self.inner
             .get_cloud_exadata_infrastructure(req, options)
             .await
@@ -64,7 +65,7 @@ where
         &self,
         req: crate::model::CreateCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .create_cloud_exadata_infrastructure(req, options)
             .await
@@ -75,7 +76,7 @@ where
         &self,
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner
             .delete_cloud_exadata_infrastructure(req, options)
             .await
@@ -86,7 +87,7 @@ where
         &self,
         req: crate::model::ListCloudVmClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCloudVmClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCloudVmClustersResponse>> {
         self.inner.list_cloud_vm_clusters(req, options).await
     }
 
@@ -95,7 +96,7 @@ where
         &self,
         req: crate::model::GetCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CloudVmCluster> {
+    ) -> Result<gax::response::Response<crate::model::CloudVmCluster>> {
         self.inner.get_cloud_vm_cluster(req, options).await
     }
 
@@ -104,7 +105,7 @@ where
         &self,
         req: crate::model::CreateCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_cloud_vm_cluster(req, options).await
     }
 
@@ -113,7 +114,7 @@ where
         &self,
         req: crate::model::DeleteCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_cloud_vm_cluster(req, options).await
     }
 
@@ -122,7 +123,7 @@ where
         &self,
         req: crate::model::ListEntitlementsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEntitlementsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEntitlementsResponse>> {
         self.inner.list_entitlements(req, options).await
     }
 
@@ -131,7 +132,7 @@ where
         &self,
         req: crate::model::ListDbServersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDbServersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDbServersResponse>> {
         self.inner.list_db_servers(req, options).await
     }
 
@@ -140,7 +141,7 @@ where
         &self,
         req: crate::model::ListDbNodesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDbNodesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDbNodesResponse>> {
         self.inner.list_db_nodes(req, options).await
     }
 
@@ -149,7 +150,7 @@ where
         &self,
         req: crate::model::ListGiVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGiVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGiVersionsResponse>> {
         self.inner.list_gi_versions(req, options).await
     }
 
@@ -158,7 +159,7 @@ where
         &self,
         req: crate::model::ListDbSystemShapesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDbSystemShapesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDbSystemShapesResponse>> {
         self.inner.list_db_system_shapes(req, options).await
     }
 
@@ -167,7 +168,7 @@ where
         &self,
         req: crate::model::ListAutonomousDatabasesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAutonomousDatabasesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAutonomousDatabasesResponse>> {
         self.inner.list_autonomous_databases(req, options).await
     }
 
@@ -176,7 +177,7 @@ where
         &self,
         req: crate::model::GetAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AutonomousDatabase> {
+    ) -> Result<gax::response::Response<crate::model::AutonomousDatabase>> {
         self.inner.get_autonomous_database(req, options).await
     }
 
@@ -185,7 +186,7 @@ where
         &self,
         req: crate::model::CreateAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_autonomous_database(req, options).await
     }
 
@@ -194,7 +195,7 @@ where
         &self,
         req: crate::model::DeleteAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_autonomous_database(req, options).await
     }
 
@@ -203,7 +204,7 @@ where
         &self,
         req: crate::model::RestoreAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.restore_autonomous_database(req, options).await
     }
 
@@ -212,7 +213,8 @@ where
         &self,
         req: crate::model::GenerateAutonomousDatabaseWalletRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAutonomousDatabaseWalletResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>>
+    {
         self.inner
             .generate_autonomous_database_wallet(req, options)
             .await
@@ -223,7 +225,7 @@ where
         &self,
         req: crate::model::ListAutonomousDbVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAutonomousDbVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAutonomousDbVersionsResponse>> {
         self.inner.list_autonomous_db_versions(req, options).await
     }
 
@@ -232,7 +234,8 @@ where
         &self,
         req: crate::model::ListAutonomousDatabaseCharacterSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAutonomousDatabaseCharacterSetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>>
+    {
         self.inner
             .list_autonomous_database_character_sets(req, options)
             .await
@@ -243,7 +246,7 @@ where
         &self,
         req: crate::model::ListAutonomousDatabaseBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAutonomousDatabaseBackupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>> {
         self.inner
             .list_autonomous_database_backups(req, options)
             .await
@@ -254,7 +257,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -263,7 +266,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -272,7 +275,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -281,7 +284,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -290,7 +293,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -299,7 +302,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

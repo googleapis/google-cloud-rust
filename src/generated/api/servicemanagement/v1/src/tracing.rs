@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServicesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
         self.inner.list_services(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ManagedService> {
+    ) -> Result<gax::response::Response<crate::model::ManagedService>> {
         self.inner.get_service(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_service(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_service(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UndeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.undelete_service(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListServiceConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServiceConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServiceConfigsResponse>> {
         self.inner.list_service_configs(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<api::model::Service> {
+    ) -> Result<gax::response::Response<api::model::Service>> {
         self.inner.get_service_config(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::CreateServiceConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<api::model::Service> {
+    ) -> Result<gax::response::Response<api::model::Service>> {
         self.inner.create_service_config(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::SubmitConfigSourceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.submit_config_source(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ListServiceRolloutsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServiceRolloutsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServiceRolloutsResponse>> {
         self.inner.list_service_rollouts(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::GetServiceRolloutRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Rollout> {
+    ) -> Result<gax::response::Response<crate::model::Rollout>> {
         self.inner.get_service_rollout(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::CreateServiceRolloutRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_service_rollout(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::GenerateConfigReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateConfigReportResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateConfigReportResponse>> {
         self.inner.generate_config_report(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

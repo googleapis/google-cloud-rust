@@ -277,7 +277,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
-    ) -> Result<{{Codec.ReturnType}}> {
+    ) -> Result<gax::response::Response<{{Codec.ReturnType}}>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: {{InputType.Codec.QualifiedName}}, h: http::header::HeaderMap| async {
@@ -295,15 +295,24 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             let mut inner = inner.clone();
             inner.ready().await.map_err(Error::rpc)?;
             {{#ReturnsEmpty}}
-            let _ : tonic::Response<()> =
+            let response : tonic::Response<()> =
                 inner.unary(request, path, codec).await.map_err(Error::rpc)?;
-            Ok(())
+            let (metadata, _body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new()
+                    .set_headers(metadata.into_headers()),
+                (),
+            ))
             {{/ReturnsEmpty}}
             {{^ReturnsEmpty}}
             let response : tonic::Response<crate::{{Service.Codec.PackageModuleName}}::{{OutputType.Codec.RelativeName}}> =
                 inner.unary(request, path, codec).await.map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            let (metadata, body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new()
+                    .set_headers(metadata.into_headers()),
+                body.cnv(),
+            ))
             {{/ReturnsEmpty}}
         };
         let x_goog_request_params = [

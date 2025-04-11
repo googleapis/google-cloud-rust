@@ -21,7 +21,11 @@ import (
 )
 
 func TestRustProstFromProtobuf(t *testing.T) {
-	outDir := path.Join(testdataDir, "rust/prost/golden/type")
+	outDir, err := os.MkdirTemp(t.TempDir(), "golden")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(outDir)
 	svcConfig := path.Join(testdataDir, "googleapis/google/type/type.yaml")
 	specificationSource := path.Join(testdataDir, "googleapis/google/type")
 	googleapisRoot := path.Join(testdataDir, "googleapis")
@@ -48,7 +52,7 @@ func TestRustProstFromProtobuf(t *testing.T) {
 	}
 
 	for _, expected := range []string{".sidekick.toml", "google.r#type.rs"} {
-		filename := path.Join(projectRoot, outDir, expected)
+		filename := path.Join(outDir, expected)
 		if _, err := os.Stat(filename); os.IsNotExist(err) {
 			t.Errorf("missing %s: %s", filename, err)
 		}

@@ -44,7 +44,7 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
         &self,
         req: crate::model::ListCryptoKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCryptoKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -91,7 +91,7 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         &self,
         req: crate::model::GetProtectedResourcesSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProtectedResourcesSummary> {
+    ) -> Result<gax::response::Response<crate::model::ProtectedResourcesSummary>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -113,7 +113,7 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         &self,
         req: crate::model::SearchProtectedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchProtectedResourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

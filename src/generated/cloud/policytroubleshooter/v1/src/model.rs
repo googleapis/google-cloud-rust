@@ -46,6 +46,9 @@ pub struct TroubleshootIamPolicyRequest {
     /// for a resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub access_tuple: std::option::Option<crate::model::AccessTuple>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TroubleshootIamPolicyRequest {
@@ -100,6 +103,9 @@ pub struct TroubleshootIamPolicyResponse {
     /// The general errors contained in the troubleshooting response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub errors: std::vec::Vec<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TroubleshootIamPolicyResponse {
@@ -176,6 +182,9 @@ pub struct AccessTuple {
     /// role, see <https://cloud.google.com/iam/help/roles/reference>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub permission: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessTuple {
@@ -262,6 +271,9 @@ pub struct ExplainedPolicy {
     /// If the sender of the request does not have access to the policy, this field
     /// is omitted.
     pub relevance: crate::model::HeuristicRelevance,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExplainedPolicy {
@@ -390,6 +402,9 @@ pub struct BindingExplanation {
     /// <https://cloud.google.com/iam/help/conditions/overview>.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub condition: std::option::Option<gtype::model::Expr>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BindingExplanation {
@@ -485,6 +500,9 @@ pub mod binding_explanation {
         /// The relevance of the principal's status to the overall determination for
         /// the binding.
         pub relevance: crate::model::HeuristicRelevance,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnnotatedMembership {

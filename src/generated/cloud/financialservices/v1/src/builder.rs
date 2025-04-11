@@ -93,6 +93,7 @@ pub mod aml {
             (*self.0.stub)
                 .list_instances(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod aml {
             (*self.0.stub)
                 .get_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -221,6 +223,7 @@ pub mod aml {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_instance`.
@@ -322,6 +325,7 @@ pub mod aml {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_instance`.
@@ -420,6 +424,7 @@ pub mod aml {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
@@ -508,6 +513,7 @@ pub mod aml {
             (*self.0.stub)
                 .import_registered_parties(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_registered_parties`.
@@ -630,6 +636,7 @@ pub mod aml {
             (*self.0.stub)
                 .export_registered_parties(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_registered_parties`.
@@ -725,6 +732,7 @@ pub mod aml {
             (*self.0.stub)
                 .list_datasets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -806,6 +814,7 @@ pub mod aml {
             (*self.0.stub)
                 .get_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDatasetRequest::name].
@@ -853,6 +862,7 @@ pub mod aml {
             (*self.0.stub)
                 .create_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_dataset`.
@@ -953,6 +963,7 @@ pub mod aml {
             (*self.0.stub)
                 .update_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_dataset`.
@@ -1050,6 +1061,7 @@ pub mod aml {
             (*self.0.stub)
                 .delete_dataset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
@@ -1128,6 +1140,7 @@ pub mod aml {
             (*self.0.stub)
                 .list_models(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1209,6 +1222,7 @@ pub mod aml {
             (*self.0.stub)
                 .get_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetModelRequest::name].
@@ -1256,6 +1270,7 @@ pub mod aml {
             (*self.0.stub)
                 .create_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_model`.
@@ -1356,6 +1371,7 @@ pub mod aml {
             (*self.0.stub)
                 .update_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_model`.
@@ -1456,6 +1472,7 @@ pub mod aml {
             (*self.0.stub)
                 .export_model_metadata(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_model_metadata`.
@@ -1550,6 +1567,7 @@ pub mod aml {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_model`.
@@ -1631,6 +1649,7 @@ pub mod aml {
             (*self.0.stub)
                 .list_engine_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1712,6 +1731,7 @@ pub mod aml {
             (*self.0.stub)
                 .get_engine_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEngineConfigRequest::name].
@@ -1762,6 +1782,7 @@ pub mod aml {
             (*self.0.stub)
                 .create_engine_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_engine_config`.
@@ -1866,6 +1887,7 @@ pub mod aml {
             (*self.0.stub)
                 .update_engine_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_engine_config`.
@@ -1969,6 +1991,7 @@ pub mod aml {
             (*self.0.stub)
                 .export_engine_config_metadata(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_engine_config_metadata`.
@@ -2068,6 +2091,7 @@ pub mod aml {
             (*self.0.stub)
                 .delete_engine_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_engine_config`.
@@ -2149,6 +2173,7 @@ pub mod aml {
             (*self.0.stub)
                 .get_engine_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEngineVersionRequest::name].
@@ -2194,6 +2219,7 @@ pub mod aml {
             (*self.0.stub)
                 .list_engine_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2278,6 +2304,7 @@ pub mod aml {
             (*self.0.stub)
                 .list_prediction_results(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2362,6 +2389,7 @@ pub mod aml {
             (*self.0.stub)
                 .get_prediction_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPredictionResultRequest::name].
@@ -2412,6 +2440,7 @@ pub mod aml {
             (*self.0.stub)
                 .create_prediction_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_prediction_result`.
@@ -2519,6 +2548,7 @@ pub mod aml {
             (*self.0.stub)
                 .update_prediction_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_prediction_result`.
@@ -2625,6 +2655,7 @@ pub mod aml {
             (*self.0.stub)
                 .export_prediction_result_metadata(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_prediction_result_metadata`.
@@ -2724,6 +2755,7 @@ pub mod aml {
             (*self.0.stub)
                 .delete_prediction_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_prediction_result`.
@@ -2805,6 +2837,7 @@ pub mod aml {
             (*self.0.stub)
                 .list_backtest_results(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2889,6 +2922,7 @@ pub mod aml {
             (*self.0.stub)
                 .get_backtest_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBacktestResultRequest::name].
@@ -2939,6 +2973,7 @@ pub mod aml {
             (*self.0.stub)
                 .create_backtest_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backtest_result`.
@@ -3044,6 +3079,7 @@ pub mod aml {
             (*self.0.stub)
                 .update_backtest_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_backtest_result`.
@@ -3148,6 +3184,7 @@ pub mod aml {
             (*self.0.stub)
                 .export_backtest_result_metadata(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_backtest_result_metadata`.
@@ -3247,6 +3284,7 @@ pub mod aml {
             (*self.0.stub)
                 .delete_backtest_result(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backtest_result`.
@@ -3328,6 +3366,7 @@ pub mod aml {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3403,6 +3442,7 @@ pub mod aml {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3448,6 +3488,7 @@ pub mod aml {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3526,6 +3567,7 @@ pub mod aml {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3571,6 +3613,7 @@ pub mod aml {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3616,6 +3659,7 @@ pub mod aml {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

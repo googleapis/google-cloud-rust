@@ -68,6 +68,9 @@ pub struct GenerateAccessTokenRequest {
     /// hour.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub lifetime: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAccessTokenRequest {
@@ -132,6 +135,9 @@ pub struct GenerateAccessTokenResponse {
     /// The expiration time is always set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expire_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateAccessTokenResponse {
@@ -190,6 +196,9 @@ pub struct SignBlobRequest {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub payload: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SignBlobRequest {
@@ -240,6 +249,9 @@ pub struct SignBlobResponse {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub signed_blob: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SignBlobResponse {
@@ -294,6 +306,9 @@ pub struct SignJwtRequest {
     /// Required. The JWT payload to sign: a JSON object that contains a JWT Claims Set.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub payload: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SignJwtRequest {
@@ -343,6 +358,9 @@ pub struct SignJwtResponse {
     /// The signed JWT.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub signed_jwt: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SignJwtResponse {
@@ -402,6 +420,9 @@ pub struct GenerateIdTokenRequest {
     /// Include the service account email in the token. If set to `true`, the
     /// token will contain `email` and `email_verified` claims.
     pub include_email: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateIdTokenRequest {
@@ -453,6 +474,9 @@ pub struct GenerateIdTokenResponse {
     /// The OpenId Connect ID token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GenerateIdTokenResponse {

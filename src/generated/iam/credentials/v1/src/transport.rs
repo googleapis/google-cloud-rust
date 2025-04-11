@@ -44,7 +44,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
         &self,
         req: crate::model::GenerateAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAccessTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -64,7 +64,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
         &self,
         req: crate::model::GenerateIdTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateIdTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateIdTokenResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -84,7 +84,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
         &self,
         req: crate::model::SignBlobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SignBlobResponse> {
+    ) -> Result<gax::response::Response<crate::model::SignBlobResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -101,7 +101,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
         &self,
         req: crate::model::SignJwtRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SignJwtResponse> {
+    ) -> Result<gax::response::Response<crate::model::SignJwtResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner

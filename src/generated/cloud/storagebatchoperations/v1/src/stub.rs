@@ -46,11 +46,12 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListJobsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListJobsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListJobsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListJobsResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListJobsResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::StorageBatchOperations::get_job].
@@ -58,8 +59,11 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Job>> + Send {
-        std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Job>>>
+    + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Job>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::StorageBatchOperations::create_job].
@@ -67,11 +71,12 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::StorageBatchOperations::delete_job].
@@ -79,8 +84,10 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::StorageBatchOperations::cancel_job].
@@ -88,11 +95,12 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CancelJobRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::CancelJobResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::CancelJobResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CancelJobResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::CancelJobResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::StorageBatchOperations::list_locations].
@@ -100,11 +108,12 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::StorageBatchOperations::get_location].
@@ -112,10 +121,12 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::StorageBatchOperations::list_operations].
@@ -123,11 +134,12 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::StorageBatchOperations::get_operation].
@@ -135,11 +147,12 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::StorageBatchOperations::delete_operation].
@@ -147,8 +160,10 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::StorageBatchOperations::cancel_operation].
@@ -156,8 +171,10 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

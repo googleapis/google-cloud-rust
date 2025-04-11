@@ -96,6 +96,7 @@ pub mod iam_checker {
             (*self.0.stub)
                 .troubleshoot_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].

@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::AllocateQuotaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AllocateQuotaResponse> {
+    ) -> Result<gax::response::Response<crate::model::AllocateQuotaResponse>> {
         self.inner.allocate_quota(req, options).await
     }
 }
@@ -74,7 +74,7 @@ where
         &self,
         req: crate::model::CheckRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CheckResponse> {
+    ) -> Result<gax::response::Response<crate::model::CheckResponse>> {
         self.inner.check(req, options).await
     }
 
@@ -83,7 +83,7 @@ where
         &self,
         req: crate::model::ReportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReportResponse> {
+    ) -> Result<gax::response::Response<crate::model::ReportResponse>> {
         self.inner.report(req, options).await
     }
 }

@@ -44,7 +44,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         &self,
         req: crate::model::CreatePolicyBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -68,7 +68,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         &self,
         req: crate::model::GetPolicyBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PolicyBinding> {
+    ) -> Result<gax::response::Response<crate::model::PolicyBinding>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -87,7 +87,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         &self,
         req: crate::model::UpdatePolicyBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -126,7 +126,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         &self,
         req: crate::model::DeletePolicyBindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -147,7 +147,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         &self,
         req: crate::model::ListPolicyBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPolicyBindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPolicyBindingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -172,7 +172,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         &self,
         req: crate::model::SearchTargetPolicyBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchTargetPolicyBindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchTargetPolicyBindingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -200,7 +200,7 @@ impl super::stub::PolicyBindings for PolicyBindings {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -256,7 +256,7 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         &self,
         req: crate::model::CreatePrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -283,7 +283,7 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         &self,
         req: crate::model::GetPrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PrincipalAccessBoundaryPolicy> {
+    ) -> Result<gax::response::Response<crate::model::PrincipalAccessBoundaryPolicy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -302,7 +302,7 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         &self,
         req: crate::model::UpdatePrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -343,7 +343,7 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         &self,
         req: crate::model::DeletePrincipalAccessBoundaryPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -365,7 +365,8 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         &self,
         req: crate::model::ListPrincipalAccessBoundaryPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPrincipalAccessBoundaryPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPrincipalAccessBoundaryPoliciesResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -389,7 +390,9 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         &self,
         req: crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse> {
+    ) -> Result<
+        gax::response::Response<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse>,
+    > {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -413,7 +416,7 @@ impl super::stub::PrincipalAccessBoundaryPolicies for PrincipalAccessBoundaryPol
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

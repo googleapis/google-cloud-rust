@@ -20,6 +20,7 @@
 extern crate bytes;
 extern crate recommender;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -45,6 +46,9 @@ pub struct ActionLog {
     /// 'projects/123/locations/global/recommenders/roleReco/recommendations/r1'
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub recommendation_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ActionLog {
@@ -118,6 +122,9 @@ pub struct InsightActionLog {
     /// 'projects/123/locations/global/insightTypes/roleInsight/insights/i1'
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub insight: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InsightActionLog {

@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ComputeThreatListDiffRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ComputeThreatListDiffResponse> {
+    ) -> Result<gax::response::Response<crate::model::ComputeThreatListDiffResponse>> {
         self.inner.compute_threat_list_diff(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::SearchUrisRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchUrisResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchUrisResponse>> {
         self.inner.search_uris(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::SearchHashesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchHashesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchHashesResponse>> {
         self.inner.search_hashes(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::CreateSubmissionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Submission> {
+    ) -> Result<gax::response::Response<crate::model::Submission>> {
         self.inner.create_submission(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::SubmitUriRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.submit_uri(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

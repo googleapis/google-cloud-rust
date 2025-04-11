@@ -44,7 +44,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         &self,
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -65,7 +65,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         &self,
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -84,7 +84,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         &self,
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -101,7 +101,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         &self,
         req: crate::model::UpdateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -137,7 +137,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -150,14 +150,17 @@ impl super::stub::CloudScheduler for CloudScheduler {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn pause_job(
         &self,
         req: crate::model::PauseJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -174,7 +177,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         &self,
         req: crate::model::ResumeJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -191,7 +194,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         &self,
         req: crate::model::RunJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -208,7 +211,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -230,7 +233,7 @@ impl super::stub::CloudScheduler for CloudScheduler {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

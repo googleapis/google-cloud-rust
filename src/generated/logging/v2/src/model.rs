@@ -208,6 +208,9 @@ pub struct LogEntry {
     /// The log entry payload, which can be one of multiple types.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub payload: std::option::Option<crate::model::log_entry::Payload>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogEntry {
@@ -477,6 +480,9 @@ pub struct LogEntryOperation {
 
     /// Optional. Set this to True if this is the last log entry in the operation.
     pub last: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogEntryOperation {
@@ -540,6 +546,9 @@ pub struct LogEntrySourceLocation {
     /// (Python).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub function: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogEntrySourceLocation {
@@ -593,6 +602,9 @@ pub struct LogSplit {
 
     /// The total number of log entries that the original LogEntry was split into.
     pub total_splits: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogSplit {
@@ -648,6 +660,9 @@ pub struct DeleteLogRequest {
     /// [google.logging.v2.LogEntry]: crate::model::LogEntry
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub log_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteLogRequest {
@@ -762,6 +777,9 @@ pub struct WriteLogEntriesRequest {
     /// entries won't be persisted nor exported. Useful for checking whether the
     /// logging API endpoints are working properly before sending valuable data.
     pub dry_run: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WriteLogEntriesRequest {
@@ -833,7 +851,10 @@ impl wkt::message::Message for WriteLogEntriesRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct WriteLogEntriesResponse {}
+pub struct WriteLogEntriesResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl WriteLogEntriesResponse {
     pub fn new() -> Self {
@@ -861,6 +882,9 @@ pub struct WriteLogEntriesPartialErrors {
     /// per-entry errors.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub log_entry_errors: std::collections::HashMap<i32, rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WriteLogEntriesPartialErrors {
@@ -942,6 +966,9 @@ pub struct ListLogEntriesRequest {
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLogEntriesRequest {
@@ -1015,6 +1042,9 @@ pub struct ListLogEntriesResponse {
     /// or resource type, or to narrow the time range of the search.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLogEntriesResponse {
@@ -1077,6 +1107,9 @@ pub struct ListMonitoredResourceDescriptorsRequest {
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMonitoredResourceDescriptorsRequest {
@@ -1118,6 +1151,9 @@ pub struct ListMonitoredResourceDescriptorsResponse {
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListMonitoredResourceDescriptorsResponse {
@@ -1207,6 +1243,9 @@ pub struct ListLogsRequest {
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLogsRequest {
@@ -1267,6 +1306,9 @@ pub struct ListLogsResponse {
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLogsResponse {
@@ -1334,6 +1376,9 @@ pub struct TailLogEntriesRequest {
     /// milliseconds.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub buffer_window: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TailLogEntriesRequest {
@@ -1393,6 +1438,9 @@ pub struct TailLogEntriesResponse {
     /// suppressed entries since the last streamed response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub suppression_info: std::vec::Vec<crate::model::tail_log_entries_response::SuppressionInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TailLogEntriesResponse {
@@ -1445,6 +1493,9 @@ pub mod tail_log_entries_response {
 
         /// A lower bound on the count of entries omitted due to `reason`.
         pub suppressed_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SuppressionInfo {
@@ -1571,6 +1622,9 @@ pub struct IndexConfig {
     /// during update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IndexConfig {
@@ -1682,6 +1736,9 @@ pub struct LogBucket {
     /// allowed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cmek_settings: std::option::Option<crate::model::CmekSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogBucket {
@@ -1828,6 +1885,9 @@ pub struct LogView {
     /// AND LOG_ID("stdout")
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogView {
@@ -2003,6 +2063,9 @@ pub struct LogSink {
     /// Destination dependent options.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::model::log_sink::Options>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogSink {
@@ -2228,6 +2291,9 @@ pub struct BigQueryDataset {
     /// "bigquery.googleapis.com/projects/[PROJECT_ID]/datasets/[DATASET_ID]"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub dataset_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BigQueryDataset {
@@ -2290,6 +2356,9 @@ pub struct Link {
     /// LogViews in the bucket.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub bigquery_dataset: std::option::Option<crate::model::BigQueryDataset>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Link {
@@ -2369,6 +2438,9 @@ pub struct BigQueryOptions {
     /// meaning and will be false. Legacy sinks using partitioned tables will have
     /// this field set to false.
     pub uses_timestamp_column_partitioning: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BigQueryOptions {
@@ -2430,6 +2502,9 @@ pub struct ListBucketsRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBucketsRequest {
@@ -2477,6 +2552,9 @@ pub struct ListBucketsResponse {
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListBucketsResponse {
@@ -2551,6 +2629,9 @@ pub struct CreateBucketRequest {
     /// bucket is ignored.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub bucket: std::option::Option<crate::model::LogBucket>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateBucketRequest {
@@ -2621,6 +2702,9 @@ pub struct UpdateBucketRequest {
     /// For example: `updateMask=retention_days`
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateBucketRequest {
@@ -2679,6 +2763,9 @@ pub struct GetBucketRequest {
     /// `"projects/my-project/locations/global/buckets/my-bucket"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetBucketRequest {
@@ -2719,6 +2806,9 @@ pub struct DeleteBucketRequest {
     /// `"projects/my-project/locations/global/buckets/my-bucket"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteBucketRequest {
@@ -2759,6 +2849,9 @@ pub struct UndeleteBucketRequest {
     /// `"projects/my-project/locations/global/buckets/my-bucket"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeleteBucketRequest {
@@ -2805,6 +2898,9 @@ pub struct ListViewsRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListViewsRequest {
@@ -2852,6 +2948,9 @@ pub struct ListViewsResponse {
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListViewsResponse {
@@ -2924,6 +3023,9 @@ pub struct CreateViewRequest {
     /// Required. The new view.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub view: std::option::Option<crate::model::LogView>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateViewRequest {
@@ -2991,6 +3093,9 @@ pub struct UpdateViewRequest {
     /// For example: `updateMask=filter`
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateViewRequest {
@@ -3046,6 +3151,9 @@ pub struct GetViewRequest {
     /// `"projects/my-project/locations/global/buckets/my-bucket/views/my-view"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetViewRequest {
@@ -3083,6 +3191,9 @@ pub struct DeleteViewRequest {
     /// `"projects/my-project/locations/global/buckets/my-bucket/views/my-view"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteViewRequest {
@@ -3131,6 +3242,9 @@ pub struct ListSinksRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSinksRequest {
@@ -3178,6 +3292,9 @@ pub struct ListSinksResponse {
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSinksResponse {
@@ -3243,6 +3360,9 @@ pub struct GetSinkRequest {
     /// `"projects/my-project/sinks/my-sink"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub sink_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSinkRequest {
@@ -3305,6 +3425,9 @@ pub struct CreateSinkRequest {
     ///
     /// [google.logging.v2.LogSink]: crate::model::LogSink
     pub unique_writer_identity: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSinkRequest {
@@ -3400,6 +3523,9 @@ pub struct UpdateSinkRequest {
     /// For example: `updateMask=filter`
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSinkRequest {
@@ -3465,6 +3591,9 @@ pub struct DeleteSinkRequest {
     /// `"projects/my-project/sinks/my-sink"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub sink_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSinkRequest {
@@ -3511,6 +3640,9 @@ pub struct CreateLinkRequest {
     /// underscores within it.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub link_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateLinkRequest {
@@ -3560,6 +3692,9 @@ pub struct DeleteLinkRequest {
     /// "folders/[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/links/[LINK_ID]"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteLinkRequest {
@@ -3603,6 +3738,9 @@ pub struct ListLinksRequest {
 
     /// Optional. The maximum number of results to return from this request.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLinksRequest {
@@ -3650,6 +3788,9 @@ pub struct ListLinksResponse {
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLinksResponse {
@@ -3709,6 +3850,9 @@ pub struct GetLinkRequest {
     /// "folders/[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/links/[LINK_ID]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLinkRequest {
@@ -3782,6 +3926,9 @@ pub struct LogExclusion {
     /// This field may not be present for older exclusions.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogExclusion {
@@ -3866,6 +4013,9 @@ pub struct ListExclusionsRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListExclusionsRequest {
@@ -3913,6 +4063,9 @@ pub struct ListExclusionsResponse {
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListExclusionsResponse {
@@ -3978,6 +4131,9 @@ pub struct GetExclusionRequest {
     /// `"projects/my-project/exclusions/my-exclusion"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetExclusionRequest {
@@ -4024,6 +4180,9 @@ pub struct CreateExclusionRequest {
     /// that is not already used in the parent resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub exclusion: std::option::Option<crate::model::LogExclusion>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateExclusionRequest {
@@ -4091,6 +4250,9 @@ pub struct UpdateExclusionRequest {
     /// [google.logging.v2.LogExclusion]: crate::model::LogExclusion
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateExclusionRequest {
@@ -4149,6 +4311,9 @@ pub struct DeleteExclusionRequest {
     /// `"projects/my-project/exclusions/my-exclusion"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteExclusionRequest {
@@ -4201,6 +4366,9 @@ pub struct GetCmekSettingsRequest {
     /// organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCmekSettingsRequest {
@@ -4272,6 +4440,9 @@ pub struct UpdateCmekSettingsRequest {
     /// [google.protobuf.FieldMask]: wkt::FieldMask
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCmekSettingsRequest {
@@ -4400,6 +4571,9 @@ pub struct CmekSettings {
     /// [google.logging.v2.ConfigServiceV2.GetCmekSettings]: crate::client::ConfigServiceV2::get_cmek_settings
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_account_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CmekSettings {
@@ -4476,6 +4650,9 @@ pub struct GetSettingsRequest {
     /// applies to all projects and folders in the Google Cloud organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSettingsRequest {
@@ -4544,6 +4721,9 @@ pub struct UpdateSettingsRequest {
     /// [google.protobuf.FieldMask]: wkt::FieldMask
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSettingsRequest {
@@ -4651,6 +4831,9 @@ pub struct Settings {
     /// disable log ingestion if there is already an aggregated sink configured in
     /// the hierarchy. The _Default sink can be re-enabled manually if needed.
     pub disable_default_sink: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Settings {
@@ -4723,6 +4906,9 @@ pub struct CopyLogEntriesRequest {
     /// Required. Destination to which to copy log entries.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CopyLogEntriesRequest {
@@ -4791,6 +4977,9 @@ pub struct CopyLogEntriesMetadata {
     /// For example: `"serviceAccount:foo@bar.com"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub writer_identity: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CopyLogEntriesMetadata {
@@ -4867,6 +5056,9 @@ pub struct CopyLogEntriesResponse {
     /// Number of log entries copied.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub log_entries_copied_count: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CopyLogEntriesResponse {
@@ -4906,6 +5098,9 @@ pub struct BucketMetadata {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub request: std::option::Option<crate::model::bucket_metadata::Request>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BucketMetadata {
@@ -5054,6 +5249,9 @@ pub struct LinkMetadata {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub request: std::option::Option<crate::model::link_metadata::Request>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LinkMetadata {
@@ -5192,6 +5390,9 @@ pub struct LocationMetadata {
     /// Indicates whether or not Log Analytics features are supported in the given
     /// location.
     pub log_analytics_enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocationMetadata {
@@ -5358,6 +5559,9 @@ pub struct LogMetric {
     /// Deprecated. The API version that created or updated this metric.
     /// The v2 format is used by default and cannot be changed.
     pub version: crate::model::log_metric::ApiVersion,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogMetric {
@@ -5552,6 +5756,9 @@ pub struct ListLogMetricsRequest {
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLogMetricsRequest {
@@ -5599,6 +5806,9 @@ pub struct ListLogMetricsResponse {
     /// method again using the value of `nextPageToken` as `pageToken`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListLogMetricsResponse {
@@ -5657,6 +5867,9 @@ pub struct GetLogMetricRequest {
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub metric_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLogMetricRequest {
@@ -5697,6 +5910,9 @@ pub struct CreateLogMetricRequest {
     /// already exists.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metric: std::option::Option<crate::model::LogMetric>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateLogMetricRequest {
@@ -5747,6 +5963,9 @@ pub struct UpdateLogMetricRequest {
     /// Required. The updated metric.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metric: std::option::Option<crate::model::LogMetric>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateLogMetricRequest {
@@ -5789,6 +6008,9 @@ pub struct DeleteLogMetricRequest {
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub metric_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteLogMetricRequest {

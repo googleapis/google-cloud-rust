@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::TroubleshootIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TroubleshootIamPolicyResponse> {
+    ) -> Result<gax::response::Response<crate::model::TroubleshootIamPolicyResponse>> {
         self.inner.troubleshoot_iam_policy(req, options).await
     }
 }

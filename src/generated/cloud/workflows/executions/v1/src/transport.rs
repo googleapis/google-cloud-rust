@@ -44,7 +44,7 @@ impl super::stub::Executions for Executions {
         &self,
         req: crate::model::ListExecutionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListExecutionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListExecutionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -71,7 +71,7 @@ impl super::stub::Executions for Executions {
         &self,
         req: crate::model::CreateExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Execution> {
+    ) -> Result<gax::response::Response<crate::model::Execution>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -93,7 +93,7 @@ impl super::stub::Executions for Executions {
         &self,
         req: crate::model::GetExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Execution> {
+    ) -> Result<gax::response::Response<crate::model::Execution>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -113,7 +113,7 @@ impl super::stub::Executions for Executions {
         &self,
         req: crate::model::CancelExecutionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Execution> {
+    ) -> Result<gax::response::Response<crate::model::Execution>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner

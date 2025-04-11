@@ -44,7 +44,7 @@ impl super::stub::ProfilerService for ProfilerService {
         &self,
         req: crate::model::CreateProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Profile> {
+    ) -> Result<gax::response::Response<crate::model::Profile>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -64,7 +64,7 @@ impl super::stub::ProfilerService for ProfilerService {
         &self,
         req: crate::model::CreateOfflineProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Profile> {
+    ) -> Result<gax::response::Response<crate::model::Profile>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -86,7 +86,7 @@ impl super::stub::ProfilerService for ProfilerService {
         &self,
         req: crate::model::UpdateProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Profile> {
+    ) -> Result<gax::response::Response<crate::model::Profile>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -147,7 +147,7 @@ impl super::stub::ExportService for ExportService {
         &self,
         req: crate::model::ListProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProfilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

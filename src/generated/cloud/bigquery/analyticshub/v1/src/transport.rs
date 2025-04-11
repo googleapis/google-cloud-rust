@@ -44,7 +44,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::ListDataExchangesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDataExchangesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDataExchangesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -68,7 +68,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::ListOrgDataExchangesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrgDataExchangesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrgDataExchangesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -92,7 +92,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::GetDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataExchange> {
+    ) -> Result<gax::response::Response<crate::model::DataExchange>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -111,7 +111,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::CreateDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataExchange> {
+    ) -> Result<gax::response::Response<crate::model::DataExchange>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -134,7 +134,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::UpdateDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataExchange> {
+    ) -> Result<gax::response::Response<crate::model::DataExchange>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -172,7 +172,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::DeleteDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -185,14 +185,17 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_listings(
         &self,
         req: crate::model::ListListingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListListingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListListingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -213,7 +216,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::GetListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Listing> {
+    ) -> Result<gax::response::Response<crate::model::Listing>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -232,7 +235,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::CreateListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Listing> {
+    ) -> Result<gax::response::Response<crate::model::Listing>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -255,7 +258,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::UpdateListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Listing> {
+    ) -> Result<gax::response::Response<crate::model::Listing>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -293,7 +296,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::DeleteListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -306,14 +309,17 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn subscribe_listing(
         &self,
         req: crate::model::SubscribeListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SubscribeListingResponse> {
+    ) -> Result<gax::response::Response<crate::model::SubscribeListingResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -330,7 +336,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::SubscribeDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -347,7 +353,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::RefreshSubscriptionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -364,7 +370,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::GetSubscriptionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Subscription> {
+    ) -> Result<gax::response::Response<crate::model::Subscription>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -383,7 +389,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::ListSubscriptionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSubscriptionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSubscriptionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -408,7 +414,8 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::ListSharedResourceSubscriptionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSharedResourceSubscriptionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -436,7 +443,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::RevokeSubscriptionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RevokeSubscriptionResponse> {
+    ) -> Result<gax::response::Response<crate::model::RevokeSubscriptionResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -453,7 +460,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::DeleteSubscriptionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -472,7 +479,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -492,7 +499,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -512,7 +519,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -532,7 +539,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

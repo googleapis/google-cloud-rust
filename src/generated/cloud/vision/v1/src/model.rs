@@ -46,6 +46,9 @@ pub struct Vertex {
 
     /// Y coordinate.
     pub y: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Vertex {
@@ -85,6 +88,9 @@ pub struct NormalizedVertex {
 
     /// Y coordinate.
     pub y: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NormalizedVertex {
@@ -124,6 +130,9 @@ pub struct BoundingPoly {
     /// The bounding polygon normalized vertices.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub normalized_vertices: std::vec::Vec<crate::model::NormalizedVertex>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BoundingPoly {
@@ -176,6 +185,9 @@ pub struct Position {
 
     /// Z coordinate (or depth).
     pub z: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Position {
@@ -230,6 +242,9 @@ pub struct Feature {
     /// support "builtin/weekly" for the bleeding edge release updated weekly.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub model: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Feature {
@@ -417,6 +432,9 @@ pub struct ImageSource {
     /// precedence.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub image_uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImageSource {
@@ -464,6 +482,9 @@ pub struct Image {
     /// takes precedence and is used to perform the image annotation request.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::ImageSource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Image {
@@ -562,6 +583,9 @@ pub struct FaceAnnotation {
 
     /// Headwear likelihood.
     pub headwear_likelihood: crate::model::Likelihood,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FaceAnnotation {
@@ -720,6 +744,9 @@ pub mod face_annotation {
         /// Face landmark position.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub position: std::option::Option<crate::model::Position>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Landmark {
@@ -1024,6 +1051,9 @@ pub struct LocationInfo {
     /// lat/long location coordinates.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub lat_lng: std::option::Option<gtype::model::LatLng>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocationInfo {
@@ -1064,6 +1094,9 @@ pub struct Property {
     /// Value of numeric properties.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub uint64_value: u64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Property {
@@ -1151,6 +1184,9 @@ pub struct EntityAnnotation {
     /// fields, such a score or string that qualifies the entity.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub properties: std::vec::Vec<crate::model::Property>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EntityAnnotation {
@@ -1260,6 +1296,9 @@ pub struct LocalizedObjectAnnotation {
     /// Image region to which this object belongs. This must be populated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub bounding_poly: std::option::Option<crate::model::BoundingPoly>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocalizedObjectAnnotation {
@@ -1340,6 +1379,9 @@ pub struct SafeSearchAnnotation {
     /// covered nudity, lewd or provocative poses, or close-ups of sensitive
     /// body areas.
     pub racy: crate::model::Likelihood,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SafeSearchAnnotation {
@@ -1397,6 +1439,9 @@ pub struct LatLongRect {
     /// Max lat/long pair.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub max_lat_lng: std::option::Option<gtype::model::LatLng>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LatLongRect {
@@ -1446,6 +1491,9 @@ pub struct ColorInfo {
     /// The fraction of pixels the color occupies in the image.
     /// Value in range [0, 1].
     pub pixel_fraction: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ColorInfo {
@@ -1490,6 +1538,9 @@ pub struct DominantColorsAnnotation {
     /// RGB color values with their score and pixel fraction.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub colors: std::vec::Vec<crate::model::ColorInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DominantColorsAnnotation {
@@ -1524,6 +1575,9 @@ pub struct ImageProperties {
     /// If present, dominant colors completed successfully.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub dominant_colors: std::option::Option<crate::model::DominantColorsAnnotation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImageProperties {
@@ -1566,6 +1620,9 @@ pub struct CropHint {
     /// Fraction of importance of this salient region with respect to the original
     /// image.
     pub importance_fraction: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CropHint {
@@ -1612,6 +1669,9 @@ pub struct CropHintsAnnotation {
     /// Crop hint results.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub crop_hints: std::vec::Vec<crate::model::CropHint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CropHintsAnnotation {
@@ -1651,6 +1711,9 @@ pub struct CropHintsParams {
     /// ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub aspect_ratios: std::vec::Vec<f32>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CropHintsParams {
@@ -1684,6 +1747,9 @@ impl wkt::message::Message for CropHintsParams {
 pub struct WebDetectionParams {
     /// This field has no effect on results.
     pub include_geo_results: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WebDetectionParams {
@@ -1725,6 +1791,9 @@ pub struct TextDetectionParams {
     ///   situation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub advanced_ocr_options: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TextDetectionParams {
@@ -1795,6 +1864,9 @@ pub struct ImageContext {
     /// Parameters for text detection and document text detection.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub text_detection_params: std::option::Option<crate::model::TextDetectionParams>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImageContext {
@@ -1893,6 +1965,9 @@ pub struct AnnotateImageRequest {
     /// Additional context that may accompany the image.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub image_context: std::option::Option<crate::model::ImageContext>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotateImageRequest {
@@ -1952,6 +2027,9 @@ pub struct ImageAnnotationContext {
     /// If the file was a PDF or TIFF, this field gives the page number within
     /// the file used to produce the image.
     pub page_number: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImageAnnotationContext {
@@ -2046,6 +2124,9 @@ pub struct AnnotateImageResponse {
     /// comes from.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub context: std::option::Option<crate::model::ImageAnnotationContext>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotateImageResponse {
@@ -2245,6 +2326,9 @@ pub struct BatchAnnotateImagesRequest {
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchAnnotateImagesRequest {
@@ -2297,6 +2381,9 @@ pub struct BatchAnnotateImagesResponse {
     /// Individual responses to image annotation requests within the batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub responses: std::vec::Vec<crate::model::AnnotateImageResponse>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchAnnotateImagesResponse {
@@ -2356,6 +2443,9 @@ pub struct AnnotateFileRequest {
     /// for the first 5 pages of the file.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub pages: std::vec::Vec<i32>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotateFileRequest {
@@ -2437,6 +2527,9 @@ pub struct AnnotateFileResponse {
     /// `responses` field will not be set in this case.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub error: std::option::Option<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotateFileResponse {
@@ -2522,6 +2615,9 @@ pub struct BatchAnnotateFilesRequest {
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchAnnotateFilesRequest {
@@ -2575,6 +2671,9 @@ pub struct BatchAnnotateFilesResponse {
     /// AnnotateFileRequest in BatchAnnotateFilesRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub responses: std::vec::Vec<crate::model::AnnotateFileResponse>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchAnnotateFilesResponse {
@@ -2621,6 +2720,9 @@ pub struct AsyncAnnotateFileRequest {
     /// Required. The desired output location and metadata (e.g. format).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub output_config: std::option::Option<crate::model::OutputConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsyncAnnotateFileRequest {
@@ -2688,6 +2790,9 @@ pub struct AsyncAnnotateFileResponse {
     /// The output location and metadata from AsyncAnnotateFileRequest.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub output_config: std::option::Option<crate::model::OutputConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsyncAnnotateFileResponse {
@@ -2750,6 +2855,9 @@ pub struct AsyncBatchAnnotateImagesRequest {
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsyncBatchAnnotateImagesRequest {
@@ -2813,6 +2921,9 @@ pub struct AsyncBatchAnnotateImagesResponse {
     /// The output location and metadata from AsyncBatchAnnotateImagesRequest.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub output_config: std::option::Option<crate::model::OutputConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsyncBatchAnnotateImagesResponse {
@@ -2872,6 +2983,9 @@ pub struct AsyncBatchAnnotateFilesRequest {
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsyncBatchAnnotateFilesRequest {
@@ -2925,6 +3039,9 @@ pub struct AsyncBatchAnnotateFilesResponse {
     /// AsyncBatchAnnotateFilesRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub responses: std::vec::Vec<crate::model::AsyncAnnotateFileResponse>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsyncBatchAnnotateFilesResponse {
@@ -2974,6 +3091,9 @@ pub struct InputConfig {
     /// "image/gif" are supported. Wildcards are not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub mime_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InputConfig {
@@ -3031,6 +3151,9 @@ pub struct OutputConfig {
     /// Currently, batch_size only applies to GcsDestination, with potential future
     /// support for other output configurations.
     pub batch_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OutputConfig {
@@ -3072,6 +3195,9 @@ pub struct GcsSource {
     /// Google Cloud Storage object. Wildcards are not currently supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsSource {
@@ -3123,6 +3249,9 @@ pub struct GcsDestination {
     /// and overflows into multiple sharded files.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsDestination {
@@ -3159,6 +3288,9 @@ pub struct OperationMetadata {
     /// The time when the operation result was last updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -3314,6 +3446,9 @@ pub struct ProductSearchParams {
     /// "color: red" is not acceptable because it uses a ':' instead of an '='.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProductSearchParams {
@@ -3384,6 +3519,9 @@ pub struct ProductSearchResults {
     /// matches in the union of all the per-product results.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub product_grouped_results: std::vec::Vec<crate::model::product_search_results::GroupedResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProductSearchResults {
@@ -3452,6 +3590,9 @@ pub mod product_search_results {
         /// to the query.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub image: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Result {
@@ -3509,6 +3650,9 @@ pub mod product_search_results {
 
         /// Score of the result. Range [0, 1].
         pub score: f32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ObjectAnnotation {
@@ -3569,6 +3713,9 @@ pub mod product_search_results {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub object_annotations:
             std::vec::Vec<crate::model::product_search_results::ObjectAnnotation>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GroupedResult {
@@ -3665,6 +3812,9 @@ pub struct Product {
     /// will refuse to work for that ProductSet.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub product_labels: std::vec::Vec<crate::model::product::KeyValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Product {
@@ -3737,6 +3887,9 @@ pub mod product {
         /// cannot exceed 128 bytes.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub value: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl KeyValue {
@@ -3801,6 +3954,9 @@ pub struct ProductSet {
     /// This field is ignored when creating a ProductSet.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub index_error: std::option::Option<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProductSet {
@@ -3877,6 +4033,9 @@ pub struct ReferenceImage {
     /// is not).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub bounding_polys: std::vec::Vec<crate::model::BoundingPoly>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReferenceImage {
@@ -3937,6 +4096,9 @@ pub struct CreateProductRequest {
     /// long. It cannot contain the character `/`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub product_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateProductRequest {
@@ -3991,6 +4153,9 @@ pub struct ListProductsRequest {
     /// The next_page_token returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProductsRequest {
@@ -4037,6 +4202,9 @@ pub struct ListProductsResponse {
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProductsResponse {
@@ -4094,6 +4262,9 @@ pub struct GetProductRequest {
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetProductRequest {
@@ -4134,6 +4305,9 @@ pub struct UpdateProductRequest {
     /// [google.protobuf.FieldMask]: wkt::FieldMask
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateProductRequest {
@@ -4178,6 +4352,9 @@ pub struct DeleteProductRequest {
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteProductRequest {
@@ -4220,6 +4397,9 @@ pub struct CreateProductSetRequest {
     /// long. It cannot contain the character `/`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub product_set_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateProductSetRequest {
@@ -4273,6 +4453,9 @@ pub struct ListProductSetsRequest {
     /// The next_page_token returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProductSetsRequest {
@@ -4319,6 +4502,9 @@ pub struct ListProductSetsResponse {
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProductSetsResponse {
@@ -4376,6 +4562,9 @@ pub struct GetProductSetRequest {
     /// `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetProductSetRequest {
@@ -4414,6 +4603,9 @@ pub struct UpdateProductSetRequest {
     /// [google.protobuf.FieldMask]: wkt::FieldMask
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateProductSetRequest {
@@ -4458,6 +4650,9 @@ pub struct DeleteProductSetRequest {
     /// `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteProductSetRequest {
@@ -4503,6 +4698,9 @@ pub struct CreateReferenceImageRequest {
     /// most 128 characters long. It cannot contain the character `/`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub reference_image_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateReferenceImageRequest {
@@ -4565,6 +4763,9 @@ pub struct ListReferenceImagesRequest {
     /// Defaults to the first page if not specified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReferenceImagesRequest {
@@ -4613,6 +4814,9 @@ pub struct ListReferenceImagesResponse {
     /// The next_page_token returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReferenceImagesResponse {
@@ -4676,6 +4880,9 @@ pub struct GetReferenceImageRequest {
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetReferenceImageRequest {
@@ -4708,6 +4915,9 @@ pub struct DeleteReferenceImageRequest {
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteReferenceImageRequest {
@@ -4747,6 +4957,9 @@ pub struct AddProductToProductSetRequest {
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub product: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AddProductToProductSetRequest {
@@ -4793,6 +5006,9 @@ pub struct RemoveProductFromProductSetRequest {
     /// `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub product: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RemoveProductFromProductSetRequest {
@@ -4838,6 +5054,9 @@ pub struct ListProductsInProductSetRequest {
     /// The next_page_token returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProductsInProductSetRequest {
@@ -4884,6 +5103,9 @@ pub struct ListProductsInProductSetResponse {
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListProductsInProductSetResponse {
@@ -5007,6 +5229,9 @@ pub struct ImportProductSetsGcsSource {
     /// [google.cloud.vision.v1.Product.product_labels]: crate::model::Product::product_labels
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub csv_file_uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportProductSetsGcsSource {
@@ -5036,6 +5261,9 @@ pub struct ImportProductSetsInputConfig {
     /// The source of the input.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::import_product_sets_input_config::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportProductSetsInputConfig {
@@ -5126,6 +5354,9 @@ pub struct ImportProductSetsRequest {
     /// Required. The input content for the list of requests.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub input_config: std::option::Option<crate::model::ImportProductSetsInputConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportProductSetsRequest {
@@ -5183,6 +5414,9 @@ pub struct ImportProductSetsResponse {
     /// line of the csv, starting from line 0.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub statuses: std::vec::Vec<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportProductSetsResponse {
@@ -5242,6 +5476,9 @@ pub struct BatchOperationMetadata {
     /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchOperationMetadata {
@@ -5370,6 +5607,9 @@ pub struct ProductSetPurgeConfig {
     /// still be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub product_set_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProductSetPurgeConfig {
@@ -5409,6 +5649,9 @@ pub struct PurgeProductsRequest {
     /// The Products to delete.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub target: std::option::Option<crate::model::purge_products_request::Target>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PurgeProductsRequest {
@@ -5543,6 +5786,9 @@ pub struct TextAnnotation {
     /// UTF-8 text detected on the pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub text: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TextAnnotation {
@@ -5593,6 +5839,9 @@ pub mod text_annotation {
 
         /// Confidence of detected language. Range [0, 1].
         pub confidence: f32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DetectedLanguage {
@@ -5634,6 +5883,9 @@ pub mod text_annotation {
 
         /// True if break prepends the element.
         pub is_prefix: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DetectedBreak {
@@ -5757,6 +6009,9 @@ pub mod text_annotation {
         /// Detected start or end of a text segment.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub detected_break: std::option::Option<crate::model::text_annotation::DetectedBreak>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TextProperty {
@@ -5818,6 +6073,9 @@ pub struct Page {
 
     /// Confidence of the OCR results on the page. Range [0, 1].
     pub confidence: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Page {
@@ -5919,6 +6177,9 @@ pub struct Block {
 
     /// Confidence of the OCR results on the block. Range [0, 1].
     pub confidence: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Block {
@@ -6094,6 +6355,9 @@ pub struct Paragraph {
 
     /// Confidence of the OCR results for the paragraph. Range [0, 1].
     pub confidence: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Paragraph {
@@ -6183,6 +6447,9 @@ pub struct Word {
 
     /// Confidence of the OCR results for the word. Range [0, 1].
     pub confidence: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Word {
@@ -6271,6 +6538,9 @@ pub struct Symbol {
 
     /// Confidence of the OCR results for the symbol. Range [0, 1].
     pub confidence: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Symbol {
@@ -6352,6 +6622,9 @@ pub struct WebDetection {
     /// Inferred from similar images on the open web.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub best_guess_labels: std::vec::Vec<crate::model::web_detection::WebLabel>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WebDetection {
@@ -6454,6 +6727,9 @@ pub mod web_detection {
         /// Canonical description of the entity, in English.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub description: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl WebEntity {
@@ -6498,6 +6774,9 @@ pub mod web_detection {
 
         /// (Deprecated) Overall relevancy score for the image.
         pub score: f32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl WebImage {
@@ -6552,6 +6831,9 @@ pub mod web_detection {
         /// crops.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub partial_matching_images: std::vec::Vec<crate::model::web_detection::WebImage>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl WebPage {
@@ -6621,6 +6903,9 @@ pub mod web_detection {
         /// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub language_code: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl WebLabel {

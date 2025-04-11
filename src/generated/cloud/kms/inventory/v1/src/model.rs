@@ -54,6 +54,9 @@ pub struct ListCryptoKeysRequest {
     /// page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCryptoKeysRequest {
@@ -105,6 +108,9 @@ pub struct ListCryptoKeysResponse {
     /// desired.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCryptoKeysResponse {
@@ -165,6 +171,9 @@ pub struct GetProtectedResourcesSummaryRequest {
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetProtectedResourcesSummaryRequest {
@@ -221,6 +230,9 @@ pub struct ProtectedResourcesSummary {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
     pub locations: std::collections::HashMap<std::string::String, i64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProtectedResourcesSummary {
@@ -344,6 +356,9 @@ pub struct SearchProtectedResourcesRequest {
     /// supported resource type, an INVALID_ARGUMENT error will be returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub resource_types: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchProtectedResourcesRequest {
@@ -410,6 +425,9 @@ pub struct SearchProtectedResourcesResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchProtectedResourcesResponse {
@@ -516,6 +534,9 @@ pub struct ProtectedResource {
     /// is in seconds. Timestamp.nanos will always be 0.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProtectedResource {

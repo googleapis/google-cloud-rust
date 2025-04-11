@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::InspectContentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InspectContentResponse> {
+    ) -> Result<gax::response::Response<crate::model::InspectContentResponse>> {
         self.inner.inspect_content(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::RedactImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RedactImageResponse> {
+    ) -> Result<gax::response::Response<crate::model::RedactImageResponse>> {
         self.inner.redact_image(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::DeidentifyContentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DeidentifyContentResponse> {
+    ) -> Result<gax::response::Response<crate::model::DeidentifyContentResponse>> {
         self.inner.deidentify_content(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::ReidentifyContentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReidentifyContentResponse> {
+    ) -> Result<gax::response::Response<crate::model::ReidentifyContentResponse>> {
         self.inner.reidentify_content(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::ListInfoTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInfoTypesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInfoTypesResponse>> {
         self.inner.list_info_types(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::CreateInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InspectTemplate> {
+    ) -> Result<gax::response::Response<crate::model::InspectTemplate>> {
         self.inner.create_inspect_template(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UpdateInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InspectTemplate> {
+    ) -> Result<gax::response::Response<crate::model::InspectTemplate>> {
         self.inner.update_inspect_template(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::GetInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InspectTemplate> {
+    ) -> Result<gax::response::Response<crate::model::InspectTemplate>> {
         self.inner.get_inspect_template(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::ListInspectTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInspectTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInspectTemplatesResponse>> {
         self.inner.list_inspect_templates(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_inspect_template(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::CreateDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DeidentifyTemplate> {
+    ) -> Result<gax::response::Response<crate::model::DeidentifyTemplate>> {
         self.inner.create_deidentify_template(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::UpdateDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DeidentifyTemplate> {
+    ) -> Result<gax::response::Response<crate::model::DeidentifyTemplate>> {
         self.inner.update_deidentify_template(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::GetDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DeidentifyTemplate> {
+    ) -> Result<gax::response::Response<crate::model::DeidentifyTemplate>> {
         self.inner.get_deidentify_template(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::ListDeidentifyTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDeidentifyTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDeidentifyTemplatesResponse>> {
         self.inner.list_deidentify_templates(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::DeleteDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_deidentify_template(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::CreateJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTrigger> {
+    ) -> Result<gax::response::Response<crate::model::JobTrigger>> {
         self.inner.create_job_trigger(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::UpdateJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTrigger> {
+    ) -> Result<gax::response::Response<crate::model::JobTrigger>> {
         self.inner.update_job_trigger(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::HybridInspectJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HybridInspectResponse> {
+    ) -> Result<gax::response::Response<crate::model::HybridInspectResponse>> {
         self.inner.hybrid_inspect_job_trigger(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::GetJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTrigger> {
+    ) -> Result<gax::response::Response<crate::model::JobTrigger>> {
         self.inner.get_job_trigger(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::ListJobTriggersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobTriggersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobTriggersResponse>> {
         self.inner.list_job_triggers(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::DeleteJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_job_trigger(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::ActivateJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DlpJob> {
+    ) -> Result<gax::response::Response<crate::model::DlpJob>> {
         self.inner.activate_job_trigger(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::CreateDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscoveryConfig> {
+    ) -> Result<gax::response::Response<crate::model::DiscoveryConfig>> {
         self.inner.create_discovery_config(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: crate::model::UpdateDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscoveryConfig> {
+    ) -> Result<gax::response::Response<crate::model::DiscoveryConfig>> {
         self.inner.update_discovery_config(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::GetDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscoveryConfig> {
+    ) -> Result<gax::response::Response<crate::model::DiscoveryConfig>> {
         self.inner.get_discovery_config(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::ListDiscoveryConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDiscoveryConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDiscoveryConfigsResponse>> {
         self.inner.list_discovery_configs(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::DeleteDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_discovery_config(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::CreateDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DlpJob> {
+    ) -> Result<gax::response::Response<crate::model::DlpJob>> {
         self.inner.create_dlp_job(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: crate::model::ListDlpJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDlpJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDlpJobsResponse>> {
         self.inner.list_dlp_jobs(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: crate::model::GetDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DlpJob> {
+    ) -> Result<gax::response::Response<crate::model::DlpJob>> {
         self.inner.get_dlp_job(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: crate::model::DeleteDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_dlp_job(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: crate::model::CancelDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_dlp_job(req, options).await
     }
 
@@ -330,7 +330,7 @@ where
         &self,
         req: crate::model::CreateStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StoredInfoType> {
+    ) -> Result<gax::response::Response<crate::model::StoredInfoType>> {
         self.inner.create_stored_info_type(req, options).await
     }
 
@@ -339,7 +339,7 @@ where
         &self,
         req: crate::model::UpdateStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StoredInfoType> {
+    ) -> Result<gax::response::Response<crate::model::StoredInfoType>> {
         self.inner.update_stored_info_type(req, options).await
     }
 
@@ -348,7 +348,7 @@ where
         &self,
         req: crate::model::GetStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StoredInfoType> {
+    ) -> Result<gax::response::Response<crate::model::StoredInfoType>> {
         self.inner.get_stored_info_type(req, options).await
     }
 
@@ -357,7 +357,7 @@ where
         &self,
         req: crate::model::ListStoredInfoTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListStoredInfoTypesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListStoredInfoTypesResponse>> {
         self.inner.list_stored_info_types(req, options).await
     }
 
@@ -366,7 +366,7 @@ where
         &self,
         req: crate::model::DeleteStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_stored_info_type(req, options).await
     }
 
@@ -375,7 +375,7 @@ where
         &self,
         req: crate::model::ListProjectDataProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProjectDataProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProjectDataProfilesResponse>> {
         self.inner.list_project_data_profiles(req, options).await
     }
 
@@ -384,7 +384,7 @@ where
         &self,
         req: crate::model::ListTableDataProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTableDataProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTableDataProfilesResponse>> {
         self.inner.list_table_data_profiles(req, options).await
     }
 
@@ -393,7 +393,7 @@ where
         &self,
         req: crate::model::ListColumnDataProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListColumnDataProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListColumnDataProfilesResponse>> {
         self.inner.list_column_data_profiles(req, options).await
     }
 
@@ -402,7 +402,7 @@ where
         &self,
         req: crate::model::GetProjectDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProjectDataProfile> {
+    ) -> Result<gax::response::Response<crate::model::ProjectDataProfile>> {
         self.inner.get_project_data_profile(req, options).await
     }
 
@@ -411,7 +411,7 @@ where
         &self,
         req: crate::model::ListFileStoreDataProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFileStoreDataProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFileStoreDataProfilesResponse>> {
         self.inner.list_file_store_data_profiles(req, options).await
     }
 
@@ -420,7 +420,7 @@ where
         &self,
         req: crate::model::GetFileStoreDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FileStoreDataProfile> {
+    ) -> Result<gax::response::Response<crate::model::FileStoreDataProfile>> {
         self.inner.get_file_store_data_profile(req, options).await
     }
 
@@ -429,7 +429,7 @@ where
         &self,
         req: crate::model::DeleteFileStoreDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner
             .delete_file_store_data_profile(req, options)
             .await
@@ -440,7 +440,7 @@ where
         &self,
         req: crate::model::GetTableDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TableDataProfile> {
+    ) -> Result<gax::response::Response<crate::model::TableDataProfile>> {
         self.inner.get_table_data_profile(req, options).await
     }
 
@@ -449,7 +449,7 @@ where
         &self,
         req: crate::model::GetColumnDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ColumnDataProfile> {
+    ) -> Result<gax::response::Response<crate::model::ColumnDataProfile>> {
         self.inner.get_column_data_profile(req, options).await
     }
 
@@ -458,7 +458,7 @@ where
         &self,
         req: crate::model::DeleteTableDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_table_data_profile(req, options).await
     }
 
@@ -467,7 +467,7 @@ where
         &self,
         req: crate::model::HybridInspectDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HybridInspectResponse> {
+    ) -> Result<gax::response::Response<crate::model::HybridInspectResponse>> {
         self.inner.hybrid_inspect_dlp_job(req, options).await
     }
 
@@ -476,7 +476,7 @@ where
         &self,
         req: crate::model::FinishDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.finish_dlp_job(req, options).await
     }
 
@@ -485,7 +485,7 @@ where
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         self.inner.create_connection(req, options).await
     }
 
@@ -494,7 +494,7 @@ where
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         self.inner.get_connection(req, options).await
     }
 
@@ -503,7 +503,7 @@ where
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         self.inner.list_connections(req, options).await
     }
 
@@ -512,7 +512,7 @@ where
         &self,
         req: crate::model::SearchConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchConnectionsResponse>> {
         self.inner.search_connections(req, options).await
     }
 
@@ -521,7 +521,7 @@ where
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_connection(req, options).await
     }
 
@@ -530,7 +530,7 @@ where
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         self.inner.update_connection(req, options).await
     }
 }

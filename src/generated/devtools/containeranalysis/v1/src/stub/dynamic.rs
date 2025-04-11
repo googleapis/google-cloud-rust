@@ -21,31 +21,31 @@ pub trait ContainerAnalysis: std::fmt::Debug + Send + Sync {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_vulnerability_occurrences_summary(
         &self,
         req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VulnerabilityOccurrencesSummary>;
+    ) -> crate::Result<gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>>;
 
     async fn export_sbom(
         &self,
         req: crate::model::ExportSBOMRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ExportSBOMResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ExportSBOMResponse>>;
 }
 
 /// All implementations of [super::ContainerAnalysis] also implement [ContainerAnalysis].
@@ -56,7 +56,7 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -65,7 +65,7 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -74,7 +74,7 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -83,7 +83,7 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
         &self,
         req: crate::model::GetVulnerabilityOccurrencesSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::VulnerabilityOccurrencesSummary> {
+    ) -> crate::Result<gax::response::Response<crate::model::VulnerabilityOccurrencesSummary>> {
         T::get_vulnerability_occurrences_summary(self, req, options).await
     }
 
@@ -92,7 +92,7 @@ impl<T: super::ContainerAnalysis> ContainerAnalysis for T {
         &self,
         req: crate::model::ExportSBOMRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ExportSBOMResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ExportSBOMResponse>> {
         T::export_sbom(self, req, options).await
     }
 }

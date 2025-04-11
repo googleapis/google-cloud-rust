@@ -44,7 +44,7 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         &self,
         req: crate::model::CreateChallengeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Challenge> {
+    ) -> Result<gax::response::Response<crate::model::Challenge>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -66,7 +66,7 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         &self,
         req: crate::model::VerifyAttestationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VerifyAttestationResponse> {
+    ) -> Result<gax::response::Response<crate::model::VerifyAttestationResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -86,7 +86,7 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -108,7 +108,7 @@ impl super::stub::ConfidentialComputing for ConfidentialComputing {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

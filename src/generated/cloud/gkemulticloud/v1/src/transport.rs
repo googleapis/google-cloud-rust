@@ -44,7 +44,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: crate::model::CreateAttachedClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -68,7 +68,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: crate::model::UpdateAttachedClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -107,7 +107,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: crate::model::ImportAttachedClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -127,7 +127,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: crate::model::GetAttachedClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AttachedCluster> {
+    ) -> Result<gax::response::Response<crate::model::AttachedCluster>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -146,7 +146,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: crate::model::ListAttachedClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAttachedClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAttachedClustersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -170,7 +170,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: crate::model::DeleteAttachedClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -193,7 +193,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: crate::model::GetAttachedServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AttachedServerConfig> {
+    ) -> Result<gax::response::Response<crate::model::AttachedServerConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -212,7 +212,8 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: crate::model::GenerateAttachedClusterInstallManifestRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAttachedClusterInstallManifestResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAttachedClusterInstallManifestResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -246,7 +247,8 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: crate::model::GenerateAttachedClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAttachedClusterAgentTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAttachedClusterAgentTokenResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -269,7 +271,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -291,7 +293,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -310,7 +312,7 @@ impl super::stub::AttachedClusters for AttachedClusters {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -323,14 +325,17 @@ impl super::stub::AttachedClusters for AttachedClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -340,10 +345,12 @@ impl super::stub::AttachedClusters for AttachedClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(
@@ -387,7 +394,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::CreateAwsClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -411,7 +418,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::UpdateAwsClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -450,7 +457,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::GetAwsClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AwsCluster> {
+    ) -> Result<gax::response::Response<crate::model::AwsCluster>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -469,7 +476,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::ListAwsClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAwsClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAwsClustersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -493,7 +500,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::DeleteAwsClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -516,7 +523,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::GenerateAwsClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAwsClusterAgentTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAwsClusterAgentTokenResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -536,7 +543,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::GenerateAwsAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAwsAccessTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAwsAccessTokenResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -558,7 +565,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::CreateAwsNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -582,7 +589,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::UpdateAwsNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -621,7 +628,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::RollbackAwsNodePoolUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -638,7 +645,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::GetAwsNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AwsNodePool> {
+    ) -> Result<gax::response::Response<crate::model::AwsNodePool>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -657,7 +664,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::ListAwsNodePoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAwsNodePoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAwsNodePoolsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -681,7 +688,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::DeleteAwsNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -704,7 +711,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::GetAwsOpenIdConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AwsOpenIdConfig> {
+    ) -> Result<gax::response::Response<crate::model::AwsOpenIdConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -726,7 +733,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::GetAwsJsonWebKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AwsJsonWebKeys> {
+    ) -> Result<gax::response::Response<crate::model::AwsJsonWebKeys>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -748,7 +755,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: crate::model::GetAwsServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AwsServerConfig> {
+    ) -> Result<gax::response::Response<crate::model::AwsServerConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -767,7 +774,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -789,7 +796,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -808,7 +815,7 @@ impl super::stub::AwsClusters for AwsClusters {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -821,14 +828,17 @@ impl super::stub::AwsClusters for AwsClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -838,10 +848,12 @@ impl super::stub::AwsClusters for AwsClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(
@@ -885,7 +897,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::CreateAzureClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -909,7 +921,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::GetAzureClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureClient> {
+    ) -> Result<gax::response::Response<crate::model::AzureClient>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -928,7 +940,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::ListAzureClientsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAzureClientsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAzureClientsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -952,7 +964,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::DeleteAzureClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -973,7 +985,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::CreateAzureClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -997,7 +1009,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::UpdateAzureClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1036,7 +1048,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::GetAzureClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureCluster> {
+    ) -> Result<gax::response::Response<crate::model::AzureCluster>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1055,7 +1067,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::ListAzureClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAzureClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAzureClustersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1079,7 +1091,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::DeleteAzureClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1102,7 +1114,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::GenerateAzureClusterAgentTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAzureClusterAgentTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAzureClusterAgentTokenResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1122,7 +1134,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::GenerateAzureAccessTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAzureAccessTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAzureAccessTokenResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1144,7 +1156,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::CreateAzureNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1168,7 +1180,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::UpdateAzureNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1207,7 +1219,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::GetAzureNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureNodePool> {
+    ) -> Result<gax::response::Response<crate::model::AzureNodePool>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1226,7 +1238,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::ListAzureNodePoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAzureNodePoolsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAzureNodePoolsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1250,7 +1262,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::DeleteAzureNodePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1273,7 +1285,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::GetAzureOpenIdConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureOpenIdConfig> {
+    ) -> Result<gax::response::Response<crate::model::AzureOpenIdConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1295,7 +1307,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::GetAzureJsonWebKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureJsonWebKeys> {
+    ) -> Result<gax::response::Response<crate::model::AzureJsonWebKeys>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1317,7 +1329,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: crate::model::GetAzureServerConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AzureServerConfig> {
+    ) -> Result<gax::response::Response<crate::model::AzureServerConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1336,7 +1348,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1358,7 +1370,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1377,7 +1389,7 @@ impl super::stub::AzureClusters for AzureClusters {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1390,14 +1402,17 @@ impl super::stub::AzureClusters for AzureClusters {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1407,10 +1422,12 @@ impl super::stub::AzureClusters for AzureClusters {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: wkt::Empty| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

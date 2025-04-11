@@ -21,31 +21,31 @@ pub trait AlertPolicyService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListAlertPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAlertPoliciesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListAlertPoliciesResponse>>;
 
     async fn get_alert_policy(
         &self,
         req: crate::model::GetAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AlertPolicy>;
+    ) -> crate::Result<gax::response::Response<crate::model::AlertPolicy>>;
 
     async fn create_alert_policy(
         &self,
         req: crate::model::CreateAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AlertPolicy>;
+    ) -> crate::Result<gax::response::Response<crate::model::AlertPolicy>>;
 
     async fn delete_alert_policy(
         &self,
         req: crate::model::DeleteAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn update_alert_policy(
         &self,
         req: crate::model::UpdateAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AlertPolicy>;
+    ) -> crate::Result<gax::response::Response<crate::model::AlertPolicy>>;
 }
 
 /// All implementations of [super::AlertPolicyService] also implement [AlertPolicyService].
@@ -56,7 +56,7 @@ impl<T: super::AlertPolicyService> AlertPolicyService for T {
         &self,
         req: crate::model::ListAlertPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAlertPoliciesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAlertPoliciesResponse>> {
         T::list_alert_policies(self, req, options).await
     }
 
@@ -65,7 +65,7 @@ impl<T: super::AlertPolicyService> AlertPolicyService for T {
         &self,
         req: crate::model::GetAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AlertPolicy> {
+    ) -> crate::Result<gax::response::Response<crate::model::AlertPolicy>> {
         T::get_alert_policy(self, req, options).await
     }
 
@@ -74,7 +74,7 @@ impl<T: super::AlertPolicyService> AlertPolicyService for T {
         &self,
         req: crate::model::CreateAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AlertPolicy> {
+    ) -> crate::Result<gax::response::Response<crate::model::AlertPolicy>> {
         T::create_alert_policy(self, req, options).await
     }
 
@@ -83,7 +83,7 @@ impl<T: super::AlertPolicyService> AlertPolicyService for T {
         &self,
         req: crate::model::DeleteAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_alert_policy(self, req, options).await
     }
 
@@ -92,7 +92,7 @@ impl<T: super::AlertPolicyService> AlertPolicyService for T {
         &self,
         req: crate::model::UpdateAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AlertPolicy> {
+    ) -> crate::Result<gax::response::Response<crate::model::AlertPolicy>> {
         T::update_alert_policy(self, req, options).await
     }
 }
@@ -104,37 +104,37 @@ pub trait GroupService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGroupsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListGroupsResponse>>;
 
     async fn get_group(
         &self,
         req: crate::model::GetGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Group>;
+    ) -> crate::Result<gax::response::Response<crate::model::Group>>;
 
     async fn create_group(
         &self,
         req: crate::model::CreateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Group>;
+    ) -> crate::Result<gax::response::Response<crate::model::Group>>;
 
     async fn update_group(
         &self,
         req: crate::model::UpdateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Group>;
+    ) -> crate::Result<gax::response::Response<crate::model::Group>>;
 
     async fn delete_group(
         &self,
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_group_members(
         &self,
         req: crate::model::ListGroupMembersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGroupMembersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListGroupMembersResponse>>;
 }
 
 /// All implementations of [super::GroupService] also implement [GroupService].
@@ -145,7 +145,7 @@ impl<T: super::GroupService> GroupService for T {
         &self,
         req: crate::model::ListGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGroupsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListGroupsResponse>> {
         T::list_groups(self, req, options).await
     }
 
@@ -154,7 +154,7 @@ impl<T: super::GroupService> GroupService for T {
         &self,
         req: crate::model::GetGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Group> {
+    ) -> crate::Result<gax::response::Response<crate::model::Group>> {
         T::get_group(self, req, options).await
     }
 
@@ -163,7 +163,7 @@ impl<T: super::GroupService> GroupService for T {
         &self,
         req: crate::model::CreateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Group> {
+    ) -> crate::Result<gax::response::Response<crate::model::Group>> {
         T::create_group(self, req, options).await
     }
 
@@ -172,7 +172,7 @@ impl<T: super::GroupService> GroupService for T {
         &self,
         req: crate::model::UpdateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Group> {
+    ) -> crate::Result<gax::response::Response<crate::model::Group>> {
         T::update_group(self, req, options).await
     }
 
@@ -181,7 +181,7 @@ impl<T: super::GroupService> GroupService for T {
         &self,
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_group(self, req, options).await
     }
 
@@ -190,7 +190,7 @@ impl<T: super::GroupService> GroupService for T {
         &self,
         req: crate::model::ListGroupMembersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGroupMembersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListGroupMembersResponse>> {
         T::list_group_members(self, req, options).await
     }
 }
@@ -202,55 +202,57 @@ pub trait MetricService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMonitoredResourceDescriptorsResponse>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>,
+    >;
 
     async fn get_monitored_resource_descriptor(
         &self,
         req: crate::model::GetMonitoredResourceDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<api::model::MonitoredResourceDescriptor>;
+    ) -> crate::Result<gax::response::Response<api::model::MonitoredResourceDescriptor>>;
 
     async fn list_metric_descriptors(
         &self,
         req: crate::model::ListMetricDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMetricDescriptorsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListMetricDescriptorsResponse>>;
 
     async fn get_metric_descriptor(
         &self,
         req: crate::model::GetMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<api::model::MetricDescriptor>;
+    ) -> crate::Result<gax::response::Response<api::model::MetricDescriptor>>;
 
     async fn create_metric_descriptor(
         &self,
         req: crate::model::CreateMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<api::model::MetricDescriptor>;
+    ) -> crate::Result<gax::response::Response<api::model::MetricDescriptor>>;
 
     async fn delete_metric_descriptor(
         &self,
         req: crate::model::DeleteMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_time_series(
         &self,
         req: crate::model::ListTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTimeSeriesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListTimeSeriesResponse>>;
 
     async fn create_time_series(
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn create_service_time_series(
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 }
 
 /// All implementations of [super::MetricService] also implement [MetricService].
@@ -261,7 +263,9 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMonitoredResourceDescriptorsResponse> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>,
+    > {
         T::list_monitored_resource_descriptors(self, req, options).await
     }
 
@@ -270,7 +274,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::GetMonitoredResourceDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<api::model::MonitoredResourceDescriptor> {
+    ) -> crate::Result<gax::response::Response<api::model::MonitoredResourceDescriptor>> {
         T::get_monitored_resource_descriptor(self, req, options).await
     }
 
@@ -279,7 +283,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::ListMetricDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListMetricDescriptorsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListMetricDescriptorsResponse>> {
         T::list_metric_descriptors(self, req, options).await
     }
 
@@ -288,7 +292,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::GetMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<api::model::MetricDescriptor> {
+    ) -> crate::Result<gax::response::Response<api::model::MetricDescriptor>> {
         T::get_metric_descriptor(self, req, options).await
     }
 
@@ -297,7 +301,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::CreateMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<api::model::MetricDescriptor> {
+    ) -> crate::Result<gax::response::Response<api::model::MetricDescriptor>> {
         T::create_metric_descriptor(self, req, options).await
     }
 
@@ -306,7 +310,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::DeleteMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_metric_descriptor(self, req, options).await
     }
 
@@ -315,7 +319,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::ListTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListTimeSeriesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListTimeSeriesResponse>> {
         T::list_time_series(self, req, options).await
     }
 
@@ -324,7 +328,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::create_time_series(self, req, options).await
     }
 
@@ -333,7 +337,7 @@ impl<T: super::MetricService> MetricService for T {
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::create_service_time_series(self, req, options).await
     }
 }
@@ -345,61 +349,65 @@ pub trait NotificationChannelService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListNotificationChannelDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNotificationChannelDescriptorsResponse>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListNotificationChannelDescriptorsResponse>,
+    >;
 
     async fn get_notification_channel_descriptor(
         &self,
         req: crate::model::GetNotificationChannelDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NotificationChannelDescriptor>;
+    ) -> crate::Result<gax::response::Response<crate::model::NotificationChannelDescriptor>>;
 
     async fn list_notification_channels(
         &self,
         req: crate::model::ListNotificationChannelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNotificationChannelsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListNotificationChannelsResponse>>;
 
     async fn get_notification_channel(
         &self,
         req: crate::model::GetNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NotificationChannel>;
+    ) -> crate::Result<gax::response::Response<crate::model::NotificationChannel>>;
 
     async fn create_notification_channel(
         &self,
         req: crate::model::CreateNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NotificationChannel>;
+    ) -> crate::Result<gax::response::Response<crate::model::NotificationChannel>>;
 
     async fn update_notification_channel(
         &self,
         req: crate::model::UpdateNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NotificationChannel>;
+    ) -> crate::Result<gax::response::Response<crate::model::NotificationChannel>>;
 
     async fn delete_notification_channel(
         &self,
         req: crate::model::DeleteNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn send_notification_channel_verification_code(
         &self,
         req: crate::model::SendNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_notification_channel_verification_code(
         &self,
         req: crate::model::GetNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GetNotificationChannelVerificationCodeResponse>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GetNotificationChannelVerificationCodeResponse>,
+    >;
 
     async fn verify_notification_channel(
         &self,
         req: crate::model::VerifyNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NotificationChannel>;
+    ) -> crate::Result<gax::response::Response<crate::model::NotificationChannel>>;
 }
 
 /// All implementations of [super::NotificationChannelService] also implement [NotificationChannelService].
@@ -410,7 +418,9 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::ListNotificationChannelDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNotificationChannelDescriptorsResponse> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListNotificationChannelDescriptorsResponse>,
+    > {
         T::list_notification_channel_descriptors(self, req, options).await
     }
 
@@ -419,7 +429,7 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::GetNotificationChannelDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NotificationChannelDescriptor> {
+    ) -> crate::Result<gax::response::Response<crate::model::NotificationChannelDescriptor>> {
         T::get_notification_channel_descriptor(self, req, options).await
     }
 
@@ -428,7 +438,8 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::ListNotificationChannelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListNotificationChannelsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListNotificationChannelsResponse>>
+    {
         T::list_notification_channels(self, req, options).await
     }
 
@@ -437,7 +448,7 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::GetNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NotificationChannel> {
+    ) -> crate::Result<gax::response::Response<crate::model::NotificationChannel>> {
         T::get_notification_channel(self, req, options).await
     }
 
@@ -446,7 +457,7 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::CreateNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NotificationChannel> {
+    ) -> crate::Result<gax::response::Response<crate::model::NotificationChannel>> {
         T::create_notification_channel(self, req, options).await
     }
 
@@ -455,7 +466,7 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::UpdateNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NotificationChannel> {
+    ) -> crate::Result<gax::response::Response<crate::model::NotificationChannel>> {
         T::update_notification_channel(self, req, options).await
     }
 
@@ -464,7 +475,7 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::DeleteNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_notification_channel(self, req, options).await
     }
 
@@ -473,7 +484,7 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::SendNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::send_notification_channel_verification_code(self, req, options).await
     }
 
@@ -482,7 +493,9 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::GetNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GetNotificationChannelVerificationCodeResponse> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::GetNotificationChannelVerificationCodeResponse>,
+    > {
         T::get_notification_channel_verification_code(self, req, options).await
     }
 
@@ -491,7 +504,7 @@ impl<T: super::NotificationChannelService> NotificationChannelService for T {
         &self,
         req: crate::model::VerifyNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::NotificationChannel> {
+    ) -> crate::Result<gax::response::Response<crate::model::NotificationChannel>> {
         T::verify_notification_channel(self, req, options).await
     }
 }
@@ -503,7 +516,7 @@ pub trait QueryService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::QueryTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryTimeSeriesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTimeSeriesResponse>>;
 }
 
 /// All implementations of [super::QueryService] also implement [QueryService].
@@ -514,7 +527,7 @@ impl<T: super::QueryService> QueryService for T {
         &self,
         req: crate::model::QueryTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::QueryTimeSeriesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::QueryTimeSeriesResponse>> {
         T::query_time_series(self, req, options).await
     }
 }
@@ -526,61 +539,61 @@ pub trait ServiceMonitoringService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service>;
+    ) -> crate::Result<gax::response::Response<crate::model::Service>>;
 
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service>;
+    ) -> crate::Result<gax::response::Response<crate::model::Service>>;
 
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>>;
 
     async fn update_service(
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service>;
+    ) -> crate::Result<gax::response::Response<crate::model::Service>>;
 
     async fn delete_service(
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn create_service_level_objective(
         &self,
         req: crate::model::CreateServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceLevelObjective>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceLevelObjective>>;
 
     async fn get_service_level_objective(
         &self,
         req: crate::model::GetServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceLevelObjective>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceLevelObjective>>;
 
     async fn list_service_level_objectives(
         &self,
         req: crate::model::ListServiceLevelObjectivesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceLevelObjectivesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceLevelObjectivesResponse>>;
 
     async fn update_service_level_objective(
         &self,
         req: crate::model::UpdateServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceLevelObjective>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceLevelObjective>>;
 
     async fn delete_service_level_objective(
         &self,
         req: crate::model::DeleteServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 }
 
 /// All implementations of [super::ServiceMonitoringService] also implement [ServiceMonitoringService].
@@ -591,7 +604,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service> {
+    ) -> crate::Result<gax::response::Response<crate::model::Service>> {
         T::create_service(self, req, options).await
     }
 
@@ -600,7 +613,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service> {
+    ) -> crate::Result<gax::response::Response<crate::model::Service>> {
         T::get_service(self, req, options).await
     }
 
@@ -609,7 +622,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>> {
         T::list_services(self, req, options).await
     }
 
@@ -618,7 +631,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service> {
+    ) -> crate::Result<gax::response::Response<crate::model::Service>> {
         T::update_service(self, req, options).await
     }
 
@@ -627,7 +640,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_service(self, req, options).await
     }
 
@@ -636,7 +649,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::CreateServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceLevelObjective> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
         T::create_service_level_objective(self, req, options).await
     }
 
@@ -645,7 +658,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::GetServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceLevelObjective> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
         T::get_service_level_objective(self, req, options).await
     }
 
@@ -654,7 +667,8 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::ListServiceLevelObjectivesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceLevelObjectivesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceLevelObjectivesResponse>>
+    {
         T::list_service_level_objectives(self, req, options).await
     }
 
@@ -663,7 +677,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::UpdateServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceLevelObjective> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
         T::update_service_level_objective(self, req, options).await
     }
 
@@ -672,7 +686,7 @@ impl<T: super::ServiceMonitoringService> ServiceMonitoringService for T {
         &self,
         req: crate::model::DeleteServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_service_level_objective(self, req, options).await
     }
 }
@@ -684,25 +698,25 @@ pub trait SnoozeService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateSnoozeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Snooze>;
+    ) -> crate::Result<gax::response::Response<crate::model::Snooze>>;
 
     async fn list_snoozes(
         &self,
         req: crate::model::ListSnoozesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListSnoozesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListSnoozesResponse>>;
 
     async fn get_snooze(
         &self,
         req: crate::model::GetSnoozeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Snooze>;
+    ) -> crate::Result<gax::response::Response<crate::model::Snooze>>;
 
     async fn update_snooze(
         &self,
         req: crate::model::UpdateSnoozeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Snooze>;
+    ) -> crate::Result<gax::response::Response<crate::model::Snooze>>;
 }
 
 /// All implementations of [super::SnoozeService] also implement [SnoozeService].
@@ -713,7 +727,7 @@ impl<T: super::SnoozeService> SnoozeService for T {
         &self,
         req: crate::model::CreateSnoozeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Snooze> {
+    ) -> crate::Result<gax::response::Response<crate::model::Snooze>> {
         T::create_snooze(self, req, options).await
     }
 
@@ -722,7 +736,7 @@ impl<T: super::SnoozeService> SnoozeService for T {
         &self,
         req: crate::model::ListSnoozesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListSnoozesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListSnoozesResponse>> {
         T::list_snoozes(self, req, options).await
     }
 
@@ -731,7 +745,7 @@ impl<T: super::SnoozeService> SnoozeService for T {
         &self,
         req: crate::model::GetSnoozeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Snooze> {
+    ) -> crate::Result<gax::response::Response<crate::model::Snooze>> {
         T::get_snooze(self, req, options).await
     }
 
@@ -740,7 +754,7 @@ impl<T: super::SnoozeService> SnoozeService for T {
         &self,
         req: crate::model::UpdateSnoozeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Snooze> {
+    ) -> crate::Result<gax::response::Response<crate::model::Snooze>> {
         T::update_snooze(self, req, options).await
     }
 }
@@ -752,37 +766,37 @@ pub trait UptimeCheckService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListUptimeCheckConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUptimeCheckConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListUptimeCheckConfigsResponse>>;
 
     async fn get_uptime_check_config(
         &self,
         req: crate::model::GetUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UptimeCheckConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::UptimeCheckConfig>>;
 
     async fn create_uptime_check_config(
         &self,
         req: crate::model::CreateUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UptimeCheckConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::UptimeCheckConfig>>;
 
     async fn update_uptime_check_config(
         &self,
         req: crate::model::UpdateUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UptimeCheckConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::UptimeCheckConfig>>;
 
     async fn delete_uptime_check_config(
         &self,
         req: crate::model::DeleteUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_uptime_check_ips(
         &self,
         req: crate::model::ListUptimeCheckIpsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUptimeCheckIpsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListUptimeCheckIpsResponse>>;
 }
 
 /// All implementations of [super::UptimeCheckService] also implement [UptimeCheckService].
@@ -793,7 +807,7 @@ impl<T: super::UptimeCheckService> UptimeCheckService for T {
         &self,
         req: crate::model::ListUptimeCheckConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUptimeCheckConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListUptimeCheckConfigsResponse>> {
         T::list_uptime_check_configs(self, req, options).await
     }
 
@@ -802,7 +816,7 @@ impl<T: super::UptimeCheckService> UptimeCheckService for T {
         &self,
         req: crate::model::GetUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UptimeCheckConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::UptimeCheckConfig>> {
         T::get_uptime_check_config(self, req, options).await
     }
 
@@ -811,7 +825,7 @@ impl<T: super::UptimeCheckService> UptimeCheckService for T {
         &self,
         req: crate::model::CreateUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UptimeCheckConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::UptimeCheckConfig>> {
         T::create_uptime_check_config(self, req, options).await
     }
 
@@ -820,7 +834,7 @@ impl<T: super::UptimeCheckService> UptimeCheckService for T {
         &self,
         req: crate::model::UpdateUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::UptimeCheckConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::UptimeCheckConfig>> {
         T::update_uptime_check_config(self, req, options).await
     }
 
@@ -829,7 +843,7 @@ impl<T: super::UptimeCheckService> UptimeCheckService for T {
         &self,
         req: crate::model::DeleteUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_uptime_check_config(self, req, options).await
     }
 
@@ -838,7 +852,7 @@ impl<T: super::UptimeCheckService> UptimeCheckService for T {
         &self,
         req: crate::model::ListUptimeCheckIpsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListUptimeCheckIpsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListUptimeCheckIpsResponse>> {
         T::list_uptime_check_ips(self, req, options).await
     }
 }

@@ -23,31 +23,31 @@ pub trait Simulator: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetReplayRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Replay>;
+    ) -> crate::Result<gax::response::Response<crate::model::Replay>>;
 
     async fn create_replay(
         &self,
         req: crate::model::CreateReplayRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_replay_results(
         &self,
         req: crate::model::ListReplayResultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReplayResultsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListReplayResultsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -68,7 +68,7 @@ impl<T: super::Simulator> Simulator for T {
         &self,
         req: crate::model::GetReplayRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Replay> {
+    ) -> crate::Result<gax::response::Response<crate::model::Replay>> {
         T::get_replay(self, req, options).await
     }
 
@@ -77,7 +77,7 @@ impl<T: super::Simulator> Simulator for T {
         &self,
         req: crate::model::CreateReplayRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_replay(self, req, options).await
     }
 
@@ -86,7 +86,7 @@ impl<T: super::Simulator> Simulator for T {
         &self,
         req: crate::model::ListReplayResultsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReplayResultsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListReplayResultsResponse>> {
         T::list_replay_results(self, req, options).await
     }
 
@@ -95,7 +95,7 @@ impl<T: super::Simulator> Simulator for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -104,7 +104,7 @@ impl<T: super::Simulator> Simulator for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

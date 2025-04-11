@@ -101,6 +101,7 @@ pub mod analytics_service {
             (*self.0.stub)
                 .export_analytics_metrics(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_analytics_metrics`.
@@ -197,6 +198,7 @@ pub mod analytics_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -275,6 +277,7 @@ pub mod analytics_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -371,6 +374,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .list_catalogs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -440,6 +444,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .update_catalog(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [catalog][crate::model::UpdateCatalogRequest::catalog].
@@ -497,6 +502,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .set_default_branch(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [catalog][crate::model::SetDefaultBranchRequest::catalog].
@@ -560,6 +566,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .get_default_branch(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [catalog][crate::model::GetDefaultBranchRequest::catalog].
@@ -605,6 +612,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .get_completion_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCompletionConfigRequest::name].
@@ -650,6 +658,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .update_completion_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [completion_config][crate::model::UpdateCompletionConfigRequest::completion_config].
@@ -709,6 +718,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .get_attributes_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAttributesConfigRequest::name].
@@ -754,6 +764,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .update_attributes_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [attributes_config][crate::model::UpdateAttributesConfigRequest::attributes_config].
@@ -813,6 +824,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .add_catalog_attribute(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [attributes_config][crate::model::AddCatalogAttributeRequest::attributes_config].
@@ -869,6 +881,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .remove_catalog_attribute(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [attributes_config][crate::model::RemoveCatalogAttributeRequest::attributes_config].
@@ -922,6 +935,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .replace_catalog_attribute(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [attributes_config][crate::model::ReplaceCatalogAttributeRequest::attributes_config].
@@ -987,6 +1001,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1065,6 +1080,7 @@ pub mod catalog_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1161,6 +1177,7 @@ pub mod completion_service {
             (*self.0.stub)
                 .complete_query(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [catalog][crate::model::CompleteQueryRequest::catalog].
@@ -1264,6 +1281,7 @@ pub mod completion_service {
             (*self.0.stub)
                 .import_completion_data(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_completion_data`.
@@ -1362,6 +1380,7 @@ pub mod completion_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1440,6 +1459,7 @@ pub mod completion_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1536,6 +1556,7 @@ pub mod control_service {
             (*self.0.stub)
                 .create_control(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateControlRequest::parent].
@@ -1593,6 +1614,7 @@ pub mod control_service {
             (*self.0.stub)
                 .delete_control(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteControlRequest::name].
@@ -1635,6 +1657,7 @@ pub mod control_service {
             (*self.0.stub)
                 .update_control(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [control][crate::model::UpdateControlRequest::control].
@@ -1689,6 +1712,7 @@ pub mod control_service {
             (*self.0.stub)
                 .get_control(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetControlRequest::name].
@@ -1731,6 +1755,7 @@ pub mod control_service {
             (*self.0.stub)
                 .list_controls(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1809,6 +1834,7 @@ pub mod control_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1887,6 +1913,7 @@ pub mod control_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1994,6 +2021,7 @@ pub mod generative_question_service {
             (*self.0.stub)
                 .update_generative_questions_feature_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [generative_questions_feature_config][crate::model::UpdateGenerativeQuestionsFeatureConfigRequest::generative_questions_feature_config].
@@ -2057,6 +2085,7 @@ pub mod generative_question_service {
             (*self.0.stub)
                 .get_generative_questions_feature_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [catalog][crate::model::GetGenerativeQuestionsFeatureConfigRequest::catalog].
@@ -2106,6 +2135,7 @@ pub mod generative_question_service {
             (*self.0.stub)
                 .list_generative_question_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListGenerativeQuestionConfigsRequest::parent].
@@ -2155,6 +2185,7 @@ pub mod generative_question_service {
             (*self.0.stub)
                 .update_generative_question_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [generative_question_config][crate::model::UpdateGenerativeQuestionConfigRequest::generative_question_config].
@@ -2220,6 +2251,7 @@ pub mod generative_question_service {
             (*self.0.stub)
                 .batch_update_generative_question_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateGenerativeQuestionConfigsRequest::parent].
@@ -2278,6 +2310,7 @@ pub mod generative_question_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2358,6 +2391,7 @@ pub mod generative_question_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2459,6 +2493,7 @@ pub mod model_service {
             (*self.0.stub)
                 .create_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_model`.
@@ -2548,6 +2583,7 @@ pub mod model_service {
             (*self.0.stub)
                 .get_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetModelRequest::name].
@@ -2590,6 +2626,7 @@ pub mod model_service {
             (*self.0.stub)
                 .pause_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PauseModelRequest::name].
@@ -2632,6 +2669,7 @@ pub mod model_service {
             (*self.0.stub)
                 .resume_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResumeModelRequest::name].
@@ -2674,6 +2712,7 @@ pub mod model_service {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteModelRequest::name].
@@ -2716,6 +2755,7 @@ pub mod model_service {
             (*self.0.stub)
                 .list_models(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2785,6 +2825,7 @@ pub mod model_service {
             (*self.0.stub)
                 .update_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [model][crate::model::UpdateModelRequest::model].
@@ -2844,6 +2885,7 @@ pub mod model_service {
             (*self.0.stub)
                 .tune_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `tune_model`.
@@ -2923,6 +2965,7 @@ pub mod model_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3001,6 +3044,7 @@ pub mod model_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3094,7 +3138,10 @@ pub mod prediction_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::PredictResponse> {
-            (*self.0.stub).predict(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .predict(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [placement][crate::model::PredictRequest::placement].
@@ -3195,6 +3242,7 @@ pub mod prediction_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3273,6 +3321,7 @@ pub mod prediction_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3369,6 +3418,7 @@ pub mod product_service {
             (*self.0.stub)
                 .create_product(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProductRequest::parent].
@@ -3426,6 +3476,7 @@ pub mod product_service {
             (*self.0.stub)
                 .get_product(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProductRequest::name].
@@ -3468,6 +3519,7 @@ pub mod product_service {
             (*self.0.stub)
                 .list_products(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3549,6 +3601,7 @@ pub mod product_service {
             (*self.0.stub)
                 .update_product(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [product][crate::model::UpdateProductRequest::product].
@@ -3609,6 +3662,7 @@ pub mod product_service {
             (*self.0.stub)
                 .delete_product(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteProductRequest::name].
@@ -3656,6 +3710,7 @@ pub mod product_service {
             (*self.0.stub)
                 .purge_products(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `purge_products`.
@@ -3751,6 +3806,7 @@ pub mod product_service {
             (*self.0.stub)
                 .import_products(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_products`.
@@ -3882,6 +3938,7 @@ pub mod product_service {
             (*self.0.stub)
                 .set_inventory(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `set_inventory`.
@@ -3989,6 +4046,7 @@ pub mod product_service {
             (*self.0.stub)
                 .add_fulfillment_places(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `add_fulfillment_places`.
@@ -4108,6 +4166,7 @@ pub mod product_service {
             (*self.0.stub)
                 .remove_fulfillment_places(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `remove_fulfillment_places`.
@@ -4228,6 +4287,7 @@ pub mod product_service {
             (*self.0.stub)
                 .add_local_inventories(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `add_local_inventories`.
@@ -4345,6 +4405,7 @@ pub mod product_service {
             (*self.0.stub)
                 .remove_local_inventories(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `remove_local_inventories`.
@@ -4454,6 +4515,7 @@ pub mod product_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4532,6 +4594,7 @@ pub mod product_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4625,7 +4688,10 @@ pub mod search_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SearchResponse> {
-            (*self.0.stub).search(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .search(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4885,6 +4951,7 @@ pub mod search_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4963,6 +5030,7 @@ pub mod search_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -5066,6 +5134,7 @@ pub mod serving_config_service {
             (*self.0.stub)
                 .create_serving_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateServingConfigRequest::parent].
@@ -5128,6 +5197,7 @@ pub mod serving_config_service {
             (*self.0.stub)
                 .delete_serving_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteServingConfigRequest::name].
@@ -5175,6 +5245,7 @@ pub mod serving_config_service {
             (*self.0.stub)
                 .update_serving_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [serving_config][crate::model::UpdateServingConfigRequest::serving_config].
@@ -5234,6 +5305,7 @@ pub mod serving_config_service {
             (*self.0.stub)
                 .get_serving_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServingConfigRequest::name].
@@ -5281,6 +5353,7 @@ pub mod serving_config_service {
             (*self.0.stub)
                 .list_serving_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5352,6 +5425,7 @@ pub mod serving_config_service {
             (*self.0.stub)
                 .add_control(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [serving_config][crate::model::AddControlRequest::serving_config].
@@ -5402,6 +5476,7 @@ pub mod serving_config_service {
             (*self.0.stub)
                 .remove_control(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [serving_config][crate::model::RemoveControlRequest::serving_config].
@@ -5455,6 +5530,7 @@ pub mod serving_config_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5535,6 +5611,7 @@ pub mod serving_config_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -5631,6 +5708,7 @@ pub mod user_event_service {
             (*self.0.stub)
                 .write_user_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::WriteUserEventRequest::parent].
@@ -5691,6 +5769,7 @@ pub mod user_event_service {
             (*self.0.stub)
                 .collect_user_event(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CollectUserEventRequest::parent].
@@ -5773,6 +5852,7 @@ pub mod user_event_service {
             (*self.0.stub)
                 .purge_user_events(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `purge_user_events`.
@@ -5869,6 +5949,7 @@ pub mod user_event_service {
             (*self.0.stub)
                 .import_user_events(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_user_events`.
@@ -5975,6 +6056,7 @@ pub mod user_event_service {
             (*self.0.stub)
                 .rejoin_user_events(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `rejoin_user_events`.
@@ -6069,6 +6151,7 @@ pub mod user_event_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -6147,6 +6230,7 @@ pub mod user_event_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

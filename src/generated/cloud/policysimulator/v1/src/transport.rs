@@ -44,7 +44,7 @@ impl super::stub::Simulator for Simulator {
         &self,
         req: crate::model::GetReplayRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Replay> {
+    ) -> Result<gax::response::Response<crate::model::Replay>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -63,7 +63,7 @@ impl super::stub::Simulator for Simulator {
         &self,
         req: crate::model::CreateReplayRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -80,7 +80,7 @@ impl super::stub::Simulator for Simulator {
         &self,
         req: crate::model::ListReplayResultsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListReplayResultsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListReplayResultsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -101,7 +101,7 @@ impl super::stub::Simulator for Simulator {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -123,7 +123,7 @@ impl super::stub::Simulator for Simulator {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner

@@ -21,7 +21,6 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
-	"sort"
 	"strings"
 	"testing"
 )
@@ -38,11 +37,14 @@ var (
 	outputDir                  = fmt.Sprintf("%s/test-only", testdataDir)
 	secretManagerServiceConfig = "googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml"
 	specificationSource        = fmt.Sprintf("%s/openapi/secretmanager_openapi_v1.json", testdataDir)
-	testdataImportPath         = fmt.Sprintf("github.com/google-cloud-rust/generator/%s", testdataDir)
 )
 
 func TestRustFromOpenAPI(t *testing.T) {
-	var outDir = fmt.Sprintf("%s/rust/openapi/golden", testdataDir)
+	outDir, err := os.MkdirTemp(t.TempDir(), "golden")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(outDir)
 	cmdLine := &CommandLine{
 		Command:             []string{},
 		ProjectRoot:         projectRoot,
@@ -65,10 +67,20 @@ func TestRustFromOpenAPI(t *testing.T) {
 	if err := runCommand(cmdGenerate, cmdLine); err != nil {
 		t.Fatal(err)
 	}
+	for _, expected := range []string{".sidekick.toml", "README.md", "Cargo.toml", "src/lib.rs"} {
+		filename := path.Join(outDir, expected)
+		if _, err := os.Stat(filename); os.IsNotExist(err) {
+			t.Errorf("missing %s: %s", filename, err)
+		}
+	}
 }
 
 func TestRustFromProtobuf(t *testing.T) {
-	var outDir = fmt.Sprintf("%s/rust/protobuf/golden", testdataDir)
+	outDir, err := os.MkdirTemp(t.TempDir(), "golden")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(outDir)
 
 	type TestConfig struct {
 		Source        string
@@ -141,15 +153,22 @@ func TestRustFromProtobuf(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		manifest := path.Join(projectRoot, outDir, config.Name, "Cargo.toml")
-		if _, err := os.Stat(manifest); os.IsNotExist(err) {
-			// The module test does not produce a Cargo.toml file
-			continue
+		for _, expected := range []string{".sidekick.toml", "README.md", "Cargo.toml", "src/lib.rs"} {
+			filename := path.Join(outDir, config.Name, expected)
+			if _, err := os.Stat(filename); os.IsNotExist(err) {
+				t.Errorf("missing %s: %s", filename, err)
+			}
 		}
 	}
 }
 
 func TestRustModuleFromProtobuf(t *testing.T) {
+	outDir, err := os.MkdirTemp(t.TempDir(), "golden")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(outDir)
+
 	type TestConfig struct {
 		Source        string
 		ServiceConfig string
@@ -184,7 +203,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 			},
 			ServiceConfig: config.ServiceConfig,
 			Language:      "rust",
-			Output:        path.Join(testdataDir, "rust/protobuf/golden/module", config.Name),
+			Output:        path.Join(outDir, config.Name),
 			Codec: map[string]string{
 				"copyright-year":    "2024",
 				"template-override": "templates/mod",
@@ -197,10 +216,22 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 		if err := runCommand(cmdGenerate, cmdLine); err != nil {
 			t.Fatal(err)
 		}
+		for _, expected := range []string{".sidekick.toml", "mod.rs"} {
+			filename := path.Join(outDir, config.Name, expected)
+			if _, err := os.Stat(filename); os.IsNotExist(err) {
+				t.Errorf("missing %s: %s", filename, err)
+			}
+		}
 	}
 }
 
 func TestRustBootstrapWkt(t *testing.T) {
+	outDir, err := os.MkdirTemp(t.TempDir(), "golden")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(outDir)
+
 	type TestConfig struct {
 		Source        string
 		ServiceConfig string
@@ -231,7 +262,7 @@ func TestRustBootstrapWkt(t *testing.T) {
 				"googleapis-root": testdataDir,
 			},
 			Language: "rust",
-			Output:   path.Join(testdataDir, "rust/protobuf/golden/wkt/generated", config.Name),
+			Output:   path.Join(outDir, config.Name),
 			Codec: map[string]string{
 				"copyright-year":    "2025",
 				"template-override": "templates/mod",
@@ -247,10 +278,23 @@ func TestRustBootstrapWkt(t *testing.T) {
 		if err := runCommand(cmdGenerate, cmdLine); err != nil {
 			t.Fatal(err)
 		}
+		for _, expected := range []string{".sidekick.toml", "mod.rs"} {
+			filename := path.Join(outDir, config.Name, expected)
+			if _, err := os.Stat(filename); os.IsNotExist(err) {
+				t.Errorf("missing %s: %s", filename, err)
+			}
+		}
 	}
 }
 
 func TestRustOverrideTitleAndDescription(t *testing.T) {
+	outDir, err := os.MkdirTemp(t.TempDir(), "golden")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(outDir)
+	titleOverride := "Replace or Provide Custom Title"
+	descriptionOverride := "Replace or Provide Custom Description\nIncluding multiple lines."
 	cmdLine := &CommandLine{
 		Command:             []string{},
 		ProjectRoot:         projectRoot,
@@ -259,10 +303,10 @@ func TestRustOverrideTitleAndDescription(t *testing.T) {
 		Language:            "rust",
 		Source: map[string]string{
 			"googleapis-root":      googleapisRoot,
-			"title-override":       "Replace or Provide Custom Title",
-			"description-override": "Replace or Provide Custom Description\nIncluding multiple lines.",
+			"title-override":       titleOverride,
+			"description-override": descriptionOverride,
 		},
-		Output: path.Join(testdataDir, "rust/protobuf/golden/override/type"),
+		Output: outDir,
 		Codec: map[string]string{
 			"copyright-year":        "2025",
 			"package-name-override": "google-cloud-test-only",
@@ -272,10 +316,31 @@ func TestRustOverrideTitleAndDescription(t *testing.T) {
 	if err := runCommand(cmdGenerate, cmdLine); err != nil {
 		t.Fatal(err)
 	}
+	for _, expected := range []string{".sidekick.toml", "README.md", "Cargo.toml", "src/lib.rs"} {
+		filename := path.Join(outDir, expected)
+		if _, err := os.Stat(filename); os.IsNotExist(err) {
+			t.Errorf("missing %s: %s", filename, err)
+		}
+	}
+	contents, err := os.ReadFile(path.Join(outDir, "README.md"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(contents), titleOverride) {
+		t.Errorf("missing title override in README, want=%s, got=%s", titleOverride, contents)
+	}
+	if !strings.Contains(string(contents), descriptionOverride) {
+		t.Errorf("missing description override in README, want=%s, got=%s", descriptionOverride, contents)
+	}
 }
 
 func TestGoFromProtobuf(t *testing.T) {
-	var outDir = fmt.Sprintf("%s/go/protobuf/golden", testdataDir)
+	outDir, err := os.MkdirTemp(t.TempDir(), "golden")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.RemoveAll(outDir)
+
 	type TestConfig struct {
 		Source       string
 		Name         string
@@ -294,14 +359,11 @@ func TestGoFromProtobuf(t *testing.T) {
 			Source: fmt.Sprintf("%s/google/iam/v1", googleapisRoot),
 			Name:   "iam/v1",
 			ExtraOptions: map[string]string{
-				"import-mapping:google.type":     fmt.Sprintf("%s/go/protobuf/golden/typez;typez", testdataImportPath),
-				"import-mapping:google.protobuf": fmt.Sprintf("%s/go/protobuf/golden/wkt;wkt", testdataImportPath),
+				"import-mapping:google.type":     "typez;typez",
+				"import-mapping:google.protobuf": "wkt;wkt",
 				"go-package-name":                "iam",
 			},
-			ModReplace: map[string]string{
-				fmt.Sprintf("%s/go/protobuf/golden/typez", testdataImportPath): "typez",
-				fmt.Sprintf("%s/go/protobuf/golden/wkt", testdataImportPath):   "wkt",
-			},
+			ModReplace: map[string]string{},
 		},
 	}
 
@@ -320,7 +382,7 @@ func TestGoFromProtobuf(t *testing.T) {
 			Codec: map[string]string{
 				"not-for-publication":   "true",
 				"copyright-year":        "2024",
-				"package-name-override": fmt.Sprintf("%s/go/protobuf/golden/%s", testdataImportPath, config.Name),
+				"package-name-override": fmt.Sprintf("golden/%s", config.Name),
 			},
 		}
 		for k, v := range config.ExtraOptions {
@@ -331,14 +393,15 @@ func TestGoFromProtobuf(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		dir := path.Join(projectRoot, outDir, config.Name)
+		dir := path.Join(outDir, config.Name)
 		execCommand(t, dir, "goimports", "-w", ".")
-
-		for _, key := range orderedKeys(config.ModReplace) {
-			dir := path.Join(projectRoot, outDir, config.Name)
-			execCommand(t, dir, "go", "mod", "edit", "-replace", key+"=../../"+config.ModReplace[key])
+		execCommand(t, dir, "go", "mod", "tidy")
+		for _, expected := range []string{".sidekick.toml", "go.mod", "client.go"} {
+			filename := path.Join(outDir, config.Name, expected)
+			if _, err := os.Stat(filename); os.IsNotExist(err) {
+				t.Errorf("missing %s: %s", filename, err)
+			}
 		}
-		execCommand(t, path.Join(projectRoot, outDir, config.Name), "go", "mod", "tidy")
 	}
 }
 
@@ -353,13 +416,4 @@ func execCommand(t *testing.T, dir, c string, arg ...string) {
 		}
 		t.Fatalf("%v: %v\n%s", cmd, err, output)
 	}
-}
-
-func orderedKeys(m map[string]string) []string {
-	keys := make([]string, 0, len(m))
-	for k := range m {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	return keys
 }

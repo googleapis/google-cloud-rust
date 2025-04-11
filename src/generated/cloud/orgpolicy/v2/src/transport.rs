@@ -44,7 +44,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::ListConstraintsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConstraintsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConstraintsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -68,7 +68,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::ListPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPoliciesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -89,7 +89,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::GetPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -108,7 +108,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::GetEffectivePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -130,7 +130,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::CreatePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -150,7 +150,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::UpdatePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -186,7 +186,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::DeletePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -200,14 +200,17 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_custom_constraint(
         &self,
         req: crate::model::CreateCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CustomConstraint> {
+    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -229,7 +232,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::UpdateCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CustomConstraint> {
+    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -257,7 +260,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::GetCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CustomConstraint> {
+    ) -> Result<gax::response::Response<crate::model::CustomConstraint>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -276,7 +279,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::ListCustomConstraintsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCustomConstraintsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCustomConstraintsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -300,7 +303,7 @@ impl super::stub::OrgPolicy for OrgPolicy {
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -313,6 +316,9 @@ impl super::stub::OrgPolicy for OrgPolicy {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: wkt::Empty| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 }

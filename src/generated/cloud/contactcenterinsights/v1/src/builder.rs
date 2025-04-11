@@ -100,6 +100,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_conversation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateConversationRequest::parent].
@@ -167,6 +168,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .upload_conversation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `upload_conversation`.
@@ -283,6 +285,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_conversation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [conversation][crate::model::UpdateConversationRequest::conversation].
@@ -339,6 +342,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_conversation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConversationRequest::name].
@@ -392,6 +396,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_conversations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -484,6 +489,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_conversation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteConversationRequest::name].
@@ -539,6 +545,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_analysis(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_analysis`.
@@ -628,6 +635,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_analysis(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAnalysisRequest::name].
@@ -672,6 +680,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_analyses(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -749,6 +758,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_analysis(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAnalysisRequest::name].
@@ -803,6 +813,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .bulk_analyze_conversations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_analyze_conversations`.
@@ -918,6 +929,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .bulk_delete_conversations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_delete_conversations`.
@@ -1026,6 +1038,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .ingest_conversations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `ingest_conversations`.
@@ -1173,6 +1186,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .export_insights_data(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_insights_data`.
@@ -1297,6 +1311,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_issue_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_issue_model`.
@@ -1387,6 +1402,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_issue_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [issue_model][crate::model::UpdateIssueModelRequest::issue_model].
@@ -1443,6 +1459,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_issue_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIssueModelRequest::name].
@@ -1487,6 +1504,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_issue_models(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListIssueModelsRequest::parent].
@@ -1539,6 +1557,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_issue_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_issue_model`.
@@ -1623,6 +1642,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .deploy_issue_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `deploy_issue_model`.
@@ -1713,6 +1733,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .undeploy_issue_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undeploy_issue_model`.
@@ -1803,6 +1824,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .export_issue_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `export_issue_model`.
@@ -1904,6 +1926,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .import_issue_model(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_issue_model`.
@@ -2001,6 +2024,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_issue(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetIssueRequest::name].
@@ -2045,6 +2069,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_issues(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListIssuesRequest::parent].
@@ -2089,6 +2114,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_issue(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [issue][crate::model::UpdateIssueRequest::issue].
@@ -2145,6 +2171,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_issue(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueRequest::name].
@@ -2194,6 +2221,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .calculate_issue_model_stats(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [issue_model][crate::model::CalculateIssueModelStatsRequest::issue_model].
@@ -2241,6 +2269,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_phrase_matcher(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePhraseMatcherRequest::parent].
@@ -2297,6 +2326,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_phrase_matcher(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPhraseMatcherRequest::name].
@@ -2344,6 +2374,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_phrase_matchers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2424,6 +2455,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_phrase_matcher(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePhraseMatcherRequest::name].
@@ -2471,6 +2503,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_phrase_matcher(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [phrase_matcher][crate::model::UpdatePhraseMatcherRequest::phrase_matcher].
@@ -2527,6 +2560,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .calculate_stats(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [location][crate::model::CalculateStatsRequest::location].
@@ -2577,6 +2611,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
@@ -2621,6 +2656,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
@@ -2680,6 +2716,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_analysis_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAnalysisRuleRequest::parent].
@@ -2733,6 +2770,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_analysis_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAnalysisRuleRequest::name].
@@ -2780,6 +2818,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_analysis_rules(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2854,6 +2893,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_analysis_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [analysis_rule][crate::model::UpdateAnalysisRuleRequest::analysis_rule].
@@ -2913,6 +2953,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_analysis_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAnalysisRuleRequest::name].
@@ -2960,6 +3001,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_encryption_spec(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEncryptionSpecRequest::name].
@@ -3014,6 +3056,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .initialize_encryption_spec(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `initialize_encryption_spec`.
@@ -3099,6 +3142,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateViewRequest::parent].
@@ -3149,6 +3193,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetViewRequest::name].
@@ -3193,6 +3238,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_views(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3264,6 +3310,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [view][crate::model::UpdateViewRequest::view].
@@ -3317,6 +3364,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_view(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteViewRequest::name].
@@ -3366,6 +3414,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .query_metrics(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `query_metrics`.
@@ -3486,6 +3535,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_qa_question(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQaQuestionRequest::parent].
@@ -3545,6 +3595,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_qa_question(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQaQuestionRequest::name].
@@ -3592,6 +3643,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_qa_question(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [qa_question][crate::model::UpdateQaQuestionRequest::qa_question].
@@ -3651,6 +3703,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_qa_question(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQaQuestionRequest::name].
@@ -3695,6 +3748,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_qa_questions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3769,6 +3823,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_qa_scorecard(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQaScorecardRequest::parent].
@@ -3828,6 +3883,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_qa_scorecard(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQaScorecardRequest::name].
@@ -3875,6 +3931,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_qa_scorecard(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [qa_scorecard][crate::model::UpdateQaScorecardRequest::qa_scorecard].
@@ -3934,6 +3991,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_qa_scorecard(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQaScorecardRequest::name].
@@ -3987,6 +4045,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_qa_scorecards(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4063,6 +4122,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQaScorecardRevisionRequest::parent].
@@ -4127,6 +4187,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQaScorecardRevisionRequest::name].
@@ -4181,6 +4242,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .tune_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `tune_qa_scorecard_revision`.
@@ -4280,6 +4342,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .deploy_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeployQaScorecardRevisionRequest::name].
@@ -4329,6 +4392,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .undeploy_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UndeployQaScorecardRevisionRequest::name].
@@ -4378,6 +4442,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_qa_scorecard_revision(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQaScorecardRevisionRequest::name].
@@ -4433,6 +4498,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_qa_scorecard_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4515,6 +4581,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .create_feedback_label(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFeedbackLabelRequest::parent].
@@ -4577,6 +4644,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_feedback_labels(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4657,6 +4725,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_feedback_label(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFeedbackLabelRequest::name].
@@ -4704,6 +4773,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .update_feedback_label(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [feedback_label][crate::model::UpdateFeedbackLabelRequest::feedback_label].
@@ -4763,6 +4833,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .delete_feedback_label(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFeedbackLabelRequest::name].
@@ -4810,6 +4881,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_all_feedback_labels(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4897,6 +4969,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .bulk_upload_feedback_labels(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_upload_feedback_labels`.
@@ -5006,6 +5079,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .bulk_download_feedback_labels(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_download_feedback_labels`.
@@ -5142,6 +5216,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -5222,6 +5297,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -5269,6 +5345,7 @@ pub mod contact_center_insights {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

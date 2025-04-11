@@ -23,55 +23,55 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_keys(
         &self,
         req: crate::model::ListKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListKeysResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListKeysResponse>>;
 
     async fn get_key(
         &self,
         req: crate::model::GetKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Key>;
+    ) -> crate::Result<gax::response::Response<crate::model::Key>>;
 
     async fn get_key_string(
         &self,
         req: crate::model::GetKeyStringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GetKeyStringResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::GetKeyStringResponse>>;
 
     async fn update_key(
         &self,
         req: crate::model::UpdateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_key(
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn undelete_key(
         &self,
         req: crate::model::UndeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn lookup_key(
         &self,
         req: crate::model::LookupKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LookupKeyResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::LookupKeyResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -92,7 +92,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::CreateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_key(self, req, options).await
     }
 
@@ -101,7 +101,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::ListKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListKeysResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListKeysResponse>> {
         T::list_keys(self, req, options).await
     }
 
@@ -110,7 +110,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::GetKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Key> {
+    ) -> crate::Result<gax::response::Response<crate::model::Key>> {
         T::get_key(self, req, options).await
     }
 
@@ -119,7 +119,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::GetKeyStringRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GetKeyStringResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::GetKeyStringResponse>> {
         T::get_key_string(self, req, options).await
     }
 
@@ -128,7 +128,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::UpdateKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_key(self, req, options).await
     }
 
@@ -137,7 +137,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_key(self, req, options).await
     }
 
@@ -146,7 +146,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::UndeleteKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::undelete_key(self, req, options).await
     }
 
@@ -155,7 +155,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: crate::model::LookupKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LookupKeyResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::LookupKeyResponse>> {
         T::lookup_key(self, req, options).await
     }
 
@@ -164,7 +164,7 @@ impl<T: super::ApiKeys> ApiKeys for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

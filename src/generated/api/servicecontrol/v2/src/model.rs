@@ -64,6 +64,9 @@ pub struct CheckRequest {
     /// Optional. Contains a comma-separated list of flags.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub flags: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CheckRequest {
@@ -157,6 +160,9 @@ pub struct ResourceInfo {
     /// "northamerica-northeast1-a"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResourceInfo {
@@ -218,6 +224,9 @@ pub struct CheckResponse {
     /// Returns a set of request contexts generated from the `CheckRequest`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub headers: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CheckResponse {
@@ -279,6 +288,9 @@ pub struct ReportRequest {
     /// API access.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub operations: std::vec::Vec<rpc_context::model::AttributeContext>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReportRequest {
@@ -325,7 +337,10 @@ impl wkt::message::Message for ReportRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ReportResponse {}
+pub struct ReportResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ReportResponse {
     pub fn new() -> Self {
@@ -348,6 +363,9 @@ pub struct ResourceInfoList {
     /// The resource details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub resources: std::vec::Vec<crate::model::ResourceInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResourceInfoList {

@@ -714,6 +714,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -748,6 +749,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -965,6 +967,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -977,6 +980,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -989,6 +993,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -1001,6 +1006,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -1013,6 +1019,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -1025,6 +1032,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -1037,6 +1045,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -1651,6 +1660,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -2299,6 +2309,7 @@ dependencies = [
  "google-cloud-wkt",
  "grpc-server",
  "http",
+ "http-body-util",
  "mockall",
  "prost",
  "reqwest",
@@ -2361,6 +2372,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -2372,6 +2384,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -2588,6 +2601,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -2740,6 +2754,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -3198,6 +3213,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -3249,6 +3265,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -3488,6 +3505,7 @@ dependencies = [
  "google-cloud-recommender-v1",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -3606,6 +3624,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -3617,6 +3636,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -4172,6 +4192,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]

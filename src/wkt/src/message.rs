@@ -39,7 +39,16 @@ pub trait Message {
     where
         Self: serde::de::DeserializeOwned,
     {
-        serde_json::from_value::<Self>(serde_json::Value::Object(map.clone())).map_err(Error::deser)
+        let map: Map = map
+            .iter()
+            .filter_map(|(k, v)| {
+                if k == "@type" {
+                    return None;
+                }
+                Some((k.clone(), v.clone()))
+            })
+            .collect();
+        serde_json::from_value::<Self>(serde_json::Value::Object(map)).map_err(Error::deser)
     }
 }
 
@@ -99,4 +108,34 @@ pub(crate) fn missing_value_field() -> Error {
 
 fn unexpected_json_type() -> Error {
     Error::ser("unexpected JSON type, only Object and String are supported")
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use serde_json::json;
+
+    #[derive(Clone, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
+    struct TestMessage {
+        #[serde(flatten)]
+        _unknown_fields: serde_json::Map<String, serde_json::Value>,
+    }
+
+    impl Message for TestMessage {
+        fn typename() -> &'static str {
+            "TestMessage"
+        }
+    }
+
+    #[test]
+    fn drop_type_field() {
+        let input = json!({
+            "@type": "TestMessage",
+            "a": 1,
+            "b": 2,
+        });
+        let map = input.as_object().cloned().unwrap();
+        let test = TestMessage::from_map(&map).unwrap();
+        assert!(test._unknown_fields.get("@type").is_none(), "{test:?}");
+    }
 }
