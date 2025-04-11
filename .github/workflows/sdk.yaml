@@ -20,7 +20,7 @@ on:
   pull_request:
     branches: [main]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.85.1" }'
+  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.86" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.23.8" }'
 jobs:
   build:
