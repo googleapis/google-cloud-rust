@@ -44,7 +44,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         &self,
         req: crate::model::GetWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Workload> {
+    ) -> Result<gax::response::Response<crate::model::Workload>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -57,14 +57,13 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Workload>| r.into_body())
     }
 
     async fn list_workloads(
         &self,
         req: crate::model::ListWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkloadsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -84,14 +83,13 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListWorkloadsResponse>| r.into_body())
     }
 
     async fn get_customer(
         &self,
         req: crate::model::GetCustomerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Customer> {
+    ) -> Result<gax::response::Response<crate::model::Customer>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -104,14 +102,13 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Customer>| r.into_body())
     }
 
     async fn list_customers(
         &self,
         req: crate::model::ListCustomersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCustomersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCustomersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -131,14 +128,13 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListCustomersResponse>| r.into_body())
     }
 
     async fn get_ekm_connections(
         &self,
         req: crate::model::GetEkmConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EkmConnections> {
+    ) -> Result<gax::response::Response<crate::model::EkmConnections>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -151,14 +147,13 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::EkmConnections>| r.into_body())
     }
 
     async fn get_partner_permissions(
         &self,
         req: crate::model::GetPartnerPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PartnerPermissions> {
+    ) -> Result<gax::response::Response<crate::model::PartnerPermissions>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -171,14 +166,13 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PartnerPermissions>| r.into_body())
     }
 
     async fn list_access_approval_requests(
         &self,
         req: crate::model::ListAccessApprovalRequestsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAccessApprovalRequestsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -198,18 +192,13 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListAccessApprovalRequestsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_partner(
         &self,
         req: crate::model::GetPartnerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Partner> {
+    ) -> Result<gax::response::Response<crate::model::Partner>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -222,7 +211,6 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Partner>| r.into_body())
     }
 }
 
@@ -252,7 +240,7 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
         &self,
         req: crate::model::ListViolationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListViolationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListViolationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -282,14 +270,13 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListViolationsResponse>| r.into_body())
     }
 
     async fn get_violation(
         &self,
         req: crate::model::GetViolationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Violation> {
+    ) -> Result<gax::response::Response<crate::model::Violation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -302,6 +289,5 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Violation>| r.into_body())
     }
 }

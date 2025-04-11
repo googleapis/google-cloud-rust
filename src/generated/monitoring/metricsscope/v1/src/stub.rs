@@ -46,10 +46,12 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetMetricsScopeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::MetricsScope>> + Send {
-        std::future::ready::<crate::Result<crate::model::MetricsScope>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MetricsScope>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::MetricsScope>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::MetricsScopes::list_metrics_scopes_by_monitored_project].
@@ -58,11 +60,15 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListMetricsScopesByMonitoredProjectResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListMetricsScopesByMonitoredProjectResponse>>(
-            Err(Error::other("unimplemented")),
-        )
+        std::future::ready::<
+            crate::Result<
+                gax::response::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>,
+            >,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::MetricsScopes::create_monitored_project].
@@ -70,11 +76,12 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateMonitoredProjectRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::MetricsScopes::delete_monitored_project].
@@ -82,11 +89,12 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteMonitoredProjectRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::MetricsScopes::get_operation].
@@ -94,11 +102,12 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Returns the polling error policy.

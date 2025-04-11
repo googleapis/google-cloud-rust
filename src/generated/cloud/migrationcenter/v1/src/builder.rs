@@ -93,6 +93,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_assets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -180,6 +181,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_asset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAssetRequest::name].
@@ -228,6 +230,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .update_asset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
@@ -291,6 +294,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .batch_update_assets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateAssetsRequest::parent].
@@ -344,6 +348,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .delete_asset(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
@@ -395,6 +400,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .batch_delete_assets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteAssetsRequest::parent].
@@ -457,6 +463,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .report_asset_frames(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ReportAssetFramesRequest::parent].
@@ -517,6 +524,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .aggregate_assets_values(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::AggregateAssetsValuesRequest::parent].
@@ -581,6 +589,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .create_import_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_import_job`.
@@ -677,6 +686,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_import_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -764,6 +774,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_import_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetImportJobRequest::name].
@@ -817,6 +828,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .delete_import_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_import_job`.
@@ -906,6 +918,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .update_import_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_import_job`.
@@ -1007,6 +1020,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .validate_import_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `validate_import_job`.
@@ -1090,6 +1104,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .run_import_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_import_job`.
@@ -1171,6 +1186,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_import_data_file(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetImportDataFileRequest::name].
@@ -1216,6 +1232,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_import_data_files(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1305,6 +1322,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .create_import_data_file(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_import_data_file`.
@@ -1410,6 +1428,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .delete_import_data_file(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_import_data_file`.
@@ -1488,6 +1507,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_groups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1569,6 +1589,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGroupRequest::name].
@@ -1616,6 +1637,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .create_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_group`.
@@ -1716,6 +1738,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_group`.
@@ -1813,6 +1836,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .delete_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_group`.
@@ -1899,6 +1923,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .add_assets_to_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `add_assets_to_group`.
@@ -2002,6 +2027,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .remove_assets_from_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `remove_assets_from_group`.
@@ -2097,6 +2123,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_error_frames(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2172,6 +2199,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_error_frame(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetErrorFrameRequest::name].
@@ -2220,6 +2248,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_sources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2301,6 +2330,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSourceRequest::name].
@@ -2348,6 +2378,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .create_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_source`.
@@ -2448,6 +2479,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .update_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_source`.
@@ -2545,6 +2577,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .delete_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_source`.
@@ -2626,6 +2659,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_preference_sets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2704,6 +2738,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_preference_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPreferenceSetRequest::name].
@@ -2754,6 +2789,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .create_preference_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_preference_set`.
@@ -2859,6 +2895,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .update_preference_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_preference_set`.
@@ -2961,6 +2998,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .delete_preference_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_preference_set`.
@@ -3039,6 +3077,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetSettingsRequest::name].
@@ -3086,6 +3125,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .update_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_settings`.
@@ -3187,6 +3227,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .create_report_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_report_config`.
@@ -3283,6 +3324,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_report_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReportConfigRequest::name].
@@ -3328,6 +3370,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_report_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3417,6 +3460,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .delete_report_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_report_config`.
@@ -3506,6 +3550,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .create_report(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_report`.
@@ -3601,6 +3646,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_report(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetReportRequest::name].
@@ -3649,6 +3695,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_reports(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3741,6 +3788,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .delete_report(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_report`.
@@ -3822,6 +3870,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3897,6 +3946,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3942,6 +3992,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -4020,6 +4071,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -4065,6 +4117,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -4110,6 +4163,7 @@ pub mod migration_center {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

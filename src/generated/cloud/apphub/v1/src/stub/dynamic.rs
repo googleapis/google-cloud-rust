@@ -23,217 +23,217 @@ pub trait AppHub: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::LookupServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LookupServiceProjectAttachmentResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::LookupServiceProjectAttachmentResponse>>;
 
     async fn list_service_project_attachments(
         &self,
         req: crate::model::ListServiceProjectAttachmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceProjectAttachmentsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceProjectAttachmentsResponse>>;
 
     async fn create_service_project_attachment(
         &self,
         req: crate::model::CreateServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_service_project_attachment(
         &self,
         req: crate::model::GetServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceProjectAttachment>;
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceProjectAttachment>>;
 
     async fn delete_service_project_attachment(
         &self,
         req: crate::model::DeleteServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn detach_service_project_attachment(
         &self,
         req: crate::model::DetachServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DetachServiceProjectAttachmentResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::DetachServiceProjectAttachmentResponse>>;
 
     async fn list_discovered_services(
         &self,
         req: crate::model::ListDiscoveredServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDiscoveredServicesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredServicesResponse>>;
 
     async fn get_discovered_service(
         &self,
         req: crate::model::GetDiscoveredServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DiscoveredService>;
+    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredService>>;
 
     async fn lookup_discovered_service(
         &self,
         req: crate::model::LookupDiscoveredServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LookupDiscoveredServiceResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::LookupDiscoveredServiceResponse>>;
 
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>>;
 
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service>;
+    ) -> crate::Result<gax::response::Response<crate::model::Service>>;
 
     async fn update_service(
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_service(
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_discovered_workloads(
         &self,
         req: crate::model::ListDiscoveredWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDiscoveredWorkloadsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredWorkloadsResponse>>;
 
     async fn get_discovered_workload(
         &self,
         req: crate::model::GetDiscoveredWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DiscoveredWorkload>;
+    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredWorkload>>;
 
     async fn lookup_discovered_workload(
         &self,
         req: crate::model::LookupDiscoveredWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LookupDiscoveredWorkloadResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::LookupDiscoveredWorkloadResponse>>;
 
     async fn list_workloads(
         &self,
         req: crate::model::ListWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkloadsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>>;
 
     async fn create_workload(
         &self,
         req: crate::model::CreateWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_workload(
         &self,
         req: crate::model::GetWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Workload>;
+    ) -> crate::Result<gax::response::Response<crate::model::Workload>>;
 
     async fn update_workload(
         &self,
         req: crate::model::UpdateWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_workload(
         &self,
         req: crate::model::DeleteWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_applications(
         &self,
         req: crate::model::ListApplicationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListApplicationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListApplicationsResponse>>;
 
     async fn create_application(
         &self,
         req: crate::model::CreateApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_application(
         &self,
         req: crate::model::GetApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Application>;
+    ) -> crate::Result<gax::response::Response<crate::model::Application>>;
 
     async fn update_application(
         &self,
         req: crate::model::UpdateApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_application(
         &self,
         req: crate::model::DeleteApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -254,7 +254,8 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::LookupServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LookupServiceProjectAttachmentResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::LookupServiceProjectAttachmentResponse>>
+    {
         T::lookup_service_project_attachment(self, req, options).await
     }
 
@@ -263,7 +264,8 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::ListServiceProjectAttachmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServiceProjectAttachmentsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceProjectAttachmentsResponse>>
+    {
         T::list_service_project_attachments(self, req, options).await
     }
 
@@ -272,7 +274,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::CreateServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_service_project_attachment(self, req, options).await
     }
 
@@ -281,7 +283,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::GetServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ServiceProjectAttachment> {
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceProjectAttachment>> {
         T::get_service_project_attachment(self, req, options).await
     }
 
@@ -290,7 +292,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::DeleteServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_service_project_attachment(self, req, options).await
     }
 
@@ -299,7 +301,8 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::DetachServiceProjectAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DetachServiceProjectAttachmentResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::DetachServiceProjectAttachmentResponse>>
+    {
         T::detach_service_project_attachment(self, req, options).await
     }
 
@@ -308,7 +311,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::ListDiscoveredServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDiscoveredServicesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredServicesResponse>> {
         T::list_discovered_services(self, req, options).await
     }
 
@@ -317,7 +320,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::GetDiscoveredServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DiscoveredService> {
+    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredService>> {
         T::get_discovered_service(self, req, options).await
     }
 
@@ -326,7 +329,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::LookupDiscoveredServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LookupDiscoveredServiceResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::LookupDiscoveredServiceResponse>> {
         T::lookup_discovered_service(self, req, options).await
     }
 
@@ -335,7 +338,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>> {
         T::list_services(self, req, options).await
     }
 
@@ -344,7 +347,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_service(self, req, options).await
     }
 
@@ -353,7 +356,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service> {
+    ) -> crate::Result<gax::response::Response<crate::model::Service>> {
         T::get_service(self, req, options).await
     }
 
@@ -362,7 +365,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_service(self, req, options).await
     }
 
@@ -371,7 +374,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_service(self, req, options).await
     }
 
@@ -380,7 +383,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::ListDiscoveredWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDiscoveredWorkloadsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDiscoveredWorkloadsResponse>> {
         T::list_discovered_workloads(self, req, options).await
     }
 
@@ -389,7 +392,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::GetDiscoveredWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DiscoveredWorkload> {
+    ) -> crate::Result<gax::response::Response<crate::model::DiscoveredWorkload>> {
         T::get_discovered_workload(self, req, options).await
     }
 
@@ -398,7 +401,8 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::LookupDiscoveredWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::LookupDiscoveredWorkloadResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::LookupDiscoveredWorkloadResponse>>
+    {
         T::lookup_discovered_workload(self, req, options).await
     }
 
@@ -407,7 +411,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::ListWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkloadsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
         T::list_workloads(self, req, options).await
     }
 
@@ -416,7 +420,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::CreateWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_workload(self, req, options).await
     }
 
@@ -425,7 +429,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::GetWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Workload> {
+    ) -> crate::Result<gax::response::Response<crate::model::Workload>> {
         T::get_workload(self, req, options).await
     }
 
@@ -434,7 +438,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::UpdateWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_workload(self, req, options).await
     }
 
@@ -443,7 +447,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::DeleteWorkloadRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_workload(self, req, options).await
     }
 
@@ -452,7 +456,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::ListApplicationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListApplicationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListApplicationsResponse>> {
         T::list_applications(self, req, options).await
     }
 
@@ -461,7 +465,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::CreateApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_application(self, req, options).await
     }
 
@@ -470,7 +474,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::GetApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Application> {
+    ) -> crate::Result<gax::response::Response<crate::model::Application>> {
         T::get_application(self, req, options).await
     }
 
@@ -479,7 +483,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::UpdateApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_application(self, req, options).await
     }
 
@@ -488,7 +492,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: crate::model::DeleteApplicationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_application(self, req, options).await
     }
 
@@ -497,7 +501,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -506,7 +510,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -515,7 +519,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -524,7 +528,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -533,7 +537,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -542,7 +546,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -551,7 +555,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -560,7 +564,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -569,7 +573,7 @@ impl<T: super::AppHub> AppHub for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

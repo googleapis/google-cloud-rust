@@ -93,6 +93,7 @@ pub mod metrics_scopes {
             (*self.0.stub)
                 .get_metrics_scope(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMetricsScopeRequest::name].
@@ -142,6 +143,7 @@ pub mod metrics_scopes {
             (*self.0.stub)
                 .list_metrics_scopes_by_monitored_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [monitored_resource_container][crate::model::ListMetricsScopesByMonitoredProjectRequest::monitored_resource_container].
@@ -195,6 +197,7 @@ pub mod metrics_scopes {
             (*self.0.stub)
                 .create_monitored_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_monitored_project`.
@@ -290,6 +293,7 @@ pub mod metrics_scopes {
             (*self.0.stub)
                 .delete_monitored_project(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_monitored_project`.
@@ -365,6 +369,7 @@ pub mod metrics_scopes {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

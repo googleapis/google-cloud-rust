@@ -44,7 +44,7 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         &self,
         req: crate::model::ListDataExchangesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDataExchangesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDataExchangesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -62,16 +62,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListDataExchangesResponse>| r.into_body(),
-            )
     }
 
     async fn list_org_data_exchanges(
         &self,
         req: crate::model::ListOrgDataExchangesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrgDataExchangesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrgDataExchangesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -89,18 +86,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListOrgDataExchangesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_data_exchange(
         &self,
         req: crate::model::GetDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataExchange> {
+    ) -> Result<gax::response::Response<crate::model::DataExchange>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -113,14 +105,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::DataExchange>| r.into_body())
     }
 
     async fn create_data_exchange(
         &self,
         req: crate::model::CreateDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataExchange> {
+    ) -> Result<gax::response::Response<crate::model::DataExchange>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -137,14 +128,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, Some(req.data_exchange), options)
             .await
-            .map(|r: gax::response::Response<crate::model::DataExchange>| r.into_body())
     }
 
     async fn update_data_exchange(
         &self,
         req: crate::model::UpdateDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataExchange> {
+    ) -> Result<gax::response::Response<crate::model::DataExchange>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -176,14 +166,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, Some(req.data_exchange), options)
             .await
-            .map(|r: gax::response::Response<crate::model::DataExchange>| r.into_body())
     }
 
     async fn delete_data_exchange(
         &self,
         req: crate::model::DeleteDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -196,14 +185,17 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_listings(
         &self,
         req: crate::model::ListListingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListListingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListListingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -218,14 +210,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListListingsResponse>| r.into_body())
     }
 
     async fn get_listing(
         &self,
         req: crate::model::GetListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Listing> {
+    ) -> Result<gax::response::Response<crate::model::Listing>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -238,14 +229,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Listing>| r.into_body())
     }
 
     async fn create_listing(
         &self,
         req: crate::model::CreateListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Listing> {
+    ) -> Result<gax::response::Response<crate::model::Listing>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -262,14 +252,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, Some(req.listing), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Listing>| r.into_body())
     }
 
     async fn update_listing(
         &self,
         req: crate::model::UpdateListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Listing> {
+    ) -> Result<gax::response::Response<crate::model::Listing>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -301,14 +290,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, Some(req.listing), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Listing>| r.into_body())
     }
 
     async fn delete_listing(
         &self,
         req: crate::model::DeleteListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -321,14 +309,17 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn subscribe_listing(
         &self,
         req: crate::model::SubscribeListingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SubscribeListingResponse> {
+    ) -> Result<gax::response::Response<crate::model::SubscribeListingResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -338,17 +329,14 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::SubscribeListingResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn subscribe_data_exchange(
         &self,
         req: crate::model::SubscribeDataExchangeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -358,17 +346,14 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn refresh_subscription(
         &self,
         req: crate::model::RefreshSubscriptionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -378,17 +363,14 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_subscription(
         &self,
         req: crate::model::GetSubscriptionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Subscription> {
+    ) -> Result<gax::response::Response<crate::model::Subscription>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -401,14 +383,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Subscription>| r.into_body())
     }
 
     async fn list_subscriptions(
         &self,
         req: crate::model::ListSubscriptionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSubscriptionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSubscriptionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -427,16 +408,14 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListSubscriptionsResponse>| r.into_body(),
-            )
     }
 
     async fn list_shared_resource_subscriptions(
         &self,
         req: crate::model::ListSharedResourceSubscriptionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSharedResourceSubscriptionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSharedResourceSubscriptionsResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -458,18 +437,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::ListSharedResourceSubscriptionsResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn revoke_subscription(
         &self,
         req: crate::model::RevokeSubscriptionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RevokeSubscriptionResponse> {
+    ) -> Result<gax::response::Response<crate::model::RevokeSubscriptionResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -479,16 +453,14 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::RevokeSubscriptionResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn delete_subscription(
         &self,
         req: crate::model::DeleteSubscriptionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -501,14 +473,13 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -521,17 +492,14 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -544,17 +512,14 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -567,16 +532,14 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -589,7 +552,6 @@ impl super::stub::AnalyticsHubService for AnalyticsHubService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

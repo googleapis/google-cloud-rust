@@ -97,6 +97,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .process_document(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ProcessRequest::name].
@@ -196,6 +197,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .batch_process_documents(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_process_documents`.
@@ -327,6 +329,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .fetch_processor_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::FetchProcessorTypesRequest::parent].
@@ -374,6 +377,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .list_processor_types(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -448,6 +452,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .get_processor_type(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProcessorTypeRequest::name].
@@ -492,6 +497,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .list_processors(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -563,6 +569,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .get_processor(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProcessorRequest::name].
@@ -615,6 +622,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .train_processor_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `train_processor_version`.
@@ -748,6 +756,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .get_processor_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProcessorVersionRequest::name].
@@ -795,6 +804,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .list_processor_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -874,6 +884,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .delete_processor_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_processor_version`.
@@ -959,6 +970,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .deploy_processor_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `deploy_processor_version`.
@@ -1051,6 +1063,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .undeploy_processor_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undeploy_processor_version`.
@@ -1133,6 +1146,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .create_processor(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateProcessorRequest::parent].
@@ -1191,6 +1205,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .delete_processor(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_processor`.
@@ -1270,6 +1285,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .enable_processor(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `enable_processor`.
@@ -1358,6 +1374,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .disable_processor(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `disable_processor`.
@@ -1450,6 +1467,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .set_default_processor_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `set_default_processor_version`.
@@ -1543,6 +1561,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .review_document(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `review_document`.
@@ -1668,6 +1687,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .evaluate_processor_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `evaluate_processor_version`.
@@ -1761,6 +1781,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .get_evaluation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEvaluationRequest::name].
@@ -1805,6 +1826,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .list_evaluations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1879,6 +1901,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1956,6 +1979,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2003,6 +2027,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2083,6 +2108,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2130,6 +2156,7 @@ pub mod document_processor_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

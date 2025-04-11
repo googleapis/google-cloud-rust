@@ -44,7 +44,7 @@ impl super::stub::DataPolicyService for DataPolicyService {
         &self,
         req: crate::model::CreateDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataPolicy> {
+    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -60,14 +60,13 @@ impl super::stub::DataPolicyService for DataPolicyService {
         self.inner
             .execute(builder, Some(req.data_policy), options)
             .await
-            .map(|r: gax::response::Response<crate::model::DataPolicy>| r.into_body())
     }
 
     async fn update_data_policy(
         &self,
         req: crate::model::UpdateDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataPolicy> {
+    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -99,14 +98,13 @@ impl super::stub::DataPolicyService for DataPolicyService {
         self.inner
             .execute(builder, Some(req.data_policy), options)
             .await
-            .map(|r: gax::response::Response<crate::model::DataPolicy>| r.into_body())
     }
 
     async fn rename_data_policy(
         &self,
         req: crate::model::RenameDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataPolicy> {
+    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -116,17 +114,14 @@ impl super::stub::DataPolicyService for DataPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::DataPolicy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn delete_data_policy(
         &self,
         req: crate::model::DeleteDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -139,14 +134,17 @@ impl super::stub::DataPolicyService for DataPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_data_policy(
         &self,
         req: crate::model::GetDataPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataPolicy> {
+    ) -> Result<gax::response::Response<crate::model::DataPolicy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -159,14 +157,13 @@ impl super::stub::DataPolicyService for DataPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::DataPolicy>| r.into_body())
     }
 
     async fn list_data_policies(
         &self,
         req: crate::model::ListDataPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDataPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDataPoliciesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -185,14 +182,13 @@ impl super::stub::DataPolicyService for DataPolicyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListDataPoliciesResponse>| r.into_body())
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -205,17 +201,14 @@ impl super::stub::DataPolicyService for DataPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -228,17 +221,14 @@ impl super::stub::DataPolicyService for DataPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -251,8 +241,6 @@ impl super::stub::DataPolicyService for DataPolicyService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 }

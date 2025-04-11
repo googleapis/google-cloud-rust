@@ -45,10 +45,12 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateDashboardRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Dashboard>> + Send {
-        std::future::ready::<crate::Result<crate::model::Dashboard>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Dashboard>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Dashboard>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DashboardsService::list_dashboards].
@@ -56,11 +58,12 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDashboardsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDashboardsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListDashboardsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDashboardsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDashboardsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::DashboardsService::get_dashboard].
@@ -68,10 +71,12 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetDashboardRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Dashboard>> + Send {
-        std::future::ready::<crate::Result<crate::model::Dashboard>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Dashboard>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Dashboard>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::DashboardsService::delete_dashboard].
@@ -79,8 +84,10 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDashboardRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::DashboardsService::update_dashboard].
@@ -88,9 +95,11 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateDashboardRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Dashboard>> + Send {
-        std::future::ready::<crate::Result<crate::model::Dashboard>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Dashboard>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Dashboard>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 }

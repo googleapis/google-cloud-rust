@@ -23,85 +23,85 @@ pub trait DataAccessControlService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateDataAccessLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessLabel>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessLabel>>;
 
     async fn get_data_access_label(
         &self,
         req: crate::model::GetDataAccessLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessLabel>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessLabel>>;
 
     async fn list_data_access_labels(
         &self,
         req: crate::model::ListDataAccessLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataAccessLabelsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataAccessLabelsResponse>>;
 
     async fn update_data_access_label(
         &self,
         req: crate::model::UpdateDataAccessLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessLabel>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessLabel>>;
 
     async fn delete_data_access_label(
         &self,
         req: crate::model::DeleteDataAccessLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn create_data_access_scope(
         &self,
         req: crate::model::CreateDataAccessScopeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessScope>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessScope>>;
 
     async fn get_data_access_scope(
         &self,
         req: crate::model::GetDataAccessScopeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessScope>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessScope>>;
 
     async fn list_data_access_scopes(
         &self,
         req: crate::model::ListDataAccessScopesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataAccessScopesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataAccessScopesResponse>>;
 
     async fn update_data_access_scope(
         &self,
         req: crate::model::UpdateDataAccessScopeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessScope>;
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessScope>>;
 
     async fn delete_data_access_scope(
         &self,
         req: crate::model::DeleteDataAccessScopeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 }
 
 /// All implementations of [super::DataAccessControlService] also implement [DataAccessControlService].
@@ -112,7 +112,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: crate::model::CreateDataAccessLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessLabel> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessLabel>> {
         T::create_data_access_label(self, req, options).await
     }
 
@@ -121,7 +121,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: crate::model::GetDataAccessLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessLabel> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessLabel>> {
         T::get_data_access_label(self, req, options).await
     }
 
@@ -130,7 +130,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: crate::model::ListDataAccessLabelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataAccessLabelsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataAccessLabelsResponse>> {
         T::list_data_access_labels(self, req, options).await
     }
 
@@ -139,7 +139,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: crate::model::UpdateDataAccessLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessLabel> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessLabel>> {
         T::update_data_access_label(self, req, options).await
     }
 
@@ -148,7 +148,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: crate::model::DeleteDataAccessLabelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_data_access_label(self, req, options).await
     }
 
@@ -157,7 +157,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: crate::model::CreateDataAccessScopeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessScope> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessScope>> {
         T::create_data_access_scope(self, req, options).await
     }
 
@@ -166,7 +166,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: crate::model::GetDataAccessScopeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessScope> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessScope>> {
         T::get_data_access_scope(self, req, options).await
     }
 
@@ -175,7 +175,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: crate::model::ListDataAccessScopesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDataAccessScopesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDataAccessScopesResponse>> {
         T::list_data_access_scopes(self, req, options).await
     }
 
@@ -184,7 +184,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: crate::model::UpdateDataAccessScopeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DataAccessScope> {
+    ) -> crate::Result<gax::response::Response<crate::model::DataAccessScope>> {
         T::update_data_access_scope(self, req, options).await
     }
 
@@ -193,7 +193,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: crate::model::DeleteDataAccessScopeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_data_access_scope(self, req, options).await
     }
 
@@ -202,7 +202,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -211,7 +211,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -220,7 +220,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -229,7 +229,7 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -241,55 +241,55 @@ pub trait EntityService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetWatchlistRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Watchlist>;
+    ) -> crate::Result<gax::response::Response<crate::model::Watchlist>>;
 
     async fn list_watchlists(
         &self,
         req: crate::model::ListWatchlistsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWatchlistsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListWatchlistsResponse>>;
 
     async fn create_watchlist(
         &self,
         req: crate::model::CreateWatchlistRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Watchlist>;
+    ) -> crate::Result<gax::response::Response<crate::model::Watchlist>>;
 
     async fn update_watchlist(
         &self,
         req: crate::model::UpdateWatchlistRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Watchlist>;
+    ) -> crate::Result<gax::response::Response<crate::model::Watchlist>>;
 
     async fn delete_watchlist(
         &self,
         req: crate::model::DeleteWatchlistRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 }
 
 /// All implementations of [super::EntityService] also implement [EntityService].
@@ -300,7 +300,7 @@ impl<T: super::EntityService> EntityService for T {
         &self,
         req: crate::model::GetWatchlistRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Watchlist> {
+    ) -> crate::Result<gax::response::Response<crate::model::Watchlist>> {
         T::get_watchlist(self, req, options).await
     }
 
@@ -309,7 +309,7 @@ impl<T: super::EntityService> EntityService for T {
         &self,
         req: crate::model::ListWatchlistsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWatchlistsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListWatchlistsResponse>> {
         T::list_watchlists(self, req, options).await
     }
 
@@ -318,7 +318,7 @@ impl<T: super::EntityService> EntityService for T {
         &self,
         req: crate::model::CreateWatchlistRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Watchlist> {
+    ) -> crate::Result<gax::response::Response<crate::model::Watchlist>> {
         T::create_watchlist(self, req, options).await
     }
 
@@ -327,7 +327,7 @@ impl<T: super::EntityService> EntityService for T {
         &self,
         req: crate::model::UpdateWatchlistRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Watchlist> {
+    ) -> crate::Result<gax::response::Response<crate::model::Watchlist>> {
         T::update_watchlist(self, req, options).await
     }
 
@@ -336,7 +336,7 @@ impl<T: super::EntityService> EntityService for T {
         &self,
         req: crate::model::DeleteWatchlistRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_watchlist(self, req, options).await
     }
 
@@ -345,7 +345,7 @@ impl<T: super::EntityService> EntityService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -354,7 +354,7 @@ impl<T: super::EntityService> EntityService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -363,7 +363,7 @@ impl<T: super::EntityService> EntityService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -372,7 +372,7 @@ impl<T: super::EntityService> EntityService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -384,31 +384,31 @@ pub trait InstanceService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance>;
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 }
 
 /// All implementations of [super::InstanceService] also implement [InstanceService].
@@ -419,7 +419,7 @@ impl<T: super::InstanceService> InstanceService for T {
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance> {
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>> {
         T::get_instance(self, req, options).await
     }
 
@@ -428,7 +428,7 @@ impl<T: super::InstanceService> InstanceService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -437,7 +437,7 @@ impl<T: super::InstanceService> InstanceService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -446,7 +446,7 @@ impl<T: super::InstanceService> InstanceService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -455,7 +455,7 @@ impl<T: super::InstanceService> InstanceService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -467,49 +467,49 @@ pub trait ReferenceListService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetReferenceListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReferenceList>;
+    ) -> crate::Result<gax::response::Response<crate::model::ReferenceList>>;
 
     async fn list_reference_lists(
         &self,
         req: crate::model::ListReferenceListsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReferenceListsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListReferenceListsResponse>>;
 
     async fn create_reference_list(
         &self,
         req: crate::model::CreateReferenceListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReferenceList>;
+    ) -> crate::Result<gax::response::Response<crate::model::ReferenceList>>;
 
     async fn update_reference_list(
         &self,
         req: crate::model::UpdateReferenceListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReferenceList>;
+    ) -> crate::Result<gax::response::Response<crate::model::ReferenceList>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 }
 
 /// All implementations of [super::ReferenceListService] also implement [ReferenceListService].
@@ -520,7 +520,7 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
         &self,
         req: crate::model::GetReferenceListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReferenceList> {
+    ) -> crate::Result<gax::response::Response<crate::model::ReferenceList>> {
         T::get_reference_list(self, req, options).await
     }
 
@@ -529,7 +529,7 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
         &self,
         req: crate::model::ListReferenceListsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReferenceListsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListReferenceListsResponse>> {
         T::list_reference_lists(self, req, options).await
     }
 
@@ -538,7 +538,7 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
         &self,
         req: crate::model::CreateReferenceListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReferenceList> {
+    ) -> crate::Result<gax::response::Response<crate::model::ReferenceList>> {
         T::create_reference_list(self, req, options).await
     }
 
@@ -547,7 +547,7 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
         &self,
         req: crate::model::UpdateReferenceListRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReferenceList> {
+    ) -> crate::Result<gax::response::Response<crate::model::ReferenceList>> {
         T::update_reference_list(self, req, options).await
     }
 
@@ -556,7 +556,7 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -565,7 +565,7 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -574,7 +574,7 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -583,7 +583,7 @@ impl<T: super::ReferenceListService> ReferenceListService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 }
@@ -595,97 +595,97 @@ pub trait RuleService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Rule>;
+    ) -> crate::Result<gax::response::Response<crate::model::Rule>>;
 
     async fn get_rule(
         &self,
         req: crate::model::GetRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Rule>;
+    ) -> crate::Result<gax::response::Response<crate::model::Rule>>;
 
     async fn list_rules(
         &self,
         req: crate::model::ListRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRulesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRulesResponse>>;
 
     async fn update_rule(
         &self,
         req: crate::model::UpdateRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Rule>;
+    ) -> crate::Result<gax::response::Response<crate::model::Rule>>;
 
     async fn delete_rule(
         &self,
         req: crate::model::DeleteRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn list_rule_revisions(
         &self,
         req: crate::model::ListRuleRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRuleRevisionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuleRevisionsResponse>>;
 
     async fn create_retrohunt(
         &self,
         req: crate::model::CreateRetrohuntRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_retrohunt(
         &self,
         req: crate::model::GetRetrohuntRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Retrohunt>;
+    ) -> crate::Result<gax::response::Response<crate::model::Retrohunt>>;
 
     async fn list_retrohunts(
         &self,
         req: crate::model::ListRetrohuntsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRetrohuntsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRetrohuntsResponse>>;
 
     async fn get_rule_deployment(
         &self,
         req: crate::model::GetRuleDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RuleDeployment>;
+    ) -> crate::Result<gax::response::Response<crate::model::RuleDeployment>>;
 
     async fn list_rule_deployments(
         &self,
         req: crate::model::ListRuleDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRuleDeploymentsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuleDeploymentsResponse>>;
 
     async fn update_rule_deployment(
         &self,
         req: crate::model::UpdateRuleDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RuleDeployment>;
+    ) -> crate::Result<gax::response::Response<crate::model::RuleDeployment>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -706,7 +706,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::CreateRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Rule> {
+    ) -> crate::Result<gax::response::Response<crate::model::Rule>> {
         T::create_rule(self, req, options).await
     }
 
@@ -715,7 +715,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::GetRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Rule> {
+    ) -> crate::Result<gax::response::Response<crate::model::Rule>> {
         T::get_rule(self, req, options).await
     }
 
@@ -724,7 +724,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::ListRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRulesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRulesResponse>> {
         T::list_rules(self, req, options).await
     }
 
@@ -733,7 +733,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::UpdateRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Rule> {
+    ) -> crate::Result<gax::response::Response<crate::model::Rule>> {
         T::update_rule(self, req, options).await
     }
 
@@ -742,7 +742,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::DeleteRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_rule(self, req, options).await
     }
 
@@ -751,7 +751,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::ListRuleRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRuleRevisionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuleRevisionsResponse>> {
         T::list_rule_revisions(self, req, options).await
     }
 
@@ -760,7 +760,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::CreateRetrohuntRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_retrohunt(self, req, options).await
     }
 
@@ -769,7 +769,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::GetRetrohuntRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Retrohunt> {
+    ) -> crate::Result<gax::response::Response<crate::model::Retrohunt>> {
         T::get_retrohunt(self, req, options).await
     }
 
@@ -778,7 +778,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::ListRetrohuntsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRetrohuntsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRetrohuntsResponse>> {
         T::list_retrohunts(self, req, options).await
     }
 
@@ -787,7 +787,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::GetRuleDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RuleDeployment> {
+    ) -> crate::Result<gax::response::Response<crate::model::RuleDeployment>> {
         T::get_rule_deployment(self, req, options).await
     }
 
@@ -796,7 +796,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::ListRuleDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRuleDeploymentsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuleDeploymentsResponse>> {
         T::list_rule_deployments(self, req, options).await
     }
 
@@ -805,7 +805,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: crate::model::UpdateRuleDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RuleDeployment> {
+    ) -> crate::Result<gax::response::Response<crate::model::RuleDeployment>> {
         T::update_rule_deployment(self, req, options).await
     }
 
@@ -814,7 +814,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -823,7 +823,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -832,7 +832,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -841,7 +841,7 @@ impl<T: super::RuleService> RuleService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

@@ -96,6 +96,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .get_billing_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBillingAccountRequest::name].
@@ -141,6 +142,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .list_billing_accounts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -219,6 +221,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .update_billing_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateBillingAccountRequest::name].
@@ -282,6 +285,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .create_billing_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
@@ -336,6 +340,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .list_project_billing_info(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -410,6 +415,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .get_project_billing_info(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProjectBillingInfoRequest::name].
@@ -457,6 +463,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .update_project_billing_info(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateProjectBillingInfoRequest::name].
@@ -510,6 +517,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -561,6 +569,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -624,6 +633,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -680,6 +690,7 @@ pub mod cloud_billing {
             (*self.0.stub)
                 .move_billing_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MoveBillingAccountRequest::name].
@@ -782,6 +793,7 @@ pub mod cloud_catalog {
             (*self.0.stub)
                 .list_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -845,6 +857,7 @@ pub mod cloud_catalog {
             (*self.0.stub)
                 .list_skus(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.

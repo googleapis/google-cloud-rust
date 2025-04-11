@@ -23,115 +23,115 @@ pub trait PrivilegedAccessManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CheckOnboardingStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CheckOnboardingStatusResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::CheckOnboardingStatusResponse>>;
 
     async fn list_entitlements(
         &self,
         req: crate::model::ListEntitlementsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEntitlementsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListEntitlementsResponse>>;
 
     async fn search_entitlements(
         &self,
         req: crate::model::SearchEntitlementsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchEntitlementsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchEntitlementsResponse>>;
 
     async fn get_entitlement(
         &self,
         req: crate::model::GetEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Entitlement>;
+    ) -> crate::Result<gax::response::Response<crate::model::Entitlement>>;
 
     async fn create_entitlement(
         &self,
         req: crate::model::CreateEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_entitlement(
         &self,
         req: crate::model::DeleteEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_entitlement(
         &self,
         req: crate::model::UpdateEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_grants(
         &self,
         req: crate::model::ListGrantsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGrantsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListGrantsResponse>>;
 
     async fn search_grants(
         &self,
         req: crate::model::SearchGrantsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchGrantsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchGrantsResponse>>;
 
     async fn get_grant(
         &self,
         req: crate::model::GetGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Grant>;
+    ) -> crate::Result<gax::response::Response<crate::model::Grant>>;
 
     async fn create_grant(
         &self,
         req: crate::model::CreateGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Grant>;
+    ) -> crate::Result<gax::response::Response<crate::model::Grant>>;
 
     async fn approve_grant(
         &self,
         req: crate::model::ApproveGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Grant>;
+    ) -> crate::Result<gax::response::Response<crate::model::Grant>>;
 
     async fn deny_grant(
         &self,
         req: crate::model::DenyGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Grant>;
+    ) -> crate::Result<gax::response::Response<crate::model::Grant>>;
 
     async fn revoke_grant(
         &self,
         req: crate::model::RevokeGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -152,7 +152,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::CheckOnboardingStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CheckOnboardingStatusResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::CheckOnboardingStatusResponse>> {
         T::check_onboarding_status(self, req, options).await
     }
 
@@ -161,7 +161,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::ListEntitlementsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListEntitlementsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListEntitlementsResponse>> {
         T::list_entitlements(self, req, options).await
     }
 
@@ -170,7 +170,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::SearchEntitlementsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchEntitlementsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchEntitlementsResponse>> {
         T::search_entitlements(self, req, options).await
     }
 
@@ -179,7 +179,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::GetEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Entitlement> {
+    ) -> crate::Result<gax::response::Response<crate::model::Entitlement>> {
         T::get_entitlement(self, req, options).await
     }
 
@@ -188,7 +188,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::CreateEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_entitlement(self, req, options).await
     }
 
@@ -197,7 +197,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::DeleteEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_entitlement(self, req, options).await
     }
 
@@ -206,7 +206,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::UpdateEntitlementRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_entitlement(self, req, options).await
     }
 
@@ -215,7 +215,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::ListGrantsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGrantsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListGrantsResponse>> {
         T::list_grants(self, req, options).await
     }
 
@@ -224,7 +224,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::SearchGrantsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchGrantsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchGrantsResponse>> {
         T::search_grants(self, req, options).await
     }
 
@@ -233,7 +233,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::GetGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Grant> {
+    ) -> crate::Result<gax::response::Response<crate::model::Grant>> {
         T::get_grant(self, req, options).await
     }
 
@@ -242,7 +242,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::CreateGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Grant> {
+    ) -> crate::Result<gax::response::Response<crate::model::Grant>> {
         T::create_grant(self, req, options).await
     }
 
@@ -251,7 +251,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::ApproveGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Grant> {
+    ) -> crate::Result<gax::response::Response<crate::model::Grant>> {
         T::approve_grant(self, req, options).await
     }
 
@@ -260,7 +260,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::DenyGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Grant> {
+    ) -> crate::Result<gax::response::Response<crate::model::Grant>> {
         T::deny_grant(self, req, options).await
     }
 
@@ -269,7 +269,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: crate::model::RevokeGrantRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::revoke_grant(self, req, options).await
     }
 
@@ -278,7 +278,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -287,7 +287,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -296,7 +296,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -305,7 +305,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -314,7 +314,7 @@ impl<T: super::PrivilegedAccessManager> PrivilegedAccessManager for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 

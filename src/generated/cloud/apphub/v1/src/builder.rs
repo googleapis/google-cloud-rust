@@ -98,6 +98,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .lookup_service_project_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::LookupServiceProjectAttachmentRequest::name].
@@ -145,6 +146,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .list_service_project_attachments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -238,6 +240,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .create_service_project_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_service_project_attachment`.
@@ -347,6 +350,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .get_service_project_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceProjectAttachmentRequest::name].
@@ -399,6 +403,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .delete_service_project_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service_project_attachment`.
@@ -482,6 +487,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .detach_service_project_attachment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DetachServiceProjectAttachmentRequest::name].
@@ -527,6 +533,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .list_discovered_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -613,6 +620,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .get_discovered_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDiscoveredServiceRequest::name].
@@ -660,6 +668,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .lookup_discovered_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::LookupDiscoveredServiceRequest::parent].
@@ -708,6 +717,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .list_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -794,6 +804,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_service`.
@@ -889,6 +900,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .get_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceRequest::name].
@@ -936,6 +948,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_service`.
@@ -1033,6 +1046,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
@@ -1116,6 +1130,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .list_discovered_workloads(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1202,6 +1217,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .get_discovered_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDiscoveredWorkloadRequest::name].
@@ -1249,6 +1265,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .lookup_discovered_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::LookupDiscoveredWorkloadRequest::parent].
@@ -1297,6 +1314,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .list_workloads(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1383,6 +1401,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .create_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_workload`.
@@ -1479,6 +1498,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .get_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
@@ -1526,6 +1546,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .update_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_workload`.
@@ -1624,6 +1645,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .delete_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_workload`.
@@ -1705,6 +1727,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .list_applications(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1794,6 +1817,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .create_application(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_application`.
@@ -1890,6 +1914,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .get_application(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetApplicationRequest::name].
@@ -1940,6 +1965,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .update_application(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_application`.
@@ -2041,6 +2067,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .delete_application(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_application`.
@@ -2122,6 +2149,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2197,6 +2225,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2239,6 +2268,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2299,6 +2329,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2353,6 +2384,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2409,6 +2441,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2487,6 +2520,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2532,6 +2566,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2577,6 +2612,7 @@ pub mod app_hub {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

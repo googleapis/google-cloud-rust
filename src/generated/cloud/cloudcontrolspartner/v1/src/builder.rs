@@ -97,6 +97,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .get_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
@@ -141,6 +142,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .list_workloads(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -224,6 +226,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .get_customer(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetCustomerRequest::name].
@@ -268,6 +271,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .list_customers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -354,6 +358,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .get_ekm_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEkmConnectionsRequest::name].
@@ -401,6 +406,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .get_partner_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPartnerPermissionsRequest::name].
@@ -450,6 +456,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .list_access_approval_requests(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -535,6 +542,7 @@ pub mod cloud_controls_partner_core {
             (*self.0.stub)
                 .get_partner(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPartnerRequest::name].
@@ -635,6 +643,7 @@ pub mod cloud_controls_partner_monitoring {
             (*self.0.stub)
                 .list_violations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -727,6 +736,7 @@ pub mod cloud_controls_partner_monitoring {
             (*self.0.stub)
                 .get_violation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetViolationRequest::name].

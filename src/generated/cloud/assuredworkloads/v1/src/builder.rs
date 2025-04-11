@@ -102,6 +102,7 @@ pub mod assured_workloads_service {
             (*self.0.stub)
                 .create_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_workload`.
@@ -197,6 +198,7 @@ pub mod assured_workloads_service {
             (*self.0.stub)
                 .update_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workload][crate::model::UpdateWorkloadRequest::workload].
@@ -258,6 +260,7 @@ pub mod assured_workloads_service {
             (*self.0.stub)
                 .restrict_allowed_resources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RestrictAllowedResourcesRequest::name].
@@ -313,6 +316,7 @@ pub mod assured_workloads_service {
             (*self.0.stub)
                 .delete_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkloadRequest::name].
@@ -363,6 +367,7 @@ pub mod assured_workloads_service {
             (*self.0.stub)
                 .get_workload(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
@@ -407,6 +412,7 @@ pub mod assured_workloads_service {
             (*self.0.stub)
                 .list_workloads(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -487,6 +493,7 @@ pub mod assured_workloads_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -567,6 +574,7 @@ pub mod assured_workloads_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].

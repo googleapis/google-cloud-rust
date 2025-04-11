@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListCryptoKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCryptoKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
         self.inner.list_crypto_keys(req, options).await
     }
 }
@@ -74,7 +74,7 @@ where
         &self,
         req: crate::model::GetProtectedResourcesSummaryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProtectedResourcesSummary> {
+    ) -> Result<gax::response::Response<crate::model::ProtectedResourcesSummary>> {
         self.inner
             .get_protected_resources_summary(req, options)
             .await
@@ -85,7 +85,7 @@ where
         &self,
         req: crate::model::SearchProtectedResourcesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchProtectedResourcesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>> {
         self.inner.search_protected_resources(req, options).await
     }
 }

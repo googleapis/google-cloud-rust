@@ -97,6 +97,7 @@ pub mod timeseries_insights_controller {
             (*self.0.stub)
                 .list_data_sets(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -168,6 +169,7 @@ pub mod timeseries_insights_controller {
             (*self.0.stub)
                 .create_data_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDataSetRequest::parent].
@@ -221,6 +223,7 @@ pub mod timeseries_insights_controller {
             (*self.0.stub)
                 .delete_data_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDataSetRequest::name].
@@ -265,6 +268,7 @@ pub mod timeseries_insights_controller {
             (*self.0.stub)
                 .append_events(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
@@ -320,6 +324,7 @@ pub mod timeseries_insights_controller {
             (*self.0.stub)
                 .query_data_set(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::QueryDataSetRequest::name].
@@ -414,6 +419,7 @@ pub mod timeseries_insights_controller {
             (*self.0.stub)
                 .evaluate_slice(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [dataset][crate::model::EvaluateSliceRequest::dataset].
@@ -501,6 +507,7 @@ pub mod timeseries_insights_controller {
             (*self.0.stub)
                 .evaluate_timeseries(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::EvaluateTimeseriesRequest::parent].

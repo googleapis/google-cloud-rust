@@ -100,6 +100,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .check_onboarding_status(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CheckOnboardingStatusRequest::parent].
@@ -147,6 +148,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .list_entitlements(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -233,6 +235,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .search_entitlements(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -321,6 +324,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .get_entitlement(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEntitlementRequest::name].
@@ -373,6 +377,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .create_entitlement(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_entitlement`.
@@ -479,6 +484,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .delete_entitlement(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_entitlement`.
@@ -576,6 +582,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .update_entitlement(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_entitlement`.
@@ -665,6 +672,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .list_grants(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -748,6 +756,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .search_grants(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -836,6 +845,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .get_grant(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGrantRequest::name].
@@ -880,6 +890,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .create_grant(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateGrantRequest::parent].
@@ -939,6 +950,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .approve_grant(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ApproveGrantRequest::name].
@@ -989,6 +1001,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .deny_grant(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DenyGrantRequest::name].
@@ -1044,6 +1057,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .revoke_grant(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `revoke_grant`.
@@ -1129,6 +1143,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1206,6 +1221,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1253,6 +1269,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1333,6 +1350,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1380,6 +1398,7 @@ pub mod privileged_access_manager {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].

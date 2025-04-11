@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEventsResponse>> {
         self.inner.list_events(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Event> {
+    ) -> Result<gax::response::Response<crate::model::Event>> {
         self.inner.get_event(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::ListOrganizationEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrganizationEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrganizationEventsResponse>> {
         self.inner.list_organization_events(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetOrganizationEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OrganizationEvent> {
+    ) -> Result<gax::response::Response<crate::model::OrganizationEvent>> {
         self.inner.get_organization_event(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::ListOrganizationImpactsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrganizationImpactsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrganizationImpactsResponse>> {
         self.inner.list_organization_impacts(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::GetOrganizationImpactRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OrganizationImpact> {
+    ) -> Result<gax::response::Response<crate::model::OrganizationImpact>> {
         self.inner.get_organization_impact(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 }

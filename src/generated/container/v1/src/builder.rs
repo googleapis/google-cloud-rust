@@ -93,6 +93,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .list_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListClustersRequest::project_id].
@@ -147,6 +148,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .get_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetClusterRequest::project_id].
@@ -207,6 +209,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
@@ -270,6 +273,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
@@ -339,6 +343,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .update_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateNodePoolRequest::project_id].
@@ -659,6 +664,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_node_pool_autoscaling(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolAutoscalingRequest::project_id].
@@ -737,6 +743,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_logging_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLoggingServiceRequest::project_id].
@@ -806,6 +813,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_monitoring_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetMonitoringServiceRequest::project_id].
@@ -872,6 +880,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_addons_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetAddonsConfigRequest::project_id].
@@ -941,6 +950,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLocationsRequest::project_id].
@@ -1012,6 +1022,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .update_master(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateMasterRequest::project_id].
@@ -1078,6 +1089,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_master_auth(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetMasterAuthRequest::project_id].
@@ -1156,6 +1168,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
@@ -1216,6 +1229,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListOperationsRequest::project_id].
@@ -1270,6 +1284,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetOperationRequest::project_id].
@@ -1330,6 +1345,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CancelOperationRequest::project_id].
@@ -1390,6 +1406,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .get_server_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetServerConfigRequest::project_id].
@@ -1444,6 +1461,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .get_json_web_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GetJSONWebKeysRequest::parent].
@@ -1486,6 +1504,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .list_node_pools(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::ListNodePoolsRequest::project_id].
@@ -1546,6 +1565,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .get_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetNodePoolRequest::project_id].
@@ -1612,6 +1632,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .create_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CreateNodePoolRequest::project_id].
@@ -1681,6 +1702,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .delete_node_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::DeleteNodePoolRequest::project_id].
@@ -1752,6 +1774,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .complete_node_pool_upgrade(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CompleteNodePoolUpgradeRequest::name].
@@ -1799,6 +1822,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .rollback_node_pool_upgrade(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::RollbackNodePoolUpgradeRequest::project_id].
@@ -1874,6 +1898,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_node_pool_management(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolManagementRequest::project_id].
@@ -1949,6 +1974,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_labels(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLabelsRequest::project_id].
@@ -2027,6 +2053,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_legacy_abac(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetLegacyAbacRequest::project_id].
@@ -2093,6 +2120,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .start_ip_rotation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::StartIPRotationRequest::project_id].
@@ -2162,6 +2190,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .complete_ip_rotation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CompleteIPRotationRequest::project_id].
@@ -2222,6 +2251,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_node_pool_size(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNodePoolSizeRequest::project_id].
@@ -2297,6 +2327,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_network_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetNetworkPolicyRequest::project_id].
@@ -2369,6 +2400,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .set_maintenance_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::SetMaintenancePolicyRequest::project_id].
@@ -2443,6 +2475,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .list_usable_subnetworks(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2523,6 +2556,7 @@ pub mod cluster_manager {
             (*self.0.stub)
                 .check_autopilot_compatibility(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CheckAutopilotCompatibilityRequest::name].

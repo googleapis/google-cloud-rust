@@ -90,7 +90,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListLocationsResponse> {
-            (*self.0.stub).list_locations(self.0.request, self.0.options).await
+            (*self.0.stub).list_locations(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -162,7 +162,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Location> {
-            (*self.0.stub).get_location(self.0.request, self.0.options).await
+            (*self.0.stub).get_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::GetLocationRequest::project].
@@ -210,7 +210,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSecretsResponse> {
-            (*self.0.stub).list_secrets(self.0.request, self.0.options).await
+            (*self.0.stub).list_secrets(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -282,7 +282,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Secret> {
-            (*self.0.stub).create_secret(self.0.request, self.0.options).await
+            (*self.0.stub).create_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [request_body][crate::model::CreateSecretRequest::request_body].
@@ -336,7 +336,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSecretsResponse> {
-            (*self.0.stub).list_secrets_by_project_and_location(self.0.request, self.0.options).await
+            (*self.0.stub).list_secrets_by_project_and_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -414,7 +414,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Secret> {
-            (*self.0.stub).create_secret_by_project_and_location(self.0.request, self.0.options).await
+            (*self.0.stub).create_secret_by_project_and_location(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [request_body][crate::model::CreateSecretByProjectAndLocationRequest::request_body].
@@ -474,7 +474,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            (*self.0.stub).add_secret_version(self.0.request, self.0.options).await
+            (*self.0.stub).add_secret_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
@@ -534,7 +534,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            (*self.0.stub).add_secret_version_by_project_and_location_and_secret(self.0.request, self.0.options).await
+            (*self.0.stub).add_secret_version_by_project_and_location_and_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
@@ -594,7 +594,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Secret> {
-            (*self.0.stub).get_secret(self.0.request, self.0.options).await
+            (*self.0.stub).get_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::GetSecretRequest::project].
@@ -642,7 +642,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Empty> {
-            (*self.0.stub).delete_secret(self.0.request, self.0.options).await
+            (*self.0.stub).delete_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::DeleteSecretRequest::project].
@@ -696,7 +696,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Secret> {
-            (*self.0.stub).update_secret(self.0.request, self.0.options).await
+            (*self.0.stub).update_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [request_body][crate::model::UpdateSecretRequest::request_body].
@@ -756,7 +756,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Secret> {
-            (*self.0.stub).get_secret_by_project_and_location_and_secret(self.0.request, self.0.options).await
+            (*self.0.stub).get_secret_by_project_and_location_and_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::GetSecretByProjectAndLocationAndSecretRequest::project].
@@ -810,7 +810,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Empty> {
-            (*self.0.stub).delete_secret_by_project_and_location_and_secret(self.0.request, self.0.options).await
+            (*self.0.stub).delete_secret_by_project_and_location_and_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::project].
@@ -870,7 +870,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Secret> {
-            (*self.0.stub).update_secret_by_project_and_location_and_secret(self.0.request, self.0.options).await
+            (*self.0.stub).update_secret_by_project_and_location_and_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [request_body][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::request_body].
@@ -936,7 +936,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSecretVersionsResponse> {
-            (*self.0.stub).list_secret_versions(self.0.request, self.0.options).await
+            (*self.0.stub).list_secret_versions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1014,7 +1014,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSecretVersionsResponse> {
-            (*self.0.stub).list_secret_versions_by_project_and_location_and_secret(self.0.request, self.0.options).await
+            (*self.0.stub).list_secret_versions_by_project_and_location_and_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1098,7 +1098,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            (*self.0.stub).get_secret_version(self.0.request, self.0.options).await
+            (*self.0.stub).get_secret_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::GetSecretVersionRequest::project].
@@ -1152,7 +1152,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            (*self.0.stub).get_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await
+            (*self.0.stub).get_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
@@ -1212,7 +1212,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AccessSecretVersionResponse> {
-            (*self.0.stub).access_secret_version(self.0.request, self.0.options).await
+            (*self.0.stub).access_secret_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::AccessSecretVersionRequest::project].
@@ -1266,7 +1266,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AccessSecretVersionResponse> {
-            (*self.0.stub).access_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await
+            (*self.0.stub).access_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
@@ -1326,7 +1326,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            (*self.0.stub).disable_secret_version(self.0.request, self.0.options).await
+            (*self.0.stub).disable_secret_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [etag][crate::model::DisableSecretVersionRequest::etag].
@@ -1392,7 +1392,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            (*self.0.stub).disable_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await
+            (*self.0.stub).disable_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [etag][crate::model::DisableSecretVersionRequest::etag].
@@ -1458,7 +1458,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            (*self.0.stub).enable_secret_version(self.0.request, self.0.options).await
+            (*self.0.stub).enable_secret_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [etag][crate::model::EnableSecretVersionRequest::etag].
@@ -1524,7 +1524,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            (*self.0.stub).enable_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await
+            (*self.0.stub).enable_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [etag][crate::model::EnableSecretVersionRequest::etag].
@@ -1590,7 +1590,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            (*self.0.stub).destroy_secret_version(self.0.request, self.0.options).await
+            (*self.0.stub).destroy_secret_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [etag][crate::model::DestroySecretVersionRequest::etag].
@@ -1656,7 +1656,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            (*self.0.stub).destroy_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await
+            (*self.0.stub).destroy_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [etag][crate::model::DestroySecretVersionRequest::etag].
@@ -1722,7 +1722,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await
+            (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
@@ -1788,7 +1788,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).set_iam_policy_by_project_and_location_and_secret(self.0.request, self.0.options).await
+            (*self.0.stub).set_iam_policy_by_project_and_location_and_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
@@ -1854,7 +1854,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await
+            (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::GetIamPolicyRequest::project].
@@ -1908,7 +1908,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Policy> {
-            (*self.0.stub).get_iam_policy_by_project_and_location_and_secret(self.0.request, self.0.options).await
+            (*self.0.stub).get_iam_policy_by_project_and_location_and_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::project].
@@ -1968,7 +1968,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TestIamPermissionsResponse> {
-            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await
+            (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
@@ -2033,7 +2033,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TestIamPermissionsResponse> {
-            (*self.0.stub).test_iam_permissions_by_project_and_location_and_secret(self.0.request, self.0.options).await
+            (*self.0.stub).test_iam_permissions_by_project_and_location_and_secret(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].

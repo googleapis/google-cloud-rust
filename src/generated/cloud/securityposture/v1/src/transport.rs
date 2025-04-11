@@ -44,7 +44,7 @@ impl super::stub::SecurityPosture for SecurityPosture {
         &self,
         req: crate::model::ListPosturesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPosturesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPosturesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -59,14 +59,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListPosturesResponse>| r.into_body())
     }
 
     async fn list_posture_revisions(
         &self,
         req: crate::model::ListPostureRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPostureRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPostureRevisionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -84,18 +83,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPostureRevisionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_posture(
         &self,
         req: crate::model::GetPostureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Posture> {
+    ) -> Result<gax::response::Response<crate::model::Posture>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -109,14 +103,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Posture>| r.into_body())
     }
 
     async fn create_posture(
         &self,
         req: crate::model::CreatePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -133,14 +126,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, Some(req.posture), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_posture(
         &self,
         req: crate::model::UpdatePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -173,14 +165,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, Some(req.posture), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_posture(
         &self,
         req: crate::model::DeletePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -194,14 +185,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn extract_posture(
         &self,
         req: crate::model::ExtractPostureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -214,17 +204,14 @@ impl super::stub::SecurityPosture for SecurityPosture {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_posture_deployments(
         &self,
         req: crate::model::ListPostureDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPostureDeploymentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPostureDeploymentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -243,18 +230,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPostureDeploymentsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_posture_deployment(
         &self,
         req: crate::model::GetPostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PostureDeployment> {
+    ) -> Result<gax::response::Response<crate::model::PostureDeployment>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -267,14 +249,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PostureDeployment>| r.into_body())
     }
 
     async fn create_posture_deployment(
         &self,
         req: crate::model::CreatePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -291,14 +272,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, Some(req.posture_deployment), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_posture_deployment(
         &self,
         req: crate::model::UpdatePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -330,14 +310,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, Some(req.posture_deployment), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_posture_deployment(
         &self,
         req: crate::model::DeletePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -351,14 +330,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_posture_templates(
         &self,
         req: crate::model::ListPostureTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPostureTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPostureTemplatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -377,18 +355,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPostureTemplatesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_posture_template(
         &self,
         req: crate::model::GetPostureTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PostureTemplate> {
+    ) -> Result<gax::response::Response<crate::model::PostureTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -402,14 +375,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PostureTemplate>| r.into_body())
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -425,14 +397,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -445,14 +416,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -468,18 +438,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -492,14 +457,13 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -512,14 +476,17 @@ impl super::stub::SecurityPosture for SecurityPosture {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -529,10 +496,12 @@ impl super::stub::SecurityPosture for SecurityPosture {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

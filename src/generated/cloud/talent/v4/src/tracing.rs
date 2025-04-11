@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Company> {
+    ) -> Result<gax::response::Response<crate::model::Company>> {
         self.inner.create_company(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Company> {
+    ) -> Result<gax::response::Response<crate::model::Company>> {
         self.inner.get_company(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::UpdateCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Company> {
+    ) -> Result<gax::response::Response<crate::model::Company>> {
         self.inner.update_company(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_company(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::ListCompaniesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCompaniesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCompaniesResponse>> {
         self.inner.list_companies(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 }
@@ -119,7 +119,7 @@ where
         &self,
         req: crate::model::CompleteQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CompleteQueryResponse> {
+    ) -> Result<gax::response::Response<crate::model::CompleteQueryResponse>> {
         self.inner.complete_query(req, options).await
     }
 
@@ -128,7 +128,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 }
@@ -160,7 +160,7 @@ where
         &self,
         req: crate::model::CreateClientEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ClientEvent> {
+    ) -> Result<gax::response::Response<crate::model::ClientEvent>> {
         self.inner.create_client_event(req, options).await
     }
 
@@ -169,7 +169,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 }
@@ -201,7 +201,7 @@ where
         &self,
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         self.inner.create_job(req, options).await
     }
 
@@ -210,7 +210,7 @@ where
         &self,
         req: crate::model::BatchCreateJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_create_jobs(req, options).await
     }
 
@@ -219,7 +219,7 @@ where
         &self,
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         self.inner.get_job(req, options).await
     }
 
@@ -228,7 +228,7 @@ where
         &self,
         req: crate::model::UpdateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         self.inner.update_job(req, options).await
     }
 
@@ -237,7 +237,7 @@ where
         &self,
         req: crate::model::BatchUpdateJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_update_jobs(req, options).await
     }
 
@@ -246,7 +246,7 @@ where
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_job(req, options).await
     }
 
@@ -255,7 +255,7 @@ where
         &self,
         req: crate::model::BatchDeleteJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_delete_jobs(req, options).await
     }
 
@@ -264,7 +264,7 @@ where
         &self,
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobsResponse>> {
         self.inner.list_jobs(req, options).await
     }
 
@@ -273,7 +273,7 @@ where
         &self,
         req: crate::model::SearchJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchJobsResponse>> {
         self.inner.search_jobs(req, options).await
     }
 
@@ -282,7 +282,7 @@ where
         &self,
         req: crate::model::SearchJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchJobsResponse>> {
         self.inner.search_jobs_for_alert(req, options).await
     }
 
@@ -291,7 +291,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -337,7 +337,7 @@ where
         &self,
         req: crate::model::CreateTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tenant> {
+    ) -> Result<gax::response::Response<crate::model::Tenant>> {
         self.inner.create_tenant(req, options).await
     }
 
@@ -346,7 +346,7 @@ where
         &self,
         req: crate::model::GetTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tenant> {
+    ) -> Result<gax::response::Response<crate::model::Tenant>> {
         self.inner.get_tenant(req, options).await
     }
 
@@ -355,7 +355,7 @@ where
         &self,
         req: crate::model::UpdateTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tenant> {
+    ) -> Result<gax::response::Response<crate::model::Tenant>> {
         self.inner.update_tenant(req, options).await
     }
 
@@ -364,7 +364,7 @@ where
         &self,
         req: crate::model::DeleteTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_tenant(req, options).await
     }
 
@@ -373,7 +373,7 @@ where
         &self,
         req: crate::model::ListTenantsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTenantsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTenantsResponse>> {
         self.inner.list_tenants(req, options).await
     }
 
@@ -382,7 +382,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 }

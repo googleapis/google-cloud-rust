@@ -44,7 +44,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -64,14 +64,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListConnectionsResponse>| r.into_body())
     }
 
     async fn get_connection(
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -84,14 +83,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Connection>| r.into_body())
     }
 
     async fn create_connection(
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -110,14 +108,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, Some(req.connection), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_connection(
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -152,14 +149,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, Some(req.connection), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_connection(
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -175,14 +171,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_git_repository_link(
         &self,
         req: crate::model::CreateGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -201,14 +196,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, Some(req.git_repository_link), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_git_repository_link(
         &self,
         req: crate::model::DeleteGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -224,14 +218,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_git_repository_links(
         &self,
         req: crate::model::ListGitRepositoryLinksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGitRepositoryLinksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGitRepositoryLinksResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -251,18 +244,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListGitRepositoryLinksResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_git_repository_link(
         &self,
         req: crate::model::GetGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GitRepositoryLink> {
+    ) -> Result<gax::response::Response<crate::model::GitRepositoryLink>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -275,14 +263,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::GitRepositoryLink>| r.into_body())
     }
 
     async fn fetch_read_write_token(
         &self,
         req: crate::model::FetchReadWriteTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchReadWriteTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchReadWriteTokenResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -295,16 +282,14 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::FetchReadWriteTokenResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn fetch_read_token(
         &self,
         req: crate::model::FetchReadTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchReadTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchReadTokenResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -317,17 +302,14 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::FetchReadTokenResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn fetch_linkable_git_repositories(
         &self,
         req: crate::model::FetchLinkableGitRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchLinkableGitRepositoriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -345,18 +327,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn fetch_git_hub_installations(
         &self,
         req: crate::model::FetchGitHubInstallationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchGitHubInstallationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchGitHubInstallationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -372,18 +349,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::FetchGitHubInstallationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn fetch_git_refs(
         &self,
         req: crate::model::FetchGitRefsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchGitRefsResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchGitRefsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -402,14 +374,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::FetchGitRefsResponse>| r.into_body())
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -425,14 +396,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -445,14 +415,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -468,18 +437,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -492,14 +456,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -512,14 +475,17 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -529,10 +495,12 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

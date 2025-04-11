@@ -21,79 +21,79 @@ pub trait WebSecurityScanner: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::ScanConfig>>;
 
     async fn delete_scan_config(
         &self,
         req: crate::model::DeleteScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_scan_config(
         &self,
         req: crate::model::GetScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::ScanConfig>>;
 
     async fn list_scan_configs(
         &self,
         req: crate::model::ListScanConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListScanConfigsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListScanConfigsResponse>>;
 
     async fn update_scan_config(
         &self,
         req: crate::model::UpdateScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanConfig>;
+    ) -> crate::Result<gax::response::Response<crate::model::ScanConfig>>;
 
     async fn start_scan_run(
         &self,
         req: crate::model::StartScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanRun>;
+    ) -> crate::Result<gax::response::Response<crate::model::ScanRun>>;
 
     async fn get_scan_run(
         &self,
         req: crate::model::GetScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanRun>;
+    ) -> crate::Result<gax::response::Response<crate::model::ScanRun>>;
 
     async fn list_scan_runs(
         &self,
         req: crate::model::ListScanRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListScanRunsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListScanRunsResponse>>;
 
     async fn stop_scan_run(
         &self,
         req: crate::model::StopScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanRun>;
+    ) -> crate::Result<gax::response::Response<crate::model::ScanRun>>;
 
     async fn list_crawled_urls(
         &self,
         req: crate::model::ListCrawledUrlsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCrawledUrlsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>>;
 
     async fn get_finding(
         &self,
         req: crate::model::GetFindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Finding>;
+    ) -> crate::Result<gax::response::Response<crate::model::Finding>>;
 
     async fn list_findings(
         &self,
         req: crate::model::ListFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListFindingsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListFindingsResponse>>;
 
     async fn list_finding_type_stats(
         &self,
         req: crate::model::ListFindingTypeStatsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListFindingTypeStatsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>>;
 }
 
 /// All implementations of [super::WebSecurityScanner] also implement [WebSecurityScanner].
@@ -104,7 +104,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::CreateScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::ScanConfig>> {
         T::create_scan_config(self, req, options).await
     }
 
@@ -113,7 +113,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::DeleteScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_scan_config(self, req, options).await
     }
 
@@ -122,7 +122,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::GetScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::ScanConfig>> {
         T::get_scan_config(self, req, options).await
     }
 
@@ -131,7 +131,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::ListScanConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListScanConfigsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListScanConfigsResponse>> {
         T::list_scan_configs(self, req, options).await
     }
 
@@ -140,7 +140,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::UpdateScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanConfig> {
+    ) -> crate::Result<gax::response::Response<crate::model::ScanConfig>> {
         T::update_scan_config(self, req, options).await
     }
 
@@ -149,7 +149,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::StartScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanRun> {
+    ) -> crate::Result<gax::response::Response<crate::model::ScanRun>> {
         T::start_scan_run(self, req, options).await
     }
 
@@ -158,7 +158,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::GetScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanRun> {
+    ) -> crate::Result<gax::response::Response<crate::model::ScanRun>> {
         T::get_scan_run(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::ListScanRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListScanRunsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListScanRunsResponse>> {
         T::list_scan_runs(self, req, options).await
     }
 
@@ -176,7 +176,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::StopScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ScanRun> {
+    ) -> crate::Result<gax::response::Response<crate::model::ScanRun>> {
         T::stop_scan_run(self, req, options).await
     }
 
@@ -185,7 +185,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::ListCrawledUrlsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCrawledUrlsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>> {
         T::list_crawled_urls(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::GetFindingRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Finding> {
+    ) -> crate::Result<gax::response::Response<crate::model::Finding>> {
         T::get_finding(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::ListFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListFindingsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListFindingsResponse>> {
         T::list_findings(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::WebSecurityScanner> WebSecurityScanner for T {
         &self,
         req: crate::model::ListFindingTypeStatsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListFindingTypeStatsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>> {
         T::list_finding_type_stats(self, req, options).await
     }
 }

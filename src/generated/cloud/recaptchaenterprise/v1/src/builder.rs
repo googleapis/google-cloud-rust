@@ -100,6 +100,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .create_assessment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateAssessmentRequest::parent].
@@ -156,6 +157,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .annotate_assessment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AnnotateAssessmentRequest::name].
@@ -243,6 +245,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .create_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
@@ -293,6 +296,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .list_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -369,6 +373,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .retrieve_legacy_secret_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [key][crate::model::RetrieveLegacySecretKeyRequest::key].
@@ -410,7 +415,10 @@ pub mod recaptcha_enterprise_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Key> {
-            (*self.0.stub).get_key(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_key(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetKeyRequest::name].
@@ -455,6 +463,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .update_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
@@ -508,6 +517,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .delete_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
@@ -552,6 +562,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .migrate_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MigrateKeyRequest::name].
@@ -602,6 +613,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .add_ip_override(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::AddIpOverrideRequest::name].
@@ -658,6 +670,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .remove_ip_override(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RemoveIpOverrideRequest::name].
@@ -711,6 +724,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .list_ip_overrides(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -782,6 +796,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .get_metrics(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMetricsRequest::name].
@@ -829,6 +844,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .create_firewall_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateFirewallPolicyRequest::parent].
@@ -885,6 +901,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .list_firewall_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -959,6 +976,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .get_firewall_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFirewallPolicyRequest::name].
@@ -1006,6 +1024,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .update_firewall_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
@@ -1065,6 +1084,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .delete_firewall_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteFirewallPolicyRequest::name].
@@ -1114,6 +1134,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .reorder_firewall_policies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ReorderFirewallPoliciesRequest::parent].
@@ -1174,6 +1195,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .list_related_account_groups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1254,6 +1276,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .list_related_account_group_memberships(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1334,6 +1357,7 @@ pub mod recaptcha_enterprise_service {
             (*self.0.stub)
                 .search_related_account_group_memberships(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.

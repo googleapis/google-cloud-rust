@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dataset> {
+    ) -> Result<gax::response::Response<crate::model::Dataset>> {
         self.inner.get_dataset(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::InsertDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dataset> {
+    ) -> Result<gax::response::Response<crate::model::Dataset>> {
         self.inner.insert_dataset(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::UpdateOrPatchDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dataset> {
+    ) -> Result<gax::response::Response<crate::model::Dataset>> {
         self.inner.patch_dataset(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateOrPatchDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dataset> {
+    ) -> Result<gax::response::Response<crate::model::Dataset>> {
         self.inner.update_dataset(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_dataset(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DatasetList> {
+    ) -> Result<gax::response::Response<crate::model::DatasetList>> {
         self.inner.list_datasets(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::UndeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Dataset> {
+    ) -> Result<gax::response::Response<crate::model::Dataset>> {
         self.inner.undelete_dataset(req, options).await
     }
 }
@@ -128,7 +128,7 @@ where
         &self,
         req: crate::model::GetModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Model> {
+    ) -> Result<gax::response::Response<crate::model::Model>> {
         self.inner.get_model(req, options).await
     }
 
@@ -137,7 +137,7 @@ where
         &self,
         req: crate::model::ListModelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListModelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListModelsResponse>> {
         self.inner.list_models(req, options).await
     }
 
@@ -146,7 +146,7 @@ where
         &self,
         req: crate::model::PatchModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Model> {
+    ) -> Result<gax::response::Response<crate::model::Model>> {
         self.inner.patch_model(req, options).await
     }
 
@@ -155,7 +155,7 @@ where
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_model(req, options).await
     }
 }
@@ -187,7 +187,7 @@ where
         &self,
         req: crate::model::GetServiceAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GetServiceAccountResponse> {
+    ) -> Result<gax::response::Response<crate::model::GetServiceAccountResponse>> {
         self.inner.get_service_account(req, options).await
     }
 }
@@ -219,7 +219,7 @@ where
         &self,
         req: crate::model::GetRoutineRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Routine> {
+    ) -> Result<gax::response::Response<crate::model::Routine>> {
         self.inner.get_routine(req, options).await
     }
 
@@ -228,7 +228,7 @@ where
         &self,
         req: crate::model::InsertRoutineRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Routine> {
+    ) -> Result<gax::response::Response<crate::model::Routine>> {
         self.inner.insert_routine(req, options).await
     }
 
@@ -237,7 +237,7 @@ where
         &self,
         req: crate::model::UpdateRoutineRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Routine> {
+    ) -> Result<gax::response::Response<crate::model::Routine>> {
         self.inner.update_routine(req, options).await
     }
 
@@ -246,7 +246,7 @@ where
         &self,
         req: crate::model::DeleteRoutineRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_routine(req, options).await
     }
 
@@ -255,7 +255,7 @@ where
         &self,
         req: crate::model::ListRoutinesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRoutinesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRoutinesResponse>> {
         self.inner.list_routines(req, options).await
     }
 }
@@ -287,7 +287,7 @@ where
         &self,
         req: crate::model::ListRowAccessPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRowAccessPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRowAccessPoliciesResponse>> {
         self.inner.list_row_access_policies(req, options).await
     }
 
@@ -296,7 +296,7 @@ where
         &self,
         req: crate::model::GetRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RowAccessPolicy> {
+    ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
         self.inner.get_row_access_policy(req, options).await
     }
 
@@ -305,7 +305,7 @@ where
         &self,
         req: crate::model::CreateRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RowAccessPolicy> {
+    ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
         self.inner.create_row_access_policy(req, options).await
     }
 
@@ -314,7 +314,7 @@ where
         &self,
         req: crate::model::UpdateRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RowAccessPolicy> {
+    ) -> Result<gax::response::Response<crate::model::RowAccessPolicy>> {
         self.inner.update_row_access_policy(req, options).await
     }
 
@@ -323,7 +323,7 @@ where
         &self,
         req: crate::model::DeleteRowAccessPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_row_access_policy(req, options).await
     }
 
@@ -332,7 +332,7 @@ where
         &self,
         req: crate::model::BatchDeleteRowAccessPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner
             .batch_delete_row_access_policies(req, options)
             .await
@@ -366,7 +366,7 @@ where
         &self,
         req: crate::model::GetTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Table> {
+    ) -> Result<gax::response::Response<crate::model::Table>> {
         self.inner.get_table(req, options).await
     }
 
@@ -375,7 +375,7 @@ where
         &self,
         req: crate::model::InsertTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Table> {
+    ) -> Result<gax::response::Response<crate::model::Table>> {
         self.inner.insert_table(req, options).await
     }
 
@@ -384,7 +384,7 @@ where
         &self,
         req: crate::model::UpdateOrPatchTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Table> {
+    ) -> Result<gax::response::Response<crate::model::Table>> {
         self.inner.patch_table(req, options).await
     }
 
@@ -393,7 +393,7 @@ where
         &self,
         req: crate::model::UpdateOrPatchTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Table> {
+    ) -> Result<gax::response::Response<crate::model::Table>> {
         self.inner.update_table(req, options).await
     }
 
@@ -402,7 +402,7 @@ where
         &self,
         req: crate::model::DeleteTableRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_table(req, options).await
     }
 
@@ -411,7 +411,7 @@ where
         &self,
         req: crate::model::ListTablesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TableList> {
+    ) -> Result<gax::response::Response<crate::model::TableList>> {
         self.inner.list_tables(req, options).await
     }
 }

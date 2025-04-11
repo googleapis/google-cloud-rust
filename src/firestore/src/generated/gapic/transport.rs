@@ -273,7 +273,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::GetDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
+    ) -> Result<gax::response::Response<crate::model::Document>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::GetDocumentRequest, h: http::header::HeaderMap| async {
@@ -296,8 +296,11 @@ impl super::stub::Firestore for Firestore {
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            let (metadata, body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                body.cnv(),
+            ))
         };
         let x_goog_request_params = [format!("name={}", req.name)]
             .into_iter()
@@ -311,7 +314,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::ListDocumentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDocumentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::ListDocumentsRequest, h: http::header::HeaderMap| async {
@@ -336,8 +339,11 @@ impl super::stub::Firestore for Firestore {
                     .unary(request, path, codec)
                     .await
                     .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            let (metadata, body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                body.cnv(),
+            ))
         };
         let x_goog_request_params = [
             format!("parent={}", req.parent),
@@ -354,7 +360,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::UpdateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
+    ) -> Result<gax::response::Response<crate::model::Document>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::UpdateDocumentRequest, h: http::header::HeaderMap| async {
@@ -378,8 +384,11 @@ impl super::stub::Firestore for Firestore {
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            let (metadata, body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                body.cnv(),
+            ))
         };
         let x_goog_request_params = [format!(
             "document.name={}",
@@ -399,7 +408,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::DeleteDocumentRequest, h: http::header::HeaderMap| async {
@@ -419,11 +428,15 @@ impl super::stub::Firestore for Firestore {
             );
             let mut inner = inner.clone();
             inner.ready().await.map_err(Error::rpc)?;
-            let _: tonic::Response<()> = inner
+            let response: tonic::Response<()> = inner
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            Ok(())
+            let (metadata, _body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                (),
+            ))
         };
         let x_goog_request_params = [format!("name={}", req.name)]
             .into_iter()
@@ -437,7 +450,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::BeginTransactionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BeginTransactionResponse> {
+    ) -> Result<gax::response::Response<crate::model::BeginTransactionResponse>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::BeginTransactionRequest, h: http::header::HeaderMap| async {
@@ -462,8 +475,11 @@ impl super::stub::Firestore for Firestore {
                     .unary(request, path, codec)
                     .await
                     .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            let (metadata, body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                body.cnv(),
+            ))
         };
         let x_goog_request_params = [format!("database={}", req.database)]
             .into_iter()
@@ -477,7 +493,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::CommitRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CommitResponse> {
+    ) -> Result<gax::response::Response<crate::model::CommitResponse>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::CommitRequest, h: http::header::HeaderMap| async {
@@ -500,8 +516,11 @@ impl super::stub::Firestore for Firestore {
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            let (metadata, body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                body.cnv(),
+            ))
         };
         let x_goog_request_params = [format!("database={}", req.database)]
             .into_iter()
@@ -515,7 +534,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::RollbackRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::RollbackRequest, h: http::header::HeaderMap| async {
@@ -534,11 +553,15 @@ impl super::stub::Firestore for Firestore {
                 http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Rollback");
             let mut inner = inner.clone();
             inner.ready().await.map_err(Error::rpc)?;
-            let _: tonic::Response<()> = inner
+            let response: tonic::Response<()> = inner
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            Ok(())
+            let (metadata, _body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                (),
+            ))
         };
         let x_goog_request_params = [format!("database={}", req.database)]
             .into_iter()
@@ -552,7 +575,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::PartitionQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PartitionQueryResponse> {
+    ) -> Result<gax::response::Response<crate::model::PartitionQueryResponse>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::PartitionQueryRequest, h: http::header::HeaderMap| async {
@@ -577,8 +600,11 @@ impl super::stub::Firestore for Firestore {
                     .unary(request, path, codec)
                     .await
                     .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            let (metadata, body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                body.cnv(),
+            ))
         };
         let x_goog_request_params = [format!("parent={}", req.parent)]
             .into_iter()
@@ -592,7 +618,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::ListCollectionIdsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCollectionIdsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCollectionIdsResponse>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::ListCollectionIdsRequest, h: http::header::HeaderMap| async {
@@ -617,8 +643,11 @@ impl super::stub::Firestore for Firestore {
                     .unary(request, path, codec)
                     .await
                     .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            let (metadata, body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                body.cnv(),
+            ))
         };
         let x_goog_request_params = [format!("parent={}", req.parent)]
             .into_iter()
@@ -632,7 +661,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::BatchWriteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchWriteResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchWriteResponse>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::BatchWriteRequest, h: http::header::HeaderMap| async {
@@ -655,8 +684,11 @@ impl super::stub::Firestore for Firestore {
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            let (metadata, body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                body.cnv(),
+            ))
         };
         let x_goog_request_params = [format!("database={}", req.database)]
             .into_iter()
@@ -670,7 +702,7 @@ impl super::stub::Firestore for Firestore {
         &self,
         req: crate::model::CreateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Document> {
+    ) -> Result<gax::response::Response<crate::model::Document>> {
         use wkt::prost::Convert;
         let inner = self.inner.clone();
         let call = |r: crate::model::CreateDocumentRequest, h: http::header::HeaderMap| async {
@@ -694,8 +726,11 @@ impl super::stub::Firestore for Firestore {
                 .unary(request, path, codec)
                 .await
                 .map_err(Error::rpc)?;
-            let response = response.into_inner();
-            Ok(response.cnv())
+            let (metadata, body, _extensions) = response.into_parts();
+            Ok(gax::response::Response::from_parts(
+                gax::response::Parts::new().set_headers(metadata.into_headers()),
+                body.cnv(),
+            ))
         };
         let x_goog_request_params = [
             format!("parent={}", req.parent),

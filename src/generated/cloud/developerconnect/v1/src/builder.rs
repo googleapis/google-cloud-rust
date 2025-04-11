@@ -93,6 +93,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .list_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .get_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
@@ -224,6 +226,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_connection`.
@@ -334,6 +337,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_connection`.
@@ -447,6 +451,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection`.
@@ -547,6 +552,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .create_git_repository_link(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_git_repository_link`.
@@ -662,6 +668,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .delete_git_repository_link(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_git_repository_link`.
@@ -755,6 +762,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .list_git_repository_links(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -841,6 +849,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .get_git_repository_link(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGitRepositoryLinkRequest::name].
@@ -886,6 +895,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .fetch_read_write_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [git_repository_link][crate::model::FetchReadWriteTokenRequest::git_repository_link].
@@ -928,6 +938,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .fetch_read_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [git_repository_link][crate::model::FetchReadTokenRequest::git_repository_link].
@@ -975,6 +986,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .fetch_linkable_git_repositories(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1051,6 +1063,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .fetch_git_hub_installations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [connection][crate::model::FetchGitHubInstallationsRequest::connection].
@@ -1093,6 +1106,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .fetch_git_refs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [git_repository_link][crate::model::FetchGitRefsRequest::git_repository_link].
@@ -1159,6 +1173,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1234,6 +1249,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1279,6 +1295,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1357,6 +1374,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1402,6 +1420,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1447,6 +1466,7 @@ pub mod developer_connect {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

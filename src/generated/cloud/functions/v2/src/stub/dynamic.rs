@@ -23,85 +23,85 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetFunctionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Function>;
+    ) -> crate::Result<gax::response::Response<crate::model::Function>>;
 
     async fn list_functions(
         &self,
         req: crate::model::ListFunctionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListFunctionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListFunctionsResponse>>;
 
     async fn create_function(
         &self,
         req: crate::model::CreateFunctionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_function(
         &self,
         req: crate::model::UpdateFunctionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_function(
         &self,
         req: crate::model::DeleteFunctionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn generate_upload_url(
         &self,
         req: crate::model::GenerateUploadUrlRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GenerateUploadUrlResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateUploadUrlResponse>>;
 
     async fn generate_download_url(
         &self,
         req: crate::model::GenerateDownloadUrlRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GenerateDownloadUrlResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateDownloadUrlResponse>>;
 
     async fn list_runtimes(
         &self,
         req: crate::model::ListRuntimesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRuntimesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimesResponse>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -122,7 +122,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: crate::model::GetFunctionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Function> {
+    ) -> crate::Result<gax::response::Response<crate::model::Function>> {
         T::get_function(self, req, options).await
     }
 
@@ -131,7 +131,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: crate::model::ListFunctionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListFunctionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListFunctionsResponse>> {
         T::list_functions(self, req, options).await
     }
 
@@ -140,7 +140,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: crate::model::CreateFunctionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_function(self, req, options).await
     }
 
@@ -149,7 +149,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: crate::model::UpdateFunctionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_function(self, req, options).await
     }
 
@@ -158,7 +158,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: crate::model::DeleteFunctionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_function(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: crate::model::GenerateUploadUrlRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GenerateUploadUrlResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateUploadUrlResponse>> {
         T::generate_upload_url(self, req, options).await
     }
 
@@ -176,7 +176,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: crate::model::GenerateDownloadUrlRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GenerateDownloadUrlResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::GenerateDownloadUrlResponse>> {
         T::generate_download_url(self, req, options).await
     }
 
@@ -185,7 +185,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: crate::model::ListRuntimesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRuntimesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRuntimesResponse>> {
         T::list_runtimes(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -221,7 +221,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -230,7 +230,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::FunctionService> FunctionService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

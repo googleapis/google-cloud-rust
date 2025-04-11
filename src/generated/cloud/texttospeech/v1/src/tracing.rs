@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListVoicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVoicesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVoicesResponse>> {
         self.inner.list_voices(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::SynthesizeSpeechRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SynthesizeSpeechResponse> {
+    ) -> Result<gax::response::Response<crate::model::SynthesizeSpeechResponse>> {
         self.inner.synthesize_speech(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 }
@@ -101,7 +101,7 @@ where
         &self,
         req: crate::model::SynthesizeLongAudioRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.synthesize_long_audio(req, options).await
     }
 
@@ -110,7 +110,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -119,7 +119,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

@@ -46,11 +46,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateCdnKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::list_cdn_keys].
@@ -58,11 +59,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListCdnKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListCdnKeysResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListCdnKeysResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListCdnKeysResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListCdnKeysResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::VideoStitcherService::get_cdn_key].
@@ -70,10 +72,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetCdnKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::CdnKey>> + Send {
-        std::future::ready::<crate::Result<crate::model::CdnKey>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CdnKey>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::CdnKey>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::VideoStitcherService::delete_cdn_key].
@@ -81,11 +85,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteCdnKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::update_cdn_key].
@@ -93,11 +98,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateCdnKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::create_vod_session].
@@ -105,10 +111,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateVodSessionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VodSession>> + Send {
-        std::future::ready::<crate::Result<crate::model::VodSession>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VodSession>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::VodSession>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::VideoStitcherService::get_vod_session].
@@ -116,10 +124,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVodSessionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VodSession>> + Send {
-        std::future::ready::<crate::Result<crate::model::VodSession>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VodSession>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::VodSession>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::VideoStitcherService::list_vod_stitch_details].
@@ -127,11 +137,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVodStitchDetailsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListVodStitchDetailsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ListVodStitchDetailsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListVodStitchDetailsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListVodStitchDetailsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::VideoStitcherService::get_vod_stitch_detail].
@@ -139,11 +150,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVodStitchDetailRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VodStitchDetail>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::VodStitchDetail>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VodStitchDetail>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::VodStitchDetail>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::list_vod_ad_tag_details].
@@ -151,11 +163,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVodAdTagDetailsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListVodAdTagDetailsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListVodAdTagDetailsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListVodAdTagDetailsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListVodAdTagDetailsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::VideoStitcherService::get_vod_ad_tag_detail].
@@ -163,10 +176,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVodAdTagDetailRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VodAdTagDetail>> + Send {
-        std::future::ready::<crate::Result<crate::model::VodAdTagDetail>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VodAdTagDetail>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::VodAdTagDetail>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::list_live_ad_tag_details].
@@ -174,11 +189,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListLiveAdTagDetailsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLiveAdTagDetailsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<crate::model::ListLiveAdTagDetailsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListLiveAdTagDetailsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::VideoStitcherService::get_live_ad_tag_detail].
@@ -186,11 +202,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLiveAdTagDetailRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::LiveAdTagDetail>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::LiveAdTagDetail>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LiveAdTagDetail>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::LiveAdTagDetail>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::create_slate].
@@ -198,11 +215,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSlateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::list_slates].
@@ -210,11 +228,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSlatesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSlatesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListSlatesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSlatesResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListSlatesResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::get_slate].
@@ -222,8 +241,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSlateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Slate>> + Send {
-        std::future::ready::<crate::Result<crate::model::Slate>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Slate>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Slate>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::VideoStitcherService::update_slate].
@@ -231,11 +254,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSlateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::delete_slate].
@@ -243,11 +267,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSlateRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::create_live_session].
@@ -255,10 +280,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateLiveSessionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::LiveSession>> + Send {
-        std::future::ready::<crate::Result<crate::model::LiveSession>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LiveSession>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::LiveSession>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::get_live_session].
@@ -266,10 +293,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLiveSessionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::LiveSession>> + Send {
-        std::future::ready::<crate::Result<crate::model::LiveSession>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LiveSession>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::LiveSession>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::create_live_config].
@@ -277,11 +306,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateLiveConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::list_live_configs].
@@ -289,11 +319,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListLiveConfigsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLiveConfigsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListLiveConfigsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListLiveConfigsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListLiveConfigsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::VideoStitcherService::get_live_config].
@@ -301,10 +332,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLiveConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::LiveConfig>> + Send {
-        std::future::ready::<crate::Result<crate::model::LiveConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LiveConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::LiveConfig>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::VideoStitcherService::delete_live_config].
@@ -312,11 +345,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteLiveConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::update_live_config].
@@ -324,11 +358,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateLiveConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::create_vod_config].
@@ -336,11 +371,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateVodConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::list_vod_configs].
@@ -348,11 +384,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVodConfigsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListVodConfigsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListVodConfigsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListVodConfigsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListVodConfigsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::VideoStitcherService::get_vod_config].
@@ -360,10 +397,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVodConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VodConfig>> + Send {
-        std::future::ready::<crate::Result<crate::model::VodConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VodConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::VodConfig>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::VideoStitcherService::delete_vod_config].
@@ -371,11 +410,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteVodConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::update_vod_config].
@@ -383,11 +423,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateVodConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::list_operations].
@@ -395,11 +436,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::VideoStitcherService::get_operation].
@@ -407,11 +449,12 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::VideoStitcherService::delete_operation].
@@ -419,8 +462,10 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::VideoStitcherService::cancel_operation].
@@ -428,8 +473,10 @@ pub trait VideoStitcherService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

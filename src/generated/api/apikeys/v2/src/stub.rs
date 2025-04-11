@@ -46,11 +46,12 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ApiKeys::list_keys].
@@ -58,11 +59,12 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListKeysRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListKeysResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListKeysResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListKeysResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListKeysResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ApiKeys::get_key].
@@ -70,8 +72,11 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Key>> + Send {
-        std::future::ready::<crate::Result<crate::model::Key>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<crate::model::Key>>>
+    + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Key>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::ApiKeys::get_key_string].
@@ -79,11 +84,12 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetKeyStringRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::GetKeyStringResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::GetKeyStringResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GetKeyStringResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GetKeyStringResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::ApiKeys::update_key].
@@ -91,11 +97,12 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ApiKeys::delete_key].
@@ -103,11 +110,12 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ApiKeys::undelete_key].
@@ -115,11 +123,12 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UndeleteKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ApiKeys::lookup_key].
@@ -127,11 +136,12 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::LookupKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::LookupKeyResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::LookupKeyResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LookupKeyResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::LookupKeyResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::ApiKeys::get_operation].
@@ -139,11 +149,12 @@ pub trait ApiKeys: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Returns the polling error policy.

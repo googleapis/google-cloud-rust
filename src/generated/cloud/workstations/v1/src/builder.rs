@@ -96,6 +96,7 @@ pub mod workstations {
             (*self.0.stub)
                 .get_workstation_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkstationClusterRequest::name].
@@ -143,6 +144,7 @@ pub mod workstations {
             (*self.0.stub)
                 .list_workstation_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -224,6 +226,7 @@ pub mod workstations {
             (*self.0.stub)
                 .create_workstation_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_workstation_cluster`.
@@ -333,6 +336,7 @@ pub mod workstations {
             (*self.0.stub)
                 .update_workstation_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_workstation_cluster`.
@@ -445,6 +449,7 @@ pub mod workstations {
             (*self.0.stub)
                 .delete_workstation_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_workstation_cluster`.
@@ -542,6 +547,7 @@ pub mod workstations {
             (*self.0.stub)
                 .get_workstation_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkstationConfigRequest::name].
@@ -587,6 +593,7 @@ pub mod workstations {
             (*self.0.stub)
                 .list_workstation_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -663,6 +670,7 @@ pub mod workstations {
             (*self.0.stub)
                 .list_usable_workstation_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -744,6 +752,7 @@ pub mod workstations {
             (*self.0.stub)
                 .create_workstation_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_workstation_config`.
@@ -853,6 +862,7 @@ pub mod workstations {
             (*self.0.stub)
                 .update_workstation_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_workstation_config`.
@@ -965,6 +975,7 @@ pub mod workstations {
             (*self.0.stub)
                 .delete_workstation_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_workstation_config`.
@@ -1059,6 +1070,7 @@ pub mod workstations {
             (*self.0.stub)
                 .get_workstation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkstationRequest::name].
@@ -1104,6 +1116,7 @@ pub mod workstations {
             (*self.0.stub)
                 .list_workstations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1176,6 +1189,7 @@ pub mod workstations {
             (*self.0.stub)
                 .list_usable_workstations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1255,6 +1269,7 @@ pub mod workstations {
             (*self.0.stub)
                 .create_workstation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_workstation`.
@@ -1359,6 +1374,7 @@ pub mod workstations {
             (*self.0.stub)
                 .update_workstation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_workstation`.
@@ -1466,6 +1482,7 @@ pub mod workstations {
             (*self.0.stub)
                 .delete_workstation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_workstation`.
@@ -1561,6 +1578,7 @@ pub mod workstations {
             (*self.0.stub)
                 .start_workstation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `start_workstation`.
@@ -1653,6 +1671,7 @@ pub mod workstations {
             (*self.0.stub)
                 .stop_workstation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `stop_workstation`.
@@ -1743,6 +1762,7 @@ pub mod workstations {
             (*self.0.stub)
                 .generate_access_token(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [workstation][crate::model::GenerateAccessTokenRequest::workstation].
@@ -1796,6 +1816,7 @@ pub mod workstations {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1856,6 +1877,7 @@ pub mod workstations {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1910,6 +1932,7 @@ pub mod workstations {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1966,6 +1989,7 @@ pub mod workstations {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2044,6 +2068,7 @@ pub mod workstations {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2089,6 +2114,7 @@ pub mod workstations {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2134,6 +2160,7 @@ pub mod workstations {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListAlertPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAlertPoliciesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAlertPoliciesResponse>> {
         self.inner.list_alert_policies(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AlertPolicy> {
+    ) -> Result<gax::response::Response<crate::model::AlertPolicy>> {
         self.inner.get_alert_policy(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AlertPolicy> {
+    ) -> Result<gax::response::Response<crate::model::AlertPolicy>> {
         self.inner.create_alert_policy(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_alert_policy(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateAlertPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AlertPolicy> {
+    ) -> Result<gax::response::Response<crate::model::AlertPolicy>> {
         self.inner.update_alert_policy(req, options).await
     }
 }
@@ -110,7 +110,7 @@ where
         &self,
         req: crate::model::ListGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGroupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGroupsResponse>> {
         self.inner.list_groups(req, options).await
     }
 
@@ -119,7 +119,7 @@ where
         &self,
         req: crate::model::GetGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Group> {
+    ) -> Result<gax::response::Response<crate::model::Group>> {
         self.inner.get_group(req, options).await
     }
 
@@ -128,7 +128,7 @@ where
         &self,
         req: crate::model::CreateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Group> {
+    ) -> Result<gax::response::Response<crate::model::Group>> {
         self.inner.create_group(req, options).await
     }
 
@@ -137,7 +137,7 @@ where
         &self,
         req: crate::model::UpdateGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Group> {
+    ) -> Result<gax::response::Response<crate::model::Group>> {
         self.inner.update_group(req, options).await
     }
 
@@ -146,7 +146,7 @@ where
         &self,
         req: crate::model::DeleteGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_group(req, options).await
     }
 
@@ -155,7 +155,7 @@ where
         &self,
         req: crate::model::ListGroupMembersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGroupMembersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGroupMembersResponse>> {
         self.inner.list_group_members(req, options).await
     }
 }
@@ -187,7 +187,8 @@ where
         &self,
         req: crate::model::ListMonitoredResourceDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMonitoredResourceDescriptorsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMonitoredResourceDescriptorsResponse>>
+    {
         self.inner
             .list_monitored_resource_descriptors(req, options)
             .await
@@ -198,7 +199,7 @@ where
         &self,
         req: crate::model::GetMonitoredResourceDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<api::model::MonitoredResourceDescriptor> {
+    ) -> Result<gax::response::Response<api::model::MonitoredResourceDescriptor>> {
         self.inner
             .get_monitored_resource_descriptor(req, options)
             .await
@@ -209,7 +210,7 @@ where
         &self,
         req: crate::model::ListMetricDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMetricDescriptorsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMetricDescriptorsResponse>> {
         self.inner.list_metric_descriptors(req, options).await
     }
 
@@ -218,7 +219,7 @@ where
         &self,
         req: crate::model::GetMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<api::model::MetricDescriptor> {
+    ) -> Result<gax::response::Response<api::model::MetricDescriptor>> {
         self.inner.get_metric_descriptor(req, options).await
     }
 
@@ -227,7 +228,7 @@ where
         &self,
         req: crate::model::CreateMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<api::model::MetricDescriptor> {
+    ) -> Result<gax::response::Response<api::model::MetricDescriptor>> {
         self.inner.create_metric_descriptor(req, options).await
     }
 
@@ -236,7 +237,7 @@ where
         &self,
         req: crate::model::DeleteMetricDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_metric_descriptor(req, options).await
     }
 
@@ -245,7 +246,7 @@ where
         &self,
         req: crate::model::ListTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTimeSeriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTimeSeriesResponse>> {
         self.inner.list_time_series(req, options).await
     }
 
@@ -254,7 +255,7 @@ where
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.create_time_series(req, options).await
     }
 
@@ -263,7 +264,7 @@ where
         &self,
         req: crate::model::CreateTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.create_service_time_series(req, options).await
     }
 }
@@ -295,7 +296,8 @@ where
         &self,
         req: crate::model::ListNotificationChannelDescriptorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNotificationChannelDescriptorsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNotificationChannelDescriptorsResponse>>
+    {
         self.inner
             .list_notification_channel_descriptors(req, options)
             .await
@@ -306,7 +308,7 @@ where
         &self,
         req: crate::model::GetNotificationChannelDescriptorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationChannelDescriptor> {
+    ) -> Result<gax::response::Response<crate::model::NotificationChannelDescriptor>> {
         self.inner
             .get_notification_channel_descriptor(req, options)
             .await
@@ -317,7 +319,7 @@ where
         &self,
         req: crate::model::ListNotificationChannelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNotificationChannelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNotificationChannelsResponse>> {
         self.inner.list_notification_channels(req, options).await
     }
 
@@ -326,7 +328,7 @@ where
         &self,
         req: crate::model::GetNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationChannel> {
+    ) -> Result<gax::response::Response<crate::model::NotificationChannel>> {
         self.inner.get_notification_channel(req, options).await
     }
 
@@ -335,7 +337,7 @@ where
         &self,
         req: crate::model::CreateNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationChannel> {
+    ) -> Result<gax::response::Response<crate::model::NotificationChannel>> {
         self.inner.create_notification_channel(req, options).await
     }
 
@@ -344,7 +346,7 @@ where
         &self,
         req: crate::model::UpdateNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationChannel> {
+    ) -> Result<gax::response::Response<crate::model::NotificationChannel>> {
         self.inner.update_notification_channel(req, options).await
     }
 
@@ -353,7 +355,7 @@ where
         &self,
         req: crate::model::DeleteNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_notification_channel(req, options).await
     }
 
@@ -362,7 +364,7 @@ where
         &self,
         req: crate::model::SendNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner
             .send_notification_channel_verification_code(req, options)
             .await
@@ -373,7 +375,8 @@ where
         &self,
         req: crate::model::GetNotificationChannelVerificationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GetNotificationChannelVerificationCodeResponse> {
+    ) -> Result<gax::response::Response<crate::model::GetNotificationChannelVerificationCodeResponse>>
+    {
         self.inner
             .get_notification_channel_verification_code(req, options)
             .await
@@ -384,7 +387,7 @@ where
         &self,
         req: crate::model::VerifyNotificationChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NotificationChannel> {
+    ) -> Result<gax::response::Response<crate::model::NotificationChannel>> {
         self.inner.verify_notification_channel(req, options).await
     }
 }
@@ -416,7 +419,7 @@ where
         &self,
         req: crate::model::QueryTimeSeriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryTimeSeriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryTimeSeriesResponse>> {
         self.inner.query_time_series(req, options).await
     }
 }
@@ -448,7 +451,7 @@ where
         &self,
         req: crate::model::CreateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Service> {
+    ) -> Result<gax::response::Response<crate::model::Service>> {
         self.inner.create_service(req, options).await
     }
 
@@ -457,7 +460,7 @@ where
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Service> {
+    ) -> Result<gax::response::Response<crate::model::Service>> {
         self.inner.get_service(req, options).await
     }
 
@@ -466,7 +469,7 @@ where
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServicesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
         self.inner.list_services(req, options).await
     }
 
@@ -475,7 +478,7 @@ where
         &self,
         req: crate::model::UpdateServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Service> {
+    ) -> Result<gax::response::Response<crate::model::Service>> {
         self.inner.update_service(req, options).await
     }
 
@@ -484,7 +487,7 @@ where
         &self,
         req: crate::model::DeleteServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_service(req, options).await
     }
 
@@ -493,7 +496,7 @@ where
         &self,
         req: crate::model::CreateServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceLevelObjective> {
+    ) -> Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
         self.inner
             .create_service_level_objective(req, options)
             .await
@@ -504,7 +507,7 @@ where
         &self,
         req: crate::model::GetServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceLevelObjective> {
+    ) -> Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
         self.inner.get_service_level_objective(req, options).await
     }
 
@@ -513,7 +516,7 @@ where
         &self,
         req: crate::model::ListServiceLevelObjectivesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServiceLevelObjectivesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServiceLevelObjectivesResponse>> {
         self.inner.list_service_level_objectives(req, options).await
     }
 
@@ -522,7 +525,7 @@ where
         &self,
         req: crate::model::UpdateServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ServiceLevelObjective> {
+    ) -> Result<gax::response::Response<crate::model::ServiceLevelObjective>> {
         self.inner
             .update_service_level_objective(req, options)
             .await
@@ -533,7 +536,7 @@ where
         &self,
         req: crate::model::DeleteServiceLevelObjectiveRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner
             .delete_service_level_objective(req, options)
             .await
@@ -567,7 +570,7 @@ where
         &self,
         req: crate::model::CreateSnoozeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Snooze> {
+    ) -> Result<gax::response::Response<crate::model::Snooze>> {
         self.inner.create_snooze(req, options).await
     }
 
@@ -576,7 +579,7 @@ where
         &self,
         req: crate::model::ListSnoozesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSnoozesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSnoozesResponse>> {
         self.inner.list_snoozes(req, options).await
     }
 
@@ -585,7 +588,7 @@ where
         &self,
         req: crate::model::GetSnoozeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Snooze> {
+    ) -> Result<gax::response::Response<crate::model::Snooze>> {
         self.inner.get_snooze(req, options).await
     }
 
@@ -594,7 +597,7 @@ where
         &self,
         req: crate::model::UpdateSnoozeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Snooze> {
+    ) -> Result<gax::response::Response<crate::model::Snooze>> {
         self.inner.update_snooze(req, options).await
     }
 }
@@ -626,7 +629,7 @@ where
         &self,
         req: crate::model::ListUptimeCheckConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUptimeCheckConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUptimeCheckConfigsResponse>> {
         self.inner.list_uptime_check_configs(req, options).await
     }
 
@@ -635,7 +638,7 @@ where
         &self,
         req: crate::model::GetUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UptimeCheckConfig> {
+    ) -> Result<gax::response::Response<crate::model::UptimeCheckConfig>> {
         self.inner.get_uptime_check_config(req, options).await
     }
 
@@ -644,7 +647,7 @@ where
         &self,
         req: crate::model::CreateUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UptimeCheckConfig> {
+    ) -> Result<gax::response::Response<crate::model::UptimeCheckConfig>> {
         self.inner.create_uptime_check_config(req, options).await
     }
 
@@ -653,7 +656,7 @@ where
         &self,
         req: crate::model::UpdateUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UptimeCheckConfig> {
+    ) -> Result<gax::response::Response<crate::model::UptimeCheckConfig>> {
         self.inner.update_uptime_check_config(req, options).await
     }
 
@@ -662,7 +665,7 @@ where
         &self,
         req: crate::model::DeleteUptimeCheckConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_uptime_check_config(req, options).await
     }
 
@@ -671,7 +674,7 @@ where
         &self,
         req: crate::model::ListUptimeCheckIpsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUptimeCheckIpsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUptimeCheckIpsResponse>> {
         self.inner.list_uptime_check_ips(req, options).await
     }
 }

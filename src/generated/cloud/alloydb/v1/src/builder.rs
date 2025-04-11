@@ -93,6 +93,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .list_clusters(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .get_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetClusterRequest::name].
@@ -227,6 +229,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_cluster`.
@@ -333,6 +336,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_cluster`.
@@ -442,6 +446,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
@@ -543,6 +548,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .promote_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `promote_cluster`.
@@ -643,6 +649,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .switchover_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `switchover_cluster`.
@@ -734,6 +741,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .restore_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_cluster`.
@@ -852,6 +860,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .create_secondary_cluster(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_secondary_cluster`.
@@ -953,6 +962,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .list_instances(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1034,6 +1044,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .get_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -1087,6 +1098,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_instance`.
@@ -1199,6 +1211,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .create_secondary_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_secondary_instance`.
@@ -1309,6 +1322,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .batch_create_instances(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_create_instances`.
@@ -1407,6 +1421,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_instance`.
@@ -1517,6 +1532,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
@@ -1615,6 +1631,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .failover_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `failover_instance`.
@@ -1707,6 +1724,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .inject_fault(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `inject_fault`.
@@ -1808,6 +1826,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .restart_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restart_instance`.
@@ -1906,6 +1925,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .execute_sql(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::ExecuteSqlRequest::instance].
@@ -1977,6 +1997,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2058,6 +2079,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -2105,6 +2127,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup`.
@@ -2211,6 +2234,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_backup`.
@@ -2320,6 +2344,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
@@ -2415,6 +2440,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .list_supported_database_flags(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2491,6 +2517,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .generate_client_certificate(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GenerateClientCertificateRequest::parent].
@@ -2563,6 +2590,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .get_connection_info(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::GetConnectionInfoRequest::parent].
@@ -2611,6 +2639,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .list_users(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2692,6 +2721,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .get_user(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetUserRequest::name].
@@ -2734,6 +2764,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .create_user(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateUserRequest::parent].
@@ -2800,6 +2831,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .update_user(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateUserRequest::update_mask].
@@ -2869,6 +2901,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .delete_user(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteUserRequest::name].
@@ -2923,6 +2956,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .list_databases(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3001,6 +3035,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3076,6 +3111,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3121,6 +3157,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3199,6 +3236,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3244,6 +3282,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3289,6 +3328,7 @@ pub mod alloy_db_admin {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

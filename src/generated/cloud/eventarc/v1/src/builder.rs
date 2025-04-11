@@ -93,6 +93,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTriggerRequest::name].
@@ -135,6 +136,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_triggers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -221,6 +223,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .create_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_trigger`.
@@ -321,6 +324,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .update_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_trigger`.
@@ -424,6 +428,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .delete_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_trigger`.
@@ -516,6 +521,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_channel(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetChannelRequest::name].
@@ -558,6 +564,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_channels(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -638,6 +645,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .create_channel(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_channel`.
@@ -738,6 +746,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .update_channel(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_channel`.
@@ -835,6 +844,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .delete_channel(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_channel`.
@@ -915,6 +925,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_provider(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProviderRequest::name].
@@ -957,6 +968,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_providers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1041,6 +1053,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_channel_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetChannelConnectionRequest::name].
@@ -1086,6 +1099,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_channel_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1167,6 +1181,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .create_channel_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_channel_connection`.
@@ -1270,6 +1285,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .delete_channel_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_channel_connection`.
@@ -1349,6 +1365,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_google_channel_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGoogleChannelConfigRequest::name].
@@ -1396,6 +1413,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .update_google_channel_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
@@ -1452,6 +1470,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_message_bus(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetMessageBusRequest::name].
@@ -1497,6 +1516,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_message_buses(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1583,6 +1603,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_message_bus_enrollments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListMessageBusEnrollmentsRequest::parent].
@@ -1645,6 +1666,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .create_message_bus(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_message_bus`.
@@ -1749,6 +1771,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .update_message_bus(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_message_bus`.
@@ -1856,6 +1879,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .delete_message_bus(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_message_bus`.
@@ -1949,6 +1973,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_enrollment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEnrollmentRequest::name].
@@ -1991,6 +2016,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_enrollments(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2080,6 +2106,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .create_enrollment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_enrollment`.
@@ -2184,6 +2211,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .update_enrollment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_enrollment`.
@@ -2291,6 +2319,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .delete_enrollment(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_enrollment`.
@@ -2384,6 +2413,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_pipeline(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPipelineRequest::name].
@@ -2426,6 +2456,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_pipelines(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2512,6 +2543,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .create_pipeline(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_pipeline`.
@@ -2613,6 +2645,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .update_pipeline(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_pipeline`.
@@ -2717,6 +2750,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .delete_pipeline(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_pipeline`.
@@ -2813,6 +2847,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_google_api_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGoogleApiSourceRequest::name].
@@ -2858,6 +2893,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_google_api_sources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2947,6 +2983,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .create_google_api_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_google_api_source`.
@@ -3054,6 +3091,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .update_google_api_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_google_api_source`.
@@ -3164,6 +3202,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .delete_google_api_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_google_api_source`.
@@ -3261,6 +3300,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3336,6 +3376,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -3378,6 +3419,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -3438,6 +3480,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -3492,6 +3535,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3548,6 +3592,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3626,6 +3671,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3671,6 +3717,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3716,6 +3763,7 @@ pub mod eventarc {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

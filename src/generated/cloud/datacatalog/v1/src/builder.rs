@@ -93,6 +93,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .search_catalog(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -188,6 +189,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .create_entry_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntryGroupRequest::parent].
@@ -245,6 +247,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .get_entry_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEntryGroupRequest::name].
@@ -296,6 +299,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .update_entry_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
@@ -353,6 +357,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_entry_group(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntryGroupRequest::name].
@@ -401,6 +406,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .list_entry_groups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -470,6 +476,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .create_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntryRequest::parent].
@@ -527,6 +534,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .update_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [entry][crate::model::UpdateEntryRequest::entry].
@@ -581,6 +589,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntryRequest::name].
@@ -623,6 +632,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .get_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetEntryRequest::name].
@@ -665,6 +675,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .lookup_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::LookupEntryRequest::project].
@@ -722,6 +733,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .list_entries(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -800,6 +812,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .modify_entry_overview(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ModifyEntryOverviewRequest::name].
@@ -854,6 +867,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .modify_entry_contacts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ModifyEntryContactsRequest::name].
@@ -908,6 +922,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .create_tag_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagTemplateRequest::parent].
@@ -965,6 +980,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .get_tag_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTagTemplateRequest::name].
@@ -1010,6 +1026,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .update_tag_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [tag_template][crate::model::UpdateTagTemplateRequest::tag_template].
@@ -1067,6 +1084,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_tag_template(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagTemplateRequest::name].
@@ -1118,6 +1136,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .create_tag_template_field(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagTemplateFieldRequest::parent].
@@ -1180,6 +1199,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .update_tag_template_field(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateTagTemplateFieldRequest::name].
@@ -1245,6 +1265,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .rename_tag_template_field(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameTagTemplateFieldRequest::name].
@@ -1298,6 +1319,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .rename_tag_template_field_enum_value(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RenameTagTemplateFieldEnumValueRequest::name].
@@ -1352,6 +1374,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_tag_template_field(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagTemplateFieldRequest::name].
@@ -1400,6 +1423,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .create_tag(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagRequest::parent].
@@ -1448,6 +1472,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .update_tag(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
@@ -1499,6 +1524,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_tag(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagRequest::name].
@@ -1541,6 +1567,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .list_tags(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1615,6 +1642,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .reconcile_tags(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `reconcile_tags`.
@@ -1716,6 +1744,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .star_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StarEntryRequest::name].
@@ -1758,6 +1787,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .unstar_entry(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UnstarEntryRequest::name].
@@ -1800,6 +1830,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1860,6 +1891,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1914,6 +1946,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1972,6 +2005,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .import_entries(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_entries`.
@@ -2065,6 +2099,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .set_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SetConfigRequest::name].
@@ -2118,6 +2153,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .retrieve_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RetrieveConfigRequest::name].
@@ -2165,6 +2201,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .retrieve_effective_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RetrieveEffectiveConfigRequest::name].
@@ -2210,6 +2247,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2288,6 +2326,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2333,6 +2372,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2378,6 +2418,7 @@ pub mod data_catalog {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -2474,6 +2515,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .create_taxonomy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTaxonomyRequest::parent].
@@ -2525,6 +2567,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .delete_taxonomy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTaxonomyRequest::name].
@@ -2567,6 +2610,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .update_taxonomy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
@@ -2621,6 +2665,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .list_taxonomies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2696,6 +2741,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .get_taxonomy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTaxonomyRequest::name].
@@ -2738,6 +2784,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .create_policy_tag(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyTagRequest::parent].
@@ -2789,6 +2836,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .delete_policy_tag(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyTagRequest::name].
@@ -2831,6 +2879,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .update_policy_tag(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
@@ -2885,6 +2934,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .list_policy_tags(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2954,6 +3004,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .get_policy_tag(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetPolicyTagRequest::name].
@@ -2996,6 +3047,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -3047,6 +3099,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -3110,6 +3163,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -3166,6 +3220,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3244,6 +3299,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3289,6 +3345,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3334,6 +3391,7 @@ pub mod policy_tag_manager {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
@@ -3434,6 +3492,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .replace_taxonomy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ReplaceTaxonomyRequest::name].
@@ -3492,6 +3551,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .import_taxonomies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ImportTaxonomiesRequest::parent].
@@ -3548,6 +3608,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .export_taxonomies(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ExportTaxonomiesRequest::parent].
@@ -3617,6 +3678,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -3697,6 +3759,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -3744,6 +3807,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -3791,6 +3855,7 @@ pub mod policy_tag_manager_serialization {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

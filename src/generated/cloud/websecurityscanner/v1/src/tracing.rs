@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanConfig> {
+    ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
         self.inner.create_scan_config(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::DeleteScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_scan_config(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanConfig> {
+    ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
         self.inner.get_scan_config(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::ListScanConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListScanConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListScanConfigsResponse>> {
         self.inner.list_scan_configs(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateScanConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanConfig> {
+    ) -> Result<gax::response::Response<crate::model::ScanConfig>> {
         self.inner.update_scan_config(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::StartScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanRun> {
+    ) -> Result<gax::response::Response<crate::model::ScanRun>> {
         self.inner.start_scan_run(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanRun> {
+    ) -> Result<gax::response::Response<crate::model::ScanRun>> {
         self.inner.get_scan_run(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::ListScanRunsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListScanRunsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListScanRunsResponse>> {
         self.inner.list_scan_runs(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::StopScanRunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ScanRun> {
+    ) -> Result<gax::response::Response<crate::model::ScanRun>> {
         self.inner.stop_scan_run(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ListCrawledUrlsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCrawledUrlsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCrawledUrlsResponse>> {
         self.inner.list_crawled_urls(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::GetFindingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Finding> {
+    ) -> Result<gax::response::Response<crate::model::Finding>> {
         self.inner.get_finding(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::ListFindingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFindingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFindingsResponse>> {
         self.inner.list_findings(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::ListFindingTypeStatsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFindingTypeStatsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFindingTypeStatsResponse>> {
         self.inner.list_finding_type_stats(req, options).await
     }
 }

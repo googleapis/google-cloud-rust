@@ -93,6 +93,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .list_instances(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .get_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInstanceRequest::name].
@@ -221,6 +223,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_instance`.
@@ -322,6 +325,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
@@ -403,6 +407,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .list_repositories(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -484,6 +489,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .get_repository(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
@@ -534,6 +540,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_repository`.
@@ -632,6 +639,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
@@ -710,6 +718,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .get_iam_policy_repo(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -761,6 +770,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .set_iam_policy_repo(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -824,6 +834,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .test_iam_permissions_repo(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -885,6 +896,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .create_branch_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_branch_rule`.
@@ -975,6 +987,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .list_branch_rules(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1044,6 +1057,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .get_branch_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBranchRuleRequest::name].
@@ -1094,6 +1108,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .update_branch_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_branch_rule`.
@@ -1195,6 +1210,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .delete_branch_rule(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_branch_rule`.
@@ -1276,6 +1292,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1351,6 +1368,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1393,6 +1411,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1453,6 +1472,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1507,6 +1527,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1563,6 +1584,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1641,6 +1663,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1686,6 +1709,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1731,6 +1755,7 @@ pub mod secure_source_manager {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

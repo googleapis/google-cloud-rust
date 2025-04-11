@@ -46,11 +46,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBackupPlanRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::list_backup_plans].
@@ -58,11 +59,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBackupPlansRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListBackupPlansResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListBackupPlansResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBackupPlansResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBackupPlansResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BackupForGKE::get_backup_plan].
@@ -70,10 +72,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBackupPlanRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::BackupPlan>> + Send {
-        std::future::ready::<crate::Result<crate::model::BackupPlan>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::BackupPlan>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::BackupPlan>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BackupForGKE::update_backup_plan].
@@ -81,11 +85,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBackupPlanRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::delete_backup_plan].
@@ -93,11 +98,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteBackupPlanRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::create_backup].
@@ -105,11 +111,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::list_backups].
@@ -117,11 +124,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBackupsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListBackupsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListBackupsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BackupForGKE::get_backup].
@@ -129,10 +137,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Backup>> + Send {
-        std::future::ready::<crate::Result<crate::model::Backup>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Backup>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BackupForGKE::update_backup].
@@ -140,11 +150,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::delete_backup].
@@ -152,11 +163,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::list_volume_backups].
@@ -164,11 +176,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVolumeBackupsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListVolumeBackupsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListVolumeBackupsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListVolumeBackupsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListVolumeBackupsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BackupForGKE::get_volume_backup].
@@ -176,10 +189,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVolumeBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VolumeBackup>> + Send {
-        std::future::ready::<crate::Result<crate::model::VolumeBackup>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VolumeBackup>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::VolumeBackup>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::create_restore_plan].
@@ -187,11 +202,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateRestorePlanRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::list_restore_plans].
@@ -199,11 +215,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListRestorePlansRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListRestorePlansResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListRestorePlansResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListRestorePlansResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListRestorePlansResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BackupForGKE::get_restore_plan].
@@ -211,10 +228,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetRestorePlanRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::RestorePlan>> + Send {
-        std::future::ready::<crate::Result<crate::model::RestorePlan>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RestorePlan>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::RestorePlan>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::update_restore_plan].
@@ -222,11 +241,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateRestorePlanRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::delete_restore_plan].
@@ -234,11 +254,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteRestorePlanRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::create_restore].
@@ -246,11 +267,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateRestoreRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::list_restores].
@@ -258,11 +280,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListRestoresRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListRestoresResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListRestoresResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListRestoresResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListRestoresResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BackupForGKE::get_restore].
@@ -270,10 +293,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetRestoreRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Restore>> + Send {
-        std::future::ready::<crate::Result<crate::model::Restore>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Restore>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Restore>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BackupForGKE::update_restore].
@@ -281,11 +306,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateRestoreRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::delete_restore].
@@ -293,11 +319,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteRestoreRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::list_volume_restores].
@@ -305,11 +332,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListVolumeRestoresRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListVolumeRestoresResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListVolumeRestoresResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListVolumeRestoresResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListVolumeRestoresResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BackupForGKE::get_volume_restore].
@@ -317,10 +345,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetVolumeRestoreRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::VolumeRestore>> + Send {
-        std::future::ready::<crate::Result<crate::model::VolumeRestore>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::VolumeRestore>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::VolumeRestore>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::get_backup_index_download_url].
@@ -329,11 +359,13 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         _req: crate::model::GetBackupIndexDownloadUrlRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GetBackupIndexDownloadUrlResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GetBackupIndexDownloadUrlResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::GetBackupIndexDownloadUrlResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GetBackupIndexDownloadUrlResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BackupForGKE::list_locations].
@@ -341,11 +373,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::ListLocationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BackupForGKE::get_location].
@@ -353,10 +386,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<location::model::Location>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::set_iam_policy].
@@ -364,10 +399,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BackupForGKE::get_iam_policy].
@@ -375,10 +412,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BackupForGKE::test_iam_permissions].
@@ -386,11 +425,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BackupForGKE::list_operations].
@@ -398,11 +438,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BackupForGKE::get_operation].
@@ -410,11 +451,12 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BackupForGKE::delete_operation].
@@ -422,8 +464,10 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BackupForGKE::cancel_operation].
@@ -431,8 +475,10 @@ pub trait BackupForGKE: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

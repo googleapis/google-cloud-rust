@@ -93,6 +93,7 @@ pub mod connectors {
             (*self.0.stub)
                 .list_connections(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -180,6 +181,7 @@ pub mod connectors {
             (*self.0.stub)
                 .get_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectionRequest::name].
@@ -236,6 +238,7 @@ pub mod connectors {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_connection`.
@@ -334,6 +337,7 @@ pub mod connectors {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_connection`.
@@ -429,6 +433,7 @@ pub mod connectors {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection`.
@@ -501,6 +506,7 @@ pub mod connectors {
             (*self.0.stub)
                 .list_providers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -570,6 +576,7 @@ pub mod connectors {
             (*self.0.stub)
                 .get_provider(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetProviderRequest::name].
@@ -612,6 +619,7 @@ pub mod connectors {
             (*self.0.stub)
                 .list_connectors(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -681,6 +689,7 @@ pub mod connectors {
             (*self.0.stub)
                 .get_connector(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectorRequest::name].
@@ -726,6 +735,7 @@ pub mod connectors {
             (*self.0.stub)
                 .list_connector_versions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -804,6 +814,7 @@ pub mod connectors {
             (*self.0.stub)
                 .get_connector_version(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectorVersionRequest::name].
@@ -857,6 +868,7 @@ pub mod connectors {
             (*self.0.stub)
                 .get_connection_schema_metadata(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetConnectionSchemaMetadataRequest::name].
@@ -909,6 +921,7 @@ pub mod connectors {
             (*self.0.stub)
                 .refresh_connection_schema_metadata(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `refresh_connection_schema_metadata`.
@@ -992,6 +1005,7 @@ pub mod connectors {
             (*self.0.stub)
                 .list_runtime_entity_schemas(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1074,6 +1088,7 @@ pub mod connectors {
             (*self.0.stub)
                 .list_runtime_action_schemas(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1154,6 +1169,7 @@ pub mod connectors {
             (*self.0.stub)
                 .get_runtime_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRuntimeConfigRequest::name].
@@ -1199,6 +1215,7 @@ pub mod connectors {
             (*self.0.stub)
                 .get_global_settings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetGlobalSettingsRequest::name].
@@ -1244,6 +1261,7 @@ pub mod connectors {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1319,6 +1337,7 @@ pub mod connectors {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -1361,6 +1380,7 @@ pub mod connectors {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1421,6 +1441,7 @@ pub mod connectors {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1475,6 +1496,7 @@ pub mod connectors {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1531,6 +1553,7 @@ pub mod connectors {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1609,6 +1632,7 @@ pub mod connectors {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1654,6 +1678,7 @@ pub mod connectors {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -1699,6 +1724,7 @@ pub mod connectors {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

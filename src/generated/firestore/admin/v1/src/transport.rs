@@ -44,7 +44,7 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         &self,
         req: crate::model::CreateIndexRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -54,17 +54,14 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req.index), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.index), options).await
     }
 
     async fn list_indexes(
         &self,
         req: crate::model::ListIndexesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIndexesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIndexesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,14 +77,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListIndexesResponse>| r.into_body())
     }
 
     async fn get_index(
         &self,
         req: crate::model::GetIndexRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Index> {
+    ) -> Result<gax::response::Response<crate::model::Index>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -100,14 +96,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Index>| r.into_body())
     }
 
     async fn delete_index(
         &self,
         req: crate::model::DeleteIndexRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -120,14 +115,17 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_field(
         &self,
         req: crate::model::GetFieldRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Field> {
+    ) -> Result<gax::response::Response<crate::model::Field>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -140,14 +138,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Field>| r.into_body())
     }
 
     async fn update_field(
         &self,
         req: crate::model::UpdateFieldRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -176,17 +173,14 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "updateMask")
             });
-        self.inner
-            .execute(builder, Some(req.field), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.field), options).await
     }
 
     async fn list_fields(
         &self,
         req: crate::model::ListFieldsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFieldsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFieldsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -202,14 +196,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListFieldsResponse>| r.into_body())
     }
 
     async fn export_documents(
         &self,
         req: crate::model::ExportDocumentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -222,17 +215,14 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn import_documents(
         &self,
         req: crate::model::ImportDocumentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -245,17 +235,14 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn bulk_delete_documents(
         &self,
         req: crate::model::BulkDeleteDocumentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -268,17 +255,14 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_database(
         &self,
         req: crate::model::CreateDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -295,14 +279,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, Some(req.database), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_database(
         &self,
         req: crate::model::GetDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Database> {
+    ) -> Result<gax::response::Response<crate::model::Database>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -315,14 +298,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Database>| r.into_body())
     }
 
     async fn list_databases(
         &self,
         req: crate::model::ListDatabasesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDatabasesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDatabasesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -339,14 +321,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListDatabasesResponse>| r.into_body())
     }
 
     async fn update_database(
         &self,
         req: crate::model::UpdateDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -378,14 +359,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, Some(req.database), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_database(
         &self,
         req: crate::model::DeleteDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -399,14 +379,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_user_creds(
         &self,
         req: crate::model::CreateUserCredsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserCreds> {
+    ) -> Result<gax::response::Response<crate::model::UserCreds>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -423,14 +402,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, Some(req.user_creds), options)
             .await
-            .map(|r: gax::response::Response<crate::model::UserCreds>| r.into_body())
     }
 
     async fn get_user_creds(
         &self,
         req: crate::model::GetUserCredsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserCreds> {
+    ) -> Result<gax::response::Response<crate::model::UserCreds>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -443,14 +421,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::UserCreds>| r.into_body())
     }
 
     async fn list_user_creds(
         &self,
         req: crate::model::ListUserCredsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUserCredsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUserCredsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -466,14 +443,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListUserCredsResponse>| r.into_body())
     }
 
     async fn enable_user_creds(
         &self,
         req: crate::model::EnableUserCredsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserCreds> {
+    ) -> Result<gax::response::Response<crate::model::UserCreds>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -483,17 +459,14 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::UserCreds>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn disable_user_creds(
         &self,
         req: crate::model::DisableUserCredsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserCreds> {
+    ) -> Result<gax::response::Response<crate::model::UserCreds>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -503,17 +476,14 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::UserCreds>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn reset_user_password(
         &self,
         req: crate::model::ResetUserPasswordRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserCreds> {
+    ) -> Result<gax::response::Response<crate::model::UserCreds>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -526,17 +496,14 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::UserCreds>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn delete_user_creds(
         &self,
         req: crate::model::DeleteUserCredsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -549,14 +516,17 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Backup> {
+    ) -> Result<gax::response::Response<crate::model::Backup>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -569,14 +539,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -590,14 +559,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -610,14 +578,17 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn restore_database(
         &self,
         req: crate::model::RestoreDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -630,17 +601,14 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_backup_schedule(
         &self,
         req: crate::model::CreateBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupSchedule> {
+    ) -> Result<gax::response::Response<crate::model::BackupSchedule>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -656,14 +624,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, Some(req.backup_schedule), options)
             .await
-            .map(|r: gax::response::Response<crate::model::BackupSchedule>| r.into_body())
     }
 
     async fn get_backup_schedule(
         &self,
         req: crate::model::GetBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupSchedule> {
+    ) -> Result<gax::response::Response<crate::model::BackupSchedule>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -676,14 +643,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::BackupSchedule>| r.into_body())
     }
 
     async fn list_backup_schedules(
         &self,
         req: crate::model::ListBackupSchedulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupSchedulesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupSchedulesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -699,18 +665,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListBackupSchedulesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn update_backup_schedule(
         &self,
         req: crate::model::UpdateBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupSchedule> {
+    ) -> Result<gax::response::Response<crate::model::BackupSchedule>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -742,14 +703,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, Some(req.backup_schedule), options)
             .await
-            .map(|r: gax::response::Response<crate::model::BackupSchedule>| r.into_body())
     }
 
     async fn delete_backup_schedule(
         &self,
         req: crate::model::DeleteBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -762,14 +722,17 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -785,18 +748,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -809,14 +767,13 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -829,14 +786,17 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -846,10 +806,12 @@ impl super::stub::FirestoreAdmin for FirestoreAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

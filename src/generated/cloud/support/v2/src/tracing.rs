@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListAttachmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAttachmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAttachmentsResponse>> {
         self.inner.list_attachments(req, options).await
     }
 }
@@ -74,7 +74,7 @@ where
         &self,
         req: crate::model::GetCaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Case> {
+    ) -> Result<gax::response::Response<crate::model::Case>> {
         self.inner.get_case(req, options).await
     }
 
@@ -83,7 +83,7 @@ where
         &self,
         req: crate::model::ListCasesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCasesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCasesResponse>> {
         self.inner.list_cases(req, options).await
     }
 
@@ -92,7 +92,7 @@ where
         &self,
         req: crate::model::SearchCasesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchCasesResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchCasesResponse>> {
         self.inner.search_cases(req, options).await
     }
 
@@ -101,7 +101,7 @@ where
         &self,
         req: crate::model::CreateCaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Case> {
+    ) -> Result<gax::response::Response<crate::model::Case>> {
         self.inner.create_case(req, options).await
     }
 
@@ -110,7 +110,7 @@ where
         &self,
         req: crate::model::UpdateCaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Case> {
+    ) -> Result<gax::response::Response<crate::model::Case>> {
         self.inner.update_case(req, options).await
     }
 
@@ -119,7 +119,7 @@ where
         &self,
         req: crate::model::EscalateCaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Case> {
+    ) -> Result<gax::response::Response<crate::model::Case>> {
         self.inner.escalate_case(req, options).await
     }
 
@@ -128,7 +128,7 @@ where
         &self,
         req: crate::model::CloseCaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Case> {
+    ) -> Result<gax::response::Response<crate::model::Case>> {
         self.inner.close_case(req, options).await
     }
 
@@ -137,7 +137,7 @@ where
         &self,
         req: crate::model::SearchCaseClassificationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchCaseClassificationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>> {
         self.inner.search_case_classifications(req, options).await
     }
 }
@@ -169,7 +169,7 @@ where
         &self,
         req: crate::model::ListCommentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCommentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCommentsResponse>> {
         self.inner.list_comments(req, options).await
     }
 
@@ -178,7 +178,7 @@ where
         &self,
         req: crate::model::CreateCommentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Comment> {
+    ) -> Result<gax::response::Response<crate::model::Comment>> {
         self.inner.create_comment(req, options).await
     }
 }

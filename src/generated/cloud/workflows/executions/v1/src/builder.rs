@@ -93,6 +93,7 @@ pub mod executions {
             (*self.0.stub)
                 .list_executions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -180,6 +181,7 @@ pub mod executions {
             (*self.0.stub)
                 .create_execution(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateExecutionRequest::parent].
@@ -231,6 +233,7 @@ pub mod executions {
             (*self.0.stub)
                 .get_execution(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetExecutionRequest::name].
@@ -279,6 +282,7 @@ pub mod executions {
             (*self.0.stub)
                 .cancel_execution(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelExecutionRequest::name].

@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProcessResponse> {
+    ) -> Result<gax::response::Response<crate::model::ProcessResponse>> {
         self.inner.process_document(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::BatchProcessRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.batch_process_documents(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::FetchProcessorTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchProcessorTypesResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchProcessorTypesResponse>> {
         self.inner.fetch_processor_types(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::ListProcessorTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProcessorTypesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProcessorTypesResponse>> {
         self.inner.list_processor_types(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::GetProcessorTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProcessorType> {
+    ) -> Result<gax::response::Response<crate::model::ProcessorType>> {
         self.inner.get_processor_type(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListProcessorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProcessorsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProcessorsResponse>> {
         self.inner.list_processors(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetProcessorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Processor> {
+    ) -> Result<gax::response::Response<crate::model::Processor>> {
         self.inner.get_processor(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::TrainProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.train_processor_version(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::GetProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProcessorVersion> {
+    ) -> Result<gax::response::Response<crate::model::ProcessorVersion>> {
         self.inner.get_processor_version(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ListProcessorVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProcessorVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProcessorVersionsResponse>> {
         self.inner.list_processor_versions(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::DeleteProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_processor_version(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::DeployProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.deploy_processor_version(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::UndeployProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.undeploy_processor_version(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::CreateProcessorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Processor> {
+    ) -> Result<gax::response::Response<crate::model::Processor>> {
         self.inner.create_processor(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::DeleteProcessorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_processor(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::EnableProcessorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.enable_processor(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::DisableProcessorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.disable_processor(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::SetDefaultProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.set_default_processor_version(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::ReviewDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.review_document(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::EvaluateProcessorVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.evaluate_processor_version(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::GetEvaluationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Evaluation> {
+    ) -> Result<gax::response::Response<crate::model::Evaluation>> {
         self.inner.get_evaluation(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::ListEvaluationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEvaluationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEvaluationsResponse>> {
         self.inner.list_evaluations(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

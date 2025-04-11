@@ -93,6 +93,7 @@ pub mod dashboards_service {
             (*self.0.stub)
                 .create_dashboard(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateDashboardRequest::parent].
@@ -150,6 +151,7 @@ pub mod dashboards_service {
             (*self.0.stub)
                 .list_dashboards(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -219,6 +221,7 @@ pub mod dashboards_service {
             (*self.0.stub)
                 .get_dashboard(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDashboardRequest::name].
@@ -261,6 +264,7 @@ pub mod dashboards_service {
             (*self.0.stub)
                 .delete_dashboard(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteDashboardRequest::name].
@@ -303,6 +307,7 @@ pub mod dashboards_service {
             (*self.0.stub)
                 .update_dashboard(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
