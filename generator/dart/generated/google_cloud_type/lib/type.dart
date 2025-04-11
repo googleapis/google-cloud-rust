@@ -896,7 +896,7 @@ class PhoneNumber extends Message {
   ///
   /// Reference(s):
   ///  - https://en.wikipedia.org/wiki/Short_code
-  final PhoneNumber$ShortCode? shortCode;
+  final PhoneNumber_ShortCode? shortCode;
 
   /// The phone number's extension. The extension is not standardized in ITU
   /// recommendations, except for being defined as a series of numbers with a
@@ -918,7 +918,7 @@ class PhoneNumber extends Message {
   factory PhoneNumber.fromJson(Map<String, dynamic> json) {
     return PhoneNumber(
       e164Number: json['e164Number'],
-      shortCode: decode(json['shortCode'], PhoneNumber$ShortCode.fromJson),
+      shortCode: decode(json['shortCode'], PhoneNumber_ShortCode.fromJson),
       extension: json['extension'],
     );
   }
@@ -951,7 +951,7 @@ class PhoneNumber extends Message {
 /// dialable, which means the same short code can exist in different regions,
 /// with different usage and pricing, even if those regions share the same
 /// country calling code (e.g. US and CA).
-class PhoneNumber$ShortCode extends Message {
+class PhoneNumber_ShortCode extends Message {
   static const String fullyQualifiedName = 'google.type.PhoneNumber.ShortCode';
 
   /// Required. The BCP-47 region code of the location where calls to this
@@ -965,13 +965,13 @@ class PhoneNumber$ShortCode extends Message {
   /// calling code, e.g. "611".
   final String? number;
 
-  PhoneNumber$ShortCode({
+  PhoneNumber_ShortCode({
     this.regionCode,
     this.number,
   }) : super(fullyQualifiedName);
 
-  factory PhoneNumber$ShortCode.fromJson(Map<String, dynamic> json) {
-    return PhoneNumber$ShortCode(
+  factory PhoneNumber_ShortCode.fromJson(Map<String, dynamic> json) {
+    return PhoneNumber_ShortCode(
       regionCode: json['regionCode'],
       number: json['number'],
     );

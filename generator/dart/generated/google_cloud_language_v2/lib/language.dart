@@ -88,7 +88,7 @@ class Document extends Message {
 
   /// Required. If the type is not set or is `TYPE_UNSPECIFIED`,
   /// returns an `INVALID_ARGUMENT` error.
-  final Document$Type? type;
+  final Document_Type? type;
 
   /// The content of the input in string format.
   /// Cloud audit logging exempt since it is based on user data.
@@ -119,7 +119,7 @@ class Document extends Message {
 
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
-      type: decode(json['type'], Document$Type.fromJson),
+      type: decode(json['type'], Document_Type.fromJson),
       content: json['content'],
       gcsContentUri: json['gcsContentUri'],
       languageCode: json['languageCode'],
@@ -149,23 +149,23 @@ class Document extends Message {
 }
 
 /// The document types enum.
-class Document$Type extends Enum {
+class Document_Type extends Enum {
   /// The content type is not specified.
-  static const typeUnspecified = Document$Type('TYPE_UNSPECIFIED');
+  static const typeUnspecified = Document_Type('TYPE_UNSPECIFIED');
 
   /// Plain text
-  static const plainText = Document$Type('PLAIN_TEXT');
+  static const plainText = Document_Type('PLAIN_TEXT');
 
   /// HTML
-  static const html = Document$Type('HTML');
+  static const html = Document_Type('HTML');
 
-  const Document$Type(super.value);
+  const Document_Type(super.value);
 
-  factory Document$Type.fromJson(String json) => Document$Type(json);
+  factory Document_Type.fromJson(String json) => Document_Type(json);
 
   @override
   bool operator ==(Object other) =>
-      other is Document$Type && value == other.value;
+      other is Document_Type && value == other.value;
 
   @override
   String toString() => 'Type.$value';
@@ -217,7 +217,7 @@ class Entity extends Message {
   final String? name;
 
   /// The entity type.
-  final Entity$Type? type;
+  final Entity_Type? type;
 
   /// Metadata associated with the entity.
   ///
@@ -246,7 +246,7 @@ class Entity extends Message {
   factory Entity.fromJson(Map<String, dynamic> json) {
     return Entity(
       name: json['name'],
-      type: decode(json['type'], Entity$Type.fromJson),
+      type: decode(json['type'], Entity_Type.fromJson),
       metadata: (json['metadata'] as Map?)?.cast(),
       mentions: decodeList(json['mentions'], EntityMention.fromJson),
       sentiment: decode(json['sentiment'], Sentiment.fromJson),
@@ -277,30 +277,30 @@ class Entity extends Message {
 /// The type of the entity. The table
 /// below lists the associated fields for entities that have different
 /// metadata.
-class Entity$Type extends Enum {
+class Entity_Type extends Enum {
   /// Unknown
-  static const unknown = Entity$Type('UNKNOWN');
+  static const unknown = Entity_Type('UNKNOWN');
 
   /// Person
-  static const person = Entity$Type('PERSON');
+  static const person = Entity_Type('PERSON');
 
   /// Location
-  static const location = Entity$Type('LOCATION');
+  static const location = Entity_Type('LOCATION');
 
   /// Organization
-  static const organization = Entity$Type('ORGANIZATION');
+  static const organization = Entity_Type('ORGANIZATION');
 
   /// Event
-  static const event = Entity$Type('EVENT');
+  static const event = Entity_Type('EVENT');
 
   /// Artwork
-  static const workOfArt = Entity$Type('WORK_OF_ART');
+  static const workOfArt = Entity_Type('WORK_OF_ART');
 
   /// Consumer product
-  static const consumerGood = Entity$Type('CONSUMER_GOOD');
+  static const consumerGood = Entity_Type('CONSUMER_GOOD');
 
   /// Other types of entities
-  static const other = Entity$Type('OTHER');
+  static const other = Entity_Type('OTHER');
 
   /// Phone number
   ///
@@ -313,7 +313,7 @@ class Entity$Type extends Enum {
   /// * `area_code` - region or area code, if detected
   /// * `extension` - phone extension (to be dialed after connection), if
   /// detected
-  static const phoneNumber = Entity$Type('PHONE_NUMBER');
+  static const phoneNumber = Entity_Type('PHONE_NUMBER');
 
   /// Address
   ///
@@ -330,7 +330,7 @@ class Entity$Type extends Enum {
   /// detected
   /// * `sublocality` - used in Asian addresses to demark a district within a
   /// city, if detected
-  static const address = Entity$Type('ADDRESS');
+  static const address = Entity_Type('ADDRESS');
 
   /// Date
   ///
@@ -339,25 +339,25 @@ class Entity$Type extends Enum {
   /// * `year` - four digit year, if detected
   /// * `month` - two digit month number, if detected
   /// * `day` - two digit day number, if detected
-  static const date = Entity$Type('DATE');
+  static const date = Entity_Type('DATE');
 
   /// Number
   ///
   /// The metadata is the number itself.
-  static const number = Entity$Type('NUMBER');
+  static const number = Entity_Type('NUMBER');
 
   /// Price
   ///
   /// The metadata identifies the `value` and `currency`.
-  static const price = Entity$Type('PRICE');
+  static const price = Entity_Type('PRICE');
 
-  const Entity$Type(super.value);
+  const Entity_Type(super.value);
 
-  factory Entity$Type.fromJson(String json) => Entity$Type(json);
+  factory Entity_Type.fromJson(String json) => Entity_Type(json);
 
   @override
   bool operator ==(Object other) =>
-      other is Entity$Type && value == other.value;
+      other is Entity_Type && value == other.value;
 
   @override
   String toString() => 'Type.$value';
@@ -417,7 +417,7 @@ class EntityMention extends Message {
   final TextSpan? text;
 
   /// The type of the entity mention.
-  final EntityMention$Type? type;
+  final EntityMention_Type? type;
 
   /// For calls to `AnalyzeEntitySentiment` or if
   /// `AnnotateTextRequest.Features.extract_entity_sentiment`
@@ -441,7 +441,7 @@ class EntityMention extends Message {
   factory EntityMention.fromJson(Map<String, dynamic> json) {
     return EntityMention(
       text: decode(json['text'], TextSpan.fromJson),
-      type: decode(json['type'], EntityMention$Type.fromJson),
+      type: decode(json['type'], EntityMention_Type.fromJson),
       sentiment: decode(json['sentiment'], Sentiment.fromJson),
       probability: (json['probability'] as num?)?.toDouble(),
     );
@@ -468,23 +468,23 @@ class EntityMention extends Message {
 }
 
 /// The supported types of mentions.
-class EntityMention$Type extends Enum {
+class EntityMention_Type extends Enum {
   /// Unknown
-  static const typeUnknown = EntityMention$Type('TYPE_UNKNOWN');
+  static const typeUnknown = EntityMention_Type('TYPE_UNKNOWN');
 
   /// Proper name
-  static const proper = EntityMention$Type('PROPER');
+  static const proper = EntityMention_Type('PROPER');
 
   /// Common noun (or noun compound)
-  static const common = EntityMention$Type('COMMON');
+  static const common = EntityMention_Type('COMMON');
 
-  const EntityMention$Type(super.value);
+  const EntityMention_Type(super.value);
 
-  factory EntityMention$Type.fromJson(String json) => EntityMention$Type(json);
+  factory EntityMention_Type.fromJson(String json) => EntityMention_Type(json);
 
   @override
   bool operator ==(Object other) =>
-      other is EntityMention$Type && value == other.value;
+      other is EntityMention_Type && value == other.value;
 
   @override
   String toString() => 'Type.$value';
@@ -863,7 +863,7 @@ class ModerateTextRequest extends Message {
   final Document? document;
 
   /// Optional. The model version to use for ModerateText.
-  final ModerateTextRequest$ModelVersion? modelVersion;
+  final ModerateTextRequest_ModelVersion? modelVersion;
 
   ModerateTextRequest({
     this.document,
@@ -874,7 +874,7 @@ class ModerateTextRequest extends Message {
     return ModerateTextRequest(
       document: decode(json['document'], Document.fromJson),
       modelVersion: decode(
-          json['modelVersion'], ModerateTextRequest$ModelVersion.fromJson),
+          json['modelVersion'], ModerateTextRequest_ModelVersion.fromJson),
     );
   }
 
@@ -896,31 +896,31 @@ class ModerateTextRequest extends Message {
 }
 
 /// The model version to use for ModerateText.
-class ModerateTextRequest$ModelVersion extends Enum {
+class ModerateTextRequest_ModelVersion extends Enum {
   /// The default model version.
   static const modelVersionUnspecified =
-      ModerateTextRequest$ModelVersion('MODEL_VERSION_UNSPECIFIED');
+      ModerateTextRequest_ModelVersion('MODEL_VERSION_UNSPECIFIED');
 
   /// Use the v1 model, this model is used by default when not provided.
   /// The v1 model only returns probability (confidence) score for each
   /// category.
   static const modelVersion1 =
-      ModerateTextRequest$ModelVersion('MODEL_VERSION_1');
+      ModerateTextRequest_ModelVersion('MODEL_VERSION_1');
 
   /// Use the v2 model.
   /// The v2 model only returns probability (confidence) score for each
   /// category, and returns severity score for a subset of the categories.
   static const modelVersion2 =
-      ModerateTextRequest$ModelVersion('MODEL_VERSION_2');
+      ModerateTextRequest_ModelVersion('MODEL_VERSION_2');
 
-  const ModerateTextRequest$ModelVersion(super.value);
+  const ModerateTextRequest_ModelVersion(super.value);
 
-  factory ModerateTextRequest$ModelVersion.fromJson(String json) =>
-      ModerateTextRequest$ModelVersion(json);
+  factory ModerateTextRequest_ModelVersion.fromJson(String json) =>
+      ModerateTextRequest_ModelVersion(json);
 
   @override
   bool operator ==(Object other) =>
-      other is ModerateTextRequest$ModelVersion && value == other.value;
+      other is ModerateTextRequest_ModelVersion && value == other.value;
 
   @override
   String toString() => 'ModelVersion.$value';
@@ -989,7 +989,7 @@ class AnnotateTextRequest extends Message {
   final Document? document;
 
   /// Required. The enabled features.
-  final AnnotateTextRequest$Features? features;
+  final AnnotateTextRequest_Features? features;
 
   /// The encoding type used by the API to calculate offsets.
   final EncodingType? encodingType;
@@ -1003,7 +1003,7 @@ class AnnotateTextRequest extends Message {
   factory AnnotateTextRequest.fromJson(Map<String, dynamic> json) {
     return AnnotateTextRequest(
       document: decode(json['document'], Document.fromJson),
-      features: decode(json['features'], AnnotateTextRequest$Features.fromJson),
+      features: decode(json['features'], AnnotateTextRequest_Features.fromJson),
       encodingType: decode(json['encodingType'], EncodingType.fromJson),
     );
   }
@@ -1028,7 +1028,7 @@ class AnnotateTextRequest extends Message {
 
 /// All available features.
 /// Setting each one to true will enable that specific analysis for the input.
-class AnnotateTextRequest$Features extends Message {
+class AnnotateTextRequest_Features extends Message {
   static const String fullyQualifiedName =
       'google.cloud.language.v2.AnnotateTextRequest.Features';
 
@@ -1044,15 +1044,15 @@ class AnnotateTextRequest$Features extends Message {
   /// Optional. Moderate the document for harmful and sensitive categories.
   final bool? moderateText;
 
-  AnnotateTextRequest$Features({
+  AnnotateTextRequest_Features({
     this.extractEntities,
     this.extractDocumentSentiment,
     this.classifyText,
     this.moderateText,
   }) : super(fullyQualifiedName);
 
-  factory AnnotateTextRequest$Features.fromJson(Map<String, dynamic> json) {
-    return AnnotateTextRequest$Features(
+  factory AnnotateTextRequest_Features.fromJson(Map<String, dynamic> json) {
+    return AnnotateTextRequest_Features(
       extractEntities: json['extractEntities'],
       extractDocumentSentiment: json['extractDocumentSentiment'],
       classifyText: json['classifyText'],

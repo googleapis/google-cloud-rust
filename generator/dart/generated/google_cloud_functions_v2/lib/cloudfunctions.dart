@@ -224,7 +224,7 @@ class Function$ extends Message {
   final EventTrigger? eventTrigger;
 
   /// Output only. State of the function.
-  final Function$$State? state;
+  final Function$_State? state;
 
   /// Output only. The last update timestamp of a Cloud Function.
   final Timestamp? updateTime;
@@ -279,7 +279,7 @@ class Function$ extends Message {
       buildConfig: decode(json['buildConfig'], BuildConfig.fromJson),
       serviceConfig: decode(json['serviceConfig'], ServiceConfig.fromJson),
       eventTrigger: decode(json['eventTrigger'], EventTrigger.fromJson),
-      state: decode(json['state'], Function$$State.fromJson),
+      state: decode(json['state'], Function$_State.fromJson),
       updateTime: decode(json['updateTime'], Timestamp.fromJson),
       labels: (json['labels'] as Map?)?.cast(),
       stateMessages: decodeList(json['stateMessages'], StateMessage.fromJson),
@@ -327,33 +327,33 @@ class Function$ extends Message {
 }
 
 /// Describes the current state of the function.
-class Function$$State extends Enum {
+class Function$_State extends Enum {
   /// Not specified. Invalid state.
-  static const stateUnspecified = Function$$State('STATE_UNSPECIFIED');
+  static const stateUnspecified = Function$_State('STATE_UNSPECIFIED');
 
   /// Function has been successfully deployed and is serving.
-  static const active = Function$$State('ACTIVE');
+  static const active = Function$_State('ACTIVE');
 
   /// Function deployment failed and the function is not serving.
-  static const failed = Function$$State('FAILED');
+  static const failed = Function$_State('FAILED');
 
   /// Function is being created or updated.
-  static const deploying = Function$$State('DEPLOYING');
+  static const deploying = Function$_State('DEPLOYING');
 
   /// Function is being deleted.
-  static const deleting = Function$$State('DELETING');
+  static const deleting = Function$_State('DELETING');
 
   /// Function deployment failed and the function serving state is undefined.
   /// The function should be updated or deleted to move it out of this state.
-  static const unknown = Function$$State('UNKNOWN');
+  static const unknown = Function$_State('UNKNOWN');
 
-  const Function$$State(super.value);
+  const Function$_State(super.value);
 
-  factory Function$$State.fromJson(String json) => Function$$State(json);
+  factory Function$_State.fromJson(String json) => Function$_State(json);
 
   @override
   bool operator ==(Object other) =>
-      other is Function$$State && value == other.value;
+      other is Function$_State && value == other.value;
 
   @override
   String toString() => 'State.$value';
@@ -365,7 +365,7 @@ class StateMessage extends Message {
       'google.cloud.functions.v2.StateMessage';
 
   /// Severity of the state message.
-  final StateMessage$Severity? severity;
+  final StateMessage_Severity? severity;
 
   /// One-word CamelCase type of the state message.
   final String? type;
@@ -381,7 +381,7 @@ class StateMessage extends Message {
 
   factory StateMessage.fromJson(Map<String, dynamic> json) {
     return StateMessage(
-      severity: decode(json['severity'], StateMessage$Severity.fromJson),
+      severity: decode(json['severity'], StateMessage_Severity.fromJson),
       type: json['type'],
       message: json['message'],
     );
@@ -408,28 +408,28 @@ class StateMessage extends Message {
 }
 
 /// Severity of the state message.
-class StateMessage$Severity extends Enum {
+class StateMessage_Severity extends Enum {
   /// Not specified. Invalid severity.
   static const severityUnspecified =
-      StateMessage$Severity('SEVERITY_UNSPECIFIED');
+      StateMessage_Severity('SEVERITY_UNSPECIFIED');
 
   /// ERROR-level severity.
-  static const error = StateMessage$Severity('ERROR');
+  static const error = StateMessage_Severity('ERROR');
 
   /// WARNING-level severity.
-  static const warning = StateMessage$Severity('WARNING');
+  static const warning = StateMessage_Severity('WARNING');
 
   /// INFO-level severity.
-  static const info = StateMessage$Severity('INFO');
+  static const info = StateMessage_Severity('INFO');
 
-  const StateMessage$Severity(super.value);
+  const StateMessage_Severity(super.value);
 
-  factory StateMessage$Severity.fromJson(String json) =>
-      StateMessage$Severity(json);
+  factory StateMessage_Severity.fromJson(String json) =>
+      StateMessage_Severity(json);
 
   @override
   bool operator ==(Object other) =>
-      other is StateMessage$Severity && value == other.value;
+      other is StateMessage_Severity && value == other.value;
 
   @override
   String toString() => 'Severity.$value';
@@ -751,7 +751,7 @@ class BuildConfig extends Message {
   /// If unspecified, it defaults to `ARTIFACT_REGISTRY`.
   /// If `docker_repository` field is specified, this field should either be left
   /// unspecified or set to `ARTIFACT_REGISTRY`.
-  final BuildConfig$DockerRegistry? dockerRegistry;
+  final BuildConfig_DockerRegistry? dockerRegistry;
 
   /// Repository in Artifact Registry to which the function docker image will be
   /// pushed after it is built by Cloud Build. If specified by user, it is
@@ -798,7 +798,7 @@ class BuildConfig extends Message {
       workerPool: json['workerPool'],
       environmentVariables: (json['environmentVariables'] as Map?)?.cast(),
       dockerRegistry:
-          decode(json['dockerRegistry'], BuildConfig$DockerRegistry.fromJson),
+          decode(json['dockerRegistry'], BuildConfig_DockerRegistry.fromJson),
       dockerRepository: json['dockerRepository'],
       serviceAccount: json['serviceAccount'],
     );
@@ -842,15 +842,15 @@ class BuildConfig extends Message {
 }
 
 /// Docker Registry to use for storing function Docker images.
-class BuildConfig$DockerRegistry extends Enum {
+class BuildConfig_DockerRegistry extends Enum {
   /// Unspecified.
   static const dockerRegistryUnspecified =
-      BuildConfig$DockerRegistry('DOCKER_REGISTRY_UNSPECIFIED');
+      BuildConfig_DockerRegistry('DOCKER_REGISTRY_UNSPECIFIED');
 
   /// Docker images will be stored in multi-regional Container Registry
   /// repositories named `gcf`.
   static const containerRegistry =
-      BuildConfig$DockerRegistry('CONTAINER_REGISTRY');
+      BuildConfig_DockerRegistry('CONTAINER_REGISTRY');
 
   /// Docker images will be stored in regional Artifact Registry repositories.
   /// By default, GCF will create and use repositories named `gcf-artifacts`
@@ -858,16 +858,16 @@ class BuildConfig$DockerRegistry extends Enum {
   /// use can also be specified by the user using the `docker_repository`
   /// field.
   static const artifactRegistry =
-      BuildConfig$DockerRegistry('ARTIFACT_REGISTRY');
+      BuildConfig_DockerRegistry('ARTIFACT_REGISTRY');
 
-  const BuildConfig$DockerRegistry(super.value);
+  const BuildConfig_DockerRegistry(super.value);
 
-  factory BuildConfig$DockerRegistry.fromJson(String json) =>
-      BuildConfig$DockerRegistry(json);
+  factory BuildConfig_DockerRegistry.fromJson(String json) =>
+      BuildConfig_DockerRegistry(json);
 
   @override
   bool operator ==(Object other) =>
-      other is BuildConfig$DockerRegistry && value == other.value;
+      other is BuildConfig_DockerRegistry && value == other.value;
 
   @override
   String toString() => 'DockerRegistry.$value';
@@ -938,11 +938,11 @@ class ServiceConfig extends Message {
 
   /// The egress settings for the connector, controlling what traffic is diverted
   /// through it.
-  final ServiceConfig$VpcConnectorEgressSettings? vpcConnectorEgressSettings;
+  final ServiceConfig_VpcConnectorEgressSettings? vpcConnectorEgressSettings;
 
   /// The ingress settings for the function, controlling what traffic can reach
   /// it.
-  final ServiceConfig$IngressSettings? ingressSettings;
+  final ServiceConfig_IngressSettings? ingressSettings;
 
   /// Output only. URI of the Service deployed.
   final String? uri;
@@ -975,7 +975,7 @@ class ServiceConfig extends Message {
   /// This configuration is only applicable to 1st Gen functions with Http
   /// trigger. By default https is optional for 1st Gen functions; 2nd Gen
   /// functions are https ONLY.
-  final ServiceConfig$SecurityLevel? securityLevel;
+  final ServiceConfig_SecurityLevel? securityLevel;
 
   /// Optional. The binary authorization policy to be checked when deploying the
   /// Cloud Run service.
@@ -1014,9 +1014,9 @@ class ServiceConfig extends Message {
       minInstanceCount: json['minInstanceCount'],
       vpcConnector: json['vpcConnector'],
       vpcConnectorEgressSettings: decode(json['vpcConnectorEgressSettings'],
-          ServiceConfig$VpcConnectorEgressSettings.fromJson),
+          ServiceConfig_VpcConnectorEgressSettings.fromJson),
       ingressSettings: decode(
-          json['ingressSettings'], ServiceConfig$IngressSettings.fromJson),
+          json['ingressSettings'], ServiceConfig_IngressSettings.fromJson),
       uri: json['uri'],
       serviceAccountEmail: json['serviceAccountEmail'],
       allTrafficOnLatestRevision: json['allTrafficOnLatestRevision'],
@@ -1026,7 +1026,7 @@ class ServiceConfig extends Message {
       revision: json['revision'],
       maxInstanceRequestConcurrency: json['maxInstanceRequestConcurrency'],
       securityLevel:
-          decode(json['securityLevel'], ServiceConfig$SecurityLevel.fromJson),
+          decode(json['securityLevel'], ServiceConfig_SecurityLevel.fromJson),
       binaryAuthorizationPolicy: json['binaryAuthorizationPolicy'],
     );
   }
@@ -1096,29 +1096,29 @@ class ServiceConfig extends Message {
 ///
 /// This controls what traffic is diverted through the VPC Access Connector
 /// resource. By default PRIVATE_RANGES_ONLY will be used.
-class ServiceConfig$VpcConnectorEgressSettings extends Enum {
+class ServiceConfig_VpcConnectorEgressSettings extends Enum {
   /// Unspecified.
   static const vpcConnectorEgressSettingsUnspecified =
-      ServiceConfig$VpcConnectorEgressSettings(
+      ServiceConfig_VpcConnectorEgressSettings(
           'VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED');
 
   /// Use the VPC Access Connector only for private IP space from RFC1918.
   static const privateRangesOnly =
-      ServiceConfig$VpcConnectorEgressSettings('PRIVATE_RANGES_ONLY');
+      ServiceConfig_VpcConnectorEgressSettings('PRIVATE_RANGES_ONLY');
 
   /// Force the use of VPC Access Connector for all egress traffic from the
   /// function.
   static const allTraffic =
-      ServiceConfig$VpcConnectorEgressSettings('ALL_TRAFFIC');
+      ServiceConfig_VpcConnectorEgressSettings('ALL_TRAFFIC');
 
-  const ServiceConfig$VpcConnectorEgressSettings(super.value);
+  const ServiceConfig_VpcConnectorEgressSettings(super.value);
 
-  factory ServiceConfig$VpcConnectorEgressSettings.fromJson(String json) =>
-      ServiceConfig$VpcConnectorEgressSettings(json);
+  factory ServiceConfig_VpcConnectorEgressSettings.fromJson(String json) =>
+      ServiceConfig_VpcConnectorEgressSettings(json);
 
   @override
   bool operator ==(Object other) =>
-      other is ServiceConfig$VpcConnectorEgressSettings && value == other.value;
+      other is ServiceConfig_VpcConnectorEgressSettings && value == other.value;
 
   @override
   String toString() => 'VpcConnectorEgressSettings.$value';
@@ -1129,30 +1129,30 @@ class ServiceConfig$VpcConnectorEgressSettings extends Enum {
 /// This controls what traffic can reach the function.
 ///
 /// If unspecified, ALLOW_ALL will be used.
-class ServiceConfig$IngressSettings extends Enum {
+class ServiceConfig_IngressSettings extends Enum {
   /// Unspecified.
   static const ingressSettingsUnspecified =
-      ServiceConfig$IngressSettings('INGRESS_SETTINGS_UNSPECIFIED');
+      ServiceConfig_IngressSettings('INGRESS_SETTINGS_UNSPECIFIED');
 
   /// Allow HTTP traffic from public and private sources.
-  static const allowAll = ServiceConfig$IngressSettings('ALLOW_ALL');
+  static const allowAll = ServiceConfig_IngressSettings('ALLOW_ALL');
 
   /// Allow HTTP traffic from only private VPC sources.
   static const allowInternalOnly =
-      ServiceConfig$IngressSettings('ALLOW_INTERNAL_ONLY');
+      ServiceConfig_IngressSettings('ALLOW_INTERNAL_ONLY');
 
   /// Allow HTTP traffic from private VPC sources and through GCLB.
   static const allowInternalAndGclb =
-      ServiceConfig$IngressSettings('ALLOW_INTERNAL_AND_GCLB');
+      ServiceConfig_IngressSettings('ALLOW_INTERNAL_AND_GCLB');
 
-  const ServiceConfig$IngressSettings(super.value);
+  const ServiceConfig_IngressSettings(super.value);
 
-  factory ServiceConfig$IngressSettings.fromJson(String json) =>
-      ServiceConfig$IngressSettings(json);
+  factory ServiceConfig_IngressSettings.fromJson(String json) =>
+      ServiceConfig_IngressSettings(json);
 
   @override
   bool operator ==(Object other) =>
-      other is ServiceConfig$IngressSettings && value == other.value;
+      other is ServiceConfig_IngressSettings && value == other.value;
 
   @override
   String toString() => 'IngressSettings.$value';
@@ -1164,29 +1164,29 @@ class ServiceConfig$IngressSettings extends Enum {
 ///
 /// Security level is only configurable for 1st Gen functions, If unspecified,
 /// SECURE_OPTIONAL will be used. 2nd Gen functions are SECURE_ALWAYS ONLY.
-class ServiceConfig$SecurityLevel extends Enum {
+class ServiceConfig_SecurityLevel extends Enum {
   /// Unspecified.
   static const securityLevelUnspecified =
-      ServiceConfig$SecurityLevel('SECURITY_LEVEL_UNSPECIFIED');
+      ServiceConfig_SecurityLevel('SECURITY_LEVEL_UNSPECIFIED');
 
   /// Requests for a URL that match this handler that do not use HTTPS are
   /// automatically redirected to the HTTPS URL with the same path. Query
   /// parameters are reserved for the redirect.
-  static const secureAlways = ServiceConfig$SecurityLevel('SECURE_ALWAYS');
+  static const secureAlways = ServiceConfig_SecurityLevel('SECURE_ALWAYS');
 
   /// Both HTTP and HTTPS requests with URLs that match the handler succeed
   /// without redirects. The application can examine the request to determine
   /// which protocol was used and respond accordingly.
-  static const secureOptional = ServiceConfig$SecurityLevel('SECURE_OPTIONAL');
+  static const secureOptional = ServiceConfig_SecurityLevel('SECURE_OPTIONAL');
 
-  const ServiceConfig$SecurityLevel(super.value);
+  const ServiceConfig_SecurityLevel(super.value);
 
-  factory ServiceConfig$SecurityLevel.fromJson(String json) =>
-      ServiceConfig$SecurityLevel(json);
+  factory ServiceConfig_SecurityLevel.fromJson(String json) =>
+      ServiceConfig_SecurityLevel(json);
 
   @override
   bool operator ==(Object other) =>
-      other is ServiceConfig$SecurityLevel && value == other.value;
+      other is ServiceConfig_SecurityLevel && value == other.value;
 
   @override
   String toString() => 'SecurityLevel.$value';
@@ -1279,7 +1279,7 @@ class SecretVolume extends Message {
   /// List of secret versions to mount for this secret. If empty, the `latest`
   /// version of the secret will be made available in a file named after the
   /// secret under the mount point.
-  final List<SecretVolume$SecretVersion>? versions;
+  final List<SecretVolume_SecretVersion>? versions;
 
   SecretVolume({
     this.mountPath,
@@ -1294,7 +1294,7 @@ class SecretVolume extends Message {
       projectId: json['projectId'],
       secret: json['secret'],
       versions:
-          decodeList(json['versions'], SecretVolume$SecretVersion.fromJson),
+          decodeList(json['versions'], SecretVolume_SecretVersion.fromJson),
     );
   }
 
@@ -1320,7 +1320,7 @@ class SecretVolume extends Message {
 }
 
 /// Configuration for a single version.
-class SecretVolume$SecretVersion extends Message {
+class SecretVolume_SecretVersion extends Message {
   static const String fullyQualifiedName =
       'google.cloud.functions.v2.SecretVolume.SecretVersion';
 
@@ -1335,13 +1335,13 @@ class SecretVolume$SecretVersion extends Message {
   /// secret value file at `/etc/secrets/secret_foo`.
   final String? path;
 
-  SecretVolume$SecretVersion({
+  SecretVolume_SecretVersion({
     this.version,
     this.path,
   }) : super(fullyQualifiedName);
 
-  factory SecretVolume$SecretVersion.fromJson(Map<String, dynamic> json) {
-    return SecretVolume$SecretVersion(
+  factory SecretVolume_SecretVersion.fromJson(Map<String, dynamic> json) {
+    return SecretVolume_SecretVersion(
       version: json['version'],
       path: json['path'],
     );
@@ -1407,7 +1407,7 @@ class EventTrigger extends Message {
 
   /// Optional. If unset, then defaults to ignoring failures (i.e. not retrying
   /// them).
-  final EventTrigger$RetryPolicy? retryPolicy;
+  final EventTrigger_RetryPolicy? retryPolicy;
 
   /// Optional. The name of the channel associated with the trigger in
   /// `projects/{project}/locations/{location}/channels/{channel}` format.
@@ -1445,7 +1445,7 @@ class EventTrigger extends Message {
       pubsubTopic: json['pubsubTopic'],
       serviceAccountEmail: json['serviceAccountEmail'],
       retryPolicy:
-          decode(json['retryPolicy'], EventTrigger$RetryPolicy.fromJson),
+          decode(json['retryPolicy'], EventTrigger_RetryPolicy.fromJson),
       channel: json['channel'],
       service: json['service'],
     );
@@ -1486,28 +1486,28 @@ class EventTrigger extends Message {
 
 /// Describes the retry policy in case of function's execution failure.
 /// Retried execution is charged as any other execution.
-class EventTrigger$RetryPolicy extends Enum {
+class EventTrigger_RetryPolicy extends Enum {
   /// Not specified.
   static const retryPolicyUnspecified =
-      EventTrigger$RetryPolicy('RETRY_POLICY_UNSPECIFIED');
+      EventTrigger_RetryPolicy('RETRY_POLICY_UNSPECIFIED');
 
   /// Do not retry.
   static const retryPolicyDoNotRetry =
-      EventTrigger$RetryPolicy('RETRY_POLICY_DO_NOT_RETRY');
+      EventTrigger_RetryPolicy('RETRY_POLICY_DO_NOT_RETRY');
 
   /// Retry on any failure, retry up to 7 days with an exponential backoff
   /// (capped at 10 seconds).
   static const retryPolicyRetry =
-      EventTrigger$RetryPolicy('RETRY_POLICY_RETRY');
+      EventTrigger_RetryPolicy('RETRY_POLICY_RETRY');
 
-  const EventTrigger$RetryPolicy(super.value);
+  const EventTrigger_RetryPolicy(super.value);
 
-  factory EventTrigger$RetryPolicy.fromJson(String json) =>
-      EventTrigger$RetryPolicy(json);
+  factory EventTrigger_RetryPolicy.fromJson(String json) =>
+      EventTrigger_RetryPolicy(json);
 
   @override
   bool operator ==(Object other) =>
-      other is EventTrigger$RetryPolicy && value == other.value;
+      other is EventTrigger_RetryPolicy && value == other.value;
 
   @override
   String toString() => 'RetryPolicy.$value';
@@ -2090,7 +2090,7 @@ class ListRuntimesResponse extends Message {
       'google.cloud.functions.v2.ListRuntimesResponse';
 
   /// The runtimes that match the request.
-  final List<ListRuntimesResponse$Runtime>? runtimes;
+  final List<ListRuntimesResponse_Runtime>? runtimes;
 
   ListRuntimesResponse({
     this.runtimes,
@@ -2099,7 +2099,7 @@ class ListRuntimesResponse extends Message {
   factory ListRuntimesResponse.fromJson(Map<String, dynamic> json) {
     return ListRuntimesResponse(
       runtimes:
-          decodeList(json['runtimes'], ListRuntimesResponse$Runtime.fromJson),
+          decodeList(json['runtimes'], ListRuntimesResponse_Runtime.fromJson),
     );
   }
 
@@ -2116,7 +2116,7 @@ class ListRuntimesResponse extends Message {
 
 /// Describes a runtime and any special information (e.g., deprecation status)
 /// related to it.
-class ListRuntimesResponse$Runtime extends Message {
+class ListRuntimesResponse_Runtime extends Message {
   static const String fullyQualifiedName =
       'google.cloud.functions.v2.ListRuntimesResponse.Runtime';
 
@@ -2127,7 +2127,7 @@ class ListRuntimesResponse$Runtime extends Message {
   final String? displayName;
 
   /// The stage of life this runtime is in, e.g., BETA, GA, etc.
-  final ListRuntimesResponse$RuntimeStage? stage;
+  final ListRuntimesResponse_RuntimeStage? stage;
 
   /// Warning messages, e.g., a deprecation warning.
   final List<String>? warnings;
@@ -2141,7 +2141,7 @@ class ListRuntimesResponse$Runtime extends Message {
   /// Decommission date for the runtime.
   final Date? decommissionDate;
 
-  ListRuntimesResponse$Runtime({
+  ListRuntimesResponse_Runtime({
     this.name,
     this.displayName,
     this.stage,
@@ -2151,11 +2151,11 @@ class ListRuntimesResponse$Runtime extends Message {
     this.decommissionDate,
   }) : super(fullyQualifiedName);
 
-  factory ListRuntimesResponse$Runtime.fromJson(Map<String, dynamic> json) {
-    return ListRuntimesResponse$Runtime(
+  factory ListRuntimesResponse_Runtime.fromJson(Map<String, dynamic> json) {
+    return ListRuntimesResponse_Runtime(
       name: json['name'],
       displayName: json['displayName'],
-      stage: decode(json['stage'], ListRuntimesResponse$RuntimeStage.fromJson),
+      stage: decode(json['stage'], ListRuntimesResponse_RuntimeStage.fromJson),
       warnings: (json['warnings'] as List?)?.cast(),
       environment: decode(json['environment'], Environment.fromJson),
       deprecationDate: decode(json['deprecationDate'], Date.fromJson),
@@ -2190,38 +2190,38 @@ class ListRuntimesResponse$Runtime extends Message {
 }
 
 /// The various stages that a runtime can be in.
-class ListRuntimesResponse$RuntimeStage extends Enum {
+class ListRuntimesResponse_RuntimeStage extends Enum {
   /// Not specified.
   static const runtimeStageUnspecified =
-      ListRuntimesResponse$RuntimeStage('RUNTIME_STAGE_UNSPECIFIED');
+      ListRuntimesResponse_RuntimeStage('RUNTIME_STAGE_UNSPECIFIED');
 
   /// The runtime is in development.
-  static const development = ListRuntimesResponse$RuntimeStage('DEVELOPMENT');
+  static const development = ListRuntimesResponse_RuntimeStage('DEVELOPMENT');
 
   /// The runtime is in the Alpha stage.
-  static const alpha = ListRuntimesResponse$RuntimeStage('ALPHA');
+  static const alpha = ListRuntimesResponse_RuntimeStage('ALPHA');
 
   /// The runtime is in the Beta stage.
-  static const beta = ListRuntimesResponse$RuntimeStage('BETA');
+  static const beta = ListRuntimesResponse_RuntimeStage('BETA');
 
   /// The runtime is generally available.
-  static const ga = ListRuntimesResponse$RuntimeStage('GA');
+  static const ga = ListRuntimesResponse_RuntimeStage('GA');
 
   /// The runtime is deprecated.
-  static const deprecated = ListRuntimesResponse$RuntimeStage('DEPRECATED');
+  static const deprecated = ListRuntimesResponse_RuntimeStage('DEPRECATED');
 
   /// The runtime is no longer supported.
   static const decommissioned =
-      ListRuntimesResponse$RuntimeStage('DECOMMISSIONED');
+      ListRuntimesResponse_RuntimeStage('DECOMMISSIONED');
 
-  const ListRuntimesResponse$RuntimeStage(super.value);
+  const ListRuntimesResponse_RuntimeStage(super.value);
 
-  factory ListRuntimesResponse$RuntimeStage.fromJson(String json) =>
-      ListRuntimesResponse$RuntimeStage(json);
+  factory ListRuntimesResponse_RuntimeStage.fromJson(String json) =>
+      ListRuntimesResponse_RuntimeStage(json);
 
   @override
   bool operator ==(Object other) =>
-      other is ListRuntimesResponse$RuntimeStage && value == other.value;
+      other is ListRuntimesResponse_RuntimeStage && value == other.value;
 
   @override
   String toString() => 'RuntimeStage.$value';
@@ -2430,13 +2430,13 @@ class Stage extends Message {
   static const String fullyQualifiedName = 'google.cloud.functions.v2.Stage';
 
   /// Name of the Stage. This will be unique for each Stage.
-  final Stage$Name? name;
+  final Stage_Name? name;
 
   /// Message describing the Stage
   final String? message;
 
   /// Current state of the Stage
-  final Stage$State? state;
+  final Stage_State? state;
 
   /// Resource of the Stage
   final String? resource;
@@ -2458,9 +2458,9 @@ class Stage extends Message {
 
   factory Stage.fromJson(Map<String, dynamic> json) {
     return Stage(
-      name: decode(json['name'], Stage$Name.fromJson),
+      name: decode(json['name'], Stage_Name.fromJson),
       message: json['message'],
-      state: decode(json['state'], Stage$State.fromJson),
+      state: decode(json['state'], Stage_State.fromJson),
       resource: json['resource'],
       resourceUri: json['resourceUri'],
       stateMessages: decodeList(json['stateMessages'], StateMessage.fromJson),
@@ -2493,60 +2493,60 @@ class Stage extends Message {
 }
 
 /// Possible names for a Stage
-class Stage$Name extends Enum {
+class Stage_Name extends Enum {
   /// Not specified. Invalid name.
-  static const nameUnspecified = Stage$Name('NAME_UNSPECIFIED');
+  static const nameUnspecified = Stage_Name('NAME_UNSPECIFIED');
 
   /// Artifact Registry Stage
-  static const artifactRegistry = Stage$Name('ARTIFACT_REGISTRY');
+  static const artifactRegistry = Stage_Name('ARTIFACT_REGISTRY');
 
   /// Build Stage
-  static const build = Stage$Name('BUILD');
+  static const build = Stage_Name('BUILD');
 
   /// Service Stage
-  static const service = Stage$Name('SERVICE');
+  static const service = Stage_Name('SERVICE');
 
   /// Trigger Stage
-  static const trigger = Stage$Name('TRIGGER');
+  static const trigger = Stage_Name('TRIGGER');
 
   /// Service Rollback Stage
-  static const serviceRollback = Stage$Name('SERVICE_ROLLBACK');
+  static const serviceRollback = Stage_Name('SERVICE_ROLLBACK');
 
   /// Trigger Rollback Stage
-  static const triggerRollback = Stage$Name('TRIGGER_ROLLBACK');
+  static const triggerRollback = Stage_Name('TRIGGER_ROLLBACK');
 
-  const Stage$Name(super.value);
+  const Stage_Name(super.value);
 
-  factory Stage$Name.fromJson(String json) => Stage$Name(json);
+  factory Stage_Name.fromJson(String json) => Stage_Name(json);
 
   @override
-  bool operator ==(Object other) => other is Stage$Name && value == other.value;
+  bool operator ==(Object other) => other is Stage_Name && value == other.value;
 
   @override
   String toString() => 'Name.$value';
 }
 
 /// Possible states for a Stage
-class Stage$State extends Enum {
+class Stage_State extends Enum {
   /// Not specified. Invalid state.
-  static const stateUnspecified = Stage$State('STATE_UNSPECIFIED');
+  static const stateUnspecified = Stage_State('STATE_UNSPECIFIED');
 
   /// Stage has not started.
-  static const notStarted = Stage$State('NOT_STARTED');
+  static const notStarted = Stage_State('NOT_STARTED');
 
   /// Stage is in progress.
-  static const inProgress = Stage$State('IN_PROGRESS');
+  static const inProgress = Stage_State('IN_PROGRESS');
 
   /// Stage has completed.
-  static const complete = Stage$State('COMPLETE');
+  static const complete = Stage_State('COMPLETE');
 
-  const Stage$State(super.value);
+  const Stage_State(super.value);
 
-  factory Stage$State.fromJson(String json) => Stage$State(json);
+  factory Stage_State.fromJson(String json) => Stage_State(json);
 
   @override
   bool operator ==(Object other) =>
-      other is Stage$State && value == other.value;
+      other is Stage_State && value == other.value;
 
   @override
   String toString() => 'State.$value';

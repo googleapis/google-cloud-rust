@@ -209,7 +209,7 @@ class QuotaFailure extends Message {
   static const String fullyQualifiedName = 'google.rpc.QuotaFailure';
 
   /// Describes all quota violations.
-  final List<QuotaFailure$Violation>? violations;
+  final List<QuotaFailure_Violation>? violations;
 
   QuotaFailure({
     this.violations,
@@ -218,7 +218,7 @@ class QuotaFailure extends Message {
   factory QuotaFailure.fromJson(Map<String, dynamic> json) {
     return QuotaFailure(
       violations:
-          decodeList(json['violations'], QuotaFailure$Violation.fromJson),
+          decodeList(json['violations'], QuotaFailure_Violation.fromJson),
     );
   }
 
@@ -235,7 +235,7 @@ class QuotaFailure extends Message {
 
 /// A message type used to describe a single quota violation.  For example, a
 /// daily quota or a custom quota that was exceeded.
-class QuotaFailure$Violation extends Message {
+class QuotaFailure_Violation extends Message {
   static const String fullyQualifiedName = 'google.rpc.QuotaFailure.Violation';
 
   /// The subject on which the quota check failed.
@@ -252,13 +252,13 @@ class QuotaFailure$Violation extends Message {
   /// exceeded".
   final String? description;
 
-  QuotaFailure$Violation({
+  QuotaFailure_Violation({
     this.subject,
     this.description,
   }) : super(fullyQualifiedName);
 
-  factory QuotaFailure$Violation.fromJson(Map<String, dynamic> json) {
-    return QuotaFailure$Violation(
+  factory QuotaFailure_Violation.fromJson(Map<String, dynamic> json) {
+    return QuotaFailure_Violation(
       subject: json['subject'],
       description: json['description'],
     );
@@ -291,7 +291,7 @@ class PreconditionFailure extends Message {
   static const String fullyQualifiedName = 'google.rpc.PreconditionFailure';
 
   /// Describes all precondition violations.
-  final List<PreconditionFailure$Violation>? violations;
+  final List<PreconditionFailure_Violation>? violations;
 
   PreconditionFailure({
     this.violations,
@@ -300,7 +300,7 @@ class PreconditionFailure extends Message {
   factory PreconditionFailure.fromJson(Map<String, dynamic> json) {
     return PreconditionFailure(
       violations: decodeList(
-          json['violations'], PreconditionFailure$Violation.fromJson),
+          json['violations'], PreconditionFailure_Violation.fromJson),
     );
   }
 
@@ -316,7 +316,7 @@ class PreconditionFailure extends Message {
 }
 
 /// A message type used to describe a single precondition failure.
-class PreconditionFailure$Violation extends Message {
+class PreconditionFailure_Violation extends Message {
   static const String fullyQualifiedName =
       'google.rpc.PreconditionFailure.Violation';
 
@@ -336,14 +336,14 @@ class PreconditionFailure$Violation extends Message {
   /// For example: "Terms of service not accepted".
   final String? description;
 
-  PreconditionFailure$Violation({
+  PreconditionFailure_Violation({
     this.type,
     this.subject,
     this.description,
   }) : super(fullyQualifiedName);
 
-  factory PreconditionFailure$Violation.fromJson(Map<String, dynamic> json) {
-    return PreconditionFailure$Violation(
+  factory PreconditionFailure_Violation.fromJson(Map<String, dynamic> json) {
+    return PreconditionFailure_Violation(
       type: json['type'],
       subject: json['subject'],
       description: json['description'],
@@ -376,7 +376,7 @@ class BadRequest extends Message {
   static const String fullyQualifiedName = 'google.rpc.BadRequest';
 
   /// Describes all violations in a client request.
-  final List<BadRequest$FieldViolation>? fieldViolations;
+  final List<BadRequest_FieldViolation>? fieldViolations;
 
   BadRequest({
     this.fieldViolations,
@@ -385,7 +385,7 @@ class BadRequest extends Message {
   factory BadRequest.fromJson(Map<String, dynamic> json) {
     return BadRequest(
       fieldViolations: decodeList(
-          json['fieldViolations'], BadRequest$FieldViolation.fromJson),
+          json['fieldViolations'], BadRequest_FieldViolation.fromJson),
     );
   }
 
@@ -402,7 +402,7 @@ class BadRequest extends Message {
 }
 
 /// A message type used to describe a single bad request field.
-class BadRequest$FieldViolation extends Message {
+class BadRequest_FieldViolation extends Message {
   static const String fullyQualifiedName =
       'google.rpc.BadRequest.FieldViolation';
 
@@ -460,15 +460,15 @@ class BadRequest$FieldViolation extends Message {
   /// return to the API consumer.
   final LocalizedMessage? localizedMessage;
 
-  BadRequest$FieldViolation({
+  BadRequest_FieldViolation({
     this.field,
     this.description,
     this.reason,
     this.localizedMessage,
   }) : super(fullyQualifiedName);
 
-  factory BadRequest$FieldViolation.fromJson(Map<String, dynamic> json) {
-    return BadRequest$FieldViolation(
+  factory BadRequest_FieldViolation.fromJson(Map<String, dynamic> json) {
+    return BadRequest_FieldViolation(
       field: json['field'],
       description: json['description'],
       reason: json['reason'],
@@ -614,7 +614,7 @@ class Help extends Message {
   static const String fullyQualifiedName = 'google.rpc.Help';
 
   /// URL(s) pointing to additional information on handling the current error.
-  final List<Help$Link>? links;
+  final List<Help_Link>? links;
 
   Help({
     this.links,
@@ -622,7 +622,7 @@ class Help extends Message {
 
   factory Help.fromJson(Map<String, dynamic> json) {
     return Help(
-      links: decodeList(json['links'], Help$Link.fromJson),
+      links: decodeList(json['links'], Help_Link.fromJson),
     );
   }
 
@@ -638,7 +638,7 @@ class Help extends Message {
 }
 
 /// Describes a URL link.
-class Help$Link extends Message {
+class Help_Link extends Message {
   static const String fullyQualifiedName = 'google.rpc.Help.Link';
 
   /// Describes what the link offers.
@@ -647,13 +647,13 @@ class Help$Link extends Message {
   /// The URL of the link.
   final String? url;
 
-  Help$Link({
+  Help_Link({
     this.description,
     this.url,
   }) : super(fullyQualifiedName);
 
-  factory Help$Link.fromJson(Map<String, dynamic> json) {
-    return Help$Link(
+  factory Help_Link.fromJson(Map<String, dynamic> json) {
+    return Help_Link(
       description: json['description'],
       url: json['url'],
     );
