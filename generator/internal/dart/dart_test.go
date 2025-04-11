@@ -95,7 +95,7 @@ func TestEnumNames(t *testing.T) {
 		wantEnum string
 	}{
 		{non_nested, "Code"},
-		{nested, "SecretVersion$State"},
+		{nested, "SecretVersion_State"},
 	} {
 		if got := enumName(test.enum); got != test.wantEnum {
 			t.Errorf("c.enumName(%q) = %q; want = %s", test.enum.Name, got, test.wantEnum)
