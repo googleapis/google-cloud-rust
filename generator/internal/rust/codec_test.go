@@ -1179,8 +1179,8 @@ func TestAsQueryParameter(t *testing.T) {
 		{requiredEnumField, `let builder = builder.query(&[("requiredEnumField", &req.required_enum_field.value())]);`},
 		{optionalEnumField, `let builder = req.optional_enum_field.iter().fold(builder, |builder, p| builder.query(&[("optionalEnumField", p.value())]));`},
 		{repeatedEnumField, `let builder = req.repeated_enum_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
-		{requiredFieldMaskField, `let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.required_field_mask).map_err(Error::serde)?.add(builder, "requiredFieldMask") };`},
-		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "optionalFieldMask") });`},
+		{requiredFieldMaskField, `let builder = req.required_field_mask.paths.iter().fold(builder, |builder, v| builder.query(&[("requiredFieldMask", v)]));`},
+		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().iter().flat_map(|p| p.paths.iter()).fold(builder, |builder, v| builder.query(&[("optionalFieldMask", v)]));`},
 	} {
 		got := addQueryParameter(test.field)
 		if test.want != got {
