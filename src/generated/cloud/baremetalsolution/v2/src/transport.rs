@@ -110,13 +110,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
@@ -381,13 +377,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner.execute(builder, Some(req.volume), options).await
     }
 
@@ -531,13 +523,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.network), options)
             .await
@@ -778,13 +766,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.nfs_share), options)
             .await
@@ -960,13 +944,9 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         let builder = builder.query(&[("email", &req.email)]);
         self.inner
             .execute(builder, Some(req.provisioning_config), options)

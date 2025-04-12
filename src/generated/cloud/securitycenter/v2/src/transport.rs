@@ -523,13 +523,9 @@ impl super::stub::SecurityCenter for SecurityCenter {
         let builder = req
             .field_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "fieldMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("fieldMask", v)]));
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         self.inner
@@ -756,13 +752,9 @@ impl super::stub::SecurityCenter for SecurityCenter {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.big_query_export), options)
             .await
@@ -794,13 +786,9 @@ impl super::stub::SecurityCenter for SecurityCenter {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.external_system), options)
             .await
@@ -832,13 +820,9 @@ impl super::stub::SecurityCenter for SecurityCenter {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.finding), options)
             .await
@@ -870,13 +854,9 @@ impl super::stub::SecurityCenter for SecurityCenter {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.mute_config), options)
             .await
@@ -908,13 +888,9 @@ impl super::stub::SecurityCenter for SecurityCenter {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.notification_config), options)
             .await
@@ -946,13 +922,9 @@ impl super::stub::SecurityCenter for SecurityCenter {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.resource_value_config), options)
             .await
@@ -984,13 +956,9 @@ impl super::stub::SecurityCenter for SecurityCenter {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.security_marks), options)
             .await
@@ -1022,13 +990,9 @@ impl super::stub::SecurityCenter for SecurityCenter {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner.execute(builder, Some(req.source), options).await
     }
 
