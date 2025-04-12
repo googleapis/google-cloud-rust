@@ -18,5 +18,5 @@ service-config = 'google/cloud/gkehub/v1/gkehub_v1.yaml'
 
 [codec]
 copyright-year = '2025'
-'package:gkehub_configmanagement_v1' = 'package=google-cloud-gkehub-configmanagement-v1,source=google.cloud.gkehub.configmanagement.v1,path=src/generated/cloud/gkehub/configmanagement/v1,version=0.2'
-'package:gkehub_multiclusteringress_v1' = 'package=google-cloud-gkehub-multiclusteringress-v1,source=google.cloud.gkehub.multiclusteringress.v1,path=src/generated/cloud/gkehub/multiclusteringress/v1,version=0.2'
+'package:gkehub_configmanagement_v1' = 'package=google-cloud-gkehub-configmanagement-v1,source=google.cloud.gkehub.configmanagement.v1'
+'package:gkehub_multiclusteringress_v1' = 'package=google-cloud-gkehub-multiclusteringress-v1,source=google.cloud.gkehub.multiclusteringress.v1'

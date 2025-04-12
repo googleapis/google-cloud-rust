@@ -32,7 +32,7 @@ func TestPackageNames(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := annotateModel(model, codec, "")
+	got := annotateModel(model, codec)
 	want := "google_cloud_workflows_v1"
 	if got.PackageNamespace != want {
 		t.Errorf("mismatched package namespace, want=%s, got=%s", want, got.PackageNamespace)
@@ -97,7 +97,7 @@ func TestServiceAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	annotateModel(model, codec, "")
+	annotateModel(model, codec)
 	wantService := &serviceAnnotations{
 		Name:              "ResourceService",
 		PackageModuleName: "test::v1",
@@ -205,7 +205,7 @@ func TestOneOfAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	annotateModel(model, codec, "")
+	annotateModel(model, codec)
 
 	// Stops the recursion when comparing fields.
 	ignore := cmpopts.IgnoreFields(api.Field{}, "Group")
@@ -319,7 +319,7 @@ func TestEnumAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	annotateModel(model, codec, "")
+	annotateModel(model, codec)
 
 	want := &enumAnnotation{
 		Name:          "TestEnum",
@@ -393,7 +393,7 @@ func TestDuplicateEnumValueAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	annotateModel(model, codec, "")
+	annotateModel(model, codec)
 
 	want := &enumAnnotation{
 		Name:          "TestEnum",
@@ -440,7 +440,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	annotateModel(model, codec, "")
+	annotateModel(model, codec)
 
 	if diff := cmp.Diff(&fieldAnnotations{
 		FieldName:     "parent",
@@ -521,7 +521,7 @@ func TestMessageAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	annotateModel(model, codec, "")
+	annotateModel(model, codec)
 	want := &messageAnnotation{
 		Name:          "TestMessage",
 		ModuleName:    "test_message",
@@ -625,7 +625,7 @@ func TestFieldAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	annotateModel(model, codec, "")
+	annotateModel(model, codec)
 	wantMessage := &messageAnnotation{
 		Name:          "TestMessage",
 		ModuleName:    "test_message",
@@ -804,7 +804,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	annotateModel(model, codec, "")
+	annotateModel(model, codec)
 	wantMessage := &messageAnnotation{
 		Name:          "TestMessage",
 		ModuleName:    "test_message",

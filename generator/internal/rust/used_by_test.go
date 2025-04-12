@@ -181,9 +181,9 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 }
 
 func TestRequiredPackages(t *testing.T) {
-	outdir := "src/generated/newlib"
 	options := map[string]string{
-		"package:async-trait": "package=async-trait,version=0.1.83,force-used=true",
+		"package:async-trait": "package=async-trait,force-used=true",
+		"package:serde_with":  "package=serde_with,force-used=true,feature=base64,feature=macro,feature=std",
 		"package:gtype":       "package=gcp-sdk-type,path=src/generated/type,source=google.type,source=test-only",
 		"package:gax":         "package=gcp-sdk-gax,path=src/gax,version=1.2.3,force-used=true",
 		"package:auth":        "ignore=true",
@@ -192,10 +192,11 @@ func TestRequiredPackages(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := requiredPackages(outdir, c.extraPackages)
+	got := requiredPackages(c.extraPackages)
 	want := []string{
-		"async-trait = { version = \"0.1.83\" }",
-		"gax        = { version = \"1.2.3\", path = \"../../../src/gax\", package = \"gcp-sdk-gax\" }",
+		"async-trait.workspace = true",
+		"gax.workspace        = true",
+		"serde_with           = { workspace = true, features = [\"base64\", \"macro\", \"std\"] }",
 	}
 	less := func(a, b string) bool { return a < b }
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
@@ -213,9 +214,9 @@ func TestRequiredPackagesLocal(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := requiredPackages("", c.extraPackages)
+	got := requiredPackages(c.extraPackages)
 	want := []string{
-		"gtype      = { path = \"src/generated/type\", package = \"types\" }",
+		"gtype.workspace      = true",
 	}
 	less := func(a, b string) bool { return a < b }
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {

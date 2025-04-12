@@ -18,4 +18,4 @@ service-config = 'google/cloud/kms/inventory/v1/kmsinventory_v1.yaml'
 
 [codec]
 copyright-year = '2025'
-'package:kms' = 'package=google-cloud-kms-v1,source=google.cloud.kms.v1,path=src/generated/cloud/kms/v1,version=0.2'
+'package:kms' = 'package=google-cloud-kms-v1,source=google.cloud.kms.v1'

@@ -30,7 +30,7 @@ func Generate(model *api.API, outdir string, cfg *config.Config) error {
 	if err != nil {
 		return err
 	}
-	annotations := annotateModel(model, codec, outdir)
+	annotations := annotateModel(model, codec)
 	provider := templatesProvider()
 	generatedFiles := codec.generatedFiles(annotations.HasServices)
 	return language.GenerateFromModel(outdir, model, provider, generatedFiles)
