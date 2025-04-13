@@ -34,10 +34,10 @@ pin-project = { version = "1", optional = true }
 serde       = "1"
 tokio       = { version = "1", features = ["time"] }
 # Local crates
-gax         = { version = "0.21", path = "../gax", package = "google-cloud-gax" }
-longrunning = { version = "0.22", path = "../generated/longrunning", package = "google-cloud-longrunning" }
-rpc         = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
-wkt         = { version = "0.3", path = "../wkt", package = "google-cloud-wkt" }
+gax.workspace = true
+longrunning.workspace = true
+rpc.workspace = true
+wkt.workspace = true
 
 [features]
 unstable-stream = ["dep:futures", "dep:pin-project"]
@@ -48,6 +48,6 @@ reqwest    = "0.12"
 serde_json = "1"
 tokio      = { version = "1", features = ["test-util"] }
 # Local dependencies
-auth = { path = "../auth", package = "google-cloud-auth" }
-gaxi = { path = "../gax-internal", package = "google-cloud-gax-internal" }
-lro  = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }
+auth.workspace = true
+gaxi.workspace = true
+lro.workspace = true

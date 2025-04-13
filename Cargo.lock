@@ -4878,7 +4878,6 @@ dependencies = [
  "google-cloud-firestore",
  "google-cloud-gax",
  "google-cloud-iam-v1",
- "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-secretmanager-v1",
  "google-cloud-telcoautomation-v1",

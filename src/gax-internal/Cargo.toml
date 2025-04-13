@@ -67,11 +67,9 @@ tonic = { version = "0.13", default-features = false, features = [
 ], optional = true }
 # Local crates
 auth = { version = "0.19", path = "../auth", package = "google-cloud-auth", optional = true }
-gax = { version = "0.21", path = "../gax", package = "google-cloud-gax", features = [
-  "unstable-sdk-client",
-], optional = true }
-rpc = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc", optional = true }
-wkt = { version = "0.3", path = "../wkt", package = "google-cloud-wkt", optional = true }
+gax = { workspace = true, features = [ "unstable-sdk-client"], optional = true }
+rpc = { workspace = true, optional = true }
+wkt = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow      = "1"
