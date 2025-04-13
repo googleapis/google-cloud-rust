@@ -40,12 +40,12 @@ tonic       = { version = "0.13", features = ["tls-native-roots", "tls-ring"] }
 tokio       = { version = "1", features = ["macros", "rt-multi-thread"] }
 tracing     = "0.1"
 # Local crates
-auth.workspace = true
-gax = { workspace = true, features = ["unstable-sdk-client"] }
-gaxi = { workspace = true, features = [ "_internal_common", "_internal_grpc_client"] }
+auth.workspace  = true
+gax             = { workspace = true, features = ["unstable-sdk-client"] }
+gaxi            = { workspace = true, features = ["_internal_common", "_internal_grpc_client"] }
 gtype.workspace = true
-rpc.workspace = true
-wkt.workspace = true
+rpc.workspace   = true
+wkt.workspace   = true
 
 [dev-dependencies]
 tokio                = { version = "1", features = ["full", "macros"] }
