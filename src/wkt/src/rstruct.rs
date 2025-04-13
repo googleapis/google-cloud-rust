@@ -364,6 +364,20 @@ mod null_value_tests {
     }
 
     #[test]
+    fn test_i32_from_null_value() {
+        let got = i32::from(NullValue);
+        assert_eq!(got, 0);
+    }
+
+    #[test]
+    fn test_serde_from_null_value() {
+        let got = serde_json::Value::from(NullValue);
+        assert_eq!(got, serde_json::Value::Null);
+        let got = serde_json::Value::from(&NullValue);
+        assert_eq!(got, serde_json::Value::Null);
+    }
+
+    #[test]
     fn test_null_value_serialize() -> Result {
         let input = NullValue;
         let got = serde_json::to_string(&input)?;
