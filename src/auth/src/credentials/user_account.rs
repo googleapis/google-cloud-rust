@@ -644,7 +644,7 @@ mod test {
         response_body: Value,
         call_count: Arc<Mutex<i32>>,
     ) -> (String, JoinHandle<()>) {
-        let code = response_code.clone();
+        let code = response_code;
         let body = response_body.clone();
         let handler = move |req| async move { handle_token_factory(code, body, call_count)(req) };
         let app = axum::Router::new().route("/token", axum::routing::post(handler));
