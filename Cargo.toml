@@ -256,7 +256,7 @@ serde       = { version = "1", default-features = false, features = ["serde_deri
 serde_json  = { version = "1", default-features = false }
 serde_with  = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 tokio-test  = { version = "0.4", default-features = false }
-tracing     = { version = "0.1", default-features = false }
+tracing     = { version = "0.1" }
 # Local packages used as dependencies
 gax                           = { version = "0.21", path = "src/gax", package = "google-cloud-gax" }
 gaxi                          = { version = "0.1", path = "src/gax-internal", package = "google-cloud-gax-internal" }
