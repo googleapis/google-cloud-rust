@@ -200,6 +200,51 @@ mod test {
     }
 
     #[test]
+    fn serialize_any() -> Result {
+        let d = Duration::clamp(60, 0);
+        let any = Any::try_from(&d)?;
+        let any = Any::try_from(&any)?;
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.Any")
+        );
+        let got = serde_json::to_value(any)?;
+        let want = json!({
+            "@type": "type.googleapis.com/google.protobuf.Any",
+            "value": {
+                "@type": "type.googleapis.com/google.protobuf.Duration",
+                "value": "60s"
+            }
+        });
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize_any() -> Result {
+        let input = json!({
+            "@type": "type.googleapis.com/google.protobuf.Any",
+            "value": {
+                "@type": "type.googleapis.com/google.protobuf.Duration",
+                "value": "60s"
+            }
+        });
+        let any = Any(input.as_object().unwrap().clone());
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.Any")
+        );
+        let any = any.try_into_message::<Any>()?;
+        assert_eq!(
+            any.type_url(),
+            Some("type.googleapis.com/google.protobuf.Duration")
+        );
+        let d = any.try_into_message::<Duration>()?;
+        assert_eq!(d, Duration::clamp(60, 0));
+        Ok(())
+    }
+
+    #[test]
     fn serialize_duration() -> Result {
         let d = Duration::clamp(60, 0);
         let any = Any::try_from(&d)?;
