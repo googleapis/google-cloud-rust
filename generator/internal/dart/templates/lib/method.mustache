@@ -17,31 +17,30 @@ limitations under the License.
 {{#Codec.DocLines}}
 {{{.}}}
 {{/Codec.DocLines}}
+{{#Codec.IsLROGetOperation}}
+///
+/// This method can be used to get the current status of a long-running
+/// operation.
+Future<Operation<T, S>> getOperation<T extends Message, S extends Message>(Operation<T, S> request) async {
+  final url = Uri.https(_host, '{{PathInfo.Codec.PathFmt}}');
+  {{#Codec.ReturnsValue}}final response = {{/Codec.ReturnsValue}}await _client.{{Codec.RequestMethod}}(url{{#Codec.HasBody}}, body: {{Codec.BodyMessageName}}{{/Codec.HasBody}});
+  return Operation.fromJson(response, request.operationHelper);
+}
+{{/Codec.IsLROGetOperation}}
+{{^Codec.IsLROGetOperation}}
 {{#OperationInfo}}
 ///
 /// Returns an [Operation] representing the status of the long-running
 /// operation.
 ///
 /// When complete, [Operation.done] will be `true`. If successful,
-/// [Operation.responseAsMessage] will contain the Operation's result.
+/// [Operation.responseAsMessage] will contain the operation's result.
 {{/OperationInfo}}
-{{#Codec.IsLROGetOperation}}
-///
-/// This method can be used to get the current status of a long-running
-/// operation.
-Future<Operation<T, S>> getOperation<T extends Message, S extends Message>(Operation<T, S> request) async {
-{{/Codec.IsLROGetOperation}}
-{{^Codec.IsLROGetOperation}}
 Future<{{Codec.ResponseType}}{{#OperationInfo}}<{{Codec.ResponseType}}, {{Codec.MetadataType}}>{{/OperationInfo}}> {{Codec.Name}}({{Codec.RequestType}} request) async {
-{{/Codec.IsLROGetOperation}}
   final url = Uri.https(_host, '{{PathInfo.Codec.PathFmt}}');
   {{#Codec.ReturnsValue}}final response = {{/Codec.ReturnsValue}}await _client.{{Codec.RequestMethod}}(url{{#Codec.HasBody}}, body: {{Codec.BodyMessageName}}{{/Codec.HasBody}});
-{{#Codec.IsLROGetOperation}}
-  return Operation.fromJson(response, request.operationHelper);
-{{/Codec.IsLROGetOperation}}
-{{^Codec.IsLROGetOperation}}
   {{#Codec.ReturnsValue}}
     return {{Codec.ResponseType}}.fromJson(response{{#OperationInfo}}, OperationHelper({{Codec.ResponseType}}.fromJson, {{Codec.MetadataType}}.fromJson),{{/OperationInfo}});
   {{/Codec.ReturnsValue}}
-{{/Codec.IsLROGetOperation}}
 }
+{{/Codec.IsLROGetOperation}}
