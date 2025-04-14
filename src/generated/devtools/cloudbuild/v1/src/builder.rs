@@ -98,6 +98,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .create_build(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_build`.
@@ -188,6 +189,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .get_build(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBuildRequest::name].
@@ -242,6 +244,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .list_builds(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -323,6 +326,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .cancel_build(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CancelBuildRequest::name].
@@ -382,6 +386,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .retry_build(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `retry_build`.
@@ -474,6 +479,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .approve_build(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `approve_build`.
@@ -561,6 +567,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .create_build_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateBuildTriggerRequest::parent].
@@ -618,6 +625,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .get_build_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBuildTriggerRequest::name].
@@ -675,6 +683,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .list_build_triggers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -753,6 +762,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .delete_build_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteBuildTriggerRequest::name].
@@ -810,6 +820,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .update_build_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateBuildTriggerRequest::project_id].
@@ -881,6 +892,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .run_build_trigger(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_build_trigger`.
@@ -980,6 +992,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .receive_trigger_webhook(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ReceiveTriggerWebhookRequest::name].
@@ -1057,6 +1070,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .create_worker_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_worker_pool`.
@@ -1156,6 +1170,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .get_worker_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkerPoolRequest::name].
@@ -1206,6 +1221,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .delete_worker_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_worker_pool`.
@@ -1307,6 +1323,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .update_worker_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_worker_pool`.
@@ -1403,6 +1420,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .list_worker_pools(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1475,6 +1493,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1520,6 +1539,7 @@ pub mod cloud_build {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

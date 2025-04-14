@@ -27,10 +27,11 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
-bytes      = { version = "1", features = ["serde"] }
-serde      = { version = "1", features = ["serde_derive"] }
-serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-wkt        = { version = "0.3", path = "../../../src/wkt", package = "google-cloud-wkt" }
+bytes.workspace      = true
+serde.workspace      = true
+serde_json.workspace = true
+serde_with.workspace = true
+wkt.workspace        = true
 
 [dev-dependencies]
 tokio-test.workspace = true

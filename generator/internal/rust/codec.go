@@ -18,7 +18,6 @@ import (
 	"bytes"
 	"fmt"
 	"log/slog"
-	"path"
 	"regexp"
 	"sort"
 	"strconv"
@@ -625,6 +624,16 @@ func addQueryParameter(f *api.Field) string {
 		}
 		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s.value())]);`, f.JSONName, fieldName)
 	case api.MESSAGE_TYPE:
+		if f.TypezID == ".google.protobuf.FieldMask" {
+			// `FieldMask` (and other well-known types) are special. Their JSON
+			// encoding is a string. That works well for `Timestamp`, `Empty`,
+			// `Duration`, and so forth, but is not what Google Cloud expects
+			// for query parameters.
+			if f.Optional || f.Repeated {
+				return fmt.Sprintf(`let builder = req.%s.as_ref().iter().flat_map(|p| p.paths.iter()).fold(builder, |builder, v| builder.query(&[("%s", v)]));`, fieldName, f.JSONName)
+			}
+			return fmt.Sprintf(`let builder = req.%s.paths.iter().fold(builder, |builder, v| builder.query(&[("%s", v)]));`, fieldName, f.JSONName)
+		}
 		// Query parameters in nested messages are first converted to a
 		// `serde_json::Value`` and then recursively merged into the request
 		// query. The conversion to `serde_json::Value` is expensive, but very
@@ -1399,17 +1408,6 @@ func serviceRustdocLink(s *api.Service, packageMapping map[string]*packagez) str
 	return fmt.Sprintf("crate::client::%s", toPascal(s.Name))
 }
 
-func projectRoot(outdir string) string {
-	if outdir == "" {
-		return ""
-	}
-	rel := ".."
-	for range strings.Count(outdir, "/") {
-		rel = path.Join(rel, "..")
-	}
-	return rel
-}
-
 func usePackage(source string, model *api.API, c *codec) {
 	mapped, ok := c.packageMapping[source]
 	if ok && source != model.PackageName {
@@ -1470,7 +1468,15 @@ func findUsedPackages(model *api.API, c *codec) {
 	}
 }
 
-func requiredPackages(outdir string, extraPackages []*packagez) []string {
+func requiredPackageLine(pkg *packagez) string {
+	if len(pkg.features) > 0 {
+		feats := strings.Join(language.MapSlice(pkg.features, func(s string) string { return fmt.Sprintf("%q", s) }), ", ")
+		return fmt.Sprintf("%-20s = { workspace = true, features = [%s] }", pkg.name, feats)
+	}
+	return fmt.Sprintf("%-20s = true", pkg.name+".workspace")
+}
+
+func requiredPackages(extraPackages []*packagez) []string {
 	lines := []string{}
 	for _, pkg := range extraPackages {
 		if pkg.ignore {
@@ -1479,24 +1485,7 @@ func requiredPackages(outdir string, extraPackages []*packagez) []string {
 		if !pkg.used {
 			continue
 		}
-		components := []string{}
-		if pkg.version != "" {
-			components = append(components, fmt.Sprintf("version = %q", pkg.version))
-		}
-		if pkg.path != "" {
-			components = append(components, fmt.Sprintf("path = %q", path.Join(projectRoot(outdir), pkg.path)))
-		}
-		if pkg.packageName != "" && pkg.name != pkg.packageName {
-			components = append(components, fmt.Sprintf("package = %q", pkg.packageName))
-		}
-		if !pkg.defaultFeatures {
-			components = append(components, "default-features = false")
-		}
-		if len(pkg.features) > 0 {
-			feats := strings.Join(language.MapSlice(pkg.features, func(s string) string { return fmt.Sprintf("%q", s) }), ", ")
-			components = append(components, fmt.Sprintf("features = [%s]", feats))
-		}
-		lines = append(lines, fmt.Sprintf("%-10s = { %s }", pkg.name, strings.Join(components, ", ")))
+		lines = append(lines, requiredPackageLine(pkg))
 	}
 	sort.Strings(lines)
 	return lines

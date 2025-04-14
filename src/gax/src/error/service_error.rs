@@ -156,7 +156,7 @@ mod test {
 
     #[test]
     fn with_http_status_code() {
-        let error = ServiceError::from(source()).with_http_status_code(404 as u16);
+        let error = ServiceError::from(source()).with_http_status_code(404_u16);
         assert_eq!(error.status(), &Status::from(source()));
         assert_eq!(error.http_status_code(), &Some(404));
         assert_eq!(error.headers(), &None);

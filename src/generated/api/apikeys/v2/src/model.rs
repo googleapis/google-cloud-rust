@@ -59,6 +59,9 @@ pub struct CreateKeyRequest {
     /// The id must NOT be a UUID-like string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateKeyRequest {
@@ -114,6 +117,9 @@ pub struct ListKeysRequest {
     /// Optional. Indicate that keys deleted in the past 30 days should also be
     /// returned.
     pub show_deleted: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListKeysRequest {
@@ -165,6 +171,9 @@ pub struct ListKeysResponse {
     /// The pagination token for the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListKeysResponse {
@@ -219,6 +228,9 @@ pub struct GetKeyRequest {
     /// Required. The resource name of the API key to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetKeyRequest {
@@ -248,6 +260,9 @@ pub struct GetKeyStringRequest {
     /// Required. The resource name of the API key to be retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetKeyStringRequest {
@@ -277,6 +292,9 @@ pub struct GetKeyStringResponse {
     /// An encrypted and signed value of the key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key_string: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetKeyStringResponse {
@@ -318,6 +336,9 @@ pub struct UpdateKeyRequest {
     /// all allowed mutable fields.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateKeyRequest {
@@ -364,6 +385,9 @@ pub struct DeleteKeyRequest {
     /// This is to be used for optimistic concurrency.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteKeyRequest {
@@ -399,6 +423,9 @@ pub struct UndeleteKeyRequest {
     /// Required. The resource name of the API key to be undeleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeleteKeyRequest {
@@ -428,6 +455,9 @@ pub struct LookupKeyRequest {
     /// Required. Finds the project that owns the key string value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key_string: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LookupKeyRequest {
@@ -462,6 +492,9 @@ pub struct LookupKeyResponse {
     /// resource name is empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LookupKeyResponse {
@@ -550,6 +583,9 @@ pub struct Key {
     /// <https://google.aip.dev/154>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Key {
@@ -662,6 +698,9 @@ pub struct Restrictions {
     /// restrictions per key.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub client_restrictions: std::option::Option<crate::model::restrictions::ClientRestrictions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Restrictions {
@@ -859,6 +898,9 @@ pub struct BrowserKeyRestrictions {
     /// to make API calls with this key.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub allowed_referrers: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BrowserKeyRestrictions {
@@ -894,6 +936,9 @@ pub struct ServerKeyRestrictions {
     /// with this key.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub allowed_ips: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServerKeyRestrictions {
@@ -929,6 +974,9 @@ pub struct AndroidKeyRestrictions {
     /// this key.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub allowed_applications: std::vec::Vec<crate::model::AndroidApplication>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AndroidKeyRestrictions {
@@ -970,6 +1018,9 @@ pub struct AndroidApplication {
     /// The package name of the application.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub package_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AndroidApplication {
@@ -1008,6 +1059,9 @@ pub struct IosKeyRestrictions {
     /// A list of bundle IDs that are allowed when making API calls with this key.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub allowed_bundle_ids: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IosKeyRestrictions {
@@ -1057,6 +1111,9 @@ pub struct ApiTarget {
     /// `translate.googleapis.com.Get*`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub methods: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApiTarget {

@@ -65,6 +65,9 @@ pub struct OpMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OpMetadata {
@@ -151,6 +154,9 @@ pub struct CreateMicrosoftAdDomainRequest {
     /// Required. A Managed Identity domain resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub domain: std::option::Option<crate::model::Domain>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateMicrosoftAdDomainRequest {
@@ -197,6 +203,9 @@ pub struct ResetAdminPasswordRequest {
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResetAdminPasswordRequest {
@@ -229,6 +238,9 @@ pub struct ResetAdminPasswordResponse {
     /// [google.cloud.managedidentities.v1.Domain.admin]: crate::model::Domain::admin
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub password: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResetAdminPasswordResponse {
@@ -287,6 +299,9 @@ pub struct ListDomainsRequest {
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDomainsRequest {
@@ -350,6 +365,9 @@ pub struct ListDomainsResponse {
     /// A list of locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDomainsResponse {
@@ -416,6 +434,9 @@ pub struct GetDomainRequest {
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDomainRequest {
@@ -459,6 +480,9 @@ pub struct UpdateDomainRequest {
     /// update_mask are updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub domain: std::option::Option<crate::model::Domain>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDomainRequest {
@@ -502,6 +526,9 @@ pub struct DeleteDomainRequest {
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDomainRequest {
@@ -537,6 +564,9 @@ pub struct AttachTrustRequest {
     /// Required. The domain trust resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub trust: std::option::Option<crate::model::Trust>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttachTrustRequest {
@@ -587,6 +617,9 @@ pub struct ReconfigureTrustRequest {
     /// in the trust.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub target_dns_ip_addresses: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReconfigureTrustRequest {
@@ -642,6 +675,9 @@ pub struct DetachTrustRequest {
     /// Required. The domain trust resource to removed.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub trust: std::option::Option<crate::model::Trust>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DetachTrustRequest {
@@ -686,6 +722,9 @@ pub struct ValidateTrustRequest {
     /// Required. The domain trust to validate trust state for.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub trust: std::option::Option<crate::model::Trust>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ValidateTrustRequest {
@@ -783,6 +822,9 @@ pub struct Domain {
     /// Output only. The current trusts associated with the domain.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub trusts: std::vec::Vec<crate::model::Trust>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Domain {
@@ -1040,6 +1082,9 @@ pub struct Trust {
     /// Output only. The last heartbeat time when the trust was known to be connected.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub last_trust_heartbeat_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Trust {

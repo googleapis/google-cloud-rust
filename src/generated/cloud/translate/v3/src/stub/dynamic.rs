@@ -23,271 +23,271 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::TranslateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TranslateTextResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::TranslateTextResponse>>;
 
     async fn romanize_text(
         &self,
         req: crate::model::RomanizeTextRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RomanizeTextResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::RomanizeTextResponse>>;
 
     async fn detect_language(
         &self,
         req: crate::model::DetectLanguageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DetectLanguageResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::DetectLanguageResponse>>;
 
     async fn get_supported_languages(
         &self,
         req: crate::model::GetSupportedLanguagesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SupportedLanguages>;
+    ) -> crate::Result<gax::response::Response<crate::model::SupportedLanguages>>;
 
     async fn translate_document(
         &self,
         req: crate::model::TranslateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TranslateDocumentResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::TranslateDocumentResponse>>;
 
     async fn batch_translate_text(
         &self,
         req: crate::model::BatchTranslateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn batch_translate_document(
         &self,
         req: crate::model::BatchTranslateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_glossary(
         &self,
         req: crate::model::CreateGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_glossary(
         &self,
         req: crate::model::UpdateGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_glossaries(
         &self,
         req: crate::model::ListGlossariesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGlossariesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListGlossariesResponse>>;
 
     async fn get_glossary(
         &self,
         req: crate::model::GetGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Glossary>;
+    ) -> crate::Result<gax::response::Response<crate::model::Glossary>>;
 
     async fn delete_glossary(
         &self,
         req: crate::model::DeleteGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_glossary_entry(
         &self,
         req: crate::model::GetGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GlossaryEntry>;
+    ) -> crate::Result<gax::response::Response<crate::model::GlossaryEntry>>;
 
     async fn list_glossary_entries(
         &self,
         req: crate::model::ListGlossaryEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGlossaryEntriesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListGlossaryEntriesResponse>>;
 
     async fn create_glossary_entry(
         &self,
         req: crate::model::CreateGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GlossaryEntry>;
+    ) -> crate::Result<gax::response::Response<crate::model::GlossaryEntry>>;
 
     async fn update_glossary_entry(
         &self,
         req: crate::model::UpdateGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GlossaryEntry>;
+    ) -> crate::Result<gax::response::Response<crate::model::GlossaryEntry>>;
 
     async fn delete_glossary_entry(
         &self,
         req: crate::model::DeleteGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn create_dataset(
         &self,
         req: crate::model::CreateDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_dataset(
         &self,
         req: crate::model::GetDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Dataset>;
+    ) -> crate::Result<gax::response::Response<crate::model::Dataset>>;
 
     async fn list_datasets(
         &self,
         req: crate::model::ListDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDatasetsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatasetsResponse>>;
 
     async fn delete_dataset(
         &self,
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_adaptive_mt_dataset(
         &self,
         req: crate::model::CreateAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AdaptiveMtDataset>;
+    ) -> crate::Result<gax::response::Response<crate::model::AdaptiveMtDataset>>;
 
     async fn delete_adaptive_mt_dataset(
         &self,
         req: crate::model::DeleteAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_adaptive_mt_dataset(
         &self,
         req: crate::model::GetAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AdaptiveMtDataset>;
+    ) -> crate::Result<gax::response::Response<crate::model::AdaptiveMtDataset>>;
 
     async fn list_adaptive_mt_datasets(
         &self,
         req: crate::model::ListAdaptiveMtDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAdaptiveMtDatasetsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListAdaptiveMtDatasetsResponse>>;
 
     async fn adaptive_mt_translate(
         &self,
         req: crate::model::AdaptiveMtTranslateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AdaptiveMtTranslateResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::AdaptiveMtTranslateResponse>>;
 
     async fn get_adaptive_mt_file(
         &self,
         req: crate::model::GetAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AdaptiveMtFile>;
+    ) -> crate::Result<gax::response::Response<crate::model::AdaptiveMtFile>>;
 
     async fn delete_adaptive_mt_file(
         &self,
         req: crate::model::DeleteAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn import_adaptive_mt_file(
         &self,
         req: crate::model::ImportAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ImportAdaptiveMtFileResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ImportAdaptiveMtFileResponse>>;
 
     async fn list_adaptive_mt_files(
         &self,
         req: crate::model::ListAdaptiveMtFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAdaptiveMtFilesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListAdaptiveMtFilesResponse>>;
 
     async fn list_adaptive_mt_sentences(
         &self,
         req: crate::model::ListAdaptiveMtSentencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAdaptiveMtSentencesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListAdaptiveMtSentencesResponse>>;
 
     async fn import_data(
         &self,
         req: crate::model::ImportDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn export_data(
         &self,
         req: crate::model::ExportDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_examples(
         &self,
         req: crate::model::ListExamplesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListExamplesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListExamplesResponse>>;
 
     async fn create_model(
         &self,
         req: crate::model::CreateModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_models(
         &self,
         req: crate::model::ListModelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListModelsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListModelsResponse>>;
 
     async fn get_model(
         &self,
         req: crate::model::GetModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Model>;
+    ) -> crate::Result<gax::response::Response<crate::model::Model>>;
 
     async fn delete_model(
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn wait_operation(
         &self,
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -308,7 +308,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::TranslateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TranslateTextResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::TranslateTextResponse>> {
         T::translate_text(self, req, options).await
     }
 
@@ -317,7 +317,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::RomanizeTextRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::RomanizeTextResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::RomanizeTextResponse>> {
         T::romanize_text(self, req, options).await
     }
 
@@ -326,7 +326,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::DetectLanguageRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::DetectLanguageResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::DetectLanguageResponse>> {
         T::detect_language(self, req, options).await
     }
 
@@ -335,7 +335,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::GetSupportedLanguagesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SupportedLanguages> {
+    ) -> crate::Result<gax::response::Response<crate::model::SupportedLanguages>> {
         T::get_supported_languages(self, req, options).await
     }
 
@@ -344,7 +344,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::TranslateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::TranslateDocumentResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::TranslateDocumentResponse>> {
         T::translate_document(self, req, options).await
     }
 
@@ -353,7 +353,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::BatchTranslateTextRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::batch_translate_text(self, req, options).await
     }
 
@@ -362,7 +362,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::BatchTranslateDocumentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::batch_translate_document(self, req, options).await
     }
 
@@ -371,7 +371,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::CreateGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_glossary(self, req, options).await
     }
 
@@ -380,7 +380,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::UpdateGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_glossary(self, req, options).await
     }
 
@@ -389,7 +389,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ListGlossariesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGlossariesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListGlossariesResponse>> {
         T::list_glossaries(self, req, options).await
     }
 
@@ -398,7 +398,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::GetGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Glossary> {
+    ) -> crate::Result<gax::response::Response<crate::model::Glossary>> {
         T::get_glossary(self, req, options).await
     }
 
@@ -407,7 +407,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::DeleteGlossaryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_glossary(self, req, options).await
     }
 
@@ -416,7 +416,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::GetGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GlossaryEntry> {
+    ) -> crate::Result<gax::response::Response<crate::model::GlossaryEntry>> {
         T::get_glossary_entry(self, req, options).await
     }
 
@@ -425,7 +425,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ListGlossaryEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGlossaryEntriesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListGlossaryEntriesResponse>> {
         T::list_glossary_entries(self, req, options).await
     }
 
@@ -434,7 +434,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::CreateGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GlossaryEntry> {
+    ) -> crate::Result<gax::response::Response<crate::model::GlossaryEntry>> {
         T::create_glossary_entry(self, req, options).await
     }
 
@@ -443,7 +443,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::UpdateGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GlossaryEntry> {
+    ) -> crate::Result<gax::response::Response<crate::model::GlossaryEntry>> {
         T::update_glossary_entry(self, req, options).await
     }
 
@@ -452,7 +452,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::DeleteGlossaryEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_glossary_entry(self, req, options).await
     }
 
@@ -461,7 +461,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::CreateDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_dataset(self, req, options).await
     }
 
@@ -470,7 +470,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::GetDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Dataset> {
+    ) -> crate::Result<gax::response::Response<crate::model::Dataset>> {
         T::get_dataset(self, req, options).await
     }
 
@@ -479,7 +479,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ListDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListDatasetsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatasetsResponse>> {
         T::list_datasets(self, req, options).await
     }
 
@@ -488,7 +488,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::DeleteDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_dataset(self, req, options).await
     }
 
@@ -497,7 +497,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::CreateAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AdaptiveMtDataset> {
+    ) -> crate::Result<gax::response::Response<crate::model::AdaptiveMtDataset>> {
         T::create_adaptive_mt_dataset(self, req, options).await
     }
 
@@ -506,7 +506,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::DeleteAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_adaptive_mt_dataset(self, req, options).await
     }
 
@@ -515,7 +515,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::GetAdaptiveMtDatasetRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AdaptiveMtDataset> {
+    ) -> crate::Result<gax::response::Response<crate::model::AdaptiveMtDataset>> {
         T::get_adaptive_mt_dataset(self, req, options).await
     }
 
@@ -524,7 +524,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ListAdaptiveMtDatasetsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAdaptiveMtDatasetsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAdaptiveMtDatasetsResponse>> {
         T::list_adaptive_mt_datasets(self, req, options).await
     }
 
@@ -533,7 +533,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::AdaptiveMtTranslateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AdaptiveMtTranslateResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::AdaptiveMtTranslateResponse>> {
         T::adaptive_mt_translate(self, req, options).await
     }
 
@@ -542,7 +542,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::GetAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::AdaptiveMtFile> {
+    ) -> crate::Result<gax::response::Response<crate::model::AdaptiveMtFile>> {
         T::get_adaptive_mt_file(self, req, options).await
     }
 
@@ -551,7 +551,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::DeleteAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_adaptive_mt_file(self, req, options).await
     }
 
@@ -560,7 +560,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ImportAdaptiveMtFileRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ImportAdaptiveMtFileResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ImportAdaptiveMtFileResponse>> {
         T::import_adaptive_mt_file(self, req, options).await
     }
 
@@ -569,7 +569,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ListAdaptiveMtFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAdaptiveMtFilesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAdaptiveMtFilesResponse>> {
         T::list_adaptive_mt_files(self, req, options).await
     }
 
@@ -578,7 +578,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ListAdaptiveMtSentencesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAdaptiveMtSentencesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAdaptiveMtSentencesResponse>> {
         T::list_adaptive_mt_sentences(self, req, options).await
     }
 
@@ -587,7 +587,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ImportDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::import_data(self, req, options).await
     }
 
@@ -596,7 +596,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ExportDataRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::export_data(self, req, options).await
     }
 
@@ -605,7 +605,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ListExamplesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListExamplesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListExamplesResponse>> {
         T::list_examples(self, req, options).await
     }
 
@@ -614,7 +614,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::CreateModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_model(self, req, options).await
     }
 
@@ -623,7 +623,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::ListModelsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListModelsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListModelsResponse>> {
         T::list_models(self, req, options).await
     }
 
@@ -632,7 +632,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::GetModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Model> {
+    ) -> crate::Result<gax::response::Response<crate::model::Model>> {
         T::get_model(self, req, options).await
     }
 
@@ -641,7 +641,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: crate::model::DeleteModelRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_model(self, req, options).await
     }
 
@@ -650,7 +650,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -659,7 +659,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -668,7 +668,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -677,7 +677,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -686,7 +686,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -695,7 +695,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 
@@ -704,7 +704,7 @@ impl<T: super::TranslationService> TranslationService for T {
         &self,
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
     }
 

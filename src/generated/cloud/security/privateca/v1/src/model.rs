@@ -199,6 +199,9 @@ pub struct CertificateAuthority {
     /// Optional. Labels with user-defined metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateAuthority {
@@ -406,6 +409,9 @@ pub mod certificate_authority {
         /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub crl_access_urls: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AccessUrls {
@@ -453,6 +459,9 @@ pub mod certificate_authority {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub key_version:
             std::option::Option<crate::model::certificate_authority::key_version_spec::KeyVersion>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl KeyVersionSpec {
@@ -903,6 +912,9 @@ pub struct CaPool {
     /// Optional. Labels with user-defined metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CaPool {
@@ -1017,6 +1029,9 @@ pub mod ca_pool {
         ///
         /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
         pub encoding_format: crate::model::ca_pool::publishing_options::EncodingFormat,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PublishingOptions {
@@ -1224,6 +1239,9 @@ pub mod ca_pool {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub passthrough_extensions:
             std::option::Option<crate::model::CertificateExtensionConstraints>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IssuancePolicy {
@@ -1328,6 +1346,9 @@ pub mod ca_pool {
             pub key_type: std::option::Option<
                 crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl AllowedKeyType {
@@ -1466,6 +1487,9 @@ pub mod ca_pool {
                 /// an explicit upper bound on RSA modulus sizes.
                 #[serde_as(as = "serde_with::DisplayFromStr")]
                 pub max_modulus_size: i64,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl RsaKeyType {
@@ -1507,6 +1531,9 @@ pub mod ca_pool {
                 /// Optional. A signature algorithm that must be used. If this is
                 /// omitted, any EC-based signature algorithm will be allowed.
                 pub signature_algorithm: crate::model::ca_pool::issuance_policy::allowed_key_type::ec_key_type::EcSignatureAlgorithm,
+
+                #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+                _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
             impl EcKeyType {
@@ -1654,6 +1681,9 @@ pub mod ca_pool {
             /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
             /// [google.cloud.security.privateca.v1.CertificateConfig]: crate::model::CertificateConfig
             pub allow_config_based_issuance: bool,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl IssuanceModes {
@@ -1822,6 +1852,9 @@ pub struct CertificateRevocationList {
     /// Optional. Labels with user-defined metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateRevocationList {
@@ -1951,6 +1984,9 @@ pub mod certificate_revocation_list {
         ///
         /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
         pub revocation_reason: crate::model::RevocationReason,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RevokedCertificate {
@@ -2158,6 +2194,9 @@ pub struct Certificate {
     /// The config used to create a signed X.509 certificate.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub certificate_config: std::option::Option<crate::model::certificate::CertificateConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Certificate {
@@ -2373,6 +2412,9 @@ pub mod certificate {
         /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub revocation_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RevocationDetails {
@@ -2537,6 +2579,9 @@ pub struct CertificateTemplate {
     /// Optional. Labels with user-defined metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateTemplate {
@@ -2677,6 +2722,9 @@ pub struct X509Parameters {
     /// Optional. Describes custom X.509 extensions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub additional_extensions: std::vec::Vec<crate::model::X509Extension>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl X509Parameters {
@@ -2780,6 +2828,9 @@ pub mod x_509_parameters {
         /// CA certificate.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub max_issuer_path_length: std::option::Option<i32>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CaOptions {
@@ -2874,6 +2925,9 @@ pub mod x_509_parameters {
         /// leading period (like `.example.com`)
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub excluded_uris: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NameConstraints {
@@ -2997,6 +3051,9 @@ pub struct SubordinateConfig {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub subordinate_config:
         std::option::Option<crate::model::subordinate_config::SubordinateConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SubordinateConfig {
@@ -3103,6 +3160,9 @@ pub mod subordinate_config {
         /// Required. Expected to be in leaf-to-root order according to RFC 5246.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub pem_certificates: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SubordinateConfigChain {
@@ -3168,6 +3228,9 @@ pub struct PublicKey {
 
     /// Required. The format of the public key.
     pub format: crate::model::public_key::KeyFormat,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PublicKey {
@@ -3308,6 +3371,9 @@ pub struct CertificateConfig {
     /// (1) described in RFC 5280 section 4.2.1.2.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub subject_key_id: std::option::Option<crate::model::certificate_config::KeyId>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateConfig {
@@ -3384,6 +3450,9 @@ pub mod certificate_config {
         /// Optional. The subject alternative name fields.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub subject_alt_name: std::option::Option<crate::model::SubjectAltNames>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SubjectConfig {
@@ -3429,6 +3498,9 @@ pub mod certificate_config {
         /// is most likely the 160 bit SHA-1 hash of the public key.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub key_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl KeyId {
@@ -3500,6 +3572,9 @@ pub struct CertificateDescription {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cert_fingerprint:
         std::option::Option<crate::model::certificate_description::CertificateFingerprint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateDescription {
@@ -3643,6 +3718,9 @@ pub mod certificate_description {
         /// Corresponds to 'not_before_time' + 'lifetime' - 1 second.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub not_after_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SubjectDescription {
@@ -3724,6 +3802,9 @@ pub mod certificate_description {
         /// is most likely the 160 bit SHA-1 hash of the public key.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub key_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl KeyId {
@@ -3753,6 +3834,9 @@ pub mod certificate_description {
         /// The SHA 256 hash, encoded in hexadecimal, of the DER x509 certificate.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub sha256_hash: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CertificateFingerprint {
@@ -3788,6 +3872,9 @@ pub struct ObjectId {
     /// come first.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub object_id_path: std::vec::Vec<i32>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ObjectId {
@@ -3836,6 +3923,9 @@ pub struct X509Extension {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub value: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl X509Extension {
@@ -3895,6 +3985,9 @@ pub struct KeyUsage {
     /// [google.cloud.security.privateca.v1.KeyUsage.ExtendedKeyUsageOptions]: crate::model::key_usage::ExtendedKeyUsageOptions
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unknown_extended_key_usages: std::vec::Vec<crate::model::ObjectId>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl KeyUsage {
@@ -3984,6 +4077,9 @@ pub mod key_usage {
 
         /// The key may be used to decipher only.
         pub decipher_only: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl KeyUsageOptions {
@@ -4085,6 +4181,9 @@ pub mod key_usage {
         /// Corresponds to OID 1.3.6.1.5.5.7.3.9. Officially described as "Signing
         /// OCSP responses".
         pub ocsp_signing: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ExtendedKeyUsageOptions {
@@ -4176,6 +4275,9 @@ pub struct Subject {
     /// The postal code of the subject.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub postal_code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Subject {
@@ -4273,6 +4375,9 @@ pub struct SubjectAltNames {
     /// UTF8String.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub custom_sans: std::vec::Vec<crate::model::X509Extension>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SubjectAltNames {
@@ -4382,6 +4487,9 @@ pub struct CertificateIdentityConstraints {
     /// [google.cloud.security.privateca.v1.SubjectAltNames]: crate::model::SubjectAltNames
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub allow_subject_alt_names_passthrough: std::option::Option<bool>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateIdentityConstraints {
@@ -4450,6 +4558,9 @@ pub struct CertificateExtensionConstraints {
     /// [google.cloud.security.privateca.v1.ObjectId]: crate::model::ObjectId
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub additional_extensions: std::vec::Vec<crate::model::ObjectId>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateExtensionConstraints {
@@ -4712,6 +4823,9 @@ pub struct CreateCertificateRequest {
     /// [google.cloud.security.privateca.v1.CreateCertificateRequest.parent]: crate::model::CreateCertificateRequest::parent
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub issuing_certificate_authority_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCertificateRequest {
@@ -4787,6 +4901,9 @@ pub struct GetCertificateRequest {
     /// [google.cloud.security.privateca.v1.Certificate.name]: crate::model::Certificate::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCertificateRequest {
@@ -4855,6 +4972,9 @@ pub struct ListCertificatesRequest {
     /// documentation](https://cloud.google.com/certificate-authority-service/docs/sorting-filtering-certificates#sorting_support).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificatesRequest {
@@ -4923,6 +5043,9 @@ pub struct ListCertificatesResponse {
     /// A list of locations (e.g. "us-west1") that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificatesResponse {
@@ -5018,6 +5141,9 @@ pub struct RevokeCertificateRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RevokeCertificateRequest {
@@ -5088,6 +5214,9 @@ pub struct UpdateCertificateRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCertificateRequest {
@@ -5172,6 +5301,9 @@ pub struct ActivateCertificateAuthorityRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ActivateCertificateAuthorityRequest {
@@ -5265,6 +5397,9 @@ pub struct CreateCertificateAuthorityRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCertificateAuthorityRequest {
@@ -5349,6 +5484,9 @@ pub struct DisableCertificateAuthorityRequest {
     /// and unrecoverable effects on any dependent resources since the CA will
     /// no longer be able to issue certificates.
     pub ignore_dependent_resources: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DisableCertificateAuthorityRequest {
@@ -5413,6 +5551,9 @@ pub struct EnableCertificateAuthorityRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnableCertificateAuthorityRequest {
@@ -5455,6 +5596,9 @@ pub struct FetchCertificateAuthorityCsrRequest {
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchCertificateAuthorityCsrRequest {
@@ -5487,6 +5631,9 @@ pub struct FetchCertificateAuthorityCsrResponse {
     /// Output only. The PEM-encoded signed certificate signing request (CSR).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub pem_csr: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchCertificateAuthorityCsrResponse {
@@ -5525,6 +5672,9 @@ pub struct GetCertificateAuthorityRequest {
     /// [google.cloud.security.privateca.v1.CertificateAuthority.name]: crate::model::CertificateAuthority::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCertificateAuthorityRequest {
@@ -5591,6 +5741,9 @@ pub struct ListCertificateAuthoritiesRequest {
     /// Optional. Specify how the results should be sorted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateAuthoritiesRequest {
@@ -5660,6 +5813,9 @@ pub struct ListCertificateAuthoritiesResponse {
     /// A list of locations (e.g. "us-west1") that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateAuthoritiesResponse {
@@ -5748,6 +5904,9 @@ pub struct UndeleteCertificateAuthorityRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UndeleteCertificateAuthorityRequest {
@@ -5821,6 +5980,9 @@ pub struct DeleteCertificateAuthorityRequest {
     /// and unrecoverable effects on any dependent resources since the CA will
     /// no longer be able to issue certificates.
     pub ignore_dependent_resources: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCertificateAuthorityRequest {
@@ -5901,6 +6063,9 @@ pub struct UpdateCertificateAuthorityRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCertificateAuthorityRequest {
@@ -5985,6 +6150,9 @@ pub struct CreateCaPoolRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCaPoolRequest {
@@ -6061,6 +6229,9 @@ pub struct UpdateCaPoolRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCaPoolRequest {
@@ -6137,6 +6308,9 @@ pub struct DeleteCaPoolRequest {
     /// and unrecoverable effects on any dependent resources since the pool will
     /// no longer be able to issue certificates.
     pub ignore_dependent_resources: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCaPoolRequest {
@@ -6201,6 +6375,9 @@ pub struct FetchCaCertsRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchCaCertsRequest {
@@ -6243,6 +6420,9 @@ pub struct FetchCaCertsResponse {
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub ca_certs: std::vec::Vec<crate::model::fetch_ca_certs_response::CertChain>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchCaCertsResponse {
@@ -6281,6 +6461,9 @@ pub mod fetch_ca_certs_response {
         /// The certificates that form the CA chain, from leaf to root order.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub certificates: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CertChain {
@@ -6323,6 +6506,9 @@ pub struct GetCaPoolRequest {
     /// [google.cloud.security.privateca.v1.CaPool.name]: crate::model::CaPool::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCaPoolRequest {
@@ -6386,6 +6572,9 @@ pub struct ListCaPoolsRequest {
     /// Optional. Specify how the results should be sorted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCaPoolsRequest {
@@ -6454,6 +6643,9 @@ pub struct ListCaPoolsResponse {
     /// A list of locations (e.g. "us-west1") that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCaPoolsResponse {
@@ -6529,6 +6721,9 @@ pub struct GetCertificateRevocationListRequest {
     /// [google.cloud.security.privateca.v1.CertificateRevocationList.name]: crate::model::CertificateRevocationList::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCertificateRevocationListRequest {
@@ -6593,6 +6788,9 @@ pub struct ListCertificateRevocationListsRequest {
     /// Optional. Specify how the results should be sorted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateRevocationListsRequest {
@@ -6662,6 +6860,9 @@ pub struct ListCertificateRevocationListsResponse {
     /// A list of locations (e.g. "us-west1") that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateRevocationListsResponse {
@@ -6754,6 +6955,9 @@ pub struct UpdateCertificateRevocationListRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCertificateRevocationListRequest {
@@ -6839,6 +7043,9 @@ pub struct CreateCertificateTemplateRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCertificateTemplateRequest {
@@ -6917,6 +7124,9 @@ pub struct DeleteCertificateTemplateRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCertificateTemplateRequest {
@@ -6961,6 +7171,9 @@ pub struct GetCertificateTemplateRequest {
     /// [google.cloud.security.privateca.v1.CertificateTemplate.name]: crate::model::CertificateTemplate::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCertificateTemplateRequest {
@@ -7025,6 +7238,9 @@ pub struct ListCertificateTemplatesRequest {
     /// Optional. Specify how the results should be sorted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateTemplatesRequest {
@@ -7094,6 +7310,9 @@ pub struct ListCertificateTemplatesResponse {
     /// A list of locations (e.g. "us-west1") that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCertificateTemplatesResponse {
@@ -7186,6 +7405,9 @@ pub struct UpdateCertificateTemplateRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCertificateTemplateRequest {
@@ -7264,6 +7486,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {

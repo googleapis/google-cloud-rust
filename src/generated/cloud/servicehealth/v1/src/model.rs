@@ -98,6 +98,9 @@ pub struct Event {
     /// Output only. The time when the next update can be expected.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub next_update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Event {
@@ -659,6 +662,9 @@ pub struct OrganizationEvent {
     /// expected.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub next_update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OrganizationEvent {
@@ -1096,6 +1102,9 @@ pub struct EventUpdate {
     /// Output only. Workaround steps to remediate the event impact, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub workaround: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EventUpdate {
@@ -1152,6 +1161,9 @@ pub struct Location {
     /// Location impacted by the event. Example: `"us-central1"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Location {
@@ -1185,6 +1197,9 @@ pub struct Product {
     /// Unique identifier for the product.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Product {
@@ -1224,6 +1239,9 @@ pub struct EventImpact {
     /// Location impacted by the event.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub location: std::option::Option<crate::model::Location>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EventImpact {
@@ -1287,6 +1305,9 @@ pub struct OrganizationImpact {
     /// Output only. The time when the affected project was last modified.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OrganizationImpact {
@@ -1352,6 +1373,9 @@ pub struct Asset {
     /// `"cloudresourcemanager.googleapis.com/Project"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub asset_type: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Asset {
@@ -1431,6 +1455,9 @@ pub struct ListEventsRequest {
 
     /// Optional. Event fields to include in response.
     pub view: crate::model::EventView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEventsRequest {
@@ -1496,6 +1523,9 @@ pub struct ListEventsResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEventsResponse {
@@ -1567,6 +1597,9 @@ pub struct GetEventRequest {
     /// `event_id` - Event ID to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEventRequest {
@@ -1644,6 +1677,9 @@ pub struct ListOrganizationEventsRequest {
 
     /// Optional. OrganizationEvent fields to include in response.
     pub view: crate::model::OrganizationEventView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOrganizationEventsRequest {
@@ -1712,6 +1748,9 @@ pub struct ListOrganizationEventsResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOrganizationEventsResponse {
@@ -1785,6 +1824,9 @@ pub struct GetOrganizationEventRequest {
     /// `event_id` - Organization event ID to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetOrganizationEventRequest {
@@ -1859,6 +1901,9 @@ pub struct ListOrganizationImpactsRequest {
     /// Filter is supported for the following fields: `events`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOrganizationImpactsRequest {
@@ -1921,6 +1966,9 @@ pub struct ListOrganizationImpactsResponse {
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOrganizationImpactsResponse {
@@ -1994,6 +2042,9 @@ pub struct GetOrganizationImpactRequest {
     /// resource](/service-health/docs/reference/rest/v1beta/organizations.locations.organizationImpacts#OrganizationImpact).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetOrganizationImpactRequest {

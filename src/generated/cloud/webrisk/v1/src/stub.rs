@@ -47,11 +47,13 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         _req: crate::model::ComputeThreatListDiffRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ComputeThreatListDiffResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ComputeThreatListDiffResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ComputeThreatListDiffResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ComputeThreatListDiffResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::WebRiskService::search_uris].
@@ -59,11 +61,12 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchUrisRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchUrisResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SearchUrisResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SearchUrisResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::SearchUrisResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::WebRiskService::search_hashes].
@@ -71,11 +74,12 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SearchHashesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::SearchHashesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::SearchHashesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::SearchHashesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::SearchHashesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::WebRiskService::create_submission].
@@ -83,10 +87,12 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSubmissionRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Submission>> + Send {
-        std::future::ready::<crate::Result<crate::model::Submission>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Submission>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Submission>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::WebRiskService::submit_uri].
@@ -94,11 +100,12 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SubmitUriRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::WebRiskService::list_operations].
@@ -106,11 +113,12 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::WebRiskService::get_operation].
@@ -118,11 +126,12 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::WebRiskService::delete_operation].
@@ -130,8 +139,10 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::WebRiskService::cancel_operation].
@@ -139,8 +150,10 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

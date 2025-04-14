@@ -721,7 +721,7 @@ mod test {
         assert_eq!(status.message, "try-again");
         assert_eq!(status.status.as_deref(), Some("UNAVAILABLE"));
 
-        let got = status.details.get(0);
+        let got = status.details.first();
         assert_eq!(got, Some(&want));
     }
 
@@ -737,7 +737,7 @@ mod test {
         assert_eq!(got.message, "try-again");
         assert_eq!(got.status.as_deref(), Some("UNAVAILABLE"));
 
-        let got = got.details.get(0);
+        let got = got.details.first();
         let want = StatusDetails::Other(any);
         assert_eq!(got, Some(&want));
     }
@@ -841,7 +841,7 @@ mod test {
     #[test_case("UNAUTHENTICATED")]
     fn code_serialize_roundtrip(input: &str) -> Result {
         let want = Code::try_from(input).unwrap();
-        let serialized = serde_json::to_value(&want)?;
+        let serialized = serde_json::to_value(want)?;
         let got = serde_json::from_value::<Code>(serialized)?;
         assert_eq!(got, want);
         Ok(())

@@ -44,7 +44,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         &self,
         req: crate::model::ListDatabasesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDatabasesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDatabasesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -62,14 +62,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListDatabasesResponse>| r.into_body())
     }
 
     async fn create_database(
         &self,
         req: crate::model::CreateDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -82,17 +81,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_database(
         &self,
         req: crate::model::GetDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Database> {
+    ) -> Result<gax::response::Response<crate::model::Database>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -105,14 +101,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Database>| r.into_body())
     }
 
     async fn update_database(
         &self,
         req: crate::model::UpdateDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -134,24 +129,19 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.database), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_database_ddl(
         &self,
         req: crate::model::UpdateDatabaseDdlRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -161,17 +151,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn drop_database(
         &self,
         req: crate::model::DropDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -184,14 +171,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_database_ddl(
         &self,
         req: crate::model::GetDatabaseDdlRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GetDatabaseDdlResponse> {
+    ) -> Result<gax::response::Response<crate::model::GetDatabaseDdlResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -204,14 +194,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::GetDatabaseDdlResponse>| r.into_body())
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -224,17 +213,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -247,17 +233,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -270,16 +253,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -300,17 +281,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 use gaxi::query_parameter::QueryParameter;
                 v.add(builder, "encryptionConfig")
             });
-        self.inner
-            .execute(builder, Some(req.backup), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req.backup), options).await
     }
 
     async fn copy_backup(
         &self,
         req: crate::model::CopyBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -323,17 +301,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Backup> {
+    ) -> Result<gax::response::Response<crate::model::Backup>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -346,14 +321,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
     }
 
     async fn update_backup(
         &self,
         req: crate::model::UpdateBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Backup> {
+    ) -> Result<gax::response::Response<crate::model::Backup>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -375,24 +349,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        self.inner
-            .execute(builder, Some(req.backup), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Backup>| r.into_body())
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner.execute(builder, Some(req.backup), options).await
     }
 
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -405,14 +372,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -428,14 +398,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListBackupsResponse>| r.into_body())
     }
 
     async fn restore_database(
         &self,
         req: crate::model::RestoreDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -448,17 +417,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_database_operations(
         &self,
         req: crate::model::ListDatabaseOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDatabaseOperationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDatabaseOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -477,18 +443,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListDatabaseOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_backup_operations(
         &self,
         req: crate::model::ListBackupOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupOperationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -507,18 +468,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListBackupOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_database_roles(
         &self,
         req: crate::model::ListDatabaseRolesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDatabaseRolesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDatabaseRolesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -536,16 +492,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListDatabaseRolesResponse>| r.into_body(),
-            )
     }
 
     async fn add_split_points(
         &self,
         req: crate::model::AddSplitPointsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AddSplitPointsResponse> {
+    ) -> Result<gax::response::Response<crate::model::AddSplitPointsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -558,17 +511,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::AddSplitPointsResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_backup_schedule(
         &self,
         req: crate::model::CreateBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupSchedule> {
+    ) -> Result<gax::response::Response<crate::model::BackupSchedule>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -585,14 +535,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, Some(req.backup_schedule), options)
             .await
-            .map(|r: gax::response::Response<crate::model::BackupSchedule>| r.into_body())
     }
 
     async fn get_backup_schedule(
         &self,
         req: crate::model::GetBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupSchedule> {
+    ) -> Result<gax::response::Response<crate::model::BackupSchedule>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -605,14 +554,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::BackupSchedule>| r.into_body())
     }
 
     async fn update_backup_schedule(
         &self,
         req: crate::model::UpdateBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupSchedule> {
+    ) -> Result<gax::response::Response<crate::model::BackupSchedule>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -634,24 +582,19 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.backup_schedule), options)
             .await
-            .map(|r: gax::response::Response<crate::model::BackupSchedule>| r.into_body())
     }
 
     async fn delete_backup_schedule(
         &self,
         req: crate::model::DeleteBackupScheduleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -664,14 +607,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_backup_schedules(
         &self,
         req: crate::model::ListBackupSchedulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBackupSchedulesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBackupSchedulesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -689,18 +635,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListBackupSchedulesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -716,18 +657,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -740,14 +676,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -760,14 +695,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -780,7 +718,10 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     fn get_polling_error_policy(

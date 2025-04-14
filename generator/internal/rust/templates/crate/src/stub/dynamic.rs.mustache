@@ -31,7 +31,7 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
-    ) -> crate::Result<{{Codec.ReturnType}}>;
+    ) -> crate::Result<gax::response::Response<{{Codec.ReturnType}}>>;
 
     {{/Codec.Methods}}
     {{#Codec.HasLROs}}
@@ -56,7 +56,7 @@ impl<T: super::{{Codec.Name}}> {{Codec.Name}} for T {
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
-    ) -> crate::Result<{{Codec.ReturnType}}> {
+    ) -> crate::Result<gax::response::Response<{{Codec.ReturnType}}>> {
         T::{{Codec.Name}}(self, req, options).await
     }
 

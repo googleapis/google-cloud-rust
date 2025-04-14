@@ -49,9 +49,9 @@ checksum = "55cc3b69f167a1ef2e161439aa98aed94e6028e5f9a59be9a6ffb47aef1651f9"
 
 [[package]]
 name = "anyhow"
-version = "1.0.97"
+version = "1.0.98"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dcfed56ad506cb2c684a14971b8861fdc3baaaae314b9e5f9bb532cbe3ba7a4f"
+checksum = "e16d2d3311acee920a9eb8d33b8cbc1787ce4a264e85f964c2404b969bdcd487"
 
 [[package]]
 name = "async-stream"
@@ -201,9 +201,9 @@ checksum = "5c8214115b7bf84099f1309324e63141d4c5d7cc26862f97a0a857dbefe165bd"
 
 [[package]]
 name = "bon"
-version = "3.5.1"
+version = "3.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "65268237be94042665b92034f979c42d431d2fd998b49809543afe3e66abad1c"
+checksum = "8baa8e2f74b721b16b14e6b8e0516c8df35708273d5e89ca7be391cb9a419ff9"
 dependencies = [
  "bon-macros",
  "rustversion",
@@ -211,9 +211,9 @@ dependencies = [
 
 [[package]]
 name = "bon-macros"
-version = "3.5.1"
+version = "3.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "803c95b2ecf650eb10b5f87dda6b9f6a1b758cee53245e2b7b825c9b3803a443"
+checksum = "bff68fc8bb0a7a05683bc799f9c50ec05379c4a6104446eb1fed7b07341eebc5"
 dependencies = [
  "darling",
  "ident_case",
@@ -714,6 +714,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -748,6 +749,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -965,6 +967,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -977,6 +980,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -989,6 +993,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -1001,6 +1006,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -1013,6 +1019,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -1025,6 +1032,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -1037,6 +1045,7 @@ dependencies = [
  "google-cloud-apps-script-type",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -1651,6 +1660,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -2267,7 +2277,6 @@ version = "0.21.0"
 dependencies = [
  "anyhow",
  "base64",
- "built",
  "bytes",
  "futures",
  "google-cloud-gax",
@@ -2291,6 +2300,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "axum",
+ "built",
  "bytes",
  "echo-server",
  "google-cloud-auth",
@@ -2302,6 +2312,7 @@ dependencies = [
  "http-body-util",
  "mockall",
  "prost",
+ "prost-types",
  "reqwest",
  "scoped-env",
  "serde",
@@ -2362,6 +2373,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -2373,6 +2385,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -2589,6 +2602,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -2741,6 +2755,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -3199,6 +3214,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -3250,6 +3266,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -3489,6 +3506,7 @@ dependencies = [
  "google-cloud-recommender-v1",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -3607,6 +3625,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -3618,6 +3637,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -4173,6 +4193,7 @@ dependencies = [
  "bytes",
  "google-cloud-wkt",
  "serde",
+ "serde_json",
  "serde_with",
  "tokio-test",
 ]
@@ -4394,7 +4415,6 @@ dependencies = [
  "bytes",
  "chrono",
  "google-cloud-wkt",
- "prost-types",
  "serde",
  "serde_json",
  "serde_with",
@@ -4858,7 +4878,6 @@ dependencies = [
  "google-cloud-firestore",
  "google-cloud-gax",
  "google-cloud-iam-v1",
- "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-secretmanager-v1",
  "google-cloud-telcoautomation-v1",
@@ -5611,9 +5630,9 @@ dependencies = [
 
 [[package]]
 name = "rustls"
-version = "0.23.25"
+version = "0.23.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "822ee9188ac4ec04a2f0531e55d035fb2de73f18b41a63c70c2712503b6fb13c"
+checksum = "df51b5869f3a441595eac5e8ff14d486ff285f7b8c0df8770e49c3b56351f0f0"
 dependencies = [
  "log",
  "once_cell",

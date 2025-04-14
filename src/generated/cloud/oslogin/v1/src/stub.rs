@@ -45,11 +45,12 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateSshPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<oslogin_common::model::SshPublicKey>> + Send
-    {
-        std::future::ready::<crate::Result<oslogin_common::model::SshPublicKey>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsLoginService::delete_posix_account].
@@ -57,8 +58,10 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeletePosixAccountRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::OsLoginService::delete_ssh_public_key].
@@ -66,8 +69,10 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSshPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::OsLoginService::get_login_profile].
@@ -75,10 +80,12 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLoginProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::LoginProfile>> + Send {
-        std::future::ready::<crate::Result<crate::model::LoginProfile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LoginProfile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::LoginProfile>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::OsLoginService::get_ssh_public_key].
@@ -86,11 +93,12 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSshPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<oslogin_common::model::SshPublicKey>> + Send
-    {
-        std::future::ready::<crate::Result<oslogin_common::model::SshPublicKey>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsLoginService::import_ssh_public_key].
@@ -98,11 +106,12 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ImportSshPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ImportSshPublicKeyResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ImportSshPublicKeyResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ImportSshPublicKeyResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ImportSshPublicKeyResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::OsLoginService::update_ssh_public_key].
@@ -110,10 +119,11 @@ pub trait OsLoginService: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateSshPublicKeyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<oslogin_common::model::SshPublicKey>> + Send
-    {
-        std::future::ready::<crate::Result<oslogin_common::model::SshPublicKey>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<oslogin_common::model::SshPublicKey>>,
+        >(Err(Error::other("unimplemented")))
     }
 }

@@ -88,7 +88,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// # Parameters
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is never called
-    ///    before the first attempt.
+    ///   before the first attempt.
     fn on_throttle(&self, _loop_start: std::time::Instant, _attempt_count: u32) -> Option<Error> {
         None
     }
@@ -102,7 +102,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// # Parameters
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is called before
-    ///    the first attempt, so the first value is zero.
+    ///   the first attempt, so the first value is zero.
     fn remaining_time(
         &self,
         _loop_start: std::time::Instant,

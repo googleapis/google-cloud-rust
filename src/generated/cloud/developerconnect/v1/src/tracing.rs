@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         self.inner.list_connections(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         self.inner.get_connection(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_connection(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_connection(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_connection(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::CreateGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_git_repository_link(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::DeleteGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_git_repository_link(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::ListGitRepositoryLinksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGitRepositoryLinksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGitRepositoryLinksResponse>> {
         self.inner.list_git_repository_links(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::GetGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GitRepositoryLink> {
+    ) -> Result<gax::response::Response<crate::model::GitRepositoryLink>> {
         self.inner.get_git_repository_link(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::FetchReadWriteTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchReadWriteTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchReadWriteTokenResponse>> {
         self.inner.fetch_read_write_token(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::FetchReadTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchReadTokenResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchReadTokenResponse>> {
         self.inner.fetch_read_token(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::FetchLinkableGitRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchLinkableGitRepositoriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>> {
         self.inner
             .fetch_linkable_git_repositories(req, options)
             .await
@@ -152,7 +152,7 @@ where
         &self,
         req: crate::model::FetchGitHubInstallationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchGitHubInstallationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchGitHubInstallationsResponse>> {
         self.inner.fetch_git_hub_installations(req, options).await
     }
 
@@ -161,7 +161,7 @@ where
         &self,
         req: crate::model::FetchGitRefsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchGitRefsResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchGitRefsResponse>> {
         self.inner.fetch_git_refs(req, options).await
     }
 
@@ -170,7 +170,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -179,7 +179,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -188,7 +188,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -197,7 +197,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -206,7 +206,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -215,7 +215,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

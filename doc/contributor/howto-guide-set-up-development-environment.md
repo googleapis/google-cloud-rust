@@ -12,7 +12,7 @@ Once you have `cargo` and `rustup` installed the rest is relatively easy.
 ## Installing Go
 
 The code generator is implemented in [Go](https://go.dev). Follow the
-[Download and install][golang-install] guide to install golang.
+[Download and install][golang-install] guide to install Golang.
 
 ## IDE Recommendations
 
@@ -138,7 +138,7 @@ cargo tarpaulin --out xml \
 ## Integration tests
 
 This guide assumes you are familiar with the [Google Cloud CLI], you have access
-to an existing Google Cloud Projects, and have enough permissions on that
+to an existing Google Cloud Project, and have enough permissions on that
 project.
 
 ### One time set up
@@ -164,10 +164,10 @@ It is fine if the list is empty, you just don't want an error.
 
 ### Create a service account
 
-The integration tests need a service account in your project. This service
+The integration tests need a service account (SA) in your project. This service
 account is used to:
 
-- Run test that perform IAM operations, temporarily granting this service
+- Run tests that perform IAM operations, temporarily granting this service
   account some permissions.
 - Configure the service account used for test workflows.
 
@@ -204,7 +204,7 @@ gcloud firestore databases describe --format='value(type)'
 # FIRESTORE_NATIVE
 ```
 
-### Running
+### Running tests
 
 Use `cargo test` to run the tests. The `run-integration-tests` features enables
 running the integration tests. The default is to only run unit tests:
@@ -260,7 +260,7 @@ We use `mdformat` to format hand-crafted markdown files. Install with:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate # Or whatever is the right command for you shell
+source .venv/bin/activate # Or whatever is the right command for your shell
 pip install -r ci/requirements.txt
 ```
 
@@ -288,8 +288,9 @@ git ls-files -z -- '*.yaml' '*.yml' ':!:**/testdata/**' | xargs -0 yamlfmt
 ### Format Terraform files
 
 We use `terraform` to format `.tf` files. You will rarely have any need to edit
-these files. If you do, you probably know how to [install terraform]. Format the
-files using:
+these files. If you do, you probably know how to [install terraform].
+
+Format the files using:
 
 ```bash
 git ls-files -z -- '*.tf' ':!:**/testdata/**' | xargs -0 terraform fmt

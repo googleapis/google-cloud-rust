@@ -44,7 +44,7 @@ impl super::stub::DataCatalog for DataCatalog {
         &self,
         req: crate::model::SearchCatalogRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchCatalogResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchCatalogResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -54,17 +54,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::SearchCatalogResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_entry_group(
         &self,
         req: crate::model::CreateEntryGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EntryGroup> {
+    ) -> Result<gax::response::Response<crate::model::EntryGroup>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -81,14 +78,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, Some(req.entry_group), options)
             .await
-            .map(|r: gax::response::Response<crate::model::EntryGroup>| r.into_body())
     }
 
     async fn get_entry_group(
         &self,
         req: crate::model::GetEntryGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EntryGroup> {
+    ) -> Result<gax::response::Response<crate::model::EntryGroup>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -101,24 +97,19 @@ impl super::stub::DataCatalog for DataCatalog {
         let builder = req
             .read_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("readMask", v)]));
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::EntryGroup>| r.into_body())
     }
 
     async fn update_entry_group(
         &self,
         req: crate::model::UpdateEntryGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EntryGroup> {
+    ) -> Result<gax::response::Response<crate::model::EntryGroup>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -140,24 +131,19 @@ impl super::stub::DataCatalog for DataCatalog {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.entry_group), options)
             .await
-            .map(|r: gax::response::Response<crate::model::EntryGroup>| r.into_body())
     }
 
     async fn delete_entry_group(
         &self,
         req: crate::model::DeleteEntryGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -171,14 +157,17 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_entry_groups(
         &self,
         req: crate::model::ListEntryGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEntryGroupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEntryGroupsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -196,14 +185,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListEntryGroupsResponse>| r.into_body())
     }
 
     async fn create_entry(
         &self,
         req: crate::model::CreateEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Entry> {
+    ) -> Result<gax::response::Response<crate::model::Entry>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -214,17 +202,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("entryId", &req.entry_id)]);
-        self.inner
-            .execute(builder, Some(req.entry), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Entry>| r.into_body())
+        self.inner.execute(builder, Some(req.entry), options).await
     }
 
     async fn update_entry(
         &self,
         req: crate::model::UpdateEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Entry> {
+    ) -> Result<gax::response::Response<crate::model::Entry>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -246,24 +231,17 @@ impl super::stub::DataCatalog for DataCatalog {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        self.inner
-            .execute(builder, Some(req.entry), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Entry>| r.into_body())
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner.execute(builder, Some(req.entry), options).await
     }
 
     async fn delete_entry(
         &self,
         req: crate::model::DeleteEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -276,14 +254,17 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_entry(
         &self,
         req: crate::model::GetEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Entry> {
+    ) -> Result<gax::response::Response<crate::model::Entry>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -296,14 +277,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Entry>| r.into_body())
     }
 
     async fn lookup_entry(
         &self,
         req: crate::model::LookupEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Entry> {
+    ) -> Result<gax::response::Response<crate::model::Entry>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -334,14 +314,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Entry>| r.into_body())
     }
 
     async fn list_entries(
         &self,
         req: crate::model::ListEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEntriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEntriesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -356,24 +335,19 @@ impl super::stub::DataCatalog for DataCatalog {
         let builder = req
             .read_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("readMask", v)]));
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListEntriesResponse>| r.into_body())
     }
 
     async fn modify_entry_overview(
         &self,
         req: crate::model::ModifyEntryOverviewRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EntryOverview> {
+    ) -> Result<gax::response::Response<crate::model::EntryOverview>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -386,17 +360,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::EntryOverview>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn modify_entry_contacts(
         &self,
         req: crate::model::ModifyEntryContactsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Contacts> {
+    ) -> Result<gax::response::Response<crate::model::Contacts>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -409,17 +380,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Contacts>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_tag_template(
         &self,
         req: crate::model::CreateTagTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TagTemplate> {
+    ) -> Result<gax::response::Response<crate::model::TagTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -436,14 +404,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, Some(req.tag_template), options)
             .await
-            .map(|r: gax::response::Response<crate::model::TagTemplate>| r.into_body())
     }
 
     async fn get_tag_template(
         &self,
         req: crate::model::GetTagTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TagTemplate> {
+    ) -> Result<gax::response::Response<crate::model::TagTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -456,14 +423,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::TagTemplate>| r.into_body())
     }
 
     async fn update_tag_template(
         &self,
         req: crate::model::UpdateTagTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TagTemplate> {
+    ) -> Result<gax::response::Response<crate::model::TagTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -485,24 +451,19 @@ impl super::stub::DataCatalog for DataCatalog {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.tag_template), options)
             .await
-            .map(|r: gax::response::Response<crate::model::TagTemplate>| r.into_body())
     }
 
     async fn delete_tag_template(
         &self,
         req: crate::model::DeleteTagTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -516,14 +477,17 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_tag_template_field(
         &self,
         req: crate::model::CreateTagTemplateFieldRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TagTemplateField> {
+    ) -> Result<gax::response::Response<crate::model::TagTemplateField>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -537,14 +501,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, Some(req.tag_template_field), options)
             .await
-            .map(|r: gax::response::Response<crate::model::TagTemplateField>| r.into_body())
     }
 
     async fn update_tag_template_field(
         &self,
         req: crate::model::UpdateTagTemplateFieldRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TagTemplateField> {
+    ) -> Result<gax::response::Response<crate::model::TagTemplateField>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -557,24 +520,19 @@ impl super::stub::DataCatalog for DataCatalog {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.tag_template_field), options)
             .await
-            .map(|r: gax::response::Response<crate::model::TagTemplateField>| r.into_body())
     }
 
     async fn rename_tag_template_field(
         &self,
         req: crate::model::RenameTagTemplateFieldRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TagTemplateField> {
+    ) -> Result<gax::response::Response<crate::model::TagTemplateField>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -584,17 +542,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::TagTemplateField>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn rename_tag_template_field_enum_value(
         &self,
         req: crate::model::RenameTagTemplateFieldEnumValueRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TagTemplateField> {
+    ) -> Result<gax::response::Response<crate::model::TagTemplateField>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -604,17 +559,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::TagTemplateField>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn delete_tag_template_field(
         &self,
         req: crate::model::DeleteTagTemplateFieldRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -628,14 +580,17 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_tag(
         &self,
         req: crate::model::CreateTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tag> {
+    ) -> Result<gax::response::Response<crate::model::Tag>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -645,17 +600,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req.tag), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Tag>| r.into_body())
+        self.inner.execute(builder, Some(req.tag), options).await
     }
 
     async fn update_tag(
         &self,
         req: crate::model::UpdateTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tag> {
+    ) -> Result<gax::response::Response<crate::model::Tag>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -677,24 +629,17 @@ impl super::stub::DataCatalog for DataCatalog {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        self.inner
-            .execute(builder, Some(req.tag), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Tag>| r.into_body())
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner.execute(builder, Some(req.tag), options).await
     }
 
     async fn delete_tag(
         &self,
         req: crate::model::DeleteTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -707,14 +652,17 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_tags(
         &self,
         req: crate::model::ListTagsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTagsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTagsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -729,14 +677,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListTagsResponse>| r.into_body())
     }
 
     async fn reconcile_tags(
         &self,
         req: crate::model::ReconcileTagsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -749,17 +696,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn star_entry(
         &self,
         req: crate::model::StarEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StarEntryResponse> {
+    ) -> Result<gax::response::Response<crate::model::StarEntryResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -769,17 +713,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::StarEntryResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn unstar_entry(
         &self,
         req: crate::model::UnstarEntryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UnstarEntryResponse> {
+    ) -> Result<gax::response::Response<crate::model::UnstarEntryResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -789,17 +730,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::UnstarEntryResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -812,17 +750,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -835,17 +770,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -858,16 +790,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn import_entries(
         &self,
         req: crate::model::ImportEntriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -880,17 +810,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn set_config(
         &self,
         req: crate::model::SetConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MigrationConfig> {
+    ) -> Result<gax::response::Response<crate::model::MigrationConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -900,17 +827,14 @@ impl super::stub::DataCatalog for DataCatalog {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::MigrationConfig>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn retrieve_config(
         &self,
         req: crate::model::RetrieveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OrganizationConfig> {
+    ) -> Result<gax::response::Response<crate::model::OrganizationConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -926,14 +850,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::OrganizationConfig>| r.into_body())
     }
 
     async fn retrieve_effective_config(
         &self,
         req: crate::model::RetrieveEffectiveConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MigrationConfig> {
+    ) -> Result<gax::response::Response<crate::model::MigrationConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -949,14 +872,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::MigrationConfig>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -972,18 +894,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -996,14 +913,13 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1016,14 +932,17 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1036,7 +955,10 @@ impl super::stub::DataCatalog for DataCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     fn get_polling_error_policy(
@@ -1080,7 +1002,7 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         &self,
         req: crate::model::CreateTaxonomyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Taxonomy> {
+    ) -> Result<gax::response::Response<crate::model::Taxonomy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1096,14 +1018,13 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, Some(req.taxonomy), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Taxonomy>| r.into_body())
     }
 
     async fn delete_taxonomy(
         &self,
         req: crate::model::DeleteTaxonomyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1116,14 +1037,17 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_taxonomy(
         &self,
         req: crate::model::UpdateTaxonomyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Taxonomy> {
+    ) -> Result<gax::response::Response<crate::model::Taxonomy>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1145,24 +1069,19 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.taxonomy), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Taxonomy>| r.into_body())
     }
 
     async fn list_taxonomies(
         &self,
         req: crate::model::ListTaxonomiesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTaxonomiesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTaxonomiesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1181,14 +1100,13 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListTaxonomiesResponse>| r.into_body())
     }
 
     async fn get_taxonomy(
         &self,
         req: crate::model::GetTaxonomyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Taxonomy> {
+    ) -> Result<gax::response::Response<crate::model::Taxonomy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1201,14 +1119,13 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Taxonomy>| r.into_body())
     }
 
     async fn create_policy_tag(
         &self,
         req: crate::model::CreatePolicyTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PolicyTag> {
+    ) -> Result<gax::response::Response<crate::model::PolicyTag>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1224,14 +1141,13 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, Some(req.policy_tag), options)
             .await
-            .map(|r: gax::response::Response<crate::model::PolicyTag>| r.into_body())
     }
 
     async fn delete_policy_tag(
         &self,
         req: crate::model::DeletePolicyTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1244,14 +1160,17 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_policy_tag(
         &self,
         req: crate::model::UpdatePolicyTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PolicyTag> {
+    ) -> Result<gax::response::Response<crate::model::PolicyTag>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1273,24 +1192,19 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.policy_tag), options)
             .await
-            .map(|r: gax::response::Response<crate::model::PolicyTag>| r.into_body())
     }
 
     async fn list_policy_tags(
         &self,
         req: crate::model::ListPolicyTagsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPolicyTagsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPolicyTagsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1308,14 +1222,13 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListPolicyTagsResponse>| r.into_body())
     }
 
     async fn get_policy_tag(
         &self,
         req: crate::model::GetPolicyTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PolicyTag> {
+    ) -> Result<gax::response::Response<crate::model::PolicyTag>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1328,14 +1241,13 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PolicyTag>| r.into_body())
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1348,17 +1260,14 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1371,17 +1280,14 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1394,16 +1300,14 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1419,18 +1323,13 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1443,14 +1342,13 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1463,14 +1361,17 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1483,7 +1384,10 @@ impl super::stub::PolicyTagManager for PolicyTagManager {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 }
 
@@ -1513,7 +1417,7 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         &self,
         req: crate::model::ReplaceTaxonomyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Taxonomy> {
+    ) -> Result<gax::response::Response<crate::model::Taxonomy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1523,17 +1427,14 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Taxonomy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn import_taxonomies(
         &self,
         req: crate::model::ImportTaxonomiesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ImportTaxonomiesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ImportTaxonomiesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1546,17 +1447,14 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::ImportTaxonomiesResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn export_taxonomies(
         &self,
         req: crate::model::ExportTaxonomiesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExportTaxonomiesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ExportTaxonomiesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1582,14 +1480,13 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ExportTaxonomiesResponse>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1605,18 +1502,13 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1629,14 +1521,13 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1649,14 +1540,17 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1669,6 +1563,9 @@ impl super::stub::PolicyTagManagerSerialization for PolicyTagManagerSerializatio
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 }

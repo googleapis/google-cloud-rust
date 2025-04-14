@@ -55,6 +55,9 @@ pub struct NetworkConfig {
     /// customer network.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub ip_allocation: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NetworkConfig {
@@ -102,6 +105,9 @@ pub struct Version {
     /// Type represents the release availability of the version
     #[serde(rename = "type")]
     pub r#type: crate::model::version::Type,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Version {
@@ -221,6 +227,9 @@ pub struct Accelerator {
 
     /// The state of the accelerator
     pub state: crate::model::accelerator::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Accelerator {
@@ -404,6 +413,9 @@ pub struct CryptoKeyConfig {
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key_reference: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CryptoKeyConfig {
@@ -551,6 +563,9 @@ pub struct Instance {
     /// Output only. If the instance state is DISABLED, the reason for disabling the instance.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub disabled_reason: std::vec::Vec<crate::model::instance::DisabledReason>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Instance {
@@ -1045,6 +1060,9 @@ pub struct ListInstancesRequest {
     /// Sort results. Supported values are "name", "name desc",  or "" (unsorted).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesRequest {
@@ -1107,6 +1125,9 @@ pub struct ListInstancesResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInstancesResponse {
@@ -1186,6 +1207,9 @@ pub struct ListAvailableVersionsRequest {
     /// If true, only the latest patch will be returned. Ex. if allowed versions is
     /// [6.1.1, 6.1.2, 6.2.0] then response will be [6.1.2, 6.2.0]
     pub latest_patch_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAvailableVersionsRequest {
@@ -1238,6 +1262,9 @@ pub struct ListAvailableVersionsResponse {
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAvailableVersionsResponse {
@@ -1293,6 +1320,9 @@ pub struct GetInstanceRequest {
     /// projects/{project}/locations/{location}/instances/{instance}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceRequest {
@@ -1331,6 +1361,9 @@ pub struct CreateInstanceRequest {
     /// An instance resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance: std::option::Option<crate::model::Instance>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInstanceRequest {
@@ -1376,6 +1409,9 @@ pub struct DeleteInstanceRequest {
     /// projects/{project}/locations/{location}/instances/{instance}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteInstanceRequest {
@@ -1418,6 +1454,9 @@ pub struct UpdateInstanceRequest {
     /// options, and version currently) will be overwritten.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInstanceRequest {
@@ -1460,6 +1499,9 @@ pub struct RestartInstanceRequest {
     /// projects/{project}/locations/{location}/instances/{instance}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RestartInstanceRequest {
@@ -1524,6 +1566,9 @@ pub struct OperationMetadata {
     /// ENABLING, DISABLING or DELETING
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub additional_status: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {

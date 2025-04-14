@@ -72,6 +72,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -172,6 +175,9 @@ pub struct RunWorkflowCustomOperationMetadata {
     /// Output only. ID of the pipeline run created by RunWorkflow.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub pipeline_run_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RunWorkflowCustomOperationMetadata {
@@ -280,6 +286,9 @@ pub struct Connection {
     /// Configuration for the connection depending on the type of provider.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub connection_config: std::option::Option<crate::model::connection::ConnectionConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Connection {
@@ -570,6 +579,9 @@ pub struct InstallationState {
     /// installation is already complete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub action_uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InstallationState {
@@ -696,6 +708,9 @@ pub struct FetchLinkableRepositoriesRequest {
     /// Page start.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchLinkableRepositoriesRequest {
@@ -741,6 +756,9 @@ pub struct FetchLinkableRepositoriesResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchLinkableRepositoriesResponse {
@@ -801,6 +819,9 @@ pub struct GitHubConfig {
     /// GitHub App installation id.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub app_installation_id: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitHubConfig {
@@ -883,6 +904,9 @@ pub struct GitHubEnterpriseConfig {
     /// Output only. GitHub Enterprise version installed at the host_uri.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub server_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitHubEnterpriseConfig {
@@ -1011,6 +1035,9 @@ pub struct GitLabConfig {
     /// `host_uri`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub server_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GitLabConfig {
@@ -1126,6 +1153,9 @@ pub struct BitbucketDataCenterConfig {
     /// `host_uri`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub server_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BitbucketDataCenterConfig {
@@ -1228,6 +1258,9 @@ pub struct BitbucketCloudConfig {
     /// system account to generate these credentials.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub authorizer_credential: std::option::Option<crate::model::UserCredential>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BitbucketCloudConfig {
@@ -1291,6 +1324,9 @@ pub struct ServiceDirectoryConfig {
     /// projects/{project}/locations/{location}/namespaces/{namespace}/services/{service}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceDirectoryConfig {
@@ -1347,6 +1383,9 @@ pub struct Repository {
     /// Output only. External ID of the webhook created for the repository.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub webhook_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Repository {
@@ -1430,6 +1469,9 @@ pub struct OAuthCredential {
     /// Output only. The username associated to this token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub username: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OAuthCredential {
@@ -1475,6 +1517,9 @@ pub struct UserCredential {
     /// Output only. The username associated to this token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub username: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UserCredential {
@@ -1525,6 +1570,9 @@ pub struct CreateConnectionRequest {
     /// -._~%!$&'()*+,;=@.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub connection_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateConnectionRequest {
@@ -1570,6 +1618,9 @@ pub struct GetConnectionRequest {
     /// Format: `projects/*/locations/*/connections/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetConnectionRequest {
@@ -1607,6 +1658,9 @@ pub struct ListConnectionsRequest {
     /// Page start.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectionsRequest {
@@ -1652,6 +1706,9 @@ pub struct ListConnectionsResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListConnectionsResponse {
@@ -1723,6 +1780,9 @@ pub struct UpdateConnectionRequest {
     /// connection, update will be blocked and an ABORTED error will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateConnectionRequest {
@@ -1786,6 +1846,9 @@ pub struct DeleteConnectionRequest {
 
     /// If set, validate the request, but do not actually post it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteConnectionRequest {
@@ -1840,6 +1903,9 @@ pub struct CreateRepositoryRequest {
     /// -._~%!$&'()*+,;=@.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub repository_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateRepositoryRequest {
@@ -1891,6 +1957,9 @@ pub struct BatchCreateRepositoriesRequest {
     /// Required. The request messages specifying the repositories to create.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub requests: std::vec::Vec<crate::model::CreateRepositoryRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchCreateRepositoriesRequest {
@@ -1931,6 +2000,9 @@ pub struct BatchCreateRepositoriesResponse {
     /// Repository resources created.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub repositories: std::vec::Vec<crate::model::Repository>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchCreateRepositoriesResponse {
@@ -1966,6 +2038,9 @@ pub struct GetRepositoryRequest {
     /// Format: `projects/*/locations/*/connections/*/repositories/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetRepositoryRequest {
@@ -2010,6 +2085,9 @@ pub struct ListRepositoriesRequest {
     /// `remote_uri:"<https://github.com>*"`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRepositoriesRequest {
@@ -2061,6 +2139,9 @@ pub struct ListRepositoriesResponse {
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRepositoriesResponse {
@@ -2125,6 +2206,9 @@ pub struct DeleteRepositoryRequest {
 
     /// If set, validate the request, but do not actually post it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteRepositoryRequest {
@@ -2167,6 +2251,9 @@ pub struct FetchReadWriteTokenRequest {
     /// `projects/*/locations/*/connections/*/repositories/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub repository: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchReadWriteTokenRequest {
@@ -2197,6 +2284,9 @@ pub struct FetchReadTokenRequest {
     /// `projects/*/locations/*/connections/*/repositories/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub repository: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchReadTokenRequest {
@@ -2230,6 +2320,9 @@ pub struct FetchReadTokenResponse {
     /// Expiration timestamp. Can be empty if unknown or non-expiring.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expiration_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchReadTokenResponse {
@@ -2272,6 +2365,9 @@ pub struct FetchReadWriteTokenResponse {
     /// Expiration timestamp. Can be empty if unknown or non-expiring.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expiration_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchReadWriteTokenResponse {
@@ -2320,6 +2416,9 @@ pub struct ProcessWebhookRequest {
     /// if needed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub webhook_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ProcessWebhookRequest {
@@ -2368,6 +2467,9 @@ pub struct FetchGitRefsRequest {
 
     /// Type of refs to fetch
     pub ref_type: crate::model::fetch_git_refs_request::RefType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchGitRefsRequest {
@@ -2469,6 +2571,9 @@ pub struct FetchGitRefsResponse {
     /// Name of the refs fetched.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub ref_names: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FetchGitRefsResponse {

@@ -109,6 +109,9 @@ pub struct Job {
     /// the `Job.config` is populated by the `JobTemplate.config`.\<br\>
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub job_config: std::option::Option<crate::model::job::JobConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Job {
@@ -522,6 +525,9 @@ pub struct JobTemplate {
     /// and group your job templates.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl JobTemplate {
@@ -620,6 +626,9 @@ pub struct JobConfig {
     /// [google.cloud.video.transcoder.v1.MuxStream.encryption_id]: crate::model::MuxStream::encryption_id
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub encryptions: std::vec::Vec<crate::model::Encryption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl JobConfig {
@@ -775,6 +784,9 @@ pub struct Input {
     /// Preprocessing configurations.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub preprocessing_config: std::option::Option<crate::model::PreprocessingConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Input {
@@ -824,6 +836,9 @@ pub struct Output {
     /// formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Output {
@@ -870,6 +885,9 @@ pub struct EditAtom {
     /// The default is `0s`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time_offset: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EditAtom {
@@ -929,6 +947,9 @@ pub struct AdBreak {
     /// timeline. The default is `0s`.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time_offset: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdBreak {
@@ -967,6 +988,9 @@ pub struct ElementaryStream {
     /// Encoding of an audio, video, or text track.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub elementary_stream: std::option::Option<crate::model::elementary_stream::ElementaryStream>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ElementaryStream {
@@ -1153,6 +1177,9 @@ pub struct MuxStream {
     /// be unencrypted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub encryption_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MuxStream {
@@ -1240,6 +1267,9 @@ pub struct Manifest {
     /// Specifies the manifest configuration.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub manifest_config: std::option::Option<crate::model::manifest::ManifestConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Manifest {
@@ -1332,6 +1362,9 @@ pub mod manifest {
         /// The segment reference scheme for a `DASH` manifest. The default is
         /// `SEGMENT_LIST`.
         pub segment_reference_scheme: crate::model::manifest::dash_config::SegmentReferenceScheme,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DashConfig {
@@ -1505,6 +1538,9 @@ pub struct PubsubDestination {
     /// to. For example: `projects/{project}/topics/{topic}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub topic: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PubsubDestination {
@@ -1609,6 +1645,9 @@ pub struct SpriteSheet {
     /// Specify either total number of sprites or interval to create sprites.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub extraction_strategy: std::option::Option<crate::model::sprite_sheet::ExtractionStrategy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SpriteSheet {
@@ -1781,6 +1820,9 @@ pub struct Overlay {
     /// overlap.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub animations: std::vec::Vec<crate::model::overlay::Animation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Overlay {
@@ -1831,6 +1873,9 @@ pub mod overlay {
 
         /// Normalized y coordinate.
         pub y: f64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NormalizedCoordinate {
@@ -1878,6 +1923,9 @@ pub mod overlay {
         /// Target image opacity. Valid values are from  `1.0` (solid, default) to
         /// `0.0` (transparent), exclusive. Set this to a value greater than `0.0`.
         pub alpha: f64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Image {
@@ -1932,6 +1980,9 @@ pub mod overlay {
         /// The time to start displaying the overlay object, in seconds. Default: 0
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub start_time_offset: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnimationStatic {
@@ -1991,6 +2042,9 @@ pub mod overlay {
         /// `start_time_offset` + 1s
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub end_time_offset: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnimationFade {
@@ -2054,6 +2108,9 @@ pub mod overlay {
         /// The time to end overlay object, in seconds. Default: 0
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub start_time_offset: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnimationEnd {
@@ -2086,6 +2143,9 @@ pub mod overlay {
         /// Animations can be static or fade, or they can end the previous animation.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub animation_type: std::option::Option<crate::model::overlay::animation::AnimationType>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Animation {
@@ -2319,6 +2379,9 @@ pub struct PreprocessingConfig {
     /// Specify the video deinterlace configuration.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub deinterlace: std::option::Option<crate::model::preprocessing_config::Deinterlace>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PreprocessingConfig {
@@ -2437,6 +2500,9 @@ pub mod preprocessing_config {
         /// is minimum brightness and 1 is maximum brightness. 0 is no change. The
         /// default is 0.
         pub brightness: f64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Color {
@@ -2489,6 +2555,9 @@ pub mod preprocessing_config {
         /// - `grain`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub tune: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Denoise {
@@ -2530,6 +2599,9 @@ pub mod preprocessing_config {
 
         /// Enable deblocker. The default is `false`.
         pub enabled: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Deblock {
@@ -2584,6 +2656,9 @@ pub mod preprocessing_config {
         ///
         /// **Note:** This field is not supported.
         pub low_boost: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Audio {
@@ -2634,6 +2709,9 @@ pub mod preprocessing_config {
 
         /// The number of pixels to crop from the right. The default is 0.
         pub right_pixels: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Crop {
@@ -2690,6 +2768,9 @@ pub mod preprocessing_config {
 
         /// The number of pixels to add to the right. The default is 0.
         pub right_pixels: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Pad {
@@ -2739,6 +2820,9 @@ pub mod preprocessing_config {
         pub deinterlacing_filter: std::option::Option<
             crate::model::preprocessing_config::deinterlace::DeinterlacingFilter,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Deinterlace {
@@ -2881,6 +2965,9 @@ pub mod preprocessing_config {
             /// Deinterlace all frames rather than just the frames identified as
             /// interlaced. The default is `false`.
             pub deinterlace_all_frames: bool,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl YadifConfig {
@@ -2950,6 +3037,9 @@ pub mod preprocessing_config {
             /// Deinterlace all frames rather than just the frames identified as
             /// interlaced. The default is `false`.
             pub deinterlace_all_frames: bool,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl BwdifConfig {
@@ -3004,6 +3094,9 @@ pub struct VideoStream {
     /// Codec settings can be h264, h265, or vp9.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub codec_settings: std::option::Option<crate::model::video_stream::CodecSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VideoStream {
@@ -3265,6 +3358,9 @@ pub mod video_stream {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub gop_mode:
             std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl H264CodecSettings {
@@ -3634,6 +3730,9 @@ pub mod video_stream {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub gop_mode:
             std::option::Option<crate::model::video_stream::h_265_codec_settings::GopMode>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl H265CodecSettings {
@@ -3932,6 +4031,9 @@ pub mod video_stream {
         /// GOP mode can be either by frame count or duration.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub gop_mode: std::option::Option<crate::model::video_stream::vp_9_codec_settings::GopMode>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Vp9CodecSettings {
@@ -4161,6 +4263,9 @@ pub struct AudioStream {
     /// will be added to the HLS/DASH manifest. Not supported in MP4 files.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AudioStream {
@@ -4265,6 +4370,9 @@ pub mod audio_stream {
         /// Audio volume control in dB. Negative values decrease volume,
         /// positive values increase. The default is 0.
         pub gain_db: f64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AudioMapping {
@@ -4349,6 +4457,9 @@ pub struct TextStream {
     /// will be added to the HLS/DASH manifest. Not supported in MP4 files.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub display_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TextStream {
@@ -4414,6 +4525,9 @@ pub mod text_stream {
 
         /// Required. The zero-based index of the track in the input file.
         pub input_track: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TextMapping {
@@ -4462,6 +4576,9 @@ pub struct SegmentSettings {
 
     /// Required. Create an individual segment file. The default is `false`.
     pub individual_segments: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SegmentSettings {
@@ -4513,6 +4630,9 @@ pub struct Encryption {
     /// Defines where content keys are stored.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub secret_source: std::option::Option<crate::model::encryption::SecretSource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Encryption {
@@ -4696,7 +4816,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Aes128Encryption {}
+    pub struct Aes128Encryption {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Aes128Encryption {
         pub fn new() -> Self {
@@ -4715,7 +4838,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct SampleAesEncryption {}
+    pub struct SampleAesEncryption {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl SampleAesEncryption {
         pub fn new() -> Self {
@@ -4743,6 +4869,9 @@ pub mod encryption {
         /// - `cbcs`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub scheme: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MpegCommonEncryption {
@@ -4777,6 +4906,9 @@ pub mod encryption {
         /// not supported.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub secret_version: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SecretManagerSource {
@@ -4805,7 +4937,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Widevine {}
+    pub struct Widevine {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Widevine {
         pub fn new() -> Self {
@@ -4824,7 +4959,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Fairplay {}
+    pub struct Fairplay {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Fairplay {
         pub fn new() -> Self {
@@ -4843,7 +4981,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Playready {}
+    pub struct Playready {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Playready {
         pub fn new() -> Self {
@@ -4862,7 +5003,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Clearkey {}
+    pub struct Clearkey {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Clearkey {
         pub fn new() -> Self {
@@ -4897,6 +5041,9 @@ pub mod encryption {
         /// Clearkey configuration.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub clearkey: std::option::Option<crate::model::encryption::Clearkey>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DrmSystems {
@@ -4992,6 +5139,9 @@ pub struct CreateJobRequest {
     /// Required. Parameters for creating transcoding job.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub job: std::option::Option<crate::model::Job>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateJobRequest {
@@ -5049,6 +5199,9 @@ pub struct ListJobsRequest {
     /// See <https://google.aip.dev/132#ordering>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListJobsRequest {
@@ -5103,6 +5256,9 @@ pub struct GetJobRequest {
     /// Format: `projects/{project}/locations/{location}/jobs/{job}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetJobRequest {
@@ -5137,6 +5293,9 @@ pub struct DeleteJobRequest {
     /// If set to true, and the job is not found, the request will succeed but no
     /// action will be taken on the server.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteJobRequest {
@@ -5180,6 +5339,9 @@ pub struct ListJobsResponse {
     /// List of regions that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListJobsResponse {
@@ -5258,6 +5420,9 @@ pub struct CreateJobTemplateRequest {
     /// regular expression `[a-zA-Z][a-zA-Z0-9_-]*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub job_template_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateJobTemplateRequest {
@@ -5323,6 +5488,9 @@ pub struct ListJobTemplatesRequest {
     /// See <https://google.aip.dev/132#ordering>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListJobTemplatesRequest {
@@ -5378,6 +5546,9 @@ pub struct GetJobTemplateRequest {
     /// `projects/{project}/locations/{location}/jobTemplates/{job_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetJobTemplateRequest {
@@ -5412,6 +5583,9 @@ pub struct DeleteJobTemplateRequest {
     /// If set to true, and the job template is not found, the request will succeed
     /// but no action will be taken on the server.
     pub allow_missing: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteJobTemplateRequest {
@@ -5455,6 +5629,9 @@ pub struct ListJobTemplatesResponse {
     /// List of regions that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListJobTemplatesResponse {

@@ -23,121 +23,121 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_build(
         &self,
         req: crate::model::GetBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Build>;
+    ) -> crate::Result<gax::response::Response<crate::model::Build>>;
 
     async fn list_builds(
         &self,
         req: crate::model::ListBuildsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBuildsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListBuildsResponse>>;
 
     async fn cancel_build(
         &self,
         req: crate::model::CancelBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Build>;
+    ) -> crate::Result<gax::response::Response<crate::model::Build>>;
 
     async fn retry_build(
         &self,
         req: crate::model::RetryBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn approve_build(
         &self,
         req: crate::model::ApproveBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_build_trigger(
         &self,
         req: crate::model::CreateBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BuildTrigger>;
+    ) -> crate::Result<gax::response::Response<crate::model::BuildTrigger>>;
 
     async fn get_build_trigger(
         &self,
         req: crate::model::GetBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BuildTrigger>;
+    ) -> crate::Result<gax::response::Response<crate::model::BuildTrigger>>;
 
     async fn list_build_triggers(
         &self,
         req: crate::model::ListBuildTriggersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBuildTriggersResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListBuildTriggersResponse>>;
 
     async fn delete_build_trigger(
         &self,
         req: crate::model::DeleteBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn update_build_trigger(
         &self,
         req: crate::model::UpdateBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BuildTrigger>;
+    ) -> crate::Result<gax::response::Response<crate::model::BuildTrigger>>;
 
     async fn run_build_trigger(
         &self,
         req: crate::model::RunBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn receive_trigger_webhook(
         &self,
         req: crate::model::ReceiveTriggerWebhookRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReceiveTriggerWebhookResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ReceiveTriggerWebhookResponse>>;
 
     async fn create_worker_pool(
         &self,
         req: crate::model::CreateWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_worker_pool(
         &self,
         req: crate::model::GetWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::WorkerPool>;
+    ) -> crate::Result<gax::response::Response<crate::model::WorkerPool>>;
 
     async fn delete_worker_pool(
         &self,
         req: crate::model::DeleteWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_worker_pool(
         &self,
         req: crate::model::UpdateWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_worker_pools(
         &self,
         req: crate::model::ListWorkerPoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkerPoolsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -158,7 +158,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::CreateBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_build(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::GetBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Build> {
+    ) -> crate::Result<gax::response::Response<crate::model::Build>> {
         T::get_build(self, req, options).await
     }
 
@@ -176,7 +176,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::ListBuildsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBuildsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListBuildsResponse>> {
         T::list_builds(self, req, options).await
     }
 
@@ -185,7 +185,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::CancelBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Build> {
+    ) -> crate::Result<gax::response::Response<crate::model::Build>> {
         T::cancel_build(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::RetryBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::retry_build(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::ApproveBuildRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::approve_build(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::CreateBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BuildTrigger> {
+    ) -> crate::Result<gax::response::Response<crate::model::BuildTrigger>> {
         T::create_build_trigger(self, req, options).await
     }
 
@@ -221,7 +221,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::GetBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BuildTrigger> {
+    ) -> crate::Result<gax::response::Response<crate::model::BuildTrigger>> {
         T::get_build_trigger(self, req, options).await
     }
 
@@ -230,7 +230,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::ListBuildTriggersRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBuildTriggersResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListBuildTriggersResponse>> {
         T::list_build_triggers(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::DeleteBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_build_trigger(self, req, options).await
     }
 
@@ -248,7 +248,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::UpdateBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BuildTrigger> {
+    ) -> crate::Result<gax::response::Response<crate::model::BuildTrigger>> {
         T::update_build_trigger(self, req, options).await
     }
 
@@ -257,7 +257,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::RunBuildTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::run_build_trigger(self, req, options).await
     }
 
@@ -266,7 +266,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::ReceiveTriggerWebhookRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ReceiveTriggerWebhookResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ReceiveTriggerWebhookResponse>> {
         T::receive_trigger_webhook(self, req, options).await
     }
 
@@ -275,7 +275,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::CreateWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_worker_pool(self, req, options).await
     }
 
@@ -284,7 +284,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::GetWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::WorkerPool> {
+    ) -> crate::Result<gax::response::Response<crate::model::WorkerPool>> {
         T::get_worker_pool(self, req, options).await
     }
 
@@ -293,7 +293,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::DeleteWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_worker_pool(self, req, options).await
     }
 
@@ -302,7 +302,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::UpdateWorkerPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_worker_pool(self, req, options).await
     }
 
@@ -311,7 +311,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: crate::model::ListWorkerPoolsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListWorkerPoolsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListWorkerPoolsResponse>> {
         T::list_worker_pools(self, req, options).await
     }
 
@@ -320,7 +320,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::CloudBuild> CloudBuild for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

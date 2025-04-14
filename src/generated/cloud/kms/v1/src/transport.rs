@@ -44,7 +44,7 @@ impl super::stub::Autokey for Autokey {
         &self,
         req: crate::model::CreateKeyHandleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -61,14 +61,13 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, Some(req.key_handle), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_key_handle(
         &self,
         req: crate::model::GetKeyHandleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::KeyHandle> {
+    ) -> Result<gax::response::Response<crate::model::KeyHandle>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -81,14 +80,13 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::KeyHandle>| r.into_body())
     }
 
     async fn list_key_handles(
         &self,
         req: crate::model::ListKeyHandlesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListKeyHandlesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListKeyHandlesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -107,14 +105,13 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListKeyHandlesResponse>| r.into_body())
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -130,14 +127,13 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -150,14 +146,13 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -170,17 +165,14 @@ impl super::stub::Autokey for Autokey {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -206,14 +198,13 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -226,16 +217,14 @@ impl super::stub::Autokey for Autokey {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -248,7 +237,6 @@ impl super::stub::Autokey for Autokey {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -292,7 +280,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         &self,
         req: crate::model::UpdateAutokeyConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AutokeyConfig> {
+    ) -> Result<gax::response::Response<crate::model::AutokeyConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -314,24 +302,19 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.autokey_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::AutokeyConfig>| r.into_body())
     }
 
     async fn get_autokey_config(
         &self,
         req: crate::model::GetAutokeyConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AutokeyConfig> {
+    ) -> Result<gax::response::Response<crate::model::AutokeyConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -344,14 +327,13 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::AutokeyConfig>| r.into_body())
     }
 
     async fn show_effective_autokey_config(
         &self,
         req: crate::model::ShowEffectiveAutokeyConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ShowEffectiveAutokeyConfigResponse> {
+    ) -> Result<gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -367,18 +349,13 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ShowEffectiveAutokeyConfigResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -394,14 +371,13 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -414,14 +390,13 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -434,17 +409,14 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -470,14 +442,13 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -490,16 +461,14 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -512,7 +481,6 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -542,7 +510,7 @@ impl super::stub::EkmService for EkmService {
         &self,
         req: crate::model::ListEkmConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEkmConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEkmConnectionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -562,18 +530,13 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListEkmConnectionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_ekm_connection(
         &self,
         req: crate::model::GetEkmConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EkmConnection> {
+    ) -> Result<gax::response::Response<crate::model::EkmConnection>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -586,14 +549,13 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::EkmConnection>| r.into_body())
     }
 
     async fn create_ekm_connection(
         &self,
         req: crate::model::CreateEkmConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EkmConnection> {
+    ) -> Result<gax::response::Response<crate::model::EkmConnection>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -610,14 +572,13 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, Some(req.ekm_connection), options)
             .await
-            .map(|r: gax::response::Response<crate::model::EkmConnection>| r.into_body())
     }
 
     async fn update_ekm_connection(
         &self,
         req: crate::model::UpdateEkmConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EkmConnection> {
+    ) -> Result<gax::response::Response<crate::model::EkmConnection>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -639,24 +600,19 @@ impl super::stub::EkmService for EkmService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.ekm_connection), options)
             .await
-            .map(|r: gax::response::Response<crate::model::EkmConnection>| r.into_body())
     }
 
     async fn get_ekm_config(
         &self,
         req: crate::model::GetEkmConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EkmConfig> {
+    ) -> Result<gax::response::Response<crate::model::EkmConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -669,14 +625,13 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::EkmConfig>| r.into_body())
     }
 
     async fn update_ekm_config(
         &self,
         req: crate::model::UpdateEkmConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EkmConfig> {
+    ) -> Result<gax::response::Response<crate::model::EkmConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -698,24 +653,19 @@ impl super::stub::EkmService for EkmService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.ekm_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::EkmConfig>| r.into_body())
     }
 
     async fn verify_connectivity(
         &self,
         req: crate::model::VerifyConnectivityRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VerifyConnectivityResponse> {
+    ) -> Result<gax::response::Response<crate::model::VerifyConnectivityResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -731,18 +681,13 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::VerifyConnectivityResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -758,14 +703,13 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -778,14 +722,13 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -798,17 +741,14 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -834,14 +774,13 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -854,16 +793,14 @@ impl super::stub::EkmService for EkmService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -876,7 +813,6 @@ impl super::stub::EkmService for EkmService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -906,7 +842,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         &self,
         req: crate::model::ListKeyRingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListKeyRingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListKeyRingsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -923,14 +859,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListKeyRingsResponse>| r.into_body())
     }
 
     async fn list_crypto_keys(
         &self,
         req: crate::model::ListCryptoKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCryptoKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -951,14 +886,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListCryptoKeysResponse>| r.into_body())
     }
 
     async fn list_crypto_key_versions(
         &self,
         req: crate::model::ListCryptoKeyVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCryptoKeyVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCryptoKeyVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -979,18 +913,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListCryptoKeyVersionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_import_jobs(
         &self,
         req: crate::model::ListImportJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListImportJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListImportJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1010,14 +939,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListImportJobsResponse>| r.into_body())
     }
 
     async fn get_key_ring(
         &self,
         req: crate::model::GetKeyRingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::KeyRing> {
+    ) -> Result<gax::response::Response<crate::model::KeyRing>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1030,14 +958,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::KeyRing>| r.into_body())
     }
 
     async fn get_crypto_key(
         &self,
         req: crate::model::GetCryptoKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CryptoKey> {
+    ) -> Result<gax::response::Response<crate::model::CryptoKey>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1050,14 +977,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::CryptoKey>| r.into_body())
     }
 
     async fn get_crypto_key_version(
         &self,
         req: crate::model::GetCryptoKeyVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CryptoKeyVersion> {
+    ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1070,14 +996,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
     }
 
     async fn get_public_key(
         &self,
         req: crate::model::GetPublicKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PublicKey> {
+    ) -> Result<gax::response::Response<crate::model::PublicKey>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1091,14 +1016,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PublicKey>| r.into_body())
     }
 
     async fn get_import_job(
         &self,
         req: crate::model::GetImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ImportJob> {
+    ) -> Result<gax::response::Response<crate::model::ImportJob>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1111,14 +1035,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ImportJob>| r.into_body())
     }
 
     async fn create_key_ring(
         &self,
         req: crate::model::CreateKeyRingRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::KeyRing> {
+    ) -> Result<gax::response::Response<crate::model::KeyRing>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1135,14 +1058,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, Some(req.key_ring), options)
             .await
-            .map(|r: gax::response::Response<crate::model::KeyRing>| r.into_body())
     }
 
     async fn create_crypto_key(
         &self,
         req: crate::model::CreateCryptoKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CryptoKey> {
+    ) -> Result<gax::response::Response<crate::model::CryptoKey>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1163,14 +1085,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, Some(req.crypto_key), options)
             .await
-            .map(|r: gax::response::Response<crate::model::CryptoKey>| r.into_body())
     }
 
     async fn create_crypto_key_version(
         &self,
         req: crate::model::CreateCryptoKeyVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CryptoKeyVersion> {
+    ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1186,14 +1107,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, Some(req.crypto_key_version), options)
             .await
-            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
     }
 
     async fn import_crypto_key_version(
         &self,
         req: crate::model::ImportCryptoKeyVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CryptoKeyVersion> {
+    ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1206,17 +1126,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_import_job(
         &self,
         req: crate::model::CreateImportJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ImportJob> {
+    ) -> Result<gax::response::Response<crate::model::ImportJob>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1233,14 +1150,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, Some(req.import_job), options)
             .await
-            .map(|r: gax::response::Response<crate::model::ImportJob>| r.into_body())
     }
 
     async fn update_crypto_key(
         &self,
         req: crate::model::UpdateCryptoKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CryptoKey> {
+    ) -> Result<gax::response::Response<crate::model::CryptoKey>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1262,24 +1178,19 @@ impl super::stub::KeyManagementService for KeyManagementService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.crypto_key), options)
             .await
-            .map(|r: gax::response::Response<crate::model::CryptoKey>| r.into_body())
     }
 
     async fn update_crypto_key_version(
         &self,
         req: crate::model::UpdateCryptoKeyVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CryptoKeyVersion> {
+    ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1301,24 +1212,19 @@ impl super::stub::KeyManagementService for KeyManagementService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.crypto_key_version), options)
             .await
-            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
     }
 
     async fn update_crypto_key_primary_version(
         &self,
         req: crate::model::UpdateCryptoKeyPrimaryVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CryptoKey> {
+    ) -> Result<gax::response::Response<crate::model::CryptoKey>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1331,17 +1237,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::CryptoKey>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn destroy_crypto_key_version(
         &self,
         req: crate::model::DestroyCryptoKeyVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CryptoKeyVersion> {
+    ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1351,17 +1254,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn restore_crypto_key_version(
         &self,
         req: crate::model::RestoreCryptoKeyVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CryptoKeyVersion> {
+    ) -> Result<gax::response::Response<crate::model::CryptoKeyVersion>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1371,17 +1271,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::CryptoKeyVersion>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn encrypt(
         &self,
         req: crate::model::EncryptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EncryptResponse> {
+    ) -> Result<gax::response::Response<crate::model::EncryptResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1391,17 +1288,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::EncryptResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn decrypt(
         &self,
         req: crate::model::DecryptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DecryptResponse> {
+    ) -> Result<gax::response::Response<crate::model::DecryptResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1411,17 +1305,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::DecryptResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn raw_encrypt(
         &self,
         req: crate::model::RawEncryptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RawEncryptResponse> {
+    ) -> Result<gax::response::Response<crate::model::RawEncryptResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1434,17 +1325,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::RawEncryptResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn raw_decrypt(
         &self,
         req: crate::model::RawDecryptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RawDecryptResponse> {
+    ) -> Result<gax::response::Response<crate::model::RawDecryptResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1457,17 +1345,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::RawDecryptResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn asymmetric_sign(
         &self,
         req: crate::model::AsymmetricSignRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AsymmetricSignResponse> {
+    ) -> Result<gax::response::Response<crate::model::AsymmetricSignResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1480,17 +1365,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::AsymmetricSignResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn asymmetric_decrypt(
         &self,
         req: crate::model::AsymmetricDecryptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AsymmetricDecryptResponse> {
+    ) -> Result<gax::response::Response<crate::model::AsymmetricDecryptResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1503,16 +1385,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::AsymmetricDecryptResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn mac_sign(
         &self,
         req: crate::model::MacSignRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MacSignResponse> {
+    ) -> Result<gax::response::Response<crate::model::MacSignResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1522,17 +1402,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::MacSignResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn mac_verify(
         &self,
         req: crate::model::MacVerifyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MacVerifyResponse> {
+    ) -> Result<gax::response::Response<crate::model::MacVerifyResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1542,17 +1419,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::MacVerifyResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn generate_random_bytes(
         &self,
         req: crate::model::GenerateRandomBytesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateRandomBytesResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateRandomBytesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1565,16 +1439,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::GenerateRandomBytesResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1590,14 +1462,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1610,14 +1481,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1630,17 +1500,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1666,14 +1533,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1686,16 +1552,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1708,6 +1572,5 @@ impl super::stub::KeyManagementService for KeyManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }

@@ -45,7 +45,7 @@ mod test {
         #[derive(Debug)]
         Speech {}
         impl speech::stub::Speech for Speech {
-            async fn get_recognizer(&self, req: speech::model::GetRecognizerRequest, _options: gax::options::RequestOptions) -> gax::Result<speech::model::Recognizer>;
+            async fn get_recognizer(&self, req: speech::model::GetRecognizerRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<speech::model::Recognizer>>;
         }
     }
     // ANCHOR_END: mockall_macro
@@ -62,7 +62,9 @@ mod test {
                 // Optionally, verify fields in the request.
                 r.name == "invalid-test-recognizer")
             .return_once(|_, _| {
-                Ok(speech::model::Recognizer::new().set_display_name("test-display-name"))
+                Ok(gax::response::Response::from(
+                    speech::model::Recognizer::new().set_display_name("test-display-name"),
+                ))
             });
         // ANCHOR_END: mock_expectation
 
@@ -90,7 +92,14 @@ mod test {
         // ANCHOR: error
         mock.expect_get_recognizer().return_once(|_, _| {
             // This time, return an error.
-            Err(gax::error::Error::other("fail"))
+            use gax::error::rpc::Status;
+            use gax::error::{Error, ServiceError};
+            let s = Status::default()
+                .set_code(404)
+                .set_message("Resource not found");
+            Err(Error::rpc(
+                ServiceError::from(s).with_http_status_code(404_u16),
+            ))
         });
         // ANCHOR_END: error
 

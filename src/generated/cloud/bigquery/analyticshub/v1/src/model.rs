@@ -97,6 +97,9 @@ pub struct DataExchange {
     /// Publishers can view the logged email of the subscriber.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub log_linked_dataset_query_user_email: std::option::Option<bool>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataExchange {
@@ -195,6 +198,9 @@ impl wkt::message::Message for DataExchange {
 pub struct SharingEnvironmentConfig {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub environment: std::option::Option<crate::model::sharing_environment_config::Environment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SharingEnvironmentConfig {
@@ -304,7 +310,10 @@ pub mod sharing_environment_config {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct DefaultExchangeConfig {}
+    pub struct DefaultExchangeConfig {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl DefaultExchangeConfig {
         pub fn new() -> Self {
@@ -340,6 +349,9 @@ pub mod sharing_environment_config {
         /// default, all new DCRs will have the restriction set to True.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub single_linked_dataset_per_cleanroom: std::option::Option<bool>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DcrExchangeConfig {
@@ -405,6 +417,9 @@ pub struct DataProvider {
     /// Max Length: 1000 bytes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub primary_contact: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DataProvider {
@@ -445,6 +460,9 @@ pub struct Publisher {
     /// Max Length: 1000 bytes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub primary_contact: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Publisher {
@@ -485,6 +503,9 @@ pub struct DestinationDatasetReference {
     /// Required. The ID of the project containing this dataset.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub project_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DestinationDatasetReference {
@@ -542,6 +563,9 @@ pub struct DestinationDataset {
     /// locations.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DestinationDataset {
@@ -612,6 +636,9 @@ pub struct DestinationPubSubSubscription {
     /// Required. Destination Pub/Sub subscription resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub pubsub_subscription: std::option::Option<crate::model::PubSubSubscription>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DestinationPubSubSubscription {
@@ -726,6 +753,9 @@ pub struct Listing {
     /// Listing source.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::listing::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Listing {
@@ -962,6 +992,9 @@ pub mod listing {
         pub restricted_export_policy: std::option::Option<
             crate::model::listing::big_query_dataset_source::RestrictedExportPolicy,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BigQueryDatasetSource {
@@ -1025,6 +1058,9 @@ pub mod listing {
             pub resource: std::option::Option<
                 crate::model::listing::big_query_dataset_source::selected_resource::Resource,
             >,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl SelectedResource {
@@ -1108,6 +1144,9 @@ pub mod listing {
             /// restricted linked dataset table.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub restrict_query_result: std::option::Option<wkt::BoolValue>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl RestrictedExportPolicy {
@@ -1170,6 +1209,9 @@ pub mod listing {
         /// full listing of possible Cloud regions.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub data_affinity_regions: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PubSubTopicSource {
@@ -1218,6 +1260,9 @@ pub mod listing {
         /// Optional. If true, restrict export of query result derived from
         /// restricted linked dataset table.
         pub restrict_query_result: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RestrictedExportConfig {
@@ -1515,6 +1560,9 @@ pub struct Subscription {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub resource_name: std::option::Option<crate::model::subscription::ResourceName>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Subscription {
@@ -1704,6 +1752,9 @@ pub mod subscription {
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub reference: std::option::Option<crate::model::subscription::linked_resource::Reference>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl LinkedResource {
@@ -1907,6 +1958,9 @@ pub struct ListDataExchangesRequest {
     /// results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataExchangesRequest {
@@ -1952,6 +2006,9 @@ pub struct ListDataExchangesResponse {
     /// A token to request the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDataExchangesResponse {
@@ -2017,6 +2074,9 @@ pub struct ListOrgDataExchangesRequest {
     /// results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOrgDataExchangesRequest {
@@ -2063,6 +2123,9 @@ pub struct ListOrgDataExchangesResponse {
     /// A token to request the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListOrgDataExchangesResponse {
@@ -2118,6 +2181,9 @@ pub struct GetDataExchangeRequest {
     /// e.g. `projects/myproject/locations/US/dataExchanges/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDataExchangeRequest {
@@ -2158,6 +2224,9 @@ pub struct CreateDataExchangeRequest {
     /// Required. The data exchange to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub data_exchange: std::option::Option<crate::model::DataExchange>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDataExchangeRequest {
@@ -2213,6 +2282,9 @@ pub struct UpdateDataExchangeRequest {
     /// Required. The data exchange to update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub data_exchange: std::option::Option<crate::model::DataExchange>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDataExchangeRequest {
@@ -2257,6 +2329,9 @@ pub struct DeleteDataExchangeRequest {
     /// delete. For example, `projects/myproject/locations/US/dataExchanges/123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDataExchangeRequest {
@@ -2296,6 +2371,9 @@ pub struct ListListingsRequest {
     /// results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListListingsRequest {
@@ -2341,6 +2419,9 @@ pub struct ListListingsResponse {
     /// A token to request the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListListingsResponse {
@@ -2396,6 +2477,9 @@ pub struct GetListingRequest {
     /// e.g. `projects/myproject/locations/US/dataExchanges/123/listings/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetListingRequest {
@@ -2436,6 +2520,9 @@ pub struct CreateListingRequest {
     /// Required. The listing to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub listing: std::option::Option<crate::model::Listing>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateListingRequest {
@@ -2486,6 +2573,9 @@ pub struct UpdateListingRequest {
     /// Required. The listing to update.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub listing: std::option::Option<crate::model::Listing>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateListingRequest {
@@ -2528,6 +2618,9 @@ pub struct DeleteListingRequest {
     /// e.g. `projects/myproject/locations/US/dataExchanges/123/listings/456`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteListingRequest {
@@ -2562,6 +2655,9 @@ pub struct SubscribeListingRequest {
     /// Resulting destination of the listing that you subscribed to.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::subscribe_listing_request::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SubscribeListingRequest {
@@ -2688,6 +2784,9 @@ pub struct SubscribeListingResponse {
     /// Subscription object created from this subscribe action.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub subscription: std::option::Option<crate::model::Subscription>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SubscribeListingResponse {
@@ -2741,6 +2840,9 @@ pub struct SubscribeDataExchangeRequest {
     /// Email of the subscriber.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub subscriber_contact: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SubscribeDataExchangeRequest {
@@ -2802,6 +2904,9 @@ pub struct SubscribeDataExchangeResponse {
     /// Subscription object created from this subscribe action.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub subscription: std::option::Option<crate::model::Subscription>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SubscribeDataExchangeResponse {
@@ -2837,6 +2942,9 @@ pub struct RefreshSubscriptionRequest {
     /// e.g. `projects/subscriberproject/locations/US/subscriptions/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RefreshSubscriptionRequest {
@@ -2866,6 +2974,9 @@ pub struct RefreshSubscriptionResponse {
     /// The refreshed subscription resource.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub subscription: std::option::Option<crate::model::Subscription>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RefreshSubscriptionResponse {
@@ -2901,6 +3012,9 @@ pub struct GetSubscriptionRequest {
     /// e.g. projects/123/locations/US/subscriptions/456
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSubscriptionRequest {
@@ -2956,6 +3070,9 @@ pub struct ListSubscriptionsRequest {
     /// Page token, returned by a previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSubscriptionsRequest {
@@ -3007,6 +3124,9 @@ pub struct ListSubscriptionsResponse {
     /// Next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSubscriptionsResponse {
@@ -3075,6 +3195,9 @@ pub struct ListSharedResourceSubscriptionsRequest {
     /// Page token, returned by a previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSharedResourceSubscriptionsRequest {
@@ -3126,6 +3249,9 @@ pub struct ListSharedResourceSubscriptionsResponse {
     /// Next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListSharedResourceSubscriptionsResponse {
@@ -3181,6 +3307,9 @@ pub struct RevokeSubscriptionRequest {
     /// e.g. projects/123/locations/US/subscriptions/456
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RevokeSubscriptionRequest {
@@ -3207,7 +3336,10 @@ impl wkt::message::Message for RevokeSubscriptionRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct RevokeSubscriptionResponse {}
+pub struct RevokeSubscriptionResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl RevokeSubscriptionResponse {
     pub fn new() -> Self {
@@ -3231,6 +3363,9 @@ pub struct DeleteSubscriptionRequest {
     /// e.g. projects/123/locations/US/subscriptions/456
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSubscriptionRequest {
@@ -3289,6 +3424,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -3494,6 +3632,9 @@ pub struct PubSubSubscription {
     /// subscribers. Transforms are applied in the order specified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub message_transforms: std::vec::Vec<crate::model::MessageTransform>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PubSubSubscription {
@@ -3674,6 +3815,9 @@ pub struct RetryPolicy {
     /// seconds.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub maximum_backoff: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetryPolicy {
@@ -3742,6 +3886,9 @@ pub struct DeadLetterPolicy {
     ///
     /// If this parameter is 0, a default value of 5 is used.
     pub max_delivery_attempts: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeadLetterPolicy {
@@ -3786,6 +3933,9 @@ pub struct ExpirationPolicy {
     /// never expires.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ttl: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExpirationPolicy {
@@ -3856,6 +4006,9 @@ pub struct PushConfig {
     /// the chosen wrapper. When unset, `PubsubWrapper` is used.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub wrapper: std::option::Option<crate::model::push_config::Wrapper>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PushConfig {
@@ -4030,6 +4183,9 @@ pub mod push_config {
         /// the Push endpoint URL will be used.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub audience: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl OidcToken {
@@ -4066,7 +4222,10 @@ pub mod push_config {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct PubsubWrapper {}
+    pub struct PubsubWrapper {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl PubsubWrapper {
         pub fn new() -> Self {
@@ -4090,6 +4249,9 @@ pub mod push_config {
         /// `x-goog-pubsub-<KEY>:<VAL>` headers of the HTTP request. Writes the
         /// Pub/Sub message attributes to `<KEY>:<VAL>` headers of the HTTP request.
         pub write_metadata: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NoWrapper {
@@ -4183,6 +4345,9 @@ pub struct BigQueryConfig {
     /// service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com, is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub service_account_email: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BigQueryConfig {
@@ -4300,6 +4465,9 @@ pub struct CloudStorageConfig {
     /// Defaults to text format.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub output_format: std::option::Option<crate::model::cloud_storage_config::OutputFormat>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudStorageConfig {
@@ -4458,7 +4626,10 @@ pub mod cloud_storage_config {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct TextConfig {}
+    pub struct TextConfig {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl TextConfig {
         pub fn new() -> Self {
@@ -4490,6 +4661,9 @@ pub mod cloud_storage_config {
         /// Optional. When true, the output Cloud Storage file will be serialized
         /// using the topic schema, if it exists.
         pub use_topic_schema: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AvroConfig {
@@ -4547,6 +4721,9 @@ pub struct MessageTransform {
     /// The type of transform to apply to messages.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub transform: std::option::Option<crate::model::message_transform::Transform>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MessageTransform {
@@ -4676,6 +4853,9 @@ pub struct JavaScriptUDF {
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl JavaScriptUDF {

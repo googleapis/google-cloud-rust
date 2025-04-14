@@ -426,7 +426,6 @@ mod test {
         for (path, (code, body, expected_query, call_count)) in path_handlers {
             let header_map = HeaderMap::new();
             let handler = move |Query(query): Query<TokenQueryParams>| {
-                let code = code.clone();
                 let body = body.clone();
                 let header_map = header_map.clone();
                 async move {
@@ -509,7 +508,7 @@ mod test {
 
     #[tokio::test]
     async fn headers_success_with_quota_project() {
-        let scopes = vec!["scope1".to_string(), "scope2".to_string()];
+        let scopes = ["scope1".to_string(), "scope2".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
             expires_in: Some(3600),

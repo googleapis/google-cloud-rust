@@ -44,7 +44,7 @@ impl super::stub::StorageInsights for StorageInsights {
         &self,
         req: crate::model::ListReportConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListReportConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListReportConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -64,16 +64,13 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListReportConfigsResponse>| r.into_body(),
-            )
     }
 
     async fn get_report_config(
         &self,
         req: crate::model::GetReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReportConfig> {
+    ) -> Result<gax::response::Response<crate::model::ReportConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -86,14 +83,13 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ReportConfig>| r.into_body())
     }
 
     async fn create_report_config(
         &self,
         req: crate::model::CreateReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReportConfig> {
+    ) -> Result<gax::response::Response<crate::model::ReportConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -110,14 +106,13 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, Some(req.report_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::ReportConfig>| r.into_body())
     }
 
     async fn update_report_config(
         &self,
         req: crate::model::UpdateReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReportConfig> {
+    ) -> Result<gax::response::Response<crate::model::ReportConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -139,25 +134,20 @@ impl super::stub::StorageInsights for StorageInsights {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         let builder = builder.query(&[("requestId", &req.request_id)]);
         self.inner
             .execute(builder, Some(req.report_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::ReportConfig>| r.into_body())
     }
 
     async fn delete_report_config(
         &self,
         req: crate::model::DeleteReportConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -172,14 +162,17 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_report_details(
         &self,
         req: crate::model::ListReportDetailsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListReportDetailsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListReportDetailsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -199,16 +192,13 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListReportDetailsResponse>| r.into_body(),
-            )
     }
 
     async fn get_report_detail(
         &self,
         req: crate::model::GetReportDetailRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReportDetail> {
+    ) -> Result<gax::response::Response<crate::model::ReportDetail>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -221,14 +211,13 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ReportDetail>| r.into_body())
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -244,14 +233,13 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -264,14 +252,13 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -287,18 +274,13 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -311,14 +293,13 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -331,14 +312,17 @@ impl super::stub::StorageInsights for StorageInsights {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -348,9 +332,11 @@ impl super::stub::StorageInsights for StorageInsights {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 }

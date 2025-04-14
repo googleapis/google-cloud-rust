@@ -44,7 +44,7 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         &self,
         req: crate::model::GetLicensePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LicensePool> {
+    ) -> Result<gax::response::Response<crate::model::LicensePool>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -57,14 +57,13 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::LicensePool>| r.into_body())
     }
 
     async fn update_license_pool(
         &self,
         req: crate::model::UpdateLicensePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::LicensePool> {
+    ) -> Result<gax::response::Response<crate::model::LicensePool>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -86,24 +85,19 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.license_pool), options)
             .await
-            .map(|r: gax::response::Response<crate::model::LicensePool>| r.into_body())
     }
 
     async fn assign(
         &self,
         req: crate::model::AssignRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AssignResponse> {
+    ) -> Result<gax::response::Response<crate::model::AssignResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -113,17 +107,14 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::AssignResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn unassign(
         &self,
         req: crate::model::UnassignRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UnassignResponse> {
+    ) -> Result<gax::response::Response<crate::model::UnassignResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -136,17 +127,14 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::UnassignResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn enumerate_licensed_users(
         &self,
         req: crate::model::EnumerateLicensedUsersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EnumerateLicensedUsersResponse> {
+    ) -> Result<gax::response::Response<crate::model::EnumerateLicensedUsersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -164,18 +152,13 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::EnumerateLicensedUsersResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -188,7 +171,6 @@ impl super::stub::LicenseManagementService for LicenseManagementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -218,7 +200,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         &self,
         req: crate::model::PlaceOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -231,17 +213,14 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_order(
         &self,
         req: crate::model::GetOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Order> {
+    ) -> Result<gax::response::Response<crate::model::Order>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -254,14 +233,13 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Order>| r.into_body())
     }
 
     async fn list_orders(
         &self,
         req: crate::model::ListOrdersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrdersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrdersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -277,14 +255,13 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListOrdersResponse>| r.into_body())
     }
 
     async fn modify_order(
         &self,
         req: crate::model::ModifyOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -294,17 +271,14 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn cancel_order(
         &self,
         req: crate::model::CancelOrderRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -314,17 +288,14 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -337,7 +308,6 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

@@ -64,6 +64,9 @@ pub struct ClientGateway {
     /// `projects/{project_id}/locations/{location_id}/client_connector_services/{client_connector_service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub client_connector_service: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ClientGateway {
@@ -235,6 +238,9 @@ pub struct ListClientGatewaysRequest {
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClientGatewaysRequest {
@@ -296,6 +302,9 @@ pub struct ListClientGatewaysResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClientGatewaysResponse {
@@ -361,6 +370,9 @@ pub struct GetClientGatewayRequest {
     /// Required. Name of the resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetClientGatewayRequest {
@@ -422,6 +434,9 @@ pub struct CreateClientGatewayRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateClientGatewayRequest {
@@ -503,6 +518,9 @@ pub struct DeleteClientGatewayRequest {
     /// Optional. If set, validates request by executing a dry-run which would not
     /// alter the resource in any way.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteClientGatewayRequest {
@@ -573,6 +591,9 @@ pub struct ClientGatewayOperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ClientGatewayOperationMetadata {

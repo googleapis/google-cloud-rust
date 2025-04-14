@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListInsightsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInsightsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInsightsResponse>> {
         self.inner.list_insights(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetInsightRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Insight> {
+    ) -> Result<gax::response::Response<crate::model::Insight>> {
         self.inner.get_insight(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::MarkInsightAcceptedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Insight> {
+    ) -> Result<gax::response::Response<crate::model::Insight>> {
         self.inner.mark_insight_accepted(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::ListRecommendationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRecommendationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRecommendationsResponse>> {
         self.inner.list_recommendations(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::GetRecommendationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         self.inner.get_recommendation(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::MarkRecommendationDismissedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         self.inner.mark_recommendation_dismissed(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::MarkRecommendationClaimedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         self.inner.mark_recommendation_claimed(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::MarkRecommendationSucceededRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         self.inner.mark_recommendation_succeeded(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::MarkRecommendationFailedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         self.inner.mark_recommendation_failed(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::GetRecommenderConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RecommenderConfig> {
+    ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         self.inner.get_recommender_config(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::UpdateRecommenderConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RecommenderConfig> {
+    ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         self.inner.update_recommender_config(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::GetInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InsightTypeConfig> {
+    ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         self.inner.get_insight_type_config(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::UpdateInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InsightTypeConfig> {
+    ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         self.inner.update_insight_type_config(req, options).await
     }
 }

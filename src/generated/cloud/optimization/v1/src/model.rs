@@ -46,6 +46,9 @@ pub struct InputConfig {
     /// Required.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::input_config::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InputConfig {
@@ -135,6 +138,9 @@ pub struct OutputConfig {
     /// Required.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::output_config::Destination>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OutputConfig {
@@ -226,6 +232,9 @@ pub struct GcsSource {
     /// Required. URI of the Google Cloud Storage location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsSource {
@@ -255,6 +264,9 @@ pub struct GcsDestination {
     /// Required. URI of the Google Cloud Storage location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsDestination {
@@ -296,6 +308,9 @@ pub struct AsyncModelMetadata {
     /// The last update time of the operation.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AsyncModelMetadata {
@@ -663,6 +678,9 @@ pub struct OptimizeToursRequest {
     /// [google.cloud.optimization.v1.OptimizeToursRequest.populate_transition_polylines]: crate::model::OptimizeToursRequest::populate_transition_polylines
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     pub populate_travel_step_polylines: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OptimizeToursRequest {
@@ -1028,6 +1046,9 @@ pub struct OptimizeToursResponse {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     pub total_cost: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OptimizeToursResponse {
@@ -1158,6 +1179,9 @@ pub mod optimize_tours_response {
 
         /// Total cost of the solution. The sum of all values in the costs map.
         pub total_cost: f64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Metrics {
@@ -1261,6 +1285,9 @@ pub struct BatchOptimizeToursRequest {
     /// and data formats.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub model_configs: std::vec::Vec<crate::model::batch_optimize_tours_request::AsyncModelConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchOptimizeToursRequest {
@@ -1325,6 +1352,9 @@ pub mod batch_optimize_tours_request {
         /// allow_large_deadline_despite_interruption_risk since it prevents the risk
         /// of interruption.
         pub enable_checkpoints: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AsyncModelConfig {
@@ -1383,7 +1413,10 @@ pub mod batch_optimize_tours_request {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct BatchOptimizeToursResponse {}
+pub struct BatchOptimizeToursResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl BatchOptimizeToursResponse {
     pub fn new() -> Self {
@@ -1610,6 +1643,9 @@ pub struct ShipmentModel {
     /// [google.cloud.optimization.v1.Vehicle.break_rule_indices]: crate::model::Vehicle::break_rule_indices
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub break_rules: std::vec::Vec<crate::model::shipment_model::BreakRule>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ShipmentModel {
@@ -1798,6 +1834,9 @@ pub mod shipment_model {
         /// All matrices must have a different `vehicle_start_tag`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub vehicle_start_tag: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DurationDistanceMatrix {
@@ -1855,6 +1894,9 @@ pub mod shipment_model {
             /// as many elements as `durations`.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
             pub meters: std::vec::Vec<f64>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Row {
@@ -1924,6 +1966,9 @@ pub mod shipment_model {
         /// The offset between the "first" and "second" event. It can be negative.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub offset_duration: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PrecedenceRule {
@@ -2006,6 +2051,9 @@ pub mod shipment_model {
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub frequency_constraints:
             std::vec::Vec<crate::model::shipment_model::break_rule::FrequencyConstraint>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BreakRule {
@@ -2068,6 +2116,9 @@ pub mod shipment_model {
             /// Required. Minimum duration of the break. Must be positive.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub min_duration: std::option::Option<wkt::Duration>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl BreakRequest {
@@ -2163,6 +2214,9 @@ pub mod shipment_model {
             /// min_break_duration`. Must be positive.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub max_inter_break_duration: std::option::Option<wkt::Duration>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl FrequencyConstraint {
@@ -2354,6 +2408,9 @@ pub struct Shipment {
     /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Shipment {
@@ -2622,6 +2679,9 @@ pub mod shipment {
         /// [google.cloud.optimization.v1.Shipment.VisitRequest.load_demands]: crate::model::shipment::VisitRequest::load_demands
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl VisitRequest {
@@ -2773,6 +2833,9 @@ pub mod shipment {
         /// appropriate unit to avoid loss of precision. Must be ≥ 0.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub amount: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Load {
@@ -2809,6 +2872,9 @@ pub struct ShipmentTypeIncompatibility {
 
     /// Mode applied to the incompatibility.
     pub incompatibility_mode: crate::model::shipment_type_incompatibility::IncompatibilityMode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ShipmentTypeIncompatibility {
@@ -2948,6 +3014,9 @@ pub struct ShipmentTypeRequirement {
 
     /// Mode applied to the requirement.
     pub requirement_mode: crate::model::shipment_type_requirement::RequirementMode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ShipmentTypeRequirement {
@@ -3110,6 +3179,9 @@ pub struct RouteModifiers {
     /// Preference will be given to routes not containing indoor navigation.
     /// Applies only to the `WALKING` travel mode.
     pub avoid_indoor: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RouteModifiers {
@@ -3418,6 +3490,9 @@ pub struct Vehicle {
     /// [google.cloud.optimization.v1.Vehicle.LoadLimit.end_load_interval]: crate::model::vehicle::LoadLimit::end_load_interval
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub end_load_intervals: std::vec::Vec<crate::model::CapacityQuantityInterval>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Vehicle {
@@ -3754,6 +3829,9 @@ pub mod vehicle {
         /// The acceptable load interval of the vehicle at the end of the route.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub end_load_interval: std::option::Option<crate::model::vehicle::load_limit::Interval>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl LoadLimit {
@@ -3848,6 +3926,9 @@ pub mod vehicle {
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
             pub max: std::option::Option<i64>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Interval {
@@ -3940,6 +4021,9 @@ pub mod vehicle {
         /// The cost must be nonnegative.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub cost_per_square_hour_after_quadratic_soft_max: std::option::Option<f64>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DurationLimit {
@@ -4206,6 +4290,9 @@ pub struct TimeWindow {
     /// `soft_end_time` has been set.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cost_per_hour_after_soft_end_time: std::option::Option<f64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeWindow {
@@ -4294,6 +4381,9 @@ pub struct CapacityQuantity {
 
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub value: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CapacityQuantity {
@@ -4341,6 +4431,9 @@ pub struct CapacityQuantityInterval {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
     pub max_value: std::option::Option<i64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CapacityQuantityInterval {
@@ -4423,6 +4516,9 @@ pub struct DistanceLimit {
     /// The cost must be nonnegative.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub cost_per_kilometer_above_soft_max: std::option::Option<f64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DistanceLimit {
@@ -4543,6 +4639,9 @@ pub struct TransitionAttributes {
     /// starting the destination visit.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub delay: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransitionAttributes {
@@ -4637,6 +4736,9 @@ pub struct Waypoint {
     /// Different ways to represent a location.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub location_type: std::option::Option<crate::model::waypoint::LocationType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Waypoint {
@@ -4749,6 +4851,9 @@ pub struct Location {
     /// of due North, 90 specifies a heading of due East, etc.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub heading: std::option::Option<i32>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Location {
@@ -4801,6 +4906,9 @@ pub struct BreakRule {
     /// the `BreakRequest`s of this `BreakRule`. See `FrequencyConstraint`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub frequency_constraints: std::vec::Vec<crate::model::break_rule::FrequencyConstraint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BreakRule {
@@ -4863,6 +4971,9 @@ pub mod break_rule {
         /// Required. Minimum duration of the break. Must be positive.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub min_duration: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BreakRequest {
@@ -4956,6 +5067,9 @@ pub mod break_rule {
         /// min_break_duration`. Must be positive.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub max_inter_break_duration: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl FrequencyConstraint {
@@ -5220,6 +5334,9 @@ pub struct ShipmentRoute {
     /// [google.cloud.optimization.v1.TransitionAttributes.delay]: crate::model::TransitionAttributes::delay
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub delay_before_vehicle_end: std::option::Option<crate::model::shipment_route::Delay>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ShipmentRoute {
@@ -5409,6 +5526,9 @@ pub mod shipment_route {
         /// Duration of the delay.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub duration: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Delay {
@@ -5543,6 +5663,9 @@ pub mod shipment_route {
         /// [google.cloud.optimization.v1.ShipmentRoute.Visit.load_demands]: crate::model::shipment_route::Visit::load_demands
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Visit {
@@ -5754,6 +5877,9 @@ pub mod shipment_route {
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub loads: std::vec::Vec<crate::model::CapacityQuantity>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Transition {
@@ -5885,6 +6011,9 @@ pub mod shipment_route {
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub amount: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl VehicleLoad {
@@ -5917,6 +6046,9 @@ pub mod shipment_route {
         /// String representing encoded points of the polyline.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub points: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EncodedPolyline {
@@ -5950,6 +6082,9 @@ pub mod shipment_route {
         /// Duration of a break.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub duration: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Break {
@@ -6029,6 +6164,9 @@ pub mod shipment_route {
         /// [google.cloud.optimization.v1.OptimizeToursRequest.populate_travel_step_polylines]: crate::model::OptimizeToursRequest::populate_travel_step_polylines
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub route_polyline: std::option::Option<crate::model::shipment_route::EncodedPolyline>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TravelStep {
@@ -6100,6 +6238,9 @@ pub struct SkippedShipment {
     /// above `Reason`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub reasons: std::vec::Vec<crate::model::skipped_shipment::Reason>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SkippedShipment {
@@ -6187,6 +6328,9 @@ pub mod skipped_shipment {
         /// capacity type that is exceeded.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub example_exceeded_capacity_type: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Reason {
@@ -6447,6 +6591,9 @@ pub struct AggregatedMetrics {
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     /// [google.cloud.optimization.v1.ShipmentRoute.route_total_cost]: crate::model::ShipmentRoute::route_total_cost
     pub total_cost: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AggregatedMetrics {
@@ -6581,6 +6728,9 @@ pub struct InjectedSolutionConstraint {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub constraint_relaxations:
         std::vec::Vec<crate::model::injected_solution_constraint::ConstraintRelaxation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InjectedSolutionConstraint {
@@ -6665,6 +6815,9 @@ pub mod injected_solution_constraint {
         /// [google.cloud.optimization.v1.ShipmentRoute.vehicle_index]: crate::model::ShipmentRoute::vehicle_index
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub vehicle_indices: std::vec::Vec<i32>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ConstraintRelaxation {
@@ -6766,6 +6919,9 @@ pub mod injected_solution_constraint {
             /// the vehicle end. If it is more than `route.visits_size() + 1`,
             /// `level` is not applied at all for that route.
             pub threshold_visit_count: i32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Relaxation {
@@ -7202,6 +7358,9 @@ pub struct OptimizeToursValidationError {
     /// debugging.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub offending_values: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OptimizeToursValidationError {
@@ -7289,6 +7448,9 @@ pub mod optimize_tours_validation_error {
         pub index_or_key: std::option::Option<
             crate::model::optimize_tours_validation_error::field_reference::IndexOrKey,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl FieldReference {

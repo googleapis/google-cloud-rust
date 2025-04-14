@@ -45,6 +45,9 @@ pub struct AlertChart {
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AlertChart {
@@ -74,6 +77,9 @@ impl wkt::message::Message for AlertChart {
 pub struct CollapsibleGroup {
     /// The collapsed state of the widget on first page load.
     pub collapsed: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CollapsibleGroup {
@@ -190,6 +196,9 @@ pub struct Aggregation {
     /// defined, this field is ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub group_by_fields: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Aggregation {
@@ -672,6 +681,9 @@ pub struct PickTimeSeriesFilter {
     /// Select the top N streams/time series within this time interval
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub interval: std::option::Option<gtype::model::Interval>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PickTimeSeriesFilter {
@@ -877,6 +889,9 @@ pub struct StatisticalTimeSeriesFilter {
 
     /// How many time series to output.
     pub num_time_series: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StatisticalTimeSeriesFilter {
@@ -1002,6 +1017,9 @@ pub struct Dashboard {
     /// A dashboard's root container element that defines the layout style.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub layout: std::option::Option<crate::model::dashboard::Layout>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Dashboard {
@@ -1221,6 +1239,9 @@ pub struct DashboardFilter {
     /// The default value used in the filter comparison
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub default_value: std::option::Option<crate::model::dashboard_filter::DefaultValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DashboardFilter {
@@ -1407,6 +1428,9 @@ pub struct CreateDashboardRequest {
     /// If set, validate the request and preview the review, but do not actually
     /// save it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDashboardRequest {
@@ -1466,6 +1490,9 @@ pub struct ListDashboardsRequest {
     /// method call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDashboardsRequest {
@@ -1513,6 +1540,9 @@ pub struct ListDashboardsResponse {
     /// use that value as `page_token` in the next call to this method.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDashboardsResponse {
@@ -1571,6 +1601,9 @@ pub struct GetDashboardRequest {
     ///   (for custom dashboards).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDashboardRequest {
@@ -1604,6 +1637,9 @@ pub struct DeleteDashboardRequest {
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDashboardRequest {
@@ -1637,6 +1673,9 @@ pub struct UpdateDashboardRequest {
     /// If set, validate the request and preview the review, but do not actually
     /// save it.
     pub validate_only: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateDashboardRequest {
@@ -1697,6 +1736,9 @@ pub struct ErrorReportingPanel {
     /// the app.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub versions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ErrorReportingPanel {
@@ -1762,6 +1804,9 @@ pub struct IncidentList {
     /// example, use `alertPolicies/utilization`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub policy_names: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IncidentList {
@@ -1813,6 +1858,9 @@ pub struct GridLayout {
     /// The informational elements that are arranged into the columns row-first.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub widgets: std::vec::Vec<crate::model::Widget>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GridLayout {
@@ -1859,6 +1907,9 @@ pub struct MosaicLayout {
     /// The tiles to display.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub tiles: std::vec::Vec<crate::model::mosaic_layout::Tile>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MosaicLayout {
@@ -1922,6 +1973,9 @@ pub mod mosaic_layout {
         /// The informational widget contained in the tile. For example an `XyChart`.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub widget: std::option::Option<crate::model::Widget>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Tile {
@@ -1980,6 +2034,9 @@ pub struct RowLayout {
     /// The rows of content to display.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub rows: std::vec::Vec<crate::model::row_layout::Row>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RowLayout {
@@ -2026,6 +2083,9 @@ pub mod row_layout {
         /// The display widgets arranged horizontally in this row.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub widgets: std::vec::Vec<crate::model::Widget>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Row {
@@ -2068,6 +2128,9 @@ pub struct ColumnLayout {
     /// The columns of content to display.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub columns: std::vec::Vec<crate::model::column_layout::Column>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ColumnLayout {
@@ -2114,6 +2177,9 @@ pub mod column_layout {
         /// The display widgets arranged vertically in this column.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub widgets: std::vec::Vec<crate::model::Widget>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Column {
@@ -2163,6 +2229,9 @@ pub struct LogsPanel {
     /// are supported. If empty, the widget will default to the host project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub resource_names: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogsPanel {
@@ -2222,6 +2291,9 @@ pub struct TimeSeriesQuery {
     /// Parameters needed to obtain data for the chart.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::time_series_query::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeSeriesQuery {
@@ -2428,6 +2500,9 @@ pub struct TimeSeriesFilter {
     /// Selects an optional time series filter.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub output_filter: std::option::Option<crate::model::time_series_filter::OutputFilter>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeSeriesFilter {
@@ -2587,6 +2662,9 @@ pub struct TimeSeriesFilterRatio {
     /// computing the ratio.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub output_filter: std::option::Option<crate::model::time_series_filter_ratio::OutputFilter>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeSeriesFilterRatio {
@@ -2736,6 +2814,9 @@ pub mod time_series_filter_ratio {
         /// data.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub aggregation: std::option::Option<crate::model::Aggregation>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RatioPart {
@@ -2805,6 +2886,9 @@ pub struct Threshold {
     /// The target axis to use for plotting the threshold. Target axis is not
     /// allowed in a Scorecard.
     pub target_axis: crate::model::threshold::TargetAxis,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Threshold {
@@ -3057,6 +3141,9 @@ pub struct PieChart {
 
     /// Optional. Indicates whether or not the pie chart should show slices' labels
     pub show_labels: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PieChart {
@@ -3129,6 +3216,9 @@ pub mod pie_chart {
         /// would not make sense to fetch and align data at one minute intervals.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub min_alignment_period: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PieChartDataSet {
@@ -3291,6 +3381,9 @@ pub struct Scorecard {
     /// neither is included - then a default scorecard is shown.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub data_view: std::option::Option<crate::model::scorecard::DataView>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Scorecard {
@@ -3441,6 +3534,9 @@ pub mod scorecard {
         /// The upper bound for this gauge chart. The value of the chart should
         /// always be less than or equal to this.
         pub upper_bound: f64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GaugeView {
@@ -3486,6 +3582,9 @@ pub mod scorecard {
         /// optional and exists only as a hint.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub min_alignment_period: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SparkChartView {
@@ -3549,6 +3648,9 @@ pub struct SectionHeader {
 
     /// Whether to insert a divider below the section in the table of contents
     pub divider_below: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SectionHeader {
@@ -3582,7 +3684,10 @@ impl wkt::message::Message for SectionHeader {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct SingleViewGroup {}
+pub struct SingleViewGroup {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl SingleViewGroup {
     pub fn new() -> Self {
@@ -3612,6 +3717,9 @@ pub struct TimeSeriesTable {
     /// Optional. The list of the persistent column settings for the table.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub column_settings: std::vec::Vec<crate::model::time_series_table::ColumnSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeSeriesTable {
@@ -3694,6 +3802,9 @@ pub mod time_series_table {
         /// rendered.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub table_display_options: std::option::Option<crate::model::TableDisplayOptions>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TableDataSet {
@@ -3762,6 +3873,9 @@ pub mod time_series_table {
 
         /// Required. Whether the column should be visible on page load.
         pub visible: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ColumnSettings {
@@ -3859,6 +3973,9 @@ pub struct TableDisplayOptions {
     /// TimeSeriesTable.column_settings
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub shown_columns: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TableDisplayOptions {
@@ -3900,6 +4017,9 @@ pub struct Text {
     /// How the text is styled
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub style: std::option::Option<crate::model::text::TextStyle>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Text {
@@ -3969,6 +4089,9 @@ pub mod text {
 
         /// The pointer location for this widget (also sometimes called a "tail")
         pub pointer_location: crate::model::text::text_style::PointerLocation,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TextStyle {
@@ -4519,6 +4642,9 @@ pub struct Widget {
     /// Content defines the component used to populate the widget.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub content: std::option::Option<crate::model::widget::Content>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Widget {
@@ -4976,6 +5102,9 @@ pub struct XyChart {
     /// Display options for the chart.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub chart_options: std::option::Option<crate::model::ChartOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl XyChart {
@@ -5094,6 +5223,9 @@ pub mod xy_chart {
 
         /// Optional. The target axis to use for plotting the metric.
         pub target_axis: crate::model::xy_chart::data_set::TargetAxis,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DataSet {
@@ -5314,6 +5446,9 @@ pub mod xy_chart {
 
         /// The axis scale. By default, a linear scale is used.
         pub scale: crate::model::xy_chart::axis::Scale,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Axis {
@@ -5415,6 +5550,9 @@ pub mod xy_chart {
 pub struct ChartOptions {
     /// The chart mode.
     pub mode: crate::model::chart_options::Mode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ChartOptions {

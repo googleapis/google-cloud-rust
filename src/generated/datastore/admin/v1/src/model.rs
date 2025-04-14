@@ -57,6 +57,9 @@ pub struct CommonMetadata {
 
     /// The current state of the Operation.
     pub state: crate::model::common_metadata::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CommonMetadata {
@@ -224,6 +227,9 @@ pub struct Progress {
     /// work estimate is unavailable.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub work_estimated: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Progress {
@@ -293,6 +299,9 @@ pub struct ExportEntitiesRequest {
     /// [google.datastore.admin.v1.ExportEntitiesResponse.output_url]: crate::model::ExportEntitiesResponse::output_url
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub output_url_prefix: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportEntitiesRequest {
@@ -387,6 +396,9 @@ pub struct ImportEntitiesRequest {
     /// specified then all entities from the export are imported.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub entity_filter: std::option::Option<crate::model::EntityFilter>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportEntitiesRequest {
@@ -453,6 +465,9 @@ pub struct ExportEntitiesResponse {
     /// [google.datastore.admin.v1.ImportEntitiesRequest.input_url]: crate::model::ImportEntitiesRequest::input_url
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub output_url: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportEntitiesResponse {
@@ -505,6 +520,9 @@ pub struct ExportEntitiesMetadata {
     /// [google.datastore.admin.v1.ExportEntitiesResponse.output_url]: crate::model::ExportEntitiesResponse::output_url
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub output_url_prefix: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportEntitiesMetadata {
@@ -600,6 +618,9 @@ pub struct ImportEntitiesMetadata {
     /// [google.datastore.admin.v1.ExportEntitiesResponse.output_url]: crate::model::ExportEntitiesResponse::output_url
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub input_url: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportEntitiesMetadata {
@@ -699,6 +720,9 @@ pub struct EntityFilter {
     /// Each namespace in this list must be unique.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub namespace_ids: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EntityFilter {
@@ -752,6 +776,9 @@ pub struct CreateIndexRequest {
     /// ignored. Single property indexes cannot be created or deleted.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub index: std::option::Option<crate::model::Index>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateIndexRequest {
@@ -797,6 +824,9 @@ pub struct DeleteIndexRequest {
     /// The resource ID of the index to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub index_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteIndexRequest {
@@ -839,6 +869,9 @@ pub struct GetIndexRequest {
     /// The resource ID of the index to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub index_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetIndexRequest {
@@ -888,6 +921,9 @@ pub struct ListIndexesRequest {
     /// The next_page_token value returned from a previous List request, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListIndexesRequest {
@@ -942,6 +978,9 @@ pub struct ListIndexesResponse {
     /// The standard List next-page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListIndexesResponse {
@@ -1004,6 +1043,9 @@ pub struct IndexOperationMetadata {
     /// The index resource ID that this operation is acting on.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub index_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IndexOperationMetadata {
@@ -1064,6 +1106,9 @@ pub struct DatastoreFirestoreMigrationMetadata {
     /// The current step of migration from Cloud Datastore to Cloud Firestore in
     /// Datastore mode.
     pub migration_step: crate::model::MigrationStep,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DatastoreFirestoreMigrationMetadata {
@@ -1128,6 +1173,9 @@ pub struct Index {
 
     /// Output only. The state of the index.
     pub state: crate::model::index::State,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Index {
@@ -1204,6 +1252,9 @@ pub mod index {
         /// Required. The indexed property's direction.  Must not be
         /// DIRECTION_UNSPECIFIED.
         pub direction: crate::model::index::Direction,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IndexedProperty {
@@ -1443,6 +1494,9 @@ pub mod index {
 pub struct MigrationStateEvent {
     /// The new state of the migration.
     pub state: crate::model::MigrationState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MigrationStateEvent {
@@ -1480,6 +1534,9 @@ pub struct MigrationProgressEvent {
     /// Details about this step.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub step_details: std::option::Option<crate::model::migration_progress_event::StepDetails>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MigrationProgressEvent {
@@ -1601,6 +1658,9 @@ pub mod migration_progress_event {
         /// The concurrency mode this database will use when it reaches the
         /// `REDIRECT_WRITES` step.
         pub concurrency_mode: crate::model::migration_progress_event::ConcurrencyMode,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PrepareStepDetails {
@@ -1634,6 +1694,9 @@ pub mod migration_progress_event {
     pub struct RedirectWritesStepDetails {
         /// Ths concurrency mode for this database.
         pub concurrency_mode: crate::model::migration_progress_event::ConcurrencyMode,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl RedirectWritesStepDetails {

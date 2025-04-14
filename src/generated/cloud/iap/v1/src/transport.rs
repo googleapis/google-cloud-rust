@@ -44,7 +44,7 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,17 +57,14 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -80,17 +77,14 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -103,16 +97,14 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iap_settings(
         &self,
         req: crate::model::GetIapSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IapSettings> {
+    ) -> Result<gax::response::Response<crate::model::IapSettings>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -128,14 +120,13 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::IapSettings>| r.into_body())
     }
 
     async fn update_iap_settings(
         &self,
         req: crate::model::UpdateIapSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IapSettings> {
+    ) -> Result<gax::response::Response<crate::model::IapSettings>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -157,24 +148,19 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.iap_settings), options)
             .await
-            .map(|r: gax::response::Response<crate::model::IapSettings>| r.into_body())
     }
 
     async fn list_tunnel_dest_groups(
         &self,
         req: crate::model::ListTunnelDestGroupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTunnelDestGroupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTunnelDestGroupsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -192,18 +178,13 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListTunnelDestGroupsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn create_tunnel_dest_group(
         &self,
         req: crate::model::CreateTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TunnelDestGroup> {
+    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -220,14 +201,13 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, Some(req.tunnel_dest_group), options)
             .await
-            .map(|r: gax::response::Response<crate::model::TunnelDestGroup>| r.into_body())
     }
 
     async fn get_tunnel_dest_group(
         &self,
         req: crate::model::GetTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TunnelDestGroup> {
+    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -240,14 +220,13 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::TunnelDestGroup>| r.into_body())
     }
 
     async fn delete_tunnel_dest_group(
         &self,
         req: crate::model::DeleteTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -260,14 +239,17 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_tunnel_dest_group(
         &self,
         req: crate::model::UpdateTunnelDestGroupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TunnelDestGroup> {
+    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -289,17 +271,12 @@ impl super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminServ
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.tunnel_dest_group), options)
             .await
-            .map(|r: gax::response::Response<crate::model::TunnelDestGroup>| r.into_body())
     }
 }
 
@@ -329,7 +306,7 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         &self,
         req: crate::model::ListBrandsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBrandsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBrandsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -342,14 +319,13 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListBrandsResponse>| r.into_body())
     }
 
     async fn create_brand(
         &self,
         req: crate::model::CreateBrandRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Brand> {
+    ) -> Result<gax::response::Response<crate::model::Brand>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -359,17 +335,14 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req.brand), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Brand>| r.into_body())
+        self.inner.execute(builder, Some(req.brand), options).await
     }
 
     async fn get_brand(
         &self,
         req: crate::model::GetBrandRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Brand> {
+    ) -> Result<gax::response::Response<crate::model::Brand>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -382,14 +355,13 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Brand>| r.into_body())
     }
 
     async fn create_identity_aware_proxy_client(
         &self,
         req: crate::model::CreateIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IdentityAwareProxyClient> {
+    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -405,14 +377,13 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, Some(req.identity_aware_proxy_client), options)
             .await
-            .map(|r: gax::response::Response<crate::model::IdentityAwareProxyClient>| r.into_body())
     }
 
     async fn list_identity_aware_proxy_clients(
         &self,
         req: crate::model::ListIdentityAwareProxyClientsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListIdentityAwareProxyClientsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -430,18 +401,13 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::ListIdentityAwareProxyClientsResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn get_identity_aware_proxy_client(
         &self,
         req: crate::model::GetIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IdentityAwareProxyClient> {
+    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -454,14 +420,13 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::IdentityAwareProxyClient>| r.into_body())
     }
 
     async fn reset_identity_aware_proxy_client_secret(
         &self,
         req: crate::model::ResetIdentityAwareProxyClientSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::IdentityAwareProxyClient> {
+    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -474,17 +439,14 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::IdentityAwareProxyClient>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn delete_identity_aware_proxy_client(
         &self,
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -497,6 +459,9 @@ impl super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthServ
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 }

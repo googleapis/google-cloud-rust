@@ -45,11 +45,12 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListDataSetsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListDataSetsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListDataSetsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListDataSetsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListDataSetsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TimeseriesInsightsController::create_data_set].
@@ -57,10 +58,12 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateDataSetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::DataSet>> + Send {
-        std::future::ready::<crate::Result<crate::model::DataSet>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::DataSet>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::DataSet>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::TimeseriesInsightsController::delete_data_set].
@@ -68,8 +71,10 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteDataSetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::TimeseriesInsightsController::append_events].
@@ -77,11 +82,12 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::AppendEventsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AppendEventsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::AppendEventsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AppendEventsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::AppendEventsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TimeseriesInsightsController::query_data_set].
@@ -89,11 +95,12 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::QueryDataSetRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::QueryDataSetResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::QueryDataSetResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::QueryDataSetResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::QueryDataSetResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::TimeseriesInsightsController::evaluate_slice].
@@ -101,10 +108,12 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EvaluateSliceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::EvaluatedSlice>> + Send {
-        std::future::ready::<crate::Result<crate::model::EvaluatedSlice>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::EvaluatedSlice>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::EvaluatedSlice>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::TimeseriesInsightsController::evaluate_timeseries].
@@ -112,9 +121,11 @@ pub trait TimeseriesInsightsController: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::EvaluateTimeseriesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::EvaluatedSlice>> + Send {
-        std::future::ready::<crate::Result<crate::model::EvaluatedSlice>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::EvaluatedSlice>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::EvaluatedSlice>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

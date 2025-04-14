@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListOrchestrationClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrchestrationClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrchestrationClustersResponse>> {
         self.inner.list_orchestration_clusters(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::GetOrchestrationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OrchestrationCluster> {
+    ) -> Result<gax::response::Response<crate::model::OrchestrationCluster>> {
         self.inner.get_orchestration_cluster(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::CreateOrchestrationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_orchestration_cluster(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteOrchestrationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_orchestration_cluster(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::ListEdgeSlmsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEdgeSlmsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEdgeSlmsResponse>> {
         self.inner.list_edge_slms(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::GetEdgeSlmRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EdgeSlm> {
+    ) -> Result<gax::response::Response<crate::model::EdgeSlm>> {
         self.inner.get_edge_slm(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::CreateEdgeSlmRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_edge_slm(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::DeleteEdgeSlmRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_edge_slm(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::CreateBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         self.inner.create_blueprint(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::UpdateBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         self.inner.update_blueprint(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::GetBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         self.inner.get_blueprint(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::DeleteBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_blueprint(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::ListBlueprintsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBlueprintsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBlueprintsResponse>> {
         self.inner.list_blueprints(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::ApproveBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         self.inner.approve_blueprint(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::ProposeBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         self.inner.propose_blueprint(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::RejectBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         self.inner.reject_blueprint(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::ListBlueprintRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBlueprintRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBlueprintRevisionsResponse>> {
         self.inner.list_blueprint_revisions(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::SearchBlueprintRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchBlueprintRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>> {
         self.inner.search_blueprint_revisions(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::SearchDeploymentRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchDeploymentRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>> {
         self.inner.search_deployment_revisions(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::DiscardBlueprintChangesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscardBlueprintChangesResponse> {
+    ) -> Result<gax::response::Response<crate::model::DiscardBlueprintChangesResponse>> {
         self.inner.discard_blueprint_changes(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::ListPublicBlueprintsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPublicBlueprintsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPublicBlueprintsResponse>> {
         self.inner.list_public_blueprints(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::GetPublicBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PublicBlueprint> {
+    ) -> Result<gax::response::Response<crate::model::PublicBlueprint>> {
         self.inner.get_public_blueprint(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::CreateDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         self.inner.create_deployment(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: crate::model::UpdateDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         self.inner.update_deployment(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::GetDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         self.inner.get_deployment(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::RemoveDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.remove_deployment(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: crate::model::ListDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDeploymentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
         self.inner.list_deployments(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: crate::model::ListDeploymentRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDeploymentRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDeploymentRevisionsResponse>> {
         self.inner.list_deployment_revisions(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: crate::model::DiscardDeploymentChangesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscardDeploymentChangesResponse> {
+    ) -> Result<gax::response::Response<crate::model::DiscardDeploymentChangesResponse>> {
         self.inner.discard_deployment_changes(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: crate::model::ApplyDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         self.inner.apply_deployment(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: crate::model::ComputeDeploymentStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ComputeDeploymentStatusResponse> {
+    ) -> Result<gax::response::Response<crate::model::ComputeDeploymentStatusResponse>> {
         self.inner.compute_deployment_status(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: crate::model::RollbackDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         self.inner.rollback_deployment(req, options).await
     }
 
@@ -330,7 +330,7 @@ where
         &self,
         req: crate::model::GetHydratedDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HydratedDeployment> {
+    ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
         self.inner.get_hydrated_deployment(req, options).await
     }
 
@@ -339,7 +339,7 @@ where
         &self,
         req: crate::model::ListHydratedDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListHydratedDeploymentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListHydratedDeploymentsResponse>> {
         self.inner.list_hydrated_deployments(req, options).await
     }
 
@@ -348,7 +348,7 @@ where
         &self,
         req: crate::model::UpdateHydratedDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HydratedDeployment> {
+    ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
         self.inner.update_hydrated_deployment(req, options).await
     }
 
@@ -357,7 +357,7 @@ where
         &self,
         req: crate::model::ApplyHydratedDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HydratedDeployment> {
+    ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
         self.inner.apply_hydrated_deployment(req, options).await
     }
 
@@ -366,7 +366,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -375,7 +375,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -384,7 +384,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -393,7 +393,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -402,7 +402,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -411,7 +411,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

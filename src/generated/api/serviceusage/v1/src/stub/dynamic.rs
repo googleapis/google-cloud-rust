@@ -23,49 +23,49 @@ pub trait ServiceUsage: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::EnableServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn disable_service(
         &self,
         req: crate::model::DisableServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service>;
+    ) -> crate::Result<gax::response::Response<crate::model::Service>>;
 
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>>;
 
     async fn batch_enable_services(
         &self,
         req: crate::model::BatchEnableServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn batch_get_services(
         &self,
         req: crate::model::BatchGetServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BatchGetServicesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::BatchGetServicesResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -86,7 +86,7 @@ impl<T: super::ServiceUsage> ServiceUsage for T {
         &self,
         req: crate::model::EnableServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::enable_service(self, req, options).await
     }
 
@@ -95,7 +95,7 @@ impl<T: super::ServiceUsage> ServiceUsage for T {
         &self,
         req: crate::model::DisableServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::disable_service(self, req, options).await
     }
 
@@ -104,7 +104,7 @@ impl<T: super::ServiceUsage> ServiceUsage for T {
         &self,
         req: crate::model::GetServiceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Service> {
+    ) -> crate::Result<gax::response::Response<crate::model::Service>> {
         T::get_service(self, req, options).await
     }
 
@@ -113,7 +113,7 @@ impl<T: super::ServiceUsage> ServiceUsage for T {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListServicesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListServicesResponse>> {
         T::list_services(self, req, options).await
     }
 
@@ -122,7 +122,7 @@ impl<T: super::ServiceUsage> ServiceUsage for T {
         &self,
         req: crate::model::BatchEnableServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::batch_enable_services(self, req, options).await
     }
 
@@ -131,7 +131,7 @@ impl<T: super::ServiceUsage> ServiceUsage for T {
         &self,
         req: crate::model::BatchGetServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BatchGetServicesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::BatchGetServicesResponse>> {
         T::batch_get_services(self, req, options).await
     }
 
@@ -140,7 +140,7 @@ impl<T: super::ServiceUsage> ServiceUsage for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -149,7 +149,7 @@ impl<T: super::ServiceUsage> ServiceUsage for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

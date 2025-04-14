@@ -19,6 +19,7 @@
 #![no_implicit_prelude]
 extern crate bytes;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -32,6 +33,9 @@ pub struct AddOnWidgetSet {
     /// The list of widgets used in an add-on.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub used_widgets: std::vec::Vec<crate::model::add_on_widget_set::WidgetType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AddOnWidgetSet {
@@ -173,6 +177,9 @@ pub struct MenuItemExtensionPoint {
     /// If not set, defaults to the add-on's primary logo URL.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub logo_url: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MenuItemExtensionPoint {
@@ -224,6 +231,9 @@ pub struct HomepageExtensionPoint {
     /// card will be provided for users instead.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub enabled: std::option::Option<wkt::BoolValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HomepageExtensionPoint {
@@ -269,6 +279,9 @@ pub struct UniversalActionExtensionPoint {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub action_type:
         std::option::Option<crate::model::universal_action_extension_point::ActionType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UniversalActionExtensionPoint {
@@ -419,6 +432,9 @@ pub struct CommonAddOnManifest {
     /// links.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub open_link_url_prefixes: std::option::Option<wkt::ListValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CommonAddOnManifest {
@@ -525,6 +541,9 @@ pub struct LayoutProperties {
     /// framework is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secondary_color: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LayoutProperties {
@@ -559,6 +578,9 @@ impl wkt::message::Message for LayoutProperties {
 pub struct HttpOptions {
     /// Configuration for the token sent in the HTTP Authorization header
     pub authorization_header: crate::model::HttpAuthorizationHeader,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HttpOptions {

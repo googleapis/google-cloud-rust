@@ -23,151 +23,151 @@ pub trait SecureSourceManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInstancesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>;
 
     async fn get_instance(
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance>;
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>>;
 
     async fn create_instance(
         &self,
         req: crate::model::CreateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_instance(
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_repositories(
         &self,
         req: crate::model::ListRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRepositoriesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>;
 
     async fn get_repository(
         &self,
         req: crate::model::GetRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Repository>;
+    ) -> crate::Result<gax::response::Response<crate::model::Repository>>;
 
     async fn create_repository(
         &self,
         req: crate::model::CreateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_iam_policy_repo(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn set_iam_policy_repo(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions_repo(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn create_branch_rule(
         &self,
         req: crate::model::CreateBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_branch_rules(
         &self,
         req: crate::model::ListBranchRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBranchRulesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListBranchRulesResponse>>;
 
     async fn get_branch_rule(
         &self,
         req: crate::model::GetBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BranchRule>;
+    ) -> crate::Result<gax::response::Response<crate::model::BranchRule>>;
 
     async fn update_branch_rule(
         &self,
         req: crate::model::UpdateBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_branch_rule(
         &self,
         req: crate::model::DeleteBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -188,7 +188,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListInstancesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>> {
         T::list_instances(self, req, options).await
     }
 
@@ -197,7 +197,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Instance> {
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>> {
         T::get_instance(self, req, options).await
     }
 
@@ -206,7 +206,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_instance(self, req, options).await
     }
 
@@ -215,7 +215,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::DeleteInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_instance(self, req, options).await
     }
 
@@ -224,7 +224,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::ListRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRepositoriesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>> {
         T::list_repositories(self, req, options).await
     }
 
@@ -233,7 +233,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::GetRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Repository> {
+    ) -> crate::Result<gax::response::Response<crate::model::Repository>> {
         T::get_repository(self, req, options).await
     }
 
@@ -242,7 +242,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_repository(self, req, options).await
     }
 
@@ -251,7 +251,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_repository(self, req, options).await
     }
 
@@ -260,7 +260,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy_repo(self, req, options).await
     }
 
@@ -269,7 +269,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy_repo(self, req, options).await
     }
 
@@ -278,7 +278,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions_repo(self, req, options).await
     }
 
@@ -287,7 +287,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::CreateBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_branch_rule(self, req, options).await
     }
 
@@ -296,7 +296,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::ListBranchRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListBranchRulesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListBranchRulesResponse>> {
         T::list_branch_rules(self, req, options).await
     }
 
@@ -305,7 +305,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::GetBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BranchRule> {
+    ) -> crate::Result<gax::response::Response<crate::model::BranchRule>> {
         T::get_branch_rule(self, req, options).await
     }
 
@@ -314,7 +314,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::UpdateBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_branch_rule(self, req, options).await
     }
 
@@ -323,7 +323,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: crate::model::DeleteBranchRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_branch_rule(self, req, options).await
     }
 
@@ -332,7 +332,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -341,7 +341,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -350,7 +350,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -359,7 +359,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -368,7 +368,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -377,7 +377,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -386,7 +386,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -395,7 +395,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -404,7 +404,7 @@ impl<T: super::SecureSourceManager> SecureSourceManager for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

@@ -93,6 +93,7 @@ pub mod recommender {
             (*self.0.stub)
                 .list_insights(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -168,6 +169,7 @@ pub mod recommender {
             (*self.0.stub)
                 .get_insight(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInsightRequest::name].
@@ -213,6 +215,7 @@ pub mod recommender {
             (*self.0.stub)
                 .mark_insight_accepted(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkInsightAcceptedRequest::name].
@@ -276,6 +279,7 @@ pub mod recommender {
             (*self.0.stub)
                 .list_recommendations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -354,6 +358,7 @@ pub mod recommender {
             (*self.0.stub)
                 .get_recommendation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRecommendationRequest::name].
@@ -401,6 +406,7 @@ pub mod recommender {
             (*self.0.stub)
                 .mark_recommendation_dismissed(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationDismissedRequest::name].
@@ -454,6 +460,7 @@ pub mod recommender {
             (*self.0.stub)
                 .mark_recommendation_claimed(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationClaimedRequest::name].
@@ -519,6 +526,7 @@ pub mod recommender {
             (*self.0.stub)
                 .mark_recommendation_succeeded(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationSucceededRequest::name].
@@ -584,6 +592,7 @@ pub mod recommender {
             (*self.0.stub)
                 .mark_recommendation_failed(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::MarkRecommendationFailedRequest::name].
@@ -647,6 +656,7 @@ pub mod recommender {
             (*self.0.stub)
                 .get_recommender_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRecommenderConfigRequest::name].
@@ -694,6 +704,7 @@ pub mod recommender {
             (*self.0.stub)
                 .update_recommender_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
@@ -759,6 +770,7 @@ pub mod recommender {
             (*self.0.stub)
                 .get_insight_type_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetInsightTypeConfigRequest::name].
@@ -806,6 +818,7 @@ pub mod recommender {
             (*self.0.stub)
                 .update_insight_type_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].

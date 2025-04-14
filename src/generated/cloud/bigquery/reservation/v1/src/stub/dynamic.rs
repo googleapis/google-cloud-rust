@@ -21,133 +21,133 @@ pub trait ReservationService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Reservation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Reservation>>;
 
     async fn list_reservations(
         &self,
         req: crate::model::ListReservationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReservationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListReservationsResponse>>;
 
     async fn get_reservation(
         &self,
         req: crate::model::GetReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Reservation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Reservation>>;
 
     async fn delete_reservation(
         &self,
         req: crate::model::DeleteReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn update_reservation(
         &self,
         req: crate::model::UpdateReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Reservation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Reservation>>;
 
     async fn failover_reservation(
         &self,
         req: crate::model::FailoverReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Reservation>;
+    ) -> crate::Result<gax::response::Response<crate::model::Reservation>>;
 
     async fn create_capacity_commitment(
         &self,
         req: crate::model::CreateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CapacityCommitment>;
+    ) -> crate::Result<gax::response::Response<crate::model::CapacityCommitment>>;
 
     async fn list_capacity_commitments(
         &self,
         req: crate::model::ListCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCapacityCommitmentsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListCapacityCommitmentsResponse>>;
 
     async fn get_capacity_commitment(
         &self,
         req: crate::model::GetCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CapacityCommitment>;
+    ) -> crate::Result<gax::response::Response<crate::model::CapacityCommitment>>;
 
     async fn delete_capacity_commitment(
         &self,
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn update_capacity_commitment(
         &self,
         req: crate::model::UpdateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CapacityCommitment>;
+    ) -> crate::Result<gax::response::Response<crate::model::CapacityCommitment>>;
 
     async fn split_capacity_commitment(
         &self,
         req: crate::model::SplitCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SplitCapacityCommitmentResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SplitCapacityCommitmentResponse>>;
 
     async fn merge_capacity_commitments(
         &self,
         req: crate::model::MergeCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CapacityCommitment>;
+    ) -> crate::Result<gax::response::Response<crate::model::CapacityCommitment>>;
 
     async fn create_assignment(
         &self,
         req: crate::model::CreateAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Assignment>;
+    ) -> crate::Result<gax::response::Response<crate::model::Assignment>>;
 
     async fn list_assignments(
         &self,
         req: crate::model::ListAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAssignmentsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListAssignmentsResponse>>;
 
     async fn delete_assignment(
         &self,
         req: crate::model::DeleteAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn search_assignments(
         &self,
         req: crate::model::SearchAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchAssignmentsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchAssignmentsResponse>>;
 
     async fn search_all_assignments(
         &self,
         req: crate::model::SearchAllAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchAllAssignmentsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SearchAllAssignmentsResponse>>;
 
     async fn move_assignment(
         &self,
         req: crate::model::MoveAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Assignment>;
+    ) -> crate::Result<gax::response::Response<crate::model::Assignment>>;
 
     async fn update_assignment(
         &self,
         req: crate::model::UpdateAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Assignment>;
+    ) -> crate::Result<gax::response::Response<crate::model::Assignment>>;
 
     async fn get_bi_reservation(
         &self,
         req: crate::model::GetBiReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BiReservation>;
+    ) -> crate::Result<gax::response::Response<crate::model::BiReservation>>;
 
     async fn update_bi_reservation(
         &self,
         req: crate::model::UpdateBiReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BiReservation>;
+    ) -> crate::Result<gax::response::Response<crate::model::BiReservation>>;
 }
 
 /// All implementations of [super::ReservationService] also implement [ReservationService].
@@ -158,7 +158,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::CreateReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Reservation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Reservation>> {
         T::create_reservation(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::ListReservationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListReservationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListReservationsResponse>> {
         T::list_reservations(self, req, options).await
     }
 
@@ -176,7 +176,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::GetReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Reservation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Reservation>> {
         T::get_reservation(self, req, options).await
     }
 
@@ -185,7 +185,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::DeleteReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_reservation(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::UpdateReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Reservation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Reservation>> {
         T::update_reservation(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::FailoverReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Reservation> {
+    ) -> crate::Result<gax::response::Response<crate::model::Reservation>> {
         T::failover_reservation(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::CreateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CapacityCommitment> {
+    ) -> crate::Result<gax::response::Response<crate::model::CapacityCommitment>> {
         T::create_capacity_commitment(self, req, options).await
     }
 
@@ -221,7 +221,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::ListCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListCapacityCommitmentsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListCapacityCommitmentsResponse>> {
         T::list_capacity_commitments(self, req, options).await
     }
 
@@ -230,7 +230,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::GetCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CapacityCommitment> {
+    ) -> crate::Result<gax::response::Response<crate::model::CapacityCommitment>> {
         T::get_capacity_commitment(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_capacity_commitment(self, req, options).await
     }
 
@@ -248,7 +248,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::UpdateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CapacityCommitment> {
+    ) -> crate::Result<gax::response::Response<crate::model::CapacityCommitment>> {
         T::update_capacity_commitment(self, req, options).await
     }
 
@@ -257,7 +257,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::SplitCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SplitCapacityCommitmentResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SplitCapacityCommitmentResponse>> {
         T::split_capacity_commitment(self, req, options).await
     }
 
@@ -266,7 +266,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::MergeCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::CapacityCommitment> {
+    ) -> crate::Result<gax::response::Response<crate::model::CapacityCommitment>> {
         T::merge_capacity_commitments(self, req, options).await
     }
 
@@ -275,7 +275,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::CreateAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Assignment> {
+    ) -> crate::Result<gax::response::Response<crate::model::Assignment>> {
         T::create_assignment(self, req, options).await
     }
 
@@ -284,7 +284,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::ListAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListAssignmentsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListAssignmentsResponse>> {
         T::list_assignments(self, req, options).await
     }
 
@@ -293,7 +293,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::DeleteAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_assignment(self, req, options).await
     }
 
@@ -302,7 +302,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::SearchAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchAssignmentsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchAssignmentsResponse>> {
         T::search_assignments(self, req, options).await
     }
 
@@ -311,7 +311,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::SearchAllAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SearchAllAssignmentsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SearchAllAssignmentsResponse>> {
         T::search_all_assignments(self, req, options).await
     }
 
@@ -320,7 +320,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::MoveAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Assignment> {
+    ) -> crate::Result<gax::response::Response<crate::model::Assignment>> {
         T::move_assignment(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::UpdateAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Assignment> {
+    ) -> crate::Result<gax::response::Response<crate::model::Assignment>> {
         T::update_assignment(self, req, options).await
     }
 
@@ -338,7 +338,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::GetBiReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BiReservation> {
+    ) -> crate::Result<gax::response::Response<crate::model::BiReservation>> {
         T::get_bi_reservation(self, req, options).await
     }
 
@@ -347,7 +347,7 @@ impl<T: super::ReservationService> ReservationService for T {
         &self,
         req: crate::model::UpdateBiReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::BiReservation> {
+    ) -> crate::Result<gax::response::Response<crate::model::BiReservation>> {
         T::update_bi_reservation(self, req, options).await
     }
 }

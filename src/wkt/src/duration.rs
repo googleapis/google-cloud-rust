@@ -238,6 +238,7 @@ impl TryFrom<std::time::Duration> for Duration {
         if value.as_secs() > (i64::MAX as u64) {
             return Err(Error::OutOfRange());
         }
+        assert!(value.as_secs() <= (i64::MAX as u64));
         assert!(value.subsec_nanos() <= (i32::MAX as u32));
         Self::new(value.as_secs() as i64, value.subsec_nanos() as i32)
     }
@@ -529,6 +530,28 @@ mod test {
         Ok(())
     }
 
+    #[test_case(std::time::Duration::new(0, 0), Duration::clamp(0, 0))]
+    #[test_case(
+        std::time::Duration::new(0, 400_000_000),
+        Duration::clamp(0, 400_000_000)
+    )]
+    #[test_case(
+        std::time::Duration::new(1, 400_000_000),
+        Duration::clamp(1, 400_000_000)
+    )]
+    #[test_case(std::time::Duration::new(10_000 * SECONDS_IN_YEAR as u64, 999_999_999), Duration::clamp(10_000 * SECONDS_IN_YEAR, 999_999_999))]
+    fn from_std_time_in_range(input: std::time::Duration, want: Duration) {
+        let got = Duration::try_from(input).unwrap();
+        assert_eq!(got, want);
+    }
+
+    #[test_case(std::time::Duration::new(i64::MAX as u64, 0))]
+    #[test_case(std::time::Duration::new(i64::MAX as u64 + 10, 0))]
+    fn from_std_time_out_of_range(input: std::time::Duration) {
+        let got = Duration::try_from(input);
+        assert!(got.is_err(), "{got:?}");
+    }
+
     #[test_case(chrono::Duration::default(), Duration::default() ; "default")]
     #[test_case(chrono::Duration::new(0, 0).unwrap(), Duration::new(0, 0).unwrap() ; "zero")]
     #[test_case(chrono::Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap(), Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years"
@@ -540,8 +563,13 @@ mod test {
         assert_eq!(got, want);
         Ok(())
     }
+
     #[test_case(Duration::default(), chrono::Duration::default() ; "default")]
     #[test_case(Duration::new(0, 0).unwrap(), chrono::Duration::new(0, 0).unwrap() ; "zero")]
+    #[test_case(Duration::new(0, 500_000).unwrap(), chrono::Duration::new(0, 500_000).unwrap() ; "500us")]
+    #[test_case(Duration::new(1, 400_000_000).unwrap(), chrono::Duration::new(1, 400_000_000).unwrap() ; "1.4s")]
+    #[test_case(Duration::new(0, -400_000_000).unwrap(), chrono::Duration::new(-1, 600_000_000).unwrap() ; "minus 0.4s")]
+    #[test_case(Duration::new(-1, -400_000_000).unwrap(), chrono::Duration::new(-2, 600_000_000).unwrap() ; "minus 1.4s")]
     #[test_case(Duration::new(10_000 * SECONDS_IN_YEAR , 0).unwrap(), chrono::Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years"
 	)]
     #[test_case(Duration::new(-10_000 * SECONDS_IN_YEAR , 0).unwrap(), chrono::Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years"

@@ -23,115 +23,115 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_connection(
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection>;
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>>;
 
     async fn list_connections(
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>;
 
     async fn update_connection(
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_connection(
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_repository(
         &self,
         req: crate::model::CreateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn batch_create_repositories(
         &self,
         req: crate::model::BatchCreateRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn get_repository(
         &self,
         req: crate::model::GetRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Repository>;
+    ) -> crate::Result<gax::response::Response<crate::model::Repository>>;
 
     async fn list_repositories(
         &self,
         req: crate::model::ListRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRepositoriesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>>;
 
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn fetch_read_write_token(
         &self,
         req: crate::model::FetchReadWriteTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchReadWriteTokenResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchReadWriteTokenResponse>>;
 
     async fn fetch_read_token(
         &self,
         req: crate::model::FetchReadTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchReadTokenResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchReadTokenResponse>>;
 
     async fn fetch_linkable_repositories(
         &self,
         req: crate::model::FetchLinkableRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchLinkableRepositoriesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchLinkableRepositoriesResponse>>;
 
     async fn fetch_git_refs(
         &self,
         req: crate::model::FetchGitRefsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchGitRefsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchGitRefsResponse>>;
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -152,7 +152,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_connection(self, req, options).await
     }
 
@@ -161,7 +161,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection> {
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>> {
         T::get_connection(self, req, options).await
     }
 
@@ -170,7 +170,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         T::list_connections(self, req, options).await
     }
 
@@ -179,7 +179,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_connection(self, req, options).await
     }
 
@@ -188,7 +188,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_connection(self, req, options).await
     }
 
@@ -197,7 +197,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::CreateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_repository(self, req, options).await
     }
 
@@ -206,7 +206,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::BatchCreateRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::batch_create_repositories(self, req, options).await
     }
 
@@ -215,7 +215,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::GetRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Repository> {
+    ) -> crate::Result<gax::response::Response<crate::model::Repository>> {
         T::get_repository(self, req, options).await
     }
 
@@ -224,7 +224,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::ListRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListRepositoriesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListRepositoriesResponse>> {
         T::list_repositories(self, req, options).await
     }
 
@@ -233,7 +233,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_repository(self, req, options).await
     }
 
@@ -242,7 +242,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::FetchReadWriteTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchReadWriteTokenResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchReadWriteTokenResponse>> {
         T::fetch_read_write_token(self, req, options).await
     }
 
@@ -251,7 +251,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::FetchReadTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchReadTokenResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchReadTokenResponse>> {
         T::fetch_read_token(self, req, options).await
     }
 
@@ -260,7 +260,8 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::FetchLinkableRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchLinkableRepositoriesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchLinkableRepositoriesResponse>>
+    {
         T::fetch_linkable_repositories(self, req, options).await
     }
 
@@ -269,7 +270,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: crate::model::FetchGitRefsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchGitRefsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchGitRefsResponse>> {
         T::fetch_git_refs(self, req, options).await
     }
 
@@ -278,7 +279,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::set_iam_policy(self, req, options).await
     }
 
@@ -287,7 +288,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::Policy> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
         T::get_iam_policy(self, req, options).await
     }
 
@@ -296,7 +297,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
     }
 
@@ -305,7 +306,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -314,7 +315,7 @@ impl<T: super::RepositoryManager> RepositoryManager for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

@@ -44,7 +44,7 @@ impl super::stub::DlpService for DlpService {
         &self,
         req: crate::model::InspectContentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InspectContentResponse> {
+    ) -> Result<gax::response::Response<crate::model::InspectContentResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -57,17 +57,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::InspectContentResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn redact_image(
         &self,
         req: crate::model::RedactImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RedactImageResponse> {
+    ) -> Result<gax::response::Response<crate::model::RedactImageResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -80,17 +77,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::RedactImageResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn deidentify_content(
         &self,
         req: crate::model::DeidentifyContentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DeidentifyContentResponse> {
+    ) -> Result<gax::response::Response<crate::model::DeidentifyContentResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -103,16 +97,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::DeidentifyContentResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn reidentify_content(
         &self,
         req: crate::model::ReidentifyContentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReidentifyContentResponse> {
+    ) -> Result<gax::response::Response<crate::model::ReidentifyContentResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -125,16 +117,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::ReidentifyContentResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_info_types(
         &self,
         req: crate::model::ListInfoTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInfoTypesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInfoTypesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -151,14 +141,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListInfoTypesResponse>| r.into_body())
     }
 
     async fn create_inspect_template(
         &self,
         req: crate::model::CreateInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InspectTemplate> {
+    ) -> Result<gax::response::Response<crate::model::InspectTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -171,17 +160,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::InspectTemplate>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn update_inspect_template(
         &self,
         req: crate::model::UpdateInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InspectTemplate> {
+    ) -> Result<gax::response::Response<crate::model::InspectTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -191,17 +177,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::InspectTemplate>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_inspect_template(
         &self,
         req: crate::model::GetInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InspectTemplate> {
+    ) -> Result<gax::response::Response<crate::model::InspectTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -214,14 +197,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::InspectTemplate>| r.into_body())
     }
 
     async fn list_inspect_templates(
         &self,
         req: crate::model::ListInspectTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInspectTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInspectTemplatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -241,18 +223,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListInspectTemplatesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn delete_inspect_template(
         &self,
         req: crate::model::DeleteInspectTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -265,14 +242,17 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_deidentify_template(
         &self,
         req: crate::model::CreateDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DeidentifyTemplate> {
+    ) -> Result<gax::response::Response<crate::model::DeidentifyTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -285,17 +265,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::DeidentifyTemplate>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn update_deidentify_template(
         &self,
         req: crate::model::UpdateDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DeidentifyTemplate> {
+    ) -> Result<gax::response::Response<crate::model::DeidentifyTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -305,17 +282,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::DeidentifyTemplate>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_deidentify_template(
         &self,
         req: crate::model::GetDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DeidentifyTemplate> {
+    ) -> Result<gax::response::Response<crate::model::DeidentifyTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -328,14 +302,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::DeidentifyTemplate>| r.into_body())
     }
 
     async fn list_deidentify_templates(
         &self,
         req: crate::model::ListDeidentifyTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDeidentifyTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDeidentifyTemplatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -355,18 +328,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListDeidentifyTemplatesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn delete_deidentify_template(
         &self,
         req: crate::model::DeleteDeidentifyTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -379,14 +347,17 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_job_trigger(
         &self,
         req: crate::model::CreateJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTrigger> {
+    ) -> Result<gax::response::Response<crate::model::JobTrigger>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -399,17 +370,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::JobTrigger>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn update_job_trigger(
         &self,
         req: crate::model::UpdateJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTrigger> {
+    ) -> Result<gax::response::Response<crate::model::JobTrigger>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -419,17 +387,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::JobTrigger>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn hybrid_inspect_job_trigger(
         &self,
         req: crate::model::HybridInspectJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HybridInspectResponse> {
+    ) -> Result<gax::response::Response<crate::model::HybridInspectResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -442,17 +407,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::HybridInspectResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_job_trigger(
         &self,
         req: crate::model::GetJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTrigger> {
+    ) -> Result<gax::response::Response<crate::model::JobTrigger>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -465,14 +427,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::JobTrigger>| r.into_body())
     }
 
     async fn list_job_triggers(
         &self,
         req: crate::model::ListJobTriggersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobTriggersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobTriggersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -494,14 +455,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListJobTriggersResponse>| r.into_body())
     }
 
     async fn delete_job_trigger(
         &self,
         req: crate::model::DeleteJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -514,14 +474,17 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn activate_job_trigger(
         &self,
         req: crate::model::ActivateJobTriggerRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DlpJob> {
+    ) -> Result<gax::response::Response<crate::model::DlpJob>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -531,17 +494,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::DlpJob>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_discovery_config(
         &self,
         req: crate::model::CreateDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscoveryConfig> {
+    ) -> Result<gax::response::Response<crate::model::DiscoveryConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -554,17 +514,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::DiscoveryConfig>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn update_discovery_config(
         &self,
         req: crate::model::UpdateDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscoveryConfig> {
+    ) -> Result<gax::response::Response<crate::model::DiscoveryConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -574,17 +531,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::DiscoveryConfig>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_discovery_config(
         &self,
         req: crate::model::GetDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscoveryConfig> {
+    ) -> Result<gax::response::Response<crate::model::DiscoveryConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -597,14 +551,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::DiscoveryConfig>| r.into_body())
     }
 
     async fn list_discovery_configs(
         &self,
         req: crate::model::ListDiscoveryConfigsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDiscoveryConfigsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDiscoveryConfigsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -623,18 +576,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListDiscoveryConfigsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn delete_discovery_config(
         &self,
         req: crate::model::DeleteDiscoveryConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -647,14 +595,17 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_dlp_job(
         &self,
         req: crate::model::CreateDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DlpJob> {
+    ) -> Result<gax::response::Response<crate::model::DlpJob>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -664,17 +615,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::DlpJob>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_dlp_jobs(
         &self,
         req: crate::model::ListDlpJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDlpJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDlpJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -693,14 +641,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListDlpJobsResponse>| r.into_body())
     }
 
     async fn get_dlp_job(
         &self,
         req: crate::model::GetDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DlpJob> {
+    ) -> Result<gax::response::Response<crate::model::DlpJob>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -713,14 +660,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::DlpJob>| r.into_body())
     }
 
     async fn delete_dlp_job(
         &self,
         req: crate::model::DeleteDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -733,14 +679,17 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_dlp_job(
         &self,
         req: crate::model::CancelDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -750,17 +699,19 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn create_stored_info_type(
         &self,
         req: crate::model::CreateStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StoredInfoType> {
+    ) -> Result<gax::response::Response<crate::model::StoredInfoType>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -773,17 +724,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::StoredInfoType>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn update_stored_info_type(
         &self,
         req: crate::model::UpdateStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StoredInfoType> {
+    ) -> Result<gax::response::Response<crate::model::StoredInfoType>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -793,17 +741,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::StoredInfoType>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_stored_info_type(
         &self,
         req: crate::model::GetStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StoredInfoType> {
+    ) -> Result<gax::response::Response<crate::model::StoredInfoType>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -816,14 +761,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::StoredInfoType>| r.into_body())
     }
 
     async fn list_stored_info_types(
         &self,
         req: crate::model::ListStoredInfoTypesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListStoredInfoTypesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListStoredInfoTypesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -843,18 +787,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListStoredInfoTypesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn delete_stored_info_type(
         &self,
         req: crate::model::DeleteStoredInfoTypeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -867,14 +806,17 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_project_data_profiles(
         &self,
         req: crate::model::ListProjectDataProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProjectDataProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProjectDataProfilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -894,18 +836,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListProjectDataProfilesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_table_data_profiles(
         &self,
         req: crate::model::ListTableDataProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTableDataProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTableDataProfilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -925,18 +862,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListTableDataProfilesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_column_data_profiles(
         &self,
         req: crate::model::ListColumnDataProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListColumnDataProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListColumnDataProfilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -956,18 +888,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListColumnDataProfilesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_project_data_profile(
         &self,
         req: crate::model::GetProjectDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProjectDataProfile> {
+    ) -> Result<gax::response::Response<crate::model::ProjectDataProfile>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -980,14 +907,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ProjectDataProfile>| r.into_body())
     }
 
     async fn list_file_store_data_profiles(
         &self,
         req: crate::model::ListFileStoreDataProfilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFileStoreDataProfilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFileStoreDataProfilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1007,18 +933,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListFileStoreDataProfilesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_file_store_data_profile(
         &self,
         req: crate::model::GetFileStoreDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FileStoreDataProfile> {
+    ) -> Result<gax::response::Response<crate::model::FileStoreDataProfile>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1031,14 +952,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::FileStoreDataProfile>| r.into_body())
     }
 
     async fn delete_file_store_data_profile(
         &self,
         req: crate::model::DeleteFileStoreDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1051,14 +971,17 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_table_data_profile(
         &self,
         req: crate::model::GetTableDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TableDataProfile> {
+    ) -> Result<gax::response::Response<crate::model::TableDataProfile>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1071,14 +994,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::TableDataProfile>| r.into_body())
     }
 
     async fn get_column_data_profile(
         &self,
         req: crate::model::GetColumnDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ColumnDataProfile> {
+    ) -> Result<gax::response::Response<crate::model::ColumnDataProfile>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1091,14 +1013,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ColumnDataProfile>| r.into_body())
     }
 
     async fn delete_table_data_profile(
         &self,
         req: crate::model::DeleteTableDataProfileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1111,14 +1032,17 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn hybrid_inspect_dlp_job(
         &self,
         req: crate::model::HybridInspectDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HybridInspectResponse> {
+    ) -> Result<gax::response::Response<crate::model::HybridInspectResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1131,17 +1055,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::HybridInspectResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn finish_dlp_job(
         &self,
         req: crate::model::FinishDlpJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1151,17 +1072,19 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn create_connection(
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1174,17 +1097,14 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Connection>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_connection(
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1197,14 +1117,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Connection>| r.into_body())
     }
 
     async fn list_connections(
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1223,14 +1142,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListConnectionsResponse>| r.into_body())
     }
 
     async fn search_connections(
         &self,
         req: crate::model::SearchConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchConnectionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchConnectionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1249,16 +1167,13 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::SearchConnectionsResponse>| r.into_body(),
-            )
     }
 
     async fn delete_connection(
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1271,14 +1186,17 @@ impl super::stub::DlpService for DlpService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_connection(
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Connection> {
+    ) -> Result<gax::response::Response<crate::model::Connection>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1288,9 +1206,6 @@ impl super::stub::DlpService for DlpService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Connection>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 }

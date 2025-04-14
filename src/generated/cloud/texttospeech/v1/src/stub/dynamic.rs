@@ -23,25 +23,25 @@ pub trait TextToSpeech: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListVoicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVoicesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListVoicesResponse>>;
 
     async fn synthesize_speech(
         &self,
         req: crate::model::SynthesizeSpeechRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SynthesizeSpeechResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::SynthesizeSpeechResponse>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 }
 
 /// All implementations of [super::TextToSpeech] also implement [TextToSpeech].
@@ -52,7 +52,7 @@ impl<T: super::TextToSpeech> TextToSpeech for T {
         &self,
         req: crate::model::ListVoicesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListVoicesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListVoicesResponse>> {
         T::list_voices(self, req, options).await
     }
 
@@ -61,7 +61,7 @@ impl<T: super::TextToSpeech> TextToSpeech for T {
         &self,
         req: crate::model::SynthesizeSpeechRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::SynthesizeSpeechResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::SynthesizeSpeechResponse>> {
         T::synthesize_speech(self, req, options).await
     }
 
@@ -70,7 +70,7 @@ impl<T: super::TextToSpeech> TextToSpeech for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -79,7 +79,7 @@ impl<T: super::TextToSpeech> TextToSpeech for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 }
@@ -91,19 +91,19 @@ pub trait TextToSpeechLongAudioSynthesize: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SynthesizeLongAudioRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     fn get_polling_error_policy(
         &self,
@@ -124,7 +124,7 @@ impl<T: super::TextToSpeechLongAudioSynthesize> TextToSpeechLongAudioSynthesize 
         &self,
         req: crate::model::SynthesizeLongAudioRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::synthesize_long_audio(self, req, options).await
     }
 
@@ -133,7 +133,7 @@ impl<T: super::TextToSpeechLongAudioSynthesize> TextToSpeechLongAudioSynthesize 
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -142,7 +142,7 @@ impl<T: super::TextToSpeechLongAudioSynthesize> TextToSpeechLongAudioSynthesize 
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 

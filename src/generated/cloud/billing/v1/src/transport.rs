@@ -44,7 +44,7 @@ impl super::stub::CloudBilling for CloudBilling {
         &self,
         req: crate::model::GetBillingAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BillingAccount> {
+    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -57,14 +57,13 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::BillingAccount>| r.into_body())
     }
 
     async fn list_billing_accounts(
         &self,
         req: crate::model::ListBillingAccountsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBillingAccountsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBillingAccountsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -81,18 +80,13 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListBillingAccountsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn update_billing_account(
         &self,
         req: crate::model::UpdateBillingAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BillingAccount> {
+    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -105,24 +99,19 @@ impl super::stub::CloudBilling for CloudBilling {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.account), options)
             .await
-            .map(|r: gax::response::Response<crate::model::BillingAccount>| r.into_body())
     }
 
     async fn create_billing_account(
         &self,
         req: crate::model::CreateBillingAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BillingAccount> {
+    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -136,14 +125,13 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, Some(req.billing_account), options)
             .await
-            .map(|r: gax::response::Response<crate::model::BillingAccount>| r.into_body())
     }
 
     async fn list_project_billing_info(
         &self,
         req: crate::model::ListProjectBillingInfoRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProjectBillingInfoResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProjectBillingInfoResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -158,18 +146,13 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListProjectBillingInfoResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_project_billing_info(
         &self,
         req: crate::model::GetProjectBillingInfoRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProjectBillingInfo> {
+    ) -> Result<gax::response::Response<crate::model::ProjectBillingInfo>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -185,14 +168,13 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ProjectBillingInfo>| r.into_body())
     }
 
     async fn update_project_billing_info(
         &self,
         req: crate::model::UpdateProjectBillingInfoRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProjectBillingInfo> {
+    ) -> Result<gax::response::Response<crate::model::ProjectBillingInfo>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -208,14 +190,13 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, Some(req.project_billing_info), options)
             .await
-            .map(|r: gax::response::Response<crate::model::ProjectBillingInfo>| r.into_body())
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -241,14 +222,13 @@ impl super::stub::CloudBilling for CloudBilling {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -261,17 +241,14 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -284,16 +261,14 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn move_billing_account(
         &self,
         req: crate::model::MoveBillingAccountRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BillingAccount> {
+    ) -> Result<gax::response::Response<crate::model::BillingAccount>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -303,10 +278,7 @@ impl super::stub::CloudBilling for CloudBilling {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::BillingAccount>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 }
 
@@ -336,7 +308,7 @@ impl super::stub::CloudCatalog for CloudCatalog {
         &self,
         req: crate::model::ListServicesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListServicesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListServicesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -351,14 +323,13 @@ impl super::stub::CloudCatalog for CloudCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListServicesResponse>| r.into_body())
     }
 
     async fn list_skus(
         &self,
         req: crate::model::ListSkusRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSkusResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSkusResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -394,6 +365,5 @@ impl super::stub::CloudCatalog for CloudCatalog {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListSkusResponse>| r.into_body())
     }
 }

@@ -44,7 +44,7 @@ impl super::stub::ReservationService for ReservationService {
         &self,
         req: crate::model::CreateReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -61,14 +61,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, Some(req.reservation), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Reservation>| r.into_body())
     }
 
     async fn list_reservations(
         &self,
         req: crate::model::ListReservationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListReservationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListReservationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -86,14 +85,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListReservationsResponse>| r.into_body())
     }
 
     async fn get_reservation(
         &self,
         req: crate::model::GetReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -106,14 +104,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Reservation>| r.into_body())
     }
 
     async fn delete_reservation(
         &self,
         req: crate::model::DeleteReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -126,14 +123,17 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_reservation(
         &self,
         req: crate::model::UpdateReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -155,24 +155,19 @@ impl super::stub::ReservationService for ReservationService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.reservation), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Reservation>| r.into_body())
     }
 
     async fn failover_reservation(
         &self,
         req: crate::model::FailoverReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -185,17 +180,14 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Reservation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_capacity_commitment(
         &self,
         req: crate::model::CreateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -216,14 +208,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, Some(req.capacity_commitment), options)
             .await
-            .map(|r: gax::response::Response<crate::model::CapacityCommitment>| r.into_body())
     }
 
     async fn list_capacity_commitments(
         &self,
         req: crate::model::ListCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCapacityCommitmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCapacityCommitmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -241,18 +232,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListCapacityCommitmentsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_capacity_commitment(
         &self,
         req: crate::model::GetCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -265,14 +251,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::CapacityCommitment>| r.into_body())
     }
 
     async fn delete_capacity_commitment(
         &self,
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -286,14 +271,17 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn update_capacity_commitment(
         &self,
         req: crate::model::UpdateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -315,24 +303,19 @@ impl super::stub::ReservationService for ReservationService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.capacity_commitment), options)
             .await
-            .map(|r: gax::response::Response<crate::model::CapacityCommitment>| r.into_body())
     }
 
     async fn split_capacity_commitment(
         &self,
         req: crate::model::SplitCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SplitCapacityCommitmentResponse> {
+    ) -> Result<gax::response::Response<crate::model::SplitCapacityCommitmentResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -342,18 +325,14 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::SplitCapacityCommitmentResponse>| {
-                r.into_body()
-            },
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn merge_capacity_commitments(
         &self,
         req: crate::model::MergeCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -366,17 +345,14 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::CapacityCommitment>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_assignment(
         &self,
         req: crate::model::CreateAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assignment> {
+    ) -> Result<gax::response::Response<crate::model::Assignment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -393,14 +369,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, Some(req.assignment), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Assignment>| r.into_body())
     }
 
     async fn list_assignments(
         &self,
         req: crate::model::ListAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAssignmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -418,14 +393,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListAssignmentsResponse>| r.into_body())
     }
 
     async fn delete_assignment(
         &self,
         req: crate::model::DeleteAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -438,14 +412,17 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn search_assignments(
         &self,
         req: crate::model::SearchAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchAssignmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -464,16 +441,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::SearchAssignmentsResponse>| r.into_body(),
-            )
     }
 
     async fn search_all_assignments(
         &self,
         req: crate::model::SearchAllAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchAllAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchAllAssignmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -492,18 +466,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::SearchAllAssignmentsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn move_assignment(
         &self,
         req: crate::model::MoveAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assignment> {
+    ) -> Result<gax::response::Response<crate::model::Assignment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -513,17 +482,14 @@ impl super::stub::ReservationService for ReservationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Assignment>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn update_assignment(
         &self,
         req: crate::model::UpdateAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assignment> {
+    ) -> Result<gax::response::Response<crate::model::Assignment>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -545,24 +511,19 @@ impl super::stub::ReservationService for ReservationService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.assignment), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Assignment>| r.into_body())
     }
 
     async fn get_bi_reservation(
         &self,
         req: crate::model::GetBiReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BiReservation> {
+    ) -> Result<gax::response::Response<crate::model::BiReservation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -575,14 +536,13 @@ impl super::stub::ReservationService for ReservationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::BiReservation>| r.into_body())
     }
 
     async fn update_bi_reservation(
         &self,
         req: crate::model::UpdateBiReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BiReservation> {
+    ) -> Result<gax::response::Response<crate::model::BiReservation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -604,16 +564,11 @@ impl super::stub::ReservationService for ReservationService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.bi_reservation), options)
             .await
-            .map(|r: gax::response::Response<crate::model::BiReservation>| r.into_body())
     }
 }

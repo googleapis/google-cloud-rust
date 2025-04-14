@@ -44,7 +44,7 @@ impl super::stub::Domains for Domains {
         &self,
         req: crate::model::SearchDomainsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchDomainsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchDomainsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -61,14 +61,13 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::SearchDomainsResponse>| r.into_body())
     }
 
     async fn retrieve_register_parameters(
         &self,
         req: crate::model::RetrieveRegisterParametersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RetrieveRegisterParametersResponse> {
+    ) -> Result<gax::response::Response<crate::model::RetrieveRegisterParametersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -88,18 +87,13 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::RetrieveRegisterParametersResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn register_domain(
         &self,
         req: crate::model::RegisterDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -112,17 +106,14 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn retrieve_transfer_parameters(
         &self,
         req: crate::model::RetrieveTransferParametersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RetrieveTransferParametersResponse> {
+    ) -> Result<gax::response::Response<crate::model::RetrieveTransferParametersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -142,18 +133,13 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::RetrieveTransferParametersResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn transfer_domain(
         &self,
         req: crate::model::TransferDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -166,17 +152,14 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_registrations(
         &self,
         req: crate::model::ListRegistrationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRegistrationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRegistrationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -195,16 +178,13 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListRegistrationsResponse>| r.into_body(),
-            )
     }
 
     async fn get_registration(
         &self,
         req: crate::model::GetRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Registration> {
+    ) -> Result<gax::response::Response<crate::model::Registration>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -217,14 +197,13 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Registration>| r.into_body())
     }
 
     async fn update_registration(
         &self,
         req: crate::model::UpdateRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -246,24 +225,19 @@ impl super::stub::Domains for Domains {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.registration), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn configure_management_settings(
         &self,
         req: crate::model::ConfigureManagementSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -276,17 +250,14 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn configure_dns_settings(
         &self,
         req: crate::model::ConfigureDnsSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -299,17 +270,14 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn configure_contact_settings(
         &self,
         req: crate::model::ConfigureContactSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -322,17 +290,14 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn export_registration(
         &self,
         req: crate::model::ExportRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -342,17 +307,14 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn delete_registration(
         &self,
         req: crate::model::DeleteRegistrationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -365,14 +327,13 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn retrieve_authorization_code(
         &self,
         req: crate::model::RetrieveAuthorizationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AuthorizationCode> {
+    ) -> Result<gax::response::Response<crate::model::AuthorizationCode>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -388,14 +349,13 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::AuthorizationCode>| r.into_body())
     }
 
     async fn reset_authorization_code(
         &self,
         req: crate::model::ResetAuthorizationCodeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AuthorizationCode> {
+    ) -> Result<gax::response::Response<crate::model::AuthorizationCode>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -408,17 +368,14 @@ impl super::stub::Domains for Domains {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::AuthorizationCode>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -434,18 +391,13 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -458,7 +410,6 @@ impl super::stub::Domains for Domains {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

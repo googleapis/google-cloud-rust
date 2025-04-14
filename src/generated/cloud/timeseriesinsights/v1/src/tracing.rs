@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::ListDataSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDataSetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDataSetsResponse>> {
         self.inner.list_data_sets(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::CreateDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DataSet> {
+    ) -> Result<gax::response::Response<crate::model::DataSet>> {
         self.inner.create_data_set(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::DeleteDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_data_set(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::AppendEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AppendEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::AppendEventsResponse>> {
         self.inner.append_events(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::QueryDataSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::QueryDataSetResponse> {
+    ) -> Result<gax::response::Response<crate::model::QueryDataSetResponse>> {
         self.inner.query_data_set(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::EvaluateSliceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EvaluatedSlice> {
+    ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         self.inner.evaluate_slice(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::EvaluateTimeseriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EvaluatedSlice> {
+    ) -> Result<gax::response::Response<crate::model::EvaluatedSlice>> {
         self.inner.evaluate_timeseries(req, options).await
     }
 }

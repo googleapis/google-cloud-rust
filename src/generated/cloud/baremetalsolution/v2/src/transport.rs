@@ -44,7 +44,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         &self,
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInstancesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInstancesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -63,14 +63,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListInstancesResponse>| r.into_body())
     }
 
     async fn get_instance(
         &self,
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Instance> {
+    ) -> Result<gax::response::Response<crate::model::Instance>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -83,14 +82,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
     }
 
     async fn update_instance(
         &self,
         req: crate::model::UpdateInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -112,24 +110,19 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.instance), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn rename_instance(
         &self,
         req: crate::model::RenameInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Instance> {
+    ) -> Result<gax::response::Response<crate::model::Instance>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -139,17 +132,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Instance>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn reset_instance(
         &self,
         req: crate::model::ResetInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -159,17 +149,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn start_instance(
         &self,
         req: crate::model::StartInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -179,17 +166,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn stop_instance(
         &self,
         req: crate::model::StopInstanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -199,17 +183,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn enable_interactive_serial_console(
         &self,
         req: crate::model::EnableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -222,17 +203,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn disable_interactive_serial_console(
         &self,
         req: crate::model::DisableInteractiveSerialConsoleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -245,17 +223,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn detach_lun(
         &self,
         req: crate::model::DetachLunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -268,17 +243,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_ssh_keys(
         &self,
         req: crate::model::ListSSHKeysRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListSSHKeysResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListSSHKeysResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -293,14 +265,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListSSHKeysResponse>| r.into_body())
     }
 
     async fn create_ssh_key(
         &self,
         req: crate::model::CreateSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SSHKey> {
+    ) -> Result<gax::response::Response<crate::model::SSHKey>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -314,14 +285,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.ssh_key), options)
             .await
-            .map(|r: gax::response::Response<crate::model::SSHKey>| r.into_body())
     }
 
     async fn delete_ssh_key(
         &self,
         req: crate::model::DeleteSSHKeyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -334,14 +304,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_volumes(
         &self,
         req: crate::model::ListVolumesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVolumesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVolumesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -357,14 +330,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListVolumesResponse>| r.into_body())
     }
 
     async fn get_volume(
         &self,
         req: crate::model::GetVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Volume> {
+    ) -> Result<gax::response::Response<crate::model::Volume>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -377,14 +349,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Volume>| r.into_body())
     }
 
     async fn update_volume(
         &self,
         req: crate::model::UpdateVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -406,24 +377,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        self.inner
-            .execute(builder, Some(req.volume), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner.execute(builder, Some(req.volume), options).await
     }
 
     async fn rename_volume(
         &self,
         req: crate::model::RenameVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Volume> {
+    ) -> Result<gax::response::Response<crate::model::Volume>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -433,17 +397,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Volume>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn evict_volume(
         &self,
         req: crate::model::EvictVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -453,17 +414,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn resize_volume(
         &self,
         req: crate::model::ResizeVolumeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -473,17 +431,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_networks(
         &self,
         req: crate::model::ListNetworksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNetworksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNetworksResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -499,14 +454,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListNetworksResponse>| r.into_body())
     }
 
     async fn list_network_usage(
         &self,
         req: crate::model::ListNetworkUsageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNetworkUsageResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNetworkUsageResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -522,14 +476,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListNetworkUsageResponse>| r.into_body())
     }
 
     async fn get_network(
         &self,
         req: crate::model::GetNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Network> {
+    ) -> Result<gax::response::Response<crate::model::Network>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -542,14 +495,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Network>| r.into_body())
     }
 
     async fn update_network(
         &self,
         req: crate::model::UpdateNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -571,24 +523,19 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.network), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_volume_snapshot(
         &self,
         req: crate::model::CreateVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VolumeSnapshot> {
+    ) -> Result<gax::response::Response<crate::model::VolumeSnapshot>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -604,14 +551,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.volume_snapshot), options)
             .await
-            .map(|r: gax::response::Response<crate::model::VolumeSnapshot>| r.into_body())
     }
 
     async fn restore_volume_snapshot(
         &self,
         req: crate::model::RestoreVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -624,17 +570,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn delete_volume_snapshot(
         &self,
         req: crate::model::DeleteVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -647,14 +590,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn get_volume_snapshot(
         &self,
         req: crate::model::GetVolumeSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VolumeSnapshot> {
+    ) -> Result<gax::response::Response<crate::model::VolumeSnapshot>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -667,14 +613,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::VolumeSnapshot>| r.into_body())
     }
 
     async fn list_volume_snapshots(
         &self,
         req: crate::model::ListVolumeSnapshotsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVolumeSnapshotsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVolumeSnapshotsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -692,18 +637,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListVolumeSnapshotsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_lun(
         &self,
         req: crate::model::GetLunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Lun> {
+    ) -> Result<gax::response::Response<crate::model::Lun>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -716,14 +656,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Lun>| r.into_body())
     }
 
     async fn list_luns(
         &self,
         req: crate::model::ListLunsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListLunsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListLunsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -738,14 +677,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListLunsResponse>| r.into_body())
     }
 
     async fn evict_lun(
         &self,
         req: crate::model::EvictLunRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -755,17 +693,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_nfs_share(
         &self,
         req: crate::model::GetNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NfsShare> {
+    ) -> Result<gax::response::Response<crate::model::NfsShare>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -778,14 +713,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::NfsShare>| r.into_body())
     }
 
     async fn list_nfs_shares(
         &self,
         req: crate::model::ListNfsSharesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNfsSharesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNfsSharesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -804,14 +738,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListNfsSharesResponse>| r.into_body())
     }
 
     async fn update_nfs_share(
         &self,
         req: crate::model::UpdateNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -833,24 +766,19 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.nfs_share), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_nfs_share(
         &self,
         req: crate::model::CreateNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -866,14 +794,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.nfs_share), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn rename_nfs_share(
         &self,
         req: crate::model::RenameNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NfsShare> {
+    ) -> Result<gax::response::Response<crate::model::NfsShare>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -883,17 +810,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::NfsShare>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn delete_nfs_share(
         &self,
         req: crate::model::DeleteNfsShareRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -906,14 +830,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_provisioning_quotas(
         &self,
         req: crate::model::ListProvisioningQuotasRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProvisioningQuotasResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProvisioningQuotasResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -931,18 +854,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListProvisioningQuotasResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn submit_provisioning_config(
         &self,
         req: crate::model::SubmitProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SubmitProvisioningConfigResponse> {
+    ) -> Result<gax::response::Response<crate::model::SubmitProvisioningConfigResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -955,18 +873,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::SubmitProvisioningConfigResponse>| {
-                r.into_body()
-            },
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_provisioning_config(
         &self,
         req: crate::model::GetProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProvisioningConfig> {
+    ) -> Result<gax::response::Response<crate::model::ProvisioningConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -979,14 +893,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ProvisioningConfig>| r.into_body())
     }
 
     async fn create_provisioning_config(
         &self,
         req: crate::model::CreateProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProvisioningConfig> {
+    ) -> Result<gax::response::Response<crate::model::ProvisioningConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1003,14 +916,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, Some(req.provisioning_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::ProvisioningConfig>| r.into_body())
     }
 
     async fn update_provisioning_config(
         &self,
         req: crate::model::UpdateProvisioningConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProvisioningConfig> {
+    ) -> Result<gax::response::Response<crate::model::ProvisioningConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1032,25 +944,20 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         let builder = builder.query(&[("email", &req.email)]);
         self.inner
             .execute(builder, Some(req.provisioning_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::ProvisioningConfig>| r.into_body())
     }
 
     async fn rename_network(
         &self,
         req: crate::model::RenameNetworkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Network> {
+    ) -> Result<gax::response::Response<crate::model::Network>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1060,17 +967,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Network>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_os_images(
         &self,
         req: crate::model::ListOSImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOSImagesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOSImagesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1085,14 +989,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListOSImagesResponse>| r.into_body())
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1108,14 +1011,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1128,14 +1030,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1148,7 +1049,6 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

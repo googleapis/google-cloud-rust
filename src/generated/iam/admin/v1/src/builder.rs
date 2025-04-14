@@ -96,6 +96,7 @@ pub mod iam {
             (*self.0.stub)
                 .list_service_accounts(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -168,6 +169,7 @@ pub mod iam {
             (*self.0.stub)
                 .get_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceAccountRequest::name].
@@ -213,6 +215,7 @@ pub mod iam {
             (*self.0.stub)
                 .create_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CreateServiceAccountRequest::name].
@@ -270,6 +273,7 @@ pub mod iam {
             (*self.0.stub)
                 .update_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ServiceAccount::name].
@@ -363,6 +367,7 @@ pub mod iam {
             (*self.0.stub)
                 .patch_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [service_account][crate::model::PatchServiceAccountRequest::service_account].
@@ -420,6 +425,7 @@ pub mod iam {
             (*self.0.stub)
                 .delete_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceAccountRequest::name].
@@ -465,6 +471,7 @@ pub mod iam {
             (*self.0.stub)
                 .undelete_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UndeleteServiceAccountRequest::name].
@@ -510,6 +517,7 @@ pub mod iam {
             (*self.0.stub)
                 .enable_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::EnableServiceAccountRequest::name].
@@ -555,6 +563,7 @@ pub mod iam {
             (*self.0.stub)
                 .disable_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DisableServiceAccountRequest::name].
@@ -600,6 +609,7 @@ pub mod iam {
             (*self.0.stub)
                 .list_service_account_keys(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ListServiceAccountKeysRequest::name].
@@ -656,6 +666,7 @@ pub mod iam {
             (*self.0.stub)
                 .get_service_account_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetServiceAccountKeyRequest::name].
@@ -712,6 +723,7 @@ pub mod iam {
             (*self.0.stub)
                 .create_service_account_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::CreateServiceAccountKeyRequest::name].
@@ -777,6 +789,7 @@ pub mod iam {
             (*self.0.stub)
                 .upload_service_account_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UploadServiceAccountKeyRequest::name].
@@ -830,6 +843,7 @@ pub mod iam {
             (*self.0.stub)
                 .delete_service_account_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceAccountKeyRequest::name].
@@ -877,6 +891,7 @@ pub mod iam {
             (*self.0.stub)
                 .disable_service_account_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DisableServiceAccountKeyRequest::name].
@@ -924,6 +939,7 @@ pub mod iam {
             (*self.0.stub)
                 .enable_service_account_key(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::EnableServiceAccountKeyRequest::name].
@@ -966,6 +982,7 @@ pub mod iam {
             (*self.0.stub)
                 .sign_blob(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SignBlobRequest::name].
@@ -1014,6 +1031,7 @@ pub mod iam {
             (*self.0.stub)
                 .sign_jwt(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::SignJwtRequest::name].
@@ -1062,6 +1080,7 @@ pub mod iam {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -1113,6 +1132,7 @@ pub mod iam {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -1176,6 +1196,7 @@ pub mod iam {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -1232,6 +1253,7 @@ pub mod iam {
             (*self.0.stub)
                 .query_grantable_roles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1307,6 +1329,7 @@ pub mod iam {
             (*self.0.stub)
                 .list_roles(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1388,6 +1411,7 @@ pub mod iam {
             (*self.0.stub)
                 .get_role(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRoleRequest::name].
@@ -1430,6 +1454,7 @@ pub mod iam {
             (*self.0.stub)
                 .create_role(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateRoleRequest::parent].
@@ -1484,6 +1509,7 @@ pub mod iam {
             (*self.0.stub)
                 .update_role(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UpdateRoleRequest::name].
@@ -1541,6 +1567,7 @@ pub mod iam {
             (*self.0.stub)
                 .delete_role(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteRoleRequest::name].
@@ -1589,6 +1616,7 @@ pub mod iam {
             (*self.0.stub)
                 .undelete_role(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::UndeleteRoleRequest::name].
@@ -1642,6 +1670,7 @@ pub mod iam {
             (*self.0.stub)
                 .query_testable_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1716,6 +1745,7 @@ pub mod iam {
             (*self.0.stub)
                 .query_auditable_services(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [full_resource_name][crate::model::QueryAuditableServicesRequest::full_resource_name].
@@ -1758,6 +1788,7 @@ pub mod iam {
             (*self.0.stub)
                 .lint_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [full_resource_name][crate::model::LintPolicyRequest::full_resource_name].

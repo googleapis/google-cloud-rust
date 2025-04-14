@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 }}
 
-impl wkt::prost::Convert<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
+impl gaxi::prost::Convert<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
     fn cnv(self) -> {{Codec.QualifiedName}} {
         use {{Codec.QualifiedName}} as T;
         match self {
@@ -25,7 +25,7 @@ impl wkt::prost::Convert<{{Codec.QualifiedName}}> for {{Codec.RelativeName}} {
     }
 }
 
-impl wkt::prost::Convert<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
+impl gaxi::prost::Convert<{{Codec.RelativeName}}> for {{Codec.QualifiedName}} {
     fn cnv(self) -> {{Codec.RelativeName}} {
         use {{Codec.RelativeName}} as T;
         match self {

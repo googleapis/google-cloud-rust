@@ -23,121 +23,121 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>>;
 
     async fn get_connection(
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection>;
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>>;
 
     async fn create_connection(
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_connection(
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_connection(
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn create_git_repository_link(
         &self,
         req: crate::model::CreateGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_git_repository_link(
         &self,
         req: crate::model::DeleteGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_git_repository_links(
         &self,
         req: crate::model::ListGitRepositoryLinksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGitRepositoryLinksResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListGitRepositoryLinksResponse>>;
 
     async fn get_git_repository_link(
         &self,
         req: crate::model::GetGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GitRepositoryLink>;
+    ) -> crate::Result<gax::response::Response<crate::model::GitRepositoryLink>>;
 
     async fn fetch_read_write_token(
         &self,
         req: crate::model::FetchReadWriteTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchReadWriteTokenResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchReadWriteTokenResponse>>;
 
     async fn fetch_read_token(
         &self,
         req: crate::model::FetchReadTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchReadTokenResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchReadTokenResponse>>;
 
     async fn fetch_linkable_git_repositories(
         &self,
         req: crate::model::FetchLinkableGitRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchLinkableGitRepositoriesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>>;
 
     async fn fetch_git_hub_installations(
         &self,
         req: crate::model::FetchGitHubInstallationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchGitHubInstallationsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchGitHubInstallationsResponse>>;
 
     async fn fetch_git_refs(
         &self,
         req: crate::model::FetchGitRefsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchGitRefsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::FetchGitRefsResponse>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -158,7 +158,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::ListConnectionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListConnectionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListConnectionsResponse>> {
         T::list_connections(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::GetConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Connection> {
+    ) -> crate::Result<gax::response::Response<crate::model::Connection>> {
         T::get_connection(self, req, options).await
     }
 
@@ -176,7 +176,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::CreateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_connection(self, req, options).await
     }
 
@@ -185,7 +185,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::UpdateConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_connection(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::DeleteConnectionRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_connection(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::CreateGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_git_repository_link(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::DeleteGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_git_repository_link(self, req, options).await
     }
 
@@ -221,7 +221,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::ListGitRepositoryLinksRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListGitRepositoryLinksResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListGitRepositoryLinksResponse>> {
         T::list_git_repository_links(self, req, options).await
     }
 
@@ -230,7 +230,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::GetGitRepositoryLinkRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::GitRepositoryLink> {
+    ) -> crate::Result<gax::response::Response<crate::model::GitRepositoryLink>> {
         T::get_git_repository_link(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::FetchReadWriteTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchReadWriteTokenResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchReadWriteTokenResponse>> {
         T::fetch_read_write_token(self, req, options).await
     }
 
@@ -248,7 +248,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::FetchReadTokenRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchReadTokenResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchReadTokenResponse>> {
         T::fetch_read_token(self, req, options).await
     }
 
@@ -257,7 +257,8 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::FetchLinkableGitRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchLinkableGitRepositoriesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchLinkableGitRepositoriesResponse>>
+    {
         T::fetch_linkable_git_repositories(self, req, options).await
     }
 
@@ -266,7 +267,8 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::FetchGitHubInstallationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchGitHubInstallationsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchGitHubInstallationsResponse>>
+    {
         T::fetch_git_hub_installations(self, req, options).await
     }
 
@@ -275,7 +277,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: crate::model::FetchGitRefsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::FetchGitRefsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::FetchGitRefsResponse>> {
         T::fetch_git_refs(self, req, options).await
     }
 
@@ -284,7 +286,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -293,7 +295,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -302,7 +304,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -311,7 +313,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -320,7 +322,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -329,7 +331,7 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

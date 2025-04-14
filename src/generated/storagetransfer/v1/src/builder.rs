@@ -102,6 +102,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .get_google_service_account(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::GetGoogleServiceAccountRequest::project_id].
@@ -149,6 +150,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .create_transfer_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
@@ -199,6 +201,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .update_transfer_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [job_name][crate::model::UpdateTransferJobRequest::job_name].
@@ -267,6 +270,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .get_transfer_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [job_name][crate::model::GetTransferJobRequest::job_name].
@@ -320,6 +324,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .list_transfer_jobs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -394,6 +399,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .pause_transfer_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PauseTransferOperationRequest::name].
@@ -443,6 +449,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .resume_transfer_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResumeTransferOperationRequest::name].
@@ -492,6 +499,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .run_transfer_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_transfer_job`.
@@ -575,6 +583,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .delete_transfer_job(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [job_name][crate::model::DeleteTransferJobRequest::job_name].
@@ -625,6 +634,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .create_agent_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project_id][crate::model::CreateAgentPoolRequest::project_id].
@@ -684,6 +694,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .update_agent_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
@@ -740,6 +751,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .get_agent_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetAgentPoolRequest::name].
@@ -784,6 +796,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .list_agent_pools(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -861,6 +874,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .delete_agent_pool(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteAgentPoolRequest::name].
@@ -908,6 +922,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -988,6 +1003,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -1035,6 +1051,7 @@ pub mod storage_transfer_service {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

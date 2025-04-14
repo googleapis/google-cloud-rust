@@ -18,6 +18,6 @@ service-config = 'google/cloud/asset/v1/cloudasset_v1.yaml'
 
 [codec]
 copyright-year = '2025'
-'package:accesscontextmanager_v1' = 'package=google-cloud-identity-accesscontextmanager-v1,source=google.identity.accesscontextmanager.v1,path=src/generated/identity/accesscontextmanager/v1,version=0.2'
-'package:orgpolicy_v1' = 'package=google-cloud-orgpolicy-v1,source=google.cloud.orgpolicy.v1,path=src/generated/cloud/orgpolicy/v1,version=0.2'
-'package:osconfig_v1' = 'package=google-cloud-osconfig-v1,source=google.cloud.osconfig.v1,path=src/generated/cloud/osconfig/v1,version=0.2'
+'package:accesscontextmanager_v1' = 'package=google-cloud-identity-accesscontextmanager-v1,source=google.identity.accesscontextmanager.v1'
+'package:orgpolicy_v1' = 'package=google-cloud-orgpolicy-v1,source=google.cloud.orgpolicy.v1'
+'package:osconfig_v1' = 'package=google-cloud-osconfig-v1,source=google.cloud.osconfig.v1'

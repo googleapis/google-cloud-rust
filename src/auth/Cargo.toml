@@ -39,7 +39,7 @@ tokio          = { version = "1", features = ["fs"] }
 base64         = "0.22"
 bon            = "3"
 # Local dependencies
-gax = { version = "0.21", path = "../gax", package = "google-cloud-gax" }
+gax.workspace = true
 
 [dev-dependencies]
 axum        = "0.8"

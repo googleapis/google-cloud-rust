@@ -56,6 +56,9 @@ pub struct Document {
     /// Google Cloud Storage URI.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::document::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Document {
@@ -232,6 +235,9 @@ pub struct Sentence {
     /// [google.cloud.language.v2.AnnotateTextRequest.Features.extract_document_sentiment]: crate::model::annotate_text_request::Features::extract_document_sentiment
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sentiment: std::option::Option<crate::model::Sentiment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Sentence {
@@ -298,6 +304,9 @@ pub struct Entity {
     /// for this entity in the provided document.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sentiment: std::option::Option<crate::model::Sentiment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Entity {
@@ -520,6 +529,9 @@ pub struct Sentiment {
     /// Sentiment score between -1.0 (negative sentiment) and 1.0
     /// (positive sentiment).
     pub score: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Sentiment {
@@ -573,6 +585,9 @@ pub struct EntityMention {
     /// The score shows the probability of the entity mention being the entity
     /// type. The score is in (0, 1] range.
     pub probability: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EntityMention {
@@ -700,6 +715,9 @@ pub struct TextSpan {
     ///
     /// [google.cloud.language.v2.EncodingType]: crate::model::EncodingType
     pub begin_offset: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TextSpan {
@@ -744,6 +762,9 @@ pub struct ClassificationCategory {
     /// when the ModerateTextRequest.ModelVersion is set to MODEL_VERSION_2, and
     /// the corresponding category has a severity score.
     pub severity: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ClassificationCategory {
@@ -788,6 +809,9 @@ pub struct AnalyzeSentimentRequest {
 
     /// The encoding type used by the API to calculate sentence offsets.
     pub encoding_type: crate::model::EncodingType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeSentimentRequest {
@@ -844,6 +868,9 @@ pub struct AnalyzeSentimentResponse {
     /// response when the language is not supported, but it is on a best effort
     /// basis.
     pub language_supported: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeSentimentResponse {
@@ -904,6 +931,9 @@ pub struct AnalyzeEntitiesRequest {
 
     /// The encoding type used by the API to calculate offsets.
     pub encoding_type: crate::model::EncodingType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeEntitiesRequest {
@@ -956,6 +986,9 @@ pub struct AnalyzeEntitiesResponse {
     /// response when the language is not supported, but it is on a best effort
     /// basis.
     pub language_supported: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnalyzeEntitiesResponse {
@@ -1002,6 +1035,9 @@ pub struct ClassifyTextRequest {
     /// Required. Input document.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub document: std::option::Option<crate::model::Document>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ClassifyTextRequest {
@@ -1045,6 +1081,9 @@ pub struct ClassifyTextResponse {
     /// response when the language is not supported, but it is on a best effort
     /// basis.
     pub language_supported: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ClassifyTextResponse {
@@ -1094,6 +1133,9 @@ pub struct ModerateTextRequest {
 
     /// Optional. The model version to use for ModerateText.
     pub model_version: crate::model::moderate_text_request::ModelVersion,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ModerateTextRequest {
@@ -1217,6 +1259,9 @@ pub struct ModerateTextResponse {
     /// response when the language is not supported, but it is on a best effort
     /// basis.
     pub language_supported: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ModerateTextResponse {
@@ -1271,6 +1316,9 @@ pub struct AnnotateTextRequest {
 
     /// The encoding type used by the API to calculate offsets.
     pub encoding_type: crate::model::EncodingType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotateTextRequest {
@@ -1337,6 +1385,9 @@ pub mod annotate_text_request {
 
         /// Optional. Moderate the document for harmful and sensitive categories.
         pub moderate_text: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Features {
@@ -1424,6 +1475,9 @@ pub struct AnnotateTextResponse {
     /// The API may still return a response when the language is not supported, but
     /// it is on a best effort basis.
     pub language_supported: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotateTextResponse {

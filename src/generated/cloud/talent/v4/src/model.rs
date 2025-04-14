@@ -47,6 +47,9 @@ pub struct TimestampRange {
     /// End of the period (exclusive).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimestampRange {
@@ -116,6 +119,9 @@ pub struct Location {
     ///
     /// [google.type.LatLng]: gtype::model::LatLng
     pub radius_miles: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Location {
@@ -363,6 +369,9 @@ pub struct RequestMetadata {
     /// service.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub device_info: std::option::Option<crate::model::DeviceInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RequestMetadata {
@@ -420,6 +429,9 @@ pub struct ResponseMetadata {
     /// This id is logged for tracking purposes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResponseMetadata {
@@ -455,6 +467,9 @@ pub struct DeviceInfo {
     /// distinguishes the device from other devices.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeviceInfo {
@@ -631,6 +646,9 @@ pub struct CustomAttribute {
     ///
     /// Default is false.
     pub keyword_searchable: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomAttribute {
@@ -701,6 +719,9 @@ pub struct SpellingCorrection {
     /// "software \<b\>\<i\>engineer\</i\>\</b\>".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub corrected_html: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SpellingCorrection {
@@ -782,6 +803,9 @@ pub struct CompensationInfo {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub annualized_total_compensation_range:
         std::option::Option<crate::model::compensation_info::CompensationRange>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CompensationInfo {
@@ -905,6 +929,9 @@ pub mod compensation_info {
         pub compensation_amount: std::option::Option<
             crate::model::compensation_info::compensation_entry::CompensationAmount,
         >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CompensationEntry {
@@ -1077,6 +1104,9 @@ pub mod compensation_info {
         /// [google.type.Money.currency_code]: gtype::model::Money::currency_code
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub min_compensation: std::option::Option<gtype::model::Money>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CompensationRange {
@@ -1370,6 +1400,9 @@ pub struct BatchOperationMetadata {
     /// [google.longrunning.Operation.done]: longrunning::model::Operation::done
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchOperationMetadata {
@@ -1633,6 +1666,9 @@ pub struct Company {
     /// public availability by the service when job content appears suspicious,
     /// abusive, or spammy.
     pub suspended: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Company {
@@ -1756,6 +1792,9 @@ pub mod company {
         /// [google.cloud.talent.v4.Company.headquarters_address]: crate::model::Company::headquarters_address
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub headquarters_location: std::option::Option<crate::model::Location>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DerivedInfo {
@@ -1798,6 +1837,9 @@ pub struct CreateCompanyRequest {
     /// Required. The company to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub company: std::option::Option<crate::model::Company>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateCompanyRequest {
@@ -1840,6 +1882,9 @@ pub struct GetCompanyRequest {
     /// example, "projects/api-test-project/tenants/foo/companies/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetCompanyRequest {
@@ -1887,6 +1932,9 @@ pub struct UpdateCompanyRequest {
     /// [google.cloud.talent.v4.UpdateCompanyRequest.update_mask]: crate::model::UpdateCompanyRequest::update_mask
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateCompanyRequest {
@@ -1932,6 +1980,9 @@ pub struct DeleteCompanyRequest {
     /// example, "projects/foo/tenants/bar/companies/baz".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteCompanyRequest {
@@ -1983,6 +2034,9 @@ pub struct ListCompaniesRequest {
     ///
     /// [google.cloud.talent.v4.ListCompaniesRequest.page_size]: crate::model::ListCompaniesRequest::page_size
     pub require_open_jobs: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCompaniesRequest {
@@ -2039,6 +2093,9 @@ pub struct ListCompaniesResponse {
     /// tracking id.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<crate::model::ResponseMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListCompaniesResponse {
@@ -2148,6 +2205,9 @@ pub struct CompleteQueryRequest {
     /// [google.cloud.talent.v4.CompleteQueryRequest.CompletionType.COMBINED]: crate::model::complete_query_request::completion_type::COMBINED
     #[serde(rename = "type")]
     pub r#type: crate::model::complete_query_request::CompletionType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CompleteQueryRequest {
@@ -2390,6 +2450,9 @@ pub struct CompleteQueryResponse {
     /// tracking id.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<crate::model::ResponseMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CompleteQueryResponse {
@@ -2451,6 +2514,9 @@ pub mod complete_query_response {
         /// [google.cloud.talent.v4.CompleteQueryRequest.CompletionType.COMPANY_NAME]: crate::model::complete_query_request::completion_type::COMPANY_NAME
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub image_uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CompletionResult {
@@ -2526,6 +2592,9 @@ pub struct ClientEvent {
     /// The detail information of a specific event type.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub event: std::option::Option<crate::model::client_event::Event>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ClientEvent {
@@ -2652,6 +2721,9 @@ pub struct JobEvent {
     /// [google.cloud.talent.v4.JobEvent.JobEventType.VIEW]: crate::model::job_event::job_event_type::VIEW
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub jobs: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl JobEvent {
@@ -2898,6 +2970,9 @@ pub struct CreateClientEventRequest {
     /// that uses Cloud Talent Solution.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub client_event: std::option::Option<crate::model::ClientEvent>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateClientEventRequest {
@@ -3132,6 +3207,9 @@ pub struct JobQuery {
     /// At most 400 excluded job names are allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub excluded_jobs: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl JobQuery {
@@ -3360,6 +3438,9 @@ pub struct LocationFilter {
     /// [google.cloud.talent.v4.LocationFilter.lat_lng]: crate::model::LocationFilter::lat_lng
     /// [google.cloud.talent.v4.PostingRegion.TELECOMMUTE]: crate::model::posting_region::TELECOMMUTE
     pub telecommute_preference: crate::model::location_filter::TelecommutePreference,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LocationFilter {
@@ -3510,6 +3591,9 @@ pub struct CompensationFilter {
     /// If set to true, jobs with unspecified compensation range fields are
     /// included.
     pub include_jobs_with_unspecified_compensation_range: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CompensationFilter {
@@ -3711,6 +3795,9 @@ pub struct CommuteFilter {
     /// Traffic factor to take into account while searching by commute.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub traffic_option: std::option::Option<crate::model::commute_filter::TrafficOption>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CommuteFilter {
@@ -3928,6 +4015,9 @@ pub struct HistogramQuery {
     /// [google.cloud.talent.v4.SearchJobsRequest.histogram_queries]: crate::model::SearchJobsRequest::histogram_queries
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub histogram_query: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HistogramQuery {
@@ -3975,6 +4065,9 @@ pub struct HistogramQueryResult {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
     pub histogram: std::collections::HashMap<std::string::String, i64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HistogramQueryResult {
@@ -4367,6 +4460,9 @@ pub struct Job {
     /// Options for job processing.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub processing_options: std::option::Option<crate::model::job::ProcessingOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Job {
@@ -4668,6 +4764,9 @@ pub mod job {
         /// The maximum number of allowed characters for each entry is 2,000.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub uris: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ApplicationInfo {
@@ -4735,6 +4834,9 @@ pub mod job {
         /// [google.cloud.talent.v4.Job.title]: crate::model::Job::title
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub job_categories: std::vec::Vec<crate::model::JobCategory>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DerivedInfo {
@@ -4797,6 +4899,9 @@ pub mod job {
         ///
         /// [google.cloud.talent.v4.HtmlSanitization.SIMPLE_FORMATTING_ONLY]: crate::model::html_sanitization::SIMPLE_FORMATTING_ONLY
         pub html_sanitization: crate::model::HtmlSanitization,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ProcessingOptions {
@@ -4846,6 +4951,9 @@ pub struct CreateJobRequest {
     /// Required. The Job to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub job: std::option::Option<crate::model::Job>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateJobRequest {
@@ -4888,6 +4996,9 @@ pub struct GetJobRequest {
     /// example, "projects/foo/tenants/bar/jobs/baz".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetJobRequest {
@@ -4933,6 +5044,9 @@ pub struct UpdateJobRequest {
     /// [google.cloud.talent.v4.UpdateJobRequest.update_mask]: crate::model::UpdateJobRequest::update_mask
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateJobRequest {
@@ -4978,6 +5092,9 @@ pub struct DeleteJobRequest {
     /// example, "projects/foo/tenants/bar/jobs/baz".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteJobRequest {
@@ -5061,6 +5178,9 @@ pub struct ListJobsRequest {
     ///
     /// [google.cloud.talent.v4.JobView.JOB_VIEW_FULL]: crate::model::job_view::JOB_VIEW_FULL
     pub job_view: crate::model::JobView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListJobsRequest {
@@ -5126,6 +5246,9 @@ pub struct ListJobsResponse {
     /// tracking id.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<crate::model::ResponseMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListJobsResponse {
@@ -5532,6 +5655,9 @@ pub struct SearchJobsRequest {
     /// precision and recall to deliver both highly accurate results and
     /// comprehensive coverage of relevant information.
     pub relevance_threshold: crate::model::search_jobs_request::RelevanceThreshold,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchJobsRequest {
@@ -5731,6 +5857,9 @@ pub mod search_jobs_request {
         /// [google.cloud.talent.v4.Job.custom_attributes]: crate::model::Job::custom_attributes
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub ranking_expression: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CustomRankingInfo {
@@ -6274,6 +6403,9 @@ pub struct SearchJobsResponse {
     /// The spell checking result, and correction.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub spell_correction: std::option::Option<crate::model::SpellingCorrection>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchJobsResponse {
@@ -6412,6 +6544,9 @@ pub mod search_jobs_response {
         /// [google.cloud.talent.v4.CommuteFilter]: crate::model::CommuteFilter
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub commute_info: std::option::Option<crate::model::search_jobs_response::CommuteInfo>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MatchingJob {
@@ -6488,6 +6623,9 @@ pub mod search_jobs_response {
         /// expanded query.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub travel_duration: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CommuteInfo {
@@ -6540,6 +6678,9 @@ pub struct BatchCreateJobsRequest {
     /// A maximum of 200 jobs can be created in a batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub jobs: std::vec::Vec<crate::model::Job>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchCreateJobsRequest {
@@ -6611,6 +6752,9 @@ pub struct BatchUpdateJobsRequest {
     /// [google.cloud.talent.v4.JobResult]: crate::model::JobResult
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchUpdateJobsRequest {
@@ -6674,6 +6818,9 @@ pub struct BatchDeleteJobsRequest {
     /// A maximum of 200 jobs can be deleted in a batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub names: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchDeleteJobsRequest {
@@ -6732,6 +6879,9 @@ pub struct JobResult {
     /// [google.cloud.talent.v4.JobResult.job]: crate::model::JobResult::job
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub status: std::option::Option<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl JobResult {
@@ -6781,6 +6931,9 @@ pub struct BatchCreateJobsResponse {
     /// until operation status is FINISHED, FAILED or CANCELLED.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub job_results: std::vec::Vec<crate::model::JobResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchCreateJobsResponse {
@@ -6823,6 +6976,9 @@ pub struct BatchUpdateJobsResponse {
     /// until operation status is FINISHED, FAILED or CANCELLED.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub job_results: std::vec::Vec<crate::model::JobResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchUpdateJobsResponse {
@@ -6865,6 +7021,9 @@ pub struct BatchDeleteJobsResponse {
     /// until operation status is FINISHED, FAILED or CANCELLED.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub job_results: std::vec::Vec<crate::model::JobResult>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchDeleteJobsResponse {
@@ -6915,6 +7074,9 @@ pub struct Tenant {
     /// The maximum number of allowed characters is 255.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub external_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Tenant {
@@ -6957,6 +7119,9 @@ pub struct CreateTenantRequest {
     /// Required. The tenant to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub tenant: std::option::Option<crate::model::Tenant>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTenantRequest {
@@ -6998,6 +7163,9 @@ pub struct GetTenantRequest {
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTenantRequest {
@@ -7044,6 +7212,9 @@ pub struct UpdateTenantRequest {
     /// [google.cloud.talent.v4.UpdateTenantRequest.update_mask]: crate::model::UpdateTenantRequest::update_mask
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTenantRequest {
@@ -7088,6 +7259,9 @@ pub struct DeleteTenantRequest {
     /// "projects/foo/tenants/bar".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTenantRequest {
@@ -7128,6 +7302,9 @@ pub struct ListTenantsRequest {
     /// The maximum number of tenants to be returned, at most 100.
     /// Default is 100 if a non-positive number is provided.
     pub page_size: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTenantsRequest {
@@ -7178,6 +7355,9 @@ pub struct ListTenantsResponse {
     /// tracking id.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata: std::option::Option<crate::model::ResponseMetadata>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTenantsResponse {

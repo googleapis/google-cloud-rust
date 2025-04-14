@@ -44,7 +44,7 @@ impl super::stub::MigrationService for MigrationService {
         &self,
         req: crate::model::CreateMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MigrationWorkflow> {
+    ) -> Result<gax::response::Response<crate::model::MigrationWorkflow>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -60,14 +60,13 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, Some(req.migration_workflow), options)
             .await
-            .map(|r: gax::response::Response<crate::model::MigrationWorkflow>| r.into_body())
     }
 
     async fn get_migration_workflow(
         &self,
         req: crate::model::GetMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MigrationWorkflow> {
+    ) -> Result<gax::response::Response<crate::model::MigrationWorkflow>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,24 +79,19 @@ impl super::stub::MigrationService for MigrationService {
         let builder = req
             .read_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("readMask", v)]));
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::MigrationWorkflow>| r.into_body())
     }
 
     async fn list_migration_workflows(
         &self,
         req: crate::model::ListMigrationWorkflowsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMigrationWorkflowsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMigrationWorkflowsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -113,30 +107,21 @@ impl super::stub::MigrationService for MigrationService {
         let builder = req
             .read_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("readMask", v)]));
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListMigrationWorkflowsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn delete_migration_workflow(
         &self,
         req: crate::model::DeleteMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -149,14 +134,17 @@ impl super::stub::MigrationService for MigrationService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn start_migration_workflow(
         &self,
         req: crate::model::StartMigrationWorkflowRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -166,17 +154,19 @@ impl super::stub::MigrationService for MigrationService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn get_migration_subtask(
         &self,
         req: crate::model::GetMigrationSubtaskRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MigrationSubtask> {
+    ) -> Result<gax::response::Response<crate::model::MigrationSubtask>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -189,24 +179,19 @@ impl super::stub::MigrationService for MigrationService {
         let builder = req
             .read_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("readMask", v)]));
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::MigrationSubtask>| r.into_body())
     }
 
     async fn list_migration_subtasks(
         &self,
         req: crate::model::ListMigrationSubtasksRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMigrationSubtasksResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -219,23 +204,14 @@ impl super::stub::MigrationService for MigrationService {
         let builder = req
             .read_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "readMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("readMask", v)]));
         let builder = builder.query(&[("pageSize", &req.page_size)]);
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = builder.query(&[("filter", &req.filter)]);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListMigrationSubtasksResponse>| {
-                    r.into_body()
-                },
-            )
     }
 }

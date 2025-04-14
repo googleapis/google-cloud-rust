@@ -44,6 +44,9 @@ pub struct GetGoogleServiceAccountRequest {
     /// account is associated with.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub project_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetGoogleServiceAccountRequest {
@@ -73,6 +76,9 @@ pub struct CreateTransferJobRequest {
     /// Required. The job to create.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub transfer_job: std::option::Option<crate::model::TransferJob>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateTransferJobRequest {
@@ -156,6 +162,9 @@ pub struct UpdateTransferJobRequest {
     /// [google.storagetransfer.v1.TransferJob.transfer_spec]: crate::model::TransferJob::transfer_spec
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_transfer_job_field_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateTransferJobRequest {
@@ -218,6 +227,9 @@ pub struct GetTransferJobRequest {
     /// job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub project_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetTransferJobRequest {
@@ -258,6 +270,9 @@ pub struct DeleteTransferJobRequest {
     /// job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub project_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteTransferJobRequest {
@@ -331,6 +346,9 @@ pub struct ListTransferJobsRequest {
     /// The list page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTransferJobsRequest {
@@ -376,6 +394,9 @@ pub struct ListTransferJobsResponse {
     /// The list next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListTransferJobsResponse {
@@ -430,6 +451,9 @@ pub struct PauseTransferOperationRequest {
     /// Required. The name of the transfer operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PauseTransferOperationRequest {
@@ -459,6 +483,9 @@ pub struct ResumeTransferOperationRequest {
     /// Required. The name of the transfer operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResumeTransferOperationRequest {
@@ -493,6 +520,9 @@ pub struct RunTransferJobRequest {
     /// job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub project_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RunTransferJobRequest {
@@ -549,6 +579,9 @@ pub struct CreateAgentPoolRequest {
     /// `^(?!goog)[a-z]([a-z0-9-._~]*[a-z0-9])?$`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub agent_pool_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAgentPoolRequest {
@@ -623,6 +656,9 @@ pub struct UpdateAgentPoolRequest {
     /// [google.storagetransfer.v1.AgentPool.display_name]: crate::model::AgentPool::display_name
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAgentPoolRequest {
@@ -664,6 +700,9 @@ pub struct GetAgentPoolRequest {
     /// Required. The name of the agent pool to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAgentPoolRequest {
@@ -693,6 +732,9 @@ pub struct DeleteAgentPoolRequest {
     /// Required. The name of the agent pool to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAgentPoolRequest {
@@ -740,6 +782,9 @@ pub struct ListAgentPoolsRequest {
     /// The list page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAgentPoolsRequest {
@@ -791,6 +836,9 @@ pub struct ListAgentPoolsResponse {
     /// The list next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAgentPoolsResponse {
@@ -849,6 +897,9 @@ pub struct GoogleServiceAccount {
     /// Unique identifier for the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub subject_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GoogleServiceAccount {
@@ -894,6 +945,9 @@ pub struct AwsAccessKey {
     /// responses.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secret_access_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsAccessKey {
@@ -940,6 +994,9 @@ pub struct AzureCredentials {
     /// (SAS)](https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub sas_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureCredentials {
@@ -1100,6 +1157,9 @@ pub struct ObjectConditions {
     /// transferred.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub last_modified_before: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ObjectConditions {
@@ -1215,6 +1275,9 @@ pub struct GcsData {
     /// [Transfer Cloud Storage managed
     /// folders](/storage-transfer/docs/managed-folders).
     pub managed_folder_transfer_enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GcsData {
@@ -1338,6 +1401,9 @@ pub struct AwsS3Data {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub private_network: std::option::Option<crate::model::aws_s_3_data::PrivateNetwork>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsS3Data {
@@ -1510,6 +1576,9 @@ pub struct AzureBlobStorageData {
     /// [google.storagetransfer.v1.GoogleServiceAccount]: crate::model::GoogleServiceAccount
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub credentials_secret: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AzureBlobStorageData {
@@ -1616,6 +1685,9 @@ pub struct HttpData {
     /// HTTP and HTTPS schemes are supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub list_url: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HttpData {
@@ -1645,6 +1717,9 @@ pub struct PosixFilesystem {
     /// Root directory path to the filesystem.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub root_directory: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PosixFilesystem {
@@ -1677,6 +1752,9 @@ pub struct HdfsData {
     /// Root path to transfer files.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub path: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl HdfsData {
@@ -1729,6 +1807,9 @@ pub struct AwsS3CompatibleData {
     /// providers. When not specified, S3CompatibleMetadata is used by default.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub data_provider: std::option::Option<crate::model::aws_s_3_compatible_data::DataProvider>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsS3CompatibleData {
@@ -1853,6 +1934,9 @@ pub struct S3CompatibleMetadata {
     /// The Listing API to use for discovering objects. When not specified,
     /// Transfer Service will attempt to determine the right API to use.
     pub list_api: crate::model::s_3_compatible_metadata::ListApi,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl S3CompatibleMetadata {
@@ -2184,6 +2268,9 @@ pub struct AgentPool {
     /// default value is set as 'No Limit'.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub bandwidth_limit: std::option::Option<crate::model::agent_pool::BandwidthLimit>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AgentPool {
@@ -2245,6 +2332,9 @@ pub mod agent_pool {
         /// in the pool.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub limit_mbps: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BandwidthLimit {
@@ -2372,6 +2462,9 @@ pub struct TransferOptions {
     /// Represents the selected metadata options for a transfer job.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metadata_options: std::option::Option<crate::model::MetadataOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferOptions {
@@ -2556,6 +2649,9 @@ pub struct TransferSpec {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub intermediate_data_location:
         std::option::Option<crate::model::transfer_spec::IntermediateDataLocation>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferSpec {
@@ -3045,6 +3141,9 @@ pub struct ReplicationSpec {
     /// The destination for replicated objects.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub data_sink: std::option::Option<crate::model::replication_spec::DataSink>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplicationSpec {
@@ -3249,6 +3348,9 @@ pub struct MetadataOptions {
     ///
     /// [google.storagetransfer.v1.MetadataOptions.TimeCreated.TIME_CREATED_SKIP]: crate::model::metadata_options::time_created::TIME_CREATED_SKIP
     pub time_created: crate::model::metadata_options::TimeCreated,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MetadataOptions {
@@ -3928,6 +4030,9 @@ pub struct TransferManifest {
     /// `gs://bucket_name/path/manifest.csv`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub location: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferManifest {
@@ -4042,6 +4147,9 @@ pub struct Schedule {
     /// 1 hour.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub repeat_interval: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Schedule {
@@ -4133,6 +4241,9 @@ pub struct EventStream {
     /// progress will complete, but no new transfers are initiated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub event_stream_expiration_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EventStream {
@@ -4280,6 +4391,9 @@ pub struct TransferJob {
     /// Present if a TransferOperation has been created for this JobConfig.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub latest_operation_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferJob {
@@ -4508,6 +4622,9 @@ pub struct ErrorLogEntry {
     /// A list of messages that carry the error details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub error_details: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ErrorLogEntry {
@@ -4559,6 +4676,9 @@ pub struct ErrorSummary {
     /// error code for a single transfer operation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub error_log_entries: std::vec::Vec<crate::model::ErrorLogEntry>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ErrorSummary {
@@ -4705,6 +4825,9 @@ pub struct TransferCounters {
     /// Number of intermediate objects failed cleaned up.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub intermediate_objects_failed_cleaned_up: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferCounters {
@@ -4916,6 +5039,9 @@ pub struct NotificationConfig {
 
     /// Required. The desired format of the notification message payloads.
     pub payload_format: crate::model::notification_config::PayloadFormat,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NotificationConfig {
@@ -5134,6 +5260,9 @@ pub struct LoggingConfig {
     /// This option ignores [LoggableAction] and [LoggableActionState]. If these
     /// are set, Cloud Logging will also be enabled for this transfer.
     pub enable_onprem_gcs_transfer_logs: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LoggingConfig {
@@ -5359,6 +5488,9 @@ pub struct TransferOperation {
     /// The name of the transfer job that triggers this transfer operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub transfer_job_name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransferOperation {

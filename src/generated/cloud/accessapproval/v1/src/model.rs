@@ -69,6 +69,9 @@ pub struct AccessLocations {
     /// * ANY: Any location
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub principal_physical_location_country: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessLocations {
@@ -113,6 +116,9 @@ pub struct AccessReason {
     /// More detail about certain reason types. See comments for each type above.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub detail: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessReason {
@@ -259,6 +265,9 @@ pub struct SignatureInfo {
     /// How this signature may be verified.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub verification_info: std::option::Option<crate::model::signature_info::VerificationInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SignatureInfo {
@@ -389,6 +398,9 @@ pub struct ApproveDecision {
 
     /// True when the request has been auto-approved.
     pub auto_approved: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApproveDecision {
@@ -461,6 +473,9 @@ pub struct DismissDecision {
     /// to inaction by the access approval approvers (the request is not acted
     /// on by the approvers before the exiration time).
     pub implicit: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DismissDecision {
@@ -499,6 +514,9 @@ pub struct ResourceProperties {
     /// Whether an approval will exclude the descendants of the resource being
     /// requested.
     pub excludes_descendants: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResourceProperties {
@@ -564,6 +582,9 @@ pub struct ApprovalRequest {
     /// The current decision on the approval request.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub decision: std::option::Option<crate::model::approval_request::Decision>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApprovalRequest {
@@ -799,6 +820,9 @@ pub struct EnrolledService {
 
     /// The enrollment level of the service.
     pub enrollment_level: crate::model::EnrollmentLevel,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnrolledService {
@@ -891,6 +915,9 @@ pub struct AccessApprovalSettings {
     /// version is not necessarily the effective key version at this level, as key
     /// versions are inherited top-down.
     pub invalid_key_version: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessApprovalSettings {
@@ -980,6 +1007,9 @@ pub struct AccessApprovalServiceAccount {
     /// Email address of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub account_email: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccessApprovalServiceAccount {
@@ -1038,6 +1068,9 @@ pub struct ListApprovalRequestsMessage {
     /// A token identifying the page of results to return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListApprovalRequestsMessage {
@@ -1089,6 +1122,9 @@ pub struct ListApprovalRequestsResponse {
     /// Token to retrieve the next page of results, or empty if there are no more.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListApprovalRequestsResponse {
@@ -1145,6 +1181,9 @@ pub struct GetApprovalRequestMessage {
     /// "{projects|folders|organizations}/{id}/approvalRequests/{approval_request}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetApprovalRequestMessage {
@@ -1178,6 +1217,9 @@ pub struct ApproveApprovalRequestMessage {
     /// The expiration time of this approval.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expire_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApproveApprovalRequestMessage {
@@ -1216,6 +1258,9 @@ pub struct DismissApprovalRequestMessage {
     /// Name of the ApprovalRequest to dismiss.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DismissApprovalRequestMessage {
@@ -1245,6 +1290,9 @@ pub struct InvalidateApprovalRequestMessage {
     /// Name of the ApprovalRequest to invalidate.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InvalidateApprovalRequestMessage {
@@ -1275,6 +1323,9 @@ pub struct GetAccessApprovalSettingsMessage {
     /// Format: "{projects|folders|organizations}/{id}/accessApprovalSettings"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAccessApprovalSettingsMessage {
@@ -1317,6 +1368,9 @@ pub struct UpdateAccessApprovalSettingsMessage {
     /// updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateAccessApprovalSettingsMessage {
@@ -1360,6 +1414,9 @@ pub struct DeleteAccessApprovalSettingsMessage {
     /// Name of the AccessApprovalSettings to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAccessApprovalSettingsMessage {
@@ -1389,6 +1446,9 @@ pub struct GetAccessApprovalServiceAccountMessage {
     /// Name of the AccessApprovalServiceAccount to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAccessApprovalServiceAccountMessage {

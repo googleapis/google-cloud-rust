@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateMicrosoftAdDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_microsoft_ad_domain(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ResetAdminPasswordRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ResetAdminPasswordResponse> {
+    ) -> Result<gax::response::Response<crate::model::ResetAdminPasswordResponse>> {
         self.inner.reset_admin_password(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::ListDomainsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDomainsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDomainsResponse>> {
         self.inner.list_domains(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Domain> {
+    ) -> Result<gax::response::Response<crate::model::Domain>> {
         self.inner.get_domain(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_domain(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteDomainRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_domain(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::AttachTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.attach_trust(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::ReconfigureTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.reconfigure_trust(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::DetachTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.detach_trust(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::ValidateTrustRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.validate_trust(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

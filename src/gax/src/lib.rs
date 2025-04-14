@@ -35,11 +35,6 @@
 /// This is the result type used by all functions wrapping RPCs.
 pub type Result<T> = std::result::Result<T, crate::error::Error>;
 
-/// Implements helpers to create telemetry headers.
-#[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
-pub mod api_header;
-
 /// The core error types used by generated clients.
 pub mod error;
 

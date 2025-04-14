@@ -44,7 +44,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
         &self,
         req: crate::model::ListCloudExadataInfrastructuresRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCloudExadataInfrastructuresResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCloudExadataInfrastructuresResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -62,18 +63,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::ListCloudExadataInfrastructuresResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn get_cloud_exadata_infrastructure(
         &self,
         req: crate::model::GetCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CloudExadataInfrastructure> {
+    ) -> Result<gax::response::Response<crate::model::CloudExadataInfrastructure>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -86,18 +82,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::CloudExadataInfrastructure>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn create_cloud_exadata_infrastructure(
         &self,
         req: crate::model::CreateCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -118,14 +109,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, Some(req.cloud_exadata_infrastructure), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_cloud_exadata_infrastructure(
         &self,
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -140,14 +130,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_cloud_vm_clusters(
         &self,
         req: crate::model::ListCloudVmClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCloudVmClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCloudVmClustersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -166,18 +155,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListCloudVmClustersResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_cloud_vm_cluster(
         &self,
         req: crate::model::GetCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CloudVmCluster> {
+    ) -> Result<gax::response::Response<crate::model::CloudVmCluster>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -190,14 +174,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::CloudVmCluster>| r.into_body())
     }
 
     async fn create_cloud_vm_cluster(
         &self,
         req: crate::model::CreateCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -215,14 +198,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, Some(req.cloud_vm_cluster), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_cloud_vm_cluster(
         &self,
         req: crate::model::DeleteCloudVmClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -237,14 +219,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_entitlements(
         &self,
         req: crate::model::ListEntitlementsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEntitlementsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEntitlementsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -262,14 +243,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListEntitlementsResponse>| r.into_body())
     }
 
     async fn list_db_servers(
         &self,
         req: crate::model::ListDbServersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDbServersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDbServersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -287,14 +267,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListDbServersResponse>| r.into_body())
     }
 
     async fn list_db_nodes(
         &self,
         req: crate::model::ListDbNodesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDbNodesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDbNodesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -309,14 +288,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListDbNodesResponse>| r.into_body())
     }
 
     async fn list_gi_versions(
         &self,
         req: crate::model::ListGiVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListGiVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListGiVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -334,14 +312,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListGiVersionsResponse>| r.into_body())
     }
 
     async fn list_db_system_shapes(
         &self,
         req: crate::model::ListDbSystemShapesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDbSystemShapesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDbSystemShapesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -359,18 +336,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListDbSystemShapesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_autonomous_databases(
         &self,
         req: crate::model::ListAutonomousDatabasesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAutonomousDatabasesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAutonomousDatabasesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -390,18 +362,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListAutonomousDatabasesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_autonomous_database(
         &self,
         req: crate::model::GetAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::AutonomousDatabase> {
+    ) -> Result<gax::response::Response<crate::model::AutonomousDatabase>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -414,14 +381,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::AutonomousDatabase>| r.into_body())
     }
 
     async fn create_autonomous_database(
         &self,
         req: crate::model::CreateAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -439,14 +405,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, Some(req.autonomous_database), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_autonomous_database(
         &self,
         req: crate::model::DeleteAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -460,14 +425,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn restore_autonomous_database(
         &self,
         req: crate::model::RestoreAutonomousDatabaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -477,17 +441,15 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn generate_autonomous_database_wallet(
         &self,
         req: crate::model::GenerateAutonomousDatabaseWalletRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateAutonomousDatabaseWalletResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -500,18 +462,14 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::GenerateAutonomousDatabaseWalletResponse>| {
-                r.into_body()
-            },
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_autonomous_db_versions(
         &self,
         req: crate::model::ListAutonomousDbVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAutonomousDbVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAutonomousDbVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -529,18 +487,14 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListAutonomousDbVersionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_autonomous_database_character_sets(
         &self,
         req: crate::model::ListAutonomousDatabaseCharacterSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAutonomousDatabaseCharacterSetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAutonomousDatabaseCharacterSetsResponse>>
+    {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -559,18 +513,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::ListAutonomousDatabaseCharacterSetsResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn list_autonomous_database_backups(
         &self,
         req: crate::model::ListAutonomousDatabaseBackupsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAutonomousDatabaseBackupsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAutonomousDatabaseBackupsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -589,18 +538,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<
-                    crate::model::ListAutonomousDatabaseBackupsResponse,
-                >| r.into_body(),
-            )
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -616,14 +560,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -636,14 +579,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -659,18 +601,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -683,14 +620,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -703,14 +639,17 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -720,10 +659,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

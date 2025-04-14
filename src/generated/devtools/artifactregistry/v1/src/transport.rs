@@ -44,7 +44,7 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         &self,
         req: crate::model::ListDockerImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDockerImagesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDockerImagesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -63,14 +63,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListDockerImagesResponse>| r.into_body())
     }
 
     async fn get_docker_image(
         &self,
         req: crate::model::GetDockerImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DockerImage> {
+    ) -> Result<gax::response::Response<crate::model::DockerImage>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -83,14 +82,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::DockerImage>| r.into_body())
     }
 
     async fn list_maven_artifacts(
         &self,
         req: crate::model::ListMavenArtifactsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListMavenArtifactsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListMavenArtifactsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -108,18 +106,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListMavenArtifactsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_maven_artifact(
         &self,
         req: crate::model::GetMavenArtifactRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::MavenArtifact> {
+    ) -> Result<gax::response::Response<crate::model::MavenArtifact>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -132,14 +125,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::MavenArtifact>| r.into_body())
     }
 
     async fn list_npm_packages(
         &self,
         req: crate::model::ListNpmPackagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListNpmPackagesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListNpmPackagesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -157,14 +149,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListNpmPackagesResponse>| r.into_body())
     }
 
     async fn get_npm_package(
         &self,
         req: crate::model::GetNpmPackageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::NpmPackage> {
+    ) -> Result<gax::response::Response<crate::model::NpmPackage>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -177,14 +168,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::NpmPackage>| r.into_body())
     }
 
     async fn list_python_packages(
         &self,
         req: crate::model::ListPythonPackagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPythonPackagesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPythonPackagesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -202,18 +192,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPythonPackagesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_python_package(
         &self,
         req: crate::model::GetPythonPackageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PythonPackage> {
+    ) -> Result<gax::response::Response<crate::model::PythonPackage>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -226,14 +211,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PythonPackage>| r.into_body())
     }
 
     async fn import_apt_artifacts(
         &self,
         req: crate::model::ImportAptArtifactsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -246,17 +230,14 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn import_yum_artifacts(
         &self,
         req: crate::model::ImportYumArtifactsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -269,17 +250,14 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_repositories(
         &self,
         req: crate::model::ListRepositoriesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRepositoriesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRepositoriesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -299,14 +277,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListRepositoriesResponse>| r.into_body())
     }
 
     async fn get_repository(
         &self,
         req: crate::model::GetRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Repository> {
+    ) -> Result<gax::response::Response<crate::model::Repository>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -319,14 +296,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Repository>| r.into_body())
     }
 
     async fn create_repository(
         &self,
         req: crate::model::CreateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -343,14 +319,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, Some(req.repository), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_repository(
         &self,
         req: crate::model::UpdateRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Repository> {
+    ) -> Result<gax::response::Response<crate::model::Repository>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -372,24 +347,19 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.repository), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Repository>| r.into_body())
     }
 
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -402,14 +372,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_packages(
         &self,
         req: crate::model::ListPackagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPackagesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPackagesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -426,14 +395,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListPackagesResponse>| r.into_body())
     }
 
     async fn get_package(
         &self,
         req: crate::model::GetPackageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Package> {
+    ) -> Result<gax::response::Response<crate::model::Package>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -446,14 +414,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Package>| r.into_body())
     }
 
     async fn delete_package(
         &self,
         req: crate::model::DeletePackageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -466,14 +433,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_versions(
         &self,
         req: crate::model::ListVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -491,14 +457,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListVersionsResponse>| r.into_body())
     }
 
     async fn get_version(
         &self,
         req: crate::model::GetVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Version> {
+    ) -> Result<gax::response::Response<crate::model::Version>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -512,14 +477,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Version>| r.into_body())
     }
 
     async fn delete_version(
         &self,
         req: crate::model::DeleteVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -533,14 +497,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn batch_delete_versions(
         &self,
         req: crate::model::BatchDeleteVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -553,17 +516,14 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn update_version(
         &self,
         req: crate::model::UpdateVersionRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Version> {
+    ) -> Result<gax::response::Response<crate::model::Version>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -585,24 +545,19 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.version), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Version>| r.into_body())
     }
 
     async fn list_files(
         &self,
         req: crate::model::ListFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListFilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListFilesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -619,14 +574,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListFilesResponse>| r.into_body())
     }
 
     async fn get_file(
         &self,
         req: crate::model::GetFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::File> {
+    ) -> Result<gax::response::Response<crate::model::File>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -639,14 +593,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::File>| r.into_body())
     }
 
     async fn delete_file(
         &self,
         req: crate::model::DeleteFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -659,14 +612,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn update_file(
         &self,
         req: crate::model::UpdateFileRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::File> {
+    ) -> Result<gax::response::Response<crate::model::File>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -688,24 +640,17 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        self.inner
-            .execute(builder, Some(req.file), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::File>| r.into_body())
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner.execute(builder, Some(req.file), options).await
     }
 
     async fn list_tags(
         &self,
         req: crate::model::ListTagsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTagsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTagsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -721,14 +666,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListTagsResponse>| r.into_body())
     }
 
     async fn get_tag(
         &self,
         req: crate::model::GetTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tag> {
+    ) -> Result<gax::response::Response<crate::model::Tag>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -741,14 +685,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Tag>| r.into_body())
     }
 
     async fn create_tag(
         &self,
         req: crate::model::CreateTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tag> {
+    ) -> Result<gax::response::Response<crate::model::Tag>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -759,17 +702,14 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("tagId", &req.tag_id)]);
-        self.inner
-            .execute(builder, Some(req.tag), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Tag>| r.into_body())
+        self.inner.execute(builder, Some(req.tag), options).await
     }
 
     async fn update_tag(
         &self,
         req: crate::model::UpdateTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tag> {
+    ) -> Result<gax::response::Response<crate::model::Tag>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -791,24 +731,17 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        self.inner
-            .execute(builder, Some(req.tag), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Tag>| r.into_body())
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner.execute(builder, Some(req.tag), options).await
     }
 
     async fn delete_tag(
         &self,
         req: crate::model::DeleteTagRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -821,14 +754,17 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_rule(
         &self,
         req: crate::model::CreateRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Rule> {
+    ) -> Result<gax::response::Response<crate::model::Rule>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -839,17 +775,14 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         let builder = builder.query(&[("ruleId", &req.rule_id)]);
-        self.inner
-            .execute(builder, Some(req.rule), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Rule>| r.into_body())
+        self.inner.execute(builder, Some(req.rule), options).await
     }
 
     async fn list_rules(
         &self,
         req: crate::model::ListRulesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRulesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRulesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -864,14 +797,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListRulesResponse>| r.into_body())
     }
 
     async fn get_rule(
         &self,
         req: crate::model::GetRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Rule> {
+    ) -> Result<gax::response::Response<crate::model::Rule>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -884,14 +816,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Rule>| r.into_body())
     }
 
     async fn update_rule(
         &self,
         req: crate::model::UpdateRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Rule> {
+    ) -> Result<gax::response::Response<crate::model::Rule>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -913,24 +844,17 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        self.inner
-            .execute(builder, Some(req.rule), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Rule>| r.into_body())
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner.execute(builder, Some(req.rule), options).await
     }
 
     async fn delete_rule(
         &self,
         req: crate::model::DeleteRuleRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -943,14 +867,17 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -963,17 +890,14 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::Policy> {
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -999,14 +923,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<iam_v1::model::Policy>| r.into_body())
     }
 
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1019,16 +942,14 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<iam_v1::model::TestIamPermissionsResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_project_settings(
         &self,
         req: crate::model::GetProjectSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProjectSettings> {
+    ) -> Result<gax::response::Response<crate::model::ProjectSettings>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1041,14 +962,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ProjectSettings>| r.into_body())
     }
 
     async fn update_project_settings(
         &self,
         req: crate::model::UpdateProjectSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProjectSettings> {
+    ) -> Result<gax::response::Response<crate::model::ProjectSettings>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1070,24 +990,19 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.project_settings), options)
             .await
-            .map(|r: gax::response::Response<crate::model::ProjectSettings>| r.into_body())
     }
 
     async fn get_vpcsc_config(
         &self,
         req: crate::model::GetVPCSCConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VPCSCConfig> {
+    ) -> Result<gax::response::Response<crate::model::VPCSCConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1100,14 +1015,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::VPCSCConfig>| r.into_body())
     }
 
     async fn update_vpcsc_config(
         &self,
         req: crate::model::UpdateVPCSCConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::VPCSCConfig> {
+    ) -> Result<gax::response::Response<crate::model::VPCSCConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1129,24 +1043,19 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.vpcsc_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::VPCSCConfig>| r.into_body())
     }
 
     async fn update_package(
         &self,
         req: crate::model::UpdatePackageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Package> {
+    ) -> Result<gax::response::Response<crate::model::Package>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -1168,24 +1077,19 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.package), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Package>| r.into_body())
     }
 
     async fn list_attachments(
         &self,
         req: crate::model::ListAttachmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAttachmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAttachmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1204,14 +1108,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListAttachmentsResponse>| r.into_body())
     }
 
     async fn get_attachment(
         &self,
         req: crate::model::GetAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Attachment> {
+    ) -> Result<gax::response::Response<crate::model::Attachment>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1224,14 +1127,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Attachment>| r.into_body())
     }
 
     async fn create_attachment(
         &self,
         req: crate::model::CreateAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1248,14 +1150,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, Some(req.attachment), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_attachment(
         &self,
         req: crate::model::DeleteAttachmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1268,14 +1169,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1291,14 +1191,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1311,14 +1210,13 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1331,7 +1229,6 @@ impl super::stub::ArtifactRegistry for ArtifactRegistry {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(

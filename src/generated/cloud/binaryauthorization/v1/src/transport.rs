@@ -44,7 +44,7 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         &self,
         req: crate::model::GetPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -57,14 +57,13 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 
     async fn update_policy(
         &self,
         req: crate::model::UpdatePolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -83,17 +82,14 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req.policy), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
+        self.inner.execute(builder, Some(req.policy), options).await
     }
 
     async fn create_attestor(
         &self,
         req: crate::model::CreateAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Attestor> {
+    ) -> Result<gax::response::Response<crate::model::Attestor>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -110,14 +106,13 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, Some(req.attestor), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Attestor>| r.into_body())
     }
 
     async fn get_attestor(
         &self,
         req: crate::model::GetAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Attestor> {
+    ) -> Result<gax::response::Response<crate::model::Attestor>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -130,14 +125,13 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Attestor>| r.into_body())
     }
 
     async fn update_attestor(
         &self,
         req: crate::model::UpdateAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Attestor> {
+    ) -> Result<gax::response::Response<crate::model::Attestor>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -159,14 +153,13 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, Some(req.attestor), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Attestor>| r.into_body())
     }
 
     async fn list_attestors(
         &self,
         req: crate::model::ListAttestorsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAttestorsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAttestorsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -184,14 +177,13 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListAttestorsResponse>| r.into_body())
     }
 
     async fn delete_attestor(
         &self,
         req: crate::model::DeleteAttestorRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -204,7 +196,10 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 }
 
@@ -234,7 +229,7 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
         &self,
         req: crate::model::GetSystemPolicyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Policy> {
+    ) -> Result<gax::response::Response<crate::model::Policy>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -247,7 +242,6 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Policy>| r.into_body())
     }
 }
 
@@ -277,7 +271,7 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
         &self,
         req: crate::model::ValidateAttestationOccurrenceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ValidateAttestationOccurrenceResponse> {
+    ) -> Result<gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -290,10 +284,6 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::ValidateAttestationOccurrenceResponse>| {
-                r.into_body()
-            },
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 }

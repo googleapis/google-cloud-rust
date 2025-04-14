@@ -49,6 +49,9 @@ pub struct GetAuthorizationRequest {
     /// Example: `projects/my_project/authorization`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAuthorizationRequest {
@@ -89,6 +92,9 @@ pub struct Authorization {
     /// add-on's behalf.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub oauth_client_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Authorization {
@@ -144,6 +150,9 @@ pub struct CreateDeploymentRequest {
     /// Required. The deployment to create (deployment.name cannot be set).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub deployment: std::option::Option<crate::model::Deployment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateDeploymentRequest {
@@ -188,6 +197,9 @@ pub struct ReplaceDeploymentRequest {
     /// Required. The deployment to create or replace.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub deployment: std::option::Option<crate::model::Deployment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReplaceDeploymentRequest {
@@ -222,6 +234,9 @@ pub struct GetDeploymentRequest {
     /// Example:  `projects/my_project/deployments/my_deployment`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetDeploymentRequest {
@@ -267,6 +282,9 @@ pub struct ListDeploymentsRequest {
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDeploymentsRequest {
@@ -313,6 +331,9 @@ pub struct ListDeploymentsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListDeploymentsResponse {
@@ -374,6 +395,9 @@ pub struct DeleteDeploymentRequest {
     /// If this is provided, it must match the server's etag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteDeploymentRequest {
@@ -411,6 +435,9 @@ pub struct InstallDeploymentRequest {
     /// Example:  `projects/my_project/deployments/my_deployment`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InstallDeploymentRequest {
@@ -442,6 +469,9 @@ pub struct UninstallDeploymentRequest {
     /// Example:  `projects/my_project/deployments/my_deployment`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UninstallDeploymentRequest {
@@ -473,6 +503,9 @@ pub struct GetInstallStatusRequest {
     /// Example:  `projects/my_project/deployments/my_deployment/installStatus`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstallStatusRequest {
@@ -508,6 +541,9 @@ pub struct InstallStatus {
     /// True if the deployment is installed for the user
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub installed: std::option::Option<wkt::BoolValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InstallStatus {
@@ -562,6 +598,9 @@ pub struct Deployment {
     /// ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Deployment {
@@ -645,6 +684,9 @@ pub struct AddOns {
     /// Options for sending requests to add-on HTTP endpoints
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub http_options: std::option::Option<apps_script_type::model::HttpOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AddOns {

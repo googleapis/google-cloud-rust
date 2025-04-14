@@ -59,6 +59,9 @@ pub struct ListReportConfigsRequest {
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReportConfigsRequest {
@@ -120,6 +123,9 @@ pub struct ListReportConfigsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReportConfigsResponse {
@@ -185,6 +191,9 @@ pub struct GetReportConfigRequest {
     /// Required. Name of the resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetReportConfigRequest {
@@ -234,6 +243,9 @@ pub struct CreateReportConfigRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateReportConfigRequest {
@@ -304,6 +316,9 @@ pub struct UpdateReportConfigRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateReportConfigRequest {
@@ -372,6 +387,9 @@ pub struct DeleteReportConfigRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteReportConfigRequest {
@@ -452,6 +470,9 @@ pub struct ReportDetail {
     /// Metrics of the report.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub report_metrics: std::option::Option<crate::model::report_detail::Metrics>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReportDetail {
@@ -553,6 +574,9 @@ pub mod report_detail {
         /// Count of Cloud Storage objects which are part of the report.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub processed_records_count: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Metrics {
@@ -599,6 +623,9 @@ pub struct ListReportDetailsRequest {
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReportDetailsRequest {
@@ -660,6 +687,9 @@ pub struct ListReportDetailsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListReportDetailsResponse {
@@ -725,6 +755,9 @@ pub struct GetReportDetailRequest {
     /// Required. Name of the resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetReportDetailRequest {
@@ -783,6 +816,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -865,6 +901,9 @@ pub struct FrequencyOptions {
     /// UTC time zone.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_date: std::option::Option<gtype::model::Date>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FrequencyOptions {
@@ -985,6 +1024,9 @@ pub struct CSVOptions {
 
     /// If set, will include a header row in the CSV report.
     pub header_required: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CSVOptions {
@@ -1025,7 +1067,10 @@ impl wkt::message::Message for CSVOptions {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ParquetOptions {}
+pub struct ParquetOptions {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ParquetOptions {
     pub fn new() -> Self {
@@ -1049,6 +1094,9 @@ pub struct CloudStorageFilters {
     /// Bucket for which the report will be generated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub bucket: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudStorageFilters {
@@ -1084,6 +1132,9 @@ pub struct CloudStorageDestinationOptions {
     /// generated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub destination_path: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CloudStorageDestinationOptions {
@@ -1132,6 +1183,9 @@ pub struct ObjectMetadataReportOptions {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination_options:
         std::option::Option<crate::model::object_metadata_report_options::DestinationOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ObjectMetadataReportOptions {
@@ -1317,6 +1371,9 @@ pub struct ReportConfig {
     /// Configuration options for report contents.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub report_kind: std::option::Option<crate::model::report_config::ReportKind>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReportConfig {

@@ -23,121 +23,121 @@ pub trait SecurityPosture: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::ListPosturesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPosturesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPosturesResponse>>;
 
     async fn list_posture_revisions(
         &self,
         req: crate::model::ListPostureRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPostureRevisionsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPostureRevisionsResponse>>;
 
     async fn get_posture(
         &self,
         req: crate::model::GetPostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Posture>;
+    ) -> crate::Result<gax::response::Response<crate::model::Posture>>;
 
     async fn create_posture(
         &self,
         req: crate::model::CreatePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_posture(
         &self,
         req: crate::model::UpdatePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_posture(
         &self,
         req: crate::model::DeletePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn extract_posture(
         &self,
         req: crate::model::ExtractPostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_posture_deployments(
         &self,
         req: crate::model::ListPostureDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPostureDeploymentsResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPostureDeploymentsResponse>>;
 
     async fn get_posture_deployment(
         &self,
         req: crate::model::GetPostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PostureDeployment>;
+    ) -> crate::Result<gax::response::Response<crate::model::PostureDeployment>>;
 
     async fn create_posture_deployment(
         &self,
         req: crate::model::CreatePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn update_posture_deployment(
         &self,
         req: crate::model::UpdatePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_posture_deployment(
         &self,
         req: crate::model::DeletePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn list_posture_templates(
         &self,
         req: crate::model::ListPostureTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPostureTemplatesResponse>;
+    ) -> crate::Result<gax::response::Response<crate::model::ListPostureTemplatesResponse>>;
 
     async fn get_posture_template(
         &self,
         req: crate::model::GetPostureTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PostureTemplate>;
+    ) -> crate::Result<gax::response::Response<crate::model::PostureTemplate>>;
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     fn get_polling_error_policy(
         &self,
@@ -158,7 +158,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::ListPosturesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPosturesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPosturesResponse>> {
         T::list_postures(self, req, options).await
     }
 
@@ -167,7 +167,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::ListPostureRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPostureRevisionsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPostureRevisionsResponse>> {
         T::list_posture_revisions(self, req, options).await
     }
 
@@ -176,7 +176,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::GetPostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::Posture> {
+    ) -> crate::Result<gax::response::Response<crate::model::Posture>> {
         T::get_posture(self, req, options).await
     }
 
@@ -185,7 +185,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::CreatePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_posture(self, req, options).await
     }
 
@@ -194,7 +194,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::UpdatePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_posture(self, req, options).await
     }
 
@@ -203,7 +203,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::DeletePostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_posture(self, req, options).await
     }
 
@@ -212,7 +212,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::ExtractPostureRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::extract_posture(self, req, options).await
     }
 
@@ -221,7 +221,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::ListPostureDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPostureDeploymentsResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPostureDeploymentsResponse>> {
         T::list_posture_deployments(self, req, options).await
     }
 
@@ -230,7 +230,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::GetPostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PostureDeployment> {
+    ) -> crate::Result<gax::response::Response<crate::model::PostureDeployment>> {
         T::get_posture_deployment(self, req, options).await
     }
 
@@ -239,7 +239,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::CreatePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::create_posture_deployment(self, req, options).await
     }
 
@@ -248,7 +248,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::UpdatePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::update_posture_deployment(self, req, options).await
     }
 
@@ -257,7 +257,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::DeletePostureDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_posture_deployment(self, req, options).await
     }
 
@@ -266,7 +266,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::ListPostureTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::ListPostureTemplatesResponse> {
+    ) -> crate::Result<gax::response::Response<crate::model::ListPostureTemplatesResponse>> {
         T::list_posture_templates(self, req, options).await
     }
 
@@ -275,7 +275,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: crate::model::GetPostureTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<crate::model::PostureTemplate> {
+    ) -> crate::Result<gax::response::Response<crate::model::PostureTemplate>> {
         T::get_posture_template(self, req, options).await
     }
 
@@ -284,7 +284,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse> {
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
         T::list_locations(self, req, options).await
     }
 
@@ -293,7 +293,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location> {
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
         T::get_location(self, req, options).await
     }
 
@@ -302,7 +302,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         T::list_operations(self, req, options).await
     }
 
@@ -311,7 +311,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation> {
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::get_operation(self, req, options).await
     }
 
@@ -320,7 +320,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete_operation(self, req, options).await
     }
 
@@ -329,7 +329,7 @@ impl<T: super::SecurityPosture> SecurityPosture for T {
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<()> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
     }
 

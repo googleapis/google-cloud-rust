@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         self.inner.create_job(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobsResponse>> {
         self.inner.list_jobs(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         self.inner.get_job(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_job(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::CreateJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTemplate> {
+    ) -> Result<gax::response::Response<crate::model::JobTemplate>> {
         self.inner.create_job_template(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::ListJobTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobTemplatesResponse>> {
         self.inner.list_job_templates(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::GetJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTemplate> {
+    ) -> Result<gax::response::Response<crate::model::JobTemplate>> {
         self.inner.get_job_template(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::DeleteJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_job_template(req, options).await
     }
 }

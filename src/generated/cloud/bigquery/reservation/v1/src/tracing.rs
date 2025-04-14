@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         self.inner.create_reservation(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListReservationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListReservationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListReservationsResponse>> {
         self.inner.list_reservations(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         self.inner.get_reservation(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_reservation(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         self.inner.update_reservation(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::FailoverReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Reservation> {
+    ) -> Result<gax::response::Response<crate::model::Reservation>> {
         self.inner.failover_reservation(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::CreateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         self.inner.create_capacity_commitment(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::ListCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCapacityCommitmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCapacityCommitmentsResponse>> {
         self.inner.list_capacity_commitments(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::GetCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         self.inner.get_capacity_commitment(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_capacity_commitment(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::UpdateCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         self.inner.update_capacity_commitment(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::SplitCapacityCommitmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SplitCapacityCommitmentResponse> {
+    ) -> Result<gax::response::Response<crate::model::SplitCapacityCommitmentResponse>> {
         self.inner.split_capacity_commitment(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::MergeCapacityCommitmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CapacityCommitment> {
+    ) -> Result<gax::response::Response<crate::model::CapacityCommitment>> {
         self.inner.merge_capacity_commitments(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::CreateAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assignment> {
+    ) -> Result<gax::response::Response<crate::model::Assignment>> {
         self.inner.create_assignment(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::ListAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAssignmentsResponse>> {
         self.inner.list_assignments(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::DeleteAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_assignment(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::SearchAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchAssignmentsResponse>> {
         self.inner.search_assignments(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::SearchAllAssignmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchAllAssignmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchAllAssignmentsResponse>> {
         self.inner.search_all_assignments(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::MoveAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assignment> {
+    ) -> Result<gax::response::Response<crate::model::Assignment>> {
         self.inner.move_assignment(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::UpdateAssignmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Assignment> {
+    ) -> Result<gax::response::Response<crate::model::Assignment>> {
         self.inner.update_assignment(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::GetBiReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BiReservation> {
+    ) -> Result<gax::response::Response<crate::model::BiReservation>> {
         self.inner.get_bi_reservation(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::UpdateBiReservationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BiReservation> {
+    ) -> Result<gax::response::Response<crate::model::BiReservation>> {
         self.inner.update_bi_reservation(req, options).await
     }
 }

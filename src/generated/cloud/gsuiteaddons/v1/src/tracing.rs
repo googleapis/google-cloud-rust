@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GetAuthorizationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Authorization> {
+    ) -> Result<gax::response::Response<crate::model::Authorization>> {
         self.inner.get_authorization(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::CreateDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         self.inner.create_deployment(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::ReplaceDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         self.inner.replace_deployment(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::GetDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         self.inner.get_deployment(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::ListDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDeploymentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
         self.inner.list_deployments(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::DeleteDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_deployment(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::InstallDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.install_deployment(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::UninstallDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.uninstall_deployment(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::GetInstallStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InstallStatus> {
+    ) -> Result<gax::response::Response<crate::model::InstallStatus>> {
         self.inner.get_install_status(req, options).await
     }
 }

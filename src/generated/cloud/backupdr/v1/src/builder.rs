@@ -96,6 +96,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .list_management_servers(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -186,6 +187,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .get_management_server(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetManagementServerRequest::name].
@@ -236,6 +238,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .create_management_server(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_management_server`.
@@ -343,6 +346,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .delete_management_server(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_management_server`.
@@ -429,6 +433,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .create_backup_vault(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup_vault`.
@@ -534,6 +539,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .list_backup_vaults(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -626,6 +632,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .fetch_usable_backup_vaults(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -709,6 +716,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .get_backup_vault(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupVaultRequest::name].
@@ -765,6 +773,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .update_backup_vault(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_backup_vault`.
@@ -878,6 +887,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .delete_backup_vault(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_vault`.
@@ -986,6 +996,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .list_data_sources(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1067,6 +1078,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .get_data_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetDataSourceRequest::name].
@@ -1117,6 +1129,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .update_data_source(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_data_source`.
@@ -1216,6 +1229,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1303,6 +1317,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -1356,6 +1371,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_backup`.
@@ -1453,6 +1469,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
@@ -1538,6 +1555,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .restore_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `restore_backup`.
@@ -1652,6 +1670,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .create_backup_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup_plan`.
@@ -1748,6 +1767,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .get_backup_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupPlanRequest::name].
@@ -1790,6 +1810,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .list_backup_plans(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1879,6 +1900,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .delete_backup_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_plan`.
@@ -1967,6 +1989,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .create_backup_plan_association(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup_plan_association`.
@@ -2076,6 +2099,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .get_backup_plan_association(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupPlanAssociationRequest::name].
@@ -2123,6 +2147,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .list_backup_plan_associations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2210,6 +2235,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .delete_backup_plan_association(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_plan_association`.
@@ -2293,6 +2319,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .trigger_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `trigger_backup`.
@@ -2391,6 +2418,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .initialize_service(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `initialize_service`.
@@ -2484,6 +2512,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2559,6 +2588,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2601,6 +2631,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2661,6 +2692,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2715,6 +2747,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2771,6 +2804,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2849,6 +2883,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2894,6 +2929,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2939,6 +2975,7 @@ pub mod backup_dr {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

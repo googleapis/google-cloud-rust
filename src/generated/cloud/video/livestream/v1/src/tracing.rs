@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::CreateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_channel(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::ListChannelsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListChannelsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListChannelsResponse>> {
         self.inner.list_channels(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::GetChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Channel> {
+    ) -> Result<gax::response::Response<crate::model::Channel>> {
         self.inner.get_channel(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::DeleteChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_channel(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: crate::model::UpdateChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_channel(req, options).await
     }
 
@@ -87,7 +87,7 @@ where
         &self,
         req: crate::model::StartChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.start_channel(req, options).await
     }
 
@@ -96,7 +96,7 @@ where
         &self,
         req: crate::model::StopChannelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.stop_channel(req, options).await
     }
 
@@ -105,7 +105,7 @@ where
         &self,
         req: crate::model::CreateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_input(req, options).await
     }
 
@@ -114,7 +114,7 @@ where
         &self,
         req: crate::model::ListInputsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInputsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInputsResponse>> {
         self.inner.list_inputs(req, options).await
     }
 
@@ -123,7 +123,7 @@ where
         &self,
         req: crate::model::GetInputRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Input> {
+    ) -> Result<gax::response::Response<crate::model::Input>> {
         self.inner.get_input(req, options).await
     }
 
@@ -132,7 +132,7 @@ where
         &self,
         req: crate::model::DeleteInputRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_input(req, options).await
     }
 
@@ -141,7 +141,7 @@ where
         &self,
         req: crate::model::UpdateInputRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_input(req, options).await
     }
 
@@ -150,7 +150,7 @@ where
         &self,
         req: crate::model::CreateEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Event> {
+    ) -> Result<gax::response::Response<crate::model::Event>> {
         self.inner.create_event(req, options).await
     }
 
@@ -159,7 +159,7 @@ where
         &self,
         req: crate::model::ListEventsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEventsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEventsResponse>> {
         self.inner.list_events(req, options).await
     }
 
@@ -168,7 +168,7 @@ where
         &self,
         req: crate::model::GetEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Event> {
+    ) -> Result<gax::response::Response<crate::model::Event>> {
         self.inner.get_event(req, options).await
     }
 
@@ -177,7 +177,7 @@ where
         &self,
         req: crate::model::DeleteEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_event(req, options).await
     }
 
@@ -186,7 +186,7 @@ where
         &self,
         req: crate::model::ListClipsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListClipsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListClipsResponse>> {
         self.inner.list_clips(req, options).await
     }
 
@@ -195,7 +195,7 @@ where
         &self,
         req: crate::model::GetClipRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Clip> {
+    ) -> Result<gax::response::Response<crate::model::Clip>> {
         self.inner.get_clip(req, options).await
     }
 
@@ -204,7 +204,7 @@ where
         &self,
         req: crate::model::CreateClipRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_clip(req, options).await
     }
 
@@ -213,7 +213,7 @@ where
         &self,
         req: crate::model::DeleteClipRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_clip(req, options).await
     }
 
@@ -222,7 +222,7 @@ where
         &self,
         req: crate::model::CreateAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.create_asset(req, options).await
     }
 
@@ -231,7 +231,7 @@ where
         &self,
         req: crate::model::DeleteAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_asset(req, options).await
     }
 
@@ -240,7 +240,7 @@ where
         &self,
         req: crate::model::GetAssetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Asset> {
+    ) -> Result<gax::response::Response<crate::model::Asset>> {
         self.inner.get_asset(req, options).await
     }
 
@@ -249,7 +249,7 @@ where
         &self,
         req: crate::model::ListAssetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListAssetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListAssetsResponse>> {
         self.inner.list_assets(req, options).await
     }
 
@@ -258,7 +258,7 @@ where
         &self,
         req: crate::model::GetPoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Pool> {
+    ) -> Result<gax::response::Response<crate::model::Pool>> {
         self.inner.get_pool(req, options).await
     }
 
@@ -267,7 +267,7 @@ where
         &self,
         req: crate::model::UpdatePoolRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.update_pool(req, options).await
     }
 
@@ -276,7 +276,7 @@ where
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         self.inner.list_locations(req, options).await
     }
 
@@ -285,7 +285,7 @@ where
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         self.inner.get_location(req, options).await
     }
 
@@ -294,7 +294,7 @@ where
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         self.inner.list_operations(req, options).await
     }
 
@@ -303,7 +303,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -312,7 +312,7 @@ where
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_operation(req, options).await
     }
 
@@ -321,7 +321,7 @@ where
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
     }
 

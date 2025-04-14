@@ -19,6 +19,7 @@
 #![no_implicit_prelude]
 extern crate bytes;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -80,6 +81,9 @@ pub struct Policy {
     /// `invalid_argument` error.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub policy_type: std::option::Option<crate::model::policy::PolicyType>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Policy {
@@ -368,6 +372,9 @@ pub mod policy {
         /// The accepted values at `projects/bar` are `organizations/O1`,
         /// `folders/F1`, `projects/P1`.
         pub inherit_from_parent: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ListPolicy {
@@ -556,6 +563,9 @@ pub mod policy {
         /// The constraint at `projects/bar` is not enforced, because
         /// `constraint_default` for the `Constraint` is `ALLOW`.
         pub enforced: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BooleanPolicy {
@@ -592,7 +602,10 @@ pub mod policy {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct RestoreDefault {}
+    pub struct RestoreDefault {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl RestoreDefault {
         pub fn new() -> Self {

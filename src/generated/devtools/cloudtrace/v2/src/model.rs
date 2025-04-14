@@ -128,6 +128,9 @@ pub struct Span {
     /// For example, two spans with the same name may be distinguished using
     /// `CLIENT` (caller) and `SERVER` (callee) to identify an RPC call.
     pub span_kind: crate::model::span::SpanKind,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Span {
@@ -295,6 +298,9 @@ pub mod span {
         /// because their keys are too long or because there are too many attributes.
         /// If this value is 0 then all attributes are valid.
         pub dropped_attributes_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Attributes {
@@ -341,6 +347,9 @@ pub mod span {
         /// `MessageEvent` object, but not both.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub value: std::option::Option<crate::model::span::time_event::Value>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TimeEvent {
@@ -461,6 +470,9 @@ pub mod span {
             /// per Annotation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub attributes: std::option::Option<crate::model::span::Attributes>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Annotation {
@@ -522,6 +534,9 @@ pub mod span {
             /// size.
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub compressed_size_bytes: i64,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl MessageEvent {
@@ -660,6 +675,9 @@ pub mod span {
         /// The number of dropped message events in all the included time events.
         /// If the value is 0, then no message events were dropped.
         pub dropped_message_events_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TimeEvents {
@@ -725,6 +743,9 @@ pub mod span {
         /// specified per link.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub attributes: std::option::Option<crate::model::span::Attributes>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Link {
@@ -849,6 +870,9 @@ pub mod span {
         /// The number of dropped links after the maximum size was enforced. If
         /// this value is 0, then no links were dropped.
         pub dropped_links_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Links {
@@ -972,6 +996,9 @@ pub struct AttributeValue {
     /// The type of the value.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub value: std::option::Option<crate::model::attribute_value::Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttributeValue {
@@ -1110,6 +1137,9 @@ pub struct StackTrace {
     /// to that stack trace by only setting `stackTraceHashId`.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub stack_trace_hash_id: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StackTrace {
@@ -1185,6 +1215,9 @@ pub mod stack_trace {
         /// The version of the deployed source code (up to 128 bytes).
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub source_version: std::option::Option<crate::model::TruncatableString>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StackFrame {
@@ -1278,6 +1311,9 @@ pub mod stack_trace {
         /// were too many stack frames.
         /// If this value is 0, then no stack frames were dropped.
         pub dropped_frames_count: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StackFrames {
@@ -1325,6 +1361,9 @@ pub struct Module {
     /// contents (up to 128 bytes).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub build_id: std::option::Option<crate::model::TruncatableString>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Module {
@@ -1380,6 +1419,9 @@ pub struct TruncatableString {
     /// The number of bytes removed from the original string. If this
     /// value is 0, then the string was not shortened.
     pub truncated_byte_count: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TruncatableString {
@@ -1421,6 +1463,9 @@ pub struct BatchWriteSpansRequest {
     /// spans, otherwise the results are undefined.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub spans: std::vec::Vec<crate::model::Span>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchWriteSpansRequest {

@@ -52,6 +52,9 @@ pub struct ElementaryStream {
     /// Required. Encoding of an audio, video, or text track.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub elementary_stream: std::option::Option<crate::model::elementary_stream::ElementaryStream>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ElementaryStream {
@@ -233,6 +236,9 @@ pub struct MuxStream {
     /// will be unencrypted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub encryption_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MuxStream {
@@ -353,6 +359,9 @@ pub struct Manifest {
     /// Optional. A unique key for this manifest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Manifest {
@@ -532,6 +541,9 @@ pub struct SpriteSheet {
     /// The default is 100. A high quality value corresponds to a low image data
     /// compression ratio.
     pub quality: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SpriteSheet {
@@ -614,6 +626,9 @@ pub struct PreprocessingConfig {
     /// Specify the video pad filter configuration.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub pad: std::option::Option<crate::model::preprocessing_config::Pad>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PreprocessingConfig {
@@ -684,6 +699,9 @@ pub mod preprocessing_config {
         ///   Amazon Echo
         /// - 0 disables normalization. The default is 0.
         pub lufs: f64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Audio {
@@ -722,6 +740,9 @@ pub mod preprocessing_config {
 
         /// The number of pixels to crop from the right. The default is 0.
         pub right_pixels: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Crop {
@@ -778,6 +799,9 @@ pub mod preprocessing_config {
 
         /// The number of pixels to add to the right. The default is 0.
         pub right_pixels: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Pad {
@@ -826,6 +850,9 @@ pub struct VideoStream {
     /// Codec settings.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub codec_settings: std::option::Option<crate::model::video_stream::CodecSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VideoStream {
@@ -992,6 +1019,9 @@ pub mod video_stream {
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub gop_mode:
             std::option::Option<crate::model::video_stream::h_264_codec_settings::GopMode>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl H264CodecSettings {
@@ -1240,6 +1270,9 @@ pub struct AudioStream {
 
     /// The audio sample rate in Hertz. The default is 48000 Hertz.
     pub sample_rate_hertz: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AudioStream {
@@ -1349,6 +1382,9 @@ pub mod audio_stream {
         /// Audio volume control in dB. Negative values decrease volume,
         /// positive values increase. The default is 0.
         pub gain_db: f64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AudioMapping {
@@ -1408,6 +1444,9 @@ pub struct TextStream {
     /// - `cea708`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub codec: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TextStream {
@@ -1448,6 +1487,9 @@ pub struct SegmentSettings {
     /// [google.cloud.video.livestream.v1.VideoStream.H264CodecSettings.gop_duration]: crate::model::video_stream::H264CodecSettings::gop_mode
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub segment_duration: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SegmentSettings {
@@ -1487,6 +1529,9 @@ pub struct TimecodeConfig {
     /// and no date). We assume all inputs are live.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<crate::model::timecode_config::TimeOffset>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimecodeConfig {
@@ -1708,6 +1753,9 @@ pub struct Input {
     /// present only when this input receives the input stream.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub input_stream_property: std::option::Option<crate::model::InputStreamProperty>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Input {
@@ -1827,6 +1875,9 @@ pub mod input {
         /// `192.0.1.0/32` for a single IP address.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub ip_ranges: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SecurityRule {
@@ -2080,6 +2131,9 @@ pub struct Channel {
     /// output content for the whole duration of the live stream.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub static_overlays: std::vec::Vec<crate::model::StaticOverlay>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Channel {
@@ -2296,6 +2350,9 @@ pub mod channel {
         /// URI for the output file(s). For example, `gs://my-bucket/outputs/`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Output {
@@ -2417,6 +2474,9 @@ pub struct NormalizedCoordinate {
 
     /// Optional. Normalized y coordinate. Valid range is [0.0, 1.0]. Default is 0.
     pub y: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NormalizedCoordinate {
@@ -2454,6 +2514,9 @@ pub struct NormalizedResolution {
 
     /// Optional. Normalized height. Valid range is [0.0, 1.0]. Default is 0.
     pub h: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NormalizedResolution {
@@ -2511,6 +2574,9 @@ pub struct StaticOverlay {
     /// default) to `0.0` (transparent), exclusive. Set this to a value greater
     /// than `0.0`.
     pub opacity: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StaticOverlay {
@@ -2567,6 +2633,9 @@ impl wkt::message::Message for StaticOverlay {
 pub struct InputConfig {
     /// Input switch mode. Default mode is `FAILOVER_PREFER_PRIMARY`.
     pub input_switch_mode: crate::model::input_config::InputSwitchMode,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InputConfig {
@@ -2683,6 +2752,9 @@ pub mod input_config {
 pub struct LogConfig {
     /// The severity level of platform logging for this resource.
     pub log_severity: crate::model::log_config::LogSeverity,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LogConfig {
@@ -2820,6 +2892,9 @@ pub struct RetentionConfig {
     /// [google.cloud.video.livestream.v1.Manifest.segment_keep_duration]: crate::model::Manifest::segment_keep_duration
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub retention_window_duration: std::option::Option<wkt::Duration>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetentionConfig {
@@ -2863,6 +2938,9 @@ pub struct InputStreamProperty {
     /// Properties of the audio streams.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub audio_streams: std::vec::Vec<crate::model::AudioStreamProperty>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InputStreamProperty {
@@ -2920,6 +2998,9 @@ pub struct VideoStreamProperty {
     /// Properties of the video format.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub video_format: std::option::Option<crate::model::VideoFormat>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VideoStreamProperty {
@@ -2969,6 +3050,9 @@ pub struct VideoFormat {
 
     /// The frame rate of the input video stream.
     pub frame_rate: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VideoFormat {
@@ -3019,6 +3103,9 @@ pub struct AudioStreamProperty {
     /// Properties of the audio format.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub audio_format: std::option::Option<crate::model::AudioFormat>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AudioStreamProperty {
@@ -3066,6 +3153,9 @@ pub struct AudioFormat {
     /// A list of channel names specifying the layout of the audio channels.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub channel_layout: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AudioFormat {
@@ -3123,6 +3213,9 @@ pub struct InputAttachment {
     /// Automatic failover configurations.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub automatic_failover: std::option::Option<crate::model::input_attachment::AutomaticFailover>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InputAttachment {
@@ -3179,6 +3272,9 @@ pub mod input_attachment {
         /// [google.cloud.video.livestream.v1.InputAttachment.key]: crate::model::InputAttachment::key
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub input_keys: std::vec::Vec<std::string::String>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AutomaticFailover {
@@ -3261,6 +3357,9 @@ pub struct Event {
     /// Required. Operation to be executed by this event.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub task: std::option::Option<crate::model::event::Task>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Event {
@@ -3528,6 +3627,9 @@ pub mod event {
         /// [google.cloud.video.livestream.v1.InputAttachment.key]: crate::model::InputAttachment::key
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub input_key: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl InputSwitchTask {
@@ -3557,6 +3659,9 @@ pub mod event {
         /// Duration of an ad opportunity. Must be greater than 0.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub duration: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AdBreakTask {
@@ -3597,6 +3702,9 @@ pub mod event {
         /// `projects/{project}/locations/{location}/assets/{assetId}`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub asset: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SlateTask {
@@ -3632,7 +3740,10 @@ pub mod event {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct ReturnToProgramTask {}
+    pub struct ReturnToProgramTask {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl ReturnToProgramTask {
         pub fn new() -> Self {
@@ -3656,6 +3767,9 @@ pub mod event {
         /// will be muted until an UnmuteTask event is sent.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub duration: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MuteTask {
@@ -3684,7 +3798,10 @@ pub mod event {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct UnmuteTask {}
+    pub struct UnmuteTask {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl UnmuteTask {
         pub fn new() -> Self {
@@ -3856,6 +3973,9 @@ pub struct Clip {
     /// allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub clip_manifests: std::vec::Vec<crate::model::clip::ClipManifest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Clip {
@@ -3977,6 +4097,9 @@ pub mod clip {
         /// The mark-out Unix epoch time in the original live stream manifest.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub markout_time: std::option::Option<wkt::Timestamp>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TimeSlice {
@@ -4018,6 +4141,9 @@ pub mod clip {
         /// The allowlist forms of a slice.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub kind: std::option::Option<crate::model::clip::slice::Kind>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Slice {
@@ -4107,6 +4233,9 @@ pub mod clip {
         /// gs://my-bucket/clip-outputs/main.m3u8
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub output_uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ClipManifest {
@@ -4260,6 +4389,9 @@ pub struct Asset {
     /// The maximum size of the resource is 250 MB.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub resource: std::option::Option<crate::model::asset::Resource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Asset {
@@ -4410,6 +4542,9 @@ pub mod asset {
         /// Cloud Storage URI of the video. The format is `gs://my-bucket/my-object`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl VideoAsset {
@@ -4439,6 +4574,9 @@ pub mod asset {
         /// Cloud Storage URI of the image. The format is `gs://my-bucket/my-object`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub uri: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ImageAsset {
@@ -4563,6 +4701,9 @@ pub struct Encryption {
     /// Encryption modes for HLS and MPEG-Dash.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub encryption_mode: std::option::Option<crate::model::encryption::EncryptionMode>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Encryption {
@@ -4751,6 +4892,9 @@ pub mod encryption {
         /// `projects/{project}/secrets/{secret_id}/versions/{version_number}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub secret_version: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SecretManagerSource {
@@ -4779,7 +4923,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Widevine {}
+    pub struct Widevine {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Widevine {
         pub fn new() -> Self {
@@ -4798,7 +4945,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Fairplay {}
+    pub struct Fairplay {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Fairplay {
         pub fn new() -> Self {
@@ -4817,7 +4967,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Playready {}
+    pub struct Playready {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Playready {
         pub fn new() -> Self {
@@ -4836,7 +4989,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Clearkey {}
+    pub struct Clearkey {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Clearkey {
         pub fn new() -> Self {
@@ -4872,6 +5028,9 @@ pub mod encryption {
         /// Clearkey configuration.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub clearkey: std::option::Option<crate::model::encryption::Clearkey>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl DrmSystems {
@@ -4935,7 +5094,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct Aes128Encryption {}
+    pub struct Aes128Encryption {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl Aes128Encryption {
         pub fn new() -> Self {
@@ -4954,7 +5116,10 @@ pub mod encryption {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct SampleAesEncryption {}
+    pub struct SampleAesEncryption {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl SampleAesEncryption {
         pub fn new() -> Self {
@@ -4980,6 +5145,9 @@ pub mod encryption {
         /// - `cbcs`- AES-CBC subsample pattern
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub scheme: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MpegCommonEncryption {
@@ -5052,6 +5220,9 @@ pub struct Pool {
     /// Network configuration for the pool.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub network_config: std::option::Option<crate::model::pool::NetworkConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Pool {
@@ -5133,6 +5304,9 @@ pub mod pool {
         /// are publicly available.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub peered_network: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NetworkConfig {
@@ -5193,6 +5367,9 @@ pub struct CreateAssetRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAssetRequest {
@@ -5260,6 +5437,9 @@ pub struct DeleteAssetRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteAssetRequest {
@@ -5312,6 +5492,9 @@ pub struct ListAssetsRequest {
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAssetsRequest {
@@ -5373,6 +5556,9 @@ pub struct ListAssetsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAssetsResponse {
@@ -5439,6 +5625,9 @@ pub struct GetAssetRequest {
     /// `projects/{project}/locations/{location}/assets/{asset}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetAssetRequest {
@@ -5495,6 +5684,9 @@ pub struct CreateChannelRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateChannelRequest {
@@ -5568,6 +5760,9 @@ pub struct ListChannelsRequest {
     /// <https://cloud.google.com/apis/design/design_patterns#sorting_order>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListChannelsRequest {
@@ -5630,6 +5825,9 @@ pub struct ListChannelsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListChannelsResponse {
@@ -5696,6 +5894,9 @@ pub struct GetChannelRequest {
     /// `projects/{project}/locations/{location}/channels/{channelId}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetChannelRequest {
@@ -5748,6 +5949,9 @@ pub struct DeleteChannelRequest {
     /// If the field is set to `true`, requests to delete a channel also delete
     /// associated channel events.
     pub force: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteChannelRequest {
@@ -5828,6 +6032,9 @@ pub struct UpdateChannelRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateChannelRequest {
@@ -5892,6 +6099,9 @@ pub struct StartChannelRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StartChannelRequest {
@@ -5944,6 +6154,9 @@ pub struct StopChannelRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StopChannelRequest {
@@ -6006,6 +6219,9 @@ pub struct CreateInputRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateInputRequest {
@@ -6079,6 +6295,9 @@ pub struct ListInputsRequest {
     /// Order](https://cloud.google.com/apis/design/design_patterns#sorting_order).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInputsRequest {
@@ -6141,6 +6360,9 @@ pub struct ListInputsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListInputsResponse {
@@ -6207,6 +6429,9 @@ pub struct GetInputRequest {
     /// `projects/{project}/locations/{location}/inputs/{inputId}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInputRequest {
@@ -6253,6 +6478,9 @@ pub struct DeleteInputRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteInputRequest {
@@ -6319,6 +6547,9 @@ pub struct UpdateInputRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateInputRequest {
@@ -6393,6 +6624,9 @@ pub struct CreateEventRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateEventRequest {
@@ -6466,6 +6700,9 @@ pub struct ListEventsRequest {
     /// <https://cloud.google.com/apis/design/design_patterns#sorting_order>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEventsRequest {
@@ -6528,6 +6765,9 @@ pub struct ListEventsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListEventsResponse {
@@ -6594,6 +6834,9 @@ pub struct GetEventRequest {
     /// `projects/{project}/locations/{location}/channels/{channelId}/events/{eventId}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetEventRequest {
@@ -6640,6 +6883,9 @@ pub struct DeleteEventRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteEventRequest {
@@ -6671,7 +6917,10 @@ impl wkt::message::Message for DeleteEventRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ChannelOperationResponse {}
+pub struct ChannelOperationResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ChannelOperationResponse {
     pub fn new() -> Self {
@@ -6710,6 +6959,9 @@ pub struct ListClipsRequest {
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClipsRequest {
@@ -6771,6 +7023,9 @@ pub struct ListClipsResponse {
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListClipsResponse {
@@ -6837,6 +7092,9 @@ pub struct GetClipRequest {
     /// `projects/{project}/locations/{location}/channels/{channel}/clips/{clip}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetClipRequest {
@@ -6894,6 +7152,9 @@ pub struct CreateClipRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateClipRequest {
@@ -6961,6 +7222,9 @@ pub struct DeleteClipRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteClipRequest {
@@ -7021,6 +7285,9 @@ pub struct OperationMetadata {
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub api_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OperationMetadata {
@@ -7087,6 +7354,9 @@ pub struct GetPoolRequest {
     /// `projects/{project}/locations/{location}/pools/{poolId}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetPoolRequest {
@@ -7142,6 +7412,9 @@ pub struct UpdatePoolRequest {
     /// not supported `(00000000-0000-0000-0000-000000000000)`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdatePoolRequest {

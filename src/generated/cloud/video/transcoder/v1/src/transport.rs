@@ -44,7 +44,7 @@ impl super::stub::TranscoderService for TranscoderService {
         &self,
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -54,17 +54,14 @@ impl super::stub::TranscoderService for TranscoderService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req.job), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
+        self.inner.execute(builder, Some(req.job), options).await
     }
 
     async fn list_jobs(
         &self,
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -81,14 +78,13 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListJobsResponse>| r.into_body())
     }
 
     async fn get_job(
         &self,
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -101,14 +97,13 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn delete_job(
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -122,14 +117,17 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_job_template(
         &self,
         req: crate::model::CreateJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTemplate> {
+    ) -> Result<gax::response::Response<crate::model::JobTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -146,14 +144,13 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, Some(req.job_template), options)
             .await
-            .map(|r: gax::response::Response<crate::model::JobTemplate>| r.into_body())
     }
 
     async fn list_job_templates(
         &self,
         req: crate::model::ListJobTemplatesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobTemplatesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobTemplatesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -173,14 +170,13 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListJobTemplatesResponse>| r.into_body())
     }
 
     async fn get_job_template(
         &self,
         req: crate::model::GetJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::JobTemplate> {
+    ) -> Result<gax::response::Response<crate::model::JobTemplate>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -193,14 +189,13 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::JobTemplate>| r.into_body())
     }
 
     async fn delete_job_template(
         &self,
         req: crate::model::DeleteJobTemplateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -214,6 +209,9 @@ impl super::stub::TranscoderService for TranscoderService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 }

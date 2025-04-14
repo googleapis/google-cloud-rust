@@ -44,7 +44,7 @@ impl super::stub::CompanyService for CompanyService {
         &self,
         req: crate::model::CreateCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Company> {
+    ) -> Result<gax::response::Response<crate::model::Company>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -60,14 +60,13 @@ impl super::stub::CompanyService for CompanyService {
         self.inner
             .execute(builder, Some(req.company), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Company>| r.into_body())
     }
 
     async fn get_company(
         &self,
         req: crate::model::GetCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Company> {
+    ) -> Result<gax::response::Response<crate::model::Company>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,14 +79,13 @@ impl super::stub::CompanyService for CompanyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Company>| r.into_body())
     }
 
     async fn update_company(
         &self,
         req: crate::model::UpdateCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Company> {
+    ) -> Result<gax::response::Response<crate::model::Company>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -109,24 +107,19 @@ impl super::stub::CompanyService for CompanyService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.company), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Company>| r.into_body())
     }
 
     async fn delete_company(
         &self,
         req: crate::model::DeleteCompanyRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -139,14 +132,17 @@ impl super::stub::CompanyService for CompanyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_companies(
         &self,
         req: crate::model::ListCompaniesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListCompaniesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListCompaniesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -165,14 +161,13 @@ impl super::stub::CompanyService for CompanyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListCompaniesResponse>| r.into_body())
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -185,7 +180,6 @@ impl super::stub::CompanyService for CompanyService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -215,7 +209,7 @@ impl super::stub::Completion for Completion {
         &self,
         req: crate::model::CompleteQueryRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::CompleteQueryResponse> {
+    ) -> Result<gax::response::Response<crate::model::CompleteQueryResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -240,14 +234,13 @@ impl super::stub::Completion for Completion {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::CompleteQueryResponse>| r.into_body())
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -260,7 +253,6 @@ impl super::stub::Completion for Completion {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -290,7 +282,7 @@ impl super::stub::EventService for EventService {
         &self,
         req: crate::model::CreateClientEventRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ClientEvent> {
+    ) -> Result<gax::response::Response<crate::model::ClientEvent>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -306,14 +298,13 @@ impl super::stub::EventService for EventService {
         self.inner
             .execute(builder, Some(req.client_event), options)
             .await
-            .map(|r: gax::response::Response<crate::model::ClientEvent>| r.into_body())
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -326,7 +317,6 @@ impl super::stub::EventService for EventService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }
 
@@ -356,7 +346,7 @@ impl super::stub::JobService for JobService {
         &self,
         req: crate::model::CreateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -366,17 +356,14 @@ impl super::stub::JobService for JobService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req.job), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
+        self.inner.execute(builder, Some(req.job), options).await
     }
 
     async fn batch_create_jobs(
         &self,
         req: crate::model::BatchCreateJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -389,17 +376,14 @@ impl super::stub::JobService for JobService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_job(
         &self,
         req: crate::model::GetJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -412,14 +396,13 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
     }
 
     async fn update_job(
         &self,
         req: crate::model::UpdateJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Job> {
+    ) -> Result<gax::response::Response<crate::model::Job>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -441,24 +424,17 @@ impl super::stub::JobService for JobService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        self.inner
-            .execute(builder, Some(req.job), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Job>| r.into_body())
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner.execute(builder, Some(req.job), options).await
     }
 
     async fn batch_update_jobs(
         &self,
         req: crate::model::BatchUpdateJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -471,17 +447,14 @@ impl super::stub::JobService for JobService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn delete_job(
         &self,
         req: crate::model::DeleteJobRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -494,14 +467,17 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn batch_delete_jobs(
         &self,
         req: crate::model::BatchDeleteJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -514,17 +490,14 @@ impl super::stub::JobService for JobService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_jobs(
         &self,
         req: crate::model::ListJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -541,14 +514,13 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListJobsResponse>| r.into_body())
     }
 
     async fn search_jobs(
         &self,
         req: crate::model::SearchJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -561,17 +533,14 @@ impl super::stub::JobService for JobService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::SearchJobsResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn search_jobs_for_alert(
         &self,
         req: crate::model::SearchJobsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchJobsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchJobsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -584,17 +553,14 @@ impl super::stub::JobService for JobService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::SearchJobsResponse>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -607,7 +573,6 @@ impl super::stub::JobService for JobService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     fn get_polling_error_policy(
@@ -651,7 +616,7 @@ impl super::stub::TenantService for TenantService {
         &self,
         req: crate::model::CreateTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tenant> {
+    ) -> Result<gax::response::Response<crate::model::Tenant>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -661,17 +626,14 @@ impl super::stub::TenantService for TenantService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req.tenant), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Tenant>| r.into_body())
+        self.inner.execute(builder, Some(req.tenant), options).await
     }
 
     async fn get_tenant(
         &self,
         req: crate::model::GetTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tenant> {
+    ) -> Result<gax::response::Response<crate::model::Tenant>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -684,14 +646,13 @@ impl super::stub::TenantService for TenantService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Tenant>| r.into_body())
     }
 
     async fn update_tenant(
         &self,
         req: crate::model::UpdateTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Tenant> {
+    ) -> Result<gax::response::Response<crate::model::Tenant>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -713,24 +674,17 @@ impl super::stub::TenantService for TenantService {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
-        self.inner
-            .execute(builder, Some(req.tenant), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Tenant>| r.into_body())
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
+        self.inner.execute(builder, Some(req.tenant), options).await
     }
 
     async fn delete_tenant(
         &self,
         req: crate::model::DeleteTenantRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -743,14 +697,17 @@ impl super::stub::TenantService for TenantService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_tenants(
         &self,
         req: crate::model::ListTenantsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListTenantsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListTenantsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -765,14 +722,13 @@ impl super::stub::TenantService for TenantService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListTenantsResponse>| r.into_body())
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -785,6 +741,5 @@ impl super::stub::TenantService for TenantService {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 }

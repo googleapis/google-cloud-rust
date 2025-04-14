@@ -45,11 +45,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListInsightsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListInsightsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListInsightsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListInsightsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListInsightsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Recommender::get_insight].
@@ -57,10 +58,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetInsightRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Insight>> + Send {
-        std::future::ready::<crate::Result<crate::model::Insight>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Insight>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Insight>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Recommender::mark_insight_accepted].
@@ -68,10 +71,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MarkInsightAcceptedRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Insight>> + Send {
-        std::future::ready::<crate::Result<crate::model::Insight>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Insight>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Insight>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::Recommender::list_recommendations].
@@ -79,11 +84,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListRecommendationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListRecommendationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListRecommendationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListRecommendationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListRecommendationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::Recommender::get_recommendation].
@@ -91,10 +97,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetRecommendationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Recommendation>> + Send {
-        std::future::ready::<crate::Result<crate::model::Recommendation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Recommendation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Recommendation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Recommender::mark_recommendation_dismissed].
@@ -102,10 +110,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MarkRecommendationDismissedRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Recommendation>> + Send {
-        std::future::ready::<crate::Result<crate::model::Recommendation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Recommendation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Recommendation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Recommender::mark_recommendation_claimed].
@@ -113,10 +123,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MarkRecommendationClaimedRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Recommendation>> + Send {
-        std::future::ready::<crate::Result<crate::model::Recommendation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Recommendation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Recommendation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Recommender::mark_recommendation_succeeded].
@@ -124,10 +136,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MarkRecommendationSucceededRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Recommendation>> + Send {
-        std::future::ready::<crate::Result<crate::model::Recommendation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Recommendation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Recommendation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Recommender::mark_recommendation_failed].
@@ -135,10 +149,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::MarkRecommendationFailedRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Recommendation>> + Send {
-        std::future::ready::<crate::Result<crate::model::Recommendation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Recommendation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Recommendation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Recommender::get_recommender_config].
@@ -146,11 +162,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetRecommenderConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::RecommenderConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::RecommenderConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RecommenderConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::RecommenderConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Recommender::update_recommender_config].
@@ -158,11 +175,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateRecommenderConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::RecommenderConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::RecommenderConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RecommenderConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::RecommenderConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Recommender::get_insight_type_config].
@@ -170,11 +188,12 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetInsightTypeConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::InsightTypeConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::InsightTypeConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InsightTypeConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::InsightTypeConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::Recommender::update_insight_type_config].
@@ -182,10 +201,11 @@ pub trait Recommender: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateInsightTypeConfigRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::InsightTypeConfig>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::InsightTypeConfig>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::InsightTypeConfig>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::InsightTypeConfig>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 }

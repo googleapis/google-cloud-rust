@@ -44,7 +44,7 @@ where T: super::stub::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
-    ) -> Result<{{Codec.ReturnType}}> {
+    ) -> Result<gax::response::Response<{{Codec.ReturnType}}>> {
         self.inner.{{Codec.Name}}(req, options).await
     }
 

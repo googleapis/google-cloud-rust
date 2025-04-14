@@ -47,6 +47,9 @@ pub struct ExportSBOMRequest {
     /// The location of the SBOM export.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub target: std::option::Option<crate::model::export_sbom_request::Target>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportSBOMRequest {
@@ -125,7 +128,10 @@ pub mod export_sbom_request {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct CloudStorageLocation {}
+    pub struct CloudStorageLocation {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl CloudStorageLocation {
         pub fn new() -> Self {
@@ -163,6 +169,9 @@ pub struct ExportSBOMResponse {
     /// It can be used to track the progress of the SBOM export.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub discovery_occurrence: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ExportSBOMResponse {
@@ -200,6 +209,9 @@ pub struct GetVulnerabilityOccurrencesSummaryRequest {
     /// The filter expression.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetVulnerabilityOccurrencesSummaryRequest {
@@ -237,6 +249,9 @@ pub struct VulnerabilityOccurrencesSummary {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub counts:
         std::vec::Vec<crate::model::vulnerability_occurrences_summary::FixableTotalByDigest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VulnerabilityOccurrencesSummary {
@@ -290,6 +305,9 @@ pub mod vulnerability_occurrences_summary {
         /// The total number of vulnerabilities associated with this resource.
         #[serde_as(as = "serde_with::DisplayFromStr")]
         pub total_count: i64,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl FixableTotalByDigest {

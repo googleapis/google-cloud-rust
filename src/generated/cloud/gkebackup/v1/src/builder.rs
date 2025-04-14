@@ -101,6 +101,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .create_backup_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup_plan`.
@@ -191,6 +192,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .list_backup_plans(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -272,6 +274,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .get_backup_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupPlanRequest::name].
@@ -322,6 +325,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .update_backup_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_backup_plan`.
@@ -417,6 +421,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .delete_backup_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_plan`.
@@ -500,6 +505,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_backup`.
@@ -589,6 +595,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -670,6 +677,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .get_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetBackupRequest::name].
@@ -717,6 +725,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_backup`.
@@ -808,6 +817,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
@@ -895,6 +905,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .list_volume_backups(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -976,6 +987,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .get_volume_backup(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVolumeBackupRequest::name].
@@ -1026,6 +1038,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .create_restore_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_restore_plan`.
@@ -1119,6 +1132,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .list_restore_plans(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1200,6 +1214,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .get_restore_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRestorePlanRequest::name].
@@ -1250,6 +1265,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .update_restore_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_restore_plan`.
@@ -1345,6 +1361,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .delete_restore_plan(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_restore_plan`.
@@ -1434,6 +1451,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .create_restore(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_restore`.
@@ -1523,6 +1541,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .list_restores(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1604,6 +1623,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .get_restore(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetRestoreRequest::name].
@@ -1651,6 +1671,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .update_restore(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_restore`.
@@ -1742,6 +1763,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .delete_restore(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_restore`.
@@ -1829,6 +1851,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .list_volume_restores(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -1913,6 +1936,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .get_volume_restore(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetVolumeRestoreRequest::name].
@@ -1960,6 +1984,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .get_backup_index_download_url(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [backup][crate::model::GetBackupIndexDownloadUrlRequest::backup].
@@ -2005,6 +2030,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2080,6 +2106,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -2122,6 +2149,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -2182,6 +2210,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -2236,6 +2265,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -2292,6 +2322,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -2370,6 +2401,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -2415,6 +2447,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
@@ -2460,6 +2493,7 @@ pub mod backup_for_gke {
             (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].

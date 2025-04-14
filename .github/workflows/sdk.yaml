@@ -19,8 +19,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  release:
+    types: [published]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.85.1" }'
+  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.86" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.23.8" }'
 jobs:
   build:
@@ -85,7 +87,6 @@ jobs:
           cargo clean
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-wkt --no-default-features
-            cargo "${sub}" --package google-cloud-wkt --no-default-features --features prost
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features chrono
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features time
             cargo "${sub}" --package google-cloud-wkt --all-features
@@ -187,7 +188,7 @@ jobs:
         with:
           path: guide/book/
   deploy:
-    if: github.event_name == 'push'
+    if: github.event_name == 'release'
     runs-on: ubuntu-24.04
     permissions:
       # to deploy to Pages

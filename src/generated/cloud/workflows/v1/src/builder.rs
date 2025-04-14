@@ -93,6 +93,7 @@ pub mod workflows {
             (*self.0.stub)
                 .list_workflows(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -174,6 +175,7 @@ pub mod workflows {
             (*self.0.stub)
                 .get_workflow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetWorkflowRequest::name].
@@ -227,6 +229,7 @@ pub mod workflows {
             (*self.0.stub)
                 .create_workflow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_workflow`.
@@ -322,6 +325,7 @@ pub mod workflows {
             (*self.0.stub)
                 .delete_workflow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_workflow`.
@@ -399,6 +403,7 @@ pub mod workflows {
             (*self.0.stub)
                 .update_workflow(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_workflow`.
@@ -489,6 +494,7 @@ pub mod workflows {
             (*self.0.stub)
                 .list_workflow_revisions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -561,6 +567,7 @@ pub mod workflows {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -636,6 +643,7 @@ pub mod workflows {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].
@@ -681,6 +689,7 @@ pub mod workflows {
             (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -759,6 +768,7 @@ pub mod workflows {
             (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
@@ -804,6 +814,7 @@ pub mod workflows {
             (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].

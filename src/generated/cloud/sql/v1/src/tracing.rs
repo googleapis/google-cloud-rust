@@ -36,7 +36,7 @@ where T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlBackupRunsDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -45,7 +45,7 @@ where T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlBackupRunsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupRun> {
+    ) -> Result<gax::response::Response<crate::model::BackupRun>> {
         self.inner.get(req, options).await
     }
 
@@ -54,7 +54,7 @@ where T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlBackupRunsInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -63,7 +63,7 @@ where T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlBackupRunsListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BackupRunsListResponse> {
+    ) -> Result<gax::response::Response<crate::model::BackupRunsListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -90,7 +90,7 @@ where T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GetConnectSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ConnectSettings> {
+    ) -> Result<gax::response::Response<crate::model::ConnectSettings>> {
         self.inner.get_connect_settings(req, options).await
     }
 
@@ -99,7 +99,7 @@ where T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::GenerateEphemeralCertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateEphemeralCertResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>> {
         self.inner.generate_ephemeral_cert(req, options).await
     }
 
@@ -126,7 +126,7 @@ where T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlDatabasesDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -135,7 +135,7 @@ where T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlDatabasesGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Database> {
+    ) -> Result<gax::response::Response<crate::model::Database>> {
         self.inner.get(req, options).await
     }
 
@@ -144,7 +144,7 @@ where T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlDatabasesInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -153,7 +153,7 @@ where T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlDatabasesListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DatabasesListResponse> {
+    ) -> Result<gax::response::Response<crate::model::DatabasesListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -162,7 +162,7 @@ where T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -171,7 +171,7 @@ where T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -198,7 +198,7 @@ where T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlFlagsListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FlagsListResponse> {
+    ) -> Result<gax::response::Response<crate::model::FlagsListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -225,7 +225,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesAddServerCaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.add_server_ca(req, options).await
     }
 
@@ -234,7 +234,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesCloneRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.clone(req, options).await
     }
 
@@ -243,7 +243,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -252,7 +252,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesDemoteMasterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.demote_master(req, options).await
     }
 
@@ -261,7 +261,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesDemoteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.demote(req, options).await
     }
 
@@ -270,7 +270,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesExportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.export(req, options).await
     }
 
@@ -279,7 +279,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesFailoverRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.failover(req, options).await
     }
 
@@ -288,7 +288,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesReencryptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.reencrypt(req, options).await
     }
 
@@ -297,7 +297,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DatabaseInstance> {
+    ) -> Result<gax::response::Response<crate::model::DatabaseInstance>> {
         self.inner.get(req, options).await
     }
 
@@ -306,7 +306,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesImportRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.import(req, options).await
     }
 
@@ -315,7 +315,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -324,7 +324,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InstancesListResponse> {
+    ) -> Result<gax::response::Response<crate::model::InstancesListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -333,7 +333,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesListServerCasRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InstancesListServerCasResponse> {
+    ) -> Result<gax::response::Response<crate::model::InstancesListServerCasResponse>> {
         self.inner.list_server_cas(req, options).await
     }
 
@@ -342,7 +342,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesPatchRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
     }
 
@@ -351,7 +351,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesPromoteReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.promote_replica(req, options).await
     }
 
@@ -360,7 +360,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesSwitchoverRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.switchover(req, options).await
     }
 
@@ -369,7 +369,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesResetSslConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.reset_ssl_config(req, options).await
     }
 
@@ -378,7 +378,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesRestartRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.restart(req, options).await
     }
 
@@ -387,7 +387,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesRestoreBackupRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.restore_backup(req, options).await
     }
 
@@ -396,7 +396,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesRotateServerCaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.rotate_server_ca(req, options).await
     }
 
@@ -405,7 +405,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesStartReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.start_replica(req, options).await
     }
 
@@ -414,7 +414,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesStopReplicaRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.stop_replica(req, options).await
     }
 
@@ -423,7 +423,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesTruncateLogRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.truncate_log(req, options).await
     }
 
@@ -432,7 +432,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 
@@ -441,7 +441,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesCreateEphemeralCertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SslCert> {
+    ) -> Result<gax::response::Response<crate::model::SslCert>> {
         self.inner.create_ephemeral(req, options).await
     }
 
@@ -450,7 +450,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.reschedule_maintenance(req, options).await
     }
 
@@ -459,7 +459,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>> {
         self.inner.verify_external_sync_settings(req, options).await
     }
 
@@ -468,7 +468,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesStartExternalSyncRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.start_external_sync(req, options).await
     }
 
@@ -477,7 +477,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesPerformDiskShrinkRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.perform_disk_shrink(req, options).await
     }
 
@@ -486,7 +486,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SqlInstancesGetDiskShrinkConfigResponse> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>> {
         self.inner.get_disk_shrink_config(req, options).await
     }
 
@@ -495,7 +495,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesResetReplicaSizeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.reset_replica_size(req, options).await
     }
 
@@ -504,7 +504,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SqlInstancesGetLatestRecoveryTimeResponse> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>> {
         self.inner.get_latest_recovery_time(req, options).await
     }
 
@@ -513,7 +513,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SqlInstancesAcquireSsrsLeaseResponse> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
         self.inner.acquire_ssrs_lease(req, options).await
     }
 
@@ -522,7 +522,7 @@ where T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SqlInstancesReleaseSsrsLeaseResponse> {
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
         self.inner.release_ssrs_lease(req, options).await
     }
 
@@ -549,7 +549,7 @@ where T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlOperationsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.get(req, options).await
     }
 
@@ -558,7 +558,7 @@ where T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlOperationsListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OperationsListResponse> {
+    ) -> Result<gax::response::Response<crate::model::OperationsListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -567,7 +567,7 @@ where T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlOperationsCancelRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.cancel(req, options).await
     }
 
@@ -594,7 +594,7 @@ where T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlSslCertsDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -603,7 +603,7 @@ where T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlSslCertsGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SslCert> {
+    ) -> Result<gax::response::Response<crate::model::SslCert>> {
         self.inner.get(req, options).await
     }
 
@@ -612,7 +612,7 @@ where T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlSslCertsInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SslCertsInsertResponse> {
+    ) -> Result<gax::response::Response<crate::model::SslCertsInsertResponse>> {
         self.inner.insert(req, options).await
     }
 
@@ -621,7 +621,7 @@ where T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlSslCertsListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SslCertsListResponse> {
+    ) -> Result<gax::response::Response<crate::model::SslCertsListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -648,7 +648,7 @@ where T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlTiersListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::TiersListResponse> {
+    ) -> Result<gax::response::Response<crate::model::TiersListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -675,7 +675,7 @@ where T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlUsersDeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.delete(req, options).await
     }
 
@@ -684,7 +684,7 @@ where T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlUsersGetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::User> {
+    ) -> Result<gax::response::Response<crate::model::User>> {
         self.inner.get(req, options).await
     }
 
@@ -693,7 +693,7 @@ where T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlUsersInsertRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.insert(req, options).await
     }
 
@@ -702,7 +702,7 @@ where T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlUsersListRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UsersListResponse> {
+    ) -> Result<gax::response::Response<crate::model::UsersListResponse>> {
         self.inner.list(req, options).await
     }
 
@@ -711,7 +711,7 @@ where T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlUsersUpdateRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Operation> {
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
     }
 

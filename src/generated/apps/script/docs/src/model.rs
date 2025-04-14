@@ -20,6 +20,7 @@
 extern crate apps_script_type;
 extern crate bytes;
 extern crate serde;
+extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate wkt;
@@ -39,6 +40,9 @@ pub struct DocsAddOnManifest {
     /// for this document/user pair.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub on_file_scope_granted_trigger: std::option::Option<crate::model::DocsExtensionPoint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DocsAddOnManifest {
@@ -84,6 +88,9 @@ pub struct DocsExtensionPoint {
     /// Required. The endpoint to execute when this extension point is activated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub run_function: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DocsExtensionPoint {

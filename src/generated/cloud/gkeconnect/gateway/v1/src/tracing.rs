@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::GenerateCredentialsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::GenerateCredentialsResponse> {
+    ) -> Result<gax::response::Response<crate::model::GenerateCredentialsResponse>> {
         self.inner.generate_credentials(req, options).await
     }
 }

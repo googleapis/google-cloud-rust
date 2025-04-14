@@ -45,6 +45,9 @@ pub struct CreateAssessmentRequest {
     /// Required. The assessment details.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub assessment: std::option::Option<crate::model::Assessment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateAssessmentRequest {
@@ -98,6 +101,9 @@ pub struct TransactionEvent {
     /// to be the time of the API call.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub event_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransactionEvent {
@@ -370,6 +376,9 @@ pub struct AnnotateAssessmentRequest {
     /// details on payment lifecycle events that occur in the transaction.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub transaction_event: std::option::Option<crate::model::TransactionEvent>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AnnotateAssessmentRequest {
@@ -651,7 +660,10 @@ pub mod annotate_assessment_request {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AnnotateAssessmentResponse {}
+pub struct AnnotateAssessmentResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AnnotateAssessmentResponse {
     pub fn new() -> Self {
@@ -683,6 +695,9 @@ pub struct EndpointVerificationInfo {
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub endpoint: std::option::Option<crate::model::endpoint_verification_info::Endpoint>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EndpointVerificationInfo {
@@ -814,6 +829,9 @@ pub struct AccountVerificationInfo {
     /// should now provide the `account_id` field in `event.user_info`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub username: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccountVerificationInfo {
@@ -1017,6 +1035,9 @@ pub struct PrivatePasswordLeakVerification {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub reencrypted_user_credentials_hash: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrivatePasswordLeakVerification {
@@ -1132,6 +1153,9 @@ pub struct Assessment {
     /// your user.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub assessment_environment: std::option::Option<crate::model::AssessmentEnvironment>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Assessment {
@@ -1357,6 +1381,9 @@ pub struct Event {
 
     /// Optional. The Fraud Prevention setting for this assessment.
     pub fraud_prevention: crate::model::event::FraudPrevention,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Event {
@@ -1622,6 +1649,9 @@ pub struct TransactionData {
     /// transaction.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gateway_info: std::option::Option<crate::model::transaction_data::GatewayInfo>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TransactionData {
@@ -1785,6 +1815,9 @@ pub mod transaction_data {
         /// Optional. The postal or ZIP code of the address.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub postal_code: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Address {
@@ -1874,6 +1907,9 @@ pub mod transaction_data {
         /// Optional. Whether the phone number has been verified to be accessible by
         /// the user (OTP or similar).
         pub phone_verified: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl User {
@@ -1949,6 +1985,9 @@ pub mod transaction_data {
         /// Necessary to populate marketplace-style transactions.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub merchant_account_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Item {
@@ -2014,6 +2053,9 @@ pub mod transaction_data {
         /// (available only when reCAPTCHA Enterprise is called after authorization).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub cvv_response_code: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl GatewayInfo {
@@ -2085,6 +2127,9 @@ pub struct UserInfo {
     /// Optional. Identifiers associated with this user or request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub user_ids: std::vec::Vec<crate::model::UserId>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UserInfo {
@@ -2133,6 +2178,9 @@ impl wkt::message::Message for UserInfo {
 pub struct UserId {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub id_oneof: std::option::Option<crate::model::user_id::IdOneof>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UserId {
@@ -2266,6 +2314,9 @@ pub struct RiskAnalysis {
     /// Output only. Challenge information for SCORE_AND_CHALLENGE and INVISIBLE
     /// keys
     pub challenge: crate::model::risk_analysis::Challenge,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RiskAnalysis {
@@ -2513,6 +2564,9 @@ pub struct TokenProperties {
     /// Output only. Action name provided at token generation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub action: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TokenProperties {
@@ -2693,6 +2747,9 @@ pub struct FraudPreventionAssessment {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub behavioral_trust_verdict:
         std::option::Option<crate::model::fraud_prevention_assessment::BehavioralTrustVerdict>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FraudPreventionAssessment {
@@ -2771,6 +2828,9 @@ pub mod fraud_prevention_assessment {
         /// Output only. Probability of this transaction being executed with a stolen
         /// instrument. Values are from 0.0 (lowest) to 1.0 (highest).
         pub risk: f32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StolenInstrumentVerdict {
@@ -2801,6 +2861,9 @@ pub mod fraud_prevention_assessment {
         /// Output only. Probability of this transaction attempt being part of a card
         /// testing attack. Values are from 0.0 (lowest) to 1.0 (highest).
         pub risk: f32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CardTestingVerdict {
@@ -2831,6 +2894,9 @@ pub mod fraud_prevention_assessment {
         /// behaviorally trustworthy way. Values are from 0.0 (lowest) to 1.0
         /// (highest).
         pub trust: f32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BehavioralTrustVerdict {
@@ -2866,6 +2932,9 @@ pub struct FraudSignals {
     /// transaction.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub card_signals: std::option::Option<crate::model::fraud_signals::CardSignals>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FraudSignals {
@@ -2921,6 +2990,9 @@ pub mod fraud_signals {
         /// components in their identity, such as a randomly generated email address,
         /// temporary phone number, or fake shipping address.
         pub synthetic_risk: f32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl UserSignals {
@@ -2956,6 +3028,9 @@ pub mod fraud_signals {
         /// Output only. The labels for the payment card in this transaction.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub card_labels: std::vec::Vec<crate::model::fraud_signals::card_signals::CardLabel>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CardSignals {
@@ -3068,6 +3143,9 @@ pub struct SmsTollFraudVerdict {
     /// Output only. Reasons contributing to the SMS toll fraud verdict.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub reasons: std::vec::Vec<crate::model::sms_toll_fraud_verdict::SmsTollFraudReason>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SmsTollFraudVerdict {
@@ -3169,6 +3247,9 @@ pub struct PhoneFraudAssessment {
     /// Output only. Assessment of this phone event for risk of SMS toll fraud.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sms_toll_fraud_verdict: std::option::Option<crate::model::SmsTollFraudVerdict>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PhoneFraudAssessment {
@@ -3203,6 +3284,9 @@ pub struct AccountDefenderAssessment {
     /// Output only. Labels for this request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub labels: std::vec::Vec<crate::model::account_defender_assessment::AccountDefenderLabel>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AccountDefenderAssessment {
@@ -3328,6 +3412,9 @@ pub struct CreateKeyRequest {
     /// Required. Information to create a reCAPTCHA Enterprise key.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub key: std::option::Option<crate::model::Key>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateKeyRequest {
@@ -3376,6 +3463,9 @@ pub struct ListKeysRequest {
     /// ListKeysRequest, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListKeysRequest {
@@ -3422,6 +3512,9 @@ pub struct ListKeysResponse {
     /// remain in results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListKeysResponse {
@@ -3477,6 +3570,9 @@ pub struct RetrieveLegacySecretKeyRequest {
     /// format `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetrieveLegacySecretKeyRequest {
@@ -3507,6 +3603,9 @@ pub struct GetKeyRequest {
     /// `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetKeyRequest {
@@ -3541,6 +3640,9 @@ pub struct UpdateKeyRequest {
     /// mask is not present, all fields are updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateKeyRequest {
@@ -3583,6 +3685,9 @@ pub struct DeleteKeyRequest {
     /// `projects/{project}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteKeyRequest {
@@ -3617,6 +3722,9 @@ pub struct CreateFirewallPolicyRequest {
     /// Required. Information to create the policy.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub firewall_policy: std::option::Option<crate::model::FirewallPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateFirewallPolicyRequest {
@@ -3667,6 +3775,9 @@ pub struct ListFirewallPoliciesRequest {
     /// ListFirewallPoliciesRequest, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFirewallPoliciesRequest {
@@ -3713,6 +3824,9 @@ pub struct ListFirewallPoliciesResponse {
     /// policies remain in results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListFirewallPoliciesResponse {
@@ -3768,6 +3882,9 @@ pub struct GetFirewallPolicyRequest {
     /// `projects/{project}/firewallpolicies/{firewallpolicy}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetFirewallPolicyRequest {
@@ -3802,6 +3919,9 @@ pub struct UpdateFirewallPolicyRequest {
     /// the mask is not present, all fields are updated.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateFirewallPolicyRequest {
@@ -3846,6 +3966,9 @@ pub struct DeleteFirewallPolicyRequest {
     /// `projects/{project}/firewallpolicies/{firewallpolicy}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteFirewallPolicyRequest {
@@ -3881,6 +4004,9 @@ pub struct ReorderFirewallPoliciesRequest {
     /// is in the format `projects/{project}/firewallpolicies/{firewallpolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub names: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ReorderFirewallPoliciesRequest {
@@ -3917,7 +4043,10 @@ impl wkt::message::Message for ReorderFirewallPoliciesRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ReorderFirewallPoliciesResponse {}
+pub struct ReorderFirewallPoliciesResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ReorderFirewallPoliciesResponse {
     pub fn new() -> Self {
@@ -3951,6 +4080,9 @@ pub struct MigrateKeyRequest {
     /// billing check and proceed with the migration. See
     /// <https://cloud.google.com/recaptcha/docs/billing-information>.
     pub skip_billing_check: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MigrateKeyRequest {
@@ -3987,6 +4119,9 @@ pub struct GetMetricsRequest {
     /// `projects/{project}/keys/{key}/metrics`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetMetricsRequest {
@@ -4033,6 +4168,9 @@ pub struct Metrics {
     /// challenge-based data.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub challenge_metrics: std::vec::Vec<crate::model::ChallengeMetrics>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Metrics {
@@ -4097,6 +4235,9 @@ pub struct RetrieveLegacySecretKeyResponse {
     /// The secret key needs to be kept safe for security purposes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub legacy_secret_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RetrieveLegacySecretKeyResponse {
@@ -4157,6 +4298,9 @@ pub struct Key {
     /// platform for which the settings are enabled.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub platform_settings: std::option::Option<crate::model::key::PlatformSettings>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Key {
@@ -4391,6 +4535,9 @@ pub struct TestingOptions {
     /// challenge requests for this site return nocaptcha if NOCAPTCHA, or an
     /// unsolvable challenge if CHALLENGE.
     pub testing_challenge: crate::model::testing_options::TestingChallenge,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TestingOptions {
@@ -4518,6 +4665,9 @@ pub struct WebKeySettings {
     /// triggers captcha challenges. This should only be specified for
     /// IntegrationTypes CHECKBOX and INVISIBLE and SCORE_AND_CHALLENGE.
     pub challenge_security_preference: crate::model::web_key_settings::ChallengeSecurityPreference,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WebKeySettings {
@@ -4736,6 +4886,9 @@ pub struct AndroidKeySettings {
     /// is available for download in app stores in addition to the Google Play
     /// Store.
     pub support_non_google_app_store_distribution: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AndroidKeySettings {
@@ -4797,6 +4950,9 @@ pub struct IOSKeySettings {
     /// of your app.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub apple_developer_id: std::option::Option<crate::model::AppleDeveloperId>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IOSKeySettings {
@@ -4844,7 +5000,10 @@ impl wkt::message::Message for IOSKeySettings {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct ExpressKeySettings {}
+pub struct ExpressKeySettings {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl ExpressKeySettings {
     pub fn new() -> Self {
@@ -4878,6 +5037,9 @@ pub struct AppleDeveloperId {
     /// profile used to build your application.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub team_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppleDeveloperId {
@@ -4922,6 +5084,9 @@ pub struct ScoreDistribution {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
     pub score_buckets: std::collections::HashMap<i32, i64>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScoreDistribution {
@@ -4963,6 +5128,9 @@ pub struct ScoreMetrics {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub action_metrics:
         std::collections::HashMap<std::string::String, crate::model::ScoreDistribution>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ScoreMetrics {
@@ -5025,6 +5193,9 @@ pub struct ChallengeMetrics {
     /// verification.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub passed_count: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ChallengeMetrics {
@@ -5079,6 +5250,9 @@ pub struct FirewallPolicyAssessment {
     /// request, the policy field is left empty.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub firewall_policy: std::option::Option<crate::model::FirewallPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FirewallPolicyAssessment {
@@ -5123,6 +5297,9 @@ pub struct FirewallAction {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub firewall_action_oneof:
         std::option::Option<crate::model::firewall_action::FirewallActionOneof>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FirewallAction {
@@ -5355,7 +5532,10 @@ pub mod firewall_action {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct AllowAction {}
+    pub struct AllowAction {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl AllowAction {
         pub fn new() -> Self {
@@ -5375,7 +5555,10 @@ pub mod firewall_action {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct BlockAction {}
+    pub struct BlockAction {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl BlockAction {
         pub fn new() -> Self {
@@ -5398,7 +5581,10 @@ pub mod firewall_action {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct IncludeRecaptchaScriptAction {}
+    pub struct IncludeRecaptchaScriptAction {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl IncludeRecaptchaScriptAction {
         pub fn new() -> Self {
@@ -5418,7 +5604,10 @@ pub mod firewall_action {
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
-    pub struct RedirectAction {}
+    pub struct RedirectAction {
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
 
     impl RedirectAction {
         pub fn new() -> Self {
@@ -5443,6 +5632,9 @@ pub mod firewall_action {
         /// the current host. Example: "/blog/404.html".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub path: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SubstituteAction {
@@ -5478,6 +5670,9 @@ pub mod firewall_action {
         /// Optional. The header value to set in the request to the backend server.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub value: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SetHeaderAction {
@@ -5576,6 +5771,9 @@ pub struct FirewallPolicy {
     /// specified. A single policy can contain up to 16 actions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub actions: std::vec::Vec<crate::model::FirewallAction>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FirewallPolicy {
@@ -5649,6 +5847,9 @@ pub struct ListRelatedAccountGroupMembershipsRequest {
     /// page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRelatedAccountGroupMembershipsRequest {
@@ -5696,6 +5897,9 @@ pub struct ListRelatedAccountGroupMembershipsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRelatedAccountGroupMembershipsResponse {
@@ -5765,6 +5969,9 @@ pub struct ListRelatedAccountGroupsRequest {
     /// token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRelatedAccountGroupsRequest {
@@ -5811,6 +6018,9 @@ pub struct ListRelatedAccountGroupsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListRelatedAccountGroupsResponse {
@@ -5898,6 +6108,9 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
     /// the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchRelatedAccountGroupMembershipsRequest {
@@ -5957,6 +6170,9 @@ pub struct SearchRelatedAccountGroupMembershipsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SearchRelatedAccountGroupMembershipsResponse {
@@ -6016,6 +6232,9 @@ pub struct AddIpOverrideRequest {
     /// Required. IP override added to the key.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ip_override_data: std::option::Option<crate::model::IpOverrideData>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AddIpOverrideRequest {
@@ -6052,7 +6271,10 @@ impl wkt::message::Message for AddIpOverrideRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct AddIpOverrideResponse {}
+pub struct AddIpOverrideResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl AddIpOverrideResponse {
     pub fn new() -> Self {
@@ -6080,6 +6302,9 @@ pub struct RemoveIpOverrideRequest {
     /// Required. IP override to be removed from the key.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ip_override_data: std::option::Option<crate::model::IpOverrideData>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RemoveIpOverrideRequest {
@@ -6116,7 +6341,10 @@ impl wkt::message::Message for RemoveIpOverrideRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct RemoveIpOverrideResponse {}
+pub struct RemoveIpOverrideResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl RemoveIpOverrideResponse {
     pub fn new() -> Self {
@@ -6151,6 +6379,9 @@ pub struct ListIpOverridesRequest {
     /// ListIpOverridesRequest, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListIpOverridesRequest {
@@ -6197,6 +6428,9 @@ pub struct ListIpOverridesResponse {
     /// remain in the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListIpOverridesResponse {
@@ -6266,6 +6500,9 @@ pub struct RelatedAccountGroupMembership {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub hashed_account_id: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RelatedAccountGroupMembership {
@@ -6309,6 +6546,9 @@ pub struct RelatedAccountGroup {
     /// `projects/{project}/relatedaccountgroups/{related_account_group}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RelatedAccountGroup {
@@ -6341,6 +6581,9 @@ pub struct WafSettings {
 
     /// Required. The WAF feature for which this key is enabled.
     pub waf_feature: crate::model::waf_settings::WafFeature,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WafSettings {
@@ -6541,6 +6784,9 @@ pub struct AssessmentEnvironment {
     /// Optional. The version of the client module. For example, "1.0.0".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AssessmentEnvironment {
@@ -6585,6 +6831,9 @@ pub struct IpOverrideData {
 
     /// Required. Describes the type of IP override.
     pub override_type: crate::model::ip_override_data::OverrideType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl IpOverrideData {

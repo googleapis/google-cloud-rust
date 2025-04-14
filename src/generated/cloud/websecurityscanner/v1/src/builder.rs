@@ -96,6 +96,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .create_scan_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateScanConfigRequest::parent].
@@ -150,6 +151,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .delete_scan_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteScanConfigRequest::name].
@@ -192,6 +194,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .get_scan_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetScanConfigRequest::name].
@@ -234,6 +237,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .list_scan_configs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -306,6 +310,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .update_scan_config(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
@@ -360,6 +365,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .start_scan_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StartScanRunRequest::name].
@@ -402,6 +408,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .get_scan_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetScanRunRequest::name].
@@ -444,6 +451,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .list_scan_runs(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -513,6 +521,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .stop_scan_run(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::StopScanRunRequest::name].
@@ -555,6 +564,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .list_crawled_urls(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -624,6 +634,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .get_finding(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetFindingRequest::name].
@@ -666,6 +677,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .list_findings(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -744,6 +756,7 @@ pub mod web_security_scanner {
             (*self.0.stub)
                 .list_finding_type_stats(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::ListFindingTypeStatsRequest::parent].

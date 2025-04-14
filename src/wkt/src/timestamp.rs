@@ -346,7 +346,9 @@ mod test {
 
     #[test_case(0, 0, 0, 0; "zero")]
     #[test_case(0, 1_234_567_890, 1, 234_567_890; "nanos overflow")]
+    #[test_case(0, 2_100_000_123, 2, 100_000_123; "nanos overflow x2")]
     #[test_case(0, -1_400_000_000, -2, 600_000_000; "nanos underflow")]
+    #[test_case(0, -2_100_000_000, -3, 900_000_000; "nanos underflow x2")]
     #[test_case(self::get_max_seconds() + 1, 0, get_max_seconds(), 0; "seconds over range")]
     #[test_case(self::get_min_seconds() - 1, 0, get_min_seconds(), 0; "seconds below range")]
     #[test_case(self::get_max_seconds() - 1, 2_000_000_001, get_max_seconds(), 0; "nanos overflow range"

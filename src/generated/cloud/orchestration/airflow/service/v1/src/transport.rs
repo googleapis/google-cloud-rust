@@ -44,7 +44,7 @@ impl super::stub::Environments for Environments {
         &self,
         req: crate::model::CreateEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -60,14 +60,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.environment), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn get_environment(
         &self,
         req: crate::model::GetEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Environment> {
+    ) -> Result<gax::response::Response<crate::model::Environment>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,14 +79,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Environment>| r.into_body())
     }
 
     async fn list_environments(
         &self,
         req: crate::model::ListEnvironmentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEnvironmentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEnvironmentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -105,14 +103,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListEnvironmentsResponse>| r.into_body())
     }
 
     async fn update_environment(
         &self,
         req: crate::model::UpdateEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -125,24 +122,19 @@ impl super::stub::Environments for Environments {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.environment), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_environment(
         &self,
         req: crate::model::DeleteEnvironmentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -155,14 +147,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn execute_airflow_command(
         &self,
         req: crate::model::ExecuteAirflowCommandRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ExecuteAirflowCommandResponse> {
+    ) -> Result<gax::response::Response<crate::model::ExecuteAirflowCommandResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -175,16 +166,14 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::ExecuteAirflowCommandResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn stop_airflow_command(
         &self,
         req: crate::model::StopAirflowCommandRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::StopAirflowCommandResponse> {
+    ) -> Result<gax::response::Response<crate::model::StopAirflowCommandResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -197,16 +186,14 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::StopAirflowCommandResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn poll_airflow_command(
         &self,
         req: crate::model::PollAirflowCommandRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PollAirflowCommandResponse> {
+    ) -> Result<gax::response::Response<crate::model::PollAirflowCommandResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -219,16 +206,14 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::PollAirflowCommandResponse>| r.into_body(),
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_workloads(
         &self,
         req: crate::model::ListWorkloadsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListWorkloadsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListWorkloadsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -247,14 +232,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListWorkloadsResponse>| r.into_body())
     }
 
     async fn check_upgrade(
         &self,
         req: crate::model::CheckUpgradeRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -267,17 +251,14 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn create_user_workloads_secret(
         &self,
         req: crate::model::CreateUserWorkloadsSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserWorkloadsSecret> {
+    ) -> Result<gax::response::Response<crate::model::UserWorkloadsSecret>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -293,14 +274,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.user_workloads_secret), options)
             .await
-            .map(|r: gax::response::Response<crate::model::UserWorkloadsSecret>| r.into_body())
     }
 
     async fn get_user_workloads_secret(
         &self,
         req: crate::model::GetUserWorkloadsSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserWorkloadsSecret> {
+    ) -> Result<gax::response::Response<crate::model::UserWorkloadsSecret>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -313,14 +293,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::UserWorkloadsSecret>| r.into_body())
     }
 
     async fn list_user_workloads_secrets(
         &self,
         req: crate::model::ListUserWorkloadsSecretsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUserWorkloadsSecretsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUserWorkloadsSecretsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -338,18 +317,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListUserWorkloadsSecretsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn update_user_workloads_secret(
         &self,
         req: crate::model::UpdateUserWorkloadsSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserWorkloadsSecret> {
+    ) -> Result<gax::response::Response<crate::model::UserWorkloadsSecret>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -371,14 +345,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.user_workloads_secret), options)
             .await
-            .map(|r: gax::response::Response<crate::model::UserWorkloadsSecret>| r.into_body())
     }
 
     async fn delete_user_workloads_secret(
         &self,
         req: crate::model::DeleteUserWorkloadsSecretRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -391,14 +364,17 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn create_user_workloads_config_map(
         &self,
         req: crate::model::CreateUserWorkloadsConfigMapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserWorkloadsConfigMap> {
+    ) -> Result<gax::response::Response<crate::model::UserWorkloadsConfigMap>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -414,14 +390,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.user_workloads_config_map), options)
             .await
-            .map(|r: gax::response::Response<crate::model::UserWorkloadsConfigMap>| r.into_body())
     }
 
     async fn get_user_workloads_config_map(
         &self,
         req: crate::model::GetUserWorkloadsConfigMapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserWorkloadsConfigMap> {
+    ) -> Result<gax::response::Response<crate::model::UserWorkloadsConfigMap>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -434,14 +409,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::UserWorkloadsConfigMap>| r.into_body())
     }
 
     async fn list_user_workloads_config_maps(
         &self,
         req: crate::model::ListUserWorkloadsConfigMapsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListUserWorkloadsConfigMapsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListUserWorkloadsConfigMapsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -459,18 +433,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListUserWorkloadsConfigMapsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn update_user_workloads_config_map(
         &self,
         req: crate::model::UpdateUserWorkloadsConfigMapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::UserWorkloadsConfigMap> {
+    ) -> Result<gax::response::Response<crate::model::UserWorkloadsConfigMap>> {
         let options = options.set_default_idempotency(reqwest::Method::PUT.is_idempotent());
         let builder = self
             .inner
@@ -492,14 +461,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, Some(req.user_workloads_config_map), options)
             .await
-            .map(|r: gax::response::Response<crate::model::UserWorkloadsConfigMap>| r.into_body())
     }
 
     async fn delete_user_workloads_config_map(
         &self,
         req: crate::model::DeleteUserWorkloadsConfigMapRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -512,14 +480,17 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn save_snapshot(
         &self,
         req: crate::model::SaveSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -532,17 +503,14 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn load_snapshot(
         &self,
         req: crate::model::LoadSnapshotRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -555,17 +523,14 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn database_failover(
         &self,
         req: crate::model::DatabaseFailoverRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -578,17 +543,14 @@ impl super::stub::Environments for Environments {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn fetch_database_properties(
         &self,
         req: crate::model::FetchDatabasePropertiesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::FetchDatabasePropertiesResponse> {
+    ) -> Result<gax::response::Response<crate::model::FetchDatabasePropertiesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -604,18 +566,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::FetchDatabasePropertiesResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -631,18 +588,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -655,14 +607,13 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -675,7 +626,10 @@ impl super::stub::Environments for Environments {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     fn get_polling_error_policy(
@@ -719,7 +673,7 @@ impl super::stub::ImageVersions for ImageVersions {
         &self,
         req: crate::model::ListImageVersionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListImageVersionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListImageVersionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -738,16 +692,13 @@ impl super::stub::ImageVersions for ImageVersions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListImageVersionsResponse>| r.into_body(),
-            )
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -763,18 +714,13 @@ impl super::stub::ImageVersions for ImageVersions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -787,14 +733,13 @@ impl super::stub::ImageVersions for ImageVersions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -807,6 +752,9 @@ impl super::stub::ImageVersions for ImageVersions {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 }

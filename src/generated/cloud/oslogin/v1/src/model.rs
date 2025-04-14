@@ -50,6 +50,9 @@ pub struct LoginProfile {
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub ssh_public_keys:
         std::collections::HashMap<std::string::String, oslogin_common::model::SshPublicKey>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LoginProfile {
@@ -106,6 +109,9 @@ pub struct CreateSshPublicKeyRequest {
     /// Required. The SSH public key and expiration time.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ssh_public_key: std::option::Option<oslogin_common::model::SshPublicKey>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSshPublicKeyRequest {
@@ -148,6 +154,9 @@ pub struct DeletePosixAccountRequest {
     /// POSIX account is in format `users/{user}/projects/{project}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeletePosixAccountRequest {
@@ -179,6 +188,9 @@ pub struct DeleteSshPublicKeyRequest {
     /// is in format `users/{user}/sshPublicKeys/{fingerprint}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeleteSshPublicKeyRequest {
@@ -216,6 +228,9 @@ pub struct GetLoginProfileRequest {
     /// A system ID for filtering the results of the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub system_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetLoginProfileRequest {
@@ -259,6 +274,9 @@ pub struct GetSshPublicKeyRequest {
     /// is in format `users/{user}/sshPublicKeys/{fingerprint}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSshPublicKeyRequest {
@@ -302,6 +320,9 @@ pub struct ImportSshPublicKeyRequest {
     /// Regions are listed at <https://cloud.google.com/about/locations#region>.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub regions: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportSshPublicKeyRequest {
@@ -363,6 +384,9 @@ pub struct ImportSshPublicKeyResponse {
     /// Detailed information about import results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub details: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ImportSshPublicKeyResponse {
@@ -413,6 +437,9 @@ pub struct UpdateSshPublicKeyRequest {
     /// Mask to control which fields get updated. Updates all if not present.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UpdateSshPublicKeyRequest {

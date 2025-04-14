@@ -44,7 +44,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         &self,
         req: crate::model::ListOrchestrationClustersRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListOrchestrationClustersResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListOrchestrationClustersResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -64,18 +64,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListOrchestrationClustersResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_orchestration_cluster(
         &self,
         req: crate::model::GetOrchestrationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::OrchestrationCluster> {
+    ) -> Result<gax::response::Response<crate::model::OrchestrationCluster>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -88,14 +83,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::OrchestrationCluster>| r.into_body())
     }
 
     async fn create_orchestration_cluster(
         &self,
         req: crate::model::CreateOrchestrationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -113,14 +107,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.orchestration_cluster), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_orchestration_cluster(
         &self,
         req: crate::model::DeleteOrchestrationClusterRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -134,14 +127,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn list_edge_slms(
         &self,
         req: crate::model::ListEdgeSlmsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListEdgeSlmsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListEdgeSlmsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -158,14 +150,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListEdgeSlmsResponse>| r.into_body())
     }
 
     async fn get_edge_slm(
         &self,
         req: crate::model::GetEdgeSlmRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::EdgeSlm> {
+    ) -> Result<gax::response::Response<crate::model::EdgeSlm>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -178,14 +169,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::EdgeSlm>| r.into_body())
     }
 
     async fn create_edge_slm(
         &self,
         req: crate::model::CreateEdgeSlmRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -203,14 +193,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.edge_slm), options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_edge_slm(
         &self,
         req: crate::model::DeleteEdgeSlmRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -224,14 +213,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn create_blueprint(
         &self,
         req: crate::model::CreateBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -248,14 +236,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.blueprint), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
     }
 
     async fn update_blueprint(
         &self,
         req: crate::model::UpdateBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -277,24 +264,19 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.blueprint), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
     }
 
     async fn get_blueprint(
         &self,
         req: crate::model::GetBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -308,14 +290,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
     }
 
     async fn delete_blueprint(
         &self,
         req: crate::model::DeleteBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -328,14 +309,17 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn list_blueprints(
         &self,
         req: crate::model::ListBlueprintsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBlueprintsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBlueprintsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -354,14 +338,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListBlueprintsResponse>| r.into_body())
     }
 
     async fn approve_blueprint(
         &self,
         req: crate::model::ApproveBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -371,17 +354,14 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn propose_blueprint(
         &self,
         req: crate::model::ProposeBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -391,17 +371,14 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn reject_blueprint(
         &self,
         req: crate::model::RejectBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Blueprint> {
+    ) -> Result<gax::response::Response<crate::model::Blueprint>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -411,17 +388,14 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Blueprint>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_blueprint_revisions(
         &self,
         req: crate::model::ListBlueprintRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListBlueprintRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListBlueprintRevisionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -439,18 +413,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListBlueprintRevisionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn search_blueprint_revisions(
         &self,
         req: crate::model::SearchBlueprintRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchBlueprintRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -469,18 +438,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::SearchBlueprintRevisionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn search_deployment_revisions(
         &self,
         req: crate::model::SearchDeploymentRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::SearchDeploymentRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -499,18 +463,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::SearchDeploymentRevisionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn discard_blueprint_changes(
         &self,
         req: crate::model::DiscardBlueprintChangesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscardBlueprintChangesResponse> {
+    ) -> Result<gax::response::Response<crate::model::DiscardBlueprintChangesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -520,18 +479,14 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::DiscardBlueprintChangesResponse>| {
-                r.into_body()
-            },
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_public_blueprints(
         &self,
         req: crate::model::ListPublicBlueprintsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListPublicBlueprintsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListPublicBlueprintsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -549,18 +504,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListPublicBlueprintsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_public_blueprint(
         &self,
         req: crate::model::GetPublicBlueprintRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::PublicBlueprint> {
+    ) -> Result<gax::response::Response<crate::model::PublicBlueprint>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -573,14 +523,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::PublicBlueprint>| r.into_body())
     }
 
     async fn create_deployment(
         &self,
         req: crate::model::CreateDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -597,14 +546,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, Some(req.deployment), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn update_deployment(
         &self,
         req: crate::model::UpdateDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -626,24 +574,19 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.deployment), options)
             .await
-            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn get_deployment(
         &self,
         req: crate::model::GetDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -657,14 +600,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
     }
 
     async fn remove_deployment(
         &self,
         req: crate::model::RemoveDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -674,17 +616,19 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn list_deployments(
         &self,
         req: crate::model::ListDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDeploymentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDeploymentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -703,14 +647,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListDeploymentsResponse>| r.into_body())
     }
 
     async fn list_deployment_revisions(
         &self,
         req: crate::model::ListDeploymentRevisionsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListDeploymentRevisionsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListDeploymentRevisionsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -728,18 +671,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListDeploymentRevisionsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn discard_deployment_changes(
         &self,
         req: crate::model::DiscardDeploymentChangesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::DiscardDeploymentChangesResponse> {
+    ) -> Result<gax::response::Response<crate::model::DiscardDeploymentChangesResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -749,18 +687,14 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), options).await.map(
-            |r: gax::response::Response<crate::model::DiscardDeploymentChangesResponse>| {
-                r.into_body()
-            },
-        )
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn apply_deployment(
         &self,
         req: crate::model::ApplyDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -770,17 +704,14 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn compute_deployment_status(
         &self,
         req: crate::model::ComputeDeploymentStatusRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ComputeDeploymentStatusResponse> {
+    ) -> Result<gax::response::Response<crate::model::ComputeDeploymentStatusResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -796,18 +727,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ComputeDeploymentStatusResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn rollback_deployment(
         &self,
         req: crate::model::RollbackDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Deployment> {
+    ) -> Result<gax::response::Response<crate::model::Deployment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -817,17 +743,14 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Deployment>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_hydrated_deployment(
         &self,
         req: crate::model::GetHydratedDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HydratedDeployment> {
+    ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -840,14 +763,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::HydratedDeployment>| r.into_body())
     }
 
     async fn list_hydrated_deployments(
         &self,
         req: crate::model::ListHydratedDeploymentsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListHydratedDeploymentsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListHydratedDeploymentsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -865,18 +787,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListHydratedDeploymentsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn update_hydrated_deployment(
         &self,
         req: crate::model::UpdateHydratedDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HydratedDeployment> {
+    ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -898,24 +815,19 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         self.inner
             .execute(builder, Some(req.hydrated_deployment), options)
             .await
-            .map(|r: gax::response::Response<crate::model::HydratedDeployment>| r.into_body())
     }
 
     async fn apply_hydrated_deployment(
         &self,
         req: crate::model::ApplyHydratedDeploymentRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::HydratedDeployment> {
+    ) -> Result<gax::response::Response<crate::model::HydratedDeployment>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -925,17 +837,14 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::HydratedDeployment>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::ListLocationsResponse> {
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -951,14 +860,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::ListLocationsResponse>| r.into_body())
     }
 
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<location::model::Location> {
+    ) -> Result<gax::response::Response<location::model::Location>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -971,14 +879,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<location::model::Location>| r.into_body())
     }
 
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::ListOperationsResponse> {
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -994,18 +901,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<longrunning::model::ListOperationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_operation(
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -1018,14 +920,13 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<longrunning::model::Operation>| r.into_body())
     }
 
     async fn delete_operation(
         &self,
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
@@ -1038,14 +939,17 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+            .map(|r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            })
     }
 
     async fn cancel_operation(
         &self,
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -1055,10 +959,12 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|_: gax::response::Response<wkt::Empty>| ())
+        self.inner.execute(builder, Some(req), options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     fn get_polling_error_policy(

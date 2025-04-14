@@ -42,7 +42,7 @@ where
         &self,
         req: crate::model::BatchAnnotateImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchAnnotateImagesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchAnnotateImagesResponse>> {
         self.inner.batch_annotate_images(req, options).await
     }
 
@@ -51,7 +51,7 @@ where
         &self,
         req: crate::model::BatchAnnotateFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::BatchAnnotateFilesResponse> {
+    ) -> Result<gax::response::Response<crate::model::BatchAnnotateFilesResponse>> {
         self.inner.batch_annotate_files(req, options).await
     }
 
@@ -60,7 +60,7 @@ where
         &self,
         req: crate::model::AsyncBatchAnnotateImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.async_batch_annotate_images(req, options).await
     }
 
@@ -69,7 +69,7 @@ where
         &self,
         req: crate::model::AsyncBatchAnnotateFilesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.async_batch_annotate_files(req, options).await
     }
 
@@ -78,7 +78,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 
@@ -124,7 +124,7 @@ where
         &self,
         req: crate::model::CreateProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProductSet> {
+    ) -> Result<gax::response::Response<crate::model::ProductSet>> {
         self.inner.create_product_set(req, options).await
     }
 
@@ -133,7 +133,7 @@ where
         &self,
         req: crate::model::ListProductSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProductSetsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProductSetsResponse>> {
         self.inner.list_product_sets(req, options).await
     }
 
@@ -142,7 +142,7 @@ where
         &self,
         req: crate::model::GetProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProductSet> {
+    ) -> Result<gax::response::Response<crate::model::ProductSet>> {
         self.inner.get_product_set(req, options).await
     }
 
@@ -151,7 +151,7 @@ where
         &self,
         req: crate::model::UpdateProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ProductSet> {
+    ) -> Result<gax::response::Response<crate::model::ProductSet>> {
         self.inner.update_product_set(req, options).await
     }
 
@@ -160,7 +160,7 @@ where
         &self,
         req: crate::model::DeleteProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_product_set(req, options).await
     }
 
@@ -169,7 +169,7 @@ where
         &self,
         req: crate::model::CreateProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Product> {
+    ) -> Result<gax::response::Response<crate::model::Product>> {
         self.inner.create_product(req, options).await
     }
 
@@ -178,7 +178,7 @@ where
         &self,
         req: crate::model::ListProductsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProductsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProductsResponse>> {
         self.inner.list_products(req, options).await
     }
 
@@ -187,7 +187,7 @@ where
         &self,
         req: crate::model::GetProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Product> {
+    ) -> Result<gax::response::Response<crate::model::Product>> {
         self.inner.get_product(req, options).await
     }
 
@@ -196,7 +196,7 @@ where
         &self,
         req: crate::model::UpdateProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Product> {
+    ) -> Result<gax::response::Response<crate::model::Product>> {
         self.inner.update_product(req, options).await
     }
 
@@ -205,7 +205,7 @@ where
         &self,
         req: crate::model::DeleteProductRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_product(req, options).await
     }
 
@@ -214,7 +214,7 @@ where
         &self,
         req: crate::model::CreateReferenceImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReferenceImage> {
+    ) -> Result<gax::response::Response<crate::model::ReferenceImage>> {
         self.inner.create_reference_image(req, options).await
     }
 
@@ -223,7 +223,7 @@ where
         &self,
         req: crate::model::DeleteReferenceImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete_reference_image(req, options).await
     }
 
@@ -232,7 +232,7 @@ where
         &self,
         req: crate::model::ListReferenceImagesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListReferenceImagesResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListReferenceImagesResponse>> {
         self.inner.list_reference_images(req, options).await
     }
 
@@ -241,7 +241,7 @@ where
         &self,
         req: crate::model::GetReferenceImageRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ReferenceImage> {
+    ) -> Result<gax::response::Response<crate::model::ReferenceImage>> {
         self.inner.get_reference_image(req, options).await
     }
 
@@ -250,7 +250,7 @@ where
         &self,
         req: crate::model::AddProductToProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.add_product_to_product_set(req, options).await
     }
 
@@ -259,7 +259,7 @@ where
         &self,
         req: crate::model::RemoveProductFromProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<()> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner
             .remove_product_from_product_set(req, options)
             .await
@@ -270,7 +270,7 @@ where
         &self,
         req: crate::model::ListProductsInProductSetRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListProductsInProductSetResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListProductsInProductSetResponse>> {
         self.inner.list_products_in_product_set(req, options).await
     }
 
@@ -279,7 +279,7 @@ where
         &self,
         req: crate::model::ImportProductSetsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.import_product_sets(req, options).await
     }
 
@@ -288,7 +288,7 @@ where
         &self,
         req: crate::model::PurgeProductsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.purge_products(req, options).await
     }
 
@@ -297,7 +297,7 @@ where
         &self,
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<longrunning::model::Operation> {
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
     }
 

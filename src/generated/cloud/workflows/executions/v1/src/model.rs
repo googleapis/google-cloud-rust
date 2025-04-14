@@ -105,6 +105,9 @@ pub struct Execution {
     /// unavailable due to revoked KMS key permissions.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub state_error: std::option::Option<crate::model::execution::StateError>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Execution {
@@ -256,6 +259,9 @@ pub mod execution {
         /// The source position information of the stack trace element.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub position: std::option::Option<crate::model::execution::stack_trace_element::Position>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StackTraceElement {
@@ -320,6 +326,9 @@ pub mod execution {
             /// The number of bytes of source code making up this stack trace element.
             #[serde_as(as = "serde_with::DisplayFromStr")]
             pub length: i64,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Position {
@@ -362,6 +371,9 @@ pub mod execution {
         /// An array of stack elements.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub elements: std::vec::Vec<crate::model::execution::StackTraceElement>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StackTrace {
@@ -404,6 +416,9 @@ pub mod execution {
         /// Stack trace with detailed information of where error was generated.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub stack_trace: std::option::Option<crate::model::execution::StackTrace>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Error {
@@ -456,6 +471,9 @@ pub mod execution {
         /// ending with the most deeply nested step.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub current_steps: std::vec::Vec<crate::model::execution::status::Step>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Status {
@@ -499,6 +517,9 @@ pub mod execution {
             /// Name of a step within the routine.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
             pub step: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Step {
@@ -539,6 +560,9 @@ pub mod execution {
         /// The type of this state error.
         #[serde(rename = "type")]
         pub r#type: crate::model::execution::state_error::Type,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StateError {
@@ -819,6 +843,9 @@ pub struct ListExecutionsRequest {
     /// executionID, startTime, endTime, duration, state, and workflowRevisionID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub order_by: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListExecutionsRequest {
@@ -887,6 +914,9 @@ pub struct ListExecutionsResponse {
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListExecutionsResponse {
@@ -951,6 +981,9 @@ pub struct CreateExecutionRequest {
     /// Required. Execution to be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub execution: std::option::Option<crate::model::Execution>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateExecutionRequest {
@@ -999,6 +1032,9 @@ pub struct GetExecutionRequest {
     /// Optional. A view defining which fields should be filled in the returned
     /// execution. The API will default to the FULL view.
     pub view: crate::model::ExecutionView,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetExecutionRequest {
@@ -1040,6 +1076,9 @@ pub struct CancelExecutionRequest {
     /// projects/{project}/locations/{location}/workflows/{workflow}/executions/{execution}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CancelExecutionRequest {

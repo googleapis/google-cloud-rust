@@ -44,7 +44,7 @@ impl super::stub::Recommender for Recommender {
         &self,
         req: crate::model::ListInsightsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListInsightsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListInsightsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -60,14 +60,13 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::ListInsightsResponse>| r.into_body())
     }
 
     async fn get_insight(
         &self,
         req: crate::model::GetInsightRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Insight> {
+    ) -> Result<gax::response::Response<crate::model::Insight>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -80,14 +79,13 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Insight>| r.into_body())
     }
 
     async fn mark_insight_accepted(
         &self,
         req: crate::model::MarkInsightAcceptedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Insight> {
+    ) -> Result<gax::response::Response<crate::model::Insight>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -100,17 +98,14 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Insight>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn list_recommendations(
         &self,
         req: crate::model::ListRecommendationsRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::ListRecommendationsResponse> {
+    ) -> Result<gax::response::Response<crate::model::ListRecommendationsResponse>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -129,18 +124,13 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(
-                |r: gax::response::Response<crate::model::ListRecommendationsResponse>| {
-                    r.into_body()
-                },
-            )
     }
 
     async fn get_recommendation(
         &self,
         req: crate::model::GetRecommendationRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -153,14 +143,13 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::Recommendation>| r.into_body())
     }
 
     async fn mark_recommendation_dismissed(
         &self,
         req: crate::model::MarkRecommendationDismissedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -173,17 +162,14 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Recommendation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn mark_recommendation_claimed(
         &self,
         req: crate::model::MarkRecommendationClaimedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -196,17 +182,14 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Recommendation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn mark_recommendation_succeeded(
         &self,
         req: crate::model::MarkRecommendationSucceededRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -219,17 +202,14 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Recommendation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn mark_recommendation_failed(
         &self,
         req: crate::model::MarkRecommendationFailedRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::Recommendation> {
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
@@ -242,17 +222,14 @@ impl super::stub::Recommender for Recommender {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner
-            .execute(builder, Some(req), options)
-            .await
-            .map(|r: gax::response::Response<crate::model::Recommendation>| r.into_body())
+        self.inner.execute(builder, Some(req), options).await
     }
 
     async fn get_recommender_config(
         &self,
         req: crate::model::GetRecommenderConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RecommenderConfig> {
+    ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -265,14 +242,13 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::RecommenderConfig>| r.into_body())
     }
 
     async fn update_recommender_config(
         &self,
         req: crate::model::UpdateRecommenderConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::RecommenderConfig> {
+    ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -294,25 +270,20 @@ impl super::stub::Recommender for Recommender {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.recommender_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::RecommenderConfig>| r.into_body())
     }
 
     async fn get_insight_type_config(
         &self,
         req: crate::model::GetInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InsightTypeConfig> {
+    ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
@@ -325,14 +296,13 @@ impl super::stub::Recommender for Recommender {
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
-            .map(|r: gax::response::Response<crate::model::InsightTypeConfig>| r.into_body())
     }
 
     async fn update_insight_type_config(
         &self,
         req: crate::model::UpdateInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<crate::model::InsightTypeConfig> {
+    ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
@@ -354,17 +324,12 @@ impl super::stub::Recommender for Recommender {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
-            .transpose()?
-            .into_iter()
-            .fold(builder, |builder, v| {
-                use gaxi::query_parameter::QueryParameter;
-                v.add(builder, "updateMask")
-            });
+            .iter()
+            .flat_map(|p| p.paths.iter())
+            .fold(builder, |builder, v| builder.query(&[("updateMask", v)]));
         let builder = builder.query(&[("validateOnly", &req.validate_only)]);
         self.inner
             .execute(builder, Some(req.insight_type_config), options)
             .await
-            .map(|r: gax::response::Response<crate::model::InsightTypeConfig>| r.into_body())
     }
 }

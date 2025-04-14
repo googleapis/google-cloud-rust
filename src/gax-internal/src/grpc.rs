@@ -77,6 +77,7 @@ impl Client {
                     path,
                     request,
                     &options,
+                    None,
                     api_client_header,
                     request_params,
                 )
@@ -117,7 +118,7 @@ impl Client {
         let retry_throttler = self.get_retry_throttler(&options);
         let backoff_policy = self.get_backoff_policy(&options);
         let credentials = self.credentials.clone();
-        let inner = async move |_d: Option<Duration>| {
+        let inner = async move |remaining_time: Option<Duration>| {
             Self::request_attempt::<Request, Response>(
                 &mut self.inner.clone(),
                 &credentials,
@@ -125,6 +126,7 @@ impl Client {
                 path.clone(),
                 request.clone(),
                 &options,
+                remaining_time,
                 api_client_header,
                 request_params,
             )
@@ -150,7 +152,8 @@ impl Client {
         method: tonic::GrpcMethod<'static>,
         path: http::uri::PathAndQuery,
         request: Request,
-        _options: &gax::options::RequestOptions,
+        options: &gax::options::RequestOptions,
+        remaining_time: Option<std::time::Duration>,
         api_client_header: &'static str,
         request_params: &'static str,
     ) -> Result<Response>
@@ -163,7 +166,11 @@ impl Client {
         let mut extensions = tonic::Extensions::new();
         extensions.insert(method);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
-        let request = tonic::Request::from_parts(metadata, extensions, request);
+        let mut request = tonic::Request::from_parts(metadata, extensions, request);
+        if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)
+        {
+            request.set_timeout(timeout);
+        }
         let codec = tonic::codec::ProstCodec::default();
         inner.ready().await.map_err(Error::rpc)?;
         let response: tonic::Response<Response> = inner

@@ -46,11 +46,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::get_instance].
@@ -58,10 +59,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Instance>> + Send {
-        std::future::ready::<crate::Result<crate::model::Instance>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Instance>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::list_instances].
@@ -69,11 +72,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListInstancesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListInstancesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListInstancesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::update_instance].
@@ -81,10 +85,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::Instance,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Instance>> + Send {
-        std::future::ready::<crate::Result<crate::model::Instance>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Instance>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Instance>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::partial_update_instance].
@@ -92,11 +98,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PartialUpdateInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::delete_instance].
@@ -104,8 +111,10 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteInstanceRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::create_cluster].
@@ -113,11 +122,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::get_cluster].
@@ -125,10 +135,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Cluster>> + Send {
-        std::future::ready::<crate::Result<crate::model::Cluster>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Cluster>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Cluster>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::list_clusters].
@@ -136,11 +148,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListClustersRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListClustersResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListClustersResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::update_cluster].
@@ -148,11 +161,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::Cluster,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::partial_update_cluster].
@@ -160,11 +174,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::PartialUpdateClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::delete_cluster].
@@ -172,8 +187,10 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteClusterRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::create_app_profile].
@@ -181,10 +198,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAppProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AppProfile>> + Send {
-        std::future::ready::<crate::Result<crate::model::AppProfile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AppProfile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AppProfile>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::get_app_profile].
@@ -192,10 +211,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAppProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AppProfile>> + Send {
-        std::future::ready::<crate::Result<crate::model::AppProfile>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AppProfile>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AppProfile>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::list_app_profiles].
@@ -203,11 +224,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAppProfilesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAppProfilesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAppProfilesResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAppProfilesResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAppProfilesResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::update_app_profile].
@@ -215,11 +237,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAppProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::delete_app_profile].
@@ -227,8 +250,10 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAppProfileRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::get_iam_policy].
@@ -236,10 +261,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::set_iam_policy].
@@ -247,10 +274,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::test_iam_permissions].
@@ -258,11 +287,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::list_hot_tablets].
@@ -270,11 +300,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListHotTabletsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListHotTabletsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListHotTabletsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListHotTabletsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListHotTabletsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::create_logical_view].
@@ -282,11 +313,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateLogicalViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::get_logical_view].
@@ -294,10 +326,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetLogicalViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::LogicalView>> + Send {
-        std::future::ready::<crate::Result<crate::model::LogicalView>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::LogicalView>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::LogicalView>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::list_logical_views].
@@ -305,11 +339,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListLogicalViewsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLogicalViewsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListLogicalViewsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListLogicalViewsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListLogicalViewsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::update_logical_view].
@@ -317,11 +352,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateLogicalViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::delete_logical_view].
@@ -329,8 +365,10 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteLogicalViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::create_materialized_view].
@@ -338,11 +376,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateMaterializedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::get_materialized_view].
@@ -350,11 +389,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetMaterializedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::MaterializedView>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::MaterializedView>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MaterializedView>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::MaterializedView>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::list_materialized_views].
@@ -363,11 +403,13 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         _req: crate::model::ListMaterializedViewsRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::ListMaterializedViewsResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListMaterializedViewsResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::ListMaterializedViewsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListMaterializedViewsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::update_materialized_view].
@@ -375,11 +417,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateMaterializedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::delete_materialized_view].
@@ -387,8 +430,10 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteMaterializedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::list_operations].
@@ -396,11 +441,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::get_operation].
@@ -408,11 +454,12 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::delete_operation].
@@ -420,8 +467,10 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableInstanceAdmin::cancel_operation].
@@ -429,8 +478,10 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.
@@ -473,8 +524,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Table>> + Send {
-        std::future::ready::<crate::Result<crate::model::Table>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Table>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Table>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableTableAdmin::create_table_from_snapshot].
@@ -482,11 +537,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateTableFromSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::list_tables].
@@ -494,11 +550,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListTablesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListTablesResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListTablesResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListTablesResponse>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListTablesResponse>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::get_table].
@@ -506,8 +563,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Table>> + Send {
-        std::future::ready::<crate::Result<crate::model::Table>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Table>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Table>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableTableAdmin::update_table].
@@ -515,11 +576,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::delete_table].
@@ -527,8 +589,10 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableTableAdmin::undelete_table].
@@ -536,11 +600,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UndeleteTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::create_authorized_view].
@@ -548,11 +613,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateAuthorizedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::list_authorized_views].
@@ -560,11 +626,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListAuthorizedViewsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListAuthorizedViewsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListAuthorizedViewsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAuthorizedViewsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListAuthorizedViewsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableTableAdmin::get_authorized_view].
@@ -572,10 +639,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetAuthorizedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AuthorizedView>> + Send {
-        std::future::ready::<crate::Result<crate::model::AuthorizedView>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AuthorizedView>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::AuthorizedView>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::update_authorized_view].
@@ -583,11 +652,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateAuthorizedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::delete_authorized_view].
@@ -595,8 +665,10 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteAuthorizedViewRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableTableAdmin::modify_column_families].
@@ -604,8 +676,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ModifyColumnFamiliesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Table>> + Send {
-        std::future::ready::<crate::Result<crate::model::Table>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Table>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Table>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableTableAdmin::drop_row_range].
@@ -613,8 +689,10 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DropRowRangeRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableTableAdmin::generate_consistency_token].
@@ -623,11 +701,13 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         _req: crate::model::GenerateConsistencyTokenRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
-        Output = crate::Result<crate::model::GenerateConsistencyTokenResponse>,
+        Output = crate::Result<
+            gax::response::Response<crate::model::GenerateConsistencyTokenResponse>,
+        >,
     > + Send {
-        std::future::ready::<crate::Result<crate::model::GenerateConsistencyTokenResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::GenerateConsistencyTokenResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableTableAdmin::check_consistency].
@@ -635,11 +715,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CheckConsistencyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::CheckConsistencyResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::CheckConsistencyResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CheckConsistencyResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::CheckConsistencyResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableTableAdmin::snapshot_table].
@@ -647,11 +728,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::SnapshotTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::get_snapshot].
@@ -659,10 +741,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Snapshot>> + Send {
-        std::future::ready::<crate::Result<crate::model::Snapshot>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Snapshot>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Snapshot>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableTableAdmin::list_snapshots].
@@ -670,11 +754,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListSnapshotsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSnapshotsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListSnapshotsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListSnapshotsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListSnapshotsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableTableAdmin::delete_snapshot].
@@ -682,8 +767,10 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteSnapshotRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableTableAdmin::create_backup].
@@ -691,11 +778,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CreateBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::get_backup].
@@ -703,10 +791,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::GetBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Backup>> + Send {
-        std::future::ready::<crate::Result<crate::model::Backup>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Backup>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableTableAdmin::update_backup].
@@ -714,10 +804,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::UpdateBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Backup>> + Send {
-        std::future::ready::<crate::Result<crate::model::Backup>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<crate::model::Backup>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableTableAdmin::delete_backup].
@@ -725,8 +817,10 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::DeleteBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableTableAdmin::list_backups].
@@ -734,11 +828,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::ListBackupsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListBackupsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListBackupsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableTableAdmin::restore_table].
@@ -746,11 +841,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::RestoreTableRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::copy_backup].
@@ -758,11 +854,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::CopyBackupRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::get_iam_policy].
@@ -770,10 +867,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableTableAdmin::set_iam_policy].
@@ -781,10 +880,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Implements [super::client::BigtableTableAdmin::test_iam_permissions].
@@ -792,11 +893,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableTableAdmin::list_operations].
@@ -804,11 +906,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::ListOperationsRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::ListOperationsResponse>>
-    + Send {
-        std::future::ready::<crate::Result<longrunning::model::ListOperationsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+    > + Send {
+        std::future::ready::<
+            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
+        >(Err(Error::other("unimplemented")))
     }
 
     /// Implements [super::client::BigtableTableAdmin::get_operation].
@@ -816,11 +919,12 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::GetOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<longrunning::model::Operation>> + Send
-    {
-        std::future::ready::<crate::Result<longrunning::model::Operation>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
+            Err(Error::other("unimplemented")),
+        )
     }
 
     /// Implements [super::client::BigtableTableAdmin::delete_operation].
@@ -828,8 +932,10 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Implements [super::client::BigtableTableAdmin::cancel_operation].
@@ -837,8 +943,10 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         &self,
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<()>> + Send {
-        std::future::ready::<crate::Result<()>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
+        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns the polling error policy.

@@ -93,6 +93,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .list_queues(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -168,6 +169,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .get_queue(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetQueueRequest::name].
@@ -210,6 +212,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .create_queue(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateQueueRequest::parent].
@@ -261,6 +264,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .update_queue(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [queue][crate::model::UpdateQueueRequest::queue].
@@ -315,6 +319,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .delete_queue(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteQueueRequest::name].
@@ -357,6 +362,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .purge_queue(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PurgeQueueRequest::name].
@@ -399,6 +405,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .pause_queue(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::PauseQueueRequest::name].
@@ -441,6 +448,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .resume_queue(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::ResumeQueueRequest::name].
@@ -483,6 +491,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
@@ -534,6 +543,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
@@ -597,6 +607,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
@@ -650,6 +661,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .list_tasks(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -725,6 +737,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .get_task(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::GetTaskRequest::name].
@@ -773,6 +786,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .create_task(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [parent][crate::model::CreateTaskRequest::parent].
@@ -827,6 +841,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .delete_task(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::DeleteTaskRequest::name].
@@ -869,6 +884,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .run_task(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][crate::model::RunTaskRequest::name].
@@ -920,6 +936,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Streams the responses back.
@@ -995,6 +1012,7 @@ pub mod cloud_tasks {
             (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [name][location::model::GetLocationRequest::name].

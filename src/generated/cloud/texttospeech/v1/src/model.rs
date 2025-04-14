@@ -48,6 +48,9 @@ pub struct ListVoicesRequest {
     /// returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub language_code: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVoicesRequest {
@@ -77,6 +80,9 @@ pub struct ListVoicesResponse {
     /// The list of voices.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub voices: std::vec::Vec<crate::model::Voice>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListVoicesResponse {
@@ -123,6 +129,9 @@ pub struct Voice {
 
     /// The natural sample rate (in hertz) for this voice.
     pub natural_sample_rate_hertz: i32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Voice {
@@ -179,6 +188,9 @@ pub struct AdvancedVoiceOptions {
     /// and has a higher latency.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub low_latency_journey_synthesis: std::option::Option<bool>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdvancedVoiceOptions {
@@ -223,6 +235,9 @@ pub struct SynthesizeSpeechRequest {
     /// Advanced voice options.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub advanced_voice_options: std::option::Option<crate::model::AdvancedVoiceOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SynthesizeSpeechRequest {
@@ -300,6 +315,9 @@ pub struct CustomPronunciationParams {
     /// specified above.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub pronunciation: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomPronunciationParams {
@@ -423,6 +441,9 @@ pub struct CustomPronunciations {
     /// The pronunciation customizations are applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub pronunciations: std::vec::Vec<crate::model::CustomPronunciationParams>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomPronunciations {
@@ -457,6 +478,9 @@ pub struct MultiSpeakerMarkup {
     /// Required. Speaker turns.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub turns: std::vec::Vec<crate::model::multi_speaker_markup::Turn>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MultiSpeakerMarkup {
@@ -501,6 +525,9 @@ pub mod multi_speaker_markup {
         /// Required. The text to speak.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub text: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Turn {
@@ -553,6 +580,9 @@ pub struct SynthesisInput {
     /// The input source, which is either plain text or SSML.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub input_source: std::option::Option<crate::model::synthesis_input::InputSource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SynthesisInput {
@@ -733,6 +763,9 @@ pub struct VoiceSelectionParams {
     /// clone matching the specified configuration.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub voice_clone: std::option::Option<crate::model::VoiceCloneParams>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VoiceSelectionParams {
@@ -837,6 +870,9 @@ pub struct AudioConfig {
     /// current supported profile ids.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub effects_profile_id: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AudioConfig {
@@ -907,6 +943,9 @@ pub struct CustomVoiceParams {
 
     /// Optional. Deprecated. The usage of the synthesized audio to be reported.
     pub reported_usage: crate::model::custom_voice_params::ReportedUsage,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CustomVoiceParams {
@@ -1016,6 +1055,9 @@ pub struct VoiceCloneParams {
     /// Required. Created by GenerateVoiceCloningKey.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub voice_cloning_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl VoiceCloneParams {
@@ -1053,6 +1095,9 @@ pub struct SynthesizeSpeechResponse {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub audio_content: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SynthesizeSpeechResponse {
@@ -1092,6 +1137,9 @@ pub struct StreamingAudioConfig {
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
     pub speaking_rate: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StreamingAudioConfig {
@@ -1153,6 +1201,9 @@ pub struct StreamingSynthesizeConfig {
     /// be inside a phoneme tag.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom_pronunciations: std::option::Option<crate::model::CustomPronunciations>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StreamingSynthesizeConfig {
@@ -1208,6 +1259,9 @@ impl wkt::message::Message for StreamingSynthesizeConfig {
 pub struct StreamingSynthesisInput {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub input_source: std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StreamingSynthesisInput {
@@ -1291,6 +1345,9 @@ pub struct StreamingSynthesizeRequest {
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub streaming_request:
         std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StreamingSynthesizeRequest {
@@ -1415,6 +1472,9 @@ pub struct StreamingSynthesizeResponse {
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub audio_content: ::bytes::Bytes,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StreamingSynthesizeResponse {
@@ -1464,6 +1524,9 @@ pub struct SynthesizeLongAudioRequest {
     /// Required. The desired voice of the synthesized audio.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub voice: std::option::Option<crate::model::VoiceSelectionParams>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SynthesizeLongAudioRequest {
@@ -1526,7 +1589,10 @@ impl wkt::message::Message for SynthesizeLongAudioRequest {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct SynthesizeLongAudioResponse {}
+pub struct SynthesizeLongAudioResponse {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
 
 impl SynthesizeLongAudioResponse {
     pub fn new() -> Self {
@@ -1556,6 +1622,9 @@ pub struct SynthesizeLongAudioMetadata {
 
     /// The progress of the most recent processing update in percentage, ie. 70.0%.
     pub progress_percentage: f64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SynthesizeLongAudioMetadata {
